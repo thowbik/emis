@@ -1,0 +1,160 @@
+/* table {
+  border: 2px solid black;
+  width: 100%;
+}
+td {
+  border: 2px solid black;
+} */
+.tc{
+  color: black;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 50px;
+  font-weight: 900;
+}
+/* input{
+  border: unset;
+  outline: none;
+  width: -webkit-fill-available;
+  text-align: left;
+  font-weight: 900;
+}
+.form-control[readonly] {
+background-color: white;
+}
+textarea{
+width: 100%;
+border: unset;
+outline: none;
+width: -webkit-fill-available;
+text-align: left;
+font-weight: 900;
+} */
+
+@media print {
+  #printPageButton {
+    display: none;
+  }
+}
+@media only screen and (max-width: 765px) {
+  .tc {
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+}
+
+
+.header-row { 
+border-top:1px solid black;
+border-left:1px solid black;
+border-bottom: 1px solid black;
+}
+.header-col {
+  border-right:1px solid black;
+}
+.header-title {
+  text-align: center;
+  padding-top:10px;
+  padding-bottom:10px;
+}
+.serial {
+  border-top:1px solid black;
+}
+.span {
+  padding-left:5px
+}
+.ques-header {
+  border-left:1px solid black;
+  border-right:1px solid black;
+  border-bottom:1px solid black
+}
+.ques-header1 {
+  border-left:1px solid black;
+  border-right:1px solid black;
+ 
+}
+
+.ques-headers1 {
+  border-left:1px solid black;
+ 
+ 
+}
+.number-txt{
+  text-align: center;
+  border-right: 1px solid black;
+  width: 3%;
+  padding-top: 10px;
+}
+.number-txt-noborder{
+
+  text-align: center;
+  border-right: 1px solid black;
+  width: 3%;
+  padding-top: 10px;
+  border-bottom:1px solid black
+}
+
+.number-txt-noborder1{
+
+  text-align: center;
+  border-right: 1px solid black;
+  width: 3%;
+  padding-top: 10px;
+  
+}
+
+.num-width {
+  width: 3%;
+}
+.ques-txt {
+  border-right:1px solid black;
+  padding-top:10px;
+  padding-bottom:10px;
+  width:49%;
+  padding-left:10px
+}
+.ques-ans {
+  width:48%;
+  padding-top:10px;
+  padding-bottom:10px;
+  padding-left:10px
+}
+
+.quess-txt {
+  border-left:1px solid black;
+  border-right:1px solid black;
+  border-bottom:1px solid black
+}
+.quess-text {
+border-right:1px solid black;
+padding-top:10px;
+padding-bottom:10px
+}
+.ques-headers {
+border-left:1px solid black;
+border-right:1px solid black;
+
+}
+
+.ques-txts {
+border-right:1px solid black;
+border-bottom:1px solid black;
+padding-top:10px;
+padding-bottom:10px;
+width:49%;
+padding-left:10px
+}
+
+.ques-anss {
+width:48%;
+padding-top:10px;
+padding-bottom:10px;
+padding-left:10px;
+border-bottom:1px solid black;
+}
+
+label{
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 15px;
+}

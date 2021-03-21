@@ -1,0 +1,1425 @@
+<!-- *ngIf="schoolTypeIdcomit == 1 || schoolTypeIdcomit == 2 || schoolTypeIdcomit == 4" -->
+<div class="mt-3 pr-2 mr-3">
+   <p-card >
+<div class="p-3">
+   <div class="row">
+      <div class="col-sm-12">
+         <div class="backclr-grn font-16">
+            <strong>SCHOOL TEXTBOOKS DETAILS</strong>
+         </div>
+         <form [formGroup]="userform" >
+            <div class="row mt-3 pt-3">
+               <div class="col-sm-8">
+                  <div class="form-group">
+                     <label><strong><span class="num-align">1.47 </span>Whether the School has  received graded  supplementary material in previous academic year (2018-19) <span style="color:#dd4b39;">*</span></strong></label>
+                  </div>
+               </div>
+               <div class="col-sm-2">
+                  <div class="form-group">
+                  <p-radioButton name="txtbk" value="1" label="Yes" formControlName="suppliment_prevousyr" ></p-radioButton>
+                  </div>
+               </div>
+                  <div class="col-sm-2">
+                     <div class="form-group">
+                        <p-radioButton name="txtbk" value="2" label="No" formControlName="suppliment_prevousyr" ></p-radioButton>
+                     <p-message severity="error"  text="Field is required" *ngIf="userform.controls.suppliment_prevousyr.errors && (submitted || userform.controls.suppliment_prevousyr.dirty || userform.controls.suppliment_prevousyr.touched)">
+                     </p-message>
+                     </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-sm-12">
+                  <label><b> <span class="num-align">1.48</span> Availability of free Textbooks, Teaching Learning Equipment (TLE) and Play material (in
+                     Current Academic Year (2019-20)</b></label>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-sm-2">
+                  <div class="form-group">
+
+                  </div>
+               </div>
+               <div class="col-sm-2">
+                  <div class="form-group adjusttext1">
+                     <label><b>Pre - Primary</b></label>
+                  </div>
+               </div>
+               <div class="col-sm-2">
+                  <div class="form-group adjusttext1">
+                     <label><b>Primary</b></label>
+                  </div>
+               </div>
+               <div class="col-sm-2" style="text-align: center;">
+                  <div class="form-group adjusttext1">
+                     <label><b>Upper Primary</b></label>
+                  </div>
+               </div>
+               <div class="col-sm-2" style="text-align: center;">
+                  <div class="form-group adjusttext1">
+                     <label><b>Secondary</b></label>
+                  </div>
+               </div>
+               <div class="col-sm-2" style="text-align: center;">
+                  <div class="form-group adjusttext1">
+                     <label><b> Higher Secondary</b></label>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-sm-2">
+                  <div class="form-group">
+                     <label><span class="num-align">(a)</span> Whether complete set of free Textbooks received for the current year? <span style="color:#dd4b39;">*</span></label>
+                  </div>
+               </div>
+               <div class="col-sm-2">
+                  <div class="form-group adjusttext">
+                      <p-dropdown [options]="SchlCommitDrop" formControlName="txtbk_curyr_prepri" styleClass="select_dropdown" placeholder="Choose"></p-dropdown>
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.txtbk_curyr_prepri.errors && (submitted || userform.controls.txtbk_curyr_prepri.dirty || userform.controls.txtbk_curyr_prepri.touched)">
+                      </p-message>
+                  </div>
+               </div>
+               <div class="col-sm-2">
+                  <div class="form-group adjusttext">
+                     <p-dropdown [options]="SchlCommitDrop" formControlName="txtbk_curyr_pri" styleClass="select_dropdown" placeholder="Choose"></p-dropdown>
+                     <!-- <select id="tc"  class="form-control" >
+                        <option value="">Choose1</option>
+                        <option *ngFor="let classes of SchlCommitDrop" formControlName="txtbk_curyr_pri" [value]="classes.field" >
+                        {{ classes.field }}
+                        </option>
+                     </select> -->
+                     <p-message severity="error"  text="Field is required" *ngIf="userform.controls.txtbk_curyr_pri.errors && (submitted || userform.controls.txtbk_curyr_pri.dirty || userform.controls.txtbk_curyr_pri.touched)">
+                     </p-message>
+                  </div>
+               </div>
+               <div class="col-sm-2">
+                  <div class="form-group adjusttext">
+                     <p-dropdown [options]="SchlCommitDrop" formControlName="txtbk_curyr_upp" styleClass="select_dropdown" placeholder="Choose"></p-dropdown>
+                     <p-message severity="error"  text="Field is required" *ngIf="userform.controls.txtbk_curyr_upp.errors && (submitted || userform.controls.txtbk_curyr_upp.dirty || userform.controls.txtbk_curyr_upp.touched)">
+                     </p-message>
+                  </div>
+               </div>
+               <div class="col-sm-2">
+                  <div class="form-group adjusttext">
+                     <p-dropdown [options]="SchlCommitDrop" formControlName="txtbk_curyr_sec" styleClass="select_dropdown" placeholder="Choose"></p-dropdown>
+                     <p-message severity="error"  text="Field is required" *ngIf="userform.controls.txtbk_curyr_sec.errors && (submitted || userform.controls.txtbk_curyr_sec.dirty || userform.controls.txtbk_curyr_sec.touched)">
+                        </p-message>
+                </div>
+               </div>
+               <div class="col-sm-2">
+                  <div class="form-group adjusttext">
+                    <p-dropdown [options]="SchlCommitDrop" formControlName="txtbk_curyr_hsec" styleClass="select_dropdown" placeholder="Choose"></p-dropdown>
+                     <p-message severity="error"  text="Field is required" *ngIf="userform.controls.txtbk_curyr_hsec.errors && (submitted || userform.controls.txtbk_curyr_hsec.dirty || userform.controls.txtbk_curyr_hsec.touched)">
+                     </p-message>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-sm-2">
+                  <div class="form-group">
+                     <label><span class="num-align">(b)</span> TLE available for each Grade? <span style="color:#dd4b39;">*</span>
+                     </label>
+                  </div>
+               </div>
+               <div class="col-sm-2">
+                  <div class="form-group">
+                    <p-dropdown [options]="SchlCommitDrop" formControlName="tle_grade_preprim" styleClass="select_dropdown" placeholder="Choose"></p-dropdown>
+                     <p-message severity="error"  text="Field is required" *ngIf="userform.controls.tle_grade_preprim.errors && (submitted || userform.controls.tle_grade_preprim.dirty || userform.controls.tle_grade_preprim.touched)">
+                     </p-message>
+                  </div>
+               </div>
+               <div class="col-sm-2">
+                  <div class="form-group">
+                    <p-dropdown [options]="SchlCommitDrop" formControlName="tle_grade_prim" styleClass="select_dropdown" placeholder="Choose"></p-dropdown>
+                     <p-message severity="error"  text="Field is required" *ngIf="userform.controls.tle_grade_prim.errors && (submitted || userform.controls.tle_grade_prim.dirty || userform.controls.tle_grade_prim.touched)">
+                     </p-message>
+                  </div>
+               </div>
+               <div class="col-sm-2">
+                  <div class="form-group">
+                    <p-dropdown [options]="SchlCommitDrop" formControlName="tle_grde_upp" styleClass="select_dropdown" placeholder="Choose"></p-dropdown>
+                     <p-message severity="error"  text="Field is required" *ngIf="userform.controls.tle_grde_upp.errors && (submitted || userform.controls.tle_grde_upp.dirty || userform.controls.tle_grde_upp.touched)">
+                     </p-message>
+                  </div>
+               </div>
+               <div class="col-sm-2">
+                  <div class="form-group">
+                    <p-dropdown [options]="SchlCommitDrop" formControlName="tle_grde_sec" styleClass="select_dropdown" placeholder="Choose"></p-dropdown>
+                     <p-message severity="error"  text="Field is required" *ngIf="userform.controls.tle_grde_sec.errors && (submitted || userform.controls.tle_grde_sec.dirty || userform.controls.tle_grde_sec.touched)">
+                     </p-message>
+                  </div>
+               </div>
+               <div class="col-sm-2">
+                  <div class="form-group">
+                    <p-dropdown [options]="SchlCommitDrop" formControlName="tle_grde_hsec" styleClass="select_dropdown" placeholder="Choose"></p-dropdown>
+                     <p-message severity="error"  text="Field is required" *ngIf="userform.controls.tle_grde_hsec.errors && (submitted || userform.controls.tle_grde_hsec.dirty || userform.controls.tle_grde_hsec.touched)">
+                     </p-message>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-sm-2">
+                  <div class="form-group">
+                     <label><span class="num-align">(c) </span>Play materials, Games and Sports equipment are available for each Grade? <span style="color:#dd4b39;">*</span></label>
+                  </div>
+               </div>
+               <div class="col-sm-2">
+                  <div class="form-group">
+                    <p-dropdown [options]="SchlCommitDrop" formControlName="sports_prepri" styleClass="select_dropdown" placeholder="Choose"></p-dropdown>
+                     <p-message severity="error"  text="Field is required" *ngIf="userform.controls.sports_prepri.errors && (submitted || userform.controls.sports_prepri.dirty || userform.controls.sports_prepri.touched)">
+                     </p-message>
+                  </div>
+               </div>
+               <div class="col-sm-2">
+                  <div class="form-group">
+                    <p-dropdown [options]="SchlCommitDrop" formControlName="sports_pri" styleClass="select_dropdown" placeholder="Choose"></p-dropdown>
+                     <p-message severity="error"  text="Field is required" *ngIf="userform.controls.sports_pri.errors && (submitted || userform.controls.sports_pri.dirty || userform.controls.sports_pri.touched)">
+                     </p-message>
+                  </div>
+               </div>
+               <div class="col-sm-2">
+                  <div class="form-group">
+                    <p-dropdown [options]="SchlCommitDrop" formControlName="sports_upp" styleClass="select_dropdown" placeholder="Choose"></p-dropdown>
+                     <p-message severity="error"  text="Field is required" *ngIf="userform.controls.sports_upp.errors && (submitted || userform.controls.sports_upp.dirty || userform.controls.sports_upp.touched)">
+                     </p-message>
+                  </div>
+               </div>
+               <div class="col-sm-2">
+                  <div class="form-group">
+                    <p-dropdown [options]="SchlCommitDrop" formControlName="sports_sec" styleClass="select_dropdown" placeholder="Choose"></p-dropdown>
+                     <p-message severity="error"  text="Field is required" *ngIf="userform.controls.sports_sec.errors && (submitted || userform.controls.sports_sec.dirty || userform.controls.sports_sec.touched)">
+                     </p-message>
+                  </div>
+               </div>
+               <div class="col-sm-2">
+                  <div class="form-group">
+                    <p-dropdown [options]="SchlCommitDrop" formControlName="sports_hsec" styleClass="select_dropdown" placeholder="Choose"></p-dropdown>
+                     <p-message severity="error"  text="Field is required" *ngIf="userform.controls.sports_hsec.errors && (submitted || userform.controls.sports_hsec.dirty || userform.controls.sports_hsec.touched)">
+                     </p-message>
+                  </div>
+               </div>
+            </div>
+            <div class="backclr-grn font-16">
+               <strong>SCHOOL INSPECTION DETAILS</strong>
+            </div>
+            <div class="row mt-3 pt-3">
+               <div class="col-sm-3">
+                  <div class="form-group" >
+                     <strong><span class="num-align"> 1.49</span>  School Inspection during Last and Current Academic Year:</strong>
+                  </div>
+               </div>
+               <div class="col-sm-2" style="text-align: center;">
+                  <div class="form-group">
+                     <strong> Officer <span style="color:#dd4b39;">*</span></strong>
+                  </div>
+               </div>
+               <div class="col-sm-2" style="text-align: center;">
+                  <div class="form-group">
+                     <strong>Purpose <span style="color:#dd4b39;">*</span> </strong>
+                  </div>
+               </div>
+               <div class="col-sm-3" style="text-align: center;">
+                  <div class="form-group">
+                     <strong>Date of Inspection <span style="color:#dd4b39;">*</span> </strong>
+                  </div>
+               </div>
+               <div class="col-sm-2 addclass" style="text-align: Center;">
+                  <input type="button" class="btn btn-secondary btn-lg light_btn" (click)="addMediumInstruction()" value="+" style="width:25%">&nbsp;
+                  <input type="button" class="btn btn-secondary btn-lg light_btn" value="-" (click)="removeMediumInstruction()" style="width:25%">
+               </div>
+               <!-- <div class="col-sm-2" style="text-align: Center;">
+                  <div class="form-group">
+                     <strong> Add(+)</strong> &nbsp;
+                     <strong> Delete(-)</strong>
+                  </div>
+               </div> -->
+            </div>
+         <div formArrayName="inspection" >
+            <div class="row" style="padding-bottom:10px" *ngFor="let item of userform.get('inspection')['controls']; let i = index;" [formGroupName]="i">
+               <div class="col-sm-3 addclass" >
+                  <div class="form-group">
+                    Inspections/Visits done by <span style="color:#dd4b39;">*</span>
+                  </div>
+               </div>
+               <div class="col-sm-2 addclass">
+                  <p-dropdown [options]="SchlCommitINsp" formControlName="officer_type" styleClass="select_dropdown" placeholder="Choose" (onChange)="chooseOfficer($event,i)" ></p-dropdown>
+                 <p-message severity="error"  text="Field is required" *ngIf="item.controls.officer_type.errors && (submitted || item.controls.officer_type.dirty || item.controls.officer_type.touched)"></p-message>
+               </div>
+               <div class="col-sm-2 addclass">
+                  <p-dropdown [options]="SchlinsPurpose" formControlName="purpose" styleClass="select_dropdown" placeholder="Choose" (onChange)="choosePurpose($event,i)"></p-dropdown>
+                 <p-message severity="error"  text="Field is required" *ngIf="item.controls.purpose.errors && (submitted || item.controls.purpose.dirty || item.controls.purpose.touched)"></p-message>
+               </div>
+               <div class="col-sm-3 addclass">
+                 <div class="form-group">
+                   <p-calendar formControlName="date_inspect" id="float-input-calendar" dateFormat="dd/mm/yy" [style]="{minWidth: '100%'}" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true"></p-calendar>
+                 </div>
+                 <p-message severity="error"  text="Field is required" *ngIf="item.controls.date_inspect.errors && (submitted || item.controls.date_inspect.dirty || item.controls.date_inspect.touched)">
+                 </p-message>
+               </div>
+            </div>
+           
+         </div>
+            <br>
+            <div class="backclr-grn font-16">
+               <strong>SCHOOL MANAGEMENT COMMITTEE (SMC)  / SCHOOL MANAGEMENT AND
+               DEVELOPMENT COMMITTEE (SMDC) DETAILS </strong>
+            </div>
+             <!--1st radio btn start -->
+             <div class="row mt-3 pt-3">
+               <div class="col-sm-8">
+                  <div class="form-group">
+                     <span class="num-align">1.50 </span>  Whether School Management Committee (SMC) is constituted? <span style="color:#dd4b39;">*</span>
+                  </div>
+               </div>
+               <div class="col-sm-2">
+                  <p-radioButton name="smc_const" value="1" label="Yes" (click)="SCHOOLMANAGEMENTCOMMITTEE(1)"  formControlName="smc_const"></p-radioButton>
+               </div>
+                  <div class="col-sm-2">
+                  <p-radioButton name="smc_const" value="2"  label="No" (click)="SCHOOLMANAGEMENTCOMMITTEE(2)" formControlName="smc_const" ></p-radioButton>
+                  <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smc_const.errors && (submitted || userform.controls.smc_const.dirty || userform.controls.smc_const.touched)"></p-message>
+               </div>
+             </div>
+
+              <div *ngIf="userform.controls.smc_const.value=='1'">
+               <div class="row" >
+                  <div class="col-sm-6">
+                     <div class="form-group">
+                     </div>
+                  </div>
+                  <div class="col-sm-3" style="text-align: center;">
+                     <div class="form-group" >
+                        <strong>Male</strong>
+                     </div>
+                  </div>
+                  <div class="col-sm-3"  style="text-align: center;">
+                     <div class="form-group" >
+                        <strong> Female</strong>
+                     </div>
+                  </div>
+               </div>
+               <div class="row" >
+                  <div class="col-sm-6">
+                     <div class="form-group" >
+                        <span class="num-align"> (a) </span>Total number of members in SMC
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num"  formControlName="smc_tot_mle"  class="form-control" maxlength="2" (change)="Committeefun($event.target.value)">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smc_tot_mle.errors && (submitted || userform.controls.smc_tot_mle.dirty || userform.controls.smc_tot_mle.touched)">
+                        </p-message>
+                        <p class="manditory" *ngIf="laptopnote">Num should not more than total no of unit</p>
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num"  class="form-control" maxlength="2" formControlName="smc_tot_fmle"  (change)="Committeefun($event.target.value)">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smc_tot_fmle.errors && (submitted || userform.controls.smc_tot_fmle.dirty || userform.controls.smc_tot_fmle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+               <div class="row" >
+                  <div class="col-sm-6">
+                     <div class="form-group" >
+                        <span class="num-align">(b)</span>  Members of parents/guardians
+                     </div>
+                  </div>
+                  <div class="col-sm-3"  >
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smc_prnts_mle"  class="form-control" maxlength="2"  (change)="Committeefun($event.target.value)">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smc_prnts_mle.errors && (submitted || userform.controls.smc_prnts_mle.dirty || userform.controls.smc_prnts_mle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+                  <div class="col-sm-3" >
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smc_prnts_fmle"  class="form-control" maxlength="2"  (change)="Committeefun($event.target.value)">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smc_prnts_fmle.errors && (submitted || userform.controls.smc_prnts_fmle.dirty || userform.controls.smc_prnts_fmle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-sm-6">
+                     <div class="form-group" >
+                        Of the numbers in (b) above, provide number of parents belonging to
+                     </div>
+                  </div>
+                  <div class="col-sm-3"></div>
+                  <div class="col-sm-3 ">
+                     <div class="form-group" >
+                        <!-- <input id="smcparents_belong" class="form-control" type="text" size="30" pInputText   formControlName="smcparents_belong"> -->
+                        <!-- <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smcparents_belong.errors && (submitted || userform.controls.smcparents_belong.dirty || userform.controls.smcparents_belong.touched)">
+                        </p-message> -->
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <span class="num-align"> i) </span> SC
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input  class="form-control" type="text" size="30" pInputText   formControlName="smc_par_sc"  maxlength="2"  (change)="Committeefun($event.target.value)">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smc_par_sc.errors && (submitted || userform.controls.smc_par_sc.dirty || userform.controls.smc_par_sc.touched)"> </p-message>
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <span class="num-align">  ii)</span> ST
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input  class="form-control" type="text" size="30" pInputText   formControlName="smc_par_st"  maxlength="2"  (change)="Committeefun($event.target.value)">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smc_par_st.errors && (submitted || userform.controls.smc_par_st.dirty || userform.controls.smc_par_st.touched)"> </p-message>
+
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <span class="num-align">iii)</span>  EWS
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input  class="form-control" type="text" size="30" pInputText   formControlName="smc_par_ews"  maxlength="2"  (change)="Committeefun($event.target.value)">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smc_par_ews.errors && (submitted || userform.controls.smc_par_ews.dirty || userform.controls.smc_par_ews.touched)"> </p-message>
+
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <span class="num-align"> iv)</span> Minority
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input  class="form-control" type="text" size="30" pInputText   formControlName="smc_par_min"  maxlength="2"  (change)="Committeefun($event.target.value)">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smc_par_min.errors && (submitted || userform.controls.smc_par_min.dirty || userform.controls.smc_par_min.touched)"> </p-message>
+                     </div>
+                  </div>
+               </div>
+ <!-- <div class="row" >
+                  <div class="col-sm-8">
+                     <div class="form-group">
+                        <strong>Of the numbers in (b) above, provide number of parents belonging to</strong>
+                     </div>
+                  </div>
+                  <div class="col-sm-1 "></div>
+                  <div class="col-sm-3 ">
+                     <div class="form-group" >
+                        <input id="smcparents_belong" class="form-control" type="text" size="30" pInputText   formControlName="smcparents_belong">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smcparents_belong.errors && (submitted || userform.controls.smcparents_belong.dirty || userform.controls.smcparents_belong.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div> -->
+               <div class="row" >
+                  <div class="col-sm-6" >
+                     <div class="form-group" >
+                        <span class="num-align"> (c) </span>Representatives/nominees from local authority/local Government/urban local body
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smc_rep_mle"  class="form-control" maxlength="3" (change)="Committeefun($event.target.value)">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smc_rep_mle.errors && (submitted || userform.controls.smc_rep_mle.dirty || userform.controls.smc_rep_mle.touched)"></p-message>
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smc_rep_fmle"  class="form-control" maxlength="3" (change)="Committeefun($event.target.value)">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smc_rep_fmle.errors && (submitted || userform.controls.smc_rep_fmle.dirty || userform.controls.smc_rep_fmle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="row" >
+                  <div class="col-sm-6" >
+                     <div class="form-group" >
+                        <span class="num-align">  (d) </span>Number of Teachers of the School
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smc_tch_m"  class="form-control" maxlength="3" (change)="Committeefun($event.target.value)">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smc_tch_m.errors && (submitted || userform.controls.smc_tch_m.dirty || userform.controls.smc_tch_m.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smc_tch_f"  class="form-control" maxlength="3" (change)="Committeefun($event.target.value)">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smc_tch_f.errors && (submitted || userform.controls.smc_tch_f.dirty || userform.controls.smc_tch_f.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="row" >
+                  <div class="col-sm-6">
+                     <div class="form-group" >
+                        <span class="num-align">(e)</span>  Number of members provided training
+                     </div>
+                  </div>
+
+                  <div class="col-sm-3 ">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smc_trained_m"  class="form-control" maxlength="3" (change)="Committeefun($event.target.value)">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smc_trained_m.errors && (submitted || userform.controls.smc_trained_m.dirty || userform.controls.smc_trained_m.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+
+                  <div class="col-sm-3 ">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smc_trained_f"  class="form-control" maxlength="3" (change)="Committeefun($event.target.value)">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smc_trained_f.errors && (submitted || userform.controls.smc_trained_f.dirty || userform.controls.smc_trained_f.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="row" >
+                  <div class="col-sm-8 " >
+                     <div class="form-group" >
+                        <span class="num-align">(f)</span> Number of SMC meetings held during the Previous academic year
+                     </div>
+                  </div>
+                  <div class="col-sm-1 "></div>
+                  <div class="col-sm-3 ">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smc_no_prev_acyr"  class="form-control" maxlength="4" >
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smc_no_prev_acyr.errors && (submitted || userform.controls.smc_no_prev_acyr.dirty || userform.controls.smc_no_prev_acyr.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+               <div class="row" >
+                  <div class="col-sm-8">
+                     <div class="form-group" >
+                        <span class="num-align"> (g)</span> Whether SMC has prepared the School Development Plan?
+                     </div>
+                  </div>
+                  <div class="col-sm-2">
+                     <div class="form-group" >
+                        <p-radioButton name="SchlPlan" value="1" label="Yes" formControlName="smc_sdp" ></p-radioButton>
+                     </div>
+                  </div>
+                  <div class="col-sm-2">
+                     <div class="form-group" >
+                        <p-radioButton name="SchlPlan" value="2" label="No" formControlName="smc_sdp" ></p-radioButton>
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smc_sdp.errors && (submitted || userform.controls.smc_sdp.dirty || userform.controls.smc_sdp.touched)"></p-message>
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-sm-8">
+                     <div class="form-group">
+                        <span class="num-align">(h) </span>Whether Separate Bank Account for SMC is being maintained?
+                     </div>
+                  </div>
+                  <div class="col-sm-2">
+                     <div class="form-group" >
+                        <p-radioButton name="BankAcc" value="1" label="Yes"  (click)="SeparateBankAccountSMC(1)" formControlName="smc_sep_bnkacc"></p-radioButton>
+                     </div>
+                  </div>
+                  <div class="col-sm-2">
+                     <div class="form-group" >
+                        <p-radioButton name="BankAcc" value="2" label="No"   (click)="SeparateBankAccountSMC(2)" formControlName="smc_sep_bnkacc"></p-radioButton>
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smc_sep_bnkacc.errors && (submitted || userform.controls.smc_sep_bnkacc.dirty || userform.controls.smc_sep_bnkacc.touched)"></p-message>
+                     </div>
+                  </div>
+               </div>
+
+               <div *ngIf="userform.controls.smc_sep_bnkacc.value=='1'">
+                  <div class="row" >
+                     <div class="col-sm-8">
+                        <div class="form-group" >
+                            Bank Name:
+                        </div>
+                     </div>
+                     <div class="col-sm-4">
+                        <div class="form-group" >
+                           <input type="text" formControlName="smc_bnk_nme"  class="form-control" >
+                           <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smc_bnk_nme.errors && (submitted || userform.controls.smc_bnk_nme.dirty || userform.controls.smc_bnk_nme.touched)">
+                           </p-message>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row" >
+                     <div class="col-sm-8">
+                        <div class="form-group" >
+                            Branch:
+                        </div>
+                     </div>
+                     <div class="col-sm-4">
+                        <div class="form-group" >
+                           <input type="text" formControlName="smc_bnk_brnch"  class="form-control" >
+                           <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smc_bnk_brnch.errors && (submitted || userform.controls.smc_bnk_brnch.dirty || userform.controls.smc_bnk_brnch.touched)">
+                           </p-message>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row" >
+                     <div class="col-sm-8">
+                        <div class="form-group" >
+                           Account Number:
+                        </div>
+                     </div>
+                     <div class="col-sm-4">
+                        <div class="form-group" >
+                           <input type="text" pInputText pKeyFilter="num" formControlName="smc_acc_no"  class="form-control" maxlength="16">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smc_acc_no.errors && (submitted || userform.controls.smc_acc_no.dirty || userform.controls.smc_acc_no.touched)">
+                        </p-message>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div class="row" >
+                     <div class="col-sm-8">
+                        <div class="form-group" >
+                             Account holder's Name:
+                        </div>
+                     </div>
+                     <div class="col-sm-4">
+                        <div class="form-group" >
+                           <input type="text" formControlName="smc_acc_name"  class="form-control" >
+                           <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smc_acc_name.errors && (submitted || userform.controls.smc_acc_name.dirty || userform.controls.smc_acc_name.touched)">
+                           </p-message>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row" >
+                     <div class="col-sm-8">
+                        <div class="form-group" >
+                            IFS Code:
+                        </div>
+                     </div>
+                     <div class="col-sm-4">
+                        <div class="form-group" >
+                           <input type="text" formControlName="smc_ifsc"  class="form-control" (change)=getBankDetailsforSmc(userform.value.smc_ifsc) >
+                           <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smc_ifsc.errors && (submitted || userform.controls.smc_ifsc.dirty || userform.controls.smc_ifsc.touched)">
+                           </p-message>
+                           <!-- <p>{{ifscCode}}</p> -->
+                        </div>
+                     </div>
+                  </div>
+
+               </div>
+               <div class="row" >
+                  <div class="col-sm-6" >
+                     <div class="form-group" >
+                        <span class="num-align"> (i)</span>Members from weaker section and disadvantage group?
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smc_weakr_mle"  class="form-control" maxlength="3">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smc_weakr_mle.errors && (submitted || userform.controls.smc_weakr_mle.dirty || userform.controls.smc_weakr_mle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smc_weakr_fmle"  class="form-control" maxlength="3">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smc_weakr_fmle.errors && (submitted || userform.controls.smc_weakr_fmle.dirty || userform.controls.smc_weakr_fmle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+               <div class="row" >
+                  <div class="col-sm-8 " >
+                     <div class="form-group" >
+                        <span class="num-align">  (j)</span> When was SMC constituted?
+                     </div>
+                  </div>
+                  <div class="col-sm-1 "></div>
+                  <div class="col-sm-3 ">
+                     <div class="form-group" >
+                        <input id="smc_const_yr"  pInputText pKeyFilter="num" class="form-control" type="text" size="30" pInputText   formControlName="smc_const_yr" maxlength="4">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smc_const_yr.errors && (submitted || userform.controls.smc_const_yr.dirty || userform.controls.smc_const_yr.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <span class="num-align"> (k) </span>Chairperson Name
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input class="form-control" type="text" size="30" pInputText   formControlName="smc_chair_name">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smc_chair_name.errors && (submitted || userform.controls.smc_chair_name.dirty || userform.controls.smc_chair_name.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <span class="num-align">  (l)</span> SMC Chairperson Mobile Number
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smc_chair_mble"  class="form-control" maxlength="10">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smc_chair_mble.errors && (submitted || userform.controls.smc_chair_mble.dirty || userform.controls.smc_chair_mble.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+</div>
+
+
+            <hr/>
+             <!-- 2nd radio btn start -->
+            <div class="row">
+               <div class="col-sm-8">
+                  <div class="form-group" >
+                     <span class="num-align">  1.51</span> Whether School Management Committee (SMC) and School Management and Development Committee (SMDC) are same in the school? <span style="color:#dd4b39;">*</span>
+                  </div>
+               </div>
+               <div class="col-sm-2">
+                  <p-radioButton name="smdc_smc_same_yn" value="1" label="Yes" (click)="SchoolManagementCommittees(1)" formControlName="smdc_smc_same_yn" inputId="grp4"></p-radioButton>
+               </div>
+                  <div class="col-sm-2">
+                  <p-radioButton name="smdc_smc_same_yn" value="2" label="No" (click)="SchoolManagementCommittees(2)" formControlName="smdc_smc_same_yn" inputId="grp4"></p-radioButton>
+               </div>
+            </div>
+
+            <div *ngIf="userform.controls.smdc_smc_same_yn.value=='2'">
+               <div class="row" >
+                  <div class="col-sm-8">
+                     <div class="form-group" >
+                        <span class="num-align">   (a)</span> Whether School Management and Development Committee has been constituted?  <span style="color:#dd4b39;">*</span>
+                     </div>
+                  </div>
+                  <div class="col-sm-2">
+                     <p-radioButton name="smdc" value="1" label="Yes" (click)="SchoolDevelopmentCommittee(1)" formControlName="smdc_constitu" inputId="grp5"></p-radioButton>
+                  </div>
+                  <div class="col-sm-2">
+                     <p-radioButton name="smdc" value="2" label="No" (click)="SchoolDevelopmentCommittee(2)" formControlName="smdc_constitu" inputId="grp5"></p-radioButton>
+                  </div>
+               </div>
+            </div>
+            <div  *ngIf="userform.controls.smdc_constitu.value=='1' && userform.controls.smdc_smc_same_yn.value=='2'">
+               <div class="row">
+                  <div class="col-sm-7">
+                     <div class="form-group" >
+                       Details of Members / Representatives
+                     </div>
+                  </div>
+                  <div class="col-sm-3" style="text-align: left;">
+                     <div class="form-group" >
+                       Male
+                     </div>
+                  </div>
+                  <div class="col-sm-2"  style="text-align: left;">
+                     <div class="form-group" >
+                       Female
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-sm-6" >
+                     <div class="form-group" >
+                       Total Members
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pKeyFilter="num" formControlName="smdc_tot_mle" class="form-control" maxlength="3" (change)="smdcfun()">
+                        <!-- <input type="text" pKeyFilter="num" formControlName="smdc_tot_mle"  class="form-control" maxlength="3" (change)="smdcfun()"> -->
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_tot_mle.errors && (submitted || userform.controls.smdc_tot_mle.dirty || userform.controls.smdc_tot_mle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pKeyFilter="num" formControlName="smdc_tot_fmle"  class="form-control" maxlength="3" (change)="smdcfun()">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_tot_fmle.errors && (submitted || userform.controls.smdc_tot_fmle.dirty || userform.controls.smdc_tot_fmle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+               <div class="row" >
+                  <div class="col-sm-6" >
+                     <div class="form-group" >
+                        <span class="num-align"> (i)</span>Representatives from Parents / Guardians / PTA
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smdc_parnt_mle"  class="form-control" maxlength="3" (change)="smdcfun()">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_parnt_mle.errors && (submitted || userform.controls.smdc_parnt_mle.dirty || userform.controls.smdc_parnt_mle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smdc_parnt_fmle"  class="form-control" maxlength="3" (change)="smdcfun()">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_parnt_fmle.errors && (submitted || userform.controls.smdc_parnt_fmle.dirty || userform.controls.smdc_parnt_fmle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+               <div class="row" >
+                  <div class="col-sm-6" >
+                     <div class="form-group" >
+                        <span class="num-align"> (ii)</span>Number of representatives of parents of EWS children
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smdc_par_ews_m"  class="form-control" maxlength="3" (change)="smdcfun()">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_par_ews_m.errors && (submitted || userform.controls.smdc_par_ews_m.dirty || userform.controls.smdc_par_ews_m.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smdc_par_ews_f"  class="form-control" maxlength="3" (change)="smdcfun()">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_par_ews_f.errors && (submitted || userform.controls.smdc_par_ews_f.dirty || userform.controls.smdc_par_ews_f.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+               <div class="row" >
+                  <div class="col-sm-6" >
+                     <div class="form-group" >
+                        <span class="num-align">   (iii)</span> Representatives / Nominees from Local Government / Urban Local Body
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group">
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smdc_lb_mle"  class="form-control" maxlength="3" (change)="smdcfun()">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_lb_mle.errors && (submitted || userform.controls.smdc_lb_mle.dirty || userform.controls.smdc_lb_mle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smdc_lb_fmle"  class="form-control" maxlength="3" (change)="smdcfun()">
+                         <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_lb_fmle.errors && (submitted || userform.controls.smdc_lb_fmle.dirty || userform.controls.smdc_lb_fmle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+               <div class="row" >
+                  <div class="col-sm-6" >
+                     <div class="form-group" >
+                        <span class="num-align"> (iv) </span>Members from Educationally Backward Minority Community
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                       <input type="text" pInputText pKeyFilter="num" formControlName="smdc_minori_mle"  class="form-control" maxlength="3" (change)="smdcfun()">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_minori_mle.errors && (submitted || userform.controls.smdc_minori_mle.dirty || userform.controls.smdc_minori_mle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smdc_minori_fmle"  class="form-control" maxlength="3" (change)="smdcfun()">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_minori_fmle.errors && (submitted || userform.controls.smdc_minori_fmle.dirty || userform.controls.smdc_minori_fmle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+               <div class="row" >
+                  <div class="col-sm-8" >
+                     <div class="form-group" >
+                        <span class="num-align">  (v) </span>Members from any Women's Group
+                     </div>
+                  </div>
+                  <div class="col-sm-1">
+                     <div class="form-group" >
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smdc_women"  class="form-control" maxlength="3" (change)="smdcfun()">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_women.errors && (submitted || userform.controls.smdc_women.dirty || userform.controls.smdc_women.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+               <div class="row" >
+                  <div class="col-sm-6" >
+                     <div class="form-group" >
+                        <span class="num-align">  (vi) </span>Members from SC / ST Community
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smdc_scst_mle"  class="form-control" maxlength="3" (change)="smdcfun()">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_scst_mle.errors && (submitted || userform.controls.smdc_scst_mle.dirty || userform.controls.smdc_scst_mle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smdc_scst_fmle"  class="form-control" maxlength="3" (change)="smdcfun()">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_scst_fmle.errors && (submitted || userform.controls.smdc_scst_fmle.dirty || userform.controls.smdc_scst_fmle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+               <div class="row" >
+                  <div class="col-sm-6" >
+                     <div class="form-group" >
+                        <span class="num-align"> (vii)</span> Nominees from the District Educational Office (DEO)
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+
+
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smdc_deo_mle"  class="form-control" maxlength="3" (change)="smdcfun()">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_deo_mle.errors && (submitted || userform.controls.smdc_deo_mle.dirty || userform.controls.smdc_deo_mle.touched)">
+                        </p-message>
+
+
+                     </div>
+
+
+                  </div>
+
+
+                  <div class="col-sm-3">
+
+
+                     <div class="form-group">
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smdc_deo_fmle"  class="form-control" maxlength="3" (change)="smdcfun()">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_deo_fmle.errors && (submitted || userform.controls.smdc_deo_fmle.dirty || userform.controls.smdc_deo_fmle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+               <div class="row" >
+                  <div class="col-sm-6" >
+                     <div class="form-group" >
+                        <span class="num-align"> (viii) </span>Members from Audit and Accounts Department (AAD)
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smdc_audit_mle"  class="form-control" maxlength="3" (change)="smdcfun()">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_audit_mle.errors && (submitted || userform.controls.smdc_audit_mle.dirty || userform.controls.smdc_audit_mle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smdc_audit_fmle"  class="form-control" maxlength="3" (change)="smdcfun()">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_audit_fmle.errors && (submitted || userform.controls.smdc_audit_fmle.dirty || userform.controls.smdc_audit_fmle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+               <div class="row" >
+                  <div class="col-sm-6" >
+                     <div class="form-group" >
+                        <span class="num-align">  (ix)</span> Subject experts (each one from Science, Humanities and Arts / Crafts / Culture) nominated by District Programme Co-ordinator (RMSA)
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smdc_exprt_mle"  class="form-control" maxlength="3" (change)="smdcfun()">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_exprt_mle.errors && (submitted || userform.controls.smdc_exprt_mle.dirty || userform.controls.smdc_exprt_mle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smdc_exprt_fmle"  class="form-control" maxlength="3" (change)="smdcfun()">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_exprt_fmle.errors && (submitted || userform.controls.smdc_exprt_fmle.dirty || userform.controls.smdc_exprt_fmle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+               <div class="row" >
+                  <div class="col-sm-6" >
+                     <div class="form-group" >
+                        <span class="num-align">    (x)</span> Teachers (one each from Social Science, Science and Mathematics) of the School
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smdc_techrs_mle"  class="form-control" maxlength="3" (change)="smdcfun()">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_techrs_mle.errors && (submitted || userform.controls.smdc_techrs_mle.dirty || userform.controls.smdc_techrs_mle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smdc_techrs_fmle"  class="form-control" maxlength="3" (change)="smdcfun()">
+
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_techrs_fmle.errors && (submitted || userform.controls.smdc_techrs_fmle.dirty || userform.controls.smdc_techrs_fmle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+               <div class="row" >
+                  <div class="col-sm-6" >
+                     <div class="form-group" >
+                        <span class="num-align">  (xi) </span>Vice-Principal / Asst. Headmaster, as a member
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smdc_hm_mle"  class="form-control" maxlength="3" (change)="smdcfun()">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_hm_mle.errors && (submitted || userform.controls.smdc_hm_mle.dirty || userform.controls.smdc_hm_mle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group">
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smdc_hm_fmle"  class="form-control" maxlength="3" (change)="smdcfun()">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_hm_fmle.errors && (submitted || userform.controls.smdc_hm_fmle.dirty || userform.controls.smdc_hm_fmle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+               <div class="row" >
+                  <div class="col-sm-6" >
+                     <div class="form-group" >
+                        <span class="num-align">  (xii)</span> Principal / Headmaster, as Chairperson
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smdc_prnci_mle"  class="form-control" maxlength="3" (change)="smdcfun()">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_prnci_mle.errors && (submitted || userform.controls.smdc_prnci_mle.dirty || userform.controls.smdc_prnci_mle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smdc_prnci_fmle"  class="form-control" maxlength="3" (change)="smdcfun()">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_prnci_fmle.errors && (submitted || userform.controls.smdc_prnci_fmle.dirty || userform.controls.smdc_prnci_fmle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+               <div class="row" >
+                  <div class="col-sm-6" >
+                     <div class="form-group" >
+                        <span class="num-align">  (xiii)</span> Chairperson (If Principal / Headmaster is not the Chairperson)
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smdc_chair_mle"  class="form-control" maxlength="3" (change)="smdcfun()">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_chair_mle.errors && (submitted || userform.controls.smdc_chair_mle.dirty || userform.controls.smdc_chair_mle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smdc_chair_fmle"  class="form-control" maxlength="3" (change)="smdcfun()">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_chair_fmle.errors && (submitted || userform.controls.smdc_chair_fmle.dirty || userform.controls.smdc_chair_fmle.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+               <div class="row" >
+                  <div class="col-sm-6" >
+                     <div class="form-group" >
+                        <span class="num-align">   (xiv) </span>Number of members provided training
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" class="form-control" formControlName="smdc_trained_m" (change)="smdcfun()">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_trained_m.errors && (submitted || userform.controls.smdc_trained_m.dirty || userform.controls.smdc_trained_m.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input id="input" type="text" class="form-control" formControlName="smdc_trained_f" (change)="smdcfun()">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_trained_f.errors && (submitted || userform.controls.smdc_trained_f.dirty || userform.controls.smdc_trained_f.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+               <div class="row" >
+                  <div class="col-sm-6" >
+                     <div class="form-group" >
+                      Of the numbers in (b) above, provide number of parents belonging to
+                     </div>
+                  </div>
+                  <div class="col-sm-6">
+                     <div class="form-group" >
+                        <input type="text" class="form-control" formControlName="smdcparents_belong" (change)="smdcfun()">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdcparents_belong.errors && (submitted || userform.controls.smdcparents_belong.dirty || userform.controls.smdcparents_belong.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+               <div class="row" >
+                  <div class="col-sm-6" >
+                     <div class="form-group" >
+                        <span class="num-align">  a) </span>Year in which the SMDC was constituted?
+                     </div>
+                  </div>
+                  <div class="col-sm-6">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smdc_const_yr"  class="form-control" maxlength="4" min="2000" max="2020">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_const_yr.errors && (submitted || userform.controls.smdc_const_yr.dirty || userform.controls.smdc_const_yr.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+               <div class="row" >
+                  <div class="col-sm-6" >
+                     <div class="form-group" >
+                        <span class="num-align">  (b)</span> Number of SMDC meetings held during the last academic year
+                     </div>
+                  </div>
+                  <div class="col-sm-6">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smdc_no_last_acyr"  class="form-control" maxlength="3" >
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_no_last_acyr.errors && (submitted || userform.controls.smdc_no_last_acyr.dirty || userform.controls.smdc_no_last_acyr.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+                <div class="row" >
+                  <div class="col-sm-8">
+                     <div class="form-group" >
+                        <span class="num-align">  (c)</span> Whether SMDC has prepared School Improvement Plan?
+                     </div>
+                  </div>
+                  <div class="col-sm-2">
+                     <p-radioButton name="schlimp" value="1" label="Yes" formControlName="smdc_sip" ></p-radioButton>
+                  </div>
+                  <div class="col-sm-2">
+                     <p-radioButton name="schlimp" value="2" label="No" formControlName="smdc_sip" ></p-radioButton>
+                     <!-- <input type="radio" name="schlimp" value="1" style="width:20%" >
+                     <label>Yes</label>
+                     <input type="radio" name="schlimp" value="2" style="width:20%" [checked]=true>
+                     <label>No</label> -->
+                  </div>
+
+               </div>
+
+               <div class="row" >
+                  <div class="col-sm-8">
+                     <div class="form-group" >
+                        <span class="num-align">  (d)</span> Whether separate Bank Account for SMDC is being maintained?
+                     </div>
+                  </div>
+                  <div class="col-sm-2">
+                     <p-radioButton name="sepbank" value="1" label="Yes" formControlName="smdc_sep_bnkacc" inputId="grp7" (click)="BankAccountDetails(1)"></p-radioButton>
+                  </div>
+                  <div class="col-sm-2">
+                     <p-radioButton name="sepbank" value="2" label="No" formControlName="smdc_sep_bnkacc" inputId="grp7" (click)="BankAccountDetails(2)"></p-radioButton>
+                     <!-- <input type="radio" name="sepbank" value="1" style="width:20%" (click)="bankDetails(1)">
+                     <label>Yes</label>
+                     <input type="radio" name="sepbank" value="2" style="width:20%"  (click)="bankDetails(2)" [checked]=true>
+                     <label>No</label> -->
+                  </div>
+               </div>
+               <div *ngIf="userform.controls.smdc_sep_bnkacc.value=='1'">
+                  <div class="row" >
+                     <div class="col-sm-8">
+                        <div class="form-group" >
+                           Bank Name:
+                        </div>
+                     </div>
+                     <div class="col-sm-4">
+                        <div class="form-group" >
+                           <input id="smdcbnk" type="text" class="form-control" formControlName="smdc_bnk_name">
+                           <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_bnk_name.errors && (submitted || userform.controls.smdc_bnk_name.dirty || userform.controls.smdc_bnk_name.touched)">
+                           </p-message>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row" >
+                     <div class="col-sm-8">
+                        <div class="form-group" >
+                           Branch Name:
+                        </div>
+                     </div>
+                     <div class="col-sm-4">
+                        <div class="form-group" >
+                           <input id="smdc_ifsc" type="text" class="form-control" formControlName="smdc_bnk_brnch">
+                           <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_bnk_brnch.errors && (submitted || userform.controls.smdc_bnk_brnch.dirty || userform.controls.smdc_bnk_brnch.touched)">
+                           </p-message>
+                        </div>
+                     </div>
+                  </div>
+
+               <div class="row" >
+                  <div class="col-sm-8">
+                     <div class="form-group" >
+                            Account Number:
+                     </div>
+                  </div>
+                  <div class="col-sm-4">
+                     <div class="form-group" >
+                        <input  type="text"  class="form-control" formControlName="smdc_acc_no">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_acc_no.errors && (submitted || userform.controls.smdc_acc_no.dirty || userform.controls.smdc_acc_no.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-sm-8">
+                     <div class="form-group" >
+                        Account Name:
+                     </div>
+                  </div>
+                  <div class="col-sm-4">
+                     <div class="form-group" >
+                        <input type="text" formControlName="smdc_acc_name"  class="form-control" maxlength="16" >
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_acc_name.errors && (submitted || userform.controls.smdc_acc_name.dirty || userform.controls.smdc_acc_name.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+               <div class="row" >
+                  <div class="col-sm-8">
+                     <div class="form-group" >
+                       IFS Code:
+                     </div>
+                  </div>
+                  <div class="col-sm-4">
+                     <div class="form-group" >
+                        <input type="text" class="form-control" formControlName="smdc_ifsc" (change)="getBankDetailsforSmdc(userform.value.smdc_ifsc)">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_ifsc.errors && (submitted || userform.controls.smdc_ifsc.dirty || userform.controls.smdc_ifsc.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+               <div class="row">
+                  <div class="col-sm-2">
+                     <div class="form-group" >
+                        SMDC Contribution (in Rs.)
+                     </div>
+                  </div>
+                  <div class="col-sm-2">
+                     <div class="form-group">
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smdc_contrib_amt"  class="form-control" maxlength="8" >
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_contrib_amt.errors && (submitted || userform.controls.smdc_contrib_amt.dirty || userform.controls.smdc_contrib_amt.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+                  <div class="col-sm-2">
+                     <div class="form-group" >
+                        SMDC Chairperson Name
+                     </div>
+                  </div>
+                  <div class="col-sm-2">
+                     <div class="form-group" >
+                        <input id="smdc_chair_name"  type="text" class="form-control"  style="width:100%" formControlName="smdc_chair_name">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_chair_name.errors && (submitted || userform.controls.smdc_chair_name.dirty || userform.controls.smdc_chair_name.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+                  <div class="col-sm-2">
+                     <div class="form-group" >
+                      SMDC Chairperson Mobile Number
+                     </div>
+                  </div>
+                  <div class="col-sm-2">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="smdc_chair_mble"  class="form-control" maxlength="10">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.smdc_chair_mble.errors && (submitted || userform.controls.smdc_chair_mble.dirty || userform.controls.smdc_chair_mble.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <hr>
+            <!-- 3rd radio btn start -->
+            <div class="row">
+               <div class="col-sm-8">
+                  <div class="form-group" >
+                     <span class="num-align">  (e) </span>  Whether the School Building Committee (SBC) has been constituted?  <span style="color:#dd4b39;">*</span>
+                  </div>
+               </div>
+               <div class="col-sm-2">
+                  <p-radioButton name="group3" value="1" label="Yes" (click)="SchoolBuildingCommittee(1)"  formControlName="sbc_const" inputId="grp8"></p-radioButton>
+               </div>
+               <div class="col-sm-2">
+                  <p-radioButton name="group3" value="2" label="No" (click)="SchoolBuildingCommittee(2)" formControlName="sbc_const" inputId="grp8"></p-radioButton>
+                  <p-message severity="error"  text="Field is required" *ngIf="userform.controls.sbc_const.errors && (submitted || userform.controls.sbc_const.dirty || userform.controls.sbc_const.touched)"> </p-message>
+               </div>
+            </div>
+            <div class="row" *ngIf="userform.controls.sbc_const.value=='1'">
+               <div class="col-sm-9">
+                  <div class="form-group" >
+                     <span class="num-align">    (i)</span> Constituted Year
+                  </div>
+               </div>
+               <div class="col-sm-3">
+                  <div class="form-group" >
+                     <input id="sbc_const_year" pInputText pKeyFilter="num" class="form-control"  formControlName="sbc_const_year" style="width:100%"  min="1947" max="2020">
+                     <p-message severity="error"  text="Field is required" *ngIf="userform.controls.sbc_const_year.errors && (submitted || userform.controls.sbc_const_year.dirty || userform.controls.sbc_const_year.touched)">
+                     </p-message>
+                  </div>
+               </div>
+            </div>
+            <hr>
+            <!-- 4th radio btn start -->
+            <div class="row">
+               <div class="col-sm-8">
+                  <div class="form-group" >
+                     <span class="num-align">   (f) </span> Whether the School has constituted its Academic Committee (AC)? *
+                  </div>
+               </div>
+               <div class="col-sm-2">
+                  <p-radioButton name="acadecomm_const" value="1" label="Yes" (click)="AcademicCommittee(1)"  formControlName="acadecomm_const" inputId="grp9"></p-radioButton>
+               </div>
+               <div class="col-sm-2">
+                  <p-radioButton name="acadecomm_const" value="2" label="No" (click)="AcademicCommittee(2)"  formControlName="acadecomm_const" inputId="grp9"></p-radioButton>
+                  <p-message severity="error"  text="Field is required" *ngIf="userform.controls.acadecomm_const.errors && (submitted || userform.controls.acadecomm_const.dirty || userform.controls.acadecomm_const.touched)"> </p-message>
+               </div>
+            </div>
+            <div class="row" *ngIf="userform.controls.acadecomm_const.value=='1'">
+               <div class="col-sm-9">
+                  <div class="form-group" >
+                     <span class="num-align"> (i)</span> Year
+                  </div>
+               </div>
+               <div class="col-sm-3">
+                  <div class="form-group" >
+                     <input pInputText pKeyFilter="num" formControlName="acadecomm_year" class="form-control"   placeholder="1947" required style="width:100%"  min="1947" max="2025">
+                     <p-message severity="error"  text="Field is required" *ngIf="userform.controls.acadecomm_year.errors && (submitted || userform.controls.acadecomm_year.dirty || userform.controls.acadecomm_year.touched)">
+                     </p-message>
+                  </div>
+               </div>
+            </div>
+            <hr>
+            <!-- 5th radio btn start -->
+            <div class="row">
+               <div class="col-sm-8">
+                  <div class="form-group" >
+                     <span class="num-align">  (g) </span> Whether the School has constituted its Parent-Teacher Association (PTA)?  <span style="color:#dd4b39;">*</span>
+                  </div>
+               </div>
+
+               <div class="col-sm-2">
+                  <p-radioButton name="pta" value="1" label="Yes" (click)="ParentTeacherAssoc(1)"  formControlName="pta_const" inputId="grp10"></p-radioButton>
+               </div>
+               <div class="col-sm-2">
+                  <p-radioButton name="pta" value="2" label="No" (click)="ParentTeacherAssoc(2)"  formControlName="pta_const" inputId="grp10"></p-radioButton>
+                  <p-message severity="error"  text="Field is required" *ngIf="userform.controls.pta_const.errors && (submitted || userform.controls.pta_const.dirty || userform.controls.pta_const.touched)"> </p-message>
+               </div>
+            </div>
+            <div *ngIf="userform.controls.pta_const.value=='1'">
+               <div class="row">
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <span class="num-align">  I)</span> Number of PTA meetings held during the last academic year:
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input type="text" pInputText pKeyFilter="num" formControlName="pta_no_curyr"  class="form-control" maxlength="4">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.pta_no_curyr.errors && (submitted || userform.controls.pta_no_curyr.dirty || userform.controls.pta_no_curyr.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <span class="num-align">  II) </span> PTA Established Year
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input id="pta_est_yr" pInputText pKeyFilter="num" class="form-control" formControlName="pta_est_yr"  style="width:100%" maxlength="4"  placeholder="1947" min="1947" >
+                        <!-- <input type="number" pInputText pKeyFilter="num" formControlName="pta_no_curyr"  class="form-control" maxlength="4"  placeholder="1947" min="1947">  -->
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.pta_est_yr.errors && (submitted || userform.controls.pta_est_yr.dirty || userform.controls.pta_est_yr.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+
+               </div>
+               <div class="row" >
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <span class="num-align">   III)</span> PTA Registration No.
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                         <input type="text"  formControlName="pta_reg_no"  class="form-control">
+                         <p-message severity="error"  text="Field is required" *ngIf="userform.controls.pta_reg_no.errors && (submitted || userform.controls.pta_reg_no.dirty || userform.controls.pta_reg_no.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <span class="num-align"> IV) </span>Academic Year for Last PTA Subscription Paid
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input id="pta_subscri_amt" pInputText pKeyFilter="num" class="form-control" formControlName="pta_subscri_amt"   placeholder="2010" required style="width:100%"  min="2010">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.pta_subscri_amt.errors && (submitted || userform.controls.pta_subscri_amt.dirty || userform.controls.pta_subscri_amt.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <span class="num-align">  V)</span> PTA Chairperson Name
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <input id="pta_chair_name" type="text" class="form-control" formControlName="pta_chair_name">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.pta_chair_name.errors && (submitted || userform.controls.pta_chair_name.dirty || userform.controls.pta_chair_name.touched)">
+                        </p-message>
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group" >
+                        <span class="num-align">  VI)</span> PTA Chairperson Mobile Number
+                     </div>
+                  </div>
+                  <div class="col-sm-3">
+                     <div class="form-group">
+                        <input type="text" pInputText pKeyFilter="num" formControlName="pta_chair_mble" placeholder="Numbers" class="form-control" maxlength="10">
+                        <p-message severity="error"  text="Field is required" *ngIf="userform.controls.pta_chair_mble.errors && (submitted || userform.controls.pta_chair_mble.dirty || userform.controls.pta_chair_mble.touched)">
+                        </p-message>
+                        <!-- <input type="text" pInputText pKeyFilter="num" class="form-control"  [pKeyFilter]="ccRegex" name="mobile" formControlName="mobile" placeholder="Mobile Number"  maxlength="10" > -->
+                        <!-- <input id="input" type="text" class="form-control"  name="mobile" formControlName="mobile" (change)="mobilevalid(mobile)" required>  -->
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+            <div class="text-center">
+               <button type="submit" class="btn btn-success" (click)="save()" >Save</button>
+
+               <button type="submit" class="btn btn-light btn-border" >Cancel</button>
+            </div>
+
+            <!-- <div class="text-center">
+               <button type="submit" class="btn btn-success" (click)="save()" [disabled]="schoolBasicDetails.part_4 == 2">Save</button>
+               <button type="submit" class="btn btn-success" (click)="onFinalSubmit()" style="margin-left:15px;" [disabled]="schoolBasicDetails.part_4 == 2">Final Submit</button>
+               <button type="submit" class="btn btn-light btn-border" [disabled]="schoolBasicDetails.part_4 == 2">Cancel</button>
+            </div> -->
+            <p-confirmDialog header="Confirmation" [style]="{width: '50vw'}"></p-confirmDialog>
+         </form>
+      </div>
+   </div>
+</div>
+</p-card>
+</div>

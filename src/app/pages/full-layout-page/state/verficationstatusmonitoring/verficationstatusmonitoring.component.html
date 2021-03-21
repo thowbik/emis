@@ -1,0 +1,166 @@
+
+    <div class="main-body-content">
+        <div class="outer-layout">
+<div class="breadcrumbs c-black">
+<h6 class="url"><span class="flex-gap-right">Monitoring Reports</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i> <span class="flex-gap-right" (click)="goBack()">UDISE+ Certification Status</span><span *ngIf="districtName"><i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>{{districtName}}</span></h6>
+</div>
+       
+        <!-- <div class="row header">
+            <div class="col-sm-12">
+                <div class="text-lg-left mt-3 header-title-layout">
+                    <h5>{{headerTitle}}</h5>
+                    <p class="capitalize clr-blk flex-row-center flex-gap-left c-black"><i class="pi pi-info-circle" style="font-size: 3em"></i>{{headerDesc}} </p>
+                </div>
+            </div>
+           
+        </div> -->
+    </div>
+    <div class="container-fluid" *ngIf="pageStage === 1">
+        <p-table #dt [columns]="dataHeader" [value]="verifymonitorstate" [resizableColumns]="true" (sortFunction)="customSort($event)" [customSort]="true">
+            <ng-template let-childrens pTemplate="caption">
+                <div class="row header flex-row-center">
+                    <div class="col-sm-8">
+                      
+                    </div>
+                    <div class="col-sm-3 p-1">
+                        <div class="text-right">
+                            <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Verification Filter">
+                        </div>
+                    </div>
+                    <div class="col-sm-1 p-1 flex-row-center-end">
+                        <div class="text-right">
+                            <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"  (click)="exportPdf(verifymonitorstate,dataHeader)"></i>
+                            <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel(verifymonitorstate)"></i>
+                        </div>
+                    </div>
+                </div>
+               
+            </ng-template>
+            <ng-template pTemplate="header" let-Datas>
+                <tr class="text-center">
+                    <th class="sno-header-layout">#</th>
+                    <th *ngFor="let Data of dataHeader" [pSortableColumn]="Data.field" [style.width]="Data.widthstyle">
+                        {{Data.header}}
+                        <p-sortIcon [field]="Data.field"  ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                    </th>
+                  
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-blk let-columns="columns" let-i="rowIndex">
+                <tr>
+                    <td class="sno-header-layout text-center">{{i+1}}</td>
+                    <td><a class="link-url" href="javascript:void(0)" (click)="Blockverifymonitor(blk.district_id,blk.district_name)">{{blk.district_name}}</a></td>
+                    <td style="text-align: center;">{{blk.Total_Schools}}</td>
+                    <td style="text-align: center;">{{blk.Verified_Schools}}</td>
+                    <td style="text-align: center;">{{blk.Verified_by_BRTE}}</td>
+                    <td style="text-align: center;">{{blk.Verified_by_BEO}}</td>
+                    <td style="text-align: center;">{{blk.Verified_by_DC_CEO}}</td>
+                    <td style="text-align: center;font-weight: bold;"><b>
+                        {{(blk.Total_Schools)*1 + (blk.Verified_Schools)*1
+                            + (blk.Verified_by_BRTE)*1 + (blk.Verified_by_BEO)*1 
+                            + (blk.Verified_by_DC_CEO)*1  }}
+                    </b></td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                    <tr class="text-center" *ngIf="!noDataFound">
+                        <!-- <td></td> -->
+                        <td colspan="2" class="text-center">Total</td>
+                        <!-- <td class="ui-resizable-column">{{grandTotal_district_name}}</td> -->
+                        <td class="ui-resizable-column">{{grandTotal_Total_Schools}}</td>
+                        <td class="ui-resizable-column">{{grandTotal_Verified_Schools}}</td>
+                        <td class="ui-resizable-column">{{grandTotal_Verified_by_BRTE}}</td>
+                        <td class="ui-resizable-column">{{grandTotal_Verified_by_BEO}}</td>
+                        <td class="ui-resizable-column">{{grandTotal_Verified_by_DC_CEO}}</td>
+                        <td class="ui-resizable-column">{{ (grandTotal_Total_Schools * 1) + (grandTotal_Verified_Schools * 1) + (grandTotal_Verified_by_BRTE * 1) + (grandTotal_Verified_by_BEO * 1) + (grandTotal_Verified_by_DC_CEO * 1)}}</td>
+                    </tr>
+                
+                <tr class="text-left" *ngIf="noDataFound">
+                    <td colspan="6" style="text-align: center;"> No Data Found </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                        <strong>No records found</strong>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+<!-- Stage 2 -->
+<div class="container-fluid" *ngIf="pageStage === 2">
+        <p-table #dt [columns]="selectedColumns" [value]="verifymonitorBlockData" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]" totalRecords="totalRecords" pageLinks="3" class="table-scroll">
+            <ng-template let-childrens pTemplate="caption">
+                <div class="row  header flex-row-center-start flex-gap-bottom">
+                    <div class="col-lg-3">
+                        <p-dropdown [options]="school_type" (onChange)="school_type_val($event)"></p-dropdown>
+                    </div>
+                    <div class="col-lg-1">
+                        <button type="submit" class="btn btn-success" (click)="SearchData()">Submit</button>
+                    </div>
+                </div>
+                <div class="row  header flex-row-center">
+                    <div class="col-lg-3 p-1">
+                       
+                        <p-multiSelect [options]="dataHeader2" [(ngModel)]="selectedColumns" optionLabel="header"
+                                    selectedItemsLabel="{0} columns selected" [style]="{minWidth: '225px'}" defaultLabel="Choose Columns"></p-multiSelect>
+                </div>
+                    <div class="col-lg-5">
+                       
+                    </div>
+                
+                    <div class="col-sm-3 p-1">
+                        <div class="text-right">
+                            <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Verification Filter">
+                        </div>
+                    </div>
+                    <div class="col-sm-1 p-1 flex-row-center-end">
+                        <div class="text-right">
+                            <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true" (click)="exportPdf(verifymonitorBlockData,selectedColumns)"></i>
+                            <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel(verifymonitorBlockData)"></i>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-Datas>
+                <tr class="text-center">
+                    <th class="sno-header-layout">#</th>
+                    <th *ngFor="let teachData of selectedColumns" [pSortableColumn]="teachData.field" [style.width]="teachData.widthstyle">
+                        {{teachData.header}} 
+                        <p-sortIcon [field]="teachData.field" *ngIf="teachData.field !='udise_code'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-resource let-columns="columns" let-i="rowIndex">
+                <tr>
+                    <td class="sno-header-layout">{{i+1}}</td>
+                    <td *ngFor="let col of columns"  [class]="col.class">
+                        {{resource[col.field]}}
+                    </td>
+                    <!-- <td style="text-align: left"> {{resource[columns.field]}}</td>
+                   <td style="text-align: center;">{{resource.udise_code}}</td>
+                    <td style="text-align: left;">{{resource.school_name}}</td>
+                    <td style="text-align: left;">{{resource.school_type}}</td>
+                    <td style="text-align: left;">{{resource.School_Status}}</td>
+                    <td style="text-align: center;">{{resource.BRTE_Status}}</td>
+                    <td style="text-align: center;">{{resource.BEO_Status}}</td>
+                    <td style="text-align: center;">{{resource.DC_CEO_Status}}</td> -->
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr class="text-left" *ngIf="noDataFound2">
+                    <td colspan="7" style="text-align: center;"> No Data Found </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                        <strong>No records found</strong>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+  
+</div>
+</div>

@@ -1,0 +1,20 @@
+.header-clr {
+    background-color: #2d7464 !important;
+    color: white !important;
+    padding: 0.571em 0.857em;
+    border: 1px solid #c8c8c8;
+    font-weight: 700;
+}   
+
+.td-white-clr {
+    background-color: inherit;
+    border: 1px solid #c8c8c8;
+    padding: 0.571em 0.857em;
+}
+.br-top-btm-unset {
+    border-top: unset;
+    border-bottom: unset;
+}
+.bck-clr-tbl {
+    background-color: #f9f9f9;
+}

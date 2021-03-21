@@ -1,0 +1,26 @@
+{"occupation":[
+    {
+        "id": "1",
+        "occu_name": "Government"
+    },
+    {
+        "id": "2",
+        "occu_name": "Private"
+    },
+    {
+        "id": "3",
+        "occu_name": "Self-employed"
+    },
+    {
+        "id": "4",
+        "occu_name": "Daily wages"
+    },
+    {
+        "id": "5",
+        "occu_name": "Un-employed"
+    },
+    {
+        "id": "6",
+        "occu_name": "N/A"
+    }
+    ]}

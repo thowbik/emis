@@ -1,0 +1,250 @@
+<div class="outer-layout" style="padding-top:10px;">
+  <div class="breadcrumbs c-black">
+    <h6 classs="url"><span class="flex-gap-right">School</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right">School Profile</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right" (click)='goBack()'>Building Details</span><span *ngIf="districtName"><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i>{{districtName}}</span>
+     <span *ngIf="BlockName"><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right" (click)='goBack1()'>{{BlockName}}</span></span>
+     <span *ngIf="SchoolName"><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right" (click)='goBack2()'>{{SchoolName}}</span></span>
+  
+    </h6>
+ </div>
+</div>
+<div class="container-fluid" *ngIf="pageStage === 1">
+  <div class="main-body-content m-2">  
+    <p-table #dt  [columns]="dataHeader" [value]="buildingDataDisct" [resizableColumns]="true" >
+        <ng-template let-building pTemplate="caption">
+          <div class="row p-1">
+            <div class="col-sm-6">
+                <div class="text-lg-left mt-3">
+                  <h5>School Building Details : District Wise</h5>
+                </div>
+            </div>
+            <div class="col-sm-6 p-1">
+                <div class="text-right">
+                     <input type="text" pInputText size="30" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                </div>              
+             </div>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-building>
+          <tr class="text-center">
+            <th class="sno-header-layout">S.No</th>
+            <th *ngFor="let col of building" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+              {{col.header}}
+              <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-building let-rowData let-columns="columns" let-i="rowIndex" >
+          <tr class="text-center">
+            <td class="sno-header-layout"> {{i+1}} </td>
+            <td class="text-left"><a href="javascript:void(0)" (click)="getBuildingDetailsBlockWise(building.district_id,building.district_name)"> {{ building.district_name | uppercase}} </a></td>
+            <td> {{ building.totalschools}} </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <tr class="text-center" *ngIf="noDataFound" >
+            <td colspan="3"> No Data Found </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div> 
+  </div>  
+  
+  <!-- Stage 2 -->
+
+  <div class="container-fluid" *ngIf="pageStage === 2">
+    <div class="main-body-content m-2">  
+      <p-table #dt  [columns]="dataHeader2" [value]="buildingDataBlock" [resizableColumns]="true" >
+          <ng-template let-building pTemplate="caption">
+            <div class="row p-1">
+              <div class="col-sm-12">
+                  <div class="text-lg-left mt-3">
+                    <h5>School Building Details : Block Wise</h5>
+                  </div>
+              </div>
+            </div>
+            <div class="row">
+            <div class="col-sm-8 col-md-8"></div>
+              <div class="col-sm-3 col-md-3 p-1">
+                  <div class="text-right">
+                       <input type="text" pInputText size="30" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                  </div>              
+               </div>
+               <div class="col-sm-1 col-md-1" style="padding-top:10px;">
+                <i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="exportExcel()"></i>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-building>
+            <tr class="text-center">
+              <th class="sno-header-layout">S.No</th>
+              <th *ngFor="let col of building" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-building let-rowData let-columns="columns" let-i="rowIndex" >
+            <tr class="text-center">
+              <td class="sno-header-layout"> {{i+1}} </td>
+              <td class="text-left"><a href="javascript:void(0)" (click)="getBuildingDetailsSchoolWise(building.block_id,building.block_name )"> {{ building.block_name | uppercase}} </a></td>
+              <td> {{ building.totalschools}} </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <tr class="text-center" *ngIf="noDataFound2" >
+              <td colspan="3"> No Data Found </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div> 
+    </div>  
+
+    <!-- Stage 3 -->
+
+  <div class="container-fluid" *ngIf="pageStage === 3">
+    <div class="main-body-content m-2">  
+      <p-table #dt  [columns]="dataHeader3" [value]="buildingDataBlock2" [resizableColumns]="true" >
+          <ng-template let-building pTemplate="caption">
+            <div class="row p-1">
+              <div class="col-sm-6">
+                  <div class="text-lg-left mt-3">
+                    <h5>School Building Reports : School Wise</h5>
+                  </div>
+              </div>
+            </div>
+            <div class="row">
+            <div class="col-md-8"></div>
+              <div class="col-sm-3 col-md-3 p-1">
+                  <div class="text-right">
+                       <input type="text" pInputText size="30" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                  </div>              
+               </div>
+               <div class="col-sm-1 col-md-1" style="padding-top:10px;">
+                <i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="Exportexcelschooldetailas()"></i>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-building>
+            <tr class="text-center">
+              <th style="width:4em;">S.No</th>
+              <th *ngFor="let col of building" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+              </th>
+              <th style="font-weight: bold;">Total</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-building let-rowData let-columns="columns" let-i="rowIndex" >
+            <tr class="text-center">
+              <td style="width:4em;"> {{i+1}} </td>
+              <td><a href="javascript:void(0)" (click)="getEachSchoolUDISE(building.block_id,building.school_name)"> {{ building.udise_code}} </a></td>
+              <td class="text-left"> {{ building.school_name}} </td>
+              <td class="text-left"> {{ building.block_name | uppercase}} </td>
+              <td> {{ building.build_block_no}} </td>
+              <td> {{ building.pucca}} </td>
+              <td> {{ building.partially_pucca}} </td>
+              <td> {{ building.kutcha}} </td>
+              <td style="font-weight: bold;">{{ ( building.build_block_no * 1) + ( building.pucca *1) + (building.partially_pucca * 1) + (building.kutcha * 1) }}</td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <tr class="text-center" *ngIf="!noDataFound3" >
+            <td colspan="4" class="text-center">Total</td>
+            <td class="ui-resizable-column">{{grandTotal2_build_block_no}}</td>
+            <td class="ui-resizable-column">{{grandTotal2_pucca}}</td>
+            <td class="ui-resizable-column">{{grandTotal2_partially_pucca}}</td>
+            <td class="ui-resizable-column">{{grandTotal2_kutcha}}</td>
+            <td class="ui-resizable-column">{{ (grandTotal2_build_block_no * 1) + (grandTotal2_pucca * 1) + (grandTotal2_partially_pucca * 1) + (grandTotal2_kutcha * 1) }}</td>
+            </tr> 
+          </ng-template>
+          <ng-template pTemplate="empty-message">
+            <tr class="text-center" *ngIf="noDataFound3" >
+              <td colspan="3"> No Data Found </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div> 
+    </div>  
+
+    <!-- Stage 4 -->
+
+    <div class="container-fluid" *ngIf="pageStage === 4">
+      <div class="main-body-content m-2">  
+        <p-table #dt  [columns]="dataHeader4" [value]="buildingDataSchool" [resizableColumns]="true" 
+        [lazy]="false" [globalFilterFields]="['construct_type','total_flrs','tot_classrm_use','tot_classrm_nouse',
+        'off_room','lab_room','library_room','comp_room','art_room','staff_room','hm_room','girl_room','total_room']">
+            <ng-template let-building pTemplate="caption">
+              <div class="row p-1">
+                <div class="col-sm-6">
+                    <div class="text-lg-left mt-3">
+                      <h5>School Building Reports</h5>
+                    </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-8 col-md-8"></div>
+                <div class="col-sm-3 col-md-3 p-1">
+                    <div class="text-right">
+                         <input type="text" pInputText size="30" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>              
+                 </div>
+                 <div class="col-sm-1 col-md-1" style="padding-top:10px;">
+                  <i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="Exportexcelschooldetailasdata()"></i>
+                </div>
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-building>
+              <tr class="text-center">
+                <th style="width:4em;">S.No</th>
+                <th *ngFor="let col of building" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                  {{col.header}}
+                  <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-building let-rowData let-columns="columns" let-i="rowIndex" >
+              <tr class="text-center">
+                <td style="width:4em;"> {{i+1}} </td>
+                <td class="text-left">{{ building.construct_type === '1' ? "Pucca" : building.construct_type === '2' ? "Partially Pucca" : building.construct_type === '3' ? "Kutcha" : '' }}</td>
+                <td> {{ building.total_flrs}} </td>
+                <td > {{ building.tot_classrm_use}} </td>
+                <td> {{ building.tot_classrm_nouse}} </td>
+                <td> {{ building.off_room}} </td>
+                <td> {{ building.lab_room}} </td>
+                <td> {{ building.library_room}} </td>
+                <td> {{ building.comp_room}} </td>
+                <td> {{ building.art_room}} </td>
+                <td> {{ building.staff_room}} </td>
+                <td> {{ building.hm_room}} </td>
+                <td> {{ building.girl_room}} </td>
+                <td> {{ building.total_room}} </td>
+                <td style="font-weight: bold;">{{ (building.total_flrs * 1) + (building.tot_classrm_use * 1) + ( building.tot_classrm_nouse * 1) + (building.off_room * 1) + (building.lab_room * 1) + (building.library_room * 1) + (building.comp_room * 1) + (building.art_room * 1) + (building.staff_room * 1) + (building.hm_room * 1) + (building.girl_room * 1) + ( building.total_room * 1) }}</td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+              <tr class="text-center" *ngIf="!noDataFound4">
+                  <!-- <td></td> -->
+                  <td colspan="2" class="text-center">Total</td>
+                  <td class="ui-resizable-column">{{grandTotal_total_flrs}}</td>
+                  <td class="ui-resizable-column">{{grandTotal_tot_classrm_use}}</td>
+                  <td class="ui-resizable-column">{{grandTotal_tot_classrm_nouse}}</td>
+                  <td class="ui-resizable-column">{{grandTotal_off_room}}</td>
+                  <td class="ui-resizable-column">{{grandTotal_lab_room}}</td>
+                  <td class="ui-resizable-column">{{grandTotal_library_room}}</td>
+                  <td class="ui-resizable-column">{{grandTotal_comp_room}}</td>
+                  <td class="ui-resizable-column">{{grandTotal_art_room}}</td>
+                  <td class="ui-resizable-column">{{grandTotal_staff_room}}</td>
+                  <td class="ui-resizable-column">{{grandTotal_hm_room}}</td>
+                  <td class="ui-resizable-column">{{grandTotal_girl_room}}</td>
+                  <td class="ui-resizable-column">{{grandTotal_total_room}}</td>
+                  <td class="ui-resizable-column">{{ (grandTotal_total_flrs * 1) + (grandTotal_tot_classrm_use * 1) + (grandTotal_tot_classrm_nouse * 1) + (grandTotal_off_room * 1) + (grandTotal_lab_room * 1) + (grandTotal_library_room * 1) + (grandTotal_comp_room * 1) + (grandTotal_art_room * 1) + (grandTotal_staff_room * 1) + ( grandTotal_hm_room * 1) + ( grandTotal_girl_room * 1) + (grandTotal_total_room * 1)}}</td>
+              </tr>
+          </ng-template>
+            <ng-template pTemplate="empty-message">
+              <tr class="text-center" *ngIf="noDataFound4" >
+                <td colspan="3"> No Data Found </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div> 
+      </div>  

@@ -1,0 +1,35 @@
+{"genderlist" : [{ "label": "Male", "value": "1" },
+                 { "label": "Female", "value": "2" },
+                 { "label": "TransGender", "value": "3" }],
+  
+"appointment" : [
+    { "label":"Regular","value": "1" },
+    { "label":"Contract","value": "2" },
+    { "label":"Guest Faculty/Part-Time","value": "3" },
+    { "label":"Through VIP","value": "4" }
+  ],
+
+  "experience" : [
+    { "label":"Less than 1 Year","value": "0" },
+    { "label":"1 To 2 Years","value": "1" },
+    { "label":"Above 2 But Less Than 3 Years","value": "2" },
+    { "label":"3 or + Year","value": "3" }
+  ],
+"academic":[{"label":"Below Secondary","value":"1"},
+  {"label":"Secondary","value":"2"},
+  {"label":"Higher Secondary","value":"3"},
+  {"label":"Graduate","value":"4"},
+  {"label":"Post Graduate","value":"5"},
+  {"label":"M Phil","value":"6"},
+  {"label":"Ph D","value":"7"},
+  {"label":"Post Doctoral","value":"8"}],
+
+  "professional":[{"label":"Certificate course in concerned Vocation sector","value":"51"},
+    {"label":"Diploma in concerned Vocation sector","value":"52"},
+    {"label":"Degree in concerned Vocation sector","value":"53"},
+    {"label":"Any Other","value":"5"},
+    {"label":"None","value":"6"}],
+
+  "classtaught":[{"label":"Secondary Only","value":"5"},{"label":"Higher Secondary Only","value":"6"},{"label":"Secondary and Higher Secondary Only","value":"8"}]
+  }
+  

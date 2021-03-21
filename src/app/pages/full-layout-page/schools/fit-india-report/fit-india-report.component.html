@@ -1,0 +1,240 @@
+<div class="container-fluid" style="padding-top:10px;">
+    <h3><b>Fit-India-Report</b></h3>
+</div>
+
+<p-card *ngIf="!Table_two && !Table_three">
+    <div class="container-fluid">
+        <p-table #dt [columns]="districtHeader" [value]="StateData" [autoLayout]="true">
+            <ng-template pTemplate="caption">
+                <div [formGroup]="reportdetails">
+                <div class="row form-group">
+                    <div class="col-sm-6 col-md-6 text-left">
+                    <p-calendar formControlName="entry_month" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2019:2020" placeholder="Select Month" [readonlyInput]="true" (onSelect)="getMonth($event)"></p-calendar>
+                </div>
+                <div class="col-sm-3 col-md-3">
+                    <div class="text-right">
+                        <button type="button" pButton icon="pi pi-file-excel" iconPos="left" (click)="exportExcel()"
+                                                    label="EXCEL" class="ui-button-success">
+                        </button>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-md-3 text-right">   
+                        <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Filter">
+                </div>
+                </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr class="text-center">
+                   <th rowspan="2">S.No</th> 
+                   <th rowspan="2">District</th>
+                   <th colspan="5">Number Of Schools</th>
+                   <th colspan="5">Schools Certified as Fit India Schools</th>
+                   <th colspan="5">3 Star Schools</th>
+                   <th colspan="5">5 Star Schools</th>
+
+                </tr>
+                <tr class="text-center">
+                    <th>PS</th>
+                    <th>MS</th>
+                    <th>HS</th>
+                    <th>HSS</th>
+                    <th>Total</th>
+                   
+                    <th>PS</th>
+                    <th>MS</th>
+                    <th>HS</th>
+                    <th>HSS</th>
+                    <th>Total</th>
+                   
+                    <th>PS</th>
+                    <th>MS</th>
+                    <th>HS</th>
+                    <th>HSS</th>
+                    <th>Total</th>
+                   
+                    <th>PS</th>
+                    <th>MS</th>
+                    <th>HS</th>
+                    <th>HSS</th>
+                    <th>Total</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-columns let-district let-i="rowIndex">
+                <tr class="text-center">
+                    <td>{{i+1}}</td>
+                    <td><a href="javascript:void(0)" (click)="getDistrictDetails(district.district_id,Table_two)">{{district.district_name}}</a></td>
+                    <td>{{district.Pri_Total}}</td>
+                    <td>{{district.Mid_Total}}</td>
+                    <td>{{district.High_Total}}</td>
+                    <td>{{district.HSS_Total}}</td>
+                    <td>{{+district.Pri_Total+ +district.Mid_Total+ +district.High_Total+ +district.HSS_Total}}</td>
+                    <td>{{district.Pri_Certified}}</td>
+                    <td>{{district.Mid_Certified}}</td>
+                    <td>{{district.High_Certified}}</td>
+                    <td>{{district.HSS_Certified}}</td>
+                    <td>{{+district.Pri_Certified + +district.Mid_Certified + +district.High_Certified + +district.HSS_Certified}}</td>
+                    <td>{{district.Pri_3star}}</td>
+                    <td>{{district.Mid_3star}}</td>
+                    <td>{{district.High_3star}}</td>
+                    <td>{{district.HSS_3star}}</td>
+                    <td>{{+district.Pri_3star + +district.Mid_3star + +district.High_3star + +district.HSS_3star}}</td>
+                    <td>{{district.Pri_5star}}</td>
+                    <td>{{district.Mid_5star}}</td>
+                    <td>{{district.High_5star}}</td>
+                    <td>{{district.HSS_5star}}</td>
+                    <td>{{+district.Pri_5star + +district.Mid_5star + +district.High_5star + +district.HSS_5star}}</td> 
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    
+</p-card>
+
+<!-- DC OR CEO Login -->
+
+<p-card *ngIf ="Table_two && !Table_one && !Table_three">
+    <div class="container-fluid">
+        <p-table #dt [columns]="BlockHeader" [value]="districtData" [autoLayout]="true">
+            <ng-template pTemplate="caption">
+                <div [formGroup]="reportdetails">
+                <div class="row form-group">
+                    <div class="col-sm-6 col-md-6 text-left">
+                    <p-calendar formControlName="entry_month" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2019:2020" placeholder="Select Month" [readonlyInput]="true" (onSelect)="getMonth($event)"></p-calendar>
+                </div>
+                <div class="col-sm-3 col-md-3">
+                        <div class="text-right">
+                            <button type="button" pButton icon="pi pi-file-excel" iconPos="left" (click)="exportExcel1()"
+                                                        label="EXCEL" class="ui-button-success">
+                            </button>
+                        </div>
+                </div>
+                <div class="col-sm-3 col-md-3 text-right">   
+                        <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Filter">
+                </div>
+                </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr class="text-center">
+                   <th rowspan="2">S.No</th> 
+                   <th rowspan="2">Block</th>
+                   <th colspan="5">Number Of Schools</th>
+                   <th colspan="5">Schools Certified as Fit India Schools</th>
+                   <th colspan="5">3 Star Schools</th>
+                   <th colspan="5">5 Star Schools</th>
+
+                </tr>
+                <tr class="text-center">
+                    <th>PS</th>
+                    <th>MS</th>
+                    <th>HS</th>
+                    <th>HSS</th>
+                    <th>Total</th>
+                   
+                    <th>PS</th>
+                    <th>MS</th>
+                    <th>HS</th>
+                    <th>HSS</th>
+                    <th>Total</th>
+                   
+                    <th>PS</th>
+                    <th>MS</th>
+                    <th>HS</th>
+                    <th>HSS</th>
+                    <th>Total</th>
+                   
+                    <th>PS</th>
+                    <th>MS</th>
+                    <th>HS</th>
+                    <th>HSS</th>
+                    <th>Total</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-columns let-block let-i="rowIndex">
+                <tr class="text-center">
+                    <td>{{i+1}}</td>
+                    <td><a href="javascript:void(0)" (click)="getBlockDetails(block.block_id)">{{block.block_name}}</a></td>
+                    <td>{{block.Pri_Total}}</td>
+                    <td>{{block.Mid_Total}}</td>
+                    <td>{{block.High_Total}}</td>
+                    <td>{{block.HSS_Total}}</td>
+                    <td>{{+block.Pri_Total+ +block.Mid_Total+ +block.High_Total+ +block.HSS_Total}}</td>
+                    <td>{{block.Pri_Certified}}</td>
+                    <td>{{block.Mid_Certified}}</td>
+                    <td>{{block.High_Certified}}</td>
+                    <td>{{block.HSS_Certified}}</td>
+                    <td>{{+block.Pri_Certified + +block.Mid_Certified + +block.High_Certified + +block.HSS_Certified}}</td>
+                    <td>{{block.Pri_3star}}</td>
+                    <td>{{block.Mid_3star}}</td>
+                    <td>{{block.High_3star}}</td>
+                    <td>{{block.HSS_3star}}</td>
+                    <td>{{+block.Pri_3star + +block.Mid_3star + +block.High_3star + +block.HSS_3star}}</td>
+                    <td>{{block.Pri_5star}}</td>
+                    <td>{{block.Mid_5star}}</td>
+                    <td>{{block.High_5star}}</td>
+                    <td>{{block.HSS_5star}}</td>
+                    <td>{{+block.Pri_5star + +block.Mid_5star + +block.High_5star + +block.HSS_5star}}</td> 
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    
+</p-card>
+
+<!-- School -->
+<p-card *ngIf ="Table_three && !Table_one">
+    <div class="container-fluid">
+            <p-table #dt [columns]="SchoolHeader" [value]="blkData" [autoLayout]="true">
+                <ng-template pTemplate="caption">
+                    <div [formGroup]="reportdetails">
+                    <div class="row form-group">
+                        <div class="col-sm-6 col-md-6 text-left">
+                        <p-calendar formControlName="entry_month" view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2019:2020" placeholder="Select Month" [readonlyInput]="true" (onSelect)="getMonth($event)"></p-calendar>
+                    </div>
+                    <div class="col-sm-3 col-md-3">
+                        <div class="text-right">
+                            <button type="button" pButton icon="pi pi-file-excel" iconPos="left" (click)="exportExcel2()"
+                                                        label="EXCEL" class="ui-button-success">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-md-3 text-right">   
+                            <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Filter">
+                    </div>
+                    </div>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr class="text-center">
+                        <th>S.No</th> 
+                        <th>School Name</th>
+                        <th>UDOSE Code</th>
+                        <th>Category</th>
+                        <th>Certified</th>
+                        <th>Participated</th>
+                        <th>Number of Students Participated</th>
+                        <th>Number of Flags Won</th>
+                        <th>Ratings</th>
+                        <th>Number of Photos uploaded</th>
+                        <th>Number of Videos uploaded</th>
+                     </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-columns let-school let-i="rowIndex">
+                    <tr class="text-center">
+                        <td>{{i+1}}</td>
+                       <td>{{school.Sch_Name}}</td>
+                       <td>{{school.UDISE}}</td>
+                       <td>{{school.Category}}</td>
+                       <td>{{school.Certified}}</td>
+                       <td>{{school.Participated}}</td>
+                       <td>{{school.Students_Participated}}</td>
+                       <td>{{school.Flags_won}}</td>
+                       <td>{{school.Rating}}</td>
+                       <td>{{school.Photos}}</td>
+                       <td>{{school.Videos}}</td>
+                    </tr>
+                </ng-template>
+                </p-table>
+    </div>
+</p-card>

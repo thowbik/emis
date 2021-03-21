@@ -1,0 +1,148 @@
+<div class="outer-layout" style="padding-top:10px;">
+    <div class="breadcrumbs c-black">
+       <h6 classs="url"><span class="flex-gap-right">Staffs</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right">Training details</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right" (click)='goBack()'>BT Teachers Appointed Subject</span><span *ngIf="districtName"><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i>{{districtName}}</span>
+       </h6>
+    </div>
+ </div>
+ <div class="m-4" *ngIf="pageStage !== 2">
+    <form [formGroup]="schoolverificationdetail">
+       <div>
+          <p-table #dt [columns]="cols" [value]="districtwise"  [resizableColumns]="true">
+          <!-- new -->
+          <ng-template let-childrens pTemplate="caption">
+             <div class="row p-2">
+                <!-- <div class="col-md-4">
+                   <p-dropdown [options]="schooltypedropvalue" formControlName="schooltype" placeholder="Select School type" styleClass="dropdwnvalues"></p-dropdown>
+                   </div> -->
+                <div class="col-md-3">
+                   <p-dropdown [options]="languagedropvalue" formControlName="language" placeholder="Select Subject" styleClass="dropdwnvalues"></p-dropdown>
+                </div>
+                <div class="col-md-1">
+                   <button type="submit" class="btn btn-success m-2" (click)="BTTeachersDetails(schoolverificationdetail.value)">Search</button>
+                </div>
+             </div>
+             <div class="row p-1">
+                <!-- <div class="col-sm-9">
+                   <div class="text-lg-left mt-3">
+                       <h5>BT Teachers Appointed Subject</h5>
+                   </div>
+                   </div> -->
+                <div class="col-md-8"></div>
+                <div class="col-sm-3 p-1">
+                   <div class="text-right">
+                      <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                   </div>
+                </div>
+                <div class="col-sm-1 p-1 flex-row-center-end">
+                   <div class="text-right">
+                      <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel()"></i>
+                   </div>
+                </div>
+                <!-- <div class="col-md-4" class="excel">
+                   <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" class="ui-button-success"></button>
+                   </div> -->
+             </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-distname>
+             <tr class="text-center">
+                <th class="sno-header-layout">S.NO</th>
+                <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+             </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+             <tr class="text-center">
+                <td class="sno-header-layout"> {{i+1}} </td>
+                <td class="text-left"><a href="javascript:void(0)" (click)="onSelectedId(distwise.district_id,distwise.district_name)"> {{ distwise.district_name}} </a></td>
+                <td> {{ distwise.Government}} </td>
+                <td> {{ distwise.Fully_Aided}} </td>
+                <td> {{ distwise.Partially_Aided}} </td>
+                <td> {{ distwise.Total}} </td>
+          </ng-template>
+          <ng-template pTemplate="emptymessage" let-columns>
+          <tr>
+          <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+          <strong>No data found</strong>
+          </td>
+          </tr>
+          </ng-template>
+          </p-table>
+       </div>
+    </form>
+ </div>
+ <div class="m-4" *ngIf="pageStage === 2">
+    <form [formGroup]="schoolverificationdetails">
+       <div>
+          <p-table #dt [columns]="cols2" [value]="blockwiseDetails" [paginator]="true" [rows]="10" [resizableColumns]="true" [autoLayout]="true">
+          <!-- new -->
+          <ng-template let-childrens pTemplate="caption">
+             <div class="row p-2">
+                <div class="col-md-3">
+                   <p-dropdown [options]="schooltypedropvalue" formControlName="schooltype" placeholder="Select School" styleClass="dropdwnvalues"></p-dropdown>
+                </div>
+                <div class="col-md-3">
+                   <p-dropdown [options]="languagedropvalue" formControlName="language" placeholder="Select Subject" styleClass="dropdwnvalues"></p-dropdown>
+                </div>
+                <div class="col-md-1">
+                   <button type="submit" class="btn btn-success m-2" (click)="BTteachers(schoolverificationdetails.value)">Search</button>
+                </div>
+                <!-- <div class="col-md-3 excelceo">
+                   <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcelceo()" class="ui-button-success"></button>
+                   </div> -->
+             </div>
+             <div class="row p-1">
+                <!-- <div class="col-sm-9">
+                   <div class="text-lg-left mt-3">
+                       <h5>BT Teachers Appointed Subject</h5>
+                   </div>
+                   </div> -->
+                <div class="col-md-8"></div>
+                <div class="col-sm-3">
+                   <div class="text-right">
+                      <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                   </div>
+                </div>
+                <div class="col-sm-1 p-1 flex-row-center-end">
+                   <div class="text-right">
+                      <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcelceo()"></i>
+                   </div>
+                </div>
+             </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-distname>
+             <tr class="text-center">
+                <th class="sno-header-layout">S.NO</th>
+                <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+             </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-blockwise let-columns="columns" let-i="rowIndex">
+             <tr class="text-left">
+                <td class="sno-header-layout"> {{i+1}} </td>
+                <td> {{ blockwise.teacher_name}} </td>
+                <td> {{ blockwise.udise_code}} </td>
+                <td> {{ blockwise.school_name}} </td>
+                <td> {{ blockwise.cate_type}} </td>
+                <td> {{ blockwise.subjects}} </td>
+                <td class="text-center"> {{ blockwise.mbl_nmbr}} </td>
+          </ng-template>
+          <ng-template pTemplate="footer">
+          <tr class="text-center" *ngIf="nodateFound">
+          <td colspan="6" >No Data Found</td>
+          </tr>
+          </ng-template>
+          <!-- <ng-template pTemplate="emptymessage" let-columns>
+             <tr>
+                 <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                     <strong>No data found</strong>
+                 </td>
+             </tr>
+             </ng-template> -->
+          </p-table>
+       </div>
+    </form>
+ </div>

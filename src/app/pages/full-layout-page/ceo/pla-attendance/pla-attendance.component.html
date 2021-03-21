@@ -1,0 +1,81 @@
+<div class="outer-layout" style="padding-top:5px;">
+    <div class="breadcrumbs c-black">
+        <h6 classs="url"><span class="flex-gap-right"><strong>PLA-Attendance-Report</strong></span></h6>
+        <!-- <h6 classs="url"><span class="flex-gap-right">Schools</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right" (click)="GoBack()">Student-Banking-Details</span> -->
+    </div>
+</div>
+<div class="container-fluid p-3">
+    <br>
+    <p-card>
+        <form [formGroup]="form">
+            <div class="row">
+                <div class="col-md-3">
+                    <input class="form-control col-sm-12" type="date" formControlName="date" placeholder="Date"
+                        dateformat="yyyy/dd/mm" max="{{todayDate}}">
+                        <!-- <input class="form-control date" type="date" formControlName="challan_date" placeholder="Date" dateformat="yyyy/dd/mm" max="{{todayDate}}"> -->
+                </div>
+                <div class="col-md-3" *ngIf="showDropdown">
+                    <p-dropdown [options]="BlockOption" formControlName="Block" (onChange)="OnBlockChange($event.value)"
+                        placeholder="Select Block"></p-dropdown>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" style="background-color: #065040" class="btn btn-success"
+                        (click)="onSubmit()">Submit</button>
+                </div>
+            </div>
+        </form>
+    </p-card>
+    <br>
+    <p-table #db [columns]="dataHeader" [value]="data" [autoLayout]="true" [scrollable]="true" scrollHeight="500px"
+        scrollWidth="100px">
+        <ng-template pTemplate="caption">
+            <div class="row">
+                <div class="col-md-8"></div>
+                <div class="col-md-3 text-right">
+                    <input class="form-control" type="text" (input)="db.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Search">
+                </div>
+                <div class="col-md-1 text-right" style="padding-top: 15px;padding-right:28px;">
+                    <i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="ExportExcel()"></i>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr class="text-center">
+                <th style="width:4em;">S.No</th>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+                        ariaLabelDesc="Activate to sort in descending order"
+                        ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-attenance let-i="rowIndex">
+            <tr class="text-center">
+                <td style="width:4em;">{{i+1}}</td>
+                <td class="text-left">{{attenance.Block}}</td>
+                <td>{{attenance.UDISE}}</td>
+                <td>{{attenance.SclName}}</td>
+                <td>{{attenance.Volunteer_Name}}</td>
+                <td>{{attenance.Marked_Status}}</td>
+                <td>{{attenance.VolunteerAttend}}</td>
+                <td>{{attenance.Learners_Present}}</td>
+                <td>{{attenance.Learners_Absent}}</td>
+
+                <!-- <td>{{studenlist.current_balance}}</td> -->
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <tr class="text-left" *ngIf="noData">
+                <td colspan="9" style="text-align: center;"> No Data Found </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr class="text-left" *ngIf="!noData">
+                <td colspan="9" style="text-align: center;"><b>No Records Found </b></td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+</div>

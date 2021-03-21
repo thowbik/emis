@@ -1,0 +1,457 @@
+<div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed " class="doNotPrint">
+    <div class="kt-header-mobile__logo">
+        <a href="demo1/index.html">
+        <img alt="Logo" src="assets/media/logos/emis_logo.png"/>
+        </a>
+    </div>
+    <div class="kt-header-mobile__toolbar">
+        <button class="kt-header-mobile__toggler kt-header-mobile__toggler--left" id="kt_aside_mobile_toggler"><span></span></button>
+        <button class="kt-header-mobile__toggler" id="kt_header_mobile_toggler"><span></span></button>
+        <button class="kt-header-mobile__topbar-toggler" id="kt_header_mobile_topbar_toggler"><i class="flaticon-more"></i></button>
+    </div>
+</div>
+<!-- end:: Header Mobile -->
+<div class="kt-grid kt-grid--hor kt-grid--root">
+<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
+
+<!-- begin:: Aside -->
+<button class="kt-aside-close " id="kt_aside_close_btn"><i class="la la-close"></i></button>
+<div class="kt-aside  kt-aside--fixed  kt-grid__item kt-grid kt-grid--desktop kt-grid--hor-desktop" [ngClass]="{'outerLayoutShrink': !isOpen}" id="kt_aside">
+    <!-- begin:: Aside -->
+    <div class="kt-aside__brand kt-grid__item " id="kt_aside_brand">
+        <div class="kt-aside__brand-logo">
+            <a href="demo1/index.html">
+            <img alt="Logo" src="assets/media/logos/emis_logo.png"/>
+            </a>
+        </div>
+    </div>
+    <!-- end:: Aside -->	<!-- begin:: Aside Menu -->
+    <div class="kt-aside-menu-wrapper kt-grid__item kt-grid__item--fluid" id="kt_aside_menu_wrapper">
+        <div id="kt_aside_menu"
+            class="kt-aside-menu" [ngClass]="{'expand-text': !isOpen}"
+            data-ktmenu-vertical="1"
+            data-ktmenu-scroll="1" data-ktmenu-dropdown-timeout="500"
+            >
+            <ul class="kt-menu__nav ">
+                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  (click)="navigate('dashboard')">
+                    <a class="kt-menu__link kt-menu__toggle">
+                        <span class="kt-menu__link-icon"  [ngClass]="{'shrinkfont-size': !isOpen}">
+                            <i class="flaticon-dashboard"></i>
+                        </span>
+                        <span class="kt-menu__link-text" *ngIf="isOpen">Dashboard</span>
+                    </a>
+                </li>
+                <li class="kt-menu__item  kt-menu__item--submenu" [ngClass]="{'kt-menu__item--open': selectedIndex == 1}" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover">
+                    <a  class="kt-menu__link kt-menu__toggle">
+                        <span class="kt-menu__link-icon" [ngClass]="{'shrinkfont-size': !isOpen}">
+                            <i class="flaticon2-user-1"></i>
+                        </span>
+                        <span class="kt-menu__link-text" *ngIf="isOpen" (click)="toggleList('students',1)">Students</span>
+                    </a>
+                    <div class="kt-menu__submenu" *ngIf="isShowStudentMenu">
+                        <span class="kt-menu__arrow"></span>
+                        <ul class="kt-menu__subnav">
+                          <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text" *ngIf="isOpen">Students</span></span></li>
+                          <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover" [routerLink]="['/admission']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                            <h6 class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Students Admission</span></h6>
+                          </li>
+                          <!-- <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover">
+      <a  href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" (click)="navigate('commonpool')" >Students Common Pool</span></a>
+  </li> -->
+                          <!-- <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover">
+      <a  href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" (click)="navigate('summary')" *ngIf="isOpen">Students Summary</span></a>
+  </li>-->
+                          <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover" [routerLink]="['/tagging']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                            <h6 href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Students Tagging</span></h6>
+                          </li>
+                          <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover" [routerLink]="['/studentlist']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                            <h6 href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Students List</span></h6>
+                          </li>
+                          <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover" [routerLink]="['/class7_report']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                            <h6 href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Class 7 SLAS Score -2019 </span></h6>
+                          </li>
+                          <!-- <li *ngIf="(schoolTypeId == 1 || schoolTypeId == 2 || schoolTypeId == 4)"
+      class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover" [routerLink]="['/migrantstudentlist']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+      <h6  href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Migrant Student List</span></h6>
+  </li> -->
+                          <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover" [routerLink]="['/academicrecords']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                            <h6 href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Academic Records</span></h6>
+                          </li>
+                            <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true" ><span class="kt-menu__link"><span class="kt-menu__link-text" *ngIf="isOpen">Students</span></span></li>
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover" [routerLink]="['/admission']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                <h6 class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text"  *ngIf="isOpen">Students Admission</span></h6>
+                            </li>
+                            <!-- <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover">
+                                <a  href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" (click)="navigate('commonpool')" >Students Common Pool</span></a>
+                            </li> -->
+                            <!-- <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover">
+                                <a  href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" (click)="navigate('summary')" *ngIf="isOpen">Students Summary</span></a>
+                            </li>-->
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover" [routerLink]="['/tagging']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                <h6  href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Students Tagging</span></h6>
+                            </li>
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover" [routerLink]="['/studentlist']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                <h6  href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Students List</span></h6>
+                            </li>
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover" [routerLink]="['/tcdetails']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                <h6  href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Students TC Details</span></h6>
+                            </li>
+                            <!-- <li *ngIf="(schoolTypeId == 1 || schoolTypeId == 2 || schoolTypeId == 4)"
+                                class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover" [routerLink]="['/migrantstudentlist']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                <h6  href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Migrant Student List</span></h6>
+                            </li> -->
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover" [routerLink]="['/academicrecords']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                <h6  href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Academic Records</span></h6>
+                            </li>
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover" [routerLink]="['/cashincentive']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                <h6  href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Special Cash Incentive</span></h6>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="kt-menu__item  kt-menu__item--submenu" [ngClass]="{'kt-menu__item--open':  selectedIndex == 2}"  aria-haspopup="true"  data-ktmenu-submenu-toggle="hover">
+                    <h6 class="kt-menu__link kt-menu__toggle">
+                        <span class="kt-menu__link-icon" [ngClass]="{'shrinkfont-size': !isOpen}">
+                            <i class="flaticon2-open-text-book"></i>
+                        </span>
+                        <span class="kt-menu__link-text" *ngIf="isOpen" (click)="toggleList('timetable',2)">Timetable</span>
+                    </h6>
+                    <div class="kt-menu__submenu" *ngIf="isShowTimetableMenu">
+                        <span class="kt-menu__arrow"></span>
+                        <ul class="kt-menu__subnav">
+
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover" [routerLink]="['/mastertimetable']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                <h6 class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Master Timetable</span></h6>
+                            </li>
+
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover" [routerLink]="['/weeklytimetable']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                <h6 class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Weekly Timetable</span></h6>
+                            </li>
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover" [routerLink]="['/todaytimetable']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                <h6 class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Today Timetable</span></h6>
+                            </li>
+                           <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover" [routerLink]="['/teachertimetable']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                <h6 class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Teacher Timetable</span></h6>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+                <li *ngIf="(schoolTypeId == 1) || (schoolTypeId == 2) || (schoolTypeId == 4)" class="kt-menu__item  kt-menu__item--submenu kt-menu__item--open" [ngClass]="{'kt-menu__item--open':  selectedIndex == 3}"  aria-haspopup="true"  data-ktmenu-submenu-toggle="hover">
+                    <h6  class="kt-menu__link kt-menu__toggle" (click)="navigate('schemesummary')" >
+                        <span class="kt-menu__link-icon" [ngClass]="{'shrinkfont-size': !isOpen}">
+                            <i class="flaticon2-open-text-book"></i>
+                        </span>
+                        <span class="kt-menu__link-text" *ngIf="isOpen" (click)="toggleList('schemes',3)">Schemes</span>
+                    </h6>
+                    <div class="kt-menu__submenu" *ngIf="isShowSchemeMenu">
+                        <span class="kt-menu__arrow"></span>
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true" ><span class="kt-menu__link"><span class="kt-menu__link-text" (click)="navigate('uniform')">Schemes</span></span></li>
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/noonmeal']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                <h6 class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Noon Meals</span></h6>
+                            </li>
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/uniform']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                <h6 class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Uniform</span></h6>
+                            </li>
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/laptop']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                    <h6  class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Laptop</span></h6>
+                            </li>
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/textbook']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                <h6   class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Textbook For Primary</span></h6>
+                            </li>
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/textbook_sec']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                    <h6 class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Textbook Secondary</span></h6>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+                <!-- <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  [routerLink]="['/teachers']" [routerLinkActive]="['active', 'kt-menu__item--open']"   data-ktmenu-submenu-toggle="hover">
+                    <p class="kt-menu__link kt-menu__toggle">
+                        <span class="kt-menu__link-icon" [ngClass]="{'shrinkfont-size': !isOpen}">
+                            <i class="flaticon2-group"></i>
+                        </span>
+                        <span class="kt-menu__link-text" *ngIf="isOpen">Staff Details</span>
+                    </p>
+                </li> -->
+
+                <li class="kt-menu__item  kt-menu__item--submenu" [ngClass]="{'kt-menu__item--open': selectedIndex == 4}" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover">
+                    <a  class="kt-menu__link kt-menu__toggle"  (click)="navigate('teachers')">
+                        <span class="kt-menu__link-icon" [ngClass]="{'shrinkfont-size': !isOpen}">
+                            <i class="flaticon2-user-1"></i>
+                        </span>
+                        <span class="kt-menu__link-text" *ngIf="isOpen" (click)="toggleList('teachers',4)">Staff Details</span>
+                    </a>
+                    <div class="kt-menu__submenu" *ngIf="isShowStaffMenu">
+                        <span class="kt-menu__arrow"></span>
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover" [routerLink]="['/teachers']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                <h6 class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text"  *ngIf="isOpen">Staff Details</span></h6>
+                            </li>
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover" [routerLink]="['/staff-logindetail']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                <h6 class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text"  *ngIf="isOpen">Staff Login Details</span></h6>
+                            </li>
+                            <li *ngIf="(schoolTypeId == 1) || (schoolTypeId == 2) || (schoolTypeId == 4) " class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover" (click)="goToIFHRMS()">
+                                <h6 class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text"  *ngIf="isOpen">IFHRMS</span></h6>
+                            </li>
+                            <!-- <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                <h6 class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text"  *ngIf="isOpen"><a href="https://forms.gle/fsbQ7B4breXiHsW9A" >IFHRMS</a></span></h6>
+                            </li> -->
+                            <li *ngIf="(schoolTypeId == 1) || (schoolTypeId == 2)" class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover" [routerLink]="['/stafftraininglist']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                <h6 class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text"  *ngIf="isOpen">In-Service Training Details</span></h6>
+                            </li>
+                            <li *ngIf="(schoolTypeId == 1)" class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover" [routerLink]="['/nsqfstaffreg']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                <h6 class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text"  *ngIf="isOpen">NSQF Vocational Instructors</span></h6>
+                            </li>
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover" [routerLink]="['/pindics-hmevaluation']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                <h6 class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text"  *ngIf="isOpen">PINDICS HM Evaluation</span></h6>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="kt-menu__item  kt-menu__item--submenu" [ngClass]="{'kt-menu__item--open':  selectedIndex == 6}"  aria-haspopup="true"  data-ktmenu-submenu-toggle="hover">
+                    <p  class="kt-menu__link kt-menu__toggle">
+                        <span class="kt-menu__link-icon" [ngClass]="{'shrinkfont-size': !isOpen}">
+                            <i class="flaticon-buildings"></i><!--(click)="navigate('schools')"-->
+                        </span>
+                        <span class="kt-menu__link-text" *ngIf="isOpen" (click)="toggleList('udise',6)">UDISE +</span>
+                    </p>
+                    <div class="kt-menu__submenu" *ngIf="isShowUdiseMenu">
+
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover" (click)="goToDownloadDcf()">
+                                <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Download DCF</span></p>
+                            </li>
+
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/basic_school_form']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Basic Information</span></p>
+                            </li>
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/school_details']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">School Details</span></p>
+                            </li>
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/training-details']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Training Details</span></p>
+                            </li>
+                            <li *ngIf="(schoolTypeId == 1) || (schoolTypeId == 2) || (schoolTypeId == 4)" class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/schoolcommittee']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Committee Details</span></p>
+                            </li>
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/school-land']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Land Details</span></p>
+                            </li>
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/school-inventory']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">School Inventory</span></p>
+                            </li>
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/funds']" [routerLinkActive]="['active', 'kt-menu__item--active']">
+                                <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Funds</span></p>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="kt-menu__item  kt-menu__item--submenu" [ngClass]="{'kt-menu__item--open':  selectedIndex == 7}"  aria-haspopup="true"  data-ktmenu-submenu-toggle="hover">
+                    <p  class="kt-menu__link kt-menu__toggle">
+                        <span class="kt-menu__link-icon" [ngClass]="{'shrinkfont-size': !isOpen}">
+                            <i class="flaticon-buildings"></i>
+                        </span>
+                        <span class="kt-menu__link-text" *ngIf="isOpen" (click)="toggleList('udisereports',7)">UDISE + Reports</span>
+                    </p>
+                    <div class="kt-menu__submenu" *ngIf="isShowUdisereports">
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/reports/teaching-staff']" [routerLinkActive]="['active', 'school_profile']">
+                                <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">3.1 Teaching Staff</span></p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="kt-menu__submenu" *ngIf="isShowUdisereports">
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/reports/non-teaching-staff']" [routerLinkActive]="['active', 'school_profile']">
+                                <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">3.2 Non Teaching Staff</span></p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="kt-menu__submenu" *ngIf="isShowUdisereports">
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/reports/enrollment-socialcategory']" [routerLinkActive]="['active', 'school_profile']">
+                                <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">4.2 Enrolment (By Social Category)</span></p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="kt-menu__submenu" *ngIf="isShowUdisereports">
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/reports/enrolment-academic-session-age']" [routerLinkActive]="['active', 'school_profile']">
+                                <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">4.3 Enrolment (By Age)</span></p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="kt-menu__submenu" *ngIf="isShowUdisereports">
+                         <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/reports/enrolment-medium-instruction']" [routerLinkActive]="['active', 'school_profile']">
+                                <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">4.4 Enrolment (By Medium of Instruction)</span></p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="kt-menu__submenu" *ngIf="isShowUdisereports">
+                        <ul class="kt-menu__subnav">
+                           <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/reports/repeaters-grade']" [routerLinkActive]="['active', 'school_profile']">
+                               <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">4.5 Repeaters by Grade</span></p>
+                           </li>
+                       </ul>
+                    </div>
+                    <div class="kt-menu__submenu" *ngIf="isShowUdisereports">
+                        <ul class="kt-menu__subnav">
+                           <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/reports/children-special-needs']" [routerLinkActive]="['active', 'school_profile']">
+                               <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">4.6 Enrolment (Children with Special Needs)</span></p>
+                           </li>
+                       </ul>
+                    </div>
+                    <div class="kt-menu__submenu" *ngIf="isShowUdisereports">
+                        <ul class="kt-menu__subnav">
+                           <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/reports/children-special-needs']" [routerLinkActive]="['active', 'school_profile']">
+                               <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">4.8 Enrolment and Repeaters</span></p>
+                           </li>
+                       </ul>
+                        </div>
+                        <div class="kt-menu__submenu" *ngIf="isShowUdisereports">
+                            <ul class="kt-menu__subnav">
+                               <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/reports/academic_school_minority']" [routerLinkActive]="['active', 'school_profile']">
+                                   <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">4.9  Enrolment and repeaters by academic stream (by Minority groups)</span></p>
+                               </li>
+                           </ul>
+                            </div>
+                    <div class="kt-menu__submenu" *ngIf="isShowUdisereports">
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/reports/facilities-provided-children']" [routerLinkActive]="['active', 'school_profile']">
+                                <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">5 Facilities Provided to Children</span></p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="kt-menu__submenu" *ngIf="isShowUdisereports">
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/reports/annual-exm-result-grade']" [routerLinkActive]="['active', 'school_profile']">
+                                <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">6.1 Annual examination result in previuos year for grade V</span></p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="kt-menu__submenu" *ngIf="isShowUdisereports">
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/reports/board-exam-result']" [routerLinkActive]="['active', 'school_profile']">
+                                <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">7.1 Board Examination Result</span></p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="kt-menu__submenu" *ngIf="isShowUdisereports">
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/reports/results-of-grade-regular']" [routerLinkActive]="['active', 'school_profile']">
+                                <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">7.4 Result of the Grade (Regular)</span></p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="kt-menu__submenu" *ngIf="isShowUdisereports">
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/reports/results-of-grade-non-regular']" [routerLinkActive]="['active', 'school_profile']">
+                                <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">7.5 Result of the Grade (Non-Regular)</span></p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="kt-menu__submenu" *ngIf="isShowUdisereports">
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/reports/results-of-grade-regular-marks']" [routerLinkActive]="['active', 'school_profile']">
+                                <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">7.6 Result of the Grade Marks (Regular)</span></p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="kt-menu__submenu" *ngIf="isShowUdisereports">
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/reports/results-of-grade-non-regular-marks']" [routerLinkActive]="['active', 'school_profile']">
+                                <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">7.7 Result of the Grade Marks (Non-Regular)</span></p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="kt-menu__submenu" *ngIf="isShowUdisereports">
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/reports/receipts-and-expend']" [routerLinkActive]="['active', 'school_profile']">
+                                <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">8.Receipts and Expenditure</span></p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="kt-menu__submenu" *ngIf="isShowUdisereports">
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/reports/vocational-education']" [routerLinkActive]="['active', 'school_profile']">
+                                <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">9.3(a) Vocational (by trade and by social category)</span></p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="kt-menu__submenu" *ngIf="isShowUdisereports">
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover"  [routerLink]="['/reports/enrolment-current-academic-session']" [routerLinkActive]="['active', 'school_profile']">
+                                <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">9.3(b) Enrolment (by trade and by job role)</span></p>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="kt-menu__item  kt-menu__item--submenu" [ngClass]="{'kt-menu__item--open':  selectedIndex == 5}"  aria-haspopup="true"  data-ktmenu-submenu-toggle="hover">
+                    <p  class="kt-menu__link kt-menu__toggle">
+                        <span class="kt-menu__link-icon" [ngClass]="{'shrinkfont-size': !isOpen}">
+                            <i class="flaticon-buildings"></i><!--(click)="navigate('schools')"-->
+                        </span>
+                        <span class="kt-menu__link-text" *ngIf="isOpen" (click)="toggleList('schools',5)">Schools</span>
+                    </p>
+                    <div class="kt-menu__submenu " *ngIf="isShowSchoolMenu">
+                        <ul class="kt-menu__subnav">
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover" [routerLink]="['/classsection']" [routerLinkActive]="['active', 'kt-menu__item--open']">
+                                <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Class and Section</span></p>
+                            </li>
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover" [routerLink]="['/school_profile']" [routerLinkActive]="['active', 'school_profile']">
+                                <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">School Profile</span></p>
+                            </li>
+                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover" [routerLink]="['/school_need_csr']" [routerLinkActive]="['active', 'school_need_csr']">
+                                <p class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text" *ngIf="isOpen">Schools Needs CSR</span></p>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" [routerLink]="['/registers']" [routerLinkActive]="['active', 'kt-menu__item--open']"  data-ktmenu-submenu-toggle="hover">
+                    <p class="kt-menu__link kt-menu__toggle">
+                        <span class="kt-menu__link-icon" [ngClass]="{'shrinkfont-size': !isOpen}">
+                            <i class="flaticon2-group"></i>
+                        </span>
+                        <span class="kt-menu__link-text" *ngIf="isOpen">Registers</span>
+                    </p>
+                </li>
+
+                <li *ngIf="(schoolTypeId == 2) || (schoolTypeId == 3) || (schoolTypeId == 4)" class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover" >
+                    <a  href="javascript:;" class="kt-menu__link kt-menu__toggle">
+                        <span class="kt-menu__link-icon">
+                            <i class="flaticon-refresh"></i>
+                        </span>
+                        <span class="kt-menu__link-text" (click)="navigate('renewal')">Renewal</span>
+                    </a>
+                </li>
+                <!-- <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover">
+                    <a  href="javascript:;" class="kt-menu__link kt-menu__toggle">
+                        <span class="kt-menu__link-icon">
+                            <i class="flaticon-questions-circular-button"></i>
+                        </span>
+                        <span class="kt-menu__link-text">Help</span>
+                    </a>
+                </li> -->
+            </ul>
+            <div class="kt-aside__brand-tools">
+                <button (click)="sidebarToggle()" class="kt-aside__brand-aside-toggler" id="kt_aside_toggler">
+                    <span>Expand<i class="flaticon2-right-arrow"></i>
+                    </span>
+                    <span><i class="flaticon2-left-arrow" ></i>{{toggleTitle}}</span>
+                </button>
+                <!--
+                    <button class="kt-aside__brand-aside-toggler kt-aside__brand-aside-toggler--left" id="kt_aside_toggler"><span></span></button>
+                    -->
+            </div>
+            <div class="menu-footer"><p [ngClass]="{'footer-text-shrink': !isOpen}"> © <script>document.write(new Date().getFullYear())</script> EMIS</p> </div>
+        </div>
+    </div>
+    <!-- end:: Aside Menu -->
+</div>
+<!-- end:: Aside -->

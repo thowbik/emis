@@ -1,0 +1,263 @@
+<div style="padding-top:2%;padding-bottom:2%" class="doNotPrint">
+    <button type="button" id="btnprint" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF" (click)="onPdf()"
+        class="ui-button-success"
+        style="float:right;background-color: red;margin-right: 2%;font-weight: bold;border: 1px solid red;"></button>
+</div>
+<div id="printableArea">
+    <div class="card ui-card-body my-3 box-shwd">
+        <!-- <form [formGroup]="form" novalidate> -->
+            <div class="row" style="padding:2%">
+
+                <div class="col-sm-12" style="padding-top:2%">
+                    <div class="border-line">
+                        <div style="padding:2%">
+
+                       
+
+                            <!-- <div class="row head-style">
+                                <label>DIRECTOR OF SCHOOL EDUCATION</label>
+                            </div>
+
+                            <div class="row sub-txtaln">
+                                <div class="col-md-1" style="border-top:1px solid black;border-left:1px solid black;">
+                                    <label>Copy To:</label>
+                                </div>
+                                <div class="col-md-11"
+                                    style="border-top:1px solid black;border-left:1px solid black;border-right: 1px solid black;">
+                                    <label>Central Board of Secondary Education,Shikshakendra,No.2, Community
+                                        Centre,Preet
+                                        Vihar, New Delhi-110 019.
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row sub-txtaln">
+                                <div class="col-md-1"
+                                    style="border-top:1px solid black;border-left:1px solid black;border-bottom: 1px solid black;">
+                                    <label></label>
+                                </div>
+                                <div class="col-md-11" style="border:1px solid black;">
+                                    <label>The Chief Educational Officer,
+                                        District.
+                                    </label>
+                                </div>
+                            </div> -->
+
+                            <div class="row head-style">
+                                <label>SCHOOL EDUCATION DEPARTMENT</label>
+                            </div><br>
+                            <div class="row sub-txtaln">
+                                <div class="col-md-6"
+                                    style="border-top:1px solid black;border-left:1px solid black;border-bottom: 1px solid black;">
+                                    <label><span style="font-weight: bold;">From<br>
+                                            Dr.S. Kannappan,</span><br>
+                                        Director of School Education,<br>
+                                        College Road,<br>
+                                        Chennai-600 006.<br>
+                                        Tamilnadu
+                                        044-2827 8796.</label>
+                                </div>
+                                <div class="col-md-6" style="border:1px solid black;">
+                                    <label><span style="font-weight: bold;">To</span><br>
+                                        Central Board of Secondary Education,<br>Shikshakendra,<br>No.2, Community Centre,<br>Preet
+                                        Vihar,<br> New Delhi-110 019.
+                                    </label>
+                                </div>
+                            </div><br>
+
+                            <div class="row ">
+                                <div class="col-md-6 sub-txtaln">
+                                    <label style="color:#075c49">K.Dis No:</label>
+                                </div>
+                                <div class="col-md-6 right-aln">
+                                    <label>Dated : <span style="color:black">{{this.date}}</span></label>
+                                </div>
+                            </div>
+
+                            <div class="row ">
+                                <div class="col-md-1 sub-aln">
+                                    <label>Sub:</label>
+                                </div>
+                                <div class="col-md-11 to-sub-aln">
+                                    <label>Schools - {{data.district_name}} District -
+                                        Application for affiliation to the Central Board of Secondary Education– Issue
+                                        of No
+                                        Objection Certificate – Regarding.</label>
+                                </div>
+                            </div>
+
+                            <div class="row ">
+                                <div class="col-md-1 sub-aln">
+                                    <label>Ref:</label>
+                                </div>
+                                <div class="col-md-11 to-sub-aln">
+                                    <span class="span-txt">1.</span><label>Right of Children to Free and Compulsory
+                                        Education Act -2009.</label>
+                                </div>
+                            </div>
+
+                            <div class="row ">
+                                <div class="col-md-1 sub-aln">
+                                    <label></label>
+                                </div>
+                                <div class="col-md-11 to-sub-aln">
+                                    <span class="span-txt">2.</span>Tamil Nadu Right of Children to Free and Compulsory
+                                    Education
+                                    Rules -2011.<label></label>
+                                </div>
+                            </div>
+
+                            <div class="row ">
+                                <div class="col-md-1 sub-aln">
+                                    <label></label>
+                                </div>
+                                <div class="col-md-11 to-sub-aln">
+                                    <span class="span-txt">3.</span><label>TamilNadu Recognized Private Schools
+                                        (Regulation)
+                                        Act 1973 and Rules 1974.</label>
+                                </div>
+                            </div>
+
+                            <div class="row ">
+                                <div class="col-md-1 sub-aln">
+                                    <label></label>
+                                </div>
+                                <div class="col-md-11 to-sub-aln">
+                                    <span class="span-txt">4.</span><label>The Chief Educational Officer, letter
+                                        R.C.No. </label>
+                                </div>
+                            </div>
+
+                            <div class="row ">
+                                <div class="col-md-1 sub-aln">
+                                    <label></label>
+                                </div>
+                                <div class="col-md-11 to-sub-aln">
+                                    <span class="span-txt">5.</span><label>The Correspondent,{{data.school_name}}, {{data.district_name}} District</label>
+                                </div>
+                            </div>
+
+                            <div class="row ">
+                                <div class="col-md-1 sub-aln">
+                                    <label></label>
+                                </div>
+                                <div class="col-md-11 to-sub-aln">
+                                    <span class="span-txt">6.</span><label>This office order R.C.No. , Dated:
+                        </label>
+                                </div>
+                            </div><br>
+
+                            <div class="row sub-aln">
+                                <label style="color:black">In the reference (vi) cited,{{data.school_name}}, {{data.district_name}} District </label>
+                            </div>
+
+                            <div class="row sub-aln">
+                                <label style="color:black">(Registered in Sub Registrar Ashok Nagar, 167/2015,
+                                    Dated 20.08.2015) is accorded “Certificate of Recognition” up to {{data.order_valid_upto_date}} for Classes {{data.order_from_class}} - {{data.order_to_class}} Std
+                                    under
+                                    section 18 of Right of Children to Free and Compulsory Education Act-2009 and Rule
+                                    12 &
+                                    13 of Tamil Nadu Right of Children to Free and Compulsory Education Rules – 2011
+                                    amended
+                                    there under and the Tamil Nadu Recognized Private Schools (Regulation) Act 1973 and
+                                    Rules 1974.</label>
+                            </div>
+
+                            <div class="row sub-aln">
+                                <label>Details of School</label>
+                            </div>
+
+                            <div class="row sub-aln">
+                                <div class="col-md-6 table-line">
+                                    <label>1. Survey No</label>
+                                </div>
+                                <div class="col-md-6 table-line">
+                                </div>
+                            </div>
+
+                            <div class="row sub-aln">
+                                <div class="col-md-6 table-line">
+                                    <label>2. Revenue Village / City</label>
+                                </div>
+                                <div class="col-md-6 table-line">
+                                </div>
+                            </div>
+
+                            <div class="row sub-aln">
+                                <div class="col-md-6 table-line">
+                                    <label>3. Taluk</label>
+                                </div>
+                                <div class="col-md-6 table-line">
+                                </div>
+                            </div>
+
+                            <div class="row sub-aln">
+                                <div class="col-md-6 table-line">
+                                    <label>4. Total area of land</label>
+                                </div>
+                                <div class="col-md-6 table-line">
+                                </div>
+                            </div>
+
+                            <div class="row sub-aln">
+                                <div class="col-md-6 table-all-line">
+                                    <label>5. Recognition Code </label>
+                                </div>
+                                <div class="col-md-6 table-all-line"> {{data.order_recog_number}}
+                            </div>
+                        </div><br>
+
+                            <div class="row sub-aln">
+                                <label style="color:black">The Department of School Education, Tamil Nadu has No Objection for the
+                                    Correspondent
+                                    of the {{data.school_name}}, {{data.district_name}} District
+                                    Tamil Nadu School for applying for affiliation to Central Board of Secondary
+                                    Education,
+                                    subject to the conditions laid down in the Certificate of Recognition. </label>
+                            </div>
+
+                            <div class="row sub-aln">
+                                <label style="color:black">The School Management Shall have to full responsibility if any court case arise
+                                    this
+                                    regard. The details furnished if any by the management is found to be false or
+                                    incorrect
+                                    at any stage, this No Objection Certificate is liable to be cancelled.</label>
+                            </div>
+                           
+                            
+                            <div class="row head-style">
+                                <label>DIRECTOR OF SCHOOL EDUCATION</label>
+                            </div>
+
+                            <div class="row sub-aln ">
+                                <label style="font-weight: bold;">Copy to </label>
+                            </div>
+
+                            <div class="row sub-aln">
+                                <div class="col-md-12  table-line">
+                                    <label style="color:black">1. The Correspondent, {{data.school_name}}, {{data.district_name}}</label>
+                                </div>
+                              
+                            </div>
+
+                            <div class="row sub-aln">
+                                <div class="col-md-12 table-all-line">
+                                    <label style="color:black">2. The Chief Educational Officer, {{data.district_name}} District. </label>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        <!-- </form> -->
+    </div>
+</div>

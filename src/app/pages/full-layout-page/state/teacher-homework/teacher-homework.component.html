@@ -1,0 +1,104 @@
+<p-card>
+    <div class="row" style="padding-top:8px;">
+        <div class="col-sm-4 col-md-4">
+            <h5 style="color:teal">STUDENT HOMEWORK DETAILS</h5>
+        </div>
+            <div class="col-sm-8 col-md-8 ui-helper-clearfix text-right">
+                   <button type="button" pButton icon="pi pi-file-excel" iconPos="left" (click)="exportExcel()"
+                      label="EXCEL" class="ui-button-success">
+                  </button><span></span>
+                    <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" 
+                      label="PDF" (click)="exportPdf()" class="ui-button-warning">
+                      </button>
+                  </div>
+    </div>
+  </p-card>
+  <p-card>
+    <p-table #dt [columns]="cols" [value]="homework_data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,30,50]" [showCurrentPageReport]="true" 
+     [globalFilterFields]="['book_name','class_id','section']">
+        <ng-template pTemplate="caption">
+    <div class="row">
+    <div class="col-sm-6 col-md-6 text-left">
+        <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+        <input type="text" pInputText size="20" placeholder="Search"
+            (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+    </div>  
+    <div class="col-sm-6 col-md-6 text-right">
+        <button pButton type="button" label="ADD+" iconPos="right" (click)="getAddDialog()"></button>
+    </div>  
+  </div>
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+    <tr class="text-center">
+         <th>S.No</th>
+        <th *ngFor= "let col of columns"  [pSortableColumn]="col.field">
+            {{col.header}}
+        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+        </th>
+        <th>Edit</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-reports let-columns="columns" let-i="rowIndex">
+    <tr>
+        <td style="text-align:center">{{i+1}}</td>
+        <td style="text-align:center">
+            {{reports.book_name}}
+        </td>
+        <td style="text-align:center">
+            {{reports.class_id}}-{{reports.section}}
+        </td>
+         <td style="text-align:center">
+             <button type="button" class="btn btn-light" label="Edit" (click)="getEditPopup(reports.school_key_id,reports.id,reports.teacher_id,reports.subject,reports.information,reports.class_id,reports.section,reports.class_section_id,reports.status)">Edit</button>
+         </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <tr class="text-left" *ngIf="noDataFound">
+        <td colspan="6" style="text-align: center;"> No Data Found </td>
+    </tr>
+  </ng-template>
+  </p-table>
+  </p-card>
+  <p-dialog
+  [(visible)]="showDialogBox" [style]="{'width':'50vw','overflow-y' :'scroll'}" [modal]="true" [maximizable]="true"  [baseZIndex]="10000">
+  <p-header>
+  HomeWork
+  </p-header>
+  <form [formGroup]="homeWorkdetails">
+  <div class="row form-group " style="padding-top: 10px;">
+    <div class="col-sm-6 col-md-6">
+        <label>Class</label><label class="colour">*</label>
+        <p-dropdown [options]="class"  placeholder = "Select Class" formControlName="selectclass" (onChange)="getClassDropdown($event)"></p-dropdown>
+    </div>
+    <div class="col-sm-6 col-md-6">
+        <label>Section</label><label class="colour">*</label>
+        <p-dropdown [options]="sectionDatas" placeholder = "Select section"  formControlName="selectsection" (onChange)="getSectionEventValue($event)">
+           
+        </p-dropdown>
+  
+    </div>
+    <div class="col-sm-6 col-md-6" *ngIf = "homeWorkdetails.value.selectclass == '1' || homeWorkdetails.value.selectclass == '2' || homeWorkdetails.value.selectclass == '3'" >  
+      <label>Subject</label><label class="colour">*</label> 
+      <p-dropdown [options]="subjectdropdown" placeholder = "Select Subject" formControlName="selectsubject"></p-dropdown>
+    </div>
+    
+    <div class="col-sm-6 col-md-6" *ngIf = "homeWorkdetails.value.selectclass == '4' || homeWorkdetails.value.selectclass == '5' || homeWorkdetails.value.selectclass == '6' || homeWorkdetails.value.selectclass == '7' || homeWorkdetails.value.selectclass == '8' || homeWorkdetails.value.selectclass == '9' || homeWorkdetails.value.selectclass == '10' || homeWorkdetails.value.selectclass == '11' || homeWorkdetails.value.selectclass == '12'">     
+        <label>Subject</label><label class="colour">*</label> 
+        <p-dropdown [options]="subject1" placeholder = "Select Subject" formControlName="selectsubject"></p-dropdown>
+    </div>
+    </div>
+    <div class="col-sm-12 col-md-12">
+        <label>Home Work</label><label class="colour">*MAXIMUM 1000 CHARACTERS</label> 
+    </div>
+    <div>
+        <p-editor formControlName="description" [style]="{'height':'250px'}"></p-editor>
+    </div>
+    <p-footer>
+        <div class="text-right">
+            <button type="submit" class="btn btn-success" name="Save" (click)="getNewDataSave()">Save</button>
+            <button type="submit" class="btn btn-success" name="Delete" (click)="getDelete()">Delete</button>
+            <button type="submit" class="btn btn-light" (click)="close_dialog()">Cancel</button>
+        </div>
+    </p-footer> 
+  </form>
+  </p-dialog>

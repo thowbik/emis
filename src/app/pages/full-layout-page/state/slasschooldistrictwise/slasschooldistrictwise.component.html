@@ -1,0 +1,183 @@
+<div class="m-4" *ngIf="pageStage === 1">
+    <p-card>
+       <div class="container-fluid header_fonts">
+          <div class="row mb-2">
+             <div class="col-md-6">
+                <h5>SLAS Marks Range - DISTRICT_WISE </h5>
+             </div>
+             <div class="col-md-6">
+                <div class="text-right">
+                   <!-- <input type="text" pInputText size="30" placeholder="SLAS Marks Range" > -->
+                </div>
+             </div>
+          </div>
+       </div>
+       <div>
+          <p-table [columns]="dataHeader"  [value]="stud_dist">
+          <ng-template pTemplate="header" let-Datas>
+             <tr>
+                <th class="sno-header-layout"></th>
+                <th ></th>
+                <th></th>
+                <th *ngFor="let Data of dataHeader" [pSortableColumn]="Data.field" [style.width]="Data.widthstyle"  colspan="2" style="text-align: center;">
+                {{Data.header}}
+                <p-sortIcon [field]="Data.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+             </tr>
+             <tr>
+                <th class="sno-header-layout">S.NO</th>
+                <th *ngFor="let Data of subdataHeader" [pSortableColumn]="Data.field" [style.width]="Data.widthstyle">
+                {{Data.header}}
+                <p-sortIcon [field]="Data.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+             </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-diststud let-columns="columns" let-i="rowIndex">
+             <tr>
+                <td>{{i+1}}</td>
+                <td><a class="link-url" href="javascript:void(0)" (click)="distwisestudetrep(diststud.district_id)">{{diststud.district_name}}</a></td>
+                <td style="text-align: center;">{{diststud.total}}</td>
+                <td style="text-align: center;">{{diststud.p0}}</td>
+                <td style="text-align: center;">{{diststud.per0 }}%</td>
+                <td style="text-align: center;">{{diststud.p1 }}</td>
+                <td style="text-align: center;">{{diststud.per1 }}%</td>
+                <td style="text-align: center;">{{diststud.p2 }}</td>
+                <td style="text-align: center;">{{diststud.per2 }}%</td>
+                <td style="text-align: center;">{{diststud.p3 }}</td>
+                <td style="text-align: center;">{{diststud.per3 }}%</td>
+                <td style="text-align: center;">{{diststud.p4 }}</td>
+                <td style="text-align: center;">{{diststud.per4 }}%</td>
+             </tr>
+          </ng-template>
+          <ng-template pTemplate="footer">
+             <tr class="text-center" *ngIf="noDataFound === 1" >
+                <td colspan="13"> No Data Found </td>
+             </tr>
+          </ng-template>
+          </p-table>
+       </div>
+    </p-card>
+  </div>
+  <!-- blockwise -->
+  <div class="m-4" *ngIf="pageStage === 2 ">
+    <p-card >
+       <div class="container-fluid header_fonts">
+          <div class="row mb-1">
+              <div class="col-md-6">
+                <h5>SLAS Marks Range - DISTRICT :</h5>
+              </div>
+              <div class="col-md-6 text-right">           
+                    <!-- <input type="text" pInputText size="30" placeholder="SLAS Marks Range" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">          -->
+              </div>
+           </div>
+        
+       </div>
+       <div>
+          <p-table [columns]="dataHeader1"  [value]="studdistDetail">
+          <ng-template pTemplate="header" let-Datas>
+             <tr>
+                <th class="sno-header-layout"></th>
+                <th ></th>
+                <th></th>
+                <th *ngFor="let blks of dataHeader1" [pSortableColumn]="blks.field" [style.width]="blks.widthstyle"  colspan="2" style="text-align: center;">
+                {{blks.header}}
+                <p-sortIcon [field]="blks.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+             </tr>
+             <tr>
+                <th class="sno-header-layout">S.NO</th>
+                <th *ngFor="let blkby of subdataHeader1" [pSortableColumn]="blkby.field" [style.width]="blkby.widthstyle">
+                {{blkby.header}}
+                <p-sortIcon [field]="blkby.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+             </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-stdblk let-columns="columns" let-i="rowIndex">
+             <tr >
+                <td>{{i+1}}</td>
+                <td><a class="link-url" href="javascript:void(0)" (click)="studschool(stdblk.block_id)">{{stdblk.block_name}}</a></td>
+                <td style="text-align: center;">{{stdblk.total}}</td>
+                <td style="text-align: center;">{{stdblk.p0}}</td>
+                <td style="text-align: center;">{{stdblk.per0 }}%</td>
+                <td style="text-align: center;">{{stdblk.p1}}</td>
+                <td style="text-align: center;">{{stdblk.per1 }}%</td>
+                <td style="text-align: center;">{{stdblk.p2}}</td>
+                <td style="text-align: center;">{{stdblk.per2}}%</td>
+                <td style="text-align: center;">{{stdblk.p3 }}</td>
+                <td style="text-align: center;">{{stdblk.per3}}%</td>
+                <td style="text-align: center;">{{stdblk.p4}}</td>
+                <td style="text-align: center;">{{stdblk.per4}}%</td>
+             </tr>
+          </ng-template>
+          <ng-template pTemplate="footer">
+             <tr class="text-center" *ngIf="noDataFound === 2" >
+                <td colspan="13"> No Data Found </td>
+             </tr>
+          </ng-template>
+          </p-table>
+       </div>
+    </p-card>
+  </div>
+  <!-- schoolwise -->
+  <div class="m-4" *ngIf="pageStage === 3">
+    <p-card >
+       <div class="container-fluid header_fonts">
+          <div class="row p-1">
+             
+          </div>
+          <div class="row mb-1">
+            <div class="col-md-6">
+              <h5>SLAS Marks Range - BLOCK :</h5>
+            </div>
+            <div class="col-md-6 text-right">           
+                  <!-- <input type="text" pInputText size="30" placeholder="SLAS Marks Range" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">          -->
+            </div>
+         </div>
+       </div>
+       <div>
+          <p-table [columns]="dataHeader2"  [value]="schliststudDetail">
+          <ng-template pTemplate="header" let-Datas>
+             <tr>
+                <th class="sno-header-layout"></th>
+                <th ></th>
+                <th></th>
+                <th *ngFor="let Data of dataHeader2" [pSortableColumn]="Data.field" [style.width]="Data.widthstyle"  colspan="2" style="text-align: center;">
+                {{Data.header}}
+                <p-sortIcon [field]="Data.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+             </tr>
+             <tr>
+                <th class="sno-header-layout">S.NO</th>
+                <th *ngFor="let Data of subdataHeader2" [pSortableColumn]="Data.field" [style.width]="Data.widthstyle">
+                {{Data.header}}
+                <p-sortIcon [field]="Data.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+             </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-schlist let-columns="columns" let-i="rowIndex">
+             <tr >
+                <td>{{i+1}}</td>
+                <td style="text-align: center;">{{schlist.school_name}}</td>
+                <td style="text-align: center;">{{schlist.total}}</td>
+                <td style="text-align: center;">{{schlist.p0}}</td>
+                <td style="text-align: center;">{{schlist.per0}}%</td>
+                <td style="text-align: center;">{{schlist.p1}}</td>
+                <td style="text-align: center;">{{schlist.per1}}%</td>
+                <td style="text-align: center;">{{schlist.p2}}</td>
+                <td style="text-align: center;">{{schlist.per2}}%</td>
+                <td style="text-align: center;">{{schlist.p3}}</td>
+                <td style="text-align: center;">{{schlist.per3}}%</td>
+                <td style="text-align: center;">{{schlist.p4}}</td>
+                <td style="text-align: center;">{{schlist.per4}}%</td>
+                
+             </tr>
+          </ng-template>
+          <ng-template pTemplate="footer">
+             <tr class="text-center" *ngIf="noDataFound === 3" >
+                <td colspan="13"> No Data Found </td>
+             </tr>
+          </ng-template>
+          </p-table>
+       </div>
+    </p-card>
+  </div>

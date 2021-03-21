@@ -1,0 +1,174 @@
+<div class="main-body-content p-3">
+
+    <div class="outer-layout" style="padding-top:5px;">
+        <div class="breadcrumbs c-black">
+            <h6 class="url"><span class="flex-gap-right">Students</span> <i class="fa fa-angle-right flex-gap-right"
+                    aria-hidden="true"></i> <span class="flex-gap-right">Competition Participation</span></h6>
+        </div>
+    </div>
+    <p-card>
+        <form [formGroup]="competitionForm">
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label class="font-weight-bold" style="color: teal;font-size: 14px;">Select Competition<span
+                            class="text-danger"> *
+                        </span></label>
+                    <select id="select2" formControlName="SubCatID" class="form-control "
+                        style="border: 1px solid #a6a6a6;" (change)="onChangeComp($event.target.value)">
+                        <option value="" style="font-weight:500">Select Competition</option>
+                        <option *ngFor="let Competition of competitionNames" [value]="Competition.value">
+                            {{ Competition.label }}
+                        </option>
+                    </select>
+                    <p-message severity="error" class="flex-gap-top" text="This field is required"
+                        *ngIf="competitionForm.controls.SubCatID.errors && ( competitionForm.controls.SubCatID.dirty || competitionForm.controls.class_id.touched)"
+                        class="validation-error"></p-message>
+                </div>
+                <div class="col-md-3">
+                    <label class="font-weight-bold" style="color: teal;font-size: 14px;">Select Class<span
+                            class="text-danger"> *
+                        </span></label>
+                    <select id="select2" formControlName="class_id" class="form-control "
+                        (change)="onChangeClass($event.target.value)" style="border: 1px solid #a6a6a6;">
+                        <option value="" style="font-weight:500">Select Class</option>
+                        <option *ngFor="let classes of classNames" [value]="classes.value">
+                            {{ classes.roman }}
+                        </option>
+                    </select>
+                    <p-message severity="error" class="flex-gap-top" text="This field is required"
+                        *ngIf="competitionForm.controls.class_id.errors && ( competitionForm.controls.class_id.dirty || competitionForm.controls.class_id.touched)"
+                        class="validation-error"></p-message>
+
+                </div>
+                <div class="col-md-3">
+                    <label class="font-weight-bold" style="color: teal;font-size: 14px;">Select Section<span
+                            class="text-danger"> *
+                        </span></label>
+                    <select id="select2" formControlName="section" class="form-control"
+                        (change)="onSectionChange($event.target.value)" style="border: 1px solid #a6a6a6;">
+                        <option value="" style="font-weight:500">Select Section</option>
+                        <option *ngFor="let item of assigned_section1" [value]="item">
+                            {{item}}
+                        </option>
+                    </select>
+                    <p-message severity="error" class="flex-gap-top" text="This field is required"
+                        *ngIf="competitionForm.controls.section.errors && ( competitionForm.controls.section.dirty || competitionForm.controls.section.touched)"
+                        class="validation-error"></p-message>
+                </div>
+            </div>
+        </form>
+    </p-card>
+  
+    <p-table #db [columns]="dataHeader" [value]="competitionReportList" [resizableColumns]="true" [paginator]="true"
+        [rows]="10">
+        <ng-template pTemplate="caption">
+            <div class="row">
+                <div class="col-sm-8 pt-3 text-left">
+                    <i *ngIf="this.competitionForm.value.SubCatID==4 || this.competitionForm.value.SubCatID==6">Note : If you update any details please click the Submit button. Only your changes has been saved.</i>
+            </div>
+                <!-- <div class="col-md-8"></div> -->
+                <div class="col-md-3 text-right">
+                    <input class="form-control" type="text" (input)="db.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Search">
+                </div>
+                <!-- <div class="col-md-1 text-right" style="padding-top: 15px;padding-right:28px;">
+                    <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                        (click)="exportExcelSummary()"></i>
+                </div> -->
+            </div>
+        </ng-template>
+        <!-- <ng-template pTemplate="header" let-columns>
+            <tr class="text-center">
+                <th style="width:4em;">S.No</th>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+    
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+                        ariaLabelDesc="Activate to sort in descending order"
+                        ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template> -->
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 50px; text-align: center;"># </th>
+                <th pSortableColumn="name" class="text-center">Students Name<p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="gender" class="text-center"> Gender<p-sortIcon field="gender"></p-sortIcon></th>
+                <th pSortableColumn="isactive"  class="text-center">Participating<p-sortIcon field="isactive"></p-sortIcon></th>
+                <th *ngIf="this.competitionForm.value.SubCatID =='4' || this.competitionForm.value.SubCatID =='6'"  class="text-center" pSortableColumn="file">Upload File<p-sortIcon field="file"></p-sortIcon></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-student let-columns="columns" let-i="rowIndex">
+            <tr class="text-center">
+                <td>{{i+1}}</td>
+                <td style="width: 13em;" class="text-left">{{student.name}}</td>
+                <td class="text-left">{{ (student.gender == '1') ? "Male" : "Female" }}</td>
+                <td>
+                    <p-checkbox binary="true" [(ngModel)]="student.status" (onChange)="childToggle($event,student)">
+                    </p-checkbox>
+                </td>
+
+                <td *ngIf="this.competitionForm.value.SubCatID =='4' || this.competitionForm.value.SubCatID =='6'">
+                    <div class="row row flex-row-center flex-gap-top" *ngIf="(this.competitionForm.value.SubCatID =='4' && student.isactive=='1') ||(this.competitionForm.value.SubCatID =='6' && student.isactive=='1') ">
+                        <!-- <div class="image-upload cursor">
+                            <input type="file" name="file" id="file"  (change)="onSelectFile($event,student)" class="inputfile" />
+                            <label for="file"> 
+                         <i class="pi pi-cloud-upload color icon"></i>
+                            </label>
+                          </div>{{student | json}} -->
+                          <!-- <button (click)="upload(student)">upload a file</button> -->
+                          <label class="filebutton">
+                           <span><input #file  type='file' (change)="onSelectFile($event,student)"> <i class="pi pi-cloud-upload color icon"></i></span>
+                        </label>
+                         
+                        <button pButton type="button" icon="pi pi-eye" class="ui-button-info custom cursor" (click)="getUploadedFiles(student)" style="margin-right: .5em"></button>
+                    </div> 
+                
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+            <tr >
+                <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                    <strong>No records found</strong>
+                </td>
+            </tr>
+        </ng-template>
+
+    </p-table>
+    <br><br>
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-10"><br><br></div>
+        <div class="ui-grid-col-2">
+            <button style="float: right;" pButton type="button" label=" Submit "
+                class="ui-button-raised ui-button-rounded" (click)="onSubmitData()"></button>
+        </div>
+    </div>
+
+</div>
+
+<p-dialog header="View the File" [(visible)]="displayEditDialog" [modal]="true" [draggable]="false" [responsive]="true"
+    [blockScroll]="true" [maximizable]="false"
+    [contentStyle]="{'max-width':'1000px','max-height': '450px','overflow-y': 'auto'}">
+    <form id="edit_form">
+        <div>
+            <h4></h4>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+                    <div class="ui-g-3">
+                        <label class="hoverable" for="fileInput">
+                            <img [src]="image" width="200" height="200" alt="Wall Painting" accept="image/*">
+                            <div class="hover-text"></div>
+                            <div class="background"></div>
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+
+</p-dialog>
+
+

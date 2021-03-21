@@ -1,0 +1,190 @@
+section {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 3px;
+  width: calc(100% - 20px);
+  display: inline-block;
+  height: auto;
+  border: solid 1px #cccecc;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+section .all {
+  width: 100%;
+  height: auto;
+  display: inline-block;
+}
+section .all .slider {
+  width: auto;
+  height: auto;
+  overflow: hidden;
+  border-radius: 3px;
+  position: relative;
+}
+section .all .slider .owl-nav, section .all .slider .owl-dots {
+  display: none;
+}
+section .all .slider:hover .left {
+  visibility: visible;
+  opacity: 1;
+  left: 20px;
+}
+section .all .slider:hover .right {
+  visibility: visible;
+  opacity: 1;
+  right: 20px;
+}
+section .all .slider .item-box {
+  padding: 20px;
+  overflow: hidden;
+  width: 100%;
+  height: 400px;
+  position: relative;
+  border-radius: 3px;
+  background: no-repeat url(http://www.cyw51.com/file/upload/201302/22/18-49-19-74-127.jpg) center center;
+  background-size: cover;
+}
+section .all .slider .item-box:after {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  content: "";
+  display: block;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), #000);
+}
+section .all .slider .left {
+  position: absolute;
+  z-index: 1;
+  top: 167px;
+  left: -20px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  visibility: hidden;
+  opacity: 0;
+  transition: left ease 0.25s;
+  transform: rotate(0deg);
+  background: url(http://svgshare.com/i/2V9.svg) top left;
+}
+section .all .slider .left:hover {
+  visibility: visible;
+  opacity: 1;
+  left: 20px;
+  background: url(http://svgshare.com/i/2UW.svg) top left;
+  transform: rotate(180deg);
+}
+section .all .slider .left.nonl {
+  left: -20px;
+  opacity: 0;
+  visibility: hidden;
+}
+section .all .slider .right {
+  cursor: pointer;
+  position: absolute;
+  z-index: 1;
+  top: 167px;
+  right: -20px;
+  width: 40px;
+  height: 40px;
+  visibility: hidden;
+  opacity: 0;
+  transition: right ease 0.25s;
+  background: url(http://svgshare.com/i/2V9.svg) top left;
+  transform: rotate(180deg);
+}
+section .all .slider .right:hover {
+  visibility: visible;
+  opacity: 1;
+  right: 20px;
+  background: url(http://svgshare.com/i/2UW.svg) top left;
+  transform: rotate(0deg);
+}
+section .all .slider .right.nonr {
+  right: -20px;
+  opacity: 0;
+  visibility: hidden;
+}
+section .all .slider-two {
+  width: auto;
+  height: auto;
+  overflow: hidden;
+  position: relative;
+}
+section .all .slider-two .owl-nav, section .all .slider-two .owl-dots {
+  display: none;
+}
+section .all .slider-two:hover .left-t {
+  visibility: visible;
+  opacity: 1;
+  left: 3px;
+}
+section .all .slider-two:hover .right-t {
+  visibility: visible;
+  opacity: 1;
+  right: 3px;
+}
+section .all .slider-two .item {
+  transition: all ease 0.25s;
+  height: 100px;
+  border-radius: 3px;
+  border: solid 3px #e6ecf2;
+  cursor: pointer;
+  background: no-repeat url(http://www.cyw51.com/file/upload/201302/22/18-49-19-74-127.jpg) center center;
+  background-size: cover;
+}
+section .all .slider-two .item.active {
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.15);
+  border: solid 3px #cc2e38;
+}
+section .all .slider-two .owl-stage {
+  padding: 20px 0;
+}
+section .all .slider-two .left-t {
+  transform: rotate(180deg);
+  cursor: pointer;
+  position: absolute;
+  z-index: 1;
+  top: 23px;
+  visibility: hidden;
+  opacity: 0;
+  transition: all ease 0.25s;
+  width: 40px;
+  height: 95px;
+  background: no-repeat rgba(204, 46, 56, 0.85) url(http://svgshare.com/i/2Vs.svg) center center;
+  left: -40px;
+}
+section .all .slider-two .left-t:hover {
+  visibility: visible;
+  opacity: 1;
+  left: 3px;
+}
+section .all .slider-two .left-t.nonl-t {
+  left: -40px;
+  opacity: 0;
+  visibility: hidden;
+}
+section .all .slider-two .right-t {
+  background: no-repeat rgba(204, 46, 56, 0.85) url(http://svgshare.com/i/2Vs.svg) center center;
+  cursor: pointer;
+  position: absolute;
+  z-index: 1;
+  top: 23px;
+  right: -40px;
+  visibility: hidden;
+  opacity: 0;
+  transition: all ease 0.25s;
+  width: 40px;
+  height: 95px;
+  background-color: rgba(204, 46, 56, 0.85);
+}
+section .all .slider-two .right-t:hover {
+  visibility: visible;
+  opacity: 1;
+  right: 3px;
+}
+section .all .slider-two .right-t.nonr-t {
+  right: -40px;
+  opacity: 0;
+  visibility: hidden;
+}

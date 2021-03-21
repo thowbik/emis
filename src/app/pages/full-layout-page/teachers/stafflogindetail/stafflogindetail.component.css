@@ -1,0 +1,6 @@
+.img-flex {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    place-content: center;
+}

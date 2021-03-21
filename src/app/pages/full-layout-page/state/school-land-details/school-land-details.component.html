@@ -1,0 +1,95 @@
+<div class="container-fluid" *ngIf="pageStage === 1">
+  <div class="main-body-content m-2">  
+    <p-table #dt  [columns]="dataHeader" [value]="schoolLandData" [resizableColumns]="true" >
+        <ng-template let-landData pTemplate="caption">
+          <div class="row p-1">
+            <div class="col-sm-6">
+                <div class="text-lg-left mt-3">
+                  <h5>School Land Details</h5>
+                </div>
+            </div>
+            <div class="col-sm-6 p-1">
+                <div class="text-right">
+                     <input type="text" pInputText size="30" placeholder="School Land Details Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                </div>              
+             </div>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-landData>
+          <tr class="text-center">
+            <th class="sno-header-layout">S.No</th>
+            <th *ngFor="let col of landData" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+              {{col.header}}
+              <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-landData let-rowData let-columns="columns" let-i="rowIndex" >
+          <tr class="text-center" *ngIf="!noDataFound">
+            <td class="sno-header-layout"> {{i+1}} </td>
+            <td class="text-left"><a href="javascript:void(0)" (click)="getEachSchoolLandDetails(landData.district_id)"> {{ landData.district_name}} </a></td>
+            <td> {{ landData.std_count}} </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <tr class="text-center" *ngIf="noDataFound" >
+            <td colspan="3"> No Data Found </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div> 
+  </div>  
+  
+  <!-- Stage 2 -->
+
+  <div class="container-fluid" *ngIf="pageStage === 2">
+    <div class="main-body-content m-2">  
+      <p-table #dt  [columns]="dataHeader2" [value]="schoolLandBlockData" [resizableColumns]="true" [paginator]="true" [rows]="10">
+          <ng-template let-land pTemplate="caption">
+            <div class="row p-1">
+              <div class="col-sm-6">
+                  <div class="text-lg-left mt-3">
+                    <h5>School Land Details - Verification Report</h5>
+                  </div>
+              </div>
+              <div class="col-sm-6 p-1">
+                  <div class="text-right">
+                       <input type="text" pInputText size="30" placeholder="School Land Details Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                  </div>              
+               </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-land>
+            <tr class="text-center">
+              <th class="sno-header-layout">S.No</th>
+              <th *ngFor="let col of land" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-land let-rowData let-columns="columns" let-i="rowIndex" >
+            <tr class="text-center" *ngIf="!noDataFound2">
+              <td class="sno-header-layout"> {{i+1}} </td>
+              <td class="text-left"> {{ land.block_name}} </td>
+              <td> {{ land.udise_code}} </td>
+              <td class="text-left"> {{ land.school_name}} </td>
+  
+              <td> {{ land.play_area_sqft * 0.000247105 | number:'1.1-4' }} </td>
+              <td> {{ land.play_facility === '1' ? 'Yes' : 'No'}} </td>
+              <td> {{ land.play_land_area * 0.000247105 | number:'1.1-4'}} </td>
+  
+              <td> {{ land.land_ownersip === '3' ? 'Owned' : 'Rental Free' }} </td>
+              <td> {{ land.cmpwall_type === '1' ? 'Pucca' : land.cmpwall_type === '2' ? 'Pucca but broken' : land.cmpwall_type === '6' ? 'No boundry wall' : '' }} </td>
+              <td> {{ land.cmpwall_perimtr}} </td>
+              <td> {{ land.cmpwall_length}} </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <tr class="text-left" *ngIf="noDataFound2" >
+              <td colspan="11"> No Data Found </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div> 
+    </div>      

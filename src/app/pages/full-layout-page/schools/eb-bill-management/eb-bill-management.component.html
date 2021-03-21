@@ -1,0 +1,142 @@
+<!-- =>EB Bill Table1 Start -->
+<div class="main-body-content p-3">
+   <div class="outer-layout" style="padding-top:5px;">
+      <div class="breadcrumbs c-black">
+         <h6 class="url"><span class="flex-gap-right">Schools</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i> <span class="flex-gap-right" (click)="onCancelfirstpage()">KGBV & ARS</span><i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i><span class="flex-gap-right">EB Bill Maintenance </span></h6>
+      </div>
+   </div >
+   <!-- Table -->
+   <p-card *ngIf="PageStage == 1">
+      <p-confirmDialog [style]="{width: '36vw'}" [baseZIndex]="10000"></p-confirmDialog>
+      <p-table #dt [columns]="EBbill" [value]="EBList" editMode="row" [rows]="10" [paginator]="true" [resizableColumns]="true">
+      <ng-template pTemplate="caption">
+         <div class="row">
+            <div class="col-md-12" style="text-align:right !important">
+               <button type="button" pButton icon="fa fa-plus" label="Add" class="ui-button-info" (click)="onAddEBBill()">
+               </button>
+            </div>
+         </div>
+      </ng-template>
+      <ng-template pTemplate="header" let-distname>
+         <tr class="text-center">
+            <th class="sno-header-layout">#</th>
+            <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+            {{col.header}}
+            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"> </p-sortIcon>
+            </th>
+           
+         </tr>
+      </ng-template>
+      <ng-template pTemplate="header" let-distname>
+         <tr class="text-center">
+            <th class="sno-header-layout">#</th>
+            <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+            {{col.header}}
+            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"> </p-sortIcon>
+            </th>
+            <th>Action</th>
+         </tr>
+         <tr>
+            <th></th>
+          
+            <th *ngFor="let col of distname" [ngSwitch]="col.field">
+               <input *ngSwitchCase="'Typ'" pInputText type="text" class="textbox-filter" placeholder=" Search" (input)="dt.filter($event.target.value, col.field, 'contains')">
+            </th>
+            <th></th>
+         </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-stdlist let-rowData let-columns="columns" let-i="rowIndex">
+         <tr>
+            <td style="width:4em;">{{i+1}}</td>
+            <td *ngFor="let col of columns" class="ui-resizable-column">{{rowData[col.field]}}</td>
+            <td style="text-align: center;">
+               <button type="button" pButton icon="pi pi-pencil"  class="ui-button-info buttonsize" style="cursor: pointer;" (click)="oneditebbill(rowData)"></button>
+               <button pButton type="button" icon="fa fa-trash"  class="ui-button-warning deleteicon buttonsize" (click)="OnDeleteEbBill(rowData.IndxID)"></button>&nbsp; 
+            </td>
+         </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage" let-columns>
+         <tr>
+            <td [attr.colspan]="(columns.length)+2" style="text-align: center;">
+               <strong>No Records Found </strong>
+            </td>
+         </tr>
+      </ng-template>
+      </p-table>
+   </p-card>
+   <!-- Eb bill form start-->
+   <p-card *ngIf="PageStage == 2">
+      <form [formGroup]="form2">
+         <div class="row header">
+            EB Bill / Water Charges
+         </div>
+         <div class="form-group row">
+            <div class="col-lg-4 labelalign">
+               <label>Select Month <span class="manditory">*</span></label>
+               <p-dropdown [options]="Monthdropdown" formControlName="BillMonth" placeholder="Select Month" styleClass="dropdwnvalues"></p-dropdown>
+               <small class="form-text text-danger" *ngIf="!form2.get('BillMonth').valid && (submit2 || form2.get('BillMonth').dirty || form2.get('BillMonth').touched)">
+               Select Month Field is required</small>
+            </div>
+            <div class="col-lg-4 labelalign">
+               <label>Select Year <span class="manditory">*</span></label>
+               <div>
+                  <p-dropdown [options]="Yeardropdown" formControlName="BillYear" placeholder="Select Year" styleClass="dropdwnvalues"></p-dropdown>
+               </div>
+               <small class="form-text text-danger" *ngIf="!form2.get('BillYear').valid && (submit2 || form2.get('BillYear').dirty || form2.get('BillYear').touched)">
+               Select Year Field is required</small>
+            </div>
+         </div>
+         <div class="form-group row">
+            <div class="col-lg-4 labelalign">
+               <label>Status <span class="manditory">*</span></label>
+               <div>
+                  <p-dropdown [options]="type" formControlName="Status" placeholder="Select Type" styleClass="dropdwnvalues"></p-dropdown>
+               </div>
+               <small class="form-text text-danger" *ngIf="!form2.get('Status').valid && (submit2 || form2.get('Status').dirty || form2.get('Status').touched)">
+               Select type Field is required</small>
+            </div>
+            <div class="col-lg-4 labelalign">
+               <label>Select Payment For <span class="manditory">*</span></label>
+               <p-dropdown [options]="paymenttype" formControlName="Typ" placeholder="Select Type" styleClass="dropdwnvalues"></p-dropdown>
+               <small class="form-text text-danger" *ngIf="!form2.get('Typ').valid && (submit2 || form2.get('Typ').dirty || form2.get('Typ').touched)">
+               Select Payment  Field is required</small>
+            </div>
+         </div>
+         <div class="form-group row">
+            <div class="col-lg-4 labelalign">
+               <label>Bill Amount <span class="manditory">*</span></label>
+               <div>
+                  <input type="text" pInputText class="form-control" pInputText pKeyFilter="int" formControlName="BillAmt" placeholder="Enter the Bill Amont" > 
+               </div>
+               <small class="form-text text-danger" *ngIf="!form2.get('BillAmt').valid && (submit2 || form2.get('BillAmt').dirty || form2.get('BillAmt').touched)">
+               Select Bill Amount is required</small>
+            </div>
+            <div class="col-lg-6 labelalign">
+               <label>Attach Proof <span class="manditory">*</span></label>
+               <div class="flex-upload-btn">
+                  <input #file type='file' (change)="onSelectFile($event,'photo')"> 
+                  <button type="submit" class="btn btn-info" (click)="getUploadedFle()" *ngIf="updateBtn">View Uploaded Photo</button>
+               </div>
+               <img src="{{image}}" *ngIf="image" class="uploaded-img" width="100" height="100">
+               <small class="form-text text-danger" *ngIf="!form2.get('BillPhoto').valid && (submit2 || form2.get('BillPhoto').dirty || form2.get('BillPhoto').touched)">
+                  Select attach Proof Field is required</small>
+            </div>
+         </div>
+         <div class="form-group row">
+            <div class="col-lg-4 labelalign">
+               <label>Remarks <span class="manditory">*</span></label>
+               <div>
+                  <input type="text" pInputText class="form-control" formControlName="Remrks" placeholder="Enter the Bill Amont" > 
+               </div>
+               <small class="form-text text-danger" *ngIf="!form2.get('Remrks').valid && (submit2 || form2.get('Remrks').dirty || form2.get('Remrks').touched)">
+               Select Remarks is required</small>
+            </div>
+         </div>
+      </form>
+      <div class="text-right mt-3">
+         <button type="submit" class="btn btn-success" (click)="OnSaveForm2()" *ngIf="saveBtn">Save</button>
+         <button type="submit" class="btn btn-success" (click)="OnSaveFormupdate()" *ngIf="updateBtn">update</button> 
+         <button type="submit " class="btn btn-light btn-border" (click)="oncancel()" >Cancel</button>
+      </div>
+   </p-card>
+</div>

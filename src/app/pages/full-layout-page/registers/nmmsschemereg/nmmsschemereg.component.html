@@ -1,0 +1,59 @@
+<div class="main-body-content">
+    <div class="page-container">
+        <div class="flex-layout-gap">
+            <div class="main-body-content">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img">
+                    <p-table #dt class="prime-table" [columns]="sampleSelectedColumn" [value]="data" [paginator]="true" [rows]="10" [autoLayout]="true" [paginator]="true" [resizableColumns]="true" [rows]="10">
+                        <ng-template pTemplate="caption">
+                            <div class="row">
+                                <div style="text-align:left" class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <input type="text" pInputText size="20" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto; height: 85%;border: gray 1px solid;border-radius: 2px;padding-left:2%;">
+                                        </div>
+                                        <div class="col-lg-6" style="padding-left:10%;">
+                                            <p-multiSelect [options]="cols" [(ngModel)]="sampleSelectedColumn" optionLabel="header" selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" defaultLabel="Choose Columns"></p-multiSelect>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="ui-helper-clearfix col-md-6" style="text-align: right">
+                         <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL"
+                             (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
+                         <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF"
+                             (click)="exportPdf()" class="ui-button-warning"></button>
+                         </div> -->
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                            <tr style="white-space: nowrap" class="table-header">
+                                <th>#</th>
+                                <!-- <th>Student Name</th> -->
+                                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-car let-i="rowIndex" let-columns="columns">
+                            <tr [pSelectableRow]="car">
+                                <td class="sno-header-layout">{{i+1}}</td>
+                                <!-- <td>{{car.name}}</td> -->
+                                <td *ngFor="let col of columns">
+                                    <!-- {{car[col.field]}} -->
+                                    <a *ngIf="col.field == 'student_id'">{{car.student_id}}</a>
+                                    <a *ngIf="col.field == 'name'">{{car.name}}</a>
+                                    <a *ngIf="car[col.field]=== '1' && col.field == 'gender'">Male</a>
+                                    <a *ngIf="car[col.field]=== '2' && col.field == 'gender'">Female</a>
+                                    <a *ngIf="col.field == 'class'">{{car.class}}</a>
+                                    <a *ngIf="col.field == 'section'">{{car.section}}</a>
+                                    <a *ngIf="col.field == 'community_name'">{{car.community_name}}</a>
+                                    <a *ngIf="col.field == 'nmmsexam_passed'">{{car.nmmsexam_passed}}</a>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+<div class="main-body-content m-2">
+	<div class="outer-layout p-3">
+		<div class="breadcrumbs c-black">
+			<h6 class="url">
+           <span class="flex-gap-right">UDISE+ Reports</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+           <span class="flex-gap-right">Data Correction </span>
+        </h6>
+		</div>
+	</div>
+	<div class="m-1">
+		<p-table #dt [columns]="dataHeader" [value]="result_data">
+			<ng-template let-childrens pTemplate="caption">
+				<div class="row">
+					<div class="col-md-3">
+						<p-dropdown [options]="Data_Correction_for" placeholder="Data Correction For" (onChange)="TypeOptions($event)" styleClass="dropdwnvalues"></p-dropdown>
+					</div>	
+					 <div class="col-md-8 excel">
+						 <!-- <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="ExportExcel()" class="ui-button-success"></button>  -->
+					</div> 
+				</div>
+				<div class="row">
+					<div class="col-md-9 text-left">
+						<!-- <h5>Data Correction</h5> -->
+					</div>
+					<div class="col-md-2">
+						<div class="row mb-3" class="text-right">
+							<input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search Filter">
+						</div>
+					</div>
+					<div class = "col-sm-1" style="padding-top:10px;padding-left: 60px;">
+					<div *ngIf="Selected_dropdown_values == 1">
+						<i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel()"></i>
+					</div>
+					<div *ngIf="Selected_dropdown_values == 2">
+						<i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcelTeacher()"></i>
+					</div>
+					</div>
+				</div>
+			</ng-template>
+			<ng-template pTemplate="header" let-childrens>
+				<tr class="text-center">
+					<th class="sno-header-layout">S.No</th>
+					<th *ngFor="let col of childrens" [pSortableColumn]="col.field" [style.width]="col.widthstyle">{{col.header}}
+						<p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+					</th>
+				</tr>
+			</ng-template>
+			<ng-template pTemplate="body" let-datacorrection let-rowData let-i="rowIndex">
+				<tr *ngIf="!noDataFound && Selected_dropdown_values == 1" class="text-left">
+					<td class="sno-header-layout text-center">{{i+1}}</td>
+					<td class="text-justify">{{datacorrection.info}}</td>
+					<td class="text-center">{{datacorrection.unique_id_no}}</td>
+					<td class="text-left">{{datacorrection.name}}</td>
+					<td class="text-center">{{datacorrection.class_studying_id}}</td>
+					<td class="text-center">{{datacorrection.class_section}}</td>
+				</tr>
+				<tr *ngIf="!noDataFound && Selected_dropdown_values == 2" class="text-left">
+					<td class="sno-header-layout text-center">{{i+1}}</td>
+					<td class="text-justify">{{datacorrection.info}}</td>
+					<td class="text-center">{{datacorrection.teacher_id}}</td>
+					<td class="text-center">{{datacorrection.teacher_name}}</td>
+				</tr>
+			</ng-template>
+			<ng-template pTemplate="footer" let-columns>
+				<tr class="text-center" *ngIf="noDataFound">
+					<td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+						<!-- <td colspan="3"> --> <strong>No Data Found</strong>
+						<!-- </td> -->
+					</td>
+				</tr>
+				<tr *ngIf="onloadTemplate" class="text-center">
+					<td class="text-center">Select Student Or Teacher</td>
+				</tr>
+			</ng-template>
+		</p-table>
+	</div>
+</div>

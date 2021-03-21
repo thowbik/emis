@@ -1,0 +1,38 @@
+.bg_green{
+    background: #2d7464 !important ;
+}
+.green_title h4{font-size: 16px;}
+.bg_info{
+    background: #007ad9;
+}
+.bg_light{
+    background: #d4d3d3 !important;
+    border:  1px solid #d4d3d3;
+}
+.school_land_title{
+    float: left;width: 100%;padding: 10px 2%;color: #fff;background: #2d7464;
+}
+.label_text{
+    color: #19225aad;
+    font-weight: 600;
+}
+h5{
+    font-size: 15px !important;
+}
+.manditory{
+    color: #da1d1d;
+}
+
+.fullWidth{
+    width: 100%;
+}
+.light_btn{
+    padding:0.55rem 1.5rem;
+    background: #e1e1ea;
+}
+.submit_button input{padding: 9px 18px;}
+.submit_button input[type="submit"]{margin: 0 10px 0 0;}
+
+.small_font{font-size: 11px !important;}
+
+.form-control{border-color: #d5d7da !important;}

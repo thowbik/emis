@@ -1,0 +1,311 @@
+<div class="container-fluid header">
+    <div class="breadcrumbs c-black">
+		<h6 class="url">
+            <span class="flex-gap-right">Students</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+            <span class="flex-gap-right">OSC Students Report
+            </span>
+        </h6>
+	</div>
+    <p-tabView>
+        <!-- <p-tabPanel header="OSC List">
+            <div class="m-4" *ngIf="pageStage === 1">
+                <div class="row search">
+                    <div class="col-md-9 text-left">
+                        <h5> OSC Children List Districtwise</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                    </div>
+                </div>
+                <div>
+                    <p-table #dt [columns]="cols" [value]="OSCStudentsListDisct" [rows]="10" [resizableColumns]="true">
+                        <ng-template pTemplate="header" let-distname>
+                            <tr class="text-center" *ngIf="!noDataFound1">
+                                <th class="sno-header-layout">S.NO</th>
+                                <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+                            <tr class="text-center">
+                                <td class="sno-header-layout"> {{i+1}} </td>
+                                <td class="text-left"><a href="javascript:void(0)" (click)="onSelectedDistrict(distwise.district_id)"> {{ distwise.district_name}} </a></td>
+                                <td> {{ distwise.cnt}} </td>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage" let-columns>
+                            <tr>
+                                <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                                    <strong>No Data Found</strong>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+            <div class="m-4" *ngIf="pageStage === 2">
+                <div class="row search">
+                    <div class="col-md-9 text-left">
+                        <h5> OSC Children List BlockWise</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                    </div>
+                </div>
+                <div>
+                    <p-table #dt [columns]="cols2" [value]="OSCStudentsListBlock" [rows]="10" [resizableColumns]="true">
+                        <ng-template pTemplate="header" let-distname>
+                            <tr class="text-center">
+                                <th class="sno-header-layout">S.NO</th>
+                                <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+                            <tr class="text-center" *ngIf="!noDataFound2">
+                                <td class="sno-header-layout"> {{i+1}} </td>
+                                <td class="text-left"> <a href="javascript:void(0)" (click)="onSelectedblock(distwise.block_id)"> {{ distwise.block_name}} </a> </td>
+                                <td> {{ distwise.cnt}} </td>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage" let-columns>
+                            <tr>
+                                <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                                    <strong>No Data Found</strong>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+            <div class="m-4" *ngIf="pageStage === 3">
+                <div class="row search">
+                    <div class="col-md-9 text-left">
+                        <h5> OSC Children List  Schoolwise</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                    </div>
+                </div>
+                <div>
+                    <p-table #dt [columns]="cols3" [value]="OSCStudentsListschool" [rows]="10" [resizableColumns]="true">
+                        <ng-template pTemplate="header" let-distname>
+                            <tr class="text-center">
+                                <th class="sno-header-layout">S.NO</th>
+                                <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+                            <tr class="text-center" *ngIf="!noDataFound3">
+                                <td class="sno-header-layout"> {{i+1}} </td>
+                                <td class="text-left"> <a href="javascript:void(0)" (click)="onSelectedschool(distwise.school_id)"> {{ distwise.school_name}} </a> </td>
+                                <td> {{ distwise.cnt}} </td>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage" let-columns>
+                            <tr>
+                                <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                                    <strong>No Data Found</strong>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+            <div class="m-4" *ngIf="pageStage === 4">
+                <div class="row search">
+                    <div class="col-md-9 text-left">
+                        <h5> OSC Children List Studentlist</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                    </div>
+                </div>
+                <div>
+                    <p-table #dt [columns]="cols4" [value]="OSCStudentsListstudent" [rows]="10" [resizableColumns]="true">
+                        <ng-template pTemplate="header" let-distname>
+                            <tr class="text-center">
+                                <th class="sno-header-layout">S.NO</th>
+                                <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+                            <tr class="text-center" *ngIf="!noDataFound4">
+                                <td class="sno-header-layout"> {{i+1}} </td>
+                                <td class="text-left"> {{ distwise.name}} </td>
+                                <td> {{ distwise.unique_id_no}} </td>
+                                <td> {{ distwise.class_studying_id}} </td>
+                                <td> {{ distwise.class_section}} </td>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage" let-columns>
+                            <tr>
+                                <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                                    <strong>No Data Found</strong>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </p-tabPanel> -->
+        <!-- Dropped out Student -->
+        <p-tabPanel header="Dropped Out Student List">
+            <div class="m-4" *ngIf="pageStage === 1">
+                <div class="row search">
+                    <div class="col-md-9 text-left">
+                        <h5> Dropped Out Student List Districtwise</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                    </div>
+                </div>
+                <div>
+                    <p-table #dt [columns]="cols5" [value]="DroppedStudentsListDisct" [rows]="10" [resizableColumns]="true">
+                        <ng-template pTemplate="header" let-distname>
+                            <tr class="text-center" *ngIf="!noDataFound1">
+                                <th class="sno-header-layout">S.NO</th>
+                                <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+                            <tr class="text-center">
+                                <td class="sno-header-layout"> {{i+1}} </td>
+                                <td class="text-left"><a href="javascript:void(0)" (click)="onSelectedDistrictdrop(distwise.district_id)"> {{ distwise.district_name}} </a></td>
+                                <td> {{ distwise.cnt}} </td>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage" let-columns>
+                            <tr>
+                                <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                                    <strong>No Data Found</strong>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+            <!-- Stage 2  -->
+            <div class="m-4" *ngIf="pageStage === 2">
+                <div class="row search">
+                    <div class="col-md-9 text-left">
+                        <h5> Dropped Out Student List BlockWise</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                    </div>
+                </div>
+                <div>
+                    <p-table #dt [columns]="cols6" [value]="OSCStudentsListBlockdrop" [rows]="10" [resizableColumns]="true">
+                        <ng-template pTemplate="header" let-distname>
+                            <tr class="text-center">
+                                <th class="sno-header-layout">S.NO</th>
+                                <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+                            <tr class="text-center" *ngIf="!noDataFound2">
+                                <td class="sno-header-layout"> {{i+1}} </td>
+                                <td class="text-left"> <a href="javascript:void(0)" (click)="onSelectedblockdrop(distwise.block_id)"> {{ distwise.block_name}} </a> </td>
+                                <td> {{ distwise.cnt}} </td>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage" let-columns>
+                            <tr>
+                                <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                                    <strong>No Data Found</strong>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+            <!-- Stage 3 -->
+            <div class="m-4" *ngIf="pageStage === 3">
+                <div class="row search">
+                    <div class="col-md-9 text-left">
+                        <h5> Dropped Out Student List Schoolwise</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                    </div>
+                </div>
+                <div>
+                    <p-table #dt [columns]="cols7" [value]="OSCStudentsListschooldrop" [rows]="10" [resizableColumns]="true">
+                        <ng-template pTemplate="header" let-distname>
+                            <tr class="text-center">
+                                <th class="sno-header-layout">S.NO</th>
+                                <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+                            <tr class="text-center" *ngIf="!noDataFound3">
+                                <td class="sno-header-layout"> {{i+1}} </td>
+                                <td class="text-left"> <a href="javascript:void(0)" (click)="onSelectedschooldrop(distwise.school_id)"> {{ distwise.school_name}} </a> </td>
+                                <td> {{ distwise.cnt}} </td>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage" let-columns>
+                            <tr>
+                                <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                                    <strong>No Data Found</strong>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+            <!-- Stage 4 -->
+            <div class="m-4" *ngIf="pageStage === 4">
+                <div class="row search">
+                    <div class="col-md-9 text-left">
+                        <h5>Dropped Out Student List Studentlist</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                    </div>
+                </div>
+                <div>
+                    <p-table #dt [columns]="cols8" [value]="OSCStudentsListstudentdrop                    " [rows]="10" [resizableColumns]="true">
+                        <ng-template pTemplate="header" let-distname>
+                            <tr class="text-center">
+                                <th class="sno-header-layout">S.NO</th>
+                                <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+                            <tr class="text-center" *ngIf="!noDataFound4">
+                                <td class="sno-header-layout"> {{i+1}} </td>
+                                <td class="text-left"> {{ distwise.name}} </td>
+                                <td> {{ distwise.unique_id_no}} </td>
+                                <td> {{ distwise.class_studying_id}} </td>
+                                <td> {{ distwise.class_section}} </td>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage" let-columns>
+                            <tr>
+                                <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                                    <strong>No Data Found</strong>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </p-tabPanel>
+    </p-tabView>
+</div>

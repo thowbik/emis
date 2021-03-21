@@ -1,0 +1,72 @@
+<div class="container-fluid">
+  <p-card class="mx-2">
+    <p><b>Note : </b> Reports Updated once a day at 7 PM</p>
+  </p-card>
+  <p-card>
+    <div class="text-lg-left mt-3">
+      <h5>4.9 Enrolment and repeaters by academic stream (by Minority groups)</h5>
+    </div>
+    <div class="flexGapTop">
+      <p-table #dt
+               [value]="AcademicStream"
+               [styleClass]="'base-table'"
+               [paginator]="false"
+               [scrollable]="true"
+               scrollHeight="500px"
+               scrollWidth="500px" >
+        <ng-template pTemplate="header">
+          <tr class="center">
+            <th colspan="1" style=""></th>
+            <th colspan="1" style=""></th>
+            <th colspan="4" style="">Enrolment</th>
+            <th colspan="4" style="">Repeaters</th>
+          </tr>
+          <tr class="center">
+            <th> </th>
+            <th> </th>
+            <th colspan="2">Class XI</th>
+            <th colspan="2">Class XII</th>
+            <th colspan="2">Class XI</th>
+            <th colspan="2">Class XII</th>
+          </tr>
+          <tr class="center">
+            <th>Stream</th>
+            <th>Social Category</th>
+            <th>Boys</th>
+            <th>Girls</th>
+            <th>Boys</th>
+            <th>Girls</th>
+            <th>Boys</th>
+            <th>Girls</th>
+            <th>Boys</th>
+            <th>Girls</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-distname let-rowData let-columns="columns" let-i="rowIndex" >
+          <tr [pSelectableRow]="rowData" class="text-center" *ngIf="!noDataFound">
+            <td class="width-168">{{ distname.streams}}</td>
+            <td class="width-70"> {{ distname.item_id}} </td>
+
+            <td class="width-70"> {{ distname.ec11_b}} </td>
+            <td class="width-42"> {{ distname.ec11_g}} </td>
+
+            <td class="width-42"> {{ distname.ec12_b}} </td>
+            <td class="width-42"> {{ distname.ec12_g}} </td>
+
+            <td class="width-42"> {{ distname.rc11_b}} </td>
+            <td class="width-42"> {{ distname.rc11_g}} </td>
+
+            <td class="width-42"> {{ distname.rc12_b}} </td>
+            <td class="width-42"> {{ distname.rc12_g}} </td>
+          </tr>          
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <tr class="text-center" *ngIf="noDataFound">
+             <td colspan="25">No Data Found</td>
+          </tr>
+     </ng-template>
+      </p-table>
+    </div>
+  </p-card>
+</div>

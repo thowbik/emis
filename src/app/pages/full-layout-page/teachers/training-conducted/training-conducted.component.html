@@ -1,0 +1,147 @@
+<div class="m-4">
+    <p-card>
+        <div class="row p-1">
+            <div class="col-sm-6">
+                <h4>Training Conducted List</h4>
+            </div>
+            <div class="col-sm-6 p-1">
+                <div class="text-right">
+                    <button type="button" pButton icon="fa fa-plus" (click)="showDialog()" style="text-align: right;" label="Add"></button>
+                </div>
+            </div>
+        </div>
+        <div>
+            <p-table #dt [columns]="cols" [value]="trainingConductedList" [rows]="10" [resizableColumns]="true">
+                <ng-template pTemplate="header" let-distname>
+                    <tr class="text-center">
+                        <th class="sno-header-layout" style="width: 60px !important;">S.NO</th>
+                        <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+                    <tr class="text-center">
+                        <td class="sno-header-layout"> {{i+1}} </td>
+                        <td class="text-left">{{ distwise.training_date}}</td>
+                        <td> {{ distwise.trained_at}} </td>
+                        <td> {{ distwise.training_mode}} </td>
+                        <td> {{ distwise.training_days}} </td>
+                        <td> {{ distwise.teacher_count}} </td>
+                        <td>
+                            <button pButton type="button" icon="pi pi-pencil" class="ui-button-info" (click)="onEditConductedList(distwise)" style="margin-right: .5em"></button>
+                        </td>              
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                            <strong>No data found</strong>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </p-card>
+</div>
+<p-dialog header="Training Condecuted" [(visible)]="display" [contentStyle]="{'max-width':'900px'}">
+    <form [formGroup]="training_form">
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-6">
+                    <div class="ui-g-4">
+                        <label for="training_conducted">Training Condecuted At</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <p-dropdown id="training_conducted" placeholder="Select Name" formControlName="training_conducted" [options]="trainingcondecuted" class="flex-dropdown"></p-dropdown>
+                    </div>
+                </div>
+                <div class="ui-g-6">
+                    <div class="ui-g-4">
+                        <label for="training_mode">Training Mode</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <p-dropdown id="training_mode" placeholder="Select Type" formControlName="training_mode" [options]="trainingmode" class="flex-dropdown"></p-dropdown>
+                    </div>
+                </div>
+                <div class="ui-g-6">
+                    <div class="ui-g-4">
+                        <label for="training_date">Training Start Date</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input class="form-control" type="date" formControlName="training_date" placeholder="Date" dateformat="yyyy-dd-mm">
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            Attened By
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-sm-4 addclass" style="text-align: Center; float: right;">
+                                <input type="button" class="btn btn-secondary btn-lg light_btn" (click)="addMediumInstruction()" value="+" style="width:25%">&nbsp;
+                                <input type="button" class="btn btn-secondary btn-lg light_btn" (click)="removeMediumInstruction()" value="-" style="width:25%">
+                            </div>
+                        </div>
+                    </div>
+                    <div formArrayName="inspection">
+                        <div class="row" style="padding-bottom:10px" *ngFor="let item of training_form.get('inspection')['controls']; let i = index;" [formGroupName]="i">
+                            <div class="ui-g-6">
+                                <div class="ui-g-4">
+                                    <label>Teachers EMIS ID</label>
+                                </div>
+                                <div class="ui-g-8">
+                                    <input pInputText type="text" class="form-control" formControlName="teacher_id" (keyup)="teacher_emis_id($event.target.value)" (onChange)="chooseOfficer($event,i)" placeholder="teacher emis id" maxlength="10" />
+                                </div>
+                            </div>
+                            <div class="ui-g-6">
+                                <div class="ui-g-4">
+                                    <label>Teachers Days</label>
+                                </div>
+                                <div class="ui-g-8">
+                                    <input pInputText type="text" class="form-control" formControlName="training_days" (onChange)="choosePurpose($event,i)" placeholder="training days" maxlength="10" />
+                                </div>
+                            </div>
+                            <!-- <div class="ui-g-6">
+                                <div class="ui-g-4">
+                                    <label>Teachers name</label>
+                                </div>
+                                <div class="ui-g-8">
+                                    <input pInputText type="text" formControlName="teacher_name" placeholder="Teacher Name" class="form-control" readonly />
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-right">
+            <button type="submit" class="btn btn-success m-2" (click)="save()">Save</button>
+            <button type="submit" class="btn btn-light btn-border m-2" (click)="close_dialog()">Cancel</button>
+        </div>
+    </form>
+</p-dialog>
+
+
+
+<p-dialog  header="Training Condecuted" [(visible)]="displayEditDialog" [modal]="true" [draggable]="false"  [responsive]="true" [blockScroll]="true" [maximizable]="false" [contentStyle]="{'max-width':'1000px','max-height': '450px','overflow-y': 'auto'}">
+                
+    <form [formGroup]="training_form" novalidate >
+        <div class="row form-group" style="margin-top:3%;">
+            <div class="col-sm-6 text-align">
+                <label><span class="num-align">Training Condecuted At</span></label>
+            </div>
+            <div class="col-sm-6">
+                <input type="text" pKeyFilter="pnum" pInputText formControlName="trained_at" class="form-control" readonly>
+            </div>
+        </div>
+        <div class="row form-group" style="margin-top:3%;">
+            <div class="col-sm-6 text-align">
+                <label><span class="num-align">Training Mode</span></label>
+            </div>
+            <div class="col-sm-6">
+                <input type="text" pKeyFilter="pnum" pInputText formControlName="training_mode" class="form-control" readonly>
+            </div>
+        </div>
+    </form>
+</p-dialog>

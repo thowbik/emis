@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="main-body-content">
+    <p-table  [columns]="cols" [value]="aidedsclList" [resizableColumns]="true" >
+      <ng-template pTemplate="caption">
+        <div class="row">
+          <div class="col-md-12 text-center my-2">
+            Partially Aided School - Section Verification
+          </div>
+        </div>
+
+      </ng-template>
+      <ng-template pTemplate="header" let-distname>
+        <tr class="text-center">
+          <th class="sno-header-layout">#</th>
+          <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+            {{col.header}}
+            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-distname let-rowData let-columns="columns" let-i="rowIndex" >
+        <tr [pSelectableRow]="rowData" class="text-center">
+          <td class="sno-header-layout"> {{i+1}} </td>
+          <td class="text-left clr-blue"> <a class="nav-link" routerLinkActive="active" (click)="aiadedscl(distname)">{{ distname.district_name}} </a></td>
+          <td> {{ distname.total_school}} </td>
+          <td> {{ distname.aided}} </td>
+          <td> {{ distname.self_financed}} </td>
+          <td> {{ distname.unmarked}} </td>
+          <td> {{ distname.unmediummarked}} </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

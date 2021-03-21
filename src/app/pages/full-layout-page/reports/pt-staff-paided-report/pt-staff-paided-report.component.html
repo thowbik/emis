@@ -1,0 +1,70 @@
+<div class="main-body-content"  style="padding-top: 5px;">
+	<div class="outer-layout">
+		<div class="breadcrumbs c-black">
+			<h6 classs="url"><span class="flex-gap-right">Staffs</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right">Part Time Teacher Salary</span>
+        </h6>
+		</div>
+	</div>
+	<p-table #dt [columns]="dataHeader" [value]="partimeteacher" [rows]="10" [resizableColumns]="true" [autoLayout]="true">
+		<ng-template let-childrens pTemplate="caption">
+			<div class="row header">
+				<div class="col-sm-3 text-left">
+					<p-dropdown [options]="monthList" [(ngModel)]="monthfilterdd" (ngModelChange)="getparttimeteachersalaryreport($event)"  styleClass="dropdwnvalues"></p-dropdown>
+
+				</div>
+				<div class="col-md-3">
+					<div class="row" class="text-right"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-8"></div>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+				</div>
+				<div class="col-sm-1 p-2"> <i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="exportExcel()"></i>
+				</div>
+			</div>
+		</ng-template>
+		<ng-template pTemplate="header" let-distname>
+			<tr class="text-center">
+				<th class="sno-header-layout">#</th>
+				<th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">{{col.header}}
+					<p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+				</th>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="header" let-childrens>
+			<tr class="text-center">
+				<th class="sno-header-layout">S.No</th>
+				<th *ngFor="let col of childrens" [pSortableColumn]="col.field" [style.width]="col.widthstyle">{{col.header}}
+					<p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+				</th>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="body" let-partimeteacher let-rowData let-editing="editing" let-i="rowIndex">
+			<tr *ngIf="!noDataFound" class="text-left">
+				<td class="sno-header-layout text-center">{{i+1}}</td>
+				<td class="text-center">{{partimeteacher.udise_code}}</td>
+				<!-- <td *ngIf="ceodistrictlogin">{{partimeteacher.district_name}}</td> -->
+				<td>{{partimeteacher.block_name}}</td>
+				<td>{{partimeteacher.school_name}}</td>
+				<td>{{partimeteacher.school_type}}</td>
+				<td class="text-center">{{partimeteacher.PT_Teachers}}</td>
+				<td class="text-center">{{partimeteacher.Paid}}</td>
+				<td class="text-center">{{partimeteacher.Not_Paid}}</td>
+				<td class="text-center">{{partimeteacher.Not_Updated}}</td>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="footer">
+			<tr class="text-center" *ngIf="noDataFound">
+				<td colspan="9">No Data Found</td>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="emptymessage" let-columns>
+			<tr>
+				<td [attr.colspan]="(columns.length)+1" style="text-align: center;"> <strong>No records found</strong>
+				</td>
+			</tr>
+		</ng-template>
+	</p-table>
+</div>

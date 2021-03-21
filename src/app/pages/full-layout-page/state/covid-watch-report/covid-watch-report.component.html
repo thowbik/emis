@@ -1,0 +1,280 @@
+
+    <div class="main-body-content">
+        <div class="outer-layout">
+            <div class="breadcrumbs c-black">
+            <h6 class="url"><span class="flex-gap-right">Monitoring Report</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i> 
+                <span  class="flex-gap-right" (click)="goBack()">Covid Watch Report</span>
+                <span *ngIf="districtName"><i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>{{districtName}}</span>
+                <span  (click)="goBack2()" *ngIf="pageStage === 3"><i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>Block Name</span></h6>
+            </div>
+        </div>
+    <div class="container-fluid" *ngIf="pageStage === 1">
+        <p-table #dt1 [columns]="dataHeader" [value]="verifymonitorstate" [resizableColumns]="true" (sortFunction)="customSort($event)" [customSort]="true"
+    [globalFilterFields]="['District','Total_Schools','Completed_Schools','NotCompleted']">
+            <ng-template let-childrens pTemplate="caption">
+                <div class="row header flex-row-center">
+                    <div class="row col-sm-12">
+                        <div class="col-sm-4 mt-2">
+                            <p-calendar  dateFormat="dd/mm/yy" [yearNavigator]="true"   placeholder={{myDateText}} [readonlyInput]="true" (onSelect)="getMonth($event)" [minDate]="minDate" [maxDate]="maxDate"></p-calendar>
+                        </div>
+                        <div class="col-sm-4 mt-2">
+                            <p-dropdown [options]="school_type" (onChange)="school_type_val($event)"></p-dropdown>
+                        </div>
+                        <div class="col-sm-2 mt-2">
+                            <button type="submit" class="btn btn-success" (click)="getverifymonitor()">Submit</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-8"></div>
+                    <div class="col-sm-3 p-1">
+                        <div class="text-right">
+                            <input class="form-control" type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')"
+                            placeholder="Search">
+                           
+                        </div>
+                    </div>
+                    <div class="col-sm-1 p-1 flex-row-center-end">
+                        <div class="text-right">
+                            <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"  (click)="exportPdf(verifymonitorstate,dataHeader)"></i>
+                            <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel(verifymonitorstate)"></i>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 50px; text-align: center;"># </th>
+                    <th pSortableColumn="District">District <p-sortIcon field="District"></p-sortIcon></th>
+                    <th pSortableColumn="Total_Schools">Total Schools<p-sortIcon field="Total_Schools"></p-sortIcon></th>
+                    <th pSortableColumn="Completed_Schools">Updated Schools<p-sortIcon field="Completed_Schools"></p-sortIcon></th>
+                    <th pSortableColumn="NotCompleted">Not Updated Schools<p-sortIcon field="NotCompleted"></p-sortIcon></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-blk let-columns="columns" let-i="rowIndex">
+                <tr>
+                    <td class="sno-header-layout text-center">{{i+1}}</td>
+                    <td><a class="link-url" href="javascript:void(0)" (click)="Blockverifymonitors(blk.District_id,blk.District)">{{blk.District}}</a></td>
+                    <td style="text-align: center;">{{blk.Total_Schools}}</td>
+                    <td style="text-align: center;">{{blk.Completed_Schools}}</td>
+                    <td style="text-align: center;font-weight: bold;">{{(blk.NotCompleted)}} </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr class="text-center" *ngIf="!noDataFound">
+                    <td colspan="2" class="text-center">Total</td>
+                    <td class="ui-resizable-column">{{grandTotal_Total_Schools}}</td>
+                    <td class="ui-resizable-column">{{grandTotal_Completed_Schools}}</td>
+                    <td class="ui-resizable-column">{{grandTotal_Not_Completed_Schools}}</td>
+                </tr>
+                <tr class="text-left" *ngIf="noDataFound">
+                    <td colspan="6" style="text-align: center;"> No Data Found </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                        <strong>No records found</strong>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <!-- Stage 2 -->
+    <div class="container-fluid" *ngIf="pageStage === 2">
+        <p-tabView (onChange)="Blockverifylists($event)">
+            <p-tabPanel header="Covid Abstract" *ngIf="!districtName">
+                <p-table #dt [columns]="DirstColumns" [value]="getDistCovidwatch" [paginator]="true" [rows]="10" [resizableColumns]="true" [customSort]="true">
+                    <ng-template let-childrens pTemplate="caption">
+                        <div class="row  header flex-row-center">
+                            <div class="row col-sm-12" *ngIf="!districtName">
+                                <div class="col-sm-4 ">
+                                    <p-calendar  dateFormat="dd/mm/yy" [yearNavigator]="true"  placeholder="Select Date" [readonlyInput]="true" (onSelect)="getDate($event)" [minDate]="minDate" [maxDate]="maxDate"></p-calendar>
+                                </div>
+                                <div class="col-sm-4 mt-2">
+                                    <p-dropdown [options]="school_type" (onChange)="school_type_val($event)"></p-dropdown>
+                                </div>
+                                <div class="col-sm-2 mt-2">
+                                    <button type="submit" class="btn btn-success" (click)="Blockverifylist()">Submit</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-8"></div>
+                            <div class="col-sm-3 p-1">
+                                <div class="text-right">
+                                    <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Covid Watch Report Filter">
+                                </div>
+                            </div>
+                            <div class="col-sm-1 p-1 flex-row-center-end">
+                                <div class="text-right">
+                                    <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true" (click)="exportPdf(getDistCovidwatch,DirstColumns)"></i>
+                                    <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel(getDistCovidwatch)"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header" let-Datas>
+                        <tr class="text-center">
+                            <th class="sno-header-layout">#</th>
+                            <th *ngFor="let teachData of DirstColumns" [pSortableColumn]="teachData.field" [style.width]="teachData.widthstyle">
+                                {{teachData.header}} 
+                                <p-sortIcon [field]="teachData.field" *ngIf="teachData.field !='udise_code'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-blk let-columns="columns" let-i="rowIndex">
+                        <tr>
+                            <td class="sno-header-layout text-center">{{i+1}}</td>
+                            <td><a class="link-url" href="javascript:void(0)" (click)="BlockIdMonitors(blk.BlockID)">{{blk.BlockNam}}</a></td>
+                            <td style="text-align: center;">{{blk.Total_Schools}}</td>
+                            <td style="text-align: center;">{{blk.Completed_Schools}}</td>
+                            <td style="text-align: center;">{{blk.Not_Completed_Schools}}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="footer">
+                        <tr class="text-left" *ngIf="noDataFound2">
+                            <td colspan="7" style="text-align: center;"> No Data Found </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr>
+                            <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                                <strong>No records found</strong>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-tabPanel>
+            <p-tabPanel header="School list" >
+                <p-table #dt [columns]="selectedColumns" [value]="getDistCovidwatch" [paginator]="true" [rows]="10" [resizableColumns]="true" [customSort]="true">
+                    <ng-template let-childrens pTemplate="caption">
+                        <div class="row  header flex-row-center">
+                            <div class="row col-sm-12" *ngIf="!districtName">
+                                <div class="col-sm-4 ">
+                                    <p-calendar  dateFormat="dd/mm/yy" [yearNavigator]="true"  placeholder="Select Date" [readonlyInput]="true" (onSelect)="getDate($event)" [minDate]="minDate" [maxDate]="maxDate"></p-calendar>
+                                </div>
+                                <div class="col-sm-4 mt-2">
+                                    <p-dropdown [options]="school_type" (onChange)="school_type_val($event)"></p-dropdown>
+                                </div>
+                                <div class="col-sm-2 mt-2">
+                                    <button type="submit" class="btn btn-success" (click)="Blockverifymonitor()">Submit</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-8"></div>
+                            <div class="col-sm-3 p-1">
+                                <div class="text-right">
+                                    <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Covid Watch Report Filter">
+                                </div>
+                            </div>
+                            <div class="col-sm-1 p-1 flex-row-center-end">
+                                <div class="text-right">
+                                    <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true" (click)="exportPdf(getDistCovidwatch,selectedColumns)"></i>
+                                    <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel(getDistCovidwatch)"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header" let-Datas>
+                        <tr class="text-center">
+                            <th class="sno-header-layout">#</th>
+                            <th *ngFor="let teachData of selectedColumns" [pSortableColumn]="teachData.field" [style.width]="teachData.widthstyle">
+                                {{teachData.header}} 
+                                <p-sortIcon [field]="teachData.field" *ngIf="teachData.field !='udise_code'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-blk let-columns="columns" let-i="rowIndex">
+                        <tr>
+                            <td class="sno-header-layout text-center">{{i+1}}</td>
+                            <td style="text-align: center;">{{blk.BlockNam}}</td>
+                            <td style="text-align: center;">{{blk.UDISE}}</td>
+                            <td style="text-align: center;">{{blk.School}}</td>
+                            <td style="text-align: center;">{{blk.Sch_Type}}</td>
+                            <td style="text-align: center;">{{blk.Category}}</td>
+                            <td style="text-align: center;">{{blk.Submit_Status}}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-resource let-columns="columns" let-i="rowIndex">
+                        <tr>
+                            <td class="sno-header-layout">{{i+1}}</td>
+                            <td *ngFor="let col of columns"  [class]="col.class">
+                                {{resource[col.field]}}
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="footer">
+                        <tr class="text-left" *ngIf="noDataFound2">
+                            <td colspan="7" style="text-align: center;"> No Data Found </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr>
+                            <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                                <strong>No records found</strong>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-tabPanel>
+            
+        </p-tabView>
+    </div>
+
+    <div class="container-fluid" *ngIf="pageStage === 3">
+        <p-table #dt [columns]="selectedColu" [value]="getDistCovidwatchs" [paginator]="true" [rows]="10" [resizableColumns]="true" [customSort]="true">
+            <ng-template let-childrens pTemplate="caption">
+                <div class="row  header flex-row-center">
+                    <div class="row col-sm-12" *ngIf="!districtName">
+                        <div class="col-sm-4 ">
+                            <p-calendar  dateFormat="dd/mm/yy" [yearNavigator]="true"  placeholder="Select Date" [readonlyInput]="true" (onSelect)="getDate($event)" [minDate]="minDate" [maxDate]="maxDate"></p-calendar>
+                        </div>
+                        <div class="col-sm-4 mt-2">
+                            <p-dropdown [options]="school_type" (onChange)="school_type_val($event)"></p-dropdown>
+                        </div>
+                        <div class="col-sm-2 mt-2">
+                            <button type="submit" class="btn btn-success" (click)="Blockverifymonitor()">Submit</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-8"></div>
+                    <div class="col-sm-3 p-1">
+                        <div class="text-right">
+                            <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Covid Watch Report Filter">
+                        </div>
+                    </div>
+                    <div class="col-sm-1 p-1 flex-row-center-end">
+                        <div class="text-right">
+                            <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true" (click)="exportPdf(getDistCovidwatch,selectedColumns)"></i>
+                            <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel(getDistCovidwatch)"></i>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-Datas>
+                <tr class="text-center">
+                    <th class="sno-header-layout">#</th>
+                    <th *ngFor="let teachData of selectedColu" [pSortableColumn]="teachData.field" [style.width]="teachData.widthstyle">
+                        {{teachData.header}} 
+                        <p-sortIcon [field]="teachData.field" *ngIf="teachData.field !='udise_code'" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-resource let-columns="columns" let-i="rowIndex">
+                <tr>
+                    <td class="sno-header-layout">{{i+1}}</td>
+                    <td *ngFor="let col of columns"  [class]="col.class">
+                        {{resource[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr class="text-left" *ngIf="noDataFound2">
+                    <td colspan="7" style="text-align: center;"> No Data Found </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                        <strong>No records found</strong>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

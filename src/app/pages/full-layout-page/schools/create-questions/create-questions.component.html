@@ -1,0 +1,291 @@
+
+<div class="main-body-content">
+  <div class="outer-layout">
+      <div class="breadcrumbs c-black">
+          <h6 class="url">
+              <span class="flex-gap-right" (click)="goBack()">Questions</span>
+             
+              <span *ngIf="questionId" class="flex-gap-right"> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i> Question Id - {{questionId}}</span>
+              <!-- <span class="flex-gap-right" *ngIf="block_name" (click)="goBack_sc()"><i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>{{block_name}}</span>
+              <span *ngIf="school_namee"><i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>{{school_namee}}</span> -->
+            </h6>
+      </div>
+  </div>
+  <div class="card ui-card-body my-3 box-shwd" *ngIf="pageStage != 2">
+  <form [formGroup]="form">
+  	<div class="form-group row">
+      <div class="col-lg-2">
+        <label >
+        Type *</label>
+
+         <p-dropdown [options]="typeList" formControlName="QType" (onChange)="chooseType(form.value.QType)" placeholder="Please Select" ></p-dropdown>
+         <p-message severity="error"  text="Type is required" *ngIf="form.controls.QType.errors && (submitted || form.controls.QType.dirty || form.controls.QType.touched)"></p-message>
+      </div>
+      <div class="col-lg-2">
+        <label>Class*</label>
+        <p-dropdown [options]="classList" formControlName="QClass"  placeholder="Please Select" [filter]="true"  (onChange)="getSubjects(form.value.QClass,form.value.QType)"></p-dropdown>
+        <p-message severity="error"  text="Class is required" *ngIf="form.controls.QClass.errors && (submitted || form.controls.QClass.dirty || form.controls.QClass.touched)"></p-message>
+      </div>
+      <div class="col-lg-2">
+        <label >
+         Medium *</label>
+
+         <p-dropdown [options]="mediumList" formControlName="QMedium"  placeholder="Please Select"></p-dropdown>
+         <p-message severity="error"  text="Medium is required" *ngIf="form.controls.QMedium.errors && (submitted || form.controls.QMedium.dirty || form.controls.QMedium.touched)"></p-message>
+      </div>
+      <div class="col-lg-2">
+        <label>
+         Subject *</label>
+
+         <p-dropdown [options]="subjectList" formControlName="Subjct" [filter]="true" placeholder="Please Select"></p-dropdown>
+         <p-message severity="error"  text="Subject is required" *ngIf="form.controls.Subjct.errors && (submitted || form.controls.Subjct.dirty || form.controls.Subjct.touched)"></p-message>
+      </div>
+      <div class="col-lg-4">
+        <label >
+        Domains *</label>
+
+         <p-dropdown [options]="domainList" formControlName="QDomain" [filter]="true" placeholder="Please Select"></p-dropdown>
+         <p-message severity="error"  text="Domain is required" *ngIf="form.controls.QDomain.errors && (submitted || form.controls.QDomain.dirty || form.controls.QDomain.touched)"></p-message>
+      </div>
+      <div class="col-lg-2 submit">
+        <button type="submit" style="margin-top: 25px;" class="btn btn-primary" (click)="getQuestionData()">Get Questions</button>
+      </div>
+      <div class="col-lg-2 submit">
+        <button type="submit" style="margin-top: 25px;" class="btn btn-success" (click)="addQuestion()">Add Question</button>
+      </div>
+    </div>
+  </form>
+</div>
+  <div class="container-fluid" *ngIf="pageStage === 1">
+          <div>
+          <p-table #dt [columns]="dataHeader"  [value]="questionsData" [resizableColumns]="true" [paginator]="true"  [rows]="10" [globalFilterFields]="['QID','QClass','QSubjct','QText']" >
+                  <ng-template let-childrens pTemplate="caption">
+                      <div class="row  header flex-row-center-start flex-gap-bottom">
+                          <div class="col-lg-3">
+                           
+                          </div>
+                          <!-- <div class="col-lg-1">
+                              <button type="submit" class="btn btn-success" (click)="SearchData()">Submit</button>
+                          </div> -->
+                      </div>
+                      <div class="row  header flex-row-center">
+                          <div class="col-lg-3 p-1">
+                              <!-- <p-multiSelect [options]="dataHeader2" [(ngModel)]="selectedColumns" optionLabel="header"
+                                          selectedItemsLabel="{0} columns selected" [style]="{minWidth: '225px'}" defaultLabel="Choose Columns"></p-multiSelect> -->
+                         </div>
+                          <div class="col-lg-5">
+                             
+                          </div>
+                      
+                          <div class="col-sm-3 p-1">
+                              <div class="text-right">
+                                  <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                              </div>
+                          </div>
+                          <div class="col-sm-1 p-1 flex-row-center-end">
+                              <div class="text-right">
+                                  <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true" disabled ></i> -->
+                                  <!-- <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel()"></i> -->
+                              </div>
+                          </div>
+                      </div>
+                  </ng-template>
+                  <ng-template pTemplate="header" let-data>
+                      <tr class="text-center">
+                          <th class="sno-header-layouts first-grid">S.NO</th>
+                          <th *ngFor="let cols of data" [pSortableColumn]="cols.field" [style.width]="cols.widthstyle">
+                              {{cols.header}}
+                              <p-sortIcon [field]="cols.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                          </th>
+                          <th>Action</th>
+                      </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-questions let-columns="columns" let-i="rowIndex">
+                      <tr class="text-center" *ngIf="!noDataFound">
+                          <td class="sno-header-layouts"> {{i+1}} </td>
+                          <td> {{ questions.QID}} </td>
+                          <td> 
+                            <div innerHtml="{{questions.QText}}">
+                            </div>
+                             </td>
+                          <td> {{ questions.QClass}} </td>
+                          <td> {{ questions.QMed == "19" ? "English" : "Tamil"}} </td>
+                          <td> {{ questions.QSubjct}} </td>
+                          <td>  {{ questions.ActvSts == true ? "Active" : "InActive"}}<p-inputSwitch  [(ngModel)]="questions.ActvSts" (onChange)="chooseStatus($event,questions.QID)" ></p-inputSwitch></td>
+                          <td class="action-layout"><button pButton type="button" icon="pi pi-pencil" class="ui-button-info" (click)="editQuestion(questions.QID)" style="margin-right: .5em"></button>
+                            <!-- <button pButton type="button" icon="pi pi-trash" class="ui-button-success"  (click)="deleteQuestion(questions.QID)"></button> -->
+                            <button pButton type="button" icon="pi pi-eye" class="ui-button-success"  (click)="preview(questions.QID)"></button>
+                            <!-- <button pButton type="button" icon="pi pi-eye" class="ui-button-success"  (click)="approveReject(questions.QID,'approve')"></button>
+                            <button pButton type="button" icon="pi pi-eye" class="ui-button-success"  (click)="approveReject(questions.QID,'reject')"></button> -->
+                          </td>
+                  </ng-template>
+                  <ng-template pTemplate="emptymessage">
+                      <tr class="text-left" *ngIf="noDataFound">
+                          <td colspan="24"> No Data Found </td>
+                      </tr>
+                  </ng-template>
+              </p-table>
+          </div>
+  </div>
+
+
+<div class="card ui-card-body my-3 box-shwd" *ngIf="pageStage === 2">
+    <h3 class="text-center title">Create Questions</h3>
+    <form [formGroup]="form">
+  	<div class="form-group row">
+      <div class="col-lg-2">
+        <label >
+        Type *</label>
+
+         <p-dropdown [options]="typeList" formControlName="QType" (onChange)="chooseType(form.value.QType)" placeholder="Please Select" ></p-dropdown>
+         <p-message severity="error"  text="Type is required" *ngIf="form.controls.QType.errors && (submitted || form.controls.QType.dirty || form.controls.QType.touched)"></p-message>
+      </div>
+      <div class="col-lg-2">
+        <label>Class*</label>
+        <p-dropdown [options]="classList" formControlName="QClass"  placeholder="Please Select" [filter]="true"  (onChange)="getSubjects(form.value.QClass,form.value.QType)"></p-dropdown>
+        <p-message severity="error"  text="Class is required" *ngIf="form.controls.QClass.errors && (submitted || form.controls.QClass.dirty || form.controls.QClass.touched)"></p-message>
+      </div>
+      <div class="col-lg-2">
+        <label >
+         Medium *</label>
+
+         <p-dropdown [options]="mediumList" formControlName="QMedium"  placeholder="Please Select"></p-dropdown>
+         <p-message severity="error"  text="Medium is required" *ngIf="form.controls.QMedium.errors && (submitted || form.controls.QMedium.dirty || form.controls.QMedium.touched)"></p-message>
+      </div>
+      <div class="col-lg-2">
+        <label>
+         Subject *</label>
+
+         <p-dropdown [options]="subjectList" formControlName="Subjct" [filter]="true" placeholder="Please Select"></p-dropdown>
+         <p-message severity="error"  text="Subject is required" *ngIf="form.controls.Subjct.errors && (submitted || form.controls.Subjct.dirty || form.controls.Subjct.touched)"></p-message>
+      </div>
+      <div class="col-lg-2">
+        <label >
+        Domains *</label>
+
+         <p-dropdown [options]="domainList" formControlName="QDomain" [filter]="true" placeholder="Please Select"></p-dropdown>
+         <p-message severity="error"  text="Domain is required" *ngIf="form.controls.QDomain.errors && (submitted || form.controls.QDomain.dirty || form.controls.QDomain.touched)"></p-message>
+      </div>
+      <div class="col-lg-2" *ngIf="form.value.QType == '1'">
+        <label >
+         Learning Outcome *</label>
+
+         <p-dropdown [options]="loList" formControlName="QLO" placeholder="Please Select"></p-dropdown>
+      </div>
+    
+    </div>
+    <div class="form-group row">
+      
+      <div class="col-lg-9">
+        <label>
+          Enter Question * {{text}}</label>
+          <!-- <input type="text" pInputText
+          class="form-control tamil" pInputText 
+          > -->
+        <p-editor [style]="{'height':'320px'}" formControlName="QTxt" class="tamil test" styleClass="tamil test"></p-editor>
+      </div>
+      <div class="col-lg-3">
+        <div *ngIf="form.value.QImg">
+          <label>Uploaded Question : <span>{{form.value.QImg}}</span><button pButton type="button" icon="pi pi-trash" class="ui-button-success" style="margin-left: 12px;"  (click)="removeImage(1,0)"></button></label>
+                     </div>
+        <label>
+          {{form.value.QImg ? "Change" : "Upload"}} Question *</label>
+          <input #file  type='file' (change)="onSelectFile($event,1,0)">  
+      </div>
+    </div>
+    <div class="form-group form-group-button row">
+      <div class="col-lg-2 submit">
+        <button type="submit" class="btn btn-success" (click)="saveQuestion()">Save Question</button>
+      </div>
+      </div>
+    </form>
+    <div class="form-group row">
+    </div>
+    <div *ngIf="isShowOption">
+    <h3 class="text-center title">Create Options</h3>
+    <form [formGroup]="optionForm">
+      <div formArrayName="options"  class="flex-gap-bottom" *ngFor="let options of optionForm.get('options')['controls']; let i = index">
+        <div  [formGroupName]="i">
+    <div class="form-group row">
+      <div class="col-lg-6">
+      <label>
+        Enter Option {{i+1}} *</label>
+        <input type="text" pInputText class="form-control" formControlName="ChoiceTxt" pInputText>
+      </div>
+      <div class="col-lg-4">
+        <div *ngIf="options.value.ChoiceImg">
+          <label>Uploaded Option {{i+1}} Image : <span>{{options.value.ChoiceImg}}</span><button pButton type="button" icon="pi pi-trash" class="ui-button-success" style="margin-left: 12px;"  (click)="removeImage(2,i)"></button></label>
+                     </div>
+        <label>
+          {{options.value.ChoiceImg ? "Change" : "Upload"}} Option {{i+1}} *</label>
+          <input #file  type='file' (change)="onSelectFile($event,2,i)"> 
+        
+      </div>
+      <div class="col-lg-2">
+        <label>
+          Correct Option</label>
+        <br>
+        <input type="checkbox" class="checkbox-css" formControlName="ChoiceCrctYN" value="2">
+        <!-- <p-message severity="error"  text="Correct Option is required" *ngIf="options.controls.ChoiceCrctYN.errors && (submitted || options.controls.ChoiceCrctYN.dirty || options.controls.ChoiceCrctYN.touched)"></p-message> -->
+        <!-- <p-checkbox formControlName="ChoiceCrctYN" value= "1"  (onChange)=chooseCorrectAnswer($event,i)></p-checkbox> -->
+      </div>
+    </div>
+
+        </div>
+      </div>
+    <div class="form-group form-group-button row">
+    <div class="col-lg-2 submit">
+      <button type="submit" class="btn btn-success" (click)="saveOptions()">Save Options</button>
+    </div>
+    </div>
+    </form>
+  </div>
+</div>
+</div>
+
+ <p-dialog [header]="headerTitle" [style]="{width:'80%'}"  [(visible)]="showPreview" [modal]="true" [draggable]="false" [responsive]="true" [blockScroll]="true" [maximizable]="false" [contentStyle]="{'max-height': '450px','overflow-y': 'auto'}">
+    <div class="card h-100">
+      <div class="card-body">
+         <div>
+            <div class="inner-layout">
+               <div>
+                  <div>
+                     <div>
+                        <h6 class="text-center" style="margin-top: 2em;">{{previewQuestionSubject}}</h6>
+                     </div>
+                     <div class="options-layout">
+                        <span style="margin-right: 15px !important;">1.
+                        </span>
+                        <div style="flex-direction: column;">
+                           <div innerHtml="{{previewQuestionTxt}}">
+                           </div>
+                           <div *ngIf="previewQuestionImg">
+                              <img src="{{previewQuestionImg}}" class="quest-img" alt="Question {{questionIndex+1}}" />
+                           </div>
+                        </div>
+                     </div>
+                     <div *ngFor="let options of previewOptions; let optionIndex = index" class="options-layout flex-left">
+                        <div style="flex-direction: row;display: flex;align-items: center;">
+                           <div>
+                              <label class="form-check-label">
+                              <input type="radio" class="form-check-input" name="groupname" value="{{options.choice_id}}">
+                              <i class="input-frame"></i>
+                              <span style="margin-right: 25px !important;">{{optionIndex+1 == 1 ? "A" : optionIndex+1 == 2 ? "B"
+                              :optionIndex+1 == 3 ? "C" : "D"}}.</span>
+                              {{options.ChoiceTxt}}
+                              </label>
+                           </div>
+                           <div *ngIf="options.ChoiceImg">
+                              <img src="{{options.ChoiceImg}}"  alt="Option {{optionIndex+1}}" />
+                           </div>
+                        </div>
+                     </div>
+                   
+                  </div>
+               </div>
+            </div>
+      
+         </div>
+      </div>
+    </div>
+</p-dialog>

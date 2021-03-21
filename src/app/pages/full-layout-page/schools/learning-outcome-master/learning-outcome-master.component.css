@@ -1,0 +1,18 @@
+.form-group {
+    text-align: left;
+    -webkit-box-orient: horizontal !important;
+    -webkit-box-direction: normal !important;
+    flex-direction: row !important;
+    -webkit-box-align: center !important;
+    align-items: center !important;
+    place-content: center space-around !important;
+}
+.form-group label {
+    font-size: 1rem;
+    color: black;
+    font-weight: 500;
+}
+.title {
+    color: #075c49;
+    font-weight: 600;
+}

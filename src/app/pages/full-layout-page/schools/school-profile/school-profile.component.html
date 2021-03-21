@@ -1,0 +1,1407 @@
+<div class="main-body-content">
+    <div class=" page-container">
+       <div class="std-adm  h-100">
+          <div class="comm-pool ful-width">
+             <div class="kt-portlet__body">
+                <form name="form" id="formId" [formGroup]="form" novalidate autocomplete="off">
+                   <!-- <form class="kt-form" id="kt_form" [formGroup]="form"
+                      (ngSubmit)="onSubmit(form.value)"> -->
+                   <div class="kt-grid  kt-wizard-v1 kt-wizard-v1--white page-wizard" id="kt_wizard_v1"
+                      data-ktwizard-state="first">
+                      <div class="kt-grid__item">
+                         <!--begin: Form Wizard Nav -->
+                         <p-tabView>
+                            <p-tabPanel header="School Profile">
+                               <h4>Section 1 School Profile (Location, Structure, Management and Medium of
+                                  Instruction) 
+                               </h4>
+                               <p-fieldset legend="Basic Info" [toggleable]="true">
+                                  <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v1__wrapper">
+                                     <!--begin: Form Wizard Form-->
+                                     <!--begin: Form Wizard Step 1-->
+                                     <div class="kt-wizard-v1__content" data-ktwizard-type="step-content"
+                                        data-ktwizard-state="current">
+                                        <div class="kt-form__section kt-form__section--first">
+                                           <div class="kt-wizard-v1__form">
+                                              <div class="kt-portlet__body">
+                                                 <div class="form-group row">
+                                                    <div class="col-lg-3">
+                                                       <label>UDISE Code *</label>
+                                                       <input type="text" formControlName="udise_code"
+                                                          pInputText class="form-control" readonly>
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                       <label>Latitude</label>
+                                                       <input type="text" formControlName="latitude"
+                                                          pInputText class="form-control" readonly>
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                       <label>Longitude</label>
+                                                       <input type="text" formControlName="longitude"
+                                                          pInputText class="form-control" readonly>
+                                                    </div>
+                                                 </div>
+                                                 <!-- <div class="form-group row">
+                                                    <div class="col-lg-6">
+                                                    
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                    
+                                                    </div>
+                                                    
+                                                    </div> -->
+                                                 <div class="form-group row">
+                                                    <div class="col-lg-5">
+                                                       <label>School Name (In Capital Letters) *
+                                                       </label>
+                                                       <input type="text" formControlName="school_name"
+                                                          pInputText class="form-control" readonly>
+                                                    </div>
+                                                    <div class="col-lg-5">
+                                                       <label for="exampleInputPassword1">Is the School
+                                                       located in Rural or Urban Area *</label>
+                                                       <input type="text" pInputText
+                                                          formControlName="block_type"
+                                                          class="form-control" readonly>
+                                                    </div>
+                                                 </div>
+                                                 <div class="form-group row">
+                                                    <div class="col-lg-5">
+                                                       <label>Village Name (for rural area)/Ward Number
+                                                       (for urban area) *
+                                                       </label>
+                                                       <input type="text" pInputText
+                                                          class="form-control"
+                                                          formControlName="village_munci" readonly>
+                                                    </div>
+                                                    <div class="col-lg-5">
+                                                       <label for="exampleInputPassword1">Habitation
+                                                       Name (for rural area)/Mohalla or equivalent
+                                                       urban unit for planning (for urban area) *
+                                                       </label>
+                                                       <input type="text" pInputText
+                                                          class="form-control"
+                                                          formControlName="village_ward" readonly>
+                                                    </div>
+                                                 </div>
+                                                 <div class="form-group row">
+                                                    <div class="col-lg-5">
+                                                       <label>Pin Code *
+                                                       </label>
+                                                       <input type="text" formControlName="pincode"
+                                                          pInputText class="form-control" readonly>
+                                                    </div>
+                                                    <div class="col-lg-5">
+                                                       <label for="exampleInputPassword1">Name of Gram
+                                                       Panchayat (for rural areas only) *</label>
+                                                       <input type="text" pInputText
+                                                          class="form-control" readonly>
+                                                    </div>
+                                                 </div>
+                                                 <div class="form-group row">
+                                                    <div class="col-lg-5">
+                                                       <label>Name of Cluster Resource Centre (CRC) *
+                                                       </label>
+                                                       <input type="text" pInputText
+                                                          class="form-control" readonly>
+                                                    </div>
+                                                    <div class="col-lg-5">
+                                                       <label for="exampleInputPassword1">Name of
+                                                       Community Development (CD) Block/Mandal/
+                                                       Taluka *</label>
+                                                       <input type="text" pInputText
+                                                          class="form-control" readonly>
+                                                    </div>
+                                                 </div>
+                                                 <div class="form-group row">
+                                                    <div class="col-lg-5">
+                                                       <label>Name of Education Block/Mandal/Taluka *
+                                                       </label>
+                                                       <input type="text" formControlName="block_name"
+                                                          pInputText class="form-control" readonly>
+                                                    </div>
+                                                    <div class="col-lg-5">
+                                                       <label for="exampleInputPassword1">Name of
+                                                       Assembly Constituency *</label>
+                                                       <input type="text" pInputText
+                                                          class="form-control"
+                                                          formControlName="assembly_name" readonly>
+                                                    </div>
+                                                 </div>
+                                                 <div class="form-group row">
+                                                    <div class="col-lg-5">
+                                                       <label>Name of Parliamentary Constituency *
+                                                       </label>
+                                                       <input type="text" pInputText
+                                                          class="form-control"
+                                                          formControlName="parli_name" readonly>
+                                                    </div>
+                                                    <div class="col-lg-5">
+                                                       <label for="exampleInputPassword1">Name of
+                                                       Municipality (where applicable) *</label>
+                                                       <input type="text" pInputText
+                                                          class="form-control"
+                                                          formControlName="village_munci" readonly>
+                                                    </div>
+                                                 </div>
+                                                 <div class="form-group row">
+                                                    <div class="col-lg-5">
+                                                       <label>Name of City (where applicable) *
+                                                       </label>
+                                                       <input type="text"
+                                                          formControlName="district_name" pInputText
+                                                          class="form-control" readonly>
+                                                    </div>
+                                                    <div class="col-lg-5">
+                                                    </div>
+                                                 </div>
+                                              </div>
+                                           </div>
+                                        </div>
+                                     </div>
+                                     <div class="flex-gap-bottom">
+                                        <p-fieldset legend="Contact Details" [toggleable]="true">
+                                           <h6 class="text-center">Head of School</h6>
+                                           <div class="form-group row">
+                                              <div class="col-lg-5">
+                                                 <label> STD Code*
+                                                 </label>
+                                                 <input type="text" pInputText pKeyFilter="pnum"
+                                                    class="form-control" formControlName="std_code"
+                                                    readonly>
+                                              </div>
+                                              <div class="col-lg-5">
+                                                 <label> Landline Number *
+                                                 </label>
+                                                 <input type="text" formControlName="office_landline"
+                                                    pInputText pKeyFilter="pnum" class="form-control"
+                                                    readonly>
+                                              </div>
+                                           </div>
+                                           <div class="form-group row">
+                                              <div class="col-lg-5">
+                                                 <label> Mobile Number *
+                                                 </label>
+                                                 <input type="text" pInputText pKeyFilter="pnum"
+                                                    class="form-control" formControlName="office_mobile"
+                                                    readonly>
+                                              </div>
+                                              <div class="col-lg-5">
+                                                 <label> Respondent* Name (In Capital Letters) *
+                                                 </label>
+                                                 <input type="text" pInputText class="form-control"
+                                                    readonly>
+                                              </div>
+                                           </div>
+                                           <div class="form-group row">
+                                              <div class="col-lg-5">
+                                                 <label> Respondent Contact No *
+                                                 </label>
+                                                 <input type="text" pInputText pKeyFilter="pnum"
+                                                    class="form-control" formControlName="corr_mobile"
+                                                    readonly>
+                                              </div>
+                                              <div class="col-lg-5">
+                                                 <label> Email of School *
+                                                 </label>
+                                                 <input type="text" pInputText pKeyFilter="Email"
+                                                    class="form-control" formControlName="sch_email"
+                                                    readonly>
+                                              </div>
+                                           </div>
+                                           <div class="form-group row">
+                                              <div class="col-lg-5">
+                                                 <label> Website of School *
+                                                 </label>
+                                                 <input type="text" pInputText pKeyFilter="pnum"
+                                                    class="form-control" formControlName="website"
+                                                    readonly>
+                                              </div>
+                                              <div class="col-lg-5">
+                                              </div>
+                                           </div>
+                                        </p-fieldset>
+                                     </div>
+                                     <!--begin: Form Actions -->
+                                  </div>
+                               </p-fieldset>
+                               <div class="flex-container">
+                                  <p-fieldset legend="Category" [toggleable]="true">
+                                     <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v1__wrapper">
+                                        <!--begin: Form Wizard Form-->
+                                        <!--begin: Form Wizard Step 1-->
+                                        <div class="kt-wizard-v1__content" data-ktwizard-type="step-content"
+                                           data-ktwizard-state="current">
+                                           <div class="kt-form__section kt-form__section--first">
+                                              <div class="kt-wizard-v1__form">
+                                                 <div class="kt-portlet__body">
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-6">
+                                                       </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-5">
+                                                          <label>Lowest Class in School *</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="low_class"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                          <label>Highest Class in School *</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="high_class"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-5">
+                                                          <label>Type of School *</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="school_type"
+                                                             class="form-control" readonly>
+                                                          <!-- <span class="sub-text">Note : (Boys = 1;
+                                                             Girls = 2;
+                                                             Co-educational = 3)</span> -->
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                          <label>School Category (Code) *</label>
+                                                          <input type="text" pInputText
+                                                             class="form-control"
+                                                             formControlName="category_code"
+                                                             readonly>
+                                                       </div>
+                                                    </div>
+                                                    <h6 class="text-center"> Number of sections by class
+                                                       (if the
+                                                       class is stand alone, has no section then enter
+                                                       1) 
+                                                    </h6>
+                                                    <!-- <div class="form-group row flex-start-layout">
+                                                       <div class="col-lg-5">
+                                                           <p-table #dt [columns]="sectionDataHeader" [value]="sectionList">
+                                                               <ng-template pTemplate="header" let-columns>
+                                                                   <tr class="table-header">
+                                                                       <th *ngFor="let col of columns" style="width: 6em !important;" [pSortableColumn]="col.field" pResizableColumn>
+                                                                           {{col.header}}
+                                                       
+                                                                       </th>
+                                                                       <th>Number of Sections</th>
+                                                                   </tr>
+                                                       
+                                                               </ng-template>
+                                                               <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                                                   <tr>
+                                                                       <td *ngFor="let col of columns" style="width: 3em !important;" class="ui-resizable-column">
+                                                                           {{rowData[col.field]}}
+                                                                       </td>
+                                                                       <td>
+                                                                           <input type="text" pInputText class="form-control" readonly>
+                                                                       </td>
+                                                                   </tr>
+                                                               </ng-template>
+                                                           </p-table>
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                           <p-table #dt [columns]="managementDataHeader" [value]="managementList">
+                                                               <ng-template pTemplate="header" let-columns>
+                                                                   <tr class="table-header">
+                                                                       <th *ngFor="let col of columns" style="width: 6em !important;" [pSortableColumn]="col.field" pResizableColumn>
+                                                                           {{col.header}}
+                                                       
+                                                                       </th>
+                                                       
+                                                                   </tr>
+                                                       
+                                                               </ng-template>
+                                                               <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                                                   <tr>
+                                                                       <td *ngFor="let col of columns" style="width: 3em !important;" class="ui-resizable-column">
+                                                                           {{rowData[col.field]}}
+                                                                       </td>
+                                                       
+                                                                   </tr>
+                                                               </ng-template>
+                                                           </p-table>
+                                                       </div>
+                                                       </div> -->
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-5">
+                                                          <label>Management of the school (Code) *
+                                                          </label>
+                                                          <input type="text"
+                                                             formControlName="school_key_id"
+                                                             pInputText class="form-control"
+                                                             readonly>
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                          <label>Year of Establishment of School *
+                                                          </label>
+                                                          <input type="text" pInputText
+                                                             class="form-control"
+                                                             formControlName="yr_estd_schl" readonly>
+                                                       </div>
+                                                    </div>
+                                                    <h6 class="text-center">Year of Recognition of
+                                                       School (Only
+                                                       for Govt. Aided and Private Unaided School)
+                                                    </h6>
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-2">
+                                                          <label>Primary *</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="yr_rec_schl_elem"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                       <div class="col-lg-2">
+                                                          <label>Upper Primary *</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="yr_rec_schl_elem"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                       <div class="col-lg-2">
+                                                          <label>Secondary *</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="yr_rec_schl_sec"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                       <div class="col-lg-2">
+                                                          <label>Higher Secondary *</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="yr_rec_schl_hsc"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                    </div>
+                                                    <h6 class="text-center">Year of upgradation of the
+                                                       School (if applicable)
+                                                    </h6>
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-3">
+                                                          <label>Primary to Upper Primary *</label>
+                                                          <input type="text"
+                                                             formControlName="yr_rec_schl_elem"
+                                                             pInputText class="form-control"
+                                                             readonly>
+                                                       </div>
+                                                       <div class="col-lg-3">
+                                                          <label>Secondary to Higher Secondary *
+                                                          </label>
+                                                          <input type="text"
+                                                             formControlName="yr_rec_schl_sec"
+                                                             pInputText class="form-control"
+                                                             readonly>
+                                                       </div>
+                                                       <div class="col-lg-3">
+                                                          <label>Upper Primary to Secondary *</label>
+                                                          <input type="text"
+                                                             formControlName="yr_rec_schl_hsc"
+                                                             pInputText class="form-control"
+                                                             readonly>
+                                                       </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-5">
+                                                          <label>Is this a special school for CWSN? *
+                                                          {{form.value.cwsn_scl}}
+                                                          </label>
+                                                          <input type="text" pInputText
+                                                             class="form-control"
+                                                             formControlName="cwsn_scl" readonly>
+                                                          <!-- <span class="sub-text">Note: (Yes=1,
+                                                             No=2)</span> -->
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                          <label>Is this a shift school? *</label>
+                                                          <input type="text" pInputText
+                                                             class="form-control"
+                                                             formControlName="shftd_schl" readonly>
+                                                          <!-- <span class="sub-text">Note: (Yes=1,
+                                                             No=2)</span> -->
+                                                       </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-5">
+                                                          <label>Is this a residential school? *
+                                                          </label>
+                                                          <input type="text" pInputText
+                                                             class="form-control"
+                                                             formControlName="typ_resid_schl"
+                                                             readonly>
+                                                          <!-- <span class="sub-text">Note: (Yes=1,
+                                                             No=2)</span> -->
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                          <label>If Yes, Type of residential school *
+                                                          </label>
+                                                          <input type="text" pInputText
+                                                             class="form-control" readonly>
+                                                          <!-- <span class="sub-text">(Ashram (Govt.) =1,
+                                                             Non-ashram (Govt.) =2, Private=3, Others
+                                                             =4, KGBV =6, Model School=7, Eklavya
+                                                             Model Residential School=8)</span> -->
+                                                       </div>
+                                                    </div>
+                                                 </div>
+                                              </div>
+                                           </div>
+                                        </div>
+                                        <!--begin: Form Actions -->
+                                     </div>
+                                  </p-fieldset>
+                               </div>
+                               <div class="flex-container">
+                                  <p-fieldset legend="Language" [toggleable]="true">
+                                     <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v1__wrapper">
+                                        <!--begin: Form Wizard Form-->
+                                        <!--begin: Form Wizard Step 1-->
+                                        <div class="kt-wizard-v1__content" data-ktwizard-type="step-content"
+                                           data-ktwizard-state="current">
+                                           <div class="kt-form__section kt-form__section--first">
+                                              <div class="kt-wizard-v1__form">
+                                                 <div class="kt-portlet__body">
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-5">
+                                                          <label>Medium of Instructions
+                                                          </label>
+                                                          <ul>
+                                                             <li *ngFor="let item of mediumList">
+                                                                {{item}}
+                                                             </li>
+                                                          </ul>
+                                                          <!-- <span class="sub-text">Note: (Yes=1,
+                                                             No=2)</span> -->
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                          <label>Languages Taught</label>
+                                                          <ul>
+                                                             <li *ngFor="let item of langList">
+                                                                {{item}}
+                                                             </li>
+                                                          </ul>
+                                                       </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-5">
+                                                          <label>{{form.value.anganwadi}} Whether
+                                                          Anganwadi Centre is located inside
+                                                          school premises? (For Govt. and Aided
+                                                          Schools) *</label>
+                                                          <input type="text"
+                                                             formControlName="anganwadi" pInputText
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                          <label> If Yes,
+                                                          Code of the Anganwadi Centre</label>
+                                                          <input type="text"
+                                                             formControlName="anganwadi_center"
+                                                             pInputText class="form-control"
+                                                             readonly>
+                                                       </div>
+                                                    </div>
+                                                    <h6 class="text-center">Total Numbers of Anganwadi
+                                                       Workers & Children
+                                                    </h6>
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-5">
+                                                          <label>Total No. of Anganwadi
+                                                          Workers</label>
+                                                          <input type="text"
+                                                             formControlName="angan_wrks" pInputText
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                          <label> Total No. of Anganwadi
+                                                          Childrens</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="angan_childs"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-5">
+                                                          <label>List of Clubs
+                                                          </label>
+                                                          <ul>
+                                                             <li *ngFor="let item of clubList">
+                                                                {{item}}
+                                                             </li>
+                                                          </ul>
+                                                          <!-- <span class="sub-text">Note: (Yes=1,
+                                                             No=2)</span> -->
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                       </div>
+                                                    </div>
+                                                 </div>
+                                              </div>
+                                           </div>
+                                        </div>
+                                        <!--begin: Form Actions -->
+                                     </div>
+                                  </p-fieldset>
+                               </div>
+                               <div class="flex-container">
+                                  <p-fieldset legend="Civil" [toggleable]="true">
+                                     <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v1__wrapper">
+                                        <!--begin: Form Wizard Form-->
+                                        <!--begin: Form Wizard Step 1-->
+                                        <div class="kt-wizard-v1__content" data-ktwizard-type="step-content"
+                                           data-ktwizard-state="current">
+                                           <div class="kt-form__section kt-form__section--first">
+                                              <div class="kt-wizard-v1__form">
+                                                 <div class="kt-portlet__body">
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-5">
+                                                          <label>Total available land in Sq. Ft
+                                                          </label>
+                                                          <input type="text"
+                                                             formControlName="land_avail_sqft"
+                                                             pInputText class="form-control"
+                                                             readonly>
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                          <label>Available Play area in Sq. Ft</label>
+                                                          <input type="text"
+                                                             formControlName="play_area_sqft"
+                                                             pInputText class="form-control"
+                                                             readonly>
+                                                       </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-5">
+                                                          <label>Available Total Land area in Sq. Ft
+                                                          *</label>
+                                                          <input type="text"
+                                                             formControlName="play_land_area"
+                                                             pInputText class="form-control"
+                                                             readonly>
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                          <label> Nature of Ownership</label>
+                                                          <input type="text"
+                                                             formControlName="land_ownersip"
+                                                             pInputText class="form-control"
+                                                             readonly>
+                                                       </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-5">
+                                                          <label>Rental / Lease value per year</label>
+                                                          <input type="text"
+                                                             formControlName="land_rent_amt"
+                                                             pInputText class="form-control"
+                                                             readonly>
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                          <label> Full time Librararian
+                                                          appointed?</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="fulltime_lib"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-5">
+                                                          <label>Whether the library has subscribed to
+                                                          newspapers?</label>
+                                                          <input type="text"
+                                                             formControlName="fulltime_lib"
+                                                             pInputText class="form-control"
+                                                             readonly>
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                       </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-5">
+                                                          <label> Number of gents toilets </label>
+                                                          <input type="text" pInputText
+                                                             formControlName="toil_gents_tot"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                          <label>Number of Ladies toilets</label>
+                                                          <input type="text"
+                                                             formControlName="toil_ladies_tot"
+                                                             pInputText class="form-control"
+                                                             readonly>
+                                                       </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-5">
+                                                          <label> Number of Gents urinals</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="urinal_gents_tot"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                          <label> Number of Ladies urinals</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="urinals_tot_ladies"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-5">
+                                                          <label> Boys Toilets (Total)</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="toil_bys_inuse"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                          <label> Boys Toilets (Not
+                                                          functional)</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="toil_notuse_bys"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-5">
+                                                          <label>Reason for Not funtional</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="toil_nonfunc_bys"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                          <label>Girls Toilets (Total)</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="toil_inuse_grls"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-5">
+                                                          <label>Girls Toilets (Not
+                                                          functional)</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="toil_notuse_grls"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                          <label>Reason for Not funtional</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="toil_reasn_grls"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-5">
+                                                          <label>CWSN Boys Toiles (Total)</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="cwsntoil_inuse_bys"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                          <label>CWSN Boys Toilets (Not in
+                                                          Use)</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="cwsntoil_notuse_bys"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-5">
+                                                          <label>Reason for Not funtional</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="cwsntoil_reasn_bys"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                          <label>CWSN Girls Toilets (Total)</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="cwsntoil_inuse_grls"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-5">
+                                                          <label>CWSN Girls Toilets (Not in
+                                                          Use)</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="cwsntoil_notuse_grls"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                          <label>Reason for Not funtional</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="cwsntoil_reasn_grls"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-5">
+                                                          <label>Boys Urinals (In use)</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="urinls_inuse_bys"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                          <label>Boys Urinals (Not in use)</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="urinls_notuse_bys"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-5">
+                                                          <label>Reason for Not In use</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="urinls_reasn_bys"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                          <label>Girls Urinals (In use)</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="urinls_inuse_grls"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-5">
+                                                          <label>Girls Urinals (Not in use)</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="urinls_notuse_grls"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                          <label>Reason for Not In use</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="urinls_reasn_grls"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-5">
+                                                          <label>Boys Toilets with running
+                                                          water</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="toil_waterfac_bys"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                          <label>Girls Toilets with running
+                                                          water</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="toil_waterfac_grls"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-5">
+                                                          <label>Boys Urinals with running
+                                                          water</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="urinls_waterfac_bys"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                          <label>Girls Urinals with running
+                                                          water</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="urinls_waterfac_grls"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-5">
+                                                          <label>Santiary worker employed for
+                                                          Toilets</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="toil_sanit_wrks"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                          <label>Additional land available for
+                                                          exapnsion of Toilets</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="toil_land_avail"
+                                                             class="form-control" readonly>
+                                                       </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                       <div class="col-lg-5">
+                                                          <label>Napkin vending machines (Total)</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="napkin_avail_no" class="form-control"
+                                                             readonly>
+                                                       </div>
+                                                       <div class="col-lg-5">
+                                                          <label>Napkin vending machines (Functional)</label>
+                                                          <input type="text" pInputText
+                                                             formControlName="napkin_func_no" class="form-control"
+                                                             readonly>
+                                                       </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-lg-5">
+                                                           <label>Automatic Incincerator (Available)</label>
+                                                           <input type="text" pInputText
+                                                              formControlName="inci_auto_avail_no" class="form-control"
+                                                              readonly>
+                                                        </div>
+                                                        <div class="col-lg-5">
+                                                           <label>Automatic Incincerator (Functional)</label>
+                                                           <input type="text" pInputText
+                                                              formControlName="inci_auto_func_no" class="form-control"
+                                                              readonly>
+                                                        </div>
+                                                     </div>
+                                                     <div class="form-group row">
+                                                        <div class="col-lg-5">
+                                                           <label>Manual Incincerator (Available)</label>
+                                                           <input type="text" pInputText
+                                                              formControlName="inci_man_avail_no" class="form-control"
+                                                              readonly>
+                                                        </div>
+                                                        <div class="col-lg-5">
+                                                           <label>Manual Incincerator (Functional)</label>
+                                                           <input type="text" pInputText
+                                                              formControlName="inci_man_func_no" class="form-control"
+                                                              readonly>
+                                                        </div>
+                                                     </div>
+                                                     <div class="form-group row">
+                                                        <div class="col-lg-5">
+                                                           <label>Handwash near toilets (Boys)</label>
+                                                           <input type="text" pInputText
+                                                              formControlName="tot_handwash_bys" class="form-control"
+                                                              readonly>
+                                                        </div>
+                                                        <div class="col-lg-5">
+                                                           <label>Handwash near toilets (Girls)</label>
+                                                           <input type="text" pInputText
+                                                              formControlName="tot_handwash_grls" class="form-control"
+                                                              readonly>
+                                                        </div>
+                                                     </div>
+                                                     <div class="form-group row">
+                                                        <div class="col-lg-5">
+                                                           <label>RO PURIFIER, Drinking Water Source</label>
+                                                           <input type="text" pInputText
+                                                              formControlName="drnkwater_avail" class="form-control"
+                                                              readonly>
+                                                        </div>
+                                                        <div class="col-lg-5">
+                                                           <label>Whether water is tested</label>
+                                                           <input type="text" pInputText
+                                                              formControlName="water_test" class="form-control"
+                                                              readonly>
+                                                        </div>
+                                                     </div>
+                                                     <div class="form-group row">
+                                                        <div class="col-lg-5">
+                                                           <label>Whether overhead tank is available</label>
+                                                           <input type="text" pInputText
+                                                              formControlName="overheadtank_avail" class="form-control"
+                                                              readonly>
+                                                        </div>
+                                                        <div class="col-lg-5">
+                                                           <label>Whether water purifier is available</label>
+                                                           <input type="text" pInputText
+                                                              formControlName="waterpuri_avail" class="form-control"
+                                                              readonly>
+                                                        </div>
+                                                     </div>
+                                                     <div class="form-group row">
+                                                        <div class="col-lg-5">
+                                                           <label>Whether rainwater harvesting is done in school</label>
+                                                           <input type="text" pInputText formControlName="schl_rainwtr_hrv" class="form-control" readonly>
+                                                        </div>
+                                                        <div class="col-lg-5">
+                                                           <label>Whether solar panel is available in school</label>
+                                                           <input type="text" pInputText formControlName="solar_panel" class="form-control" readonly>
+                                                        </div>
+                                                     </div>
+                                                     <div class="form-group row">
+                                                        <div class="col-lg-5">
+                                                           <label>Whether Kitchen garden is available in School</label>
+                                                           <input type="text" pInputText formControlName="kitchen_garden" class="form-control" readonly>
+                                                        </div>
+                                                        <div class="col-lg-5">
+                                                           <label>Whether Dustbins are available in all toilets</label>
+                                                           <input type="text" pInputText formControlName="class_dustbin" class="form-control" readonly>
+                                                        </div>
+                                                     </div>
+                                                     <div class="form-group row">
+                                                        <div class="col-lg-5">
+                                                           <label>Whether Dustbins are available in Kitchen</label>
+                                                           <input type="text" pInputText formControlName="waste_toilets" class="form-control" readonly>
+                                                        </div>
+                                                        <div class="col-lg-5">
+                                                           <label>Whether Dustbins are available in all classes</label>
+                                                           <input type="text" pInputText formControlName="waste_kitchen" class="form-control" readonly>
+                                                        </div>
+                                                     </div>
+                                                 </div>
+                                              </div>
+                                           </div>
+                                        </div>
+                                        <!--begin: Form Actions -->
+                                     </div>
+                                  </p-fieldset>
+                                  <div class="flex-container">
+                                  <p-fieldset legend="SMC" [toggleable]="true">
+                                    <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v1__wrapper">
+                                       <!--begin: Form Wizard Form-->
+                                       <!--begin: Form Wizard Step 1-->
+                                       <div class="kt-wizard-v1__content" data-ktwizard-type="step-content"
+                                          data-ktwizard-state="current">
+                                          <div class="kt-form__section kt-form__section--first">
+                                             <div class="kt-wizard-v1__form">
+                                                <div class="kt-portlet__body">
+                                                   <div class="form-group row">
+                                                      <div class="col-lg-5">
+                                                         <label>SMC Constituted?</label>
+                                                         <input type="text"
+                                                            formControlName="smc_const"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                      <div class="col-lg-5">
+                                                         <label>Account Number</label>
+                                                         <input type="text"
+                                                            formControlName="smc_acc_no"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                   </div>
+                                                   <div class="form-group row">
+                                                      <div class="col-lg-5">
+                                                         <label>Name of Account</label>
+                                                         <input type="text"
+                                                            formControlName="smc_acc_name"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                      <div class="col-lg-5">
+                                                         <label>Name of Bank, IFS Code</label>
+                                                         <input type="text"
+                                                            formControlName="smc_bank"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                   </div>
+                                                   <div class="form-group row">
+                                                      <div class="col-lg-5">
+                                                         <label>Name of SMC Chair</label>
+                                                         <input type="text"
+                                                            formControlName="smc_chair_name"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                      <div class="col-lg-5">
+                                                         <label>SMC Chair Mobile Number</label>
+                                                         <input type="text"
+                                                            formControlName="smc_chair_mble"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                   </div>
+                                                   <div class="form-group row">
+                                                      <div class="col-lg-5">
+                                                         <label>Total Male</label>
+                                                         <input type="text"
+                                                            formControlName="smc_tot_mle"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                      <div class="col-lg-5">
+                                                         <label>Total Female</label>
+                                                         <input type="text"
+                                                            formControlName="smc_tot_fmle"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                   </div>
+                                                   <div class="form-group row">
+                                                      <div class="col-lg-5">
+                                                         <label>Parents Male</label>
+                                                         <input type="text"
+                                                            formControlName="smc_prnts_mle"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                      <div class="col-lg-5">
+                                                         <label>Parents Female</label>
+                                                         <input type="text"
+                                                            formControlName="smc_prnts_fmle"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                   </div>
+                                                   <div class="form-group row">
+                                                      <div class="col-lg-5">
+                                                         <label>Local Govt / Local Body - Male</label>
+                                                         <input type="text"
+                                                            formControlName="smc_rep_mle"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                      <div class="col-lg-5">
+                                                         <label>Local Govt / Local Body - Female</label>
+                                                         <input type="text"
+                                                            formControlName="smc_prnts_fmle"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                   </div>
+                                                   <div class="form-group row">
+                                                      <div class="col-lg-5">
+                                                         <label>Parents of EWS Children - Male</label>
+                                                         <input type="text"
+                                                            formControlName="smc_weakr_mle"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                      <div class="col-lg-5">
+                                                         <label>Parents of EWS Children - Female</label>
+                                                         <input type="text"
+                                                            formControlName="smc_weakr_fmle"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                   </div>
+                                                   <div class="form-group row">
+                                                      <div class="col-lg-5">
+                                                         <label>Meetings held previus academic year</label>
+                                                         <input type="text"
+                                                            formControlName="smc_no_prev_acyr"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                      <div class="col-lg-5">
+                                                         <label>SMC Year of Constitution</label>
+                                                         <input type="text"
+                                                            formControlName="smc_const_yr"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                   </div>
+                                                   <div class="form-group row">
+                                                      <div class="col-lg-5">
+                                                         <label>SMC has School Development Plan</label>
+                                                         <input type="text"
+                                                            formControlName="smc_sdp"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                      <div class="col-lg-5">
+                                                         <label>SMDC Constituted?</label>
+                                                         <input type="text"
+                                                            formControlName="smdc_acc_name"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                   </div>
+                                                   <div class="form-group row">
+                                                      <div class="col-lg-5">
+                                                         <label>Name of Account</label>
+                                                         <input type="text"
+                                                            formControlName="smdc_acc_no"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                      <div class="col-lg-5">
+                                                         <label>Name of Bank, IFS Code</label>
+                                                         <input type="text"
+                                                            formControlName="smdc_bank"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                   </div>
+                                                   <div class="form-group row">
+                                                  <table>
+                                                     <tr>
+                                                        <th></th>
+                                                        <th>Male</th>
+                                                        <th>Female</th>
+                                                     </tr>
+                                                     <tr>
+                                                        <td>Total</td>
+                                                        <td><input type="text"
+                                                         formControlName="smdc_tot_mle"
+                                                         pInputText class="form-control"
+                                                         readonly></td>
+                                                        <td><input type="text"
+                                                         formControlName="smdc_tot_fmle"
+                                                         pInputText class="form-control"
+                                                         readonly></td>
+                                                     </tr>
+                                                     <tr>
+                                                      <td>Parents</td>
+                                                      <td><input type="text"
+                                                       formControlName="smdc_parnt_mle"
+                                                       pInputText class="form-control"
+                                                       readonly></td>
+                                                      <td><input type="text"
+                                                       formControlName="smdc_parnt_fmle"
+                                                       pInputText class="form-control"
+                                                       readonly></td>
+                                                   </tr>
+                                                   <tr>
+                                                      <td>Local Govt / Local Body</td>
+                                                      <td><input type="text"
+                                                       formControlName="smdc_lb_mle"
+                                                       pInputText class="form-control"
+                                                       readonly></td>
+                                                      <td><input type="text"
+                                                       formControlName="smdc_lb_fmle"
+                                                       pInputText class="form-control"
+                                                       readonly></td>
+                                                   </tr>
+                                                   <tr>
+                                                      <td>Parents of Minority group children</td>
+                                                      <td><input type="text"
+                                                       formControlName="smdc_minori_mle"
+                                                       pInputText class="form-control"
+                                                       readonly></td>
+                                                      <td><input type="text"
+                                                       formControlName="smdc_minori_fmle"
+                                                       pInputText class="form-control"
+                                                       readonly></td>
+                                                   </tr>
+                                                   <tr>
+                                                      <td>Members from Womens Groups</td>
+                                                      <td><input type="text"
+                                                       formControlName="smdc_women"
+                                                       pInputText class="form-control"
+                                                       readonly></td>
+                                                      <td><input type="text"
+                                                       formControlName="smdc_scst_mle"
+                                                       pInputText class="form-control"
+                                                       readonly></td>
+                                                   </tr>
+                                                   <tr>
+                                                      <td>Members from SC / ST</td>
+                                                      <td><input type="text"
+                                                       formControlName="smdc_scst_mle"
+                                                       pInputText class="form-control"
+                                                       readonly></td>
+                                                      <td><input type="text"
+                                                       formControlName="smdc_scst_fmle"
+                                                       pInputText class="form-control"
+                                                       readonly></td>
+                                                   </tr>
+                                                   <tr>
+                                                      <td>Nominees of DEO</td>
+                                                      <td><input type="text"
+                                                       formControlName="smdc_deo_mle"
+                                                       pInputText class="form-control"
+                                                       readonly></td>
+                                                      <td><input type="text"
+                                                       formControlName="smdc_deo_fmle"
+                                                       pInputText class="form-control"
+                                                       readonly></td>
+                                                   </tr>
+                                                   <tr>
+                                                      <td>Nominees from Account / Audit Dept</td>
+                                                      <td><input type="text"
+                                                       formControlName="smdc_audit_mle"
+                                                       pInputText class="form-control"
+                                                       readonly></td>
+                                                      <td><input type="text"
+                                                       formControlName="smdc_audit_fmle"
+                                                       pInputText class="form-control"
+                                                       readonly></td>
+                                                   </tr>
+                                                   <tr>
+                                                      <td>Number of subject experts</td>
+                                                      <td><input type="text"
+                                                       formControlName="smdc_exprt_mle"
+                                                       pInputText class="form-control"
+                                                       readonly></td>
+                                                      <td><input type="text"
+                                                       formControlName="smdc_exprt_fmle"
+                                                       pInputText class="form-control"
+                                                       readonly></td>
+                                                   </tr>
+                                                   <tr>
+                                                      <td>Number of teachers</td>
+                                                      <td><input type="text"
+                                                       formControlName="smdc_techrs_mle"
+                                                       pInputText class="form-control"
+                                                       readonly></td>
+                                                      <td><input type="text"
+                                                       formControlName="smdc_techrs_fmle"
+                                                       pInputText class="form-control"
+                                                       readonly></td>
+                                                   </tr>
+                                                   <tr>
+                                                      <td>Principal / HM</td>
+                                                      <td><input type="text"
+                                                       formControlName="smdc_hm_mle"
+                                                       pInputText class="form-control"
+                                                       readonly></td>
+                                                      <td><input type="text"
+                                                       formControlName="smdc_hm_fmle"
+                                                       pInputText class="form-control"
+                                                       readonly></td>
+                                                   </tr>
+                                                   <tr>
+                                                      <td>Chairperson</td>
+                                                      <td><input type="text"
+                                                       formControlName="smdc_chair_mle"
+                                                       pInputText class="form-control"
+                                                       readonly></td>
+                                                      <td><input type="text"
+                                                       formControlName="smdc_chair_fmle"
+                                                       pInputText class="form-control"
+                                                       readonly></td>
+                                                   </tr>
+                                                  </table>
+                                                   </div>
+                                                   <div class="form-group row">
+                                                      <div class="col-lg-5">
+                                                         <label>SMDC Constituted Year</label>
+                                                         <input type="text"
+                                                            formControlName="smdc_const_yr"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                      <div class="col-lg-5">
+                                                         <label>SMDC meetings last year</label>
+                                                         <input type="text"
+                                                            formControlName="smdc_no_last_acyr"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                   </div>
+                                                   <div class="form-group row">
+                                                      <div class="col-lg-5">
+                                                         <label>SMDC has School Improvement Plan</label>
+                                                         <input type="text"
+                                                            formControlName="smdc_sip"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                      <div class="col-lg-5">
+                                                         <label>SMDC Contribution Amount</label>
+                                                         <input type="text"
+                                                            formControlName="smdc_contrib_amt"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                   </div>
+                                                   <div class="form-group row">
+                                                      <div class="col-lg-5">
+                                                         <label>SMDC Chairperson Name</label>
+                                                         <input type="text"
+                                                            formControlName="smdc_chair_name"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                      <div class="col-lg-5">
+                                                         <label>SMDC Chaiperson Mobile</label>
+                                                         <input type="text"
+                                                            formControlName="smdc_chair_mble"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                   </div>
+                                                   <div class="form-group row">
+                                                      <div class="col-lg-5">
+                                                         <label>School Building Committee Constituted?</label>
+                                                         <input type="text"
+                                                            formControlName="sbc_const"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                      <div class="col-lg-5">
+                                                         <label>Academic Committee constituted?</label>
+                                                         <input type="text"
+                                                            formControlName="acadecomm_const"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                   </div>
+                                                   <div class="form-group row">
+                                                      <div class="col-lg-5">
+                                                         <label>PTA Constituted?</label>
+                                                         <input type="text"
+                                                            formControlName="pta_const"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                      <div class="col-lg-5">
+                                                         <label>PTA Constituted year</label>
+                                                         <input type="text"
+                                                            formControlName="pta_est_yr"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                   </div>
+                                                   <div class="form-group row">
+                                                      <div class="col-lg-5">
+                                                         <label>PTA Meetings last year</label>
+                                                         <input type="text"
+                                                            formControlName="pta_no_curyr"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                      <div class="col-lg-5">
+                                                         <label>PTA Registration Number</label>
+                                                         <input type="text"
+                                                            formControlName="pta_reg_no"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                   </div>
+                                                   <div class="form-group row">
+                                                      <div class="col-lg-5">
+                                                         <label>PTA Subscription Amount</label>
+                                                         <input type="text"
+                                                            formControlName="pta_subscri_amt"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                      <div class="col-lg-5">
+                                                         <label>PTA Chairperson Name</label>
+                                                         <input type="text"
+                                                            formControlName="pta_chair_name"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                   </div>
+                                                   <div class="form-group row">
+                                                      <div class="col-lg-5">
+                                                         <label>PTA Chairperson Mobile</label>
+                                                         <input type="text"
+                                                            formControlName="pta_chair_mble"
+                                                            pInputText class="form-control"
+                                                            readonly>
+                                                      </div>
+                                                      <div class="col-lg-5">
+                                                        
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                  </p-fieldset>
+                                  </div>
+                               </div>
+                            </p-tabPanel>
+                            <!-- <p-tabPanel header="Physical Facilities and Equipments">
+                               </p-tabPanel> -->
+                            <!-- <p-tabPanel header="Teaching and Non-Teaching Staff">
+                               </p-tabPanel> -->
+                         </p-tabView>
+                         <!-- <div class="kt-wizard-v1__nav">
+                            <div class="kt-form__actions">
+                            
+                                <button pButton type="Submit" class="ui-button-success flex-gap-right flex-gap-top" label="Submit"></button>
+                            
+                            </div>
+                            
+                            </div> -->
+                      </div>
+                   </div>
+                </form>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>

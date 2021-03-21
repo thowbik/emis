@@ -1,0 +1,174 @@
+<div class="main-body-content p-3">
+  <!-- *ngIf = "RoleID== 1" -->
+  <div *ngIf="RoleID ==1">
+      <div class="outer-layout">
+          <div class="breadcrumbs c-black">
+              <h6 class="url">
+                  <span class="flex-gap-right">Call Tracking</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+                  <span class="flex-gap-right">Coordinate Table </span>
+              </h6>
+          </div>
+      </div>
+      <p-card>
+          <div class="row">
+              <div class="col-sm-9">
+                  <div class="">
+                      <!-- <h5 class="heading">Coordinate Table -->
+                      <!-- </h5>  -->
+                  </div>
+              </div>
+              <div class="col-sm-3 p-3">
+                  <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Filter" />
+              </div>
+          </div>
+          <p-table #dt [columns]="coordinate" [value]="teacherlist" dataKey="IndexID" editMode="row" [rows]="10">
+              <ng-template pTemplate="header" let-distname>
+                  <tr class="text-center">
+                      <th class="sno-header-layout">#</th>
+                      <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                          {{col.header}}
+                          <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"> </p-sortIcon>
+                      </th>
+                  </tr>
+                  <tr>
+                      <th></th>
+                      <th *ngFor="let columns of coordinate" [ngSwitch]="columns.field" [style.width]="columns.widthstyle">
+                          <input *ngSwitchCase="'RecDate'" class="search" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search" />
+                          <input *ngSwitchCase="'AssignedSub'" class="search" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search" />
+                      </th>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-supporter let-editing="editing" let-ri="rowIndex">
+                  <tr [pEditableRow]="supporter">
+                      <td class="sno-header-layous">{{ri+1}}</td>
+                      <td class="text-center">{{supporter.IndexID}}</td>
+                      <td class="text-center">{{supporter.RecDate}}</td>
+                      <td class="text-center">{{supporter.PhoneNo}}</td>
+                      <td class="text-left">{{supporter.AssignedSub}}</td>
+                      <td class="text-center">{{supporter.AssignedCls}}</td>
+                      <td style="width: 6em; text-align: center;" pEditableColumn>
+                          <p-cellEditor>
+                              <ng-template pTemplate="input">
+                                  <p-dropdown [options]="teacherlist_val" appendTo="body" (onChange)="onChangeteacher($event)" placeholder="Select Teacher" [(ngModel)]="AssignTeach" [style]="{'width':'100%'}"> </p-dropdown>
+                              </ng-template>
+                              <ng-template pTemplate="output">
+                                  {{supporter.AssigndTeachrName}}
+                              </ng-template>
+                          </p-cellEditor>
+                      </td>
+                      <td style="text-align: center;">
+                          <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" class="ui-button-info" (click)="onRowEditInit(supporter)"></button>
+                          <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" class="ui-button-success" style="margin-right: 0.5em;" (click)="onRowEdit_Save(supporter)"></button>
+                          <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" class="ui-button-danger" (click)="onRowEditCancel(supporter, ri)"></button>
+                      </td>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="emptymessage" let-columns>
+                  <tr>
+                      <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                          <strong>No Records Found </strong>
+                      </td>
+                  </tr>
+              </ng-template>
+          </p-table>
+      </p-card>
+  </div>
+  <!-- Callsupporttable -->
+  <!-- start -->
+  <div *ngIf="RoleID== 2">
+      <div class="outer-layout">
+          <div class="breadcrumbs c-black">
+              <h6 class="url">
+                  <span class="flex-gap-right">Call Tracking</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+                  <span class="flex-gap-right">Call Support table </span>
+              </h6>
+          </div>
+      </div>
+      <p-card>
+          <div class="row">
+              <div class="col-sm-9">
+                  <div class="">
+                      <!-- <h5 class="heading">Call Support table -->
+                      <!-- </h5>  -->
+                  </div>
+              </div>
+              <div class="col-sm-3 p-3">
+                  <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Filter" />
+              </div>
+          </div>
+          <hr />
+          <p-table #dt [columns]="callsupport" [value]="teacherlist" editMode="row" [rows]="10" dataKey="IndexID">
+              <ng-template pTemplate="header" let-distname>
+                  <tr class="text-center">
+                      <th class="sno-header-layout">#</th>
+                      <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                          {{col.header}}
+                          <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"> </p-sortIcon>
+                      </th>
+                  </tr>
+                  <tr>
+                      <th></th>
+                      <th *ngFor="let columns of callsupport" [ngSwitch]="columns.field" [style.width]="columns.widthstyle">
+                          <input *ngSwitchCase="'RecDate'" class="search" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search" />
+                          <input *ngSwitchCase="'AssignedSub'" class="search" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search" />
+                          <input *ngSwitchCase="'RespoDate'" class="search" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search" />
+                          <input *ngSwitchCase="'CallStatus'" class="search" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search" />
+                      </th>
+                      <th></th>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-supporter let-editing="editing" let-ri="rowIndex">
+                  <tr [pEditableRow]="supporter">
+                      <td class="sno-header-layous">{{ri+1}}</td>
+                      <td class="text-center">{{supporter.IndexID}}</td>
+                      <td class="text-center">{{supporter.RecDate}}</td>
+                      <td class="text-center">{{supporter.PhoneNo}}</td>
+                      <td class="text-left">{{supporter.AssignedSub}}</td>
+                      <td class="text-center">{{supporter.AssignedCls}}</td>
+                      <td class="text-center">{{supporter.RespoDate}}</td>
+                      <td style="width: 6em; text-align: center;" pEditableColumn>
+                          <p-cellEditor>
+                              <ng-template pTemplate="input">
+                                  <p-dropdown [options]="Teacherdropvalue" appendTo="body" [(ngModel)]="supporter.CallStatus" [style]="{'width':'100%'}"> </p-dropdown>
+                              </ng-template>
+                              <ng-template pTemplate="output">
+                                  {{ supporter.CallStatus == "0" ? "Yet to respond" : supporter.CallStatus == "1" ? "Doubt Clarified" : supporter.CallStatus == "2" ? "Blank / Incorrect call" : supporter.CallStatus == "3" ? "Incorrect
+                                  Subject" : supporter.CallStatus == "4" ? "Incorrect Class" : supporter.CallStatus == "5" ? "Student Unavailable" : "Student Unavailable"}}
+                              </ng-template>
+                          </p-cellEditor>
+                      </td>
+                      <td>
+                          <p-cellEditor>
+                              <ng-template pTemplate="input">
+                                  <input pInputText type="text" [(ngModel)]="supporter.NoOfCalls" />
+                              </ng-template>
+                              <ng-template pTemplate="output"> {{supporter.NoOfCalls}} </ng-template>
+                          </p-cellEditor>
+                      </td>
+                      <td>
+                          <p-cellEditor>
+                              <ng-template pTemplate="input">
+                                  <input pInputText type="text" [(ngModel)]="supporter.CallRemarks" />
+                              </ng-template>
+                              <ng-template pTemplate="output"> {{supporter.CallRemarks}} </ng-template>
+                          </p-cellEditor>
+                      </td>
+                      <td style="text-align: center;">
+                          <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" class="ui-button-info" (click)="onRowEditInit(supporter)"></button>
+                          <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" class="ui-button-success" style="margin-right: 0.5em;" (click)="onRowEditSave(supporter)"></button>
+                          <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" class="ui-button-danger" (click)="onRowEditCancel(supporter, ri)"></button>
+                      </td>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="emptymessage" let-columns>
+                  <tr>
+                      <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                          <strong>No Records Found </strong>
+                      </td>
+                  </tr>
+              </ng-template>
+          </p-table>
+      </p-card>
+  </div>
+</div>
+<!-- end -->

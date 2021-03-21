@@ -1,0 +1,177 @@
+.box-shwd {
+    box-shadow: 0 2px 6px #7686729e;
+  }
+  .backclr-grn {
+    background-color: #075c49;
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  .font_sizes_colors
+  {
+    font-size: 14px;
+    font-weight: 600;
+   }
+  .body {
+    color: black !important ;
+  }
+
+
+
+  .box-shwd {
+    box-shadow: 0 2px 6px #7686729e;
+  }
+  
+  .backclr-grn {
+    background-color: #075c49;
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  button.btn.btn-success {
+    background-color: #075c49;
+    border: 1px solid #075c49;
+  }
+  
+  button.btn.btn-success:hover {
+    color: #075c49;
+    background-color: white;
+  }
+  
+  .btn-border {
+    border: 1px solid #ccc;
+    margin-left: 15px;
+  }
+  
+  .light_btn {
+    padding:0.30rem 1.5rem;
+    background: #E1E1EA;
+  }
+  
+  .border-1 {
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+  }
+  
+  .font-16 {
+    font-size: 16px;
+    font-weight: 500;
+  }
+  
+  .manditory {
+    color: #b92626;
+  }
+  
+  
+  .bg_green{
+    background: #2d7464 !important ;
+  }
+  .bg_info{
+    background: #007ad9;
+  }
+  .bg_light{
+    background: #d4d3d3 !important;
+    border:  1px solid #d4d3d3;
+  }
+  .school_land_title{
+    float: left;width: 100%;padding: 10px 2%;color: #fff;background: #2d7464;
+  }
+  .label_text{
+    color: #19225aad;
+    font-weight: bold;
+  }
+  h5{
+    font-size: 15px !important;
+  }
+  .manditory{
+    color: #da1d1d;
+  }
+  
+  .fullWidth{
+    width: 100%;
+  }
+  .light_btn{
+    padding:0.55rem 1.5rem;
+    background: #e1e1ea;
+  }
+  .submit_button input{padding: 9px 18px;}
+  .submit_button input[type="submit"]{margin: 0 10px 0 0;}
+  
+  .small_font{font-size: 11px !important;}
+  
+  .form-control{border-color: #d5d7da !important;}
+  
+  .full_width{float: left;width: 100%;}
+  
+  
+  
+  .box-shwd {
+    box-shadow: 0 2px 6px #7686729e;
+  }
+  
+  .backclr-grn {
+    background-color: #075c49;
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  button.btn.btn-success {
+    background-color: #075c49;
+    border: 1px solid #075c49;
+  }
+  
+  button.btn.btn-success:hover {
+    color: #075c49;
+    background-color: white;
+  }
+  
+  .btn-border{
+    border: 1px solid #ccc;
+    margin-left: 15px;
+  }
+  
+  .light_btn{
+    padding:0.55rem 1.5rem;
+    background: #E1E1EA;
+  }
+  
+  .manditory {
+    color: #b92626;
+  }
+  
+  .font-16 {
+    font-size: 15px;
+    font-weight: 500;
+  }
+  
+  .text-align {
+    margin-top:auto;
+    margin-bottom:auto;
+  }
+  .num-align {
+    font-weight: 500;
+    color:green;
+    padding-right:4px;
+  }
+  
+  sub-num-align {
+    font-weight: 500;
+    color:yellow;
+    padding-right:4px;
+  }
+  
+  .flex-dropdown {
+    display: flex !important;
+  }
+  
+  .text-align1 {
+    margin-top:auto;
+    margin-bottom:auto;
+    text-align: center;
+  }
+  
+
+  .title_text{margin: 0 3px 20px;}
+  

@@ -1,0 +1,174 @@
+
+.slider {
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    border-radius: 3px;
+    position: relative;
+  }
+  .slider .owl-nav, .slider .owl-dots {
+    display: none;
+  }
+  .slider:hover .left {
+    visibility: visible;
+    opacity: 1;
+    left: 20px;
+  }
+  .slider:hover .right {
+    visibility: visible;
+    opacity: 1;
+    right: 20px;
+  }
+  .slider .item-box {
+    padding: 20px;
+    overflow: hidden;
+    width: 100%;
+    height: 340px;
+    position: relative;
+    border-radius: 3px;
+    background: no-repeat url(http://www.cyw51.com/file/upload/201302/22/18-49-19-74-127.jpg) center center;
+    background-size: cover;
+  }
+  .slider .item-box:after {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    content: "";
+    display: block;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), #000);
+  }
+  .slider .left {
+    position: absolute;
+    z-index: 1;
+    top: 167px;
+    left: -20px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    visibility: hidden;
+    opacity: 0;
+    transition: left ease 0.25s;
+    opacity: 0.5;
+    color:rgba(255, 255, 255, 0.5);
+    font-size: 40px;
+  }
+  .slider .left:hover {
+    opacity: 1;
+    color:rgba(255, 255, 255, 1);
+  }
+  .slider .left.nonl {
+    left: -20px;
+    opacity: 0;
+    visibility: hidden;
+  }
+  .slider .right {
+    cursor: pointer;
+    position: absolute;
+    z-index: 1;
+    top: 167px;
+    right: -20px;
+    width: 40px;
+    height: 40px;
+    visibility: hidden;
+    opacity: 0;
+    transition: right ease 0.25s;
+    opacity: 0.5;
+    color:rgba(255, 255, 255, 0.5);
+    font-size: 40px;
+  }
+  .slider .right:hover {
+    opacity: 1;
+    color:rgba(255, 255, 255, 1);
+  }
+  .slider .right.nonr {
+    right: -20px;
+    opacity: 0;
+    visibility: hidden;
+  }
+  .slider-two {
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+  }
+  .slider-two .owl-nav, .slider-two .owl-dots {
+    display: none;
+  }
+  .slider-two:hover .left-t {
+    visibility: visible;
+    opacity: 1;
+    left: 3px;
+  }
+  .slider-two:hover .right-t {
+    visibility: visible;
+    opacity: 1;
+    right: 3px;
+  }
+  .slider-two .item {
+    transition: all ease 0.25s;
+    height: 100px;
+    border-radius: 5px;
+    border: solid 2px #e6ecf2;
+    cursor: pointer;
+  }
+  .slider-two .item.active {
+    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.15);
+    border: solid 2px #57a837;
+  }
+  .slider-two .owl-stage {
+    padding: 20px 0;
+  }
+  .slider-two .left-t {
+    cursor: pointer;
+    position: absolute;
+    z-index: 1;
+    top: 23px;
+    visibility: hidden;
+    opacity: 0;
+    transition: all ease 0.25s;
+    width: 40px;
+    height: 95px;
+    left: -40px;
+  }
+  .slider-two .left-t:hover {
+    visibility: visible;
+    opacity: 1;
+    left: 3px;
+  }
+  .slider-two .left-t.nonl-t {
+    left: -40px;
+    opacity: 0;
+    visibility: hidden;
+  }
+  .slider-two .right-t {
+    cursor: pointer;
+    position: absolute;
+    z-index: 1;
+    top: 23px;
+    right: -40px;
+    visibility: hidden;
+    opacity: 0;
+    transition: all ease 0.25s;
+    width: 40px;
+    height: 95px;
+  }
+  .slider-two .right-t i, .slider-two .left-t i{
+    margin-top: 30px;
+    padding: 6px;
+    background: rgba(0,0,0,0.7);
+    color: #fff;
+    font-size: 20px;
+  }
+
+  .slider-two .right-t:hover {
+    visibility: visible;
+    opacity: 1;
+    right: 3px;
+  }
+  .slider-two .right-t.nonr-t {
+    right: -40px;
+    opacity: 0;
+    visibility: hidden;
+  }

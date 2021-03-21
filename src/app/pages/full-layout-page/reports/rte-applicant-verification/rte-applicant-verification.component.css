@@ -1,0 +1,12 @@
+.sno-header-layouts{
+    width: 4rem !important;
+}
+.red_clr{
+    color: red;
+}
+.green_clr{
+    color: green;
+}
+.img_sz{
+    object-fit: contain;
+}

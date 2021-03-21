@@ -1,0 +1,228 @@
+<div class="main-body-content">
+    <div class="text-left py-2">
+       <button pButton type="button" label="Learner Details" class="ui-button-secondary flex-gap-right"  (click)="learnerlist()"></button>
+       <button pButton type="button" label="Volunteer Teachers Details" class="ui-button-secondary flex-gap-right" (click)="volunteerteacher()"></button>
+       <button pButton type="button" label="Summary Report" class="ui-button-secondary flex-gap-right ui-button-info"></button>
+       <!-- <button type="submit" class="btn btn-primary m-2" (click)="learnerlist()">Learner Details</button> -->
+       <!-- <button type="submit" class="btn btn-primary m-2" (click)="volunteerteacher()">Volunteer Teachers Details</button> -->
+       <!-- <button type="submit" class="btn btn-primary m-2" (click)="summaryreport() ">Summary Report</button> -->
+    </div>
+    <div class="outer-layout">
+       <div class="breadcrumbs c-black">
+          <h6 class="url"><span class="flex-gap-right">Summary Reports</span>
+             <span *ngIf="pageStage === 2 || pageStage === 3"><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right" (click)="goBack()">{{schoolName}}</span></span>
+          </h6>
+       </div>
+    </div>
+    <div>
+       <div class="container-fluid" style="padding-top:10px;" *ngIf="pageStage === 1">
+          <p-table #dt [columns]="dataHeader" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]" totalRecords="totalRecords" pageLinks="3"
+          >
+          <ng-template pTemplate="caption">
+             <form [formGroup]="form">
+                <div class="row">
+                   <div class="col-lg-3">
+                      <p-dropdown [options]="BlockOption" formControlName="block" (onChange)="OnBlockChange($event.value)" placeholder="Select" styleClass="dropdwnvalues"></p-dropdown>
+                   </div>
+                   <!-- <div class="col-lg-9">
+                      <button type="submit" class="btn btn-primary text-right goback" (click)="summaryreport() ">Go Back</button>
+                      </div>                -->
+                </div>
+             </form>
+             <div class="row">
+                <div class="col-sm-8"></div>
+                <div class="col-sm-3">
+                   <input class="form-control" type="text"(input)="dt.filterGlobal($event.target.value, 'contains')"placeholder="Filter">
+                </div>
+                <div class="col-sm-1 text-right" style="padding-top: 15px;">
+                   <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"  (click)="exportPdf(data,dataHeader)"></i> -->
+                   <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel()"></i>
+                </div>
+             </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
+             <tr class="text-center">
+                <th style="width:4em">#</th>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"  ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+             </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-school let-columns="columns" let-i="rowIndex">
+             <tr class="text-center">
+                <td style="width:4em">{{i+1}}</td>
+                <td class="text-left">{{school.SchlNam}}</td>
+                <td style="color:#337ab7;cursor: pointer;" (click)="getTeacherData(school.SchlID,school.SchlNam)">{{school.TeachCount}}</td>
+                <td style="color:#337ab7;cursor: pointer;" (click)="getStudentData(school.SchlID,school.SchlNam)">{{school.StudCount}}</td>
+             </tr>
+          </ng-template>
+          <ng-template pTemplate="footer">
+             <tr class="text-left" *ngIf="noData">
+                <td colspan="4" style="text-align: center;"> No Data Found </td>
+             </tr>
+          </ng-template>
+          </p-table>
+       </div>
+       <div class="container-fluid" *ngIf="pageStage === 2">
+          <p-confirmDialog [style]="{width: '36vw'}" [baseZIndex]="10000"></p-confirmDialog>
+          <p-table #dh [columns]="dataHeaderTeacher" [value]="Teacherdata" totalRecords="totalRecords" [autoLayout]="true"
+          [globalFilterFields]="['TeachNam','Gendr','MblNo']">
+          <ng-template pTemplate="caption">
+             <div class="row">
+                <div class="col-sm-8"></div>
+                <div class="col-sm-3">
+                   <input class="form-control" type="text"(input)="dh.filterGlobal($event.target.value, 'contains')"placeholder="Filter">
+                </div>
+                <div class="col-sm-1 text-right" style="padding-top: 15px;">
+                   <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"  (click)="exportTeacherPdf(Teacherdata,dataHeaderTeacher)"></i> -->
+                   <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportTeacherExcel()"></i>
+                </div>
+             </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
+             <tr class="text-center">
+                <th style="width: 3em">
+                    <p-checkbox binary="true" [ngModel]="parentsCheckbox" (onChange)="parentToggle($event)">
+                    </p-checkbox>
+                </th>
+                <th style="width:4em;">#</th>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"  ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+                <th width="10%" style="text-align:center">Action</th>
+                <!-- <th>Teacher Name</th>
+                   <th>Gender</th>
+                   <th>Mobile Number</th> -->
+             </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-school let-columns="columns" let-i="rowIndex">
+             <tr class="text-center">
+                <td>
+                    <p-checkbox binary="true" [(ngModel)]="school.isChecked"
+                        (onChange)="childToggle($event,school)">
+                    </p-checkbox>
+                </td>
+                <td style="width:4em;">{{i+1}}</td>
+                <!-- <td class="text-left">{{school.TeachNam}}</td> -->
+                <!-- <td class="text-left">{{school.TeachNam}}</td> -->
+                <td class="text-left" style="color:#337ab7;cursor: pointer;" (click)="onSelectteacherdata(school.SchlID,school.IndxID)">{{school.TeachNam}}</td>
+                <td>{{school.Gendr == 1 ? "Male" : "Female"}}</td>
+                <td>{{(school.BookIssued === null) ? "Not Marked" : (school.BookIssued == 1) ? "Issued" : "Not issued"}}</td>
+                <td>{{school.MblNo}}</td>
+                <td style="text-align:center" width="10%">
+                   <button pButton type="button" icon="fa fa-trash" class="ui-button-warning" (click)="OnDeleteTeacherData(school.IndxID)"></button>&nbsp;
+                </td>
+             </tr>
+          </ng-template>
+          <ng-template pTemplate="footer">
+             <tr class="text-left" *ngIf="noDataFound">
+                <td colspan="8" style="text-align: center;"> No Data Found </td>
+             </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage" let-columns>
+            <tr *ngIf="!noDataFound">
+                <td colspan="8" style="text-align: center;">
+                    <strong>No Records Found </strong>
+                </td>
+            </tr>
+    </ng-template>
+          </p-table>
+          <br>
+          <div class="row">
+              <div class="col-sm-8"></div>
+              <div class="col-sm-4 text-right">
+                  <button pButton type="button" class="ui-button-info" label="UpdateGuideBooks"
+                      (click)="onTeachSubmit(Teacherdata)" style="margin-right: .5em"></button>
+              </div>
+          </div>
+       </div>
+       <div class="container-fluid" *ngIf="pageStage === 3">
+          <p-confirmDialog [style]="{width: '36vw'}" [baseZIndex]="500"></p-confirmDialog>
+          <p-table #dl [columns]="dataHeaderStudent" [value]="Studentdata" [autoLayout]="true" 
+          [globalFilterFields]="['StudNam','Gendr','Mobile']">
+          <ng-template pTemplate="caption">
+             <div class="row">
+                <div class="col-sm-8"></div>
+                <div class="col-sm-3">
+                   <input class="form-control" type="text"(input)="dl.filterGlobal($event.target.value, 'contains')"placeholder="Filter">
+                </div>
+                <div class="col-sm-1 text-right" style="padding-top: 15px;">
+                   <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"  (click)="exportStudentPdf(Studentdata,dataHeaderStudent)"></i> -->
+                   <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportStudentExcel()"></i>
+                </div>
+             </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
+             <tr class="text-center">
+                <th style="width: 3em">
+                    <p-checkbox binary="true" [ngModel]="parentsCheckbox" (onChange)="parentStdToggle($event)">
+                    </p-checkbox>
+                </th>
+                <th style="width:4em;">S.No</th>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"  ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+                <th width="10%" style="text-align:center">Action</th>
+             </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-i="rowIndex" let-school let-columns="columns" >
+             <tr class="text-center">
+                <td>
+                    <p-checkbox binary="true" [(ngModel)]="school.isChecked"
+                        (onChange)="childStdToggle($event,school)">
+                    </p-checkbox>
+                </td>
+                <td style="width:4em;">{{i+1}}</td>
+                <td class="text-left"  style="color:#337ab7;cursor: pointer;" (click)="onSelectstudentdata(school.SchlID,school.IndxID)">{{school.StudNam}}</td>
+                <td>{{school.Gendr == 1 ? "Male" : "Female"}}</td>
+                <td>{{(school.BookIssued === null) ? "Not Marked" : school.BookIssued == 1 ? "Issued" : "Not issued"}}</td>
+                <td>{{school.TeacherName}}</td>
+                <td>{{school.Mobile}}</td>
+                <td style="text-align:center" width="10%">
+                   <button pButton type="button" icon="fa fa-trash" class="ui-button-warning" (click)="OnDeleteStudentData(school.IndxID)"></button>&nbsp;
+                </td>
+             </tr>
+          </ng-template>
+          <ng-template pTemplate="footer">
+             <tr class="text-left" *ngIf="noDataFound">
+                <td colspan="8" style="text-align: center;"> No Data Found </td>
+             </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage" let-columns>
+            <tr *ngIf="!noDataFound">
+                <td colspan="8" style="text-align: center;">
+                    <strong>No Records Found </strong>
+                </td>
+            </tr>
+    </ng-template>
+          </p-table>
+          <br>
+            <form [formGroup]="form">
+                <div class="row">
+                    <div class="col-sm-4" *ngIf="showDropdown">
+                        <p-dropdown  [options]="teacher_list_value" placeholder="Select Volunteer Teacher" class="flex-dropdown"
+                            (onChange)="onSelectTeach($event.value)"></p-dropdown>
+                    </div>
+                    <div class="col-sm-3" *ngIf="showDropdown">
+                        <button type="Submit" pButton label="Submit" style="padding: 0px 14px;"
+                            (click)="onSubmitStudentTeacher(Studentdata)"></button> </div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-4" *ngIf="!showDropdown">
+                        <button pButton type="button" class="ui-button-info" label="Select Volunteer Teacher"
+                            (click)="onSelectVolunter(Studentdata)" style="margin-right: .5em"></button>
+                    </div>
+                </div>
+                <div class="row" >
+                    <div class="col-sm-8"></div>
+                    <div class="col-sm-4 text-right">
+                        <button pButton type="button" class="ui-button-info" label="UpdatePrimerBooks"
+                            (click)="onStdBookSubmit(Studentdata)" style="margin-right: .5em"></button>
+                    </div>
+                </div>
+            </form>
+       </div>
+    </div>
+ </div>

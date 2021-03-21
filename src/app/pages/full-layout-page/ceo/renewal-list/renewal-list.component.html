@@ -1,0 +1,156 @@
+<div class="container-fluid p-3" *ngIf="pageStage === 1">
+	<div class="outer-layout">
+		<div class="breadcrumbs c-black">
+			<h6 class="url">
+     
+      <span class="flex-gap-right " (click)="previouspage()">Renewal </span> 
+      <i class="fa fa-angle-right flex-gap-right" aria-hidden="true" *ngIf="emis_usertype == 5" ></i>
+      <span class="flex-gap-right" (click)="previouspagedistrict()" *ngIf="emis_usertype == 5" >District wise School Report
+      </span>
+      <i class="fa fa-angle-right flex-gap-right" aria-hidden="true" *ngIf="emis_usertype != 6" ></i>
+      <span class="flex-gap-right" (click)="Blockpreviouspage()" *ngIf="emis_usertype != 6">Block wise School Report
+      </span>
+      <i class="fa fa-angle-right flex-gap-right" aria-hidden="true" ></i>
+      <span class="flex-gap-right">School Renewal Report
+      </span>
+     </h6>
+		</div>
+	</div>
+	<div class="main-body-content m-2">
+		<p-table #dt [columns]="dataHeader1" [value]="data" [resizableColumns]="true" [paginator]="true" [rows]="10">
+			<ng-template let-committee pTemplate="caption">
+				<div class="row">
+					<div class="col-sm-9">
+						<!-- <h5 class="heading">Student Admission Approval</h5> -->
+					</div>
+					<div class="col-sm-3">
+						<input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Filter" />
+					</div>
+				</div>
+			</ng-template>
+			<ng-template pTemplate="header" let-committee>
+				<tr class="text-center">
+					<th *ngFor="let col of committee" [pSortableColumn]="col.field" [style.width]="col.widthstyle">{{col.header}}
+						<p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+					</th>
+				</tr>
+			</ng-template>
+			<ng-template pTemplate="body" let-committee let-rowData let-columns="columns" let-i="rowIndex">
+				<tr class="text-center" *ngIf="noDataFound1==1">
+					<td class="sno-header-layout">{{i+1}}</td>
+					<td class="text-left">{{ committee.district_name}}</td>
+					<td class="text-left">{{ committee.block_name}}</td>
+					<td class="text-left" *ngIf=" this.datasBEO == false || this.dataCEO == true || this.statusType == 'Total Application' || this.statusType == 'Approved Application' || this.statusType == 'Rejected Application' || this.emis_usertype == 5 ">{{ committee.udise_code}}</td>
+					<td class="text-left" *ngIf="this.dataBEO == true || this.dataDEO == true || this.datasBEO == true || this.datassCEO == true"><a href="javascript:void(0)" (click)="goToNextStep(committee.school_id)"> {{ committee.udise_code}}</a>
+					</td>
+					<td class="text-left">{{ committee.school_name}}<br/>
+						<span class="badge" *ngIf="this.statusType == 'Approved Application'" (click)="getOrderCopy(committee.school_id)">APPROVAL ORDER</span>
+					</td>
+				</tr>
+			</ng-template>
+			<ng-template pTemplate="footer">
+				<tr class="text-center" *ngIf="noDataFound1==2">
+					<td colspan="5">No Data Found</td>
+				</tr>
+			</ng-template>
+		</p-table>
+	</div>
+</div>
+<!----- stage 3  -------->
+<div class="container-fluid" *ngIf="pageStage === 3">
+	<div class="main-body-content m-2">
+		<div class="outer-layout">
+			<div class="breadcrumbs c-black">
+				<h6 class="url">
+       <span class="flex-gap-right" (click)="previouspage()">Renewal </span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true" *ngIf="emis_usertype == 5"></i>
+       <span class="flex-gap-right" (click)="previouspagedistrict()" *ngIf="emis_usertype == 5">District wise School Report
+       </span>
+       <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+      </h6>
+			</div>
+		</div>
+		<div class="main-body-content m-2">
+			<p-table #dt [columns]="dataHeader4" [value]="data" [resizableColumns]="true" [paginator]="true" [rows]="10">
+				<!-- <ng-template let-committee pTemplate="caption">
+          <div class="row p-1">
+            <div class="col-sm-6">
+                <div class="text-lg-left mt-3">
+                  <h5> District wise School Report</h5>
+                </div>
+            </div>
+          </div>
+        </ng-template> -->
+				<ng-template pTemplate="header" let-committee>
+					<tr class="text-center">
+						<th *ngFor="let col of committee" [pSortableColumn]="col.field" [style.width]="col.widthstyle">{{col.header}}
+							<p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+						</th>
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="body" let-committee let-rowData let-columns="columns" let-i="rowIndex">
+					<tr class="text-center" *ngIf="noDataFound1==1">
+						<td class="sno-header-layout">{{i+1}}</td>
+						<td class="text-left"><a href="javascript:void(0)" (click)="getdiswisescllist(committee.district_id)">  {{ committee.district_name}}</a> 
+						</td>
+						<!-- <td class="text-left">{{ committee.block_name}}</td> -->
+						<td>{{ committee.total}}</td>
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="footer">
+					<tr class="text-center" *ngIf="noDataFound1==2">
+						<td colspan="3">No Data Found</td>
+					</tr>
+				</ng-template>
+			</p-table>
+		</div>
+	</div>
+</div>
+<!----- stage 4  -------->
+<div class="container-fluid p-3" *ngIf="pageStage === 4">
+	<div class="outer-layout">
+		<div class="breadcrumbs c-black">
+			<h6 class="url">
+      <span class="flex-gap-right" (click)="previouspage()">Renewal </span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true" *ngIf="emis_usertype == 5"></i>
+      <span class="flex-gap-right" (click)="previouspagedistrict()"  *ngIf="emis_usertype == 5">District wise School Report
+      </span>
+      <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+      <span class="flex-gap-right" >Block wise School Report
+      </span>
+     </h6>
+		</div>
+	</div>
+	<div class="main-body-content m-2">
+		<p-table #dt [columns]="dataHeader3" [value]="data" [resizableColumns]="true" [paginator]="true" [rows]="10">
+			<ng-template let-committee pTemplate="caption">
+				<div class="row">
+					<div class="col-sm-9">
+						<!-- <h5 class="heading">Student Admission Approval</h5> -->
+					</div>
+					<div class="col-sm-3">
+						<input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Filter" />
+					</div>
+				</div>
+			</ng-template>
+			<ng-template pTemplate="header" let-committee>
+				<tr class="text-center">
+					<th *ngFor="let col of committee" [pSortableColumn]="col.field" [style.width]="col.widthstyle">{{col.header}}
+						<p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+					</th>
+				</tr>
+			</ng-template>
+			<ng-template pTemplate="body" let-committee let-rowData let-columns="columns" let-i="rowIndex">
+				<tr class="text-center" *ngIf="noDataFound1==1">
+					<td class="sno-header-layout">{{i+1}}</td>
+					<td class="text-left"><a href="javascript:void(0)" (click)="getblockwisescllist(committee.block_id)">  {{ committee.block_name}}</a> 
+					</td>
+					<td>{{ committee.total}}</td>
+				</tr>
+			</ng-template>
+			<ng-template pTemplate="footer">
+				<tr class="text-center" *ngIf="noDataFound1==2">
+					<td colspan="3">No Data Found</td>
+				</tr>
+			</ng-template>
+		</p-table>
+	</div>
+</div>

@@ -1,0 +1,2603 @@
+<div class="outer-layout" style="padding-top:5px;">
+    <div class="breadcrumbs c-black">
+    <h6 class="url"><span class="flex-gap-right">Staff Details</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i> <span class="flex-gap-right">PINDICS HM-evaluation</span></h6>
+    </div>
+</div>
+<div class="main-body-content">
+    <p-card>
+        <div class="main-body">
+            <div class="heading-align">
+                <label>PINDICS HM Evaluation</label>
+            </div><br>
+            <div>
+                <label>After observing classroom activities, students exercise and teacher self evaluation format,
+                    Headmaster has to provide remarks
+                    in the below gives 8 points in four parameters
+                </label>
+            </div><br>
+            <div class="subheading-align">
+                <label>Only teachers who have self evaluated will be listed here</label>
+            </div><br>
+            <form [formGroup]="filterForm">
+                <!-- <form name="form" id="formId" [formGroup]="form" novalidate autocomplete="off"> -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Teachers List*</label>
+                    </div>
+                    <div class="col-md-3">
+                        <!-- <select id="select2" class="form-control " (change)="onSelection($event.target.value)"> -->
+                        <select id="select2" class="form-control " (change)="onSelection($event.target.value)" >
+                            <option value="">Select Teacher</option>
+                            <option *ngFor="let classes of classlist" [value]="classes.teacher_id">
+                                {{ classes.teacher_name }}
+                            </option>
+                        </select>
+                        <!-- <p-dropdown [options]="evaluationList"  (click)="detailskod2d()" >
+                </p-dropdown> -->
+                    </div>
+                    <div class="col-md-3" *ngIf=!show>
+                        <button pButton type="button" label="VIEW SELF EVALUATION" class="ui-button-info flex-gap-right" style="font-weight:500"
+                            (click)="showDialog()" ></button>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label style="color:#646c9a">1. Designing Learning Experiences for Children*</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                    formControlName="HM_EV_1"></p-dropdown>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label style="color:#646c9a">2. Knowledge and Understanding of Subject Matter*</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                        formControlName="HM_EV_2"></p-dropdown>
+                        <!-- <select id="select2" class="form-control ">
+                            <option>Select Option</option>
+                            <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                {{ classes.label }}
+                            </option>
+                        </select> -->
+                        <!-- <p-dropdown [style]="{minWidth: '400px'}" [options]="evaluationList" formControlName="ques2">
+                </p-dropdown> -->
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label style="color:#646c9a">3. Strategy for Facilitating Learning*</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                        formControlName="HM_EV_3"></p-dropdown>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label style="color:#646c9a">4. Interpersonal Relationship*</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                        formControlName="HM_EV_4"></p-dropdown>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label style="color:#646c9a">5. Professional Development*</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                        formControlName="HM_EV_5"></p-dropdown>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label style="color:#646c9a">6. School Development*</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                        formControlName="HM_EV_6"></p-dropdown>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label style="color:#646c9a">7. Teacher Attendance*</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                        formControlName="HM_EV_7"></p-dropdown>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label style="color:#646c9a">8. Promoting Health and Hygiene*</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                        formControlName="HM_EV_8"></p-dropdown>
+                    </div>
+                </div><br>
+                <div>
+                    <label>It is found correct by verifying the school records of teacher handing the class and subject
+                        and the number of days present in the school during working days (2018-2019) and certified that
+                        the entries are made correctly.
+                    </label>
+                </div>
+            </form><br>
+            <div style="margin-left:35%">
+                <div class="kt-section__content">
+                    <!-- <button pButton type="button" label="SUBMIT" class="ui-button-info flex-gap-right" [disabled]="clicked"
+                        (click)="onSubmit(); clicked = true;" ></button> -->
+                        <button pButton type="button" label="SUBMIT" class="ui-button-info flex-gap-right" [disabled]="filterForm.controls['hm_ev_status'].value == 1"
+                        (click)="onSubmit(); clicked = true;" ></button>
+                    <button pButton type="button" label="CANCEL" class="ui-button-secondary flex-gap-right" [disabled]="filterForm.controls['hm_ev_status'].value == 1"
+                        style="color:gray" (click)="onCancel()"></button>
+                </div>
+            </div>           
+        </div>
+    </p-card>
+</div>
+
+
+
+
+
+
+<p-dialog [(visible)]="display" [contentStyle]="{'max-width':'800px'}">
+    <p-header class="align">
+        Performance Indicators
+    </p-header>
+    <form name="form" id="formId" [formGroup]="form" novalidate autocomplete="off">
+    <p-fieldset [toggleable]="true">
+        <p-header class="toggle-align">Handling Class / Details of Subject</p-header>
+        <div style="padding-left: 6%;padding-right: 6%;">
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label>Class 1</label><br>
+                    <p-multiSelect [options]="classlist1" formControlName="class_1" [style]="{minWidth: '100%'}" defaultLabel="-" maxSelectedLabels="11" readonly="true"></p-multiSelect>
+                </div>
+
+                <div class="col-md-6">
+                    <label>Class 2</label><br>
+                    <p-multiSelect [options]="classlist1" formControlName="class_2" [style]="{minWidth: '100%'}" defaultLabel="-" maxSelectedLabels="11" readonly="true"></p-multiSelect>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label>Class 3</label><br>
+                    <p-multiSelect [options]="classlist1" formControlName="class_3" [style]="{minWidth: '100%'}" defaultLabel="-" maxSelectedLabels="11" readonly="true"></p-multiSelect>
+                </div>
+
+                <div class="col-md-6">
+                    <label>Class 4</label><br>
+                    <p-multiSelect [options]="classlist1" formControlName="class_4" [style]="{minWidth: '100%'}" defaultLabel="-" maxSelectedLabels="11" readonly="true"></p-multiSelect>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label>Class 5</label><br>
+                    <p-multiSelect [options]="classlist1" formControlName="class_5" [style]="{minWidth: '100%'}" defaultLabel="-" maxSelectedLabels="11" readonly="true"></p-multiSelect>
+                </div>
+
+                <div class="col-md-6">
+                    <label>Class 6</label><br>
+                    <p-multiSelect [options]="classlist1" formControlName="class_6" [style]="{minWidth: '100%'}" defaultLabel="-" maxSelectedLabels="11" readonly="true"></p-multiSelect>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label>Class 7</label><br>
+                    <p-multiSelect [options]="classlist1" formControlName="class_7" [style]="{minWidth: '100%'}" defaultLabel="-" maxSelectedLabels="11" readonly="true"></p-multiSelect>
+                </div>
+
+                <div class="col-md-6">
+                    <label>Class 8</label><br>
+                    <p-multiSelect [options]="classlist1" formControlName="class_8" [style]="{minWidth: '100%'}" defaultLabel="-" maxSelectedLabels="11" readonly="true"></p-multiSelect>
+                </div>
+            </div>
+            
+        </div>
+    </p-fieldset><br>
+
+    <p-fieldset [toggleable]="true">
+        <p-header class="toggle-align">Calculation of days for Teaching Learning Process</p-header>
+        <div style="margin-left:6%;">
+            <div class="form-group row">
+                <div class="col-md-6 text-center">
+                    <label class="textalign">Leave Particulars</label><br>
+                </div>
+                <div class="col-md-6 text-center">
+                    <label class="textalign">Job Particulars</label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4 text-center1">
+                    <label>1. No of Days Availed CL</label><br>
+                </div>
+                <div class="col-md-1">
+                    <input type="text" formControlName="cl" pInputText class="form-control"  readonly >
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-4 text-center1">
+                    <label>6. No of Days attened Training</label><br>
+                </div>
+                <div class="col-md-1">
+                    <input type="text" formControlName="traing_atnd" pInputText class="form-control" readonly>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4 text-center1">
+                    <label>2. No of Days Availed EL</label><br>
+                </div>
+                <div class="col-md-1">
+                    <input type="text" pInputText class="form-control" formControlName="el" readonly>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-4 text-center1">
+                    <label>7. No of Days training given</label><br>
+                </div>
+                <div class="col-md-1">
+                    <input type="text" formControlName="traing_givn" pInputText class="form-control" readonly>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4 text-center1">
+                    <label>3. No of Days Availed ML</label><br>
+                </div>
+                <div class="col-md-1">
+                    <input type="text" pInputText class="form-control" formControlName="ml" readonly>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-4 text-center1">
+                    <label>8. No of Days attended Election duty</label><br>
+                </div>
+                <div class="col-md-1">
+                    <input type="text" formControlName="electn_dty_atnd" pInputText class="form-control" readonly>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4 text-center1">
+                    <label>4. No of Days Maternity Leave Availed</label><br>
+                </div>
+                <div class="col-md-1">
+                    <input type="text" formControlName="maternity_leave" pInputText class="form-control" readonly>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-4 text-center1">
+                    <label>9. No of days on duty </label><br>
+                </div>
+                <div class="col-md-1">
+                    <input type="text" formControlName="duty_days" pInputText class="form-control" readonly>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4 text-center1">
+                    <label>5. Other leave</label><br>
+                </div>
+                <div class="col-md-1">
+                    <input type="text" formControlName="other_leave" pInputText class="form-control" readonly>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-4 text-center1">
+                    <label>10. No of days used for classroom activity </label><br>
+                </div>
+                <div class="col-md-1">
+                    <input type="text" formControlName="clas_rm_actvty_dys" pInputText class="form-control" readonly>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3"></div>
+                <div class="col-md-2 text-center1">
+                    <label style="font-weight:500">Total Working Days</label><br>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" formControlName="tot_wrk_days" pInputText class="form-control" readonly>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </p-fieldset><br>
+
+    <p-fieldset [toggleable]="true">
+        <p-header class="toggle-align">Implementation of concepts undertaken in training</p-header>
+        <div style="padding-left: 6%;">
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label>1. Designing and incorporation of training content in Lession plan.</label><br>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    <p-radioButton name="groupname4" value="1" label="Yes" formControlName="lesson_plan" [disabled]="isDisabled"></p-radioButton>
+                </div>
+                <div class="col-md-2">
+                    <p-radioButton name="groupname4" value="0" label="No" formControlName="lesson_plan" [disabled]="isDisabled"></p-radioButton>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label>2. Designing of Teaching Learning Material following the instruction given in the
+                        training.</label><br>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    <p-radioButton name="groupname3" value="1" label="Yes" formControlName="teach_learn_matrl" [disabled]="isDisabled"></p-radioButton>
+                </div>
+                <div class="col-md-2">
+                    <p-radioButton name="groupname3" value="0" label="No" formControlName="teach_learn_matrl" [disabled]="isDisabled"></p-radioButton>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label>3. Designing Lession activities based on training content</label><br>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    <p-radioButton name="groupname1" value="1" label="Yes" formControlName="lesson_act" [disabled]="isDisabled"></p-radioButton>
+                </div>
+                <div class="col-md-2">
+                    <p-radioButton name="groupname1" value="0" label="No" formControlName="lesson_act" [disabled]="isDisabled"></p-radioButton>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label>4. Designing Life Skill Orientation activities based on the training
+                        content.</label><br>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    <p-radioButton name="groupname2" value="1" label="Yes" formControlName="life_skill_act" [disabled]="isDisabled"></p-radioButton>
+                </div>
+                <div class="col-md-2">
+                    <p-radioButton name="groupname2" value="0" label="No" formControlName="life_skill_act" [disabled]="isDisabled"></p-radioButton>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label>5. Designing of Project based activities on the Training Content.</label><br>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    <p-radioButton name="groupname" value="1" label="Yes" formControlName="prj_based_act" [disabled]="isDisabled"></p-radioButton>
+                </div>
+                <div class="col-md-2">
+                    <p-radioButton name="groupname" value="0" label="No" formControlName="prj_based_act" [disabled]="isDisabled"></p-radioButton>
+                </div>
+            </div>
+
+        </div>
+    </p-fieldset><br>
+
+    <p-fieldset [toggleable]="true">
+        <p-header class="toggle-align">Talents of Teachers</p-header>
+        <div style="padding-left: 6%;">
+            <div class="text-center">
+                <label class="teacher-align">Special Talents of Teachers</label>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label>1. Public Speaking</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname" formControlName="public_speaking" value="1" readonly="true"></p-checkbox>
+                </div>
+                <div class="col-md-4">
+                    <label>11. Sports Activities</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname1" formControlName="sports_act" value="1" readonly="true"></p-checkbox>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label>2. Advertising</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname2" formControlName="advertising" value="1" readonly="true"></p-checkbox>
+                </div>
+                <div class="col-md-4">
+                    <label>12. Photography</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname3" formControlName="photography" value="1" readonly="true"></p-checkbox>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label>3. Graphics</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname4" formControlName="graphics" value="1" readonly="true"></p-checkbox>
+                </div>
+                <div class="col-md-4">
+                    <label>13. Essay writing</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname5" formControlName="essay_writing" value="1" readonly="true"></p-checkbox>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label>4. Music</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname6" formControlName="music" value="1" readonly="true"></p-checkbox>
+                </div>
+                <div class="col-md-4">
+                    <label>14. Video creation</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname7" formControlName="video_creation" value="1" readonly="true"></p-checkbox>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label>5. Art & Craft</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname8" formControlName="art_craft" value="1" readonly="true"></p-checkbox>
+                </div>
+                <div class="col-md-4">
+                    <label>15. Computer Skills</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname9" formControlName="comp_skills" value="1" readonly="true"></p-checkbox>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label>6. Story telling</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname10" formControlName="story_telling" value="1" readonly="true"></p-checkbox>
+                </div>
+                <div class="col-md-4">
+                    <label>16. Creativity</label><br>
+
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname11" formControlName="creativity" value="1" readonly="true"></p-checkbox>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label>7. Drawing & Painting</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname12" formControlName="draw_paint" value="1" readonly="true"></p-checkbox>
+                </div>
+                <div class="col-md-4">
+                    <label>17. Innovation</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname13" formControlName="innovation" value="1" readonly="true"></p-checkbox>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label>8. Writing Poems</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname14" formControlName="writing_poem" value="1" readonly="true"></p-checkbox>
+                </div>
+                <div class="col-md-4">
+                    <label>18. Foreign Language </label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname15" formControlName="foreign_lang" value="1" readonly="true"></p-checkbox>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label>9. Yoga</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname16" formControlName="yoga" value="1" readonly="true"></p-checkbox>
+                </div>
+                <div class="col-md-4">
+                    <label>19. Sign Language </label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname17" formControlName="sign_lang" value="1" readonly="true"></p-checkbox>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label>10. Singing</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname18" formControlName="singing" value="1" readonly="true"></p-checkbox>
+                </div>
+                <div class="col-md-4">
+                    <label>20. Cultural Activities </label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname19" formControlName="cultrl_act" value="1" readonly="true"></p-checkbox>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label>21. Able to speak many languages </label><br>
+
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname20" formControlName="spk_many_lang" value="1" readonly="true"></p-checkbox>
+                </div>
+            </div>
+        </div>
+    </p-fieldset><br>
+
+    <p-fieldset [toggleable]="true">
+        <p-header class="toggle-align">Teachers Self Evaluation Format</p-header>
+        <div style="padding-left: 6%;padding-right: 6%;">
+            <div class="text-center">
+                <label class="teacher-align">1. Designing Learning Experiences for Children (P1)</label>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>1. I plan the teaching and learning process using textbook and other related
+                        resource materials.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                    formControlName="P1_1" readonly="true"></p-dropdown>   
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>2. I involve all children in the teaching learning process.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                    formControlName="P1_2" readonly="true"></p-dropdown>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>3. I am logging in the TNTP and know the information uploaded in the
+                        site.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                    formControlName="P1_3" readonly="true"></p-dropdown>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>4. I am uploading my stategies in TNTP.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                    formControlName="P1_4" readonly="true"></p-dropdown>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>5. I plan my classroom activities to make the children enjoy the classroom
+                        atmosphere.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                    formControlName="P1_5" readonly="true"></p-dropdown>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>6. I design my notes of lession with inbuilt activities to achieve the expected
+                        learning outcome by all the children.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                    formControlName="P1_6" readonly="true"></p-dropdown>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>7. I focus on children with learning difficulties and plan remedial measures to
+                        bridge them to standards throughout the year.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                    formControlName="P1_7" readonly="true"></p-dropdown>
+                </div>
+            </div>
+
+
+            <div class="text-center">
+                <label class="teacher-align">2. Knowledge and Understanding of Subject Matter (P2)</label>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>1. I deliver the content of the lession to the children with appropriate example,
+                        according to the level of the child.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                    formControlName="P2_1" readonly="true"></p-dropdown>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>2. I complete the prescribed syllabus in appropriate time by using proper
+                        TLM.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                    formControlName="P2_2" readonly="true"></p-dropdown>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>3. I use the quick response code (QR Code) for all subjects
+                        wherever prescribed in the textbook, in the right time in the teaching learning
+                        process,
+                        to make the children understand the concept acquire skills.
+                    </label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                    formControlName="P2_3" readonly="true"></p-dropdown>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>4. I use library books as a resource material in the classroom for better
+                        understanding of the content.
+                    </label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                    formControlName="P2_4" readonly="true"></p-dropdown>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>5. I use ICT in the classroom to enhance understanding.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                    formControlName="P2_5" readonly="true"></p-dropdown>
+                </div>
+            </div>
+
+
+            <div class="text-center">
+                <label class="teacher-align">3. Strategy for Facilitating Learning (P3)</label>
+            </div>
+            <div class="text-center">
+                <label class="teacher-align">A. Enabling learning environment and class room
+                    management</label>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>1. The teaching learning materials available in the school is used and exhibited
+                        in the classroom adequately.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                    formControlName="P3_A_1" readonly="true"></p-dropdown>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>2. I treat all my children alike and never hurt them physically and
+                        mentally.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                    formControlName="P3_A_2" readonly="true"></p-dropdown>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>3. I identify the absentee/drop out children and special children and I take
+                        steps to ensure their regular attendance.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                    formControlName="P3_A_3" readonly="true"></p-dropdown>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>4. I ensure inclusive education for CWSN in my classroom.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                    formControlName="P3_A_4" readonly="true"></p-dropdown>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>5. I modify my classroom environment to develop leadership qualities among
+                        children.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                    formControlName="P3_A_5" readonly="true"></p-dropdown>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>6. I create the classroom infrastructure and follow the methodology in the
+                        classroom.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                    formControlName="P3_A_6" readonly="true"></p-dropdown>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>7. I do ensure that children have their class work notebook done for all subjects
+                        to improve the achievement level of children.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                    formControlName="P3_A_7" readonly="true"></p-dropdown>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>8. I encourage my children by gifting them simple things in classroom
+                        activities.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                    formControlName="P3_A_8" readonly="true"></p-dropdown>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <label class="teacher-align">B. Learning strategies and activities</label>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>1. I use child centered activities in the classroom.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                    formControlName="P3_B_1" readonly="true"></p-dropdown>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>2. I give ample opportunities to children in identifying, observing and
+                        experimenting tasks.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                    formControlName="P3_B_2" readonly="true"></p-dropdown>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>3. I encourage the children's participation and recognize their
+                        answers.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                    formControlName="P3_B_3" readonly="true"></p-dropdown>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>4. I write legibly in the blackboard.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                    formControlName="P3_B_4" readonly="true"></p-dropdown>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>5. I prepare action plan to ensure the students understanding.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                    formControlName="P3_B_5" readonly="true"></p-dropdown>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>6. I use technology to improvise my remedial teaching for the children with difficulties in learning.</label><br>
+                   
+                </div>
+                <div class="col-md-4">
+                    <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                    formControlName="P3_B_6" readonly="true"></p-dropdown>
+                </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-8">
+                        <label>7. I give productive home works to make the students think.</label><br>
+                       
+                    </div>
+                    <div class="col-md-4">
+                        <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                        formControlName="P3_B_7" readonly="true"></p-dropdown>
+                    </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-8">
+                            <label>8. I know to use TNTP, Workplace and I understand the need and usage of these sites.</label><br>
+                           
+                        </div>
+                        <div class="col-md-4">
+                            <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                            formControlName="P3_B_8" readonly="true"></p-dropdown>
+                        </div>
+                        </div>
+                        <div class="text-center">
+                            <label class="teacher-align">C. Assessment and Feed Back</label>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>1. I assess children's learning and give them immediate feedback.</label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P3_C_1" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>2. I properly record the achievement level of the students in CCE records. (Through written test and assignments)</label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P3_C_2" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>3. I share the achievements level of the children to their parents
+                                    and to the school management committee members.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P3_C_3" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>4. I plan a proper Formative Assessment for all the lessons.</label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P3_C_4" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>5. I give opportunity to the students to give immediate feedback, group feedback and peer feedback during Evaluation.</label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P3_C_5" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <label class="teacher-align">4. Interpersonal Relationship (P4)</label>
+                        </div>
+                        <div class="text-center">
+                            <label class="teacher-align">A. Relationship with Students</label>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>1. I am friendly to the students with care and respect so as to ensure
+                                    that the students approach me without any fear.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P4_A_1" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>2. I appreciate the student's special talents and encourage them to
+                                    develop their skills and discuss with their parents about their talents
+                                    and proficiencies.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P4_A_2" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>3. Apart from Teaching and learning process, I advise my students
+                                    regarding their personal hygiene, health, citizenship, eating habits and pursuing life skills.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P4_A_3" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>4. I encourage my students to develop research skills.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P4_A_4" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>5. I encourage bright students to use higher order thinking skills
+                                    in their daily classroom activities.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P4_A_5" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <label class="teacher-align">B. Relationship with Colleagues</label>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>1. I respect my Colleagues and accept their involvement and valuable
+                                    suggestions in my work.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P4_B_1" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>2. I share my best strategies to my colleagues.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P4_B_2" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <label class="teacher-align">C. Relation with parents and community</label>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>1. I participate in the public functions and National special
+                                    functions organized in the society. I encourage and 
+                                    coordinate pubic to take part in school functions.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P4_C_1" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>2. I pursue the public contribution and develop my school by all means.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P4_C_2" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <label class="teacher-align">5. Professional Development (P5)</label>
+                        </div>
+                        <div class="text-center">
+                            <label class="teacher-align">A. Self - study participation in in-service education programmes</label>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>1. I renew my subject Knowledge through self learning.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P5_A_1" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>2. I participate in the in-service training and share my views in the block and cluster level meetings.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P5_A_2" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>3. I use the new techniques and approaches learned in the trainings in my classroom.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P5_A_3" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <label class="teacher-align">B. Engagement in innovation and research</label>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>1. I involve in innovative activities and in research activities.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P5_B_1" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>2. I participate and present my articles at District, State and National and in International Conferences.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P5_B_2" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>3. I participate in the block, district and in state level competitions conducted for teachers.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P5_B_3" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <label class="teacher-align">6. School Development (P6)</label>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>1. I help in organizing school management committee
+                                    meetings and other public meetings and discuss with
+                                    School Management Committee members for school Development.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P6_1" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>2. I help in organizing daily assembly, cultural programs, sports day, national
+                                    festivals and other functions with responsibility in my school.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P6_2" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>3. I Coordinate with others and take part in school activities
+                                    in Gardening, maintaining health, Cleanliness and supply of
+                                    Mid day meals in school.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P6_3" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>4. I encourage my students in participating group activities.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P6_4" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>5. I update all my class details in the EMIS site personally.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P6_5" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <label class="teacher-align">7. Teacher Attendance (P7)</label>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>1. I attend my school on time and leave the school on time.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P7_1" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>2. I use Tamil Nadu Schools Attendance App to mark my student's daily attendance 
+                                    regularly without fail.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P7_2" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <label class="teacher-align">8. Promoting Health and Hygiene (P8)</label>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>1. I check my student's personal hygiene and assess them accordingly.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P8_1" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>2. I keep my campus clean and create awareness to the students to
+                                    separate and dispose the waste in the right
+                                    basket degradable non degradable and ensure that
+                                    every class has a dustbin.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P8_2" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>3. I stick pictures creating awareness about personal hygiene, proper
+                                    usage of toilet, following healthy habits and make the children realize it.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <p-dropdown [options]="evaluationList" placeholder="Choose Columns" class="flex-dropdown"
+                                formControlName="P8_3" readonly="true"></p-dropdown>
+                            </div>
+                        </div>
+                        
+                        
+
+
+
+
+
+
+
+
+
+        </div>
+    </p-fieldset>
+    </form>
+</p-dialog>
+
+
+
+
+
+
+
+
+<!-- <p-dialog [(visible)]="display" [contentStyle]="{'max-width':'800px'}">
+    <p-header class="dialog-align">
+        Performance Indicators
+    </p-header>
+    <form name="form" id="formId" [formGroup]="form" novalidate autocomplete="off">
+    <p-fieldset [toggleable]="true">
+        <p-header class="toggle-align">Handling Class / Details of Subject</p-header>
+        <div style="padding-left: 6%;">
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label>Class 1</label><br>
+                   
+                        <p-multiSelect [options]="classlist1" formControlName="class_1" [style]="{minWidth: '300px'}" defaultLabel="Choose Columns"></p-multiSelect>
+                </div>
+
+                <div class="col-md-6">
+                    <label>Class 2</label><br>
+                    <p-multiSelect [options]="classlist1" formControlName="class_2" [style]="{minWidth: '300px'}" defaultLabel="Choose Columns"></p-multiSelect>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label>Class 3</label><br>
+                    <p-multiSelect [options]="classlist1" formControlName="class_3" [style]="{minWidth: '300px'}" defaultLabel="Choose Columns"></p-multiSelect>
+                </div>
+
+                <div class="col-md-6">
+                    <label>Class 4</label><br>
+                    <p-multiSelect [options]="classlist1" formControlName="class_4" [style]="{minWidth: '300px'}" defaultLabel="Choose Columns"></p-multiSelect>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label>Class 5</label><br>
+                    <p-multiSelect [options]="classlist1" formControlName="class_5" [style]="{minWidth: '300px'}" defaultLabel="Choose Columns"></p-multiSelect>
+                </div>
+
+                <div class="col-md-6">
+                    <label>Class 6</label><br>
+                    <p-multiSelect [options]="classlist1" formControlName="class_6" [style]="{minWidth: '300px'}" defaultLabel="Choose Columns"></p-multiSelect>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label>Class 7</label><br>
+                    <p-multiSelect [options]="classlist1" formControlName="class_7" [style]="{minWidth: '300px'}" defaultLabel="Choose Columns"></p-multiSelect>
+                </div>
+
+                <div class="col-md-6">
+                    <label>Class 8</label><br>
+                    <p-multiSelect [options]="classlist1" formControlName="class_8" [style]="{minWidth: '300px'}" defaultLabel="Choose Columns"></p-multiSelect>
+                </div>
+            </div>
+            
+        </div>
+    </p-fieldset><br>
+
+    <p-fieldset [toggleable]="true">
+        <p-header class="toggle-align">Calculation of days for Teaching Learning Process</p-header>
+        <div style="margin-left:6%;">
+            <div class="form-group row">
+                <div class="col-md-6 text-center">
+                    <label class="textalign">Leave Particulars</label><br>
+                </div>
+                <div class="col-md-6 text-center">
+                    <label class="textalign">Job Particulars</label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4 text-center1">
+                    <label>1. No of Days Availed CL</label><br>
+                </div>
+                <div class="col-md-1">
+                    <input type="text" formControlName="cl" pInputText class="form-control"  readonly >
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-4 text-center1">
+                    <label>6. No of Days attened Training</label><br>
+                </div>
+                <div class="col-md-1">
+                    <input type="text" pInputText class="form-control" readonly>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4 text-center1">
+                    <label>2. No of Days Availed EL</label><br>
+                </div>
+                <div class="col-md-1">
+                    <input type="text" pInputText class="form-control" formControlName="el" readonly>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-4 text-center1">
+                    <label>7. No of Days training given</label><br>
+                </div>
+                <div class="col-md-1">
+                    <input type="text" pInputText class="form-control" readonly>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4 text-center1">
+                    <label>3. No of Days Availed ML</label><br>
+                </div>
+                <div class="col-md-1">
+                    <input type="text" pInputText class="form-control" formControlName="ml" readonly>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-4 text-center1">
+                    <label>8. No of Days attended Election duty</label><br>
+                </div>
+                <div class="col-md-1">
+                    <input type="text" pInputText class="form-control" readonly>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4 text-center1">
+                    <label>4. No of Days Maternity Leave Availed</label><br>
+                </div>
+                <div class="col-md-1">
+                    <input type="text" pInputText class="form-control" readonly>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-4 text-center1">
+                    <label>9. No of days on duty </label><br>
+                </div>
+                <div class="col-md-1">
+                    <input type="text" pInputText class="form-control" readonly>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4 text-center1">
+                    <label>5. Other leave</label><br>
+                </div>
+                <div class="col-md-1">
+                    <input type="text" pInputText class="form-control" readonly>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-4 text-center1">
+                    <label>10. No of days used for classroom activity </label><br>
+                </div>
+                <div class="col-md-1">
+                    <input type="text" pInputText class="form-control" readonly>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3"></div>
+                <div class="col-md-2 text-center1">
+                    <label style="font-weight:500">Total Working Days</label><br>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" pInputText class="form-control" readonly>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </p-fieldset><br>
+
+    <p-fieldset [toggleable]="true">
+        <p-header class="toggle-align">Implementation of concepts undertaken in training</p-header>
+        <div style="padding-left: 6%;">
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label>1. Designing and incorporation of training content in Lession plan.</label><br>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    <p-radioButton name="groupname" value="val1" label="Yes"></p-radioButton>
+                </div>
+                <div class="col-md-2">
+                    <p-radioButton name="groupname" value="val2" label="No"></p-radioButton>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label>2. Designing of Teaching Learning Material following the instruction given in the
+                        training.</label><br>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    <p-radioButton name="groupname" value="val1" label="Yes"></p-radioButton>
+                </div>
+                <div class="col-md-2">
+                    <p-radioButton name="groupname" value="val2" label="No"></p-radioButton>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label>3. Designing Lession activities based on training content</label><br>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    <p-radioButton name="groupname" value="val1" label="Yes"></p-radioButton>
+                </div>
+                <div class="col-md-2">
+                    <p-radioButton name="groupname" value="val2" label="No"></p-radioButton>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label>4. Designing Life Skill Orientation activities based on the training
+                        content.</label><br>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    <p-radioButton name="groupname" value="val1" label="Yes"></p-radioButton>
+                </div>
+                <div class="col-md-2">
+                    <p-radioButton name="groupname" value="val2" label="No"></p-radioButton>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label>5. Designing of Project based activities on the Training Content.</label><br>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    <p-radioButton name="groupname" value="val1" label="Yes"></p-radioButton>
+                </div>
+                <div class="col-md-2">
+                    <p-radioButton name="groupname" value="val2" label="No"></p-radioButton>
+                </div>
+            </div>
+
+        </div>
+    </p-fieldset><br>
+
+    <p-fieldset [toggleable]="true">
+        <p-header class="toggle-align">Talents of Teachers</p-header>
+        <div style="padding-left: 6%;">
+            <div class="text-center">
+                <label class="teacher-align">Special Talents of Teachers</label>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label>1. Public Speaking</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname" value="val2"></p-checkbox>
+                </div>
+                <div class="col-md-4">
+                    <label>11. Sports Activities</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname" value="val2"></p-checkbox>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label>2. Advertising</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname" value="val2"></p-checkbox>
+                </div>
+                <div class="col-md-4">
+                    <label>12. Photography</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname" value="val2"></p-checkbox>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label>3. Graphics</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname" value="val2"></p-checkbox>
+                </div>
+                <div class="col-md-4">
+                    <label>13. Essay writing</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname" value="val2"></p-checkbox>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label>4. Music</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname" value="val2"></p-checkbox>
+                </div>
+                <div class="col-md-4">
+                    <label>14. Video creation</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname" value="val2"></p-checkbox>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label>5. Art & Craft</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname" value="val2"></p-checkbox>
+                </div>
+                <div class="col-md-4">
+                    <label>15. Computer Skills</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname" value="val2"></p-checkbox>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label>6. Story telling</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname" value="val2"></p-checkbox>
+                </div>
+                <div class="col-md-4">
+                    <label>16. Creativity</label><br>
+
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname" value="val2"></p-checkbox>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label>7. Drawing & Painting</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname" value="val2"></p-checkbox>
+                </div>
+                <div class="col-md-4">
+                    <label>17. Innovation</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname" value="val2"></p-checkbox>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label>8. Writing Poems</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname" value="val2"></p-checkbox>
+                </div>
+                <div class="col-md-4">
+                    <label>18. Foreign Language </label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname" value="val2"></p-checkbox>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label>9. Yoga</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname" value="val2"></p-checkbox>
+                </div>
+                <div class="col-md-4">
+                    <label>19. Sign Language </label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname" value="val2"></p-checkbox>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label>10. Singing</label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname" value="val2"></p-checkbox>
+                </div>
+                <div class="col-md-4">
+                    <label>20. Cultural Activities </label><br>
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname" value="val2"></p-checkbox>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label>21. Able to speak many languages </label><br>
+
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox name="groupname" value="val2"></p-checkbox>
+                </div>
+            </div>
+        </div>
+    </p-fieldset><br>
+
+    <p-fieldset [toggleable]="true">
+        <p-header class="toggle-align">Teachers Self Evaluation Format</p-header>
+        <div style="padding-left: 6%;padding-right: 6%;">
+            <div class="text-center">
+                <label class="teacher-align">1. Designing Learning Experiences for Children (P1)</label>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>1. I plan the teaching and learning process using textbook and other related
+                        resource materials.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <select id="select2" class="form-control ">
+                        <option>Select Option</option>
+                        <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                            {{ classes.label }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>2. I involve all children in the teaching learning process.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <select id="select2" class="form-control ">
+                        <option>Select Option</option>
+                        <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                            {{ classes.label }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>3. I am logging in the TNTP and know the information uploaded in the
+                        site.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <select id="select2" class="form-control ">
+                        <option>Select Option</option>
+                        <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                            {{ classes.label }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>4. I am uploading my stategies in TNTP.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <select id="select2" class="form-control ">
+                        <option>Select Option</option>
+                        <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                            {{ classes.label }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>5. I plan my classroom activities to make the children enjoy the classroom
+                        atmosphere.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <select id="select2" class="form-control ">
+                        <option>Select Option</option>
+                        <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                            {{ classes.label }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>6. I design my notes of lession with inbuilt activities to achieve the expected
+                        learning outcome by all the children.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <select id="select2" class="form-control ">
+                        <option>Select Option</option>
+                        <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                            {{ classes.label }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>7. I focus on children with learning difficulties and plan remedial measures to
+                        bridge them to standards throughout the year.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <select id="select2" class="form-control ">
+                        <option>Select Option</option>
+                        <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                            {{ classes.label }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="text-center">
+                <label class="teacher-align">2. Knowledge and Understanding of Subject Matter (P2)</label>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>1. I deliver the content of the lession to the children with appropriate example,
+                        according to the level of the child.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <select id="select2" class="form-control ">
+                        <option>Select Option</option>
+                        <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                            {{ classes.label }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>2. I complete the prescribed syllabus in appropriate time by using proper
+                        TLM.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <select id="select2" class="form-control ">
+                        <option>Select Option</option>
+                        <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                            {{ classes.label }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>3. I use the quick response code (QR Code) for all subjects
+                        wherever prescribed in the textbook, in the right time in the teaching learning
+                        process,
+                        to make the children understand the concept acquire skills.
+                    </label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <select id="select2" class="form-control ">
+                        <option>Select Option</option>
+                        <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                            {{ classes.label }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>4. I use library books as a resource material in the classroom for better
+                        understanding of the content.
+                    </label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <select id="select2" class="form-control ">
+                        <option>Select Option</option>
+                        <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                            {{ classes.label }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>5. I use ICT in the classroom to enhance understanding.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <select id="select2" class="form-control ">
+                        <option>Select Option</option>
+                        <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                            {{ classes.label }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="text-center">
+                <label class="teacher-align">3. Strategy for Facilitating Learning (P3)</label>
+            </div>
+            <div class="text-center">
+                <label class="teacher-align">A. Enabling learning environment and class room
+                    management</label>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>1. The teaching learning materials available in the school is used and exhibited
+                        in the classroom adequately.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <select id="select2" class="form-control ">
+                        <option>Select Option</option>
+                        <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                            {{ classes.label }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>2. I treat all my children alike and never hurt them physically and
+                        mentally.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <select id="select2" class="form-control ">
+                        <option>Select Option</option>
+                        <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                            {{ classes.label }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>3. I identify the absentee/drop out children and special children and I take
+                        steps to ensure their regular attendance.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <select id="select2" class="form-control ">
+                        <option>Select Option</option>
+                        <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                            {{ classes.label }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>4. I ensure inclusive education for CWSN in my classroom.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <select id="select2" class="form-control ">
+                        <option>Select Option</option>
+                        <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                            {{ classes.label }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>5. I modify my classroom environment to develop leadership qualities among
+                        children.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <select id="select2" class="form-control ">
+                        <option>Select Option</option>
+                        <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                            {{ classes.label }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>6. I create the classroom infrastructure and follow the methodology in the
+                        classroom.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <select id="select2" class="form-control ">
+                        <option>Select Option</option>
+                        <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                            {{ classes.label }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>7. I do ensure that children have their class work notebook done for all subjects
+                        to improve the achievement level of children.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <select id="select2" class="form-control ">
+                        <option>Select Option</option>
+                        <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                            {{ classes.label }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>8. I encourage my children by gifting them simple things in classroom
+                        activities.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <select id="select2" class="form-control ">
+                        <option>Select Option</option>
+                        <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                            {{ classes.label }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <label class="teacher-align">B. Learning strategies and activities</label>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>1. I use child centered activities in the classroom.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <select id="select2" class="form-control ">
+                        <option>Select Option</option>
+                        <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                            {{ classes.label }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>2. I give ample opportunities to children in identifying, observing and
+                        experimenting tasks.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <select id="select2" class="form-control ">
+                        <option>Select Option</option>
+                        <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                            {{ classes.label }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>3. I encourage the children's participation and recognize their
+                        answers.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <select id="select2" class="form-control ">
+                        <option>Select Option</option>
+                        <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                            {{ classes.label }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>4. I write legibly in the blackboard.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <select id="select2" class="form-control ">
+                        <option>Select Option</option>
+                        <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                            {{ classes.label }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>5. I prepare action plan to ensure the students understanding.</label><br>
+
+                </div>
+                <div class="col-md-4">
+                    <select id="select2" class="form-control ">
+                        <option>Select Option</option>
+                        <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                            {{ classes.label }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8">
+                    <label>6. I use technology to improvise my remedial teaching for the children with difficulties in learning.</label><br>
+                   
+                </div>
+                <div class="col-md-4">
+                    <select id="select2" class="form-control ">
+                        <option>Select Option</option>
+                        <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                            {{ classes.label }}
+                        </option>
+                    </select>
+                </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-8">
+                        <label>7. I give productive home works to make the students think.</label><br>
+                       
+                    </div>
+                    <div class="col-md-4">
+                        <select id="select2" class="form-control ">
+                            <option>Select Option</option>
+                            <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                {{ classes.label }}
+                            </option>
+                        </select>
+                    </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-8">
+                            <label>8. I know to use TNTP, Workplace and I understand the need and usage of these sites.</label><br>
+                           
+                        </div>
+                        <div class="col-md-4">
+                            <select id="select2" class="form-control ">
+                                <option>Select Option</option>
+                                <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                    {{ classes.label }}
+                                </option>
+                            </select>
+                        </div>
+                        </div>
+                        <div class="text-center">
+                            <label class="teacher-align">C. Assessment and Feed Back</label>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>1. I assess children's learning and give them immediate feedback.</label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>2. I properly record the achievement level of the students in CCE records. (Through written test and assignments)</label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>3. I share the achievements level of the children to their parents
+                                    and to the school management committee members.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>4. I plan a proper Formative Assessment for all the lessons.</label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>5. I give opportunity to the students to give immediate feedback, group feedback and peer feedback during Evaluation.</label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <label class="teacher-align">4. Interpersonal Relationship (P4)</label>
+                        </div>
+                        <div class="text-center">
+                            <label class="teacher-align">A. Relationship with Students</label>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>1. I am friendly to the students with care and respect so as to ensure
+                                    that the students approach me without any fear.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>2. I appreciate the student's special talents and encourage them to
+                                    develop their skills and discuss with their parents about their talents
+                                    and proficiencies.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>3. Apart from Teaching and learning process, I advise my students
+                                    regarding their personal hygiene, health, citizenship, eating habits and pursuing life skills.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>4. I encourage my students to develop research skills.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>5. I encourage bright students to use higher order thinking skills
+                                    in their daily classroom activities.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <label class="teacher-align">B. Relationship with Colleagues</label>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>1. I respect my Colleagues and accept their involvement and valuable
+                                    suggestions in my work.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>2. I share my best strategies to my colleagues.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <label class="teacher-align">C. Relation with parents and community</label>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>1. I participate in the public functions and National special
+                                    functions organized in the society. I encourage and 
+                                    coordinate pubic to take part in school functions.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>2. I pursue the public contribution and develop my school by all means.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <label class="teacher-align">5. Professional Development (P5)</label>
+                        </div>
+                        <div class="text-center">
+                            <label class="teacher-align">A. Self - study participation in in-service education programmes</label>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>1. I renew my subject Knowledge through self learning.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>2. I participate in the in-service training and share my views in the block and cluster level meetings.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>3. I use the new techniques and approaches learned in the trainings in my classroom.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <label class="teacher-align">B. Engagement in innovation and research</label>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>1. I involve in innovative activities and in research activities.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>2. I participate and present my articles at District, State and National and in International Conferences.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>3. I participate in the block, district and in state level competitions conducted for teachers.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <label class="teacher-align">6. School Development (P6)</label>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>1. I help in organizing school management committee
+                                    meetings and other public meetings and discuss with
+                                    School Management Committee members for school Development.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>2. I help in organizing daily assembly, cultural programs, sports day, national
+                                    festivals and other functions with responsibility in my school.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>3. I Coordinate with others and take part in school activities
+                                    in Gardening, maintaining health, Cleanliness and supply of
+                                    Mid day meals in school.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>4. I encourage my students in participating group activities.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>5. I update all my class details in the EMIS site personally.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <label class="teacher-align">7. Teacher Attendance (P7)</label>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>1. I attend my school on time and leave the school on time.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>2. I use Tamil Nadu Schools Attendance App to mark my student's daily attendance 
+                                    regularly without fail.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <label class="teacher-align">8. Promoting Health and Hygiene (P8)</label>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>1. I check my student's personal hygiene and assess them accordingly.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>2. I keep my campus clean and create awareness to the students to
+                                    separate and dispose the waste in the right
+                                    basket degradable non degradable and ensure that
+                                    every class has a dustbin.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label>3. I stick pictures creating awareness about personal hygiene, proper
+                                    usage of toilet, following healthy habits and make the children realize it.
+                                </label><br>
+
+                            </div>
+                            <div class="col-md-4">
+                                <select id="select2" class="form-control ">
+                                    <option>Select Option</option>
+                                    <option *ngFor="let classes of evaluationList" [value]="classes.value">
+                                        {{ classes.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        
+
+
+
+
+
+
+
+
+
+        </div>
+    </p-fieldset>
+    </form>
+</p-dialog> -->

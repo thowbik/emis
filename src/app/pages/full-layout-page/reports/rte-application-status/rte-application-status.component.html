@@ -1,0 +1,255 @@
+<div classs="container-fluid">
+  <div class="outer-layout mt-5">
+    <div class="breadcrumbs c-black">
+      <h6 classs="url"><span class="flex-gap-right">Students</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right">RTE-Applicant</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right">RTE-Application Status</span></h6>
+    </div>
+  </div>
+  <p-card >
+    <div *ngIf="usertypeId == 9 || usertypeId == 10 || usertypeId == 3 || usertypeId == 19" >
+      <p-table #dt  [columns]="cols" [value]="applicationStatuss" [lazy]="false" [globalFilterFields]="['udise_code','school_name','management']"  [resizableColumns]="true" >
+        <ng-template pTemplate="caption" let-distname >
+          <div class="row p-1">
+            <div class="col-sm-8 p-1"></div>
+            <div class="col-sm-3 p-1">
+               <input class="form-control" type="text"  (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+            </div>
+            <div class="col-sm-1 pt-3">
+              <i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="exportExcel()"></i>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr class="center">
+            <th rowspan="2" style="width: 4em">S.No</th>
+            <th rowspan="2" style="width: 12em">UDISE Code</th>
+            <th rowspan="2" style="width: 12em">School Name</th>
+            <th rowspan="2" style="width: 12em">Management</th>
+            <th rowspan="2" style="width: 12em">Intake capacity</th>
+            <th colspan="4" style="width: 30em">Applications Received</th>
+            <th colspan="4" style="width: 30em">Approved Applications</th>
+            <th colspan="4" style="width: 30em">Applicants alloted seat</th>
+            <th colspan="4" style="width: 30em">Admitted students</th>
+          </tr>
+          <tr class="center">
+            <th>WS</th>
+            <th>DG</th>
+            <th>DGS</th>
+            <th>Total</th>
+
+            <th>WS</th>
+            <th>DG</th>
+            <th>DGS</th>
+            <th>Total</th>
+
+            <th>WS</th>
+            <th>DG</th>
+            <th>DGS</th>
+            <th>Total</th>
+
+            <th>WS</th>
+            <th>DG</th>
+            <th>DGS</th>
+            <th>Total</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-distname let-rowData let-columns="columns" let-i="rowIndex">
+          <tr [pSelectableRow]="rowData" class="text-center" *ngIf="!noDataFound">
+            <td class="sno-header-layout"> {{i+1}} </td>
+            <td class="width-169"> {{ distname.udise_code}}  </td>
+            <td class="width-169 text-left"> {{ distname.school_name}}  </td>
+            <td class="width-169 text-left"> {{ distname.management}}  </td>
+            <td class="width-169"> {{ distname.rte_seats}}</td>
+
+            <td class="width-169"> {{ distname.Received_WS}}  </td>
+            <td class="width-169"> {{ distname.Received_DG}}  </td>
+            <td class="width-169"> {{ distname.Received_DGS}}  </td>
+            <td class="width-169"> {{ ( distname.Received_WS* 1 ) + ( distname.Received_DG* 1 ) + ( distname.Received_DGS* 1 )}}  </td>
+
+            <td class="width-169"> {{ distname.Verified_WS}}  </td>
+            <td class="width-169"> {{ distname.Verified_DG}}  </td>
+            <td class="width-169"> {{ distname.Verified_DGS}}  </td>
+            <td class="width-169"> {{ ( distname.Verified_WS* 1 ) + ( distname.Verified_DG* 1 ) + ( distname.Verified_DGS* 1 ) }}  </td>
+
+            <td class="width-169"> {{ distname.Allotted_WS}}  </td>
+            <td class="width-169"> {{ distname.Allotted_DG}}  </td>
+            <td class="width-169"> {{ distname.Allotted_DGS}}  </td>
+            <td class="width-169"> {{ ( distname.Allotted_WS* 1 ) + ( distname.Allotted_DG* 1 ) + ( distname.Allotted_DGS* 1 ) }}  </td>
+
+            <td class="width-169"> {{ distname.Admit_WS}}  </td>
+            <td class="width-169"> {{ distname.Admit_DG}}  </td>
+            <td class="width-169"> {{ distname.Admit_DGS}}  </td>
+            <td class="width-169"> {{ ( distname.Admit_WS* 1 ) + ( distname.Admit_DG* 1 ) + ( distname.Admit_DGS* 1 ) }}  </td>
+
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <tr class="text-center" *ngIf="noDataFound" >
+            <td colspan="21"> No Data Found </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <div *ngIf="usertypeId === 5">
+      <p-table #dt  [columns]="cols" [value]="applicationStateStatus"  [resizableColumns]="true" >
+        <ng-template pTemplate="caption">
+          <div class="row header flex-row-center">
+            <div class="col-sm-8">
+              
+            </div>
+            <div class="col-sm-3 p-1">
+                <div class="text-right">
+                    <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Filter">
+                </div>
+            </div>
+            <div class="col-sm-1 p-1 flex-row-center-end">
+                <div class="text-right">
+                    <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"  (click)="exportPdf(verifymonitorstate,dataHeader)"></i> -->
+                    <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportStateExcel(applicationStateStatus)"></i>
+                </div>
+            </div>
+        </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr class="center">
+            <th rowspan="2" style="width: 5em">S.No</th>
+            <th rowspan="2" style="width: 12em">District</th>
+            <th rowspan="2" style="width: 12em">Intake capacity</th>
+            <th colspan="4" style="width: 30em">Applications Received</th>
+            <th colspan="4" style="width: 30em">Approved Applications</th>
+            <th colspan="4" style="width: 30em">Applicants alloted seat</th>
+            <th colspan="4" style="width: 30em">Admitted students</th>
+          </tr>
+          <tr class="center">
+            <th>WS</th>
+            <th>DG</th>
+            <th>DGS</th>
+            <th>Total</th>
+
+            <th>WS</th>
+            <th>DG</th>
+            <th>DGS</th>
+            <th>Total</th>
+
+            <th>WS</th>
+            <th>DG</th>
+            <th>DGS</th>
+            <th>Total</th>
+
+            <th>WS</th>
+            <th>DG</th>
+            <th>DGS</th>
+            <th>Total</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-distname let-rowData let-columns="columns" let-i="rowIndex">
+          <tr [pSelectableRow]="rowData" class="text-center" *ngIf="!noDataFound">
+            <td class="sno-header-layout"> {{i+1}} </td>
+            <td class="width-169  text-left"> {{ distname.district_name}}  </td>
+            <td class="width-169"> {{ distname.rte_seats}}</td>
+
+            <td class="width-169"> {{ distname.Received_WS}}  </td>
+            <td class="width-169"> {{ distname.Received_DG}}  </td>
+            <td class="width-169"> {{ distname.Received_DGS}}  </td>
+            <td class="width-169"> {{ ( distname.Received_WS* 1 ) + ( distname.Received_DG* 1 ) + ( distname.Received_DGS* 1 )}}  </td>
+
+            <td class="width-169"> {{ distname.Verified_WS}}  </td>
+            <td class="width-169"> {{ distname.Verified_DG}}  </td>
+            <td class="width-169"> {{ distname.Verified_DGS}}  </td>
+            <td class="width-169"> {{ ( distname.Verified_WS* 1 ) + ( distname.Verified_DG* 1 ) + ( distname.Verified_DGS* 1 ) }}  </td>
+
+            <td class="width-169"> {{ distname.Allotted_WS}}  </td>
+            <td class="width-169"> {{ distname.Allotted_DG}}  </td>
+            <td class="width-169"> {{ distname.Allotted_DGS}}  </td>
+            <td class="width-169"> {{ ( distname.Allotted_WS* 1 ) + ( distname.Allotted_DG* 1 ) + ( distname.Allotted_DGS* 1 ) }}  </td>
+
+            <td class="width-169"> {{ distname.Admit_WS}}  </td>
+            <td class="width-169"> {{ distname.Admit_DG}}  </td>
+            <td class="width-169"> {{ distname.Admit_DGS}}  </td>
+            <td class="width-169"> {{ ( distname.Admit_WS* 1 ) + ( distname.Admit_DG* 1 ) + ( distname.Admit_DGS* 1 ) }}  </td>
+
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <tr class="text-center" *ngIf="noDataFound" >
+            <td colspan="21"> No Data Found </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+        <div *ngIf="usertypeId == 5">
+            <p-table #dt [columns]="cols" [value]="applicationStateStatus" [resizableColumns]="true">
+                <ng-template pTemplate="header">
+                    <tr class="center">
+                        <th rowspan="2" style="width: 5em">S.No</th>
+                        <th rowspan="2" style="width: 12em">District</th>
+                        <th rowspan="2" style="width: 12em">Intake capacity</th>
+                        <th colspan="4" style="width: 30em">Applications Received</th>
+                        <th colspan="4" style="width: 30em">Approved Applications</th>
+                        <th colspan="4" style="width: 30em">Applicants alloted seat</th>
+                        <th colspan="4" style="width: 30em">Admitted students</th>
+                    </tr>
+                    <tr class="center">
+                        <th>WS</th>
+                        <th>DG</th>
+                        <th>DGS</th>
+                        <th>Total</th>
+
+                        <th>WS</th>
+                        <th>DG</th>
+                        <th>DGS</th>
+                        <th>Total</th>
+
+                        <th>WS</th>
+                        <th>DG</th>
+                        <th>DGS</th>
+                        <th>Total</th>
+
+                        <th>WS</th>
+                        <th>DG</th>
+                        <th>DGS</th>
+                        <th>Total</th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-distname let-rowData let-columns="columns" let-i="rowIndex">
+                    <tr [pSelectableRow]="rowData" class="text-center" *ngIf="!noDataFound">
+                        <td class="sno-header-layout"> {{i+1}} </td>
+                        <td class="width-169"> {{ distname.district_name}} </td>
+                        <td class="width-169"> {{ distname.rte_seats}}</td>
+
+                        <td class="width-169"> {{ distname.Received_WS}} </td>
+                        <td class="width-169"> {{ distname.Received_DG}} </td>
+                        <td class="width-169"> {{ distname.Received_DGS}} </td>
+                        <td class="width-169"> {{ ( distname.Received_WS* 1 ) + ( distname.Received_DG* 1 ) + ( distname.Received_DGS* 1 )}} </td>
+
+                        <td class="width-169"> {{ distname.Verified_WS}} </td>
+                        <td class="width-169"> {{ distname.Verified_DG}} </td>
+                        <td class="width-169"> {{ distname.Verified_DGS}} </td>
+                        <td class="width-169"> {{ ( distname.Verified_WS* 1 ) + ( distname.Verified_DG* 1 ) + ( distname.Verified_DGS* 1 ) }} </td>
+
+                        <td class="width-169"> {{ distname.Allotted_WS}} </td>
+                        <td class="width-169"> {{ distname.Allotted_DG}} </td>
+                        <td class="width-169"> {{ distname.Allotted_DGS}} </td>
+                        <td class="width-169"> {{ ( distname.Allotted_WS* 1 ) + ( distname.Allotted_DG* 1 ) + ( distname.Allotted_DGS* 1 ) }} </td>
+
+                        <td class="width-169"> {{ distname.Admit_WS}} </td>
+                        <td class="width-169"> {{ distname.Admit_DG}} </td>
+                        <td class="width-169"> {{ distname.Admit_DGS}} </td>
+                        <td class="width-169"> {{ ( distname.Admit_WS* 1 ) + ( distname.Admit_DG* 1 ) + ( distname.Admit_DGS* 1 ) }} </td>
+
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr class="text-center" *ngIf="noDataFound">
+                        <td colspan="21"> No Data Found </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+   
+  </p-card>
+</div>

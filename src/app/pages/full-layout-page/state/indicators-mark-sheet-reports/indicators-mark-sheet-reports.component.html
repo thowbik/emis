@@ -1,0 +1,131 @@
+<div class="outer-layout" style="padding-top:5px;">
+  <div class="breadcrumbs c-black">
+    <h6 classs="url"><span class="flex-gap-right">Academic Reports</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right">Indicators Report</span></h6>
+  </div>
+</div>
+<p-card>
+  <p-tabView>
+    <div class="row p-2">
+    <div class=" col-sm-8">
+      <h5>Marks Summary Report</h5>
+    </div>
+  </div>
+  <div class="row p-2">
+    <div class="col-sm-8"></div>
+    <div class="col-sm-3 text-right">
+           <input type="text" pInputText size="30" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+   </div>
+   <div class="col-sm-1 p-1 text-right" style="padding-top:10px;" >
+    <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+    (click)="exportExcel()"></i>
+   </div>
+   </div>
+  
+    <form novalidate name="form">
+  <!--    <div class="row">-->
+  <!--      <div class="col-md-4">-->
+  <!--        <label>Term</label>-->
+  <!--        <p-dropdown [options]="MarkSheet" placeholder="Select a Affiliation" optionLabel="name" [showClear]="true" styleClass="dropdwnvalue"></p-dropdown>-->
+  <!--      </div>-->
+  <!--      <div class="col-md-4">-->
+  <!--        <label>Indicators</label>-->
+  <!--        <p-dropdown [options]="MarkSheetIndicators"  placeholder="Select a Affiliation" optionLabel="name" [showClear]="true" styleClass="dropdwnvalue"></p-dropdown>-->
+  <!--      </div>-->
+  <!--      <div class="col-md-4">-->
+  <!--        <button>SEARCH</button>-->
+  <!--      </div>-->
+  <!--    </div>-->
+        <div class="flexGapTop">
+        <p-table #dt
+                 [value]="rankSheet"
+                 [styleClass]="'base-table'"
+                 [paginator]="false"
+                 [scrollable]="true"
+                 scrollHeight="500px"
+                 scrollWidth="500px" [lazy]="false" 
+                 [globalFilterFields]= " [ 'district_name','total_stud','attend_tam','pstud_tam','attend_eng','pstud_eng',
+                 'attend_mat','pstud_mat','attend_sci','pstud_sci','attend_soc','pstud_soc','cent_score_stud_soc']" >
+          <ng-template pTemplate="header">
+            <tr class="center">
+              <th rowspan="2" style="width: 4em">#</th>
+              <th rowspan="2" style="width: 15em">District</th>
+              <th rowspan="2" style="width: 12em">Total Students</th>
+              <th colspan="4" style="width: 30em">Tamil</th>
+              <th colspan="4" style="width: 30em">English</th>
+              <th colspan="4" style="width: 30em">Maths</th>
+              <th colspan="4" style="width: 30em">Science/EVS</th>
+              <th colspan="4" style="width: 30em">Social</th>
+              <th rowspan="2" >Overall %</th>
+              <th rowspan="2"  >Overall Score</th>
+            </tr>
+            <tr class="center">
+              <th>Present</th>
+              <th>Passed Students</th>
+              <th>%</th>
+              <th>Score</th>
+  
+              <th>Present</th>
+              <th>Inc Value</th>
+              <th>%</th>
+              <th>Score</th>
+  
+              <th>Present</th>
+              <th>Inc Value</th>
+              <th>%</th>
+              <th>Score</th>
+  
+              <th>Present</th>
+              <th>Inc Value</th>
+              <th>%</th>
+              <th>Score</th>
+  
+              <th>Present</th>
+              <th>Inc Value</th>
+              <th>%</th>
+              <th>Score</th>
+  
+            </tr>
+          </ng-template>
+  
+          <ng-template pTemplate="body" let-distname let-rowData let-columns="columns" let-i="rowIndex" >
+            <tr [pSelectableRow]="rowData" class="text-center">
+              <td style="width:4em;"> {{i+1}} </td>
+              <td class="width text-left"> <a href="javascript:void(0)" class="nav-link" routerLinkActive="active" (click)="markSheet(distname)">{{ distname.district_name}}</a></td>
+              <td class="width-169"> {{ distname.total_stud}} </td>
+  
+              <td> {{ distname.attend_tam}} </td>
+              <td> {{ distname.pstud_tam}} </td>
+              <td> {{ ((distname.pstud_tam / distname.attend_tam ) * 100).toFixed(2)}}</td>
+              <td> {{ ((((distname.pstud_tam / distname.attend_tam ) * 100)*35)/100).toFixed(2)}} </td>
+  
+              <td> {{ distname.attend_eng}} </td>
+              <td> {{ distname.pstud_eng}} </td>
+              <td> {{ ((distname.pstud_eng / distname.attend_eng ) * 100).toFixed(2)}} </td>
+              <td> {{ ((((distname.pstud_eng / distname.attend_eng ) * 100)*35)/100).toFixed(2)}} </td>
+  
+              <td> {{ distname.attend_mat}} </td>
+              <td> {{ distname.pstud_mat}} </td>
+              <td> {{ ((distname.pstud_mat / distname.attend_mat ) * 100).toFixed(2)}} </td>
+              <td> {{ ((((distname.pstud_mat / distname.attend_mat ) * 100)*35)/100).toFixed(2)}} </td>
+  
+              <td> {{ distname.attend_sci}} </td>
+              <td> {{ distname.pstud_sci}} </td>
+              <td> {{ ((distname.pstud_sci / distname.attend_sci ) * 100).toFixed(2)}} </td>
+              <td> {{ ((((distname.pstud_sci / distname.attend_sci ) * 100)*35)/100).toFixed(2)}} </td>
+  
+              <td> {{ distname.attend_soc}} </td>
+              <td> {{ distname.pstud_soc}} </td>
+              <td> {{ ((distname.pstud_soc / distname.attend_soc ) * 100).toFixed(2)}} </td>
+              <td> {{ ((((distname.pstud_soc / distname.attend_soc ) * 100)*35)/100).toFixed(2)}} </td>
+  
+              <td> {{ (((((distname.pstud_mat / distname.attend_mat ) * 100) + ((distname.pstud_tam / distname.attend_tam ) * 100) +
+                ((distname.pstud_eng / distname.attend_eng ) * 100)+ ((distname.pstud_sci / distname.attend_sci ) * 100) + ((distname.pstud_soc / distname.attend_soc ) * 100)) / 100) * 100).toFixed(2)}} </td>
+             <td>{{(((((distname.pstud_tam / distname.attend_tam ) * 100)*35)/100) + ((((distname.pstud_eng / distname.attend_eng ) * 100)*35)/100) + ((((distname.pstud_sci / distname.attend_sci ) * 100)*35)/100) + ((((distname.pstud_mat / distname.attend_mat ) * 100)*35)/100) +((((distname.pstud_soc / distname.attend_soc ) * 100)*35)/100) / 5).toFixed(2) }} </td>
+                <!-- <td> {{ distname.cent_score_stud_soc}} </td> -->
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </form>
+  </p-tabView>
+</p-card>

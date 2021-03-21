@@ -1,0 +1,50 @@
+.body {
+    margin-top: 21px;
+}
+
+.heading {
+    font-weight: 600;
+    font-style: normal;
+    color: black;
+}
+
+button.btn.btn-success {
+    background-color: #075c49;
+    border: 1px solid #075c49;
+}
+
+button.btn.btn-danger {
+    background-color: #f34639;
+    border: 1px solid #075c49;
+}
+
+button.btn.btn-danger:hover {
+    color: #075c49;
+    background-color: white;
+}
+
+button.btn.btn-success:hover {
+    color: #075c49;
+    background-color: white;
+}
+
+label {
+    color: #646c9a;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.header-align {
+    text-align: center;
+    font-size: 17px;
+    font-weight: 500;
+    color: #075c49;
+}
+
+.textbox {
+    margin-right: -48px;
+}
+
+.table {
+    margin-right: 636px;
+}

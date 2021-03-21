@@ -1,0 +1,181 @@
+<div class="main-body-content">
+    <div class="outer-layout">
+        <div class="breadcrumbs c-black">
+            <h6 class="url"><span class="flex-gap-right">Bicycle</span><i class="fa fa-angle-right flex-gap-right"
+                    aria-hidden="true"></i> <span class="flex-gap-right">11Th Students</span></h6>
+        </div>
+    </div>
+
+    <!--- Stage 1-->
+    <div class="container-fluid">
+
+        <p-table #dt [columns]="dataHeader" [value]="noonmealListArr" [resizableColumns]="true" [paginator]="true"
+            [rows]="10" [responsive]="true">
+            <ng-template let-childrens pTemplate="caption">
+                <form [formGroup]="filterForm" (ngSubmit)="searchableSubmit(filterForm.value)">
+                    <div class="row  header flex-row-center-start flex-gap-bottom">
+                        <!-- <form [formGroup]="filterForm" (ngSubmit)="searchableSubmit(filterForm.value)">
+                        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-3">
+                                    Available Classes *
+                                    <p-dropdown [options]="classList" formControlName="class_id"
+                                        (onChange)="toGetSectionForRevalentClass($event.value)"></p-dropdown>
+                                    <p-message severity="error" text="Class is required"
+                                        *ngIf="!filterForm.controls['class_id'].valid&&filterForm.controls['class_id'].dirty">
+                                    </p-message>
+                                </div>
+                                <div class="ui-grid-col-3">
+                                    Available Section *
+                                    <p-dropdown [options]="sectionList" formControlName="section"></p-dropdown>
+                                    <p-message severity="error" text="Section is required"
+                                        *ngIf="!filterForm.controls['section'].valid&&filterForm.controls['section'].dirty">
+                                    </p-message>
+                                </div>
+                                <div class="ui-grid-col-2"><br><br></div>
+                                <div class="ui-grid-col-3">
+                                    <br />
+                                    <button style="float: right;" pButton type="submit" label="Search"
+                                        class="ui-button-raised ui-button-rounded" [disabled]="!filterForm.valid"></button>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </form> -->
+
+                        <!-- <div class="col-lg-3">
+                      
+                            <p-dropdown [options]="classList" formControlName="class_id"
+                                (onChange)="toGetSectionForRevalentClass($event.value)"></p-dropdown>
+                            <p-message severity="error" text="Class is required"
+                                *ngIf="!filterForm.controls['class_id'].valid&&filterForm.controls['class_id'].dirty">
+                            </p-message>
+                        </div>
+                        <div class="col-lg-3">
+                          
+                            <p-dropdown [options]="sectionList" formControlName="section"></p-dropdown>
+                            <p-message severity="error" text="Section is required"
+                                *ngIf="!filterForm.controls['section'].valid&&filterForm.controls['section'].dirty">
+                            </p-message>
+                        </div>
+                        <div class="col-lg-1">
+                            <button type="submit" class="btn btn-success" [disabled]="!filterForm.valid">Search</button>
+                        </div> -->
+
+                    </div>
+                </form>
+                <div class="row header flex-row-center">
+                    <div class="col-sm-8">
+
+                    </div>
+                    <div class="col-sm-3 p-1">
+                        <div class="text-right">
+                            <input class="form-control" type="text"
+                                (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Filter">
+                        </div>
+                    </div>
+                    <div class="col-sm-1 p-1 flex-row-center-end">
+                        <div class="text-right">
+                            <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"  (click)="exportPdf(hmpindicsreport,dataHeader)"></i> -->
+                            <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                                (click)="exportExcel(noonmealListArr)"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th style="width: 3em">
+                        <!-- <p-tableHeaderCheckbox></p-tableHeaderCheckbox> -->
+
+                    </th>
+                    <th STYLE="width:4em;">#</th>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+                            ariaLabelDesc="Activate to sort in descending order"
+                            ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                    </th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th *ngFor="let col of columns" [ngSwitch]="col.field">
+
+                        <input pInputText type="text" class="textbox-filter"
+                            (input)="dt.filter($event.target.value, col.field, 'contains')" placeholder=" Search">
+
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                <tr>
+                    <td>
+                        <!-- <p-tableCheckbox [value]="rowData.is_opted"></p-tableCheckbox> -->
+                        <!-- <p-checkbox (change)="masterToggle()" ></p-checkbox> -->
+                        <p-checkbox binary="true" [(ngModel)]="rowData.status" (onChange)="childToggle($event,rowData)">
+                        </p-checkbox>
+                    </td>
+                    <td style="width:4em;">{{i+1}}</td>
+                    <td>{{rowData.EMISID}}</td>
+                    <td>{{rowData.StudNam}}</td>
+                    <!-- <td>{{rowData.class_and_section}}</td> -->
+                    <td>{{classesInRoman[rowData.Class]}}</td>
+                    <td>{{rowData.Section}}</td>
+                    <!-- <td pEditableColumn>
+                    <p-cellEditor>
+                        
+                                <ng-template pTemplate="input">
+                                        <p-inputSwitch onLabel="Yes" offLabel="No" [(ngModel)]="rowData.is_opted"></p-inputSwitch>
+                                    </ng-template>
+                        
+                        <ng-template pTemplate="output">
+                            <div *ngIf="rowData.is_opted;then content else other_content"></div>    
+                            <ng-template #content><p-inputSwitch onLabel="rowData.is_opted == 1 ? true : false" offLabel="0" [(ngModel)]="rowData.is_opted"></p-inputSwitch></ng-template>
+                            <ng-template #other_content><p-inputSwitch onLabel="rowData.is_opted == 1 ? true : false" offLabel="0" [(ngModel)]="rowData.is_opted"></p-inputSwitch></ng-template>
+                        </ng-template>
+                    </p-cellEditor>
+                </td> -->
+                    <td>{{(rowData.issued === null ) ? "Not Marked" : (rowData.issued == '1') ? "Yes" : "No" }}</td>
+
+
+
+                </tr>
+
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr class="text-left" *ngIf="noDataFound">
+                    <td colspan="6" style="text-align: center;"> No Data Found </td>
+                </tr>
+            </ng-template>
+            <!-- <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                        <strong>No records found</strong>
+                    </td>
+                </tr>
+            </ng-template> -->
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="(columns.length)+2" style="text-align: center;">
+                        <strong>No records found</strong>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table><br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-10"><br><br></div>
+            <div class="ui-grid-col-2">
+                <button style="float: right;" pButton type="button" label=" Submit "
+                    class="ui-button-raised ui-button-rounded" (click)="onSubmit()"></button>
+            </div>
+        </div>
+        <div>
+
+            <div class="row"></div>
+        </div>
+
+
+
+    </div>

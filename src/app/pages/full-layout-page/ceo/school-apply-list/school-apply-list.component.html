@@ -1,0 +1,89 @@
+<div class="container-fluid" *ngIf="pageStage === 1">
+    <div class="main-body-content m-2">  
+      <p-table #dt  [columns]="dataHeader1" [value]="State_schoolList" [resizableColumns]="true" [paginator]="true" [rows]="10">
+          <ng-template let-committee pTemplate="caption">
+            <div class="row p-1">
+              <div class="col-sm-6">
+                  <div class="text-lg-left mt-3">
+                    <h5>NOC StateWise Pending Report</h5>
+                  </div>
+              </div>
+              <!-- <div class="col-sm-6 p-1">
+                  <div class="text-right">
+                       <input type="text" pInputText size="30" placeholder="School Committee Details Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                  </div>              
+               </div> -->
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-committee>
+            <tr class="text-center">
+             
+              <th *ngFor="let col of committee" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-committee let-rowData let-columns="columns" let-i="rowIndex">
+            <tr class="text-center" *ngIf="noDataFound1==1">
+              <td class="sno-header-layout"> {{i+1}} </td>
+              <td class="text-left"><a href="javascript:void(0)" (click)="getSchoolAppliedList(committee.district_id)"> {{ committee.district_name}}</a></td>
+              <td> {{ committee.count}} </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <tr class="text-center" *ngIf="noDataFound1==2">
+              <td colspan="3"> No Data Found </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div> 
+    </div>     
+
+<!-- Stage 2 -->
+
+<div class="container-fluid" *ngIf="pageStage === 2">
+    <div class="main-body-content m-2">
+        <p-table #dt [columns]="dataHeader2" [value]="schoolList" [resizableColumns]="true" [paginator]="true" [rows]="10">
+            <ng-template let-committee pTemplate="caption">
+                <div class="row p-1">
+                    <div class="col-sm-6">
+                        <div class="text-lg-left mt-3">
+                            <h5>NOC SchoolWise Pending Report</h5>
+                        </div>
+                    </div>
+                    <!-- <div class="col-sm-6 p-1">
+                    <div class="text-right">
+                         <input type="text" pInputText size="30" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>              
+                 </div> -->
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-committee>
+                <tr class="text-center">
+                
+                    <th *ngFor="let col of committee" [pSortableColumnDisabled]="col.field === 'Application ID' && col.field === 'Status'" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                        {{col.header}}
+                        <p-sortIcon  *ngIf="col.field !== 'Application ID' && col.field !== 'Status'" [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-committee let-rowData let-columns="columns" let-i="rowIndex">
+                <tr class="text-center" *ngIf="noDataFound2===1">
+                    <td class="sno-header-layout"> {{i+1}} </td>
+                    <td class="text-left"><a href="javascript:void(0)" (click)="getApplicationCheckListDetails(committee.school_id,committee.app_id)"> {{ committee.app_id}} 1</a> </td>
+                    <td class="text-left"> {{ committee.school_name }} </td>
+                    <td *ngIf="count_val"> {{committee.pending_date}} </td>
+                    <td *ngIf="!count_val"> 0 </td>
+                    <td>{{ committee.Status }}</td>
+                   
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr class="text-center" *ngIf="noDataFound2===2">
+                    <td colspan="11"> No Data Found </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

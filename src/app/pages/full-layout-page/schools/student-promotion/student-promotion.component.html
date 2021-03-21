@@ -1,0 +1,115 @@
+<div class="outer-layout" style="padding-top:5px;">
+    <div class="breadcrumbs c-black">
+      <h6 classs="url"><span class="flex-gap-right">Students</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right">Student Promotion</span></h6>
+    </div>
+  </div>
+
+<form [formGroup]="studentList">
+    <div class="row form-group mt-4" style="margin-top :15px;">
+        <div class="col-sm-1 col-md-1">
+            <p-dropdown [options]="classData" formControlName="class_id_l" (onChange)="getClassSelect($event.value)" placeholder="Class"></p-dropdown>
+            <small class="form-text text-danger"
+                *ngIf="!studentList.get('class_id_l').valid && (submitted || studentList.get('class_id_l').dirty || studentList.get('class_id_l').touched)">
+                Class is required
+            </small>
+        </div>
+        <div class="col-sm-1 col-md-1">
+            <p-dropdown [options]="sectionData" formControlName="section_l" placeholder="Section" (onChange)="getSectionSelect($event.value)"></p-dropdown>
+            <small class="form-text text-danger"
+                *ngIf="!studentList.get('section_l').valid && (submitted || studentList.get('section_l').dirty || studentList.get('section_l').touched)">
+                Section is required
+            </small>
+        </div>
+        <div class="col-sm-2 col-md-2">
+            <button type="submit" class="ui-button" style="padding: 7px;border-radius: 5px;" (click)="submit()">Get Student List</button>
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-1 col-md-1">
+            <p-dropdown [options]="classDataTarget" formControlName="class_id" (onChange)="getClassSelectTarget($event.value)" placeholder="Class"></p-dropdown>
+            <small class="form-text text-danger"
+                *ngIf="!studentList.get('class_id').valid && (submitted || studentList.get('class_id').dirty || studentList.get('class_id').touched)">
+                Class is required
+            </small>
+        </div>
+        <div class="col-sm-1 col-md-1">
+            <p-dropdown [options]="sectionDataTarget" formControlName="section" placeholder="Section" (onChange)="getSectionSelectTarget($event.value)"></p-dropdown>
+            <small class="form-text text-danger"
+                *ngIf="!studentList.get('section').valid && (submitted || studentList.get('section').dirty || studentList.get('section').touched)">
+                Section is required
+            </small>
+        </div>
+        <div class="col-sm-1 col-md-1 marg-right-0"></div>
+        <div class="col-sm-1 col-md-1 marg-right-0"></div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6 row">
+            <div class="col-md-2">
+                <label class="fnt-size">
+                    Medium
+                </label>
+            </div>
+            <div class="col-md-10">
+                <input pInputText type="text" formControlName="medium_name" class="form-control group-clss" disabled/>
+            </div>
+        </div>
+        <div class="col-md-6 row">
+            <div class="col-md-2">
+                <label class="fnt-size">
+                    Medium
+                </label>
+            </div>
+            <div class="col-md-10">
+                <input pInputText type="text" formControlName="medium_name_1" class="form-control group-clss" disabled/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 row">
+            <div class="col-md-2">
+                <label class="fnt-size">
+                    Group
+                </label>
+            </div>
+            <div class="col-md-10">
+                <input pInputText type="text" formControlName="group_name" class="form-control group-clss" disabled/>
+            </div>
+        </div>
+        <div class="col-md-6 row">
+            <div class="col-md-2">
+                <label class="fnt-size">
+                    Group
+                </label>
+            </div>
+            <div class="col-md-10">
+                <input pInputText type="text" formControlName="group_name_1" class="form-control group-clss" disabled/>
+            </div>
+        </div>
+    </div>
+    <div class="row buttom-bottom">
+        <div class="col-md-12 float-right" *ngIf="disable">
+            <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+            <button type="text" (click)="confirm()" disabled pButton label="Promote"></button>
+            <p-messages [value]="msgs"></p-messages>
+        </div>
+        <div class="col-md-12 float-right" *ngIf="!disable">
+            <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+            <button type="text" (click)="confirm()" pButton label="Promote"></button>
+            <p-messages [value]="msgs"></p-messages>
+        </div>
+    </div>
+</form>
+
+<p-pickList  styleClass="test" [source]="studentNameList" [target]="selectedStudentNameList" sourceHeader="Students in selected class" 
+    targetHeader="Students to be promoted" dragdrop="true" [metaKeySelection]="false"
+    [responsive]="true" [showSourceControls]="false" [showTargetControls]="false" 
+    sourceFilterPlaceholder="Search name" targetFilterPlaceholder="Search name" [sourceStyle]="{'height':'600px'}" 
+    [targetStyle]="{'height':'600px'}"
+    >
+    <ng-template let-nameList pTemplate="item" let-i="rowIndex">
+        <div class="ui-helper-clearfix">
+            <div>{{nameList.name}}-{{nameList.unique_id_no}}</div>
+        </div>
+    </ng-template>
+</p-pickList>
+ 

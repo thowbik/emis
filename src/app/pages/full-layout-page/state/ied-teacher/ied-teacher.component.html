@@ -1,0 +1,198 @@
+<div class="outer-layout" style="padding-top:10px;">
+    <div class="breadcrumbs c-black">
+      <h6 classs="url"><span class="flex-gap-right">Staffs</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right">Training details</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right" (click)='goBack()'>IED-Teachers</span><span *ngIf="districtName"><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i>{{districtName}}</span>
+      </h6>
+   </div>
+  </div>
+
+
+<div class="container-fluid p-4" *ngIf="!selectableTable1">
+    <p-table #dt [columns]="dataHeader" [value]="data" [lazy]="false" [globalFilterFields]="['district_name','Therapist','Special_Educator','Total']">
+        <ng-template let-childrens pTemplate="caption">
+            <div class="row header flex-row-center">
+                <!-- <div class="col-sm-8 text-left">
+                    <h4>IED Teachers</h4>
+                </div> -->
+                <div class="col-md-8"></div>
+                <div class="col-sm-3 p-1">
+                    <div class="text-right">
+                        <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                    </div>
+                </div>
+                <div class="col-sm-1 p-1 flex-row-center-end">
+                    <div class="text-right">
+                        <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"  (click)="exportPdf(verifymonitorstate,dataHeader)"></i> -->
+                        <i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="exportExcel(verifymonitorstate)"></i>
+                    </div>
+                </div>
+            </div>
+
+        </ng-template>
+        <ng-template pTemplate="header" let-Datas>
+            <tr class="text-center">
+                <th class="sm-sno-header">S.No</th>
+                <th *ngFor="let Data of dataHeader" [pSortableColumn]="Data.field" [style.width]="Data.widthstyle">
+                    {{Data.header}}
+                    <p-sortIcon [field]="Data.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-distreport let-columns="columns" let-i="rowIndex">
+            <tr *ngIf="!noDataFound">
+                <td class="sm-sno-header text-center">{{i+1}}</td>
+                <td class="text-left"><a href="javascript:void(0)" (click)="getTeacherDetails(distreport.district_id,distreport.district_name)">{{distreport.district_name}}</a></td>
+                <td class="text-center">{{distreport.Therapist}}</td>
+                <td class="text-center">{{distreport.Special_Educator}}</td>
+                <td class="text-center">{{distreport.Total}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <tr class="text-left" *ngIf="noDataFound">
+                <td colspan="6" style="text-align: center;"> No Data Found </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+                <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                    <strong>No records found</strong>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+<!-- DC/CEO LOGIN -->
+
+<div class="container-fluid p-4" *ngIf="selectableTable1">
+    <p-table #dt [columns]="dataHeader1" [value]="data1" [lazy]="false" [globalFilterFields]="['teacher_name','teacher_id','Teacher_Type','Total','mbl_nmbr','specialisation']">
+        <ng-template let-childrens pTemplate="caption">
+            <div class="row header flex-row-center">
+                <!-- <div class="col-sm-8">
+                    <h4>IED Teachers</h4>
+                </div> -->
+                <div class="col-md-8"></div>
+                <div class="col-sm-3 p-1">
+                    <div class="text-right">
+                        <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                    </div>
+                </div>
+                <div class="col-sm-1 p-1 flex-row-center-end">
+                    <div class="text-right">
+                        <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"  (click)="exportPdf(verifymonitorstate,dataHeader)"></i> -->
+                        <i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="ExportExcel(verifymonitorstate)"></i>
+                    </div>
+                </div>
+            </div>
+
+        </ng-template>
+        <ng-template pTemplate="header" let-Datas>
+            <tr class="text-center">
+                <th class="sm-sno-header">S.No</th>
+                <th *ngFor="let Data of dataHeader1" [pSortableColumn]="Data.field" [style.width]="Data.widthstyle">
+                    {{Data.header}}
+                    <p-sortIcon [field]="Data.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-teacherreport let-columns="columns" let-i="rowIndex">
+            <tr *ngIf="!noDataFound">
+                <td class="sm-sno-header text-center">{{i+1}}</td>
+                <td><a href="javascript:void(0)" (click)="getdropdown(teacherreport.teacher_id)">{{teacherreport.teacher_id}}</a></td>
+                <td>{{teacherreport.teacher_name}}</td>
+                <td>{{teacherreport.Teacher_Type}}</td>
+                <td>{{teacherreport.specialisation}}</td>
+                <td>{{teacherreport.mbl_nmbr}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <tr class="text-left" *ngIf="noDataFound">
+                <td colspan="5" style="text-align: center;"> No Data Found </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+                <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                    <strong>No records found</strong>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="showDialogBox" [style]="{'width':'50vw','overflow-y':'scroll','max-height':'80vh'}" [maximizable]="true" [baseZIndex]="10000">
+
+    <p-header>
+        Teacher
+    </p-header>
+    <form [formGroup]="teacherDetails">
+        <div class="row form-group">
+           
+                <div class="col-sm-5 col-md-5" style="padding-left:15%;">
+                    <label><h6>Type</h6></label>
+                </div>
+                <div class="col-sm-5 col-md-5">
+                    <p-dropdown [options]="types" formControlName="selectedType" placeholder="Types">
+
+                    </p-dropdown>
+                    <p-message severity="error" text="This Field is required" *ngIf="teacherDetails.controls.selectedType.errors && (submitted || teacherDetails.controls.selectedType.dirty || teacherDetails.controls.selectedType.touched)"></p-message>
+                </div>
+           
+        </div>
+        
+        <div class="row form-group" *ngIf="teacherDetails.value.selectedType == '1' || teacherDetails.value.selectedType == '3' ">
+            <div class="col-sm-5 col-md-5" style="padding-left:15%;">
+                    <label><h6>Specialisation</h6></label>
+                </div>
+                <div class="col-sm-5 col-md-5">
+                    <p-dropdown [options]="specialisation" formControlName="selectedValue" placeholder="Select Type">
+
+                    </p-dropdown>
+                    <p-message severity="error" text="This Field is required" *ngIf="teacherDetails.controls.selectedValue.errors && (submitted || teacherDetails.controls.selectedValue.dirty || teacherDetails.controls.selectedValue.touched)"></p-message>
+                </div>
+
+        </div>
+
+        <div class="row form-group" *ngIf="teacherDetails.value.selectedType == '1' || teacherDetails.value.selectedType == '3'">
+
+            <div class="col-sm-5 col-md-5" style="padding-left:15%;">
+                    <label><h6>Qualification</h6></label>
+                </div>
+                <div class="col-sm-5 col-md-5">
+                    <p-dropdown [options]="qualification" formControlName="selectedValue1" placeholder="Select Type">
+
+                    </p-dropdown>
+                    <p-message severity="error" text="This Field is required" *ngIf="teacherDetails.controls.selectedValue1.errors && (submitted || teacherDetails.controls.selectedValue1.dirty || teacherDetails.controls.selectedValue1.touched)"></p-message>
+                </div>
+        </div>
+    
+    <div class="row form-group" *ngIf="teacherDetails.value.selectedType == '2'">
+            <div class="col-sm-5 col-md-5" style="padding-left:15%;">
+                    <label><h6>Specialisation</h6></label>
+                </div>
+                <div class="col-sm-5 col-md-5">
+                    <p-dropdown [options]="specialisation1" formControlName="selectedValue" placeholder="Select Type">
+
+                    </p-dropdown>
+                    <p-message severity="error" text="This Field is required" *ngIf="teacherDetails.controls.selectedValue.errors && (submitted || teacherDetails.controls.selectedValue.dirty || teacherDetails.controls.selectedValue.touched)"></p-message>
+                </div>
+        </div>
+        <div class="row form-group" *ngIf="teacherDetails.value.selectedType == '2'">
+            <div class="col-sm-5 col-md-5" style="padding-left:15%;">
+                    <label><h6>Qualification</h6></label>
+                </div>
+                <div class="col-sm-5 col-md-5">
+                    <p-dropdown [options]="qualification1" formControlName="selectedValue1" placeholder="Select Type">
+
+                    </p-dropdown>
+                    <p-message severity="error" text="This Field is required" *ngIf="teacherDetails.controls.selectedValue1.errors && (submitted || teacherDetails.controls.selectedValue1.dirty || teacherDetails.controls.selectedValue1.touched)"></p-message>
+                </div>
+        </div>
+<br>
+        <p-footer>
+            <div class="text-right">
+                <button type="submit" class="btn btn-success" *ngIf="teacherieddata == 1" name="Save" (click)="save()">Save</button>
+                <button type="submit" class="btn btn-success" *ngIf="teacherieddata == 2" (click)="update()">Update</button>
+                <button type="submit" class="btn btn-light" (click)="close_dialog()">Cancel</button>
+            </div>
+        </p-footer>
+    </form>
+</p-dialog>

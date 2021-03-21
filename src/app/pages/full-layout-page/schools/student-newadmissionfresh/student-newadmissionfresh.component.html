@@ -1,0 +1,54 @@
+<div class="main-body-content m-2">
+    <div class="m-4">
+        <p-table #dt [columns]="dataHeader" [value]="freshstudentdata">
+            <ng-template let-childrens pTemplate="caption">
+                <div class="row">
+                    <div class="col-md-8 text-left">
+                        <h5> Fresh Student information </h5>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="row mb-3" class="text-right">
+                            <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search Filter">
+                        </div>
+                    </div>
+                    <div class="col-md-1 text-right">
+                        <i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="ExportExcel()"></i>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-childrens>
+                <tr class="text-center">
+                    <th class="sno-header-layout">S.No</th>
+                    <th *ngFor="let col of childrens" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-schoolwithoutdata let-rowData let-editing="editing" let-i="rowIndex">
+                <tr *ngIf="!noDataFound" class="text-left">
+                    <td class="sno-header-layout text-center"> {{i+1}} </td>
+                    <td class="text-center">{{schoolwithoutdata.EMIS_ID}}</td>
+                    <td class="text-left">{{schoolwithoutdata.Name}}</td>
+                    <td class="text-left" *ngIf="schoolwithoutdata.gender == 1 ">Boys</td>
+                    <td class="text-left" *ngIf="schoolwithoutdata.gender == 2">Girls</td>
+                    <td class="text-center">{{schoolwithoutdata.Class}}</td>
+                    <td class="text-center">{{schoolwithoutdata.Section}}</td>
+                </tr>
+            </ng-template>
+
+            <!-- <ng-template pTemplate="footer">
+                <tr class="text-center" *ngIf="noDataFound">
+                    <td colspan="8">No Data Found</td>
+                </tr>
+            </ng-template> -->
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                        <strong>No Data Found</strong>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

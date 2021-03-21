@@ -1,0 +1,166 @@
+<!-- <div class="container"> -->
+  <div class="m-4" *ngIf="pageStage === 1">
+    <p-card>
+        <div class="container-fluid m-2 header_fonts">
+          <div class="row p-1">
+            <div class="col-sm-6">
+                <div class="text-lg-left mt-3">
+                  <h5>Higher Secondary Groups</h5>
+                </div>
+            </div>
+            <div class="col-sm-6 p-1">
+                <div class="text-right">
+                     <input type="text" pInputText size="30" placeholder="Higher Secondary Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                </div>              
+             </div>
+            </div>
+        </div>
+        <div>
+          <p-table #dt [columns]="dataHeader" [value]="higher_secondary_groups_details" [resizableColumns]="true" >
+            <!-- <ng-template pTemplate="caption">
+              <div class="row">
+                <div style="text-align:center" class="col-md-12 pt-2">
+                    <h4>Higher Secondary Groups</h4>
+                </div>
+              </div>
+            </ng-template> -->
+            <ng-template pTemplate="header" let-NoonMeal>
+              <tr class="text-center">
+                <th class="sno-header-layout">S.No</th>
+                <th *ngFor="let col of NoonMeal" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                  {{col.header}}
+                  <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-districtwise  let-columns="columns" let-i="rowIndex" >
+              <tr class="text-center">
+                <td class="sno-header-layout"> {{i+1}} </td>
+                <td class="text-left"><a href="javascript:void(0)" (click)=" onSelectedId(districtwise.district_id)">{{ districtwise.district_name}}</a></td>
+                <td> {{ districtwise.total_school}} </td>
+                <td> {{ districtwise.highersection}} </td>
+                <td> {{ districtwise.highergroup}} </td>      
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+              <tr class="text-center" *ngIf="nodateFound">
+                <td colspan="5" >No Data Found</td>
+              </tr>
+          </ng-template>
+          </p-table>
+        </div>
+    </p-card>
+  
+</div>
+<!-- level-2  -->
+<div class="m-4" *ngIf="pageStage === 2">
+  <p-card>
+      <div class="container-fluid m-2 header_fonts">
+
+        <div class="row p-1">
+          <div class="col-sm-6">
+              <div class="text-lg-left mt-3">
+                <h5>Block Higher Secondary Groups</h5>
+              </div>
+          </div>
+          <div class="col-sm-6 p-1">
+              <div class="text-right">
+                   <input type="text" pInputText size="30" placeholder="Block Higher Secondary Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+              </div>              
+           </div>
+
+          </div>
+      </div>
+      <div>
+        <p-table #dt  [columns]="dataHeader1" [value]="blockwiseSchoolWiseHigherSectionDetails" [resizableColumns]="true" >
+          <ng-template pTemplate="header" let-NoonMeal>
+            <tr class="text-center">
+              <th class="sno-header-layout">S.No</th>
+              <th *ngFor="let col of NoonMeal" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-blockwise  let-columns="columns" let-i="rowIndex" >
+            <tr class="text-center">
+              <td class="sno-header-layout"> {{i+1}} </td>
+              <td class="text-left"> {{ blockwise.district_name}}</td>
+              <td> {{ blockwise.block_name}} </td>
+              <td> {{ blockwise.udise_code}} </td>
+               <td class="text-left"><a href="javascript:void(0)" (click)="onSelectedschoolId(blockwise)">{{ blockwise.school_name}}</a></td>
+              <td> {{ blockwise.twelth}} </td>
+              <td> {{  (blockwise.nogrouptwelth)*1 + (blockwise.nogroupelevelth) *1 }} </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <tr class="text-center" *ngIf="nodateFound1">
+              <td colspan="7" >No Data Found</td>
+            </tr>
+        </ng-template>
+        </p-table>
+      </div>
+  </p-card>
+
+</div>
+<div class="m-4" *ngIf="pageStage === 3">
+  <p-card>
+      <div class="container-fluid m-2 header_fonts">
+        <div class="row p-1">
+          <div class="col-sm-6">
+              <div class="text-lg-left mt-3">
+                <h5>Class And Sections</h5>
+              </div>
+          </div>
+          <div class="col-sm-6 p-1">
+              <div class="text-right">
+                   <input type="text" pInputText size="30" placeholder="Class And Sections Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+              </div>              
+           </div>
+        </div>
+      </div>
+      <div>
+        <p-table #dt [columns]="dataHeader2" [value]="SchoolWiseHigherSectionDetails" [resizableColumns]="true" >
+          <ng-template pTemplate="header" let-NoonMeal>
+            <tr class="text-center">
+              <th class="sno-header-layout">S.No</th>
+              <th *ngFor="let col of NoonMeal" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-schoolwise  let-columns="columns" let-i="rowIndex" >
+            <tr class="text-center">
+              <td class="sno-header-layout"> {{i+1}} </td>
+              <td *ngIf="schoolwise.class_id === '1'"> I </td>
+              <td *ngIf="schoolwise.class_id === '2'"> II </td>
+              <td *ngIf="schoolwise.class_id === '3'">III </td>
+              <td *ngIf="schoolwise.class_id === '4'"> IV</td>
+              <td *ngIf="schoolwise.class_id === '5'"> V </td>
+              <td *ngIf="schoolwise.class_id === '6'"> VI </td>
+              <td *ngIf="schoolwise.class_id === '7'"> VII </td>
+              <td *ngIf="schoolwise.class_id === '8'"> VIII </td>
+              <td *ngIf="schoolwise.class_id === '9'"> IX </td>
+              <td *ngIf="schoolwise.class_id === '10'"> X </td>
+              <td *ngIf="schoolwise.class_id === '11'"> XI </td>     
+              <td *ngIf="schoolwise.class_id === '12'"> XII </td>    
+              <td> {{ schoolwise.section}} </td>
+              <td> {{ schoolwise.student_count}} </td>
+              <td class="text-left">{{schoolwise.MEDINSTR_DESC}}</td>
+              <td> {{ schoolwise.student_count}} </td>
+              <td> {{ schoolwise.group_name}} </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <tr class="text-center" *ngIf="nodateFound2">
+              <td colspan="7" >No Data Found</td>
+            </tr>
+        </ng-template>
+        </p-table>
+      </div>
+  </p-card>
+
+</div>
+
+

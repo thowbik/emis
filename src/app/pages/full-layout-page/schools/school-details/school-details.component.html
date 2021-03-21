@@ -1,0 +1,858 @@
+<div class="card ui-card-body my-3 box-shwd">
+  <h3>SCHOOL DETAILS - PART II</h3>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="backclr-grn  font-16">
+        SCHOOL DETAILS
+      </div>
+      <form [formGroup]="schoolDetailForm">
+        <div class="row form-group" style="margin-top:3%;">
+          <div class="col-sm-6 text-align">
+            <label><span class="num-align">1. </span>Is this a minority managed school ?<span class="manditory">
+                *</span></label>
+          </div>
+          <div class="col-sm-3">
+            <p-radioButton name="minority" formControlName="minority_sch" value="1" label="YES"
+              (click)="minority(schoolDetailForm.value.minority_sch)">
+            </p-radioButton>
+          </div>
+          <div class="col-sm-3">
+            <p-radioButton name="minority" formControlName="minority_sch" value="2" label="NO"
+              (click)="minority(schoolDetailForm.value.minority_sch)">
+            </p-radioButton>
+          </div>
+        </div>
+        <div class="row form-group">
+          <div class="col-sm-6"></div>
+          <div class="col-sm-3">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.minority_sch.errors && (submitted || schoolDetailForm.controls.minority_sch.dirty || schoolDetailForm.controls.minority_sch.touched)">
+            </p-message>
+          </div>
+        </div>
+
+        <div class="row form-group" *ngIf="schoolDetailForm.value.minority_sch== '1'">
+          <div class="col-sm-6 text-align" style="margin-top:5px;">
+            <label>Type of minority community managing the School<span class="manditory"> *</span></label>
+          </div>
+          <div class="col-sm-3">
+            <p-dropdown [options]="communityTypeList" formControlName="minority_grp" placeholder="Select a community"
+              [showClear]="true" styleClass="select_dropdown"></p-dropdown>
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.minority_grp.errors && (submitted || schoolDetailForm.controls.minority_grp.dirty || schoolDetailForm.controls.minority_grp.touched)">
+            </p-message>
+          </div>
+        </div>
+
+        <div class="row form-group" *ngIf="schoolDetailForm.value.minority_sch== '1'">
+          <div class="col-sm-6 text-align" style="margin-top:5px;">
+            <label><span class="num-align"></span>School Manangement by minority group valid upto year
+            </label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pKeyFilter="pnum" maxlength="4" pInputText formControlName="minority_yr"
+              class="form-control">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.minority_yr.errors && (submitted || schoolDetailForm.controls.minority_yr.dirty || schoolDetailForm.controls.minority_yr.touched)">
+            </p-message>
+          </div>
+        </div>
+
+
+        <div class="row form-group">
+          <div class="col-sm-6 text-align" style="margin-top:5px;">
+            <label><span class="num-align">2. </span>Are majority of the pupils taught through their mother tongue at
+              the primary level ?<span class="manditory"> *</span></label>
+          </div>
+          <div class="col-sm-3">
+            <p-radioButton name="majority" formControlName="mtongue_pri" value="1" label="YES">
+            </p-radioButton>
+          </div>
+          <div class="col-sm-3">
+            <p-radioButton name="majority" formControlName="mtongue_pri" value="2" label="NO">
+            </p-radioButton>
+          </div>
+        </div>
+        <div class="row form-group">
+          <div class="col-sm-6"></div>
+          <div class="col-sm-3">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.mtongue_pri.errors && (submitted || schoolDetailForm.controls.mtongue_pri.dirty || schoolDetailForm.controls.mtongue_pri.touched)">
+            </p-message>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-md-4">
+            <label><span class="num-align">3. </span>Medium of instruction(s) in the school<span class="manditory">
+                *</span></label>
+          </div>
+          <div class="col-md-1">
+            <input type="button" class="btn btn-secondary btn-lg light_btn mx-2" (click)="addMediumInstruction()"
+              value="+" />
+          </div>
+          <div class="col-md-1">
+            <input type="button" class="btn btn-secondary btn-lg light_btn mx-2" (click)="removeMediumInstruction()"
+              value="-" />
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-md-12" formArrayName="schoolnew_mediumentry_details">
+
+            <div class="row m-2 pt-1"
+              *ngFor="let item of schoolDetailForm.get('schoolnew_mediumentry_details')['controls']; let i = index;"
+              [formGroupName]="i">
+              <div class="col-md-4">
+                <p-dropdown [options]="schoolMediumList" formControlName="medium_instrut"
+                  (onChange)="chooseMedium($event,i)" placeholder="Select Medium of Instructions"
+                  styleClass="select_dropdown p-1"></p-dropdown>
+                <p-message severity="error" text="Field is required"
+                  *ngIf="item.controls.medium_instrut.errors && (submitted || mediumEntryInvalid || item.controls.medium_instrut.dirty || item.controls.medium_instrut.touched)">
+                </p-message>
+
+              </div>
+              <!-- <div class="col-md-4">
+                <input type="text" *ngIf="item.value.medium_instrut == '99'" formControlName="other_medium"
+                  class="form-control">
+                <p-message severity="error" text="Field is required"
+                  *ngIf="item.controls.other_medium.errors && (submitted || mediumEntryInvalid || item.controls.other_medium.dirty || item.controls.other_medium.touched)">
+                </p-message>
+              </div> -->
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row form-group">
+          <div class="col-md-4">
+            <label><span class="num-align">4. </span>Language(s) taught<span class="manditory"> *</span></label>
+          </div>
+          <div class="col-md-1">
+            <input type="button" class="btn btn-secondary btn-lg light_btn mx-2" (click)="addLanguagesTaught()"
+              value="+" />
+          </div>
+          <div class="col-md-1">
+            <input type="button" class="btn btn-secondary btn-lg light_btn mx-2" (click)="removeLanguagesTaught()"
+              value="-" />
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-md-6" formArrayName="schoolnew_langtaught_entry_details">
+            <div class="row m-2 pt-1"
+              *ngFor="let items of schoolDetailForm.get('schoolnew_langtaught_entry_details')['controls']; let i = index;"
+              [formGroupName]="i">
+              <div class="col-md-8">
+                <p-dropdown [options]="laguageList" formControlName="lang_taught" (onChange)="chooseLanguage($event,i)"
+                  placeholder="Select Languages" styleClass="select_dropdown p-1"></p-dropdown>
+                <p-message severity="error" text="Field is required"
+                  *ngIf="items.controls.lang_taught.errors && (submitted || languageEntryInvalid || items.controls.lang_taught.dirty || items.controls.lang_taught.touched)">
+                </p-message>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-6 text-align" style="margin-top:5px;">
+            <label><span class="num-align">5. </span>Does the School offer any Pre-vocational course(s) at Upper-Primary
+              stage?<span class="manditory"> *</span></label>
+          </div>
+          <div class="col-sm-3">
+            <p-radioButton name="upperprimary" formControlName="prevoc_course" value="1" label="YES"
+              (click)="onVocationalReset()">
+            </p-radioButton>
+          </div>
+          <div class="col-sm-3">
+            <p-radioButton name="upperprimary" formControlName="prevoc_course" value="2" label="NO"
+              (click)="onVocationalReset()">
+            </p-radioButton>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-6"></div>
+          <div class="col-sm-3">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.prevoc_course.errors && (submitted || schoolDetailForm.controls.prevoc_course.dirty || schoolDetailForm.controls.prevoc_course.touched)">
+            </p-message>
+          </div>
+        </div>
+        <div class="row form-group" *ngIf="schoolDetailForm.value.prevoc_course== '1'">
+          <div class="col-md-4">
+            <label><span class="num-align"></span>Choose Trades<span class="manditory"> *</span></label>
+          </div>
+          <div class="col-md-1">
+            <input type="button" class="btn btn-secondary btn-lg light_btn mx-2" value="+"
+              (click)="addPreVocational()" />
+          </div>
+          <div class="col-md-1">
+            <input type="button" class="btn btn-secondary btn-lg light_btn mx-2" value="-"
+              (click)="removePreVocational()" />
+          </div>
+        </div>
+
+        <div class="row form-group" *ngIf="schoolDetailForm.value.prevoc_course== '1'">
+          <div class="col-md-6" formArrayName="voc_trade_details">
+            <div class="row m-2 pt-1"
+              *ngFor="let data of schoolDetailForm.get('voc_trade_details').controls; let i = index;"
+              [formGroupName]="i">
+              <div class="col-md-8">
+                <p-dropdown [options]="preVocational" formControlName="voc_trade" (onChange)="chooseVocation($event,i)"
+                  placeholder="Select a Trades" styleClass="select_dropdown p-1"></p-dropdown>
+                <!-- <p-dropdown [options]="preVocational" formControlName="voc_trade" (onChange)="chooseVocation($event,i)"
+                  placeholder="Select a Trades " [showClear]="true" styleClass="select_dropdown"></p-dropdown> -->
+                <p-message severity="error" text="Field is required"
+                  *ngIf="data.controls.voc_trade.errors && (submitted || vocationEntryInvalid || data.controls.voc_trade.dirty || data.controls.voc_trade.touched)">
+                </p-message>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="row form-group">
+          <div class="col-sm-6 text-align" style="margin-top:5px;">
+            <label><span class="num-align">6. </span>Does the school provide educational and vocational guidance/
+              counseling to students<span class="manditory"> *</span></label>
+          </div>
+          <div class="col-sm-3">
+            <p-radioButton name="vocational" formControlName="stu_councel" value="1" label="YES">
+            </p-radioButton>
+          </div>
+          <div class="col-sm-3">
+            <p-radioButton name="vocational" formControlName="stu_councel" value="2" label="NO">
+            </p-radioButton>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-6"></div>
+          <div class="col-sm-3">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.stu_councel.errors && (submitted || schoolDetailForm.controls.stu_councel.dirty || schoolDetailForm.controls.stu_councel.touched)">
+            </p-message>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-6 text-align" style="margin-top:5px;">
+            <label><span class="num-align">7. </span>Affiliation Board of school For Secondary sections<span
+                class="manditory"> *</span></label>
+          </div>
+          <div class="col-sm-3">
+            <p-dropdown [options]="boardSecondarySectionTypeList" formControlName="board_sec"
+              placeholder="Select a Category " styleClass="select_dropdown p-1"
+              (onChange)="chooseSecondarySection($event)"></p-dropdown>
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.board_sec.errors && (submitted || schoolDetailForm.controls.board_sec.dirty || schoolDetailForm.controls.board_sec.touched)">
+            </p-message>
+          </div>
+        </div>
+
+        <div class="row form-group" *ngIf="schoolDetailForm.value.board_sec == '5'">
+          <div class="col-sm-6">
+          </div>
+          <div class="col-sm-3 text-align" style="margin-top:5px;">
+            <label><span class="num-align"></span>Name of the board<span class="manditory">
+                *</span></label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" formControlName="board_sec_oth" class="form-control">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.board_sec_oth.errors && (submitted || schoolDetailForm.controls.board_sec_oth.dirty || schoolDetailForm.controls.board_sec_oth.touched)">
+            </p-message>
+          </div>
+        </div>
+
+        <div class="row form-group" *ngIf="schoolTypeId == 2 || schoolTypeId == 3 || schoolTypeId == 4">
+          <div class="col-sm-6">
+
+          </div>
+          <div class="col-sm-3 text-align" style="margin-top:5px;">
+            <label><span class="num-align"></span>Affiliation Number<span class="manditory"> *</span></label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" formControlName="board_sec_no" class="form-control">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.board_sec_no.errors && (submitted || schoolDetailForm.controls.board_sec_no.dirty || schoolDetailForm.controls.board_sec_no.touched)">
+            </p-message>
+          </div>
+        </div>
+
+
+
+
+        <div class="row form-group">
+          <div class="col-sm-6 text-align" style="margin-top:5px;">
+            <label><span class="num-align">8. </span>Affiliation Board of school For Higher Secondary sections<span
+                class="manditory"> *</span></label>
+          </div>
+          <div class="col-sm-3">
+            <p-dropdown [options]="boardSecondarySectionTypeList" formControlName="board_hsec"
+              placeholder="Select a Category" styleClass="select_dropdown p-1"
+              (onChange)="chooseHigherSecondarySection($event)"></p-dropdown>
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.board_hsec.errors && (submitted || schoolDetailForm.controls.board_hsec.dirty || schoolDetailForm.controls.board_hsec.touched)">
+            </p-message>
+          </div>
+        </div>
+
+        <div class="row form-group" *ngIf="schoolDetailForm.value.board_hsec == '5'">
+          <div class="col-sm-6 text-align">
+          </div>
+          <div class="col-sm-3 text-align" style="margin-top:5px;">
+            <label><span class="num-align"></span>Name of the board<span class="manditory">
+                *</span></label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" formControlName="board_hsec_oth" class="form-control">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.board_hsec_oth.errors && (submitted || schoolDetailForm.controls.board_hsec_oth.dirty || schoolDetailForm.controls.board_hsec_oth.touched)">
+            </p-message>
+          </div>
+        </div>
+
+
+
+        <div class="row form-group" *ngIf="schoolTypeId == 2 || schoolTypeId == 3 || schoolTypeId == 4">
+          <div class="col-sm-6">
+
+          </div>
+          <div class="col-sm-3 text-align" style="margin-top:5px;">
+            <label><span class="num-align"></span>Affiliation Number<span class="manditory"> *</span></label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" formControlName="board_hsec_no" class="form-control">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.board_hsec_no.errors && (submitted || schoolDetailForm.controls.board_hsec_no.dirty || schoolDetailForm.controls.board_hsec_no.touched)">
+            </p-message>
+          </div>
+        </div>
+
+
+        <div class="row form-group">
+          <div class="col-sm-12 text-align" style="margin-top:5px;">
+            <label><span class="num-align">9. </span>Distance of the school (in km.) from the nearest Govt./Govt. Aided
+              school<span class="manditory"> *</span></label>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-3 text-align" style="margin-top:5px;">
+            <label><span class="num-align"></span>From Primary school/section<span class="manditory"> *</span></label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pKeyFilter="pnum" maxlength="3" class="form-control" formControlName="distance_pri">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.distance_pri.errors && (submitted || schoolDetailForm.controls.distance_pri.dirty || schoolDetailForm.controls.distance_pri.touched)">
+            </p-message>
+          </div>
+          <div class="col-sm-3 text-align" style="margin-top:5px;">
+            <label><span class="num-align"></span>From Upper Primary school/section<span class="manditory">
+                *</span></label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" class="form-control" pKeyFilter="pnum" maxlength="3" formControlName="distance_upr">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.distance_upr.errors && (submitted || schoolDetailForm.controls.distance_upr.dirty || schoolDetailForm.controls.distance_upr.touched)">
+            </p-message>
+          </div>
+        </div>
+
+
+        <div class="row form-group">
+          <div class="col-sm-3 text-align" style="margin-top:5px;">
+            <label><span class="num-align"></span>From Secondary school/section<span class="manditory"> *</span></label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" class="form-control" pKeyFilter="pnum" maxlength="3" formControlName="distance_sec">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.distance_sec.errors && (submitted || schoolDetailForm.controls.distance_sec.dirty || schoolDetailForm.controls.distance_sec.touched)">
+            </p-message>
+          </div>
+          <div class="col-sm-3 text-align" style="margin-top:5px;">
+            <label><span class="num-align"></span>From Higher Secondary school/junior college<span class="manditory">
+                *</span></label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" class="form-control" pKeyFilter="pnum" maxlength="3" formControlName="distance_hsec">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.distance_hsec.errors && (submitted || schoolDetailForm.controls.distance_hsec.dirty || schoolDetailForm.controls.distance_hsec.touched)">
+            </p-message>
+          </div>
+        </div>
+
+
+        <div class="row form-group">
+          <div class="col-sm-6 text-align" style="margin-top:5px;">
+            <label><span class="num-align">10. </span>Whether school is approachable by all-weather roads ?<span
+                class="manditory"> *</span></label>
+          </div>
+          <div class="col-sm-3">
+            <p-radioButton name="weather_roads" formControlName="weather_roads" value="1" label="YES"
+              (click)="onRoadReset(schoolDetailForm.value.weather_roads)">
+            </p-radioButton>
+
+          </div>
+          <div class="col-sm-3">
+            <p-radioButton name="weather_roads" formControlName="weather_roads" value="2" label="NO"
+              (click)="onRoadReset(schoolDetailForm.value.weather_roads)">
+            </p-radioButton>
+          </div>
+        </div>
+
+
+        <div class="row form-group">
+          <div class="col-sm-6"></div>
+          <div class="col-sm-3">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.weather_roads.errors && (submitted || schoolDetailForm.controls.weather_roads.dirty || schoolDetailForm.controls.weather_roads.touched)">
+            </p-message>
+          </div>
+        </div>
+        <!-- 
+        <div class="row form-group">
+          <div class="col-sm-6"></div>
+          <div class="col-sm-3">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.weather_roads.errors && (submitted || schoolDetailForm.controls.weather_roads.dirty || schoolDetailForm.controls.weather_roads.touched)">
+            </p-message>
+          </div>
+        </div> -->
+        <!-- 
+        <div class="row form-group" *ngIf="schoolDetailForm.value.weather_roads== '2'">
+          <div class="col-sm-6 text-align" style="margin-top:5px;">
+            <label><span class="num-align"></span>If no, school is connected to all weather road, roads connected through
+               </label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText formControlName="road_connect"
+            class="form-control" >
+          </div>
+        </div> -->
+
+        <div class="row form-group" *ngIf="schoolDetailForm.value.weather_roads== '2'">
+          <div class="col-sm-6 text-align" style="margin-top:5px;">
+            <label><span class="num-align"></span>Distance to road in metres
+            </label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pKeyFilter="pnum" maxlength="4" pInputText formControlName="distance_road"
+              class="form-control">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.distance_road.errors && (submitted || schoolDetailForm.controls.distance_road.dirty || schoolDetailForm.controls.distance_road.touched)">
+            </p-message>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-12">
+            <label><span class="num-align">11. </span>Number of sections by class (if the class stand alone, has no
+              section than enter 1)<span class="manditory"> *</span></label>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-1 text-align" style="padding-right: 0px;">
+            <label>Pre-Primary</label>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" pInputText pKeyFilter="pnum" maxlength="2" formControlName="pre_pri_sec"
+              class="form-control">
+          </div>
+          <div class="col-sm-1 text-align1">
+            <label>I</label>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" pInputText pKeyFilter="pnum" maxlength="2" formControlName="class1_sec"
+              class="form-control">
+          </div>
+          <div class="col-sm-1 text-align1">
+            <label>II</label>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" pInputText pKeyFilter="pnum" maxlength="2" formControlName="class2_sec"
+              class="form-control">
+          </div>
+          <div class="col-sm-1 text-align1">
+            <label>III</label>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" pInputText pKeyFilter="pnum" maxlength="2" formControlName="class3_sec"
+              class="form-control">
+          </div>
+          <div class="col-sm-1 text-align1">
+            <label>IV</label>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" pInputText pKeyFilter="pnum" maxlength="2" formControlName="class4_sec"
+              class="form-control">
+          </div>
+          <div class="col-sm-1 text-align1">
+            <label>V</label>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" pInputText pKeyFilter="pnum" maxlength="2" formControlName="class5_sec"
+              class="form-control">
+          </div>
+        </div>
+
+
+
+        <div class="row form-group">
+          <div class="col-sm-2">
+            <p-message severity="error" text="Field is requiredn"
+              *ngIf="schoolDetailForm.controls.pre_pri_sec.errors && (submitted || schoolDetailForm.controls.pre_pri_sec.dirty || schoolDetailForm.controls.pre_pri_sec.touched)">
+            </p-message>
+          </div>
+          <div class="col-sm-2">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.class1_sec.errors && (submitted || schoolDetailForm.controls.class1_sec.dirty || schoolDetailForm.controls.class1_sec.touched)">
+            </p-message>
+          </div>
+          <div class="col-sm-2">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.class2_sec.errors && (submitted || schoolDetailForm.controls.class2_sec.dirty || schoolDetailForm.controls.class2_sec.touched)">
+            </p-message>
+          </div>
+          <div class="col-sm-2">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.class3_sec.errors && (submitted || schoolDetailForm.controls.class3_sec.dirty || schoolDetailForm.controls.class3_sec.touched)">
+            </p-message>
+          </div>
+
+          <div class="col-sm-2">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.class4_sec.errors && (submitted || schoolDetailForm.controls.class4_sec.dirty || schoolDetailForm.controls.class4_sec.touched)">
+            </p-message>
+          </div>
+
+          <div class="col-sm-2">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.class5_sec.errors && (submitted || schoolDetailForm.controls.class5_sec.dirty || schoolDetailForm.controls.class5_sec.touched)">
+            </p-message>
+          </div>
+        </div>
+
+
+
+
+        <div class="row form-group">
+          <div class="col-sm-1 text-align" style="padding-right: 0px;">
+          </div>
+          <div class="col-sm-1">
+          </div>
+          <div class="col-sm-1 text-align1">
+            <label>VI</label>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" pInputText pKeyFilter="pnum" maxlength="2" formControlName="class6_sec"
+              class="form-control">
+          </div>
+          <div class="col-sm-1 text-align1">
+            <label>VII</label>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" pInputText pKeyFilter="pnum" maxlength="2" formControlName="class7_sec"
+              class="form-control">
+          </div>
+          <div class="col-sm-1 text-align1">
+            <label>VIII</label>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" pInputText pKeyFilter="pnum" maxlength="2" formControlName="class8_sec"
+              class="form-control">
+          </div>
+          <div class="col-sm-1 text-align1">
+            <label>IX</label>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" pInputText pKeyFilter="pnum" maxlength="2" formControlName="class9_sec"
+              class="form-control">
+          </div>
+          <div class="col-sm-1 text-align1">
+            <label>X</label>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" pInputText pKeyFilter="pnum" maxlength="2" formControlName="class10_sec"
+              class="form-control">
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-2">
+
+          </div>
+          <div class="col-sm-2">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.class6_sec.errors && (submitted || schoolDetailForm.controls.class6_sec.dirty || schoolDetailForm.controls.class6_sec.touched)">
+            </p-message>
+          </div>
+          <div class="col-sm-2">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.class7_sec.errors && (submitted || schoolDetailForm.controls.class7_sec.dirty || schoolDetailForm.controls.class7_sec.touched)">
+            </p-message>
+          </div>
+          <div class="col-sm-2">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.class8_sec.errors && (submitted || schoolDetailForm.controls.class8_sec.dirty || schoolDetailForm.controls.class8_sec.touched)">
+            </p-message>
+          </div>
+
+          <div class="col-sm-2">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.class9_sec.errors && (submitted || schoolDetailForm.controls.class9_sec.dirty || schoolDetailForm.controls.class9_sec.touched)">
+            </p-message>
+          </div>
+
+          <div class="col-sm-2">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.class10_sec.errors && (submitted || schoolDetailForm.controls.class10_sec.dirty || schoolDetailForm.controls.class10_sec.touched)">
+            </p-message>
+          </div>
+        </div>
+
+
+        <div class="row form-group">
+          <div class="col-sm-1 text-align" style="padding-right: 0px;">
+          </div>
+          <div class="col-sm-1">
+          </div>
+          <div class="col-sm-1 text-align1">
+            <label>XI</label>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" pInputText pKeyFilter="pnum" maxlength="2" formControlName="class11_sec"
+              class="form-control">
+          </div>
+          <div class="col-sm-1 text-align1">
+            <label>XII</label>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" pInputText pKeyFilter="pnum" maxlength="2" formControlName="class12_sec"
+              class="form-control">
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-2">
+
+          </div>
+          <div class="col-sm-2">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.class11_sec.errors && (submitted || schoolDetailForm.controls.class11_sec.dirty || schoolDetailForm.controls.class11_sec.touched)">
+            </p-message>
+          </div>
+          <div class="col-sm-2">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.class12_sec.errors && (submitted || schoolDetailForm.controls.class12_sec.dirty || schoolDetailForm.controls.class12_sec.touched)">
+            </p-message>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-12 text-align" style="margin-top:5px;">
+            <label><span class="num-align">12.</span>Total Enrolment in Pre Primary Section</label>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-2 text-align" style="margin-top:5px;">
+          </div>
+          <div class="col-sm-1 text-align" style="margin-top:5px;text-align: center;">
+            <label><span class="num-align"></span>LKG</label>
+          </div>
+          <div class="col-sm-1 text-align" style="margin-top:5px;">
+          </div>
+          <div class="col-sm-1 text-align" style="margin-top:5px;text-align: center;">
+            <label><span class="num-align"></span>UKG</label>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-2 text-align" style="margin-top:5px;">
+            <label><span class="num-align"></span>Boys</label>
+          </div>
+          <div class="col-sm-1 ">
+            <input type="text" class="form-control" formControlName="enrol_lkg_boys" readonly>
+          </div>
+          <div class="col-sm-1 text-align" style="margin-top:5px;">
+          </div>
+          <div class="col-sm-1 ">
+            <input type="text" class="form-control" formControlName="enrol_ukg_boys" readonly>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-2 text-align" style="margin-top:5px;">
+            <label><span class="num-align"></span>Girls</label>
+          </div>
+          <div class="col-sm-1 ">
+            <input type="text" class="form-control" formControlName="enrol_lkg_girls" readonly>
+          </div>
+          <div class="col-sm-1 text-align" style="margin-top:5px;">
+          </div>
+          <div class="col-sm-1 ">
+            <input type="text" class="form-control" formControlName="enrol_ukg_girls" readonly>
+          </div>
+        </div>
+
+
+        <div class="row form-group">
+          <div class="col-sm-12 text-align" style="margin-top:5px;">
+            <label><span class="num-align">13.</span>New Admissions in Grade I<span class="manditory"> *</span></label>
+          </div>
+        </div>
+        <hr>
+
+        <div class="row form-group">
+          <div class="col-sm-1">
+          </div>
+          <div class="col-sm-5 title-align">
+            <label><b>Age (in completed years)</b></label>
+          </div>
+          <div class="col-sm-2 ">
+            <label><b>Total children admitted in grade 1</b></label>
+          </div>
+          <div class="col-sm-4 title-align">
+            <label><b>Out of the Total in Grade I Number of children with pre-school experience in</b></label>
+          </div>
+        </div>
+        <hr>
+
+        <div class="row form-group">
+          <div class="col-sm-1">
+          </div>
+          <div class="col-sm-1">
+            <label>Below5</label>
+          </div>
+          <div class="col-sm-1">
+            <label>5</label>
+          </div>
+          <div class="col-sm-1">
+            <label>6</label>
+          </div>
+          <div class="col-sm-1">
+            <label>7</label>
+          </div>
+          <div class="col-sm-1">
+            <label>Above 7</label>
+          </div>
+          <div class="col-sm-2">
+
+          </div>
+          <div class="col-sm-1">
+            <label>Same school</label>
+          </div>
+          <div class="col-sm-1">
+            <label>Another school</label>
+          </div>
+          <div class="col-sm-2">
+            <label>Anganwadi / ECCE centre</label>
+          </div>
+        </div>
+
+
+        <div class="row form-group">
+          <div class="col-sm-1">
+            <label>Boys</label>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" class="form-control" formControlName="grd1_boys_below_5" readonly>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" class="form-control" formControlName="grd1_boys_age_5" readonly>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" class="form-control" formControlName="grd1_boys_age_6" readonly>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" class="form-control" formControlName="grd1_boys_age_7" readonly>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" class="form-control" formControlName="grd1_boys_above_7" readonly>
+          </div>
+          <div class="col-sm-2">
+            <input type="text" class="form-control" formControlName="grd1_tot_1_boys" readonly>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" class="form-control" formControlName="grd1_samescl_b">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.grd1_samescl_b.errors && (submitted || schoolDetailForm.controls.grd1_samescl_b.dirty || schoolDetailForm.controls.grd1_samescl_b.touched)">
+            </p-message>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" class="form-control" formControlName="grd1_othscl_b">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.grd1_othscl_b.errors && (submitted || schoolDetailForm.controls.grd1_othscl_b.dirty || schoolDetailForm.controls.grd1_othscl_b.touched)">
+            </p-message>
+          </div>
+          <div class="col-sm-2">
+            <input type="text" class="form-control" formControlName="grd1_angan_b">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.grd1_angan_b.errors && (submitted || schoolDetailForm.controls.grd1_angan_b.dirty || schoolDetailForm.controls.grd1_angan_b.touched)">
+            </p-message>
+          </div>
+        </div>
+
+
+        <div class="row form-group">
+          <div class="col-sm-1">
+            <label>Girls</label>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" class="form-control" formControlName="grd1_girls_below_5" readonly>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" class="form-control" formControlName="grd1_girls_age_5" readonly>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" class="form-control" formControlName="grd1_girls_age_6" readonly>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" class="form-control" formControlName="grd1_girls_age_7" readonly>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" class="form-control" formControlName="grd1_girls_above_7" readonly>
+          </div>
+          <div class="col-sm-2">
+            <input type="text" class="form-control" formControlName="grd1_tot_1_girls" readonly>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" class="form-control" formControlName="grd1_samescl_g">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.grd1_samescl_g.errors && (submitted || schoolDetailForm.controls.grd1_samescl_g.dirty || schoolDetailForm.controls.grd1_samescl_g.touched)">
+            </p-message>
+          </div>
+          <div class="col-sm-1">
+            <input type="text" class="form-control" formControlName="grd1_othscl_g">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.grd1_othscl_g.errors && (submitted || schoolDetailForm.controls.grd1_othscl_g.dirty || schoolDetailForm.controls.grd1_othscl_g.touched)">
+            </p-message>
+          </div>
+          <div class="col-sm-2">
+            <input type="text" class="form-control" formControlName="grd1_angan_g">
+            <p-message severity="error" text="Field is required"
+              *ngIf="schoolDetailForm.controls.grd1_angan_g.errors && (submitted || schoolDetailForm.controls.grd1_angan_g.dirty || schoolDetailForm.controls.grd1_angan_g.touched)">
+            </p-message>
+          </div>
+        </div>
+        <hr>
+        <div class="text-center mt-3">
+          <button type="submit" class="btn btn-success" (click)="onSave()" >Save</button>
+         
+          <button type="submit" class="btn btn-light btn-border" (click)="onCancel()" >Cancel</button>
+        </div>
+        <!-- <div class="text-center mt-3">
+          <button type="submit" class="btn btn-success" (click)="onSave()" [disabled]="schoolDetailsData.part_2 == 2">Save</button>
+          <button type="submit" class="btn btn-success" (click)="onFinalSubmit()" style="margin-left:15px;" [disabled]="schoolDetailsData.part_2 == 2">Final Submit</button>
+          <button type="submit" class="btn btn-light btn-border" (click)="onCancel()" [disabled]="schoolDetailsData.part_2 == 2">Cancel</button>
+        </div> -->
+        <p-confirmDialog header="Confirmation" [style]="{width: '50vw'}"></p-confirmDialog>
+      </form>
+    </div>
+  </div>
+</div>

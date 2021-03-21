@@ -1,0 +1,132 @@
+<div class="breadcrumbs c-black p-4">
+	<h6 class="url">
+          <span class="flex-gap-right">Staff Fixation</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+          <span class="flex-gap-right">Staff Fixation Report
+          </span>
+      </h6>
+</div>
+<div class="m-2 ">
+	<p-card>
+		<div>
+			<p-table #dt [columns]="cols" [value]="managementschool" [rows]="10" [resizableColumns]="true">
+				<ng-template let-childrens pTemplate="caption">
+					<div class="row">
+						<div class="col-md-3 text-left">
+							<p-dropdown [options]="staffFixationdropvalue" placeholder="Select School Type" (onChange)="StaffFixationTypeOption($event)" styleClass="dropdwnvalues"></p-dropdown>
+						</div>
+						<div class="col-md-3">
+							<div class="row mb-3" class="text-right"></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-8"></div>
+						<div class="col-md-3">
+							<input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+						</div>
+						<div class="col-md-1 p-2 text-right"> <i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="ExportExcel()"></i>
+						</div>
+					</div>
+				</ng-template>
+				<ng-template pTemplate="header" let-distname>
+					<tr>
+						<th class="sno-header-layout">#</th>
+						<th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">{{col.header}}
+							<p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+						</th>
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+					<tr class="text-center" *ngIf="test == 1">
+						<td class="sno-header-layout">{{i+1}}</td>
+						<td class="text-left">{{ distwise.udise_code}}</td>
+						<td>{{ distwise.school_name}}</td>
+						<td>{{ distwise.cate_type}}</td>
+						<td>{{ distwise.elig_sg}}</td>
+						<td>{{ distwise.elig_bt_eng}}</td>
+						<td>{{ distwise.elig_bt_mat}}</td>
+						<td>{{ distwise.elig_bt_sci}}</td>
+						<td>{{ distwise.elig_bt_ss}}</td>
+						<td>{{ distwise.elig_bt_tam}}</td>
+						<td class="font-weight-bold">{{ distwise.elig_bt_total}}</td>
+					</tr>
+					<tr class="text-center" *ngIf="test == 2">
+						<td class="sno-header-layout">{{i+1}}</td>
+						<td class="text-left">{{ distwise.udise_code}}</td>
+						<td>{{ distwise.school_name}}</td>
+						<td>{{ distwise.cate_type}}</td>
+						<td>{{ distwise.sanc_sg}}</td>
+						<td>{{ distwise.sanc_bt_eng}}</td>
+						<td>{{ distwise.sanc_bt_mat}}</td>
+						<td>{{ distwise.sanc_bt_sci}}</td>
+						<td>{{ distwise.sanc_bt_ss}}</td>
+						<td>{{ distwise.sanc_bt_tam}}</td>
+						<td class="font-weight-bold">{{ distwise.sanc_bt_total}}</td>
+					</tr>
+					<tr class="text-center" *ngIf="test == 3">
+						<td class="sno-header-layout">{{i+1}}</td>
+						<td class="text-left">{{ distwise.udise_code}}</td>
+						<td>{{ distwise.school_name}}</td>
+						<td>{{ distwise.cate_type}}</td>
+						<td>{{ distwise.in_position_sg}}</td>
+						<td>{{ distwise.in_position_bt_eng}}</td>
+						<td>{{ distwise.in_position_bt_mat}}</td>
+						<td>{{ distwise.in_position_bt_sci}}</td>
+						<td>{{ distwise.in_position_bt_ss}}</td>
+						<td>{{ distwise.in_position_bt_tam}}</td>
+						<td class="font-weight-bold">{{ distwise.in_position_bt_total}}</td>
+					</tr>
+					<tr class="text-center" *ngIf="test == 4">
+						<td class="sno-header-layout">{{i+1}}</td>
+						<td class="text-left">{{ distwise.udise_code}}</td>
+						<td>{{ distwise.school_name}}</td>
+						<td>{{ distwise.cate_type}}</td>
+						<td>{{ distwise.vacant_sg}}</td>
+						<td>{{ distwise.vacant_bt_eng}}</td>
+						<td>{{ distwise.vacant_bt_mat}}</td>
+						<td>{{ distwise.vacant_bt_sci}}</td>
+						<td>{{ distwise.vacant_bt_ss}}</td>
+						<td>{{ distwise.vacant_bt_tam}}</td>
+						<td class="font-weight-bold">{{ distwise.vacant_bt_total}}</td>
+					</tr>
+					<tr class="text-center" *ngIf="test == 5">
+						<td class="sno-header-layout">{{i+1}}</td>
+						<td class="text-left">{{ distwise.udise_code}}</td>
+						<td>{{ distwise.school_name}}</td>
+						<td>{{ distwise.cate_type}}</td>
+						<td>{{ distwise.surplus_sg}}</td>
+						<td>{{ distwise.surplus_bt_eng}}</td>
+						<td>{{ distwise.surplus_bt_mat}}</td>
+						<td>{{ distwise.surplus_bt_sci}}</td>
+						<td>{{ distwise.surplus_bt_s}}</td>
+						<td>{{ distwise.surplus_bt_tam}}</td>
+						<td class="font-weight-bold">{{ distwise.surplus_bt_total}}</td>
+					</tr>
+					<tr class="text-center" *ngIf="test == 6">
+						<td class="sno-header-layout">{{i+1}}</td>
+						<td class="text-left">{{ distwise.udise_code}}</td>
+						<td>{{ distwise.school_name}}</td>
+						<td>{{ distwise.cate_type}}</td>
+						<td>{{ distwise.need_sg}}</td>
+						<td>{{ distwise.need_bt_eng}}</td>
+						<td>{{ distwise.need_bt_mat}}</td>
+						<td>{{ distwise.need_bt_sci}}</td>
+						<td>{{ distwise.need_bt_ss}}</td>
+						<td>{{ distwise.need_bt_tam}}</td>
+						<td class="font-weight-bold">{{ distwise.need_bt_total}}</td>
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="footer">
+					<tr class="text-center" *ngIf="nodateFound">
+						<td colspan="6">No Data Found</td>
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="emptymessage" let-columns>
+					<tr>
+						<td [attr.colspan]="(columns.length)+1" style="text-align: center;"> <strong>No Data Found</strong>
+						</td>
+					</tr>
+				</ng-template>
+			</p-table>
+		</div>
+	</p-card>
+</div>

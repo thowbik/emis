@@ -1,0 +1,993 @@
+<div class="main-body-content" *ngIf="loggedInType">
+<div class=" mr-3 mt-3" *ngIf="pageStageLevel === 1">
+    <p-card class="mt-3 pt-3">
+        <!-- Start  -->
+        <div class="m-2 p-2">
+            <div class="row  m-2 pt-1 mb-3"> 
+                <div class="col-md-8 mt-1">
+                    <h4 class="label_text">APPROVED SCHOOL DETAILS</h4>
+                </div>
+                <div class="col-md-4">
+                    <p-dropdown [options]="stateSchoolCategoryOption"  placeholder="APPROVED SCHOOL DETAILS" optionLabel="manage_name" [showClear]="true" styleClass="dropdwnvalues" (onChange)="getSelectedchoolTypeState($event)"></p-dropdown>
+                </div>
+            </div>
+
+            <div class="row m-2">
+                <div class="col-md-12">
+                <p-table [value]="stateSchoolData" [autoLayout]="true" [resizableColumns]="true" [scrollable]="true" scrollHeight="500px" scrollWidth="100px" [paginator]="true" [resizableColumns]="true" [rows]="10"
+                #dt1 [globalFilterFields]="['district_name','total_school']">
+                    <ng-template pTemplate="caption" let-schoolProfile>
+                        <div class="row p-1">
+                           <div class="col-sm-6">
+                           </div>
+                           <div class="col-sm-6 p-1">
+                              
+                                 <!-- <input type="text" class="form-control"  pInputText size="30" placeholder="Search" (input)="dt1.filterGlobal($event.target.value, 'contains')" style="width:auto"> -->
+                                 <input class="form-control" type="text"  (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+
+                           </div>
+                        </div>
+                     </ng-template>
+                    <ng-template pTemplate="header">
+                            <tr class="text-center">
+                                <th style="width: 7em">S.No</th>
+                                <th style="width: 20em">District Name</th>
+                                <th style="width: 10em">Total Pending</th>
+                            </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-schoolProfile let-i="rowIndex">
+                        <tr class="text-center" *ngIf="!stateNodataFound !== 1">
+                            <td style="width: 7em">{{i+1}}</td>
+                            <td style="width: 20em" class="text-left"><a href="javascript:void(0)" (click)="getSelectedDisctSchool(schoolProfile.district_id,schoolProfile.district_name,0)">{{schoolProfile.district_name}}</a></td>
+                            <td style="width: 10em">{{schoolProfile.total_school}}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="footer">
+                        <tr class="text-center" *ngIf="stateNodataFound === 1">
+                            <td>No Data Found</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            </div>
+        </div> 
+    </p-card>
+</div>
+
+<div class="pr-2 mr-3 mt-3" *ngIf="pageStageLevel === 2">
+    <p-card class="mt-3 pt-3">
+        <!-- Start  -->
+        <div class="m-2 p-2">
+            <div class="row  m-2 pt-1 mb-3"> 
+                <div class="col-md-8 mt-1">
+                    <h4 class="label_text">UPDATE SCHOOL MANAGEMENT DETAILS </h4><h6 *ngIf="temp_distname" class="label_text">- {{temp_distname}}</h6>
+                </div>
+                 <div class="col-md-4">
+                    <p-dropdown [options]="stateSchoolCategoryOption"  placeholder="Select School Type" optionLabel="manage_name" [showClear]="true" styleClass="dropdwnvalues" (onChange)="getSelectedchoolType($event)"></p-dropdown>
+                </div> 
+            </div>
+
+            <div class="row m-2">
+                <div class="col-md-12">
+                <p-table [value]="selectedDisctSchoolList" [autoLayout]="true" [resizableColumns]="true" [scrollable]="true" scrollHeight="500px" scrollWidth="100px" [paginator]="true" [resizableColumns]="true" [rows]="10"
+                #dt0 [globalFilterFields]="['udise_code','school_name','school_type','minority_sch','sch_email','sch_management_id','rte']">
+                    <ng-template pTemplate="caption" let-schoolProfile>
+                        <div class="row p-1">
+                           <div class="col-sm-6">
+                           </div>
+                           <div class="col-sm-6 p-1">
+                              <div class="text-right">
+                                 <input type="text" pInputText size="30" placeholder="Search" (input)="dt0.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                              </div>
+                           </div>
+                        </div>
+                     </ng-template>
+                    <ng-template pTemplate="header">
+                            <tr class="text-center">
+                                <th style="width: 4em">S.No</th>
+                                <th style="width: 13em">UDISE Code</th>
+                                <th style="width: 20em">School Name</th>
+                                <th style="width: 18em">School Mail</th>
+                                <th style="width: 8em">School Type</th>
+                                <!-- <th style="width: 20em">School Management</th> -->
+                                <th style="width: 8em">RTE</th>
+                                <th style="width: 12em">Update Status</th>
+                            </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-schoolProfile let-i="rowIndex">
+                        <tr class="text-left" *ngIf="!stateNodataFound !== 1">
+                            <td style="width: 4em">{{i+1}}</td>
+                            <td style="width: 13em;" class="text-center"><a href="javascript:void(0)" (click)="getSelectedStateSchoolDetails(schoolProfile,'state')">{{schoolProfile.udise_code}}</a></td>
+                            <td style="width: 20em">{{schoolProfile.school_name}}</td>
+                            <td style="width: 18em" >{{schoolProfile.sch_email}}</td>
+                            <td style="width: 8em" class="text-center">{{schoolProfile.school_type}}</td>
+                            <!-- <td style="width: 20em" class="text-center">{{schoolProfile.sch_management_id}}</td> -->
+                            <td style="width: 8em" class="text-center">{{schoolProfile.rte === '1' ? 'Yes' : schoolProfile.rte === '2' ? 'No' : '' }}</td>
+                            <td style="width: 12em" class="text-center">
+                                <span [ngClass]="schoolProfile.app_status === '1' ? 'greenhighlight' : schoolProfile.app_status === '2' ? 'redhighlight' : ''">
+                                    {{schoolProfile.app_status === '0' ? 'Waiting for Approval' : schoolProfile.app_status === '1' ? 'Approved' : schoolProfile.app_status === '2' ? 'Rejected' : ''   }}</span></td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="footer">
+                        <tr class="text-center" *ngIf="stateNodataFound === 2">
+                            <td>No Data Found</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            </div>
+        </div> 
+    </p-card>
+</div>
+
+
+<div [ngClass]="{ 'main-body-content teacher-layout' : userTypeId === 14,
+'main-body-content teacher-layout' : userTypeId !== 14 }"
+     *ngIf="pageStageLevel === 3">
+    <p-card class="mt-3 pt-3">
+        <!-- Start  -->
+        <div class="m-2 p-2">
+            <div class="row  m-2 pt-1 mb-3"> 
+                <div [ngClass]="{ 'col-md-4 mt-1' : userTypeId === 14,
+                                  'col-md-8 mt-1' : userTypeId !== 14 }">
+                    <h4 class="label_text">UPDATE SCHOOL MANAGEMENT DETAILS</h4>
+                </div>
+                <div *ngIf="this.userTypeId == 14" class="col-md-4">
+                    <p-dropdown [options]="blockList"  placeholder="Select Block List" optionLabel="block_name" optionValue="id" [showClear]="true" styleClass="dropdwnvalues" (onChange)="getSelectedchoolType($event,1)"></p-dropdown>
+                </div>
+                <div class="col-md-4" *ngIf="!noSchoolType">
+                    <p-dropdown [options]="schoolType"  placeholder="Select School Type" optionLabel="manage_name" [showClear]="true" styleClass="dropdwnvalues" (onChange)="getSelectedchoolType($event,2)"></p-dropdown>
+                </div>
+                <div class="col-md-4" *ngIf="noSchoolType">
+                    <p-dropdown [options]="schoolType"  placeholder="No Data Found" styleClass="dropdwnvalues"></p-dropdown>
+                </div>
+            </div>
+
+            <div class="row m-2">
+                <div class="col-md-12">
+                <p-table #dt [globalFilterFields]="['udise_code','school_name','school_type']" [value]="SchoolList" [autoLayout]="true" [resizableColumns]="true" [scrollable]="true" scrollHeight="500px" scrollWidth="100px" [paginator]="true" [resizableColumns]="true" [rows]="10">
+                    <ng-template pTemplate="caption" >
+                        <div class="row p-1">
+                           <div class="col-sm-6">
+                           </div>
+                           <div class="col-sm-6 p-1">
+                              <div class="text-right">
+                                 <input type="text" pInputText size="30" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                              </div>    
+                           </div>
+                        </div>
+                     </ng-template>
+                    <ng-template pTemplate="header">
+                            <tr class="text-center">
+                                <th style="width: 5em">S.No</th>
+                                <th style="width: 10em">UDISE Code</th>
+                                <th style="width: 18em">School Name</th>
+                                <th style="width: 12em">School Type</th>
+                                <th style="width: 9em">Minority</th>
+                                <th style="width: 6em">RTE</th>
+                                <th style="width: 11em">Update Status</th>
+                            </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-schoolProfile let-i="rowIndex">
+                        <tr class="text-center" *ngIf="!noDataFound">
+                            <td style="width: 5em">{{i+1}}</td>
+                            <td style="width: 10em"><a href="javascript:void(0)" (click)="getSelectedStateSchoolDetails(schoolProfile,'ceo')">{{schoolProfile.udise_code}}</a></td>
+                            <td style="width: 18em" class="text-left">{{schoolProfile.school_name}}</td>
+                            <td style="width: 12em">{{schoolProfile.school_type}}</td>
+                            <td style="width: 9em">{{schoolProfile.minority_sch === '1' ? 'Yes' : schoolProfile.minority_sch === '2' ? 'No' : '' }}</td>
+                            <td style="width: 6em">{{schoolProfile.rte === '1' ? 'Yes' : schoolProfile.rte === '2' ? 'No' : '' }}</td>
+                            <td style="width: 11em"><span [ngClass]="schoolProfile.app_status === '1' ? 'greenhighlight' : schoolProfile.app_status === '2' ? 'redhighlight' : '' ">
+                                {{schoolProfile.app_status === '0' ? 'Waiting for Approval' : schoolProfile.app_status === '1' ? 'Approved' : schoolProfile.app_status === '2' ? 'Rejected' : ''   }}</span>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="footer">
+                        <tr class="text-center" *ngIf="noDataFound">
+                            <td>No Data Found</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            </div>
+        </div> 
+    </p-card>
+</div>
+
+
+<!-- Start Dialog Box -->
+
+<p-dialog 
+[header]="dialogTitle"
+[(visible)]="showDialogBox"  
+style="background-color: cadetblue !important;"
+[modal]="true" 
+[responsive]="true" 
+[style]="{width: '950px', minWidth: '200px'}" 
+[minY]="70" 
+[maximizable]="true"
+[baseZIndex]="10000"
+>
+<div class="schoolEditProfile">
+    <form [formGroup]="SchoolProfileDetails">
+    <div class="animated fadeIn">
+
+       
+        <p-accordion>
+            <p-accordionTab header="School Management Details" [selected]="AccordionTabShow === 1">
+              
+                <!-- School Management Details -->
+                 <div class="row">
+                    <div class="col-sm-12">
+                      <div class="card" style="background-color: #e3eae3; color:white">
+                        <div class="card-body">
+        
+                           <!-- Row -->
+                           <div class="row">
+                               <div class="col-md-6">
+                                    <div class="label-title">
+                                        <span>School Status<span class="mandatory"> * </span></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <p-dropdown [options]="SchoolStatus" formControlName="curr_stat" name="curr_stat"  placeholder="Select School Status" styleClass="dropdwnvalues" (onChange)="schoolStatusChange()" [disabled]="isBRTEuser"></p-dropdown>
+                                        <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.curr_stat.errors && (submitted || SchoolProfileDetails.controls.curr_stat.dirty || SchoolProfileDetails.controls.curr_stat.touched)"> </p-message>
+                                    </div>
+                               </div>
+                               <div class="col-md-6" *ngIf="SchoolProfileDetails.controls.curr_stat.value !== '1'">
+                                <div class="label-title">
+                                    <span>Date<span class="mandatory"> * </span></span>
+                                </div>
+                                    <div class="form-group">
+                                        <!-- <p-calendar formControlName="curstat_date" styleClass="form_calander" [showIcon]="true" dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2050" placeholder="Date"></p-calendar> -->
+                                        <input type="date" formControlName="curstat_date"  placeholder="date" class="form-control"  [ngClass]="{'not-allowed': isBRTEuser}" [disabled]="isBRTEuser">
+                                        <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.curstat_date.errors && (submitted || SchoolProfileDetails.controls.curstat_date.dirty || SchoolProfileDetails.controls.curstat_date.touched)"> </p-message>
+                                    </div>
+                                </div>
+                           </div>
+                           <!-- End Row -->
+        
+                            <!-- Row -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                        <div class="label-title">
+                                            <span>Name of the School in English <span class="mandatory">*<span class="small_char">Maximum Characters (100) </span></span></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" formControlName="school_name" placeholder="Enter Name of the School" class="form-control" maxlength="100" [ngClass]="{'not-allowed': isBRTEuser}"> 
+                                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.school_name.errors && (submitted || SchoolProfileDetails.controls.school_name.dirty || SchoolProfileDetails.controls.school_name.touched)"> </p-message>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="hidden" formControlName="school_id"  class="form-control">
+                                        </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="label-title">
+                                        <span>Short Name of the School in English <span class="mandatory"> *<span class="small_char">Maximum Characters (36)</span></span></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text"  formControlName="sch_shortname" class="form-control" placeholder="Enter Short Name of the School" maxlength="36">
+                                        <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.sch_shortname.errors && (submitted || SchoolProfileDetails.controls.sch_shortname.dirty || SchoolProfileDetails.controls.sch_shortname.touched)"> </p-message>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Row -->
+        
+                            <!-- Row -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                        <div class="label-title">
+                                            <span>School Management Category<span class="mandatory"> * </span></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <p-dropdown  [options]="SchoolCategory" formControlName="manage_cate_id"  placeholder="Select Management Category" [showClear]="true" styleClass="dropdwnvalues" (onChange)="SchoolManagementCategorysts($event)" [disabled]="isBRTEuser"></p-dropdown>
+                                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.manage_cate_id.errors && (submitted || SchoolProfileDetails.controls.manage_cate_id.dirty || SchoolProfileDetails.controls.manage_cate_id.touched)"> </p-message>
+                                        </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="label-title">
+                                        <span>School Management<span class="mandatory"> * </span></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <p-dropdown  [options]="SchoolManagementCategoryOption" formControlName="sch_management_id"  placeholder="Select Management" [showClear]="true" styleClass="dropdwnvalues" (onChange)="SchoolManagementDepartment($event)" [disabled]="isBRTEuser"></p-dropdown>
+                                        <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.sch_management_id.errors && (submitted || SchoolProfileDetails.controls.sch_management_id.dirty || SchoolProfileDetails.controls.sch_management_id.touched)"> </p-message>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Row -->
+        
+                            <!-- Row -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                        <div class="label-title">
+                                            <span>School Department<span class="mandatory"> * </span></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <p-dropdown  [options]="SchoolManagementOption" formControlName="sch_directorate_id"  placeholder="Select School Department" [showClear]="true" styleClass="dropdwnvalues" (onChange)="SchoolManagementCategorysts($event)" [disabled]="isBRTEuser"></p-dropdown>
+                                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.sch_directorate_id.errors && (submitted || SchoolProfileDetails.controls.sch_directorate_id.dirty || SchoolProfileDetails.controls.sch_directorate_id.touched)"> </p-message>
+                                        </div>
+                                </div>
+                            </div>
+                            <!-- End Row -->
+        
+                            <!-- Row -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                        <div class="label-title">
+                                            <span>School Category<span class="mandatory"> * </span></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <p-dropdown  [options]="SchoolCategoryLevel" formControlName="sch_cate_id"  placeholder="Select Category" [showClear]="true" styleClass="dropdwnvalues"></p-dropdown>
+                                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.sch_cate_id.errors && (submitted || SchoolProfileDetails.controls.sch_cate_id.dirty || SchoolProfileDetails.controls.sch_cate_id.touched)"> </p-message>
+                                        </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="label-title">
+                                        <span>School Type<span class="mandatory"> * </span></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <p-dropdown  [options]="SchoolTypeOption" formControlName="school_type" name="school_type"  placeholder="Select School Type" styleClass="dropdwnvalues" [disabled]="isBRTEuser"></p-dropdown>
+                                        <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.school_type.errors && (submitted || SchoolProfileDetails.controls.school_type.dirty || SchoolProfileDetails.controls.school_type.touched)"> </p-message>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Row -->
+        
+        
+                            <!-- Row -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                        <div class="label-title">
+                                            <span>Minority School<span class="mandatory"> * </span></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <p-dropdown  [options]="SchoolMinorityOption" formControlName="minority_sch"  placeholder="Select Minority School" [showClear]="true" styleClass="dropdwnvalues" (onChange)="MinoritySchoolStatus()" [disabled]="isBRTEuser"></p-dropdown>
+                                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.minority_sch.errors && (submitted || SchoolProfileDetails.controls.minority_sch.dirty || SchoolProfileDetails.controls.minority_sch.touched)"> </p-message>
+                                        </div>
+                                </div>
+                                <div class="col-md-6" *ngIf="SchoolProfileDetails.controls.minority_sch.value === '1'">
+                                    <div class="label-title">
+                                        <span>Minority School Group<span class="mandatory"> * </span></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <p-dropdown  [options]="MinorityGroupOption" formControlName="minority_grp" name="minority_grp"  placeholder="Select Minority School Group" styleClass="dropdwnvalues" [disabled]="isBRTEuser"></p-dropdown>
+                                        <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.minority_grp.errors && (submitted || SchoolProfileDetails.controls.minority_grp.dirty || SchoolProfileDetails.controls.minority_grp.touched)"> </p-message>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Row -->
+        
+                            <!-- Row -->
+                            <div class="row">
+                                <div class="col-md-6" *ngIf="SchoolProfileDetails.controls.minority_sch.value === '1'">
+                                        <div class="label-title">
+                                            <span>Vaild Upto Year<span class="mandatory"> * </span></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <p-dropdown  [options]="range" formControlName="minority_yr" name="minority_yr"  placeholder="Vaild Upto Year" styleClass="dropdwnvalues" [disabled]="isBRTEuser"></p-dropdown>
+                                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.minority_yr.errors && (submitted || SchoolProfileDetails.controls.minority_yr.dirty || SchoolProfileDetails.controls.minority_yr.touched)"> </p-message>
+                                        </div>
+                                </div>
+                                <div class="col-md-6" >
+                                    <div class="label-title">
+                                        <span>RTE School<span class="mandatory"> * </span></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <p-dropdown  [options]="SchoolMinorityOption" formControlName="rte" name="rte"  placeholder="Select RTE School" styleClass="dropdwnvalues" (onChange)="RTEChangedStatus()" [disabled]="isBRTEuser"></p-dropdown>
+                                        <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.rte.errors && (submitted || SchoolProfileDetails.controls.rte.dirty || SchoolProfileDetails.controls.rte.touched)"> </p-message>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Row -->
+        
+                             <!-- Row -->
+                             <div class="row">
+                                <div class="col-md-6">
+                                        <div class="label-title">
+                                            <span>Lowest Class<span class="mandatory"> * </span></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <p-dropdown  [options]="ClassLevelOption" formControlName="low_class" name="low_class"  placeholder="Select Lowest Class" styleClass="dropdwnvalues"></p-dropdown>
+                                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.low_class.errors && (submitted || SchoolProfileDetails.controls.low_class.dirty || SchoolProfileDetails.controls.low_class.touched)"> </p-message>
+                                        </div>
+                                </div>
+                                <div class="col-md-6" >
+                                    <div class="label-title">
+                                        <span>Highest Class<span class="mandatory"> * </span></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <p-dropdown  [options]="ClassLevelOption" formControlName="high_class" name="high_class"  placeholder="Select Highest Class" styleClass="dropdwnvalues" [disabled]="isBRTEuser"></p-dropdown>
+                                        <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.high_class.errors && (submitted || SchoolProfileDetails.controls.high_class.dirty || SchoolProfileDetails.controls.high_class.touched)"> </p-message>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Row -->
+        
+                            <!-- Row -->
+                            <div class="row">
+                            <div class="col-md-6">
+                                    <div class="label-title">
+                                        <span>Latitude<span class="mandatory"> * </span></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <input  type="text" formControlName="latitude" class="form-control" maxlength="100" [ngClass]="{'not-allowed': isBRTEuser}">
+                                        <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.latitude.errors && (submitted || SchoolProfileDetails.controls.latitude.dirty || SchoolProfileDetails.controls.latitude.touched)"> </p-message>
+                                    </div>
+                            </div>
+                            <div class="col-md-6" >
+                                <div class="label-title">
+                                    <span>Longitude<span class="mandatory"> * </span></span>
+                                </div>
+                                <div class="form-group">
+                                    <input  type="text" formControlName="longitude" class="form-control" maxlength="100" [ngClass]="{'not-allowed': isBRTEuser}">
+                                    <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.longitude.errors && (submitted || SchoolProfileDetails.controls.longitude.dirty || SchoolProfileDetails.controls.longitude.touched)"> </p-message>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Row -->
+        
+        
+                        <!-- Row -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                    <div class="label-title">
+                                        <span>Education District Name<span class="mandatory"> * </span></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <p-dropdown  [options]="EducationDistrictOption" formControlName="edu_dist_id" name="edu_dist_id"  placeholder="Select Education District Name" styleClass="dropdwnvalues" (onChange)="EducationDistrict()" [disabled]="isBRTEuser"></p-dropdown>
+                                        <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.edu_dist_id.errors && (submitted || SchoolProfileDetails.controls.edu_dist_id.dirty || SchoolProfileDetails.controls.edu_dist_id.touched)"> </p-message>
+                                    </div>
+                            </div>
+                            <div class="col-md-6" >
+                                <div class="label-title">
+                                    <span>Block Name<span class="mandatory"> * </span></span>
+                                </div>
+                                <div class="form-group">
+                                    <p-dropdown  [options]="BlockNameOption" formControlName="block_id" name="block_id"  placeholder="Select Block Name" styleClass="dropdwnvalues" [disabled]="isBRTEuser"></p-dropdown>
+                                    <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.block_id.errors && (submitted || SchoolProfileDetails.controls.block_id.dirty || SchoolProfileDetails.controls.block_id.touched)"> </p-message>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Row -->
+        
+        
+                        </div>
+                       </div>
+                    </div>
+                </div> <!--/.row-->
+        
+                <!-- end School Management Details -->
+               
+             </p-accordionTab>
+             
+             <p-accordionTab header="School Details" [selected]="AccordionTabShow === 2">
+                <div class="row">
+                    <div class="col-sm-12">
+                      <div class="card" style="background-color: #e3eae3; color:white">
+                        <div class="card-body">
+
+                <!-- Row -->
+                <div class="row">
+                    <div class="col-md-6">
+                         <div class="label-title">
+                             <span>School Situated IN <span class="mandatory"> * </span></span>
+                         </div>
+                         <div class="form-group">
+                             <p-dropdown  [options]="SchoolSituatedOption" formControlName="schl_situated"  placeholder="Select School Situated IN" styleClass="dropdwnvalues" ></p-dropdown>
+                             <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.schl_situated.errors && (submitted || SchoolProfileDetails.controls.schl_situated.dirty || SchoolProfileDetails.controls.schl_situated.touched)"> </p-message>
+                         </div>
+                    </div>
+                    <div class="col-md-6">
+                     <div class="label-title">
+                         <span>Email Address<span class="mandatory"> * </span></span>
+                     </div>
+                         <div class="form-group">
+                             <input type="text"  formControlName="sch_email" class="form-control">
+                             <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.sch_email.errors && (submitted || SchoolProfileDetails.controls.sch_email.dirty || SchoolProfileDetails.controls.sch_email.touched)"> </p-message>
+                         </div>
+                     </div>
+                </div>
+                <!-- End Row -->
+
+                <!-- Row -->
+                <div class="row">
+                    <div class="col-md-6">
+                            <div class="label-title">
+                                <span>Residential School <span class="mandatory"> * </span></span>
+                            </div>
+                            <div class="form-group">
+                                <p-dropdown  [options]="SchoolMinorityOption" formControlName="resid_schl" name="resid_schl"  placeholder="Select Residential School" styleClass="dropdwnvalues" (onChange)="ResidentialSchoolType()" ></p-dropdown>
+                                <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.resid_schl.errors && (submitted || SchoolProfileDetails.controls.resid_schl.dirty || SchoolProfileDetails.controls.resid_schl.touched)"> </p-message>
+                            </div>
+                    </div>
+                    <div class="col-md-6" *ngIf="SchoolProfileDetails.controls.resid_schl.value === '1'">
+                        <div class="label-title">
+                            <span>Type of Residential School<span class="mandatory"> * </span></span>
+                        </div>
+                            <div class="form-group">
+                                <p-dropdown  [options]="TypeResidentialSchoolOption" formControlName="typ_resid_schl" name="typ_resid_schl"  placeholder="Select Type of Residential School" styleClass="dropdwnvalues" ></p-dropdown>
+                                <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.typ_resid_schl.errors && (submitted || SchoolProfileDetails.controls.typ_resid_schl.dirty || SchoolProfileDetails.controls.typ_resid_schl.touched)"> </p-message>
+                            </div>
+                        </div>
+                </div>
+                <!-- End Row -->
+
+                <!-- Row -->
+                <div class="row">
+                    <div class="col-md-6" *ngIf="manageCateId === 1 || manageCateId === 2 || manageCateId === 4">
+                            <div class="label-title">
+                                <span>Anganwadi is Attached To School <span class="mandatory"> * </span></span>
+                            </div>
+                            <div class="form-group">
+                                <p-dropdown  [options]="SchoolMinorityOption" formControlName="anganwadi"  placeholder="Select Anganwadi" styleClass="dropdwnvalues" (onChange)="AnganwadiisAttached()" ></p-dropdown>
+                                <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.anganwadi.errors && (submitted || SchoolProfileDetails.controls.anganwadi.dirty || SchoolProfileDetails.controls.anganwadi.touched)"> </p-message>
+                            </div>
+                    </div>
+                    <div class="col-md-6" *ngIf="manageCateId === 1 || manageCateId === 2 || manageCateId === 4">
+                            <div class="label-title">
+                                <span>Whether pre-primary section other than Anganwadi is attached to the school? <span class="mandatory"> * </span></span>
+                            </div>
+                            <div class="form-group">
+                                <p-dropdown  [options]="SchoolMinorityOption" formControlName="anganwadi_schl" name="anganwadi_schl"  placeholder="Whether pre-primary section other than Anganwadi is attached to the school?" styleClass="dropdwnvalues" (onChange)="RTEChangedStatus()" ></p-dropdown>
+                                <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.anganwadi_schl.errors && (submitted || SchoolProfileDetails.controls.anganwadi_schl.dirty || SchoolProfileDetails.controls.anganwadi_schl.touched)"> </p-message>
+                            </div>
+                    </div>
+                </div>
+                <!-- End Row -->
+
+                <!-- Row -->
+                <div class="row" *ngIf="SchoolProfileDetails.controls.anganwadi.value === '1'">
+                    <div class="col-md-6">
+                        <div class="label-title">
+                            <span>Anganwadi Number<span class="mandatory"> * </span></span>
+                        </div>
+                            <div class="form-group">
+                                <input type="text"  formControlName="anganwadi_center" class="form-control" pKeyFilter="alphanum">
+                                <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.anganwadi_center.errors && (submitted || SchoolProfileDetails.controls.anganwadi_center.dirty || SchoolProfileDetails.controls.anganwadi_center.touched)"> </p-message>
+                            </div>
+                        </div>
+                
+                    <div class="col-md-6">
+                            <div class="label-title">
+                                <span>Total Number of Workers <span class="mandatory"> * </span></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="text"  formControlName="angan_wrks" class="form-control" pKeyFilter="alphanum">
+                                <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.angan_wrks.errors && (submitted || SchoolProfileDetails.controls.angan_wrks.dirty || SchoolProfileDetails.controls.angan_wrks.touched)"> </p-message>
+                            </div>
+                    </div>
+                </div>
+                <!-- End Row -->
+                 <!-- Row -->
+                        <div class="row" *ngIf="SchoolProfileDetails.controls.anganwadi.value === '1'">
+                            <div class="col-md-6">
+                                <div class="label-title">
+                                    <span>Total Number of Boys<span class="mandatory"> * </span></span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text"  formControlName="anganwadi_stu_b" class="form-control" pKeyFilter="alphanum">
+                                    <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.anganwadi_stu_b.errors && (submitted || SchoolProfileDetails.controls.anganwadi_stu_b.dirty || SchoolProfileDetails.controls.anganwadi_stu_b.touched)"> </p-message>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="label-title">
+                                    <span>Total Number of Girls<span class="mandatory"> * </span></span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text"  formControlName="anganwadi_stu_g" class="form-control" pKeyFilter="alphanum">
+                                    <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.anganwadi_stu_g.errors && (submitted || SchoolProfileDetails.controls.anganwadi_stu_g.dirty || SchoolProfileDetails.controls.anganwadi_stu_g.touched)"> </p-message>
+                                </div>
+                            </div>
+                        </div>
+                <!-- End Row -->
+
+                 <!-- Row -->
+                 <div class="row">
+                    <div class="col-md-6">
+                         <div class="label-title">
+                             <span>Is this a shift school ?<span class="mandatory"> * </span></span>
+                         </div>
+                         <div class="form-group">
+                             <p-dropdown  [options]="SchoolMinorityOption" formControlName="shftd_schl"  placeholder="Is this a shift school" styleClass="dropdwnvalues" ></p-dropdown>
+                             <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.shftd_schl.errors && (submitted || SchoolProfileDetails.controls.shftd_schl.dirty || SchoolProfileDetails.controls.shftd_schl.touched)"> </p-message>
+                         </div>
+                    </div>
+                    <div class="col-md-6">
+                     <div class="label-title">
+                         <span>Is this a special school for CWSN ?<span class="mandatory"> * </span></span>
+                     </div>
+                         <div class="form-group">
+                            <p-dropdown  [options]="SchoolMinorityOption" formControlName="cwsn_scl"  placeholder="Select school for CWSN" styleClass="dropdwnvalues" ></p-dropdown>
+                             <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.cwsn_scl.errors && (submitted || SchoolProfileDetails.controls.cwsn_scl.dirty || SchoolProfileDetails.controls.cwsn_scl.touched)"> </p-message>
+                         </div>
+                     </div>
+                </div>
+                <!-- End Row -->
+
+                             </div>
+                             <!-- card-body closed -->
+                        </div>
+                        <!-- card closed -->
+                    </div>
+                    <!-- col-sm closed-->
+               </div> 
+               <!-- row closed -->
+             </p-accordionTab>
+
+             <p-accordionTab header="Location Details" [selected]="AccordionTabShow === 3">
+
+                <div class="row">
+                    <div class="col-sm-12">
+                      <div class="card" style="background-color: #e3eae3; color:white">
+                        <div class="card-body">
+
+                <!-- Row -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="label-title">
+                            <span>District<span class="mandatory"> * </span></span>
+                        </div>
+                        <div class="form-group">
+                            <p-dropdown  [options]="DistrictNameOption" formControlName="district_id"  placeholder="Select District" styleClass="dropdwnvalues" (onChange)="getLocalBody($event.value)"></p-dropdown>
+                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.district_id.errors && (submitted || SchoolProfileDetails.controls.district_id.dirty || SchoolProfileDetails.controls.district_id.touched)"> </p-message>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="label-title">
+                            <span>Rural / Urban<span class="mandatory"> * </span></span>
+                        </div>
+                        <div class="form-group">
+                            <p-dropdown  [options]="RuralUrbanOption" formControlName="urbanrural"  placeholder="Select Rural / Urban" styleClass="dropdwnvalues" ></p-dropdown>
+                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.urbanrural.errors && (submitted || SchoolProfileDetails.controls.urbanrural.dirty || SchoolProfileDetails.controls.urbanrural.touched)"> </p-message>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Row -->
+
+                <!-- Row -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="label-title">
+                            <span>Local Body<span class="mandatory"> * </span></span>
+                        </div>
+                        <div class="form-group">
+                            <p-dropdown  [options]="LocalBodyOption" formControlName="local_body_id"  placeholder="Select Local Body" styleClass="dropdwnvalues" (onChange)="getLocalBodyAll($event.value)"></p-dropdown>
+                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.local_body_id.errors && (submitted || SchoolProfileDetails.controls.local_body_id.dirty || SchoolProfileDetails.controls.local_body_id.touched)"> </p-message>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="label-title">
+                            <span>Village/Town/Municipality<span class="mandatory"> * </span></span>
+                        </div>
+                        <div class="form-group">
+                            <p-dropdown  [options]="LocalBodyAllOption" formControlName="lb_vill_town_muni"  placeholder="Select Village (or) Town" styleClass="dropdwnvalues" (onChange)="gethabitation($event.value)"></p-dropdown>
+                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.lb_vill_town_muni.errors && (submitted || SchoolProfileDetails.controls.lb_vill_town_muni.dirty || SchoolProfileDetails.controls.lb_vill_town_muni.touched)"> </p-message>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Row -->
+
+                <!-- Row -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="label-title">
+                            <span>Village/Ward Number<span class="mandatory"> * </span></span>
+                        </div>
+                        <div class="form-group">
+                            <!-- <input type="text"  formControlName="lb_vill_town_muni" placeholder="Village/Ward Number" class="form-control" maxlength="100"> -->
+                            <p-dropdown  [options]="listhabitation" formControlName="lb_habitation_id"  placeholder="Village/Ward Number" styleClass="dropdwnvalues" ></p-dropdown>
+                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.lb_vill_town_muni.errors && (submitted || SchoolProfileDetails.controls.lb_vill_town_muni.dirty || SchoolProfileDetails.controls.lb_vill_town_muni.touched)"> </p-message>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="label-title">
+                            <span>Name of Cluster Resource Centre (CRC)<span class="mandatory"> * </span></span>
+                        </div>
+                        <div class="form-group">
+                            <p-dropdown  [options]="ClusterOptions" formControlName="cluster_id"  placeholder="School Name of Cluster" styleClass="dropdwnvalues" ></p-dropdown>
+                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.cluster_id.errors && (submitted || SchoolProfileDetails.controls.cluster_id.dirty || SchoolProfileDetails.controls.cluster_id.touched)"> </p-message>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Row -->
+
+                <!-- Row -->
+                <!-- <div class="row">
+                    <div class="col-md-6">
+                        <div class="label-title">
+                            <span>Name of Gram Panchayat (for rural areas only)<span class="mandatory"> * </span></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="text"  formControlName="panchayat_id" placeholder="Name of Gram Panchayat" class="form-control" maxlength="100">
+                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.panchayat_id.errors && (submitted || SchoolProfileDetails.controls.panchayat_id.dirty || SchoolProfileDetails.controls.panchayat_id.touched)"> </p-message>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="label-title">
+                            <span>Habitation Name (for rural area)/Mohalla or equivalent urban unit for planning (for urban area):<span class="mandatory"> * </span></span>
+                        </div>
+                        <div class="form-group">
+                            <p-dropdown  [options]="listhabitation" formControlName="lb_habitation_id"  placeholder="Habitation Name" styleClass="dropdwnvalues" ></p-dropdown>
+                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.lb_habitation_id.errors && (submitted || SchoolProfileDetails.controls.lb_habitation_id.dirty || SchoolProfileDetails.controls.lb_habitation_id.touched)"> </p-message>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- End Row -->
+
+                <!-- Row -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="label-title">
+                            <span>Name of Assembly Constituency<span class="mandatory"> * </span></span>
+                        </div>
+                        <div class="form-group">
+                            <p-dropdown  [options]="AssemblyOption" formControlName="assembly_id"  placeholder="Name of Assembly Constituency" styleClass="dropdwnvalues" ></p-dropdown>
+                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.assembly_id.errors && (submitted || SchoolProfileDetails.controls.assembly_id.dirty || SchoolProfileDetails.controls.assembly_id.touched)"> </p-message>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="label-title">
+                            <span>Name of Parliamentary Constituency<span class="mandatory"> * </span></span>
+                        </div>
+                        <div class="form-group">
+                            <p-dropdown  [options]="ParliamentOption" formControlName="parliament_id"  placeholder="Name of Parliamentary" styleClass="dropdwnvalues" ></p-dropdown>
+                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.parliament_id.errors && (submitted || SchoolProfileDetails.controls.parliament_id.dirty || SchoolProfileDetails.controls.parliament_id.touched)"> </p-message>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Row -->
+
+                <!-- Row -->
+                <!-- <div class="row">
+                    <div class="col-md-6">
+                        <div class="label-title">
+                            <span>Name of City (where applicable)<span class="mandatory"> * </span></span>
+                        </div>
+                        <div class="form-group">
+                            <p-dropdown  [options]="CityOption" formControlName="city_id"  placeholder="Name of City" styleClass="dropdwnvalues" ></p-dropdown>
+                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.city_id.errors && (submitted || SchoolProfileDetails.controls.city_id.dirty || SchoolProfileDetails.controls.city_id.touched)"> </p-message>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- End Row -->
+
+                <!-- Row -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="label-title">
+                            <span>Pincode<span class="mandatory"> * </span></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="text"  formControlName="pincode" placeholder="Enter Pincode" class="form-control">
+                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.pincode.errors && (submitted || SchoolProfileDetails.controls.pincode.dirty || SchoolProfileDetails.controls.pincode.touched)"> </p-message>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="label-title">
+                            <span>Address<span class="mandatory"> * </span></span>
+                        </div>
+                        <div class="form-group">
+                            <textarea  formControlName="address" placeholder="Enter the Address" class="form-control"></textarea>
+                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.address.errors && (submitted || SchoolProfileDetails.controls.address.dirty || SchoolProfileDetails.controls.address.touched)"> </p-message>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Row -->
+
+                             </div>
+                         </div>
+                    </div>
+                </div>
+             </p-accordionTab>
+
+             <p-accordionTab header="Establishment Details" [selected]="AccordionTabShow === 4">
+                <div class="row">
+                    <div class="col-sm-12">
+                      <div class="card" style="background-color: #e3eae3; color:white">
+                        <div class="card-body">
+
+                <!-- Row -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="label-title">
+                            <span>Year of establishment of School<span class="mandatory"> * </span></span>
+                        </div>
+                        <div class="form-group">
+                            <p-dropdown  [options]="EstablishmentSchoolYear" formControlName="yr_estd_schl"  placeholder="School Year of establishment" styleClass="dropdwnvalues" (onChange)="schoolEstablishmentYear($event.value)" placeholder="Year of establishment of School"></p-dropdown>
+                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.yr_estd_schl.errors && (submitted || SchoolProfileDetails.controls.yr_estd_schl.dirty || SchoolProfileDetails.controls.yr_estd_schl.touched)"> </p-message>
+                        </div>
+                    </div>
+                   
+                    <div class="col-md-6">
+                        <div> 
+                            <div class="label-title">
+                                <span>Year of first recognization of school<span class="mandatory"> * </span></span>
+                            </div>
+                            <div class="form-group">
+                                <p-dropdown  [options]="YearofFirstRecognization" formControlName="yr_recogn_schl"  styleClass="dropdwnvalues" (onChange)="schoolRecognizationYear($event.value)" placeholder="Year of first recognization of school"></p-dropdown>
+                                <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.yr_recogn_schl.errors && (submitted || SchoolProfileDetails.controls.yr_recogn_schl.dirty || SchoolProfileDetails.controls.yr_recogn_schl.touched)"> </p-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="recognizationshow">
+                    <div class="col-md-6">
+                        <div class="label-title">
+                            <span>Year Of Last Renewal<span class="mandatory"> * </span></span>
+                        </div>
+                        <div class="form-group">
+                            <p-dropdown  [options]="YearOfLastRenewal" formControlName="yr_last_renwl"   styleClass="dropdwnvalues" placeholder="Year Of Last Renewal"></p-dropdown>
+                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.yr_last_renwl.errors && (submitted || SchoolProfileDetails.controls.yr_last_renwl.dirty || SchoolProfileDetails.controls.yr_last_renwl.touched)"> </p-message>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="label-title">
+                            <span>Renewal Certificate Number / File Number<span class="mandatory"> * </span></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="text"  formControlName="certifi_no"  class="form-control">
+                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.certifi_no.errors && (submitted || SchoolProfileDetails.controls.certifi_no.dirty || SchoolProfileDetails.controls.certifi_no.touched)"> </p-message>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Row -->
+
+                <div class="row mb-3 pb-3" *ngIf="recognizationshow">
+                    <div class="col-md-12">
+                        <b style="color: #000;">Year of Recognition of School</b>
+                    </div>
+                </div>
+                <!-- End Row -->
+
+                <!-- Row -->
+                <div class="row" *ngIf="recognizationshow">
+                    <div class="col-md-6">
+                        <div class="label-title">
+                            <span>Primary <span class="mandatory"> * </span></span>
+                        </div>
+                        <div class="form-group">
+                            <p-dropdown  [options]="SchoolYearLevel" formControlName="yr_recgn_first"  styleClass="dropdwnvalues" (onChange)="yearPrimaryChange($event.value)" placeholder="Primary"></p-dropdown>
+                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.yr_recgn_first.errors && (submitted || SchoolProfileDetails.controls.yr_recgn_first.dirty || SchoolProfileDetails.controls.yr_recgn_first.touched)"> </p-message>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="label-title">
+                            <span>Upper Primary <span class="mandatory"> * </span></span>
+                        </div>
+                        <div class="form-group">
+                            <p-dropdown  [options]="UpperPrimaryYearLevel" formControlName="yr_rec_schl_elem" placeholder="Upper Primary" styleClass="dropdwnvalues" (onChange)="yearUpperPrimaryChange($event.value)"></p-dropdown>
+                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.yr_rec_schl_elem.errors && (submitted || SchoolProfileDetails.controls.yr_rec_schl_elem.dirty || SchoolProfileDetails.controls.yr_rec_schl_elem.touched)"> </p-message>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Row -->
+
+                <!-- Row -->
+                <div class="row" *ngIf="recognizationshow">
+                    <div class="col-md-6">
+                        <div class="label-title">
+                            <span>Secondary<span class="mandatory"> * </span></span>
+                        </div>
+                        <div class="form-group">
+                            <p-dropdown  [options]="SecondaryYearLevel" formControlName="yr_rec_schl_sec" placeholder="Secondary"  styleClass="dropdwnvalues" (onChange)="yearSecondaryChange($event.value)" ></p-dropdown>
+                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.yr_rec_schl_sec.errors && (submitted || SchoolProfileDetails.controls.yr_rec_schl_sec.dirty || SchoolProfileDetails.controls.yr_rec_schl_sec.touched)"> </p-message>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="label-title">
+                            <span>Higher Secondary<span class="mandatory"> * </span></span>
+                        </div>
+                        <div class="form-group">
+                            <p-dropdown  [options]="HigherSecondaryYearLevel" formControlName="yr_rec_schl_hsc"  placeholder="Higher Secondary" styleClass="dropdwnvalues" ></p-dropdown>
+                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.yr_rec_schl_hsc.errors && (submitted || SchoolProfileDetails.controls.yr_rec_schl_hsc.dirty || SchoolProfileDetails.controls.yr_rec_schl_hsc.touched)"> </p-message>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Row -->
+                 <div class="row mb-3 pb-3">
+                    <div class="col-md-12">
+                        <b style="color: #000;">Year of Upgradation of the School</b>
+                    </div>
+                </div>
+                <!-- End Row -->
+
+                <!-- Row -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="label-title">
+                            <span>Primary to Upper Primary <span class="mandatory"> * </span></span>
+                        </div>
+                        <div class="form-group">
+                            <p-dropdown  [options]="SchoolYearLevel" formControlName="upgrad_prito_uprpri"  placeholder="Primary to Upper Primary" styleClass="dropdwnvalues" (onChange)="primaryToUPrimaryChange($event.value)" ></p-dropdown>
+                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.upgrad_prito_uprpri.errors && (submitted || SchoolProfileDetails.controls.upgrad_prito_uprpri.dirty || SchoolProfileDetails.controls.upgrad_prito_uprpri.touched)"> </p-message>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="label-title">
+                            <span>Upper Primary to Secondary <span class="mandatory"> * </span></span>
+                        </div>
+                        <div class="form-group">
+                            <p-dropdown  [options]="UpperPSecondaryOption" formControlName="upgrad_uprprito_sec"  placeholder="Upper Primary to Secondary" styleClass="dropdwnvalues" (onChange)="UprimaryToSecondaryChange($event.value)" ></p-dropdown>
+                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.upgrad_uprprito_sec.errors && (submitted || SchoolProfileDetails.controls.upgrad_uprprito_sec.dirty || SchoolProfileDetails.controls.upgrad_uprprito_sec.touched)"> </p-message>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Row -->
+
+                <!-- Row -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="label-title">
+                            <span>Secondary to Higher Secondary <span class="mandatory"> * </span></span>
+                        </div>
+                        <div class="form-group">
+                            <p-dropdown  [options]="SecondarytoHSecondaryOption" formControlName="upgrad_secto_higsec"  placeholder="Secondary to Higher Secondary" styleClass="dropdwnvalues" ></p-dropdown>
+                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.upgrad_secto_higsec.errors && (submitted || SchoolProfileDetails.controls.upgrad_secto_higsec.dirty || SchoolProfileDetails.controls.upgrad_secto_higsec.touched)"> </p-message>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="label-title">
+                            <span>Whether School has special educator ? <span class="mandatory"> * </span></span>
+                        </div>
+                        <div class="form-group">
+                            <p-dropdown  [options]="SchoolSpecialEducator" formControlName="spl_edtor"  placeholder="Whether School has special educator" styleClass="dropdwnvalues" ></p-dropdown>
+                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.spl_edtor.errors && (submitted || SchoolProfileDetails.controls.spl_edtor.dirty || SchoolProfileDetails.controls.spl_edtor.touched)"> </p-message>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Row -->
+
+                <!-- Row -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="label-title">
+                            <span>Mention changes made <span class="mandatory"> * </span></span>
+                        </div>
+                        <div class="form-group">
+                            <textarea  formControlName="ceo_comments" class="form-control"></textarea>
+                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.ceo_comments.errors && (submitted || SchoolProfileDetails.controls.ceo_comments.dirty || SchoolProfileDetails.controls.ceo_comments.touched)"> </p-message>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="label-title">
+                            <span>State Comments <span class="mandatory"> * </span></span>
+                        </div>
+                        <div class="form-group">
+                            <textarea formControlName="state_comments" class="form-control"></textarea>
+                            <p-message severity="error"  text="This field is required"  *ngIf="SchoolProfileDetails.controls.state_comments.errors && (submitted || SchoolProfileDetails.controls.state_comments.dirty || SchoolProfileDetails.controls.state_comments.touched)"> </p-message>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Row -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </p-accordionTab>
+        </p-accordion>
+
+
+
+      
+      
+    </div>  <!--  animated fadeIn -->
+    </form>
+    <!-- End OF staffReg Form-->
+    <p-footer>
+      <div class="mt-3 p-1 pb-3 text-center">
+        <button pButton *ngIf="userTypeId === 9" type="button" class="ui-button-success ui-button-rounded mr-2"
+        (click)="approveSchoolManagement(SchoolProfileDetails)" label="Approved the Changes"></button>
+        <button pButton *ngIf="userTypeId === 9" type="button" class="ui-button-success ui-button-rounded mr-2"
+        (click)="rejectSchoolManagement(SchoolProfileDetails)" label="Rejected the Changes"></button>
+        <button pButton type="button" *ngIf="userTypeId !== 9" class="ui-button-success ui-button-rounded mr-2"
+        (click)="updateSchoolManagement()" label="Update"></button>
+        <button pButton type="button" class="ui-button-danger ui-button-rounded" (click)="showDialogBox = false" label="Close"></button>
+      </div>
+    </p-footer>
+
+
+
+</div>
+</p-dialog>
+</div>
+
+<img *ngIf="!loggedInType" [src]="deinedurl" alt="Access Deined" accept="image/*" class="accessdenied mt-3">

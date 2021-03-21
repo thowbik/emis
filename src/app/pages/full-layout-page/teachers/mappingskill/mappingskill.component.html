@@ -1,0 +1,163 @@
+<div class="outer-layout" style="padding-top:20px;">
+    <div class="breadcrumbs c-black">
+        <h6 class="url"><span class="flex-gap-right">Teachers</span> <i class="fa fa-angle-right flex-gap-right"
+                aria-hidden="true"></i> <span class="flex-gap-right">Mapping Skill</span></h6>
+    </div>
+</div>
+<div class="mappingform">
+<p-card>
+      <form [formGroup]="form">
+<!-- 1 -->
+    <div class="row top" style="border-top: 1px solid #0b5f4c87;border-top-right-radius: 11px;
+    border-top-left-radius: 11px;">
+       <div class="col-md-8 padding">
+        <p> <span>1.</span> &nbsp;Are you trained in Mapping skills?</p>
+       </div>
+       <div class="col-md-4 padding">
+        <p-radioButton name="training" value="1" formControlName="training"  label="Yes"  ></p-radioButton>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <p-radioButton name="training" value="2" formControlName="training" label="No"  ></p-radioButton>
+        <br>
+        <p-message severity="error" text="Field is required"
+       *ngIf="form.controls.training.errors && (submitted || form.controls.training.dirty || form.controls.training.touched)">
+   </p-message> 
+       </div>
+    </div>
+<!-- 2 -->
+<div class="row top">
+    <div class="col-md-8 padding">
+        <p><span>2.</span>&nbsp;Do you need additional orientation in Mapping skills for next year activities?</p>
+    </div>
+    <div class="col-md-4 padding">
+     <p-radioButton name="additional_orientation" value="1" formControlName="additional_orientation" label="Yes"  ></p-radioButton>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <p-radioButton styleClass="radio-style" name="additional_orientation" value="2" formControlName="additional_orientation"  label="No"  ></p-radioButton> 
+     <br><p-message severity="error" text="Field is required"
+     *ngIf="form.controls.additional_orientation.errors && (submitted || form.controls.additional_orientation.dirty || form.controls.additional_orientation.touched)">
+ </p-message>
+    </div>
+ </div>
+ <!-- 3 -->
+ <div class="row top">
+    <div class="col-md-8 padding">
+        <p> <span>3.</span> &nbsp;Do you implement Mapping skills technique in your class room?</p>
+    </div>
+    <div class="col-md-4 padding">
+     <p-radioButton name="technique_in_classroom" value="1" formControlName="technique_in_classroom" label="Yes"  ></p-radioButton>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <p-radioButton styleClass="radio-style" name="technique_in_classroom" value="2" formControlName="technique_in_classroom" label="No"  ></p-radioButton> 
+     <br> <p-message severity="error" text="Field is required"
+     *ngIf="form.controls.technique_in_classroom.errors && (submitted || form.controls.technique_in_classroom.dirty || form.controls.technique_in_classroom.touched)">
+ </p-message>
+    </div>
+ </div>
+ <!-- 4 -->
+
+ <div class="row top">
+    <div class="col-md-8 padding">
+        <p> <span>4.</span> &nbsp;Are you able to notice any positive changes in students due to the implementation of Mapping skill training?</p>
+    </div>
+    <div class="col-md-4 padding">
+     <p-radioButton name="positive_changes" value="1" formControlName="positive_changes" label="Yes"  ></p-radioButton>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <p-radioButton styleClass="radio-style" name="positive_changes" value="2" formControlName="positive_changes" label="No"  ></p-radioButton> 
+     <br> <p-message severity="error" text="Field is required"
+     *ngIf="form.controls.positive_changes.errors && (submitted || form.controls.positive_changes.dirty || form.controls.positive_changes.touched)">
+ </p-message>
+    </div>
+ </div>
+<!-- 5 -->
+<div class="row top">
+    <div class="col-md-8 padding">
+        <p> <span>5.</span> &nbsp;Is this program useful to improve mapping skill for children?</p>
+    </div>
+    <div class="col-md-4 padding">
+     <p-radioButton name="useful_programme" value="1" formControlName="useful_programme" label="Yes"  ></p-radioButton>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <p-radioButton styleClass="radio-style" name="useful_programme" value="2" formControlName="useful_programme" label="No"  ></p-radioButton> 
+     <br> <p-message severity="error" text="Field is required"
+     *ngIf="form.controls.useful_programme.errors && (submitted || form.controls.useful_programme.dirty || form.controls.useful_programme.touched)">
+ </p-message>
+    </div>
+ </div>
+ <!-- 6 -->
+ <div class="row top">
+    <div class="col-md-8 padding">
+        <p> <span>6.</span> &nbsp;Impact of Mapping skills technic obtained by the students in class room?</p>
+    </div>
+    <div class="col-md-4 padding">
+        <textarea type="text" maxlength="250" placeholder="skills impact by students......" formControlName="technic_obtained"  [rows]="5" [cols]="40" pInputTextarea autoResize="autoResize" ></textarea> 
+        <p-message severity="error" text="Field is required"
+        *ngIf="form.controls.technic_obtained.errors && (submitted || form.controls.technic_obtained.dirty || form.controls.technic_obtained.touched)">
+    </p-message>
+    </div>
+ </div>
+ <!-- 7 -->
+ <div class="row top">
+    <div class="col-md-8 padding">
+        <p> <span>7.</span> &nbsp;Student's feedback about Mapping skill technic?</p>
+    </div>
+    <div class="col-md-4 padding">
+        <textarea type="text" maxlength="250" placeholder="feedback about mapping skills....." formControlName="feedback"  [rows]="5" [cols]="40" pInputTextarea autoResize="autoResize" ></textarea> 
+        
+        <p-message severity="error" text="Field is required"
+        *ngIf="form.controls.feedback.errors && (submitted || form.controls.feedback.dirty || form.controls.feedback.touched)">
+    </p-message>
+    </div>
+ </div>
+<!-- 8 -->
+<div class="row top">
+    <div class="col-md-8 padding">
+        <p> <span>8.</span> &nbsp;Do you need any additional materials in the geography kit for the next year?</p>
+    </div>
+    <div class="col-md-4 padding">
+    <p-radioButton name="additional_material" value="1" formControlName="additional_material" label="Yes"  ></p-radioButton>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <p-radioButton styleClass="radio-style" name="additional_material" value="2" formControlName="additional_material" label="No"  ></p-radioButton> 
+    <br> <p-message severity="error" text="Field is required"
+    *ngIf="form.controls.additional_material.errors && (submitted || form.controls.additional_material.dirty || form.controls.additional_material.touched)">
+</p-message>
+</div>
+     
+<div class="col-md-8" >
+
+</div>
+ <div class="col-md-4 padding"  *ngIf="form.controls.additional_material.value == 1">
+    <textarea type="text" maxlength="250" placeholder="Materials you need...." formControlName="materials_need"  [rows]="5" [cols]="40" pInputTextarea autoResize="autoResize" ></textarea>  
+    <p-message severity="error" text="Field is required"
+    *ngIf="form.controls.materials_need.errors && (submitted || form.controls.materials_need.dirty || form.controls.materials_need.touched)">
+</p-message> 
+ </div>
+</div>
+<!-- 9 -->
+<div class="row top">
+    <div class="col-md-8 padding">
+        <p> <span>9.</span> &nbsp;Remarks about the Online Training?</p>
+    </div>
+    <div class="col-md-3 padding">
+        <textarea type="text" maxlength="250" placeholder="remarks about online training......" formControlName="remarks"  [rows]="5" [cols]="40" pInputTextarea autoResize="autoResize" ></textarea> 
+        <p-message severity="error" text="Field is required"
+        *ngIf="form.controls.remarks.errors && (submitted || form.controls.remarks.dirty || form.controls.remarks.touched)">
+    </p-message>
+    </div>
+ </div>
+ <!-- 10 -->
+ <div class="row top" style="border-bottom: 1px solid #0b5f4c87;border-bottom-left-radius: 11px;
+ border-bottom-right-radius: 11px;">
+    <div class="col-md-8 padding">
+        <p> <span>10.</span> &nbsp;Any innovative methodology to be implemented in Mapping skill content?</p>
+    </div>
+    <div class="col-md-4 padding">
+        <textarea type="text" maxlength="250" placeholder="Any innovative methodology to add ..." formControlName="innovated_methodology"  [rows]="5" [cols]="40" pInputTextarea autoResize="autoResize" ></textarea> 
+        <p-message severity="error" text="Field is required"
+        *ngIf="form.controls.innovated_methodology.errors && (submitted || form.controls.innovated_methodology.dirty || form.controls.innovated_methodology.touched)">
+    </p-message>
+    </div>
+ </div>
+ <div class="text-right pt-5">
+    <button pButton type="button" (click)="save()" *ngIf="bankdata == 1"    label="Save" class="ui-button-raised ui-button-success"></button>
+    <button pButton type="button" (click)="update()" *ngIf="bankdata == 2"    label="update" class="ui-button-raised ui-button-success"></button>
+ </div>
+</form>
+</p-card>
+</div>

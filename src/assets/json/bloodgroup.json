@@ -1,0 +1,20 @@
+{"bloodgroup":[
+  
+    { "value":1, "label":"A+ve" }, 
+    { "value":2, "label":"A-ve"  },
+    { "value":3, "label":"B+ve"  },
+    { "value":4, "label":"B-ve"  },
+    { "value":5, "label":"AB+ve"  },
+    { "value":6, "label":"AB-ve"  },
+    { "value":7, "label":"O+ve"  },
+    { "value":8, "label":"O-ve"  },
+    { "value":9, "label":"A1+ve"  },
+    { "value":10, "label":"A1-ve"  },
+    { "value":11, "label":"A1B+ve"  },
+    { "value":12, "label":"A1B-ve"  },
+    { "value":13, "label":"A2+ve"  },
+    { "value":14, "label":"A2-ve"  },
+    { "value":15, "label":"A2B+ve"  },
+    { "value":16, "label":"A2B-ve"  },
+    { "value":17, "label":"B1+ve"  }
+]}

@@ -1,0 +1,55 @@
+<!-- <div class="container"> -->
+    <div class="m-4">
+        <p-card>
+            <div class="container-fluid m-2 header_fonts">
+              <div class="row p-1">
+                <div class="col-sm-6">
+                    <div class="text-lg-left mt-3">
+                      <h5>Student School wise</h5>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-1">
+                    <div class="text-right">
+                         <input type="text" pInputText size="30" placeholder="Student Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>              
+                 </div>
+              </div>
+            </div>
+            <div>
+                <p-table #dt  [columns]="cols" [value]="studentsList"  [rows]="10" [resizableColumns]="true" >
+                    <ng-template pTemplate="header" let-distname>
+                      <tr>
+                        <th class="sno-header-layout">S.NO</th>
+                        <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                          {{col.header}}
+                          <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-schoolwise let-columns="columns" let-i="rowIndex">
+                      <tr class="text-center">
+                        <td class="sno-header-layout"> {{i+1}} </td>
+                        <td> {{ schoolwise.school_id}} </td>
+                        <td> {{ schoolwise.PREKG}} </td>
+                        <td> {{ schoolwise.LKG}} </td>
+                        <td> {{ schoolwise.UKG}} </td>
+                        <td> {{ schoolwise.class_1}} </td>
+                        <td> {{ schoolwise.class_2}} </td>
+                        <td> {{ schoolwise.class_3}} </td>
+                        <td> {{ schoolwise.class_4}} </td>
+                        <td> {{ schoolwise.class_5}} </td>
+                        <td> {{ schoolwise.class_6}} </td>
+                        <td> {{ schoolwise.class_7}} </td>
+                        <td> {{ schoolwise.class_8}} </td>
+                        <td> {{ schoolwise.class_9}} </td>
+                        <td> {{ schoolwise.class_10}} </td>
+                        <td> {{ schoolwise.class_11}} </td>
+                        <td> {{ schoolwise.class_12}} </td>
+                        <td class="font-weight-bold"> {{ schoolwise.total}} </td> 
+                    </ng-template>
+                  </p-table>
+            </div>
+        </p-card>
+      
+    </div>
+    

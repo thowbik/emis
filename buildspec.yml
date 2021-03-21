@@ -1,7 +1,7 @@
 version: 0.2
 env:
   variables:
-    S3_BUCKET: "emisexamsprd"
+    S3_BUCKET: "emisdemo"
 phases:
   install:
     runtime-versions:

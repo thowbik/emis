@@ -1,0 +1,288 @@
+
+<div class="card ui-card-body my-3 box-shwd">
+  <div style="padding-bottom: 10px;">
+    <!-- <button pButton type="button" class="login-button">
+        <i class="fa fa-sign-in icon-gap" aria-hidden="true" style="margin-right: 5px;"></i>
+        <span>TNTP Login</span>
+    </button> -->
+  </div>
+  <div class="row">
+
+    <div class="col-sm-12">
+      
+
+<div class="row" >
+  <div class="col-md-6">
+    <div class="backclr-grn  font-16">
+      <i class="fa fa-user fa-icon icon-clr" aria-hidden="true"></i>Personal Information
+    </div>
+    <div class="row form-group" style="padding-top:5px">
+      <div class="col-sm-6 text-align text-bold">
+        <label>Name </label>
+      </div>
+      <div class="col-sm-6 ">
+        <label> <span class="text-space">:</span> {{teacher.teacher_name}}</label>
+      </div>
+    </div>
+    <div class="row form-group" >
+      <div class="col-sm-6 text-align text-bold">
+        <label>Date of Birth  </label>
+      </div>
+      <div class="col-sm-6">
+        <label> <span class="text-space">:</span> {{teacher.staff_dob}}</label>
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-sm-6 text-align text-bold">
+        <label>Gender </label>
+      </div>
+      <div class="col-sm-6">
+        <label> <span class="text-space">:</span>{{teacher.gender == '1' ? "Male" : "Female"}}</label>
+      </div>
+    </div>
+    <!-- <div class="row form-group" >
+      <div class="col-sm-6 text-align text-bold">
+        <label>Date of Joining</label>
+      </div>
+      <div class="col-sm-6">
+        <label> <span class="text-space">:</span>{{teacher.staff_dob}}</label>
+      </div>
+    </div> -->
+  </div>
+  <div class="col-md-6">
+    <div class="backclr-grn  font-16">
+      <i class="fa fa-graduation-cap fa-icon icon-clr" aria-hidden="true"></i>Academic Qualification
+    </div>
+    <div class="row form-group" style="padding-top:5px">
+      <div class="col-sm-6 text-align text-bold">
+        <label>Academic  </label>
+      </div>
+      <div class="col-sm-6">
+        <label> <span class="text-space">:</span> {{teacher.academic_name}}</label>
+      </div>
+    </div>
+    <div class="row form-group" >
+      <div class="col-sm-6 text-align text-bold">
+        <label>Professional  </label>
+      </div>
+      <div class="col-sm-6">
+        <label> <span class="text-space">:</span> {{teacher.professional_name}}</label>
+      </div>
+    </div>
+    <div class="row form-group" >
+      <div class="col-sm-6 text-align text-bold">
+        <label>UG   </label>
+      </div>
+      <div class="col-sm-6">
+        <label> <span class="text-space">:</span> {{teacher.e_ug_name}}</label>
+      </div>
+    </div>
+    <div class="row form-group" >
+      <div class="col-sm-6 text-align text-bold">
+        <label>PG </label>
+      </div>
+      <div class="col-sm-6">
+        <label> <span class="text-space">:</span> {{teacher.e_pg_name}}</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="backclr-grn  font-16">
+      <i class="fa fa-info-circle fa-icon icon-clr" aria-hidden="true"></i>Joining Details
+    </div>
+      <div class="row form-group" style="padding-top:5px">
+        <div class="col-sm-6 text-align text-bold">
+          <label>Appointed for the Subject  </label>
+        </div>
+        <div class="col-sm-6">
+          <label> <span class="text-space">:</span> {{teacher.appointed_subject_name}}</label>
+        </div>
+      </div>
+      <div class="row form-group" >
+          <div class="col-sm-6 text-align text-bold">
+            <label>Date of Joining in Service  </label>
+          </div>
+          <div class="col-sm-6">
+            <label> <span class="text-space">:</span> {{teacher.staff_join}}</label>
+          </div>
+        </div>
+        <div class="row form-group" >
+          <div class="col-sm-6 text-align text-bold">
+            <label>Date of Joining in Present Post </label>
+          </div>
+          <div class="col-sm-6">
+            <label> <span class="text-space">:</span>{{teacher.staff_pjoin}}</label>
+          </div>
+        </div>
+        <div class="row form-group" >
+          <div class="col-sm-6 text-align text-bold">
+            <label>Present School </label>
+          </div>
+          <div class="col-sm-6">
+            <label> <span class="text-space">:</span> {{teacher.staff_psjoin}}</label>
+          </div>
+        </div>
+       
+        <div class="row form-group" >
+          <div class="col-sm-6 text-align text-bold">
+            <label>Nature of appointment </label>
+          </div>
+          <div class="col-sm-6">
+            <label> <span class="text-space">:</span> {{teacher.appointment_nature_name}}</label>
+          </div>
+        </div>
+        <div class="row form-group" >
+          <div class="col-sm-6 text-align text-bold">
+            <label>GPF/CPS/EPF Details </label>
+          </div>
+          <div class="col-sm-6">
+            <label> <span class="text-space">:</span> {{teacher.cps_gps_details}}</label>
+          </div>
+        </div>
+        <div class="row form-group">
+          <div class="col-sm-6 text-align text-bold">
+            <label>GPF/CPS/EPF Number </label>
+          </div>
+          <div class="col-sm-6">
+            <label> <span class="text-space">:</span> {{teacher.cps_gps}}</label>
+          </div>
+        </div>
+        <div class="row form-group">
+          <div class="col-sm-6 text-align text-bold">
+            <label>Suffix  </label>
+          </div>
+          <div class="col-sm-6">
+            <label> <span class="text-space">:</span> {{teacher.suffix_name}}</label>
+          </div>
+        </div>
+        <div class="row form-group">
+          <div class="col-sm-6 text-align text-bold">
+            <label>Mode of Recruitment </label>
+          </div>
+          <div class="col-sm-6">
+            <label> <span class="text-space">:</span> {{teacher.recruit_type}}</label>
+          </div>
+        </div>
+        <div class="row form-group">
+          <div class="col-sm-6 text-align text-bold">
+            <label>Recruitment Rank </label>
+          </div>
+          <div class="col-sm-6">
+            <label> <span class="text-space">:</span> {{teacher.recruit_rank}}</label>
+          </div>
+        </div>
+        <div class="row form-group">
+          <div class="col-sm-6 text-align text-bold">
+            <label>Year Selection </label>
+          </div>
+          <div class="col-sm-6">
+            <label> <span class="text-space">:</span> {{teacher.recruit_year}}</label>
+          </div>
+        </div>
+  </div>
+  <div class="col-md-6">
+    <div class="backclr-grn  font-16">
+      <i class="fa fa-phone-square fa-icon icon-clr" aria-hidden="true"></i>Communication Details
+    </div>
+    <div class="row form-group" style="padding-top:5px">
+      <div class="col-sm-6 text-align text-bold">
+        <label>Mobile Number </label>
+      </div>
+      <div class="col-sm-6">
+        <label> <span class="text-space">:</span> {{teacher.mbl_nmbr}}</label>
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-sm-6 text-align text-bold">
+        <label>E-Mail ID </label>
+      </div>
+      <div class="col-sm-6">
+        <label> <span class="text-space">:</span> {{teacher.email_id}}</label>
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-sm-6 text-align text-bold">
+        <label>Door no / Building Name </label>
+      </div>
+      <div class="col-sm-6">
+        <label> <span class="text-space">:</span> {{teacher.e_prsnt_doorno}}</label>
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-sm-6 text-align text-bold">
+        <label>Street Name / Area name </label>
+      </div>
+      <div class="col-sm-6">
+        <label> <span class="text-space">:</span> {{teacher.e_prsnt_street}}</label>
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-sm-6 text-align text-bold">
+        <label>City name / Village name </label>
+      </div>
+      <div class="col-sm-6">
+        <label> <span class="text-space">:</span> {{teacher.e_prsnt_place}}</label>
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-sm-6 text-align text-bold">
+        <label>District </label>
+      </div>
+      <div class="col-sm-6">
+        <label> <span class="text-space">:</span> {{teacher.e_prsnt_distrct_name}}</label>
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-sm-6 text-align text-bold">
+        <label>Pincode </label>
+      </div>
+      <div class="col-sm-6">
+        <label> <span class="text-space">:</span> {{teacher.e_prsnt_pincode}}</label>
+      </div>
+    </div>
+    <div class="backclr-grn  font-16">
+      <i class="fa fa-book fa-icon icon-clr" aria-hidden="true"></i>Main Subjects Taught
+    </div>
+    <div class="row form-group" style="padding-top:5px">
+      <div class="col-sm-6 text-align text-bold">
+        <label>Subject 1  </label>
+      </div>
+      <div class="col-sm-6">
+        <label> <span class="text-space">:</span> {{teacher.subject1_name}}</label>
+      </div>
+    </div>
+    <div class="row form-group" >
+      <div class="col-sm-6 text-align text-bold">
+        <label>Subject 2   </label>
+      </div>
+      <div class="col-sm-6">
+        <label> <span class="text-space">:</span> {{teacher.subject2_name}}</label>
+      </div>
+    </div>
+    <div class="row form-group" >
+      <div class="col-sm-6 text-align text-bold">
+        <label>Subject 3  </label>
+      </div>
+      <div class="col-sm-6">
+        <label> <span class="text-space">:</span> {{teacher.subject3_name}}</label>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+        
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+

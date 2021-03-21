@@ -1,0 +1,177 @@
+<div class="main-body-content p-3">
+  <div class="outer-layout" style="padding-top:5px;">
+    <div class="breadcrumbs c-black">
+        <h6 class="url"><span class="flex-gap-right">Schools</span> <i class="fa fa-angle-right flex-gap-right"
+                aria-hidden="true"></i> <span class="flex-gap-right">IT Profile</span></h6>
+    </div>
+</div>
+<p-card>
+  <form [formGroup]="form">
+
+      <div class="form-group row">
+
+          <div class="col-md-3">
+              <label class="font-weight-bold" style="color: teal;font-size: 14px;">Select Class<span class="text-danger"> *
+                  </span></label>
+                  <select id="select2" formControlName="class" class="form-control "
+                  (change)="onChangeClass($event.target.value)" style="border: 1px solid #a6a6a6;">
+                  <option value="" style="font-weight:500">Select Class</option>
+                  <option *ngFor="let classes of classlist" [value]="classes.value">
+                      {{ classes.roman }}
+                  </option>
+              </select>
+              <p-message severity="error" text="Field is required"
+                  *ngIf="form.controls.class.errors && (submitted1 || form.controls.class.dirty || form.controls.class.touched)">
+              </p-message>
+          </div>
+
+          <div class="col-md-3">
+              <label class="font-weight-bold" style="color: teal;font-size: 14px;">Select Section<span class="text-danger"> *
+                  </span></label>
+                  <select id="select2" formControlName="section" class="form-control "
+                  (change)="onChangesection($event.target.value,this.form.value.class)"
+                  style="border: 1px solid #a6a6a6;">
+                  <option value="" style="font-weight:500">Select Section</option>
+                  <option *ngFor="let item of assigned_section1?.split(',')" [value]="item">
+                      {{item}}
+                  </option>
+              </select>
+              <p-message severity="error" text="Field is required"
+                  *ngIf="form.controls.section.errors && (submitted1 || form.controls.section.dirty || form.controls.section.touched)">
+              </p-message>
+          </div>
+
+          <div class="col-lg-3">
+              <label class="font-weight-bold" style="color: teal;font-size: 14px;">Select Student Name<span class="text-danger"> *
+                  </span></label>
+              <select id="select2" formControlName="studentname" class="form-control"
+              (change)="onStudentChange($event.target.value,this.form.value.class)"
+                  style="border: 1px solid #a6a6a6;">
+                  <option value="" style="font-weight:500">Select Student Name</option>
+                  <option *ngFor="let student of studentnamelist" [value]="student.value">
+                      {{ student.label }}
+                  </option>
+              </select>
+              <p-message severity="error" text="Field is required"
+                  *ngIf="form.controls.studentname.errors && (submitted1 || form.controls.studentname.dirty || form.controls.studentname.touched)">
+              </p-message>
+          </div>
+
+      </div>
+
+  </form>
+</p-card>
+<div class="itform" *ngIf="showData">
+<p-card >
+    <form [formGroup]="itform">        
+          <!--1st radio btn start -->
+          <div class="row mt-3 pt-3">
+            <div class="col-sm-10">
+               <div class="form-group">
+              <h5> Do you have any smartphone,laptop,computer,tv or other multimedia devices in your home?*</h5>
+               </div>
+            </div>
+            <div class="col-sm-2">
+               <p-radioButton name="devices" formControlName="devices" value="1" label="Yes" ></p-radioButton>
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               <p-radioButton name="devices" value="2"  label="No" formControlName="devices" ></p-radioButton>
+               <p-message severity="error" text="Field is required"
+               *ngIf="itform.controls.devices.errors && (submitted || itform.controls.devices.dirty || itform.controls.devices.touched)">
+             </p-message>
+            </div>
+          </div>
+         
+        <div *ngIf="itform.controls.devices.value=='1'">
+<!-- laptop -->
+          <div class="row">
+             <div class="col-md-3 form-group">
+                  Laptop
+             </div>
+             <div class="col-md-4">
+               <p-radioButton name="laptop" value="1" formControlName = "laptop" label="Yes" ></p-radioButton>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               <p-radioButton name="laptop" value="2" formControlName = "laptop" label="No" ></p-radioButton><br>
+               <p-message  severity="error" text="Field is required" 
+               *ngIf="itform.controls.laptop.errors && (submitted || itform.controls.laptop.dirty || itform.controls.laptop.touched)">
+             </p-message>
+             </div>
+             <div class="col-md-5">
+             </div>              
+           </div>
+<!-- internet_Facility -->
+           <div class="row ">
+            <div class="col-md-3 form-group">
+               Internet Facility
+            </div>
+            <div class="col-md-4">
+              <p-radioButton name="internet_Facility" value="1" formControlName = "internet_Facility" label="Yes" ></p-radioButton>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <p-radioButton name="internet_Facility" value="2" formControlName = "internet_Facility" label="No" ></p-radioButton><br>
+              <p-message severity="error" text="Field is required"
+              *ngIf="itform.controls.internet_Facility.errors && (submitted || itform.controls.internet_Facility.dirty || itform.controls.internet_Facility.touched)">
+            </p-message>
+            </div>
+            <div class="col-md-5">
+            </div>
+             
+          </div>
+<!-- desktop  -->
+          <div class="row ">
+            <div class="col-md-3 form-group">
+               Desktop
+            </div>
+            <div class="col-md-4">
+              <p-radioButton name="desktop" value="1" formControlName = "desktop" label="Yes" ></p-radioButton>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <p-radioButton name="desktop" value="2" formControlName = "desktop" label="No" ></p-radioButton><br>
+              <p-message severity="error" text="Field is required"
+              *ngIf="itform.controls.desktop.errors && (submitted || itform.controls.desktop.dirty || itform.controls.desktop.touched)">
+            </p-message>
+            </div>
+            <div class="col-md-5">
+            </div>
+             
+          </div>
+<!-- smartphone -->
+          <div class="row ">
+            <div class="col-md-3 form-group">
+               Smartphone
+            </div>
+            <div class="col-md-4">
+              <p-radioButton name="smartphone" value="1" formControlName = "smartphone" label="Yes" ></p-radioButton>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <p-radioButton name="smartphone" value="2" formControlName = "smartphone" label="No" ></p-radioButton><br>
+              <p-message severity="error" text="Field is required"
+              *ngIf="itform.controls.smartphone.errors && (submitted || itform.controls.smartphone.dirty || itform.controls.smartphone.touched)">
+            </p-message>
+            </div>
+            <div class="col-md-5">
+            </div>
+             
+          </div>
+<!-- television  -->
+          <div class="row ">
+            <div class="col-md-3 form-group">
+               Television
+            </div>
+            <div class="col-md-4">
+              <p-radioButton name="television" value="1" formControlName = "television" label="Yes" ></p-radioButton>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <p-radioButton name="television" value="2" formControlName = "television" label="No" ></p-radioButton><br>
+              <p-message severity="error" text="Field is required"
+              *ngIf="itform.controls.television.errors && (submitted || itform.controls.television.dirty || itform.controls.television.touched)">
+            </p-message>
+            </div>
+            <div class="col-md-5">
+            </div>             
+          </div> 
+        </div>
+        <div class="text-right">            
+            <button pButton type="button" label="Save" *ngIf="itdata == 1" (click) = "save()" class="ui-button-success"></button>
+            <button pButton type="button" label="update" *ngIf="itdata == 2" (click) = "update()" class="ui-button-success"></button> 
+         </div>
+      </form>
+</p-card>
+</div>
+</div>
+

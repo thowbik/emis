@@ -1,0 +1,1808 @@
+<div class="main-body-content">
+    <div class="outer-layout">
+        <div class="breadcrumbs c-black">
+            <h6 class="url"><span class="flex-gap-right">EDIT SCHOOL PROFILE</span></h6>
+
+        </div>
+        <div class="text-right" *ngIf="pageStage === 2">
+            <button pButton type="button" class="ui-button-success  mr-2" (click)="goBack()" label="Back"></button>
+        </div>
+    </div>
+
+    <div class="container-fluid" *ngIf="pageStage === 1">
+
+        <p-table #dt [columns]="sampleSelectedColumn" class="prime-table" [value]="SchoolList" [paginator]="true"
+            [resizableColumns]="true" [rows]="10" [scrollable]="true">
+
+            <ng-template pTemplate="caption">
+                <div class="row  header flex-row-center">
+                    <div class="col-lg-9 p-1">
+                        <!-- <div class="text-right">
+                            <input class="form-control" type="text"
+                                (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                        </div> -->
+                    </div>
+                    
+                    <div class="col-sm-3 p-1">
+                        <div class="text-right">
+                            <input class="form-control" type="text"
+                                    (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                        </div>
+                    </div>
+                    <!-- <div class="col-sm-1 p-1 flex-row-center-end"> -->
+                        <!-- <div class="text-right">
+                                <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"
+                                    (click)="exportPdf(verifymonitorBlockData,selectedColumns)"></i>
+                                <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                                    (click)="exportExcel(verifymonitorBlockData)"></i>
+                            </div> -->
+                    <!-- </div> -->
+                </div>
+            </ng-template>
+
+
+            <ng-template pTemplate="header">
+                <tr class="text-center">
+                    <th style="width: 5em">S.No</th>
+                    <th style="width: 10em">UDISE Code</th>
+                    <th style="width: 18em">School Name</th>
+                    <th style="width: 12em">School Type</th>
+                    <th style="width: 9em">Minority</th>
+                    <th style="width: 6em">RTE</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-schoolProfile let-i="rowIndex">
+                <tr class="text-center" *ngIf="!noDataFound">
+                    <td style="width: 5em">{{i+1}}</td>
+                    <td style="width: 10em;">{{schoolProfile.udise_code}}</td>
+                    <td style="width: 18em;cursor:pointer;color:rgb(11, 177, 168)" class="text-left"
+                        (click)="editSchoolDetails(schoolProfile)">{{schoolProfile.SchoolName}}</td>
+                    <td style="width: 12em">{{schoolProfile.SchoolType}}</td>
+                    <td style="width: 9em">
+                        {{schoolProfile.MiniorityStatus === '1' ? 'Yes' : schoolProfile.MiniorityStatus === '2' ? 'No' : '' }}
+                    </td>
+                    <td style="width: 6em">
+                        {{schoolProfile.SchoolRTEStatus === '1' ? 'Yes' : schoolProfile.SchoolRTEStatus === '2' ? 'No' : '' }}
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr class="text-left" *ngIf="noDataFound">
+                    <td colspan="6" style="text-align: center;"> No Data Found </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+
+
+    <!-- Stage 2-- Start -->
+
+    <div class="container-fluid" *ngIf="pageStage === 2">
+        <div class="schoolEditProfile">
+
+
+            <form [formGroup]="SchoolProfileDetails">
+                <div class="animated fadeIn">
+
+                    <p-accordion>
+
+                        <p-accordionTab header="School Management Details" [selected]="AccordionTabShow === 1">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="card">
+                                        <div class="card-body">
+
+                                            <!-- Row 1 -->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current School Status</span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="curr_stat_edit"
+                                                            placeholder="" class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">School Status<span class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p-dropdown [options]="schoolStatusList"
+                                                            formControlName="curr_stat"
+                                                            placeholder="Select School Status"
+                                                            styleClass="dropdwnvalues"
+                                                            (onChange)="schoolStatusListChange($event)"></p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.curr_stat.errors && (submitted || SchoolProfileDetails.controls.curr_stat.dirty || SchoolProfileDetails.controls.curr_stat.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 2-->
+                                            <div class="row"
+                                                *ngIf="SchoolProfileDetails.controls.curr_stat.value != '1'">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Date</span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="date" formControlName="curstat_date"
+                                                            placeholder="date" class="form-control" readonly>
+                                                        <!-- <p-calendar dateFormat="dd/mm/yy" formControlName="curstat_date" [style]="{minWidth: '100%'}" readonly="true"></p-calendar> -->
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Date<span class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <!-- <p-calendar dateFormat="dd/mm/yy" formControlName="curstat_date" [style]="{minWidth: '100%'}" ></p-calendar> -->
+
+                                                        <input type="date" formControlName="curstat_date"
+                                                            placeholder="date" class="form-control">
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.curstat_date.errors && (submitted || SchoolProfileDetails.controls.curstat_date.dirty || SchoolProfileDetails.controls.curstat_date.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 3-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Name of the School in English
+                                                        </span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="SchoolName" placeholder=""
+                                                            class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Name of the School in English <span
+                                                                class="mandatory">*<span class="small_char"
+                                                                    style="color:black">Maximum
+                                                                    Characters (100) </span></span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="SchoolName"
+                                                            placeholder="Enter Name of the School" class="form-control"
+                                                            maxlength="100">
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.SchoolName.errors && (submitted || SchoolProfileDetails.controls.SchoolName.dirty || SchoolProfileDetails.controls.SchoolName.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 4-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Short Name of the School in
+                                                            English</span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="SchoolShortName"
+                                                            placeholder="" class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Short Name of the School in English<span
+                                                                class="mandatory"> *<span class="small_char"
+                                                                    style="color:black">Maximum
+                                                                    Characters (36)</span></span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="SchoolShortName"
+                                                            class="form-control"
+                                                            placeholder="Enter Short Name of the School" maxlength="36">
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.SchoolShortName.errors && (submitted || SchoolProfileDetails.controls.SchoolShortName.dirty || SchoolProfileDetails.controls.SchoolShortName.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 5-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current School Management Category</span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="ManagementCategoryId_edit"
+                                                            placeholder="" class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">School Management Category<span
+                                                                class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p-dropdown [options]="ManagementCatList"
+                                                            formControlName="ManagementCategoryId"
+                                                            placeholder="Select Management Category" [showClear]="true"
+                                                            styleClass="dropdwnvalues"
+                                                            (onChange)="SchoolManagementChange($event)">
+                                                        </p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.ManagementCategoryId.errors && (submitted || SchoolProfileDetails.controls.ManagementCategoryId.dirty || SchoolProfileDetails.controls.ManagementCategoryId.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 6-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current School Management</span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="management" placeholder=""
+                                                            class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">School Management<span
+                                                                class="mandatory"> * </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p-dropdown [options]="schoolManageList"
+                                                            formControlName="SchoolManagementId"
+                                                            placeholder="Select Management" [showClear]="true"
+                                                            styleClass="dropdwnvalues"
+                                                            (onChange)="schoolDeptChange($event)">
+                                                        </p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.SchoolManagementId.errors && (submitted || SchoolProfileDetails.controls.SchoolManagementId.dirty || SchoolProfileDetails.controls.SchoolManagementId.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 7-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current School Department</span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <!-- <input type="text" formControlName="department" placeholder=""
+                                                            class="form-control" readonly> -->
+                                                        <p-dropdown [options]="schoolDeptList"
+                                                            formControlName="SchoolDirectorateId"
+                                                            placeholder="Select School Department" [showClear]="true"
+                                                            styleClass="dropdwnvalues" readonly="true"></p-dropdown>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">School Department <span
+                                                                class="mandatory"> * </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p-dropdown [options]="schoolDeptList"
+                                                            formControlName="SchoolDirectorateId"
+                                                            placeholder="Select School Department" [showClear]="true"
+                                                            styleClass="dropdwnvalues">
+                                                        </p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.SchoolDirectorateId.errors && (submitted || SchoolProfileDetails.controls.SchoolDirectorateId.dirty || SchoolProfileDetails.controls.SchoolDirectorateId.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 8-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current School Category</span>
+                                                    </div>
+                                                    <div class="form-group">
+
+                                                        <input type="text" formControlName="category_name"
+                                                            placeholder="" class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">School Category<span class="mandatory">
+                                                                * </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p-dropdown [options]="schoolCateList"
+                                                            formControlName="SchoolCategoryId"
+                                                            placeholder="Select Category" [showClear]="true"
+                                                            styleClass="dropdwnvalues"></p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.SchoolCategoryId.errors && (submitted || SchoolProfileDetails.controls.SchoolCategoryId.dirty || SchoolProfileDetails.controls.SchoolCategoryId.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 9-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current School Type</span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="SchoolType" placeholder=""
+                                                            class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">School Type<span class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p-dropdown [options]="schoolTypeList"
+                                                            formControlName="SchoolType" name="school_type"
+                                                            placeholder="Select School Type" styleClass="dropdwnvalues">
+                                                        </p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.SchoolType.errors && (submitted || SchoolProfileDetails.controls.SchoolType.dirty || SchoolProfileDetails.controls.SchoolType.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 10 -->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Minority School</span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="MiniorityStatus_edit"
+                                                            placeholder="" class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Minority School<span class="mandatory">
+                                                                * </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p-dropdown [options]="minoritySchoolOption"
+                                                            formControlName="MiniorityStatus"
+                                                            placeholder="Select Minority School" [showClear]="true"
+                                                            styleClass="dropdwnvalues"
+                                                            (onChange)="minorityGroupChange($event)"></p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.MiniorityStatus.errors && (submitted || SchoolProfileDetails.controls.MiniorityStatus.dirty || SchoolProfileDetails.controls.MiniorityStatus.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 11 -->
+                                            <div class="row"
+                                                *ngIf="SchoolProfileDetails.controls.MiniorityStatus.value == '1'">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Minority School Group</span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p-dropdown [options]="minorityGroupList"
+                                                            formControlName="MniorityGroup"
+                                                            placeholder="Minority School Group"
+                                                            styleClass="dropdwnvalues" readonly="true"></p-dropdown>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Minority School Group<span
+                                                                class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p-dropdown [options]="minorityGroupList"
+                                                            formControlName="MniorityGroup"
+                                                            placeholder="Select Minority School Group"
+                                                            styleClass="dropdwnvalues"></p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.MniorityGroup.errors && (submitted || SchoolProfileDetails.controls.MniorityGroup.dirty || SchoolProfileDetails.controls.MniorityGroup.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 12-->
+                                            <div class="row"
+                                                *ngIf="SchoolProfileDetails.controls.MiniorityStatus.value == '1'">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Vaild Upto Year</span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" pKeyFilter="pnum" maxlength="4"
+                                                            formControlName="MiniorityValidUpto" placeholder=""
+                                                            class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Vaild Upto Year<span class="mandatory">
+                                                                * </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" pKeyFilter="pnum" maxlength="4"
+                                                            formControlName="MiniorityValidUpto" placeholder=""
+                                                            class="form-control">
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.MiniorityValidUpto.errors && (submitted || SchoolProfileDetails.controls.MiniorityValidUpto.dirty || SchoolProfileDetails.controls.MiniorityValidUpto.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 13-->
+                                            <!-- <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current RTE School</span>
+                                                    </div>
+                                                    <div class="form-group">
+
+                                                        <input type="text" formControlName="SchoolRTEStatus_edit"
+                                                            placeholder="" class="form-control" readonly>
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">RTE School<span class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group"
+                                                        *ngIf="SchoolProfileDetails.controls.MiniorityStatus.value == '2'">
+                                                        <p-dropdown [options]="minoritySchoolOption"
+                                                            formControlName="SchoolRTEStatus" name="rte"
+                                                            placeholder="Select RTE School" styleClass="dropdwnvalues">
+                                                        </p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.SchoolRTEStatus.errors && (submitted || SchoolProfileDetails.controls.SchoolRTEStatus.dirty || SchoolProfileDetails.controls.SchoolRTEStatus.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                    <div class="form-group"
+                                                        *ngIf="SchoolProfileDetails.controls.MiniorityStatus.value != '2'">
+                                                        <p-dropdown [options]="minoritySchoolNoOption"
+                                                            formControlName="SchoolRTEStatus" name="rte"
+                                                            placeholder="Select RTE School" styleClass="dropdwnvalues">
+                                                        </p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.SchoolRTEStatus.errors && (submitted || SchoolProfileDetails.controls.SchoolRTEStatus.dirty || SchoolProfileDetails.controls.SchoolRTEStatus.touched)">
+                                                        </p-message>
+                                                    </div>
+
+                                                </div>
+                                            </div> -->
+
+                                            <!-- Row 14 -->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Lowest Class</span>
+                                                    </div>
+                                                    <div class="form-group">
+
+                                                        <input type="text" formControlName="LowestClass_edit"
+                                                            placeholder="" class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Lowest Class<span class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p-dropdown [options]="lowclassList"
+                                                            formControlName="LowestClass"
+                                                            placeholder="Select Lowest Class"
+                                                            styleClass="dropdwnvalues"></p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.LowestClass.errors && (submitted || SchoolProfileDetails.controls.LowestClass.dirty || SchoolProfileDetails.controls.LowestClass.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 15 -->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Highest Class</span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="HigestClass_edit"
+                                                            placeholder="" class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Highest Class<span class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p-dropdown [options]="highclassList"
+                                                            formControlName="HigestClass" name="high_class"
+                                                            placeholder="Select Highest Class"
+                                                            styleClass="dropdwnvalues"></p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.HigestClass.errors && (submitted || SchoolProfileDetails.controls.HigestClass.dirty || SchoolProfileDetails.controls.HigestClass.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 16-->
+                                            <!-- <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Latitude</span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="Latitude" placeholder=""
+                                                            class="form-control" readonly>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Latitude<span class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="Latitude"
+                                                            class="form-control" maxlength="100">
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.Latitude.errors && (submitted || SchoolProfileDetails.controls.Latitude.dirty || SchoolProfileDetails.controls.Latitude.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+
+                                            <!-- Row 17-->
+                                            <!-- <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Longitude</span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="Longitude" placeholder=""
+                                                            class="form-control" readonly>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Longitude<span class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="Longitude"
+                                                            class="form-control" maxlength="100">
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.Longitude.errors && (submitted || SchoolProfileDetails.controls.Longitude.dirty || SchoolProfileDetails.controls.Longitude.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+
+                                            <!-- Row 18-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Education District Name</span>
+                                                    </div>
+                                                    <div class="form-group">
+
+                                                        <input type="text" formControlName="edn_dist_name"
+                                                            placeholder="" class="form-control" readonly>
+                                                        <!-- <p-dropdown [options]="eduDistList"
+                                                            formControlName="EducationaldstId"
+                                                            placeholder="Education District Name"
+                                                            styleClass="dropdwnvalues" readonly="true">
+                                                        </p-dropdown> -->
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Education District Name<span
+                                                                class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p-dropdown [options]="eduDistList"
+                                                            formControlName="EducationaldstId"
+                                                            placeholder="Select Education District Name"
+                                                            styleClass="dropdwnvalues">
+                                                        </p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.EducationaldstId.errors && (submitted || SchoolProfileDetails.controls.EducationaldstId.dirty || SchoolProfileDetails.controls.EducationaldstId.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 19-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Block Name</span>
+                                                    </div>
+                                                    <div class="form-group">
+
+                                                        <input type="text" formControlName="block_name" placeholder=""
+                                                            class="form-control" readonly>
+                                                        <!-- <p-dropdown [options]="blockList" formControlName="BlockId"
+                                                            placeholder="Block Name" styleClass="dropdwnvalues"
+                                                            readonly="true">
+                                                        </p-dropdown> -->
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Block Name<span class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p-dropdown [options]="blockList" formControlName="BlockId"
+                                                            placeholder="Select Block Name" styleClass="dropdwnvalues">
+                                                        </p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.BlockId.errors && (submitted || SchoolProfileDetails.controls.BlockId.dirty || SchoolProfileDetails.controls.BlockId.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </p-accordionTab>
+
+                        <p-accordionTab header="School Details" [selected]="AccordionTabShow === 2">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="card">
+                                        <div class="card-body">
+
+                                            <!-- Row 1-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current School Situated IN </span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="SchoolInHillArea_edit"
+                                                            placeholder="" class="form-control" readonly>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">School Situated IN<span
+                                                                class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p-dropdown [options]="SchoolSituatedList"
+                                                            formControlName="SchoolInHillArea"
+                                                            placeholder="Select School Situated IN"
+                                                            styleClass="dropdwnvalues"></p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.SchoolInHillArea.errors && (submitted || SchoolProfileDetails.controls.SchoolInHillArea.dirty || SchoolProfileDetails.controls.SchoolInHillArea.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 2-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Email Address</span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="SchoolEmail" placeholder=""
+                                                            class="form-control" readonly>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Email Address<span class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="SchoolEmail"
+                                                            class="form-control">
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.SchoolEmail.errors && (submitted || SchoolProfileDetails.controls.SchoolEmail.dirty || SchoolProfileDetails.controls.SchoolEmail.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 3-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Residential School </span>
+                                                    </div>
+                                                    <div class="form-group">
+
+                                                        <input type="text"
+                                                            formControlName="ResidentialSchoolStatus_edit"
+                                                            placeholder="" class="form-control" readonly>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Residential School<span
+                                                                class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p-dropdown [options]="minoritySchoolOption"
+                                                            formControlName="ResidentialSchoolStatus"
+                                                            placeholder="Select Residential School"
+                                                            styleClass="dropdwnvalues"
+                                                            (onChange)="resSchoolTypeChange($event)"></p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.ResidentialSchoolStatus.errors && (submitted || SchoolProfileDetails.controls.ResidentialSchoolStatus.dirty || SchoolProfileDetails.controls.ResidentialSchoolStatus.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 4-->
+                                            <div class="row"
+                                                *ngIf="SchoolProfileDetails.controls.ResidentialSchoolStatus.value == '1'">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Type of Residential School</span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p-dropdown [options]="resTypeList"
+                                                            formControlName="ResidentialSchoolType"
+                                                            placeholder="Type of Residential School"
+                                                            styleClass="dropdwnvalues" readonly="true"></p-dropdown>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Type of Residential School<span
+                                                                class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p-dropdown [options]="resTypeList"
+                                                            formControlName="ResidentialSchoolType"
+                                                            placeholder="Select Type of Residential School"
+                                                            styleClass="dropdwnvalues"></p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.ResidentialSchoolType.errors && (submitted || SchoolProfileDetails.controls.ResidentialSchoolType.dirty || SchoolProfileDetails.controls.ResidentialSchoolType.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 5-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Whether pre-Primary section other
+                                                            than
+                                                            anganwadi is
+                                                            attached to school?</span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="Anganwadi_edit"
+                                                            placeholder="" class="form-control" readonly>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Whether pre-Primary section other than
+                                                            anganwadi is
+                                                            attached to school?<span class="mandatory"> * </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p-dropdown [options]="minoritySchoolOption"
+                                                            formControlName="Anganwadi" placeholder="Select Anganwadi"
+                                                            styleClass="dropdwnvalues"></p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.Anganwadi.errors && (submitted || SchoolProfileDetails.controls.Anganwadi.dirty || SchoolProfileDetails.controls.Anganwadi.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 6-->
+                                            <div class="row"
+                                                *ngIf="SchoolProfileDetails.controls.ManagementCategoryId.value == '1'">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Whether Anganwadi Centre is
+                                                            located
+                                                            inside school
+                                                            premises? </span>
+                                                    </div>
+                                                    <div class="form-group">
+
+                                                        <input type="text" formControlName="AnganwadiLocation_edit"
+                                                            placeholder="" class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Whether Anganwadi Centre is located
+                                                            inside school
+                                                            premises?<span class="mandatory"> * </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p-dropdown [options]="minoritySchoolOption"
+                                                            formControlName="AnganwadiLocation"
+                                                            placeholder="Whether pre-primary section other than Anganwadi is attached to the school?"
+                                                            styleClass="dropdwnvalues"
+                                                            (onChange)="anganwadiChange($event)">
+                                                        </p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.AnganwadiLocation.errors && (submitted || SchoolProfileDetails.controls.AnganwadiLocation.dirty || SchoolProfileDetails.controls.AnganwadiLocation.touched)">
+                                                        </p-message>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 7-->
+                                            <div class="row"
+                                                *ngIf="SchoolProfileDetails.controls.AnganwadiLocation.value == '1'">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Anganwadi Number</span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="AnganwadiNumber"
+                                                            placeholder="" class="form-control" readonly>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Anganwadi Number<span class="mandatory">
+                                                                * </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="AnganwadiNumber"
+                                                            class="form-control" pKeyFilter="alphanum">
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.AnganwadiNumber.errors && (submitted || SchoolProfileDetails.controls.AnganwadiNumber.dirty || SchoolProfileDetails.controls.AnganwadiNumber.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 8-->
+                                            <div class="row"
+                                                *ngIf="SchoolProfileDetails.controls.AnganwadiLocation.value == '1'">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Total Number of Workers </span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="AnganwadiWorkerCount"
+                                                            placeholder="" class="form-control" readonly>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Total Number of Workers<span
+                                                                class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="AnganwadiWorkerCount"
+                                                            class="form-control" pKeyFilter="alphanum">
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.AnganwadiWorkerCount.errors && (submitted || SchoolProfileDetails.controls.AnganwadiWorkerCount.dirty || SchoolProfileDetails.controls.AnganwadiWorkerCount.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 9-->
+                                            <div class="row"
+                                                *ngIf="SchoolProfileDetails.controls.AnganwadiLocation.value == '1'">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Total Number of Boys</span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="AnganwadiBoysCount"
+                                                            placeholder="" class="form-control" readonly>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Total Number of Boys<span
+                                                                class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="AnganwadiBoysCount"
+                                                            class="form-control" pKeyFilter="alphanum">
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.AnganwadiBoysCount.errors && (submitted || SchoolProfileDetails.controls.AnganwadiBoysCount.dirty || SchoolProfileDetails.controls.AnganwadiBoysCount.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 10-->
+                                            <div class="row"
+                                                *ngIf="SchoolProfileDetails.controls.AnganwadiLocation.value == '1'">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Total Number of Girls</span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="AnganwadiGirlsCount"
+                                                            placeholder="" class="form-control" readonly>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Total Number of Girls<span
+                                                                class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="AnganwadiGirlsCount"
+                                                            class="form-control" pKeyFilter="alphanum">
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.AnganwadiGirlsCount.errors && (submitted || SchoolProfileDetails.controls.AnganwadiGirlsCount.dirty || SchoolProfileDetails.controls.AnganwadiGirlsCount.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 11-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Is this a shift school ?</span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="ShiftSchoolStatus_edit"
+                                                            placeholder="" class="form-control" readonly>
+
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Is this a shift school ?<span
+                                                                class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p-dropdown [options]="minoritySchoolOption"
+                                                            formControlName="ShiftSchoolStatus"
+                                                            placeholder="Is this a shift school"
+                                                            styleClass="dropdwnvalues"></p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.ShiftSchoolStatus.errors && (submitted || SchoolProfileDetails.controls.ShiftSchoolStatus.dirty || SchoolProfileDetails.controls.ShiftSchoolStatus.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 12-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Is this a special school for CWSN
+                                                            ?</span>
+                                                    </div>
+                                                    <div class="form-group">
+
+                                                        <input type="text"
+                                                            formControlName="SpecialCWSNSchoolStatus_edit"
+                                                            placeholder="" class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Is this a special school for CWSN ?<span
+                                                                class="mandatory"> * </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p-dropdown [options]="minoritySchoolOption"
+                                                            formControlName="SpecialCWSNSchoolStatus"
+                                                            placeholder="Select school for CWSN"
+                                                            styleClass="dropdwnvalues"></p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.SpecialCWSNSchoolStatus.errors && (submitted || SchoolProfileDetails.controls.SpecialCWSNSchoolStatus.dirty || SchoolProfileDetails.controls.SpecialCWSNSchoolStatus.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </p-accordionTab>
+
+                        <p-accordionTab header="Location Details" [selected]="AccordionTabShow === 3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="card ">
+                                        <div class="card-body">
+
+                                            <!-- Row 1-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current District</span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="district_name"
+                                                            placeholder="" class="form-control" readonly>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">District<span class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="district_name"
+                                                            placeholder="" class="form-control" readonly>
+                                                        <!-- <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.DistrictId.errors && (submitted || SchoolProfileDetails.controls.DistrictId.dirty || SchoolProfileDetails.controls.DistrictId.touched)">
+                                                        </p-message> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 2-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Rural / Urban</span>
+                                                    </div>
+                                                    <div class="form-group">
+
+                                                        <input type="text" formControlName="RuralUrbanStatus_edit"
+                                                            placeholder="" class="form-control" readonly>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Rural / Urban<span class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p-dropdown [options]="ruralUrbanOption"
+                                                            formControlName="RuralUrbanStatus"
+                                                            placeholder="Select Rural / Urban"
+                                                            styleClass="dropdwnvalues"></p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.RuralUrbanStatus.errors && (submitted || SchoolProfileDetails.controls.RuralUrbanStatus.dirty || SchoolProfileDetails.controls.RuralUrbanStatus.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 3 -->
+                                            <!-- <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Local Body</span>
+                                                    </div>
+                                                    <div class="form-group">
+
+                                                        <input type="text" formControlName="localbody_name"
+                                                            placeholder="" class="form-control" readonly>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Local Body <span class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group"
+                                                        *ngIf="SchoolProfileDetails.controls.RuralUrbanStatus.value === '1'">
+                                                        <p-dropdown [options]="localbodyList"
+                                                            formControlName="LocaBodyId" placeholder="Select Local Body"
+                                                            styleClass="dropdwnvalues"
+                                                            (onChange)="getLocalBodyAllChange($event)"></p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.LocaBodyId.errors && (submitted || SchoolProfileDetails.controls.LocaBodyId.dirty || SchoolProfileDetails.controls.LocaBodyId.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                    <div class="form-group"
+                                                        *ngIf="SchoolProfileDetails.controls.RuralUrbanStatus.value != '1'">
+                                                        <p-dropdown [options]="localbodyurbanList"
+                                                            formControlName="LocaBodyId" placeholder="Select Local Body"
+                                                            styleClass="dropdwnvalues"
+                                                            (onChange)="getLocalBodyAllChange($event)"></p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.LocaBodyId.errors && (submitted || SchoolProfileDetails.controls.LocaBodyId.dirty || SchoolProfileDetails.controls.LocaBodyId.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+
+                                            <!-- Row 4 -->
+                                            <!-- <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Village/Town/Municipality</span>
+                                                    </div>
+                                                    <div class="form-group">
+
+                                                        <input type="text" formControlName="localbodyallname"
+                                                            placeholder="" class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Village/Town/Municipality<span
+                                                                class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p-dropdown [options]="villageTMList"
+                                                            formControlName="LocalBodyId"
+                                                            placeholder="Select Village (or) Town"
+                                                            styleClass="dropdwnvalues"
+                                                            (onChange)="gethabitationChange($event)"></p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.LocalBodyId.errors && (submitted || SchoolProfileDetails.controls.LocalBodyId.dirty || SchoolProfileDetails.controls.LocalBodyId.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+
+                                            <!-- Row 5-->
+                                            <!-- <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Village/Ward Number</span>
+                                                    </div>
+                                                    <div class="form-group">
+
+                                                        <input type="text" formControlName="habitationname"
+                                                            placeholder="" class="form-control" readonly>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Village/Ward Number<span
+                                                                class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p-dropdown [options]="habitList" formControlName="VillageWard"
+                                                            placeholder="Village/Ward Number"
+                                                            styleClass="dropdwnvalues"></p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.VillageWard.errors && (submitted || SchoolProfileDetails.controls.VillageWard.dirty || SchoolProfileDetails.controls.VillageWard.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+
+                                            <!-- Row 6-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Name of Cluster Resource Centre
+                                                            (CRC)</span>
+                                                    </div>
+                                                    <div class="form-group">
+
+                                                        <input type="text" formControlName="clus_name" placeholder=""
+                                                            class="form-control" readonly>
+                                                        <!-- <p-dropdown [options]="clustList" formControlName="ClusterId"
+                                                            placeholder="CRC" styleClass="dropdwnvalues"
+                                                            readonly="true"></p-dropdown> -->
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Name of Cluster Resource Centre
+                                                            (CRC)<span class="mandatory"> * </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p-dropdown [options]="clustList" formControlName="ClusterId"
+                                                            placeholder="School Name of Cluster"
+                                                            styleClass="dropdwnvalues" [filter]="true"></p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.ClusterId.errors && (submitted || SchoolProfileDetails.controls.ClusterId.dirty || SchoolProfileDetails.controls.ClusterId.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 7-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Name of Assembly
+                                                            Constituency</span>
+                                                    </div>
+                                                    <div class="form-group">
+
+                                                        <input type="text" formControlName="assembly_name"
+                                                            placeholder="" class="form-control" readonly>
+                                                        <!-- <p-dropdown [options]="assemblyList"
+                                                            formControlName="AssemblyId"
+                                                            placeholder="Name of Assembly Constituency"
+                                                            styleClass="dropdwnvalues" readonly="true"></p-dropdown> -->
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Name of Assembly Constituency<span
+                                                                class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p-dropdown [options]="assemblyList"
+                                                            formControlName="AssemblyId"
+                                                            placeholder="Name of Assembly Constituency"
+                                                            styleClass="dropdwnvalues"></p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.AssemblyId.errors && (submitted || SchoolProfileDetails.controls.AssemblyId.dirty || SchoolProfileDetails.controls.AssemblyId.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 8-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Name of Parliamentary
+                                                            Constituency</span>
+                                                    </div>
+                                                    <div class="form-group">
+
+                                                        <input type="text" formControlName="parli_name" placeholder=""
+                                                            class="form-control" readonly>
+                                                        <!-- <p-dropdown [options]="parlimentList"
+                                                            formControlName="ParlimentId"
+                                                            placeholder="Name of Parliamentary"
+                                                            styleClass="dropdwnvalues" readonly="true"></p-dropdown> -->
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Name of Parliamentary Constituency<span
+                                                                class="mandatory">
+                                                                * </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p-dropdown [options]="parlimentList"
+                                                            formControlName="ParlimentId"
+                                                            placeholder="Name of Parliamentary"
+                                                            styleClass="dropdwnvalues"></p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.ParlimentId.errors && (submitted || SchoolProfileDetails.controls.ParlimentId.dirty || SchoolProfileDetails.controls.ParlimentId.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 9-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Pincode</span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="Pincode" placeholder=""
+                                                            class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Pincode<span class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="Pincode"
+                                                            placeholder="Enter Pincode" class="form-control">
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.Pincode.errors && (submitted || SchoolProfileDetails.controls.Pincode.dirty || SchoolProfileDetails.controls.Pincode.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 10-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Address</span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <textarea formControlName="address"
+                                                            placeholder="Enter the Address" class="form-control"
+                                                            readonly></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Address <span class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <textarea formControlName="address"
+                                                            placeholder="Enter the Address"
+                                                            class="form-control"></textarea>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.address.errors && (submitted || SchoolProfileDetails.controls.address.dirty || SchoolProfileDetails.controls.address.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </p-accordionTab>
+
+
+
+                        <p-accordionTab header="Establishment Details" [selected]="AccordionTabShow === 4">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="card ">
+                                        <div class="card-body">
+
+                                            <!-- Row 1-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Year of establishment of
+                                                            School</span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="SchEstablishmentyear"
+                                                            placeholder="" class="form-control" readonly>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Year of establishment of School<span
+                                                                class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" pKeyFilter="pnum" maxlength="4"
+                                                            formControlName="SchEstablishmentyear" placeholder=""
+                                                            class="form-control">
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.SchEstablishmentyear.errors && (submitted || SchoolProfileDetails.controls.SchEstablishmentyear.dirty || SchoolProfileDetails.controls.SchEstablishmentyear.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 2-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div>
+                                                        <div class="label-title">
+                                                            <span class="lblcolor">Current Year of first recognization
+                                                                of
+                                                                school</span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="text" formControlName="SchfirstRecogYear"
+                                                                placeholder="" class="form-control" readonly>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div>
+                                                        <div class="label-title">
+                                                            <span class="lblcolor1">Year of first recognization of
+                                                                school<span class="mandatory"> * </span></span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="text" pKeyFilter="pnum" maxlength="4"
+                                                                formControlName="SchfirstRecogYear" placeholder=""
+                                                                class="form-control">
+                                                            <p-message severity="error" text="This field is required"
+                                                                *ngIf="SchoolProfileDetails.controls.SchfirstRecogYear.errors && (submitted || SchoolProfileDetails.controls.SchfirstRecogYear.dirty || SchoolProfileDetails.controls.SchfirstRecogYear.touched)">
+                                                            </p-message>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 3-->
+                                            <div class="row"
+                                                *ngIf="SchoolProfileDetails.controls.ManagementCategoryId.value != '1' && SchoolProfileDetails.controls.ManagementCategoryId.value != '5'">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Year Of Last Renewal</span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="LastRenewalYear"
+                                                            placeholder="" class="form-control" value="0" readonly>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Year Of Last Renewal<span
+                                                                class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" pKeyFilter="pnum" maxlength="4"
+                                                            formControlName="LastRenewalYear" placeholder=""
+                                                            class="form-control">
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.LastRenewalYear.errors && (submitted || SchoolProfileDetails.controls.LastRenewalYear.dirty || SchoolProfileDetails.controls.LastRenewalYear.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 4-->
+                                            <div class="row"
+                                                *ngIf="SchoolProfileDetails.controls.ManagementCategoryId.value != '1' && SchoolProfileDetails.controls.ManagementCategoryId.value != '5'">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Renewal Certificate Number / File
+                                                            Number</span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="RenewalCertificateNumber"
+                                                            placeholder="" class="form-control" readonly>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Renewal Certificate Number / File
+                                                            Number<span class="mandatory"> * </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="RenewalCertificateNumber"
+                                                            class="form-control">
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.RenewalCertificateNumber.errors && (submitted || SchoolProfileDetails.controls.RenewalCertificateNumber.dirty || SchoolProfileDetails.controls.RenewalCertificateNumber.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row 5-->
+                                            <div class="row mb-3 pb-3">
+                                                <div class="col-md-12">
+                                                    <b style="color: #000;">Year of Recognition of School</b>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="label-title">
+                                                            <span class="lblcolor">Current Primary </span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="text" formControlName="PriRecogFirstYear"
+                                                                placeholder="" class="form-control" readonly>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="label-title">
+                                                            <span class="lblcolor1">Primary <span class="mandatory"> *
+                                                                </span></span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="text" pKeyFilter="pnum" maxlength="4"
+                                                                formControlName="PriRecogFirstYear" placeholder=""
+                                                                class="form-control">
+                                                            <p-message severity="error" text="This field is required"
+                                                                *ngIf="SchoolProfileDetails.controls.PriRecogFirstYear.errors && (submitted || SchoolProfileDetails.controls.PriRecogFirstYear.dirty || SchoolProfileDetails.controls.PriRecogFirstYear.touched)">
+                                                            </p-message>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="label-title">
+                                                            <span class="lblcolor">Current Upper Primary </span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="text" formControlName="UppPriRecogFirstYear"
+                                                                placeholder="" class="form-control" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="label-title">
+                                                            <span class="lblcolor1">Upper Primary<span
+                                                                    class="mandatory"> *
+                                                                </span></span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="text" pKeyFilter="pnum" maxlength="4"
+                                                                formControlName="UppPriRecogFirstYear" placeholder=""
+                                                                class="form-control">
+                                                            <p-message severity="error" text="This field is required"
+                                                                *ngIf="SchoolProfileDetails.controls.UppPriRecogFirstYear.errors && (submitted || SchoolProfileDetails.controls.UppPriRecogFirstYear.dirty || SchoolProfileDetails.controls.UppPriRecogFirstYear.touched)">
+                                                            </p-message>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="label-title">
+                                                            <span class="lblcolor">Current Secondary</span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="text" formControlName="SceRecogFirstYear"
+                                                                placeholder="" class="form-control" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="label-title">
+                                                            <span class="lblcolor1">Secondary <span class="mandatory"> *
+                                                                </span></span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="text" pKeyFilter="pnum" maxlength="4"
+                                                                formControlName="SceRecogFirstYear" placeholder=""
+                                                                class="form-control">
+                                                            <p-message severity="error" text="This field is required"
+                                                                *ngIf="SchoolProfileDetails.controls.SceRecogFirstYear.errors && (submitted || SchoolProfileDetails.controls.SceRecogFirstYear.dirty || SchoolProfileDetails.controls.SceRecogFirstYear.touched)">
+                                                            </p-message>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="label-title">
+                                                            <span class="lblcolor">Current Higher Secondary</span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="text" formControlName="HrSecRecogFirstYear"
+                                                                placeholder="" class="form-control" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="label-title">
+                                                            <span class="lblcolor1">Higher Secondary<span
+                                                                    class="mandatory"> *
+                                                                </span></span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="text" pKeyFilter="pnum" maxlength="4"
+                                                                formControlName="HrSecRecogFirstYear" placeholder=""
+                                                                class="form-control">
+                                                            <p-message severity="error" text="This field is required"
+                                                                *ngIf="SchoolProfileDetails.controls.HrSecRecogFirstYear.errors && (submitted || SchoolProfileDetails.controls.HrSecRecogFirstYear.dirty || SchoolProfileDetails.controls.HrSecRecogFirstYear.touched)">
+                                                            </p-message>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <!-- Row 6-->
+                                            <div class="row mb-3 pb-3">
+                                                <div class="col-md-12">
+                                                    <b style="color: #000;">Year of Upgradation of the School</b>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Primary to Upper Primary </span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="PritoUppPriUpgradationYear"
+                                                            placeholder="" class="form-control" readonly>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Primary to Upper Primary<span
+                                                                class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" pKeyFilter="pnum" maxlength="4"
+                                                            formControlName="PritoUppPriUpgradationYear" placeholder=""
+                                                            class="form-control">
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.PritoUppPriUpgradationYear.errors && (submitted || SchoolProfileDetails.controls.PritoUppPriUpgradationYear.dirty || SchoolProfileDetails.controls.PritoUppPriUpgradationYear.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Upper Primary to Secondary
+                                                        </span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="UppPritoSecUpgradationYear"
+                                                            placeholder="" class="form-control" readonly>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Upper Primary to Secondary<span
+                                                                class="mandatory"> *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" pKeyFilter="pnum" maxlength="4"
+                                                            formControlName="UppPritoSecUpgradationYear" placeholder=""
+                                                            class="form-control">
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.UppPritoSecUpgradationYear.errors && (submitted || SchoolProfileDetails.controls.UppPritoSecUpgradationYear.dirty || SchoolProfileDetails.controls.UppPritoSecUpgradationYear.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Secondary to Higher Secondary
+                                                        </span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="SectoHrSecUpgradationYear"
+                                                            placeholder="" class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Secondary to Higher Secondary<span
+                                                                class="mandatory">
+                                                                *
+                                                            </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" pKeyFilter="pnum" maxlength="4"
+                                                            formControlName="SectoHrSecUpgradationYear" placeholder=""
+                                                            class="form-control">
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.SectoHrSecUpgradationYear.errors && (submitted || SchoolProfileDetails.controls.SectoHrSecUpgradationYear.dirty || SchoolProfileDetails.controls.SectoHrSecUpgradationYear.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor">Current Whether School has special
+                                                            educator ?
+                                                        </span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="SpecialEducatorStatus_edit"
+                                                            placeholder="" class="form-control" readonly>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="label-title">
+                                                        <span class="lblcolor1">Whether School has special educator
+                                                            ?<span class="mandatory"> * </span></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <p-dropdown [options]="SchoolSpecialEducatorList"
+                                                            formControlName="SpecialEducatorStatus"
+                                                            placeholder="Whether School has special educator"
+                                                            styleClass="dropdwnvalues"></p-dropdown>
+                                                        <p-message severity="error" text="This field is required"
+                                                            *ngIf="SchoolProfileDetails.controls.SpecialEducatorStatus.errors && (submitted || SchoolProfileDetails.controls.SpecialEducatorStatus.dirty || SchoolProfileDetails.controls.SpecialEducatorStatus.touched)">
+                                                        </p-message>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </p-accordionTab>
+
+                    </p-accordion>
+
+
+                </div>
+            </form>
+
+
+            <p-footer>
+                <div class="mt-3 p-1 pb-3 text-center">
+                    <button pButton type="button" class="ui-button-success ui-button-rounded mr-2" (click)="onSave()"
+                        label="Submit"></button>
+                </div>
+            </p-footer>
+
+
+        </div>
+    </div>
+    <!-- Stage 2 -- End -->
+
+</div>

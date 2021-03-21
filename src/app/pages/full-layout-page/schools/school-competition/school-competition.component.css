@@ -1,0 +1,100 @@
+.image-upload>input {
+    display: none;
+  }
+
+  .fileInput {
+    /* width: 0.1px;
+    height: 0.1px; */
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+.fileInput   label {
+    color: #717171;
+    background-color: white;
+    display: inline-block;
+    cursor: pointer;
+    /* padding: .5em 1em; */
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.color
+{
+    color:white;
+    padding:.25em!important;
+    cursor:pointer;
+    border-radius: 3px!important;
+   
+ 
+}
+.image-upload
+{
+    margin-right: 5px;
+    margin-top:5px!important
+}
+.icon
+{
+    line-height: 1.5!important;
+    background-color: #007ad9;
+    padding: 2px!important;
+    padding-left:8px!important;
+    padding-right:8px!important;
+    padding-bottom:3px!important;
+}
+
+.custom
+{
+    margin-top: 0px!important;
+  
+}
+.cursor
+{
+    cursor:pointer!important
+}
+
+.flex-gap-top
+{
+    margin-top:0px
+}
+
+.custom-file-upload {
+    color: #717171;
+    background-color: white;
+    display: inline-block;
+    cursor: pointer;
+    /* padding: .5em 1em; */
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+label.filebutton {
+    margin-top:7px!important;
+    margin-right:5px!important;
+    overflow:hidden;
+    position:relative;
+    background-color:#ccc;
+}
+
+label span input {
+    z-index: 999;
+    line-height: 0;
+    font-size: 50px;
+    position: absolute;
+    top: -2px;
+    left: -700px;
+    opacity: 0;
+    filter: alpha(opacity = 0);
+    -ms-filter: "alpha(opacity=0)";
+    cursor: pointer;
+    _cursor: hand;
+    margin: 0;
+    padding:0;
+}
+
+.flex-gap-top
+{
+    margin-top: 0px!important;
+}
+

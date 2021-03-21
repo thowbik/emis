@@ -1,0 +1,96 @@
+<div class="pr-2 mr-3">
+  <p-card class="mx-2">
+    <p><b>Note : </b> Reports Updated once a day at 7 PM</p>
+  </p-card>
+  <p-card class="mx-2">
+    <p class="label_text">RTE Reports<span class="manditory"> *</span></p>
+  </p-card>
+</div>
+
+<div class="main-body-content">
+  <div class="row m-2">
+    <div class="col-md-12">
+      <p-table [value]="Applicationdata" [autoLayout]="true" [resizableColumns]="true"  scrollHeight="500px" scrollWidth="100px">
+        <ng-template pTemplate="header">
+          <tr class="text-center">
+            <th colspan="4"></th>
+            <th colspan="4">Applications Recived</th>
+            <th colspan="4">Approved Applications</th>
+            <th colspan="4">Approved Applications</th>
+          </tr>
+          <tr class="text-center">
+            <th class="text-center " >UDISE Code</th>
+            <th class="text-center ">School Name</th>
+            <th class="text-center " >Management</th>
+            <th class="text-center " >Intake Capacity</th>
+            <th>WS</th>
+            <th>DG</th>
+            <th>DGS</th>
+            <th>Total</th>
+            <th>WS</th>
+            <th>DG</th>
+            <th>DGS</th>
+            <th>Total</th>
+            <th>WS</th>
+            <th>DG</th>
+            <th>DGS</th>
+            <th>Total</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-socialCategory >
+          <tr class="text-left" *ngIf="!noDataFound">
+            <td style="width: 10em">{{socialCategory.items}}</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <tr class="text-center" *ngIf="noDataFound">
+            <td colspan="25">No Data Found</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+
+<div class="main-body-content">
+  <div class="row m-2">
+    <div class="col-md-12">
+      <p-table [value]="Applicationdata" [autoLayout]="true" [resizableColumns]="true"  scrollHeight="500px" scrollWidth="100px">
+        <ng-template pTemplate="header">
+          <tr class="text-center">
+            <th colspan="2"></th>
+            <th colspan="4">Applications Recived</th>
+            <th colspan="4">Approved Applications</th>
+            <th colspan="4">Approved Applications</th>
+          </tr>
+          <tr class="text-center">
+            <th class="text-center " >District</th>
+            <th class="text-center " >Intake Capacity</th>
+            <th>WS</th>
+            <th>DG</th>
+            <th>DGS</th>
+            <th>Total</th>
+            <th>WS</th>
+            <th>DG</th>
+            <th>DGS</th>
+            <th>Total</th>
+            <th>WS</th>
+            <th>DG</th>
+            <th>DGS</th>
+            <th>Total</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-socialCategory >
+          <tr class="text-left" *ngIf="!noDataFound">
+            <td style="width: 10em">{{socialCategory.items}}</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <tr class="text-center" *ngIf="noDataFound">
+            <td colspan="25">No Data Found</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

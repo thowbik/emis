@@ -1,0 +1,9 @@
+.colour{
+       color: red;
+}
+.field{
+       padding-left: 3%;
+}
+.body .ui-dropdown .ui-dropdown-trigger{
+       width : 1.8em;
+}

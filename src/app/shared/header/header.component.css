@@ -1,0 +1,50 @@
+.showDropdown {
+    display: block !important;
+}
+.hideDropdown {
+    display: none !important;
+}
+
+.logout {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    place-content: center;
+    cursor: pointer;
+}
+.border-none {
+    border:none !important;
+}
+.exam-img {
+    width: 50px;
+    height: 50px;
+}
+.padding-0 {
+    padding: 0px !important;
+}
+
+
+/* .logout-popup {
+    background-color: red !important;
+    height: 500px !important;
+} */
+
+.header-back-color {
+    background-color: #ffdb3d;
+    display: fixed;
+    position: fixed;
+    width:100%;
+    z-index: 10000;
+}
+@media (min-width: 320px) and (max-width: 528px)  {
+    .center {
+        margin-right: auto;
+        margin-left: auto;
+        display: block;
+      }
+}
+.drop-c-b {
+    color: #333 !important;
+    font-weight: 500;
+}
+

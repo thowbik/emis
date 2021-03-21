@@ -1,0 +1,702 @@
+<div class="main-body-content p-3">
+    <div class="outer-layout" style="padding-top:5px;">
+        <div class="breadcrumbs c-black">
+            <h6 class="url">
+                <span class="flex-gap-right font-weight-bold">Students</span> 
+                <span class="flex-gap-right font-weight-bold" (click)="GoTcDetails()">
+                    <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+                    Students TC Details
+                </span>
+                <span class="flex-gap-right font-weight-bold" *ngIf="selectedCategory == 0 && PageStage == 2"><i
+                    class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+                    Student Details
+                </span>
+                <span class="flex-gap-right font-weight-bold" *ngIf="selectedCategory != 0 && PageStage_2_1 == 1"><i
+                    class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+                    Verify TC Details
+                </span>
+
+                <!-- <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+                <span class="flex-gap-right font-weight-bold">Students TC Details</span>
+
+                <span class="flex-gap-right font-weight-bold" (click)="goBackBlock()" *ngIf="crnt_block">
+                    <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+                    {{current_block}}
+                </span> -->
+            </h6>
+        </div>
+    </div>
+    <p-card>
+        <div *ngIf="PageStage == 1">
+            <p-selectButton [options]="category" [(ngModel)]="selectedCategory" (onChange)="onSingleButtonChange()"></p-selectButton>
+            <div class="">
+            <p-table #dt [columns]="selectedColumns" class="prime-table" [value]="studentList"   [paginator]="true" [resizableColumns]="true" [rows]="10">
+                <ng-template pTemplate="caption">
+                    <div class="row">
+                        <div style="text-align:left" class="col-md-6">
+                        <!-- <p-multiSelect [options]="dataHeader" [(ngModel)]="selectedColumns" optionLabel="header"
+                             selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" defaultLabel="Choose Columns"></p-multiSelect> -->
+                        </div>
+                        <div class="col-md-6" style="text-align: right">
+                                <!-- <button type="button" pButton icon="pi pi-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="margin-right: 0.5em;"></button> -->
+                                <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel()"></i>
+                                <!-- <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button> */ -->
+                                <!-- <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF" (click)="exportPdf()" class="ui-button-warning"></button> -->
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="caption2">
+                    <div style="text-align: right">
+                        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                        <input type="text" pInputText size="50" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr class="table-header">
+                        <th class="sno-header-layout">#</th>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th *ngFor="let col of columns" [ngSwitch]="col.field" >
+                                <!-- <input  pInputText type="text" class="textbox-filter" (input)="dt.filter($event.target.value, col.field, 'contains')"> -->
+                                <input  *ngSwitchDefault pInputText type="text" class="textbox-filter" placeholder=" Search" (input)="dt.filter($event.target.value, col.field, 'contains')">
+                                <input  *ngSwitchCase="'class_studying'" pInputText type="text" class="textbox-filter" placeholder=" Search " (input)="dt.filter($event.target.value, col.field, 'equals')">
+                                <!-- <p-dropdown  [options]="classListArr" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown> -->
+                        </th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                    <tr>
+                        <td class="sno-header-layout">{{i+1}}</td>
+                        <td *ngFor="let col of columns"  class="ui-resizable-column" [ngClass]="{red_clr : cond_tr==true}">
+                            {{rowData[col.field]}}
+                        </td>
+                        <!-- <td *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-resizable-column">
+                            <span *ngSwitchCase="'unique_id_no'"><a (click)="editStudent(rowData)">{{rowData[col.field]}}</a></span>
+                            <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+                        </td> -->
+                        <td style="text-align:center;">
+                            <div style="display: flex;align-items: center;place-content: center;">
+
+                            
+                            <div>
+                                <button *ngIf ="selectedCategory == 0" pButton type="button" icon="pi pi-pencil" class="ui-button-info" (click)="onRowEdit(rowData)" style="margin-right: .5em"></button>
+                                <button *ngIf ="selectedCategory != 0" pButton type="button" icon="pi pi-pencil" class="ui-button-info" (click)="PastonRowEdit(rowData)" style="margin-right: .5em"></button>
+                            </div>
+                            
+                            <button pButton type="button" icon="pi pi-arrow-circle-right" class="ui-button-success"  (click)="onRowTransfer(rowData)" *ngIf="rowData['student_id_in_tc_dtl']" style="margin-right: .5em"></button>
+                            <div *ngIf="rowData.student_current_class_id == '10' || rowData.student_current_class_id == '12'">
+                                <button pButton type="button" icon="pi pi-file" class="ui-button-info" (click)="onRowPDF(rowData)" *ngIf="rowData['student_id_in_tc_dtl']"></button>
+                            </div>
+                            <div *ngIf="rowData.student_current_class_id != '10' && rowData.student_current_class_id != '12'">
+                                <button pButton type="button" icon="pi pi-file" class="ui-button-info" (click)="onRowPDF(rowData)" *ngIf="rowData['student_id_in_tc_dtl'] && rowData['transfer_flag'] == '1'"></button>
+                            </div>
+                        </div>
+                            <!-- icon="pi pi-arrow-circle-right" icon="pi pi-arrow-right" icon="pi pi-caret-right" icon="pi pi-angle-right" icon="pi pi-angle-double-right" icon="pi pi-chevron-circle-right" -->
+                            <!-- icon="pi pi-arrow-circle-right" icon="pi pi-arrow-right" icon="pi pi-caret-right" icon="pi pi-angle-right" icon="pi pi-angle-double-right" icon="pi pi-chevron-circle-right" -->
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td [attr.colspan]="(columns.length)+2" style="text-align: center;">
+                            <strong>No records found</strong>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            </div>
+        </div>
+        <form id="edit_form" [formGroup]="studentTCdtlsForm">
+            <div *ngIf = "PageStage == 2">
+                <!-- [style]="{width:'85%'}" 
+                    [minY]="70" 
+                    [maximizable]="true" 
+                    [baseZIndex]="10000"> -->
+                <!-- <p-dialog [header]="editDialogTitle" 
+                    [(visible)]="displayEditDialog" 
+                    [modal]="true" 
+                    [responsive]="true" 
+                    [draggable]="false"  
+                                [blockScroll]="true" 
+                                [maximizable]="false" 
+                                [contentStyle]="{'max-width':'1000px','max-height': '450px','overflow-y': 'auto'}"> -->
+                <!-- <div *ngIf="RowId != undefined">
+                                    <app-student-edit-details  [initialTemplate]="save" [(_display)]="RowId">
+                                    </app-student-edit-details>
+                                    <ng-template #save></ng-template>
+                                </div> -->
+                    <!-- (ngSubmit)="onSubmit(studentTCdtlsForm.value)" -->
+                    <!-- <div> -->
+                    <h3>Student Personal Information</h3><hr/>
+                    <!-- <p-focus context="edit_form"/></p-focus> -->
+                    <div class="ui-g ui-fluid">
+                        <div class="ui-g-12">
+                            <div class="ui-g-3">
+                                <!-- <input type="hidden"  formControlName="image_data"/>
+                                <input type="hidden"  formControlName="image_name"/>
+                                <img [src]="https://getstamped.co.uk/wp-content/uploads/WebsiteAssets/Placeholder.jpg" width="200" height="200" alt="StudentProfilePic" accept="image/*">-->
+                                <label class="hoverable" for="fileInput">
+                                            <img [src]="profileurl" width="200" height="200" alt="StudentProfilePic" accept="image/*">
+                                            <div class="hover-text"></div>
+                                            <div class="background"></div>
+                                        </label>
+                                <input id="fileInput" type='file' (change)="onSelectFile($event)">
+                                <i class="textalignment">Clicks Photo to Updated Image <br/>  Width-150px, Heigth-175px <br> Size-25kb</i>
+                            </div>
+                            <div class="ui-g-9">
+                                <div class="ui-g-12">
+                                    <div class="ui-g-6">
+                                        <label>Name of the Student in English *</label>
+                                        <input type="text" pInputText class="form-control" formControlName="name" oninput="this.value = this.value.toUpperCase()" aria-describedby="emailHelp" placeholder="Enter the name">
+                                        <p-message severity="error" class="flex-gap-top" text="Student Name in English is required" *ngIf="studentTCdtlsForm.controls.name.errors && (submitted || studentTCdtlsForm.controls.name.dirty || studentTCdtlsForm.controls.name.touched)"
+                                            class="validation-error">
+                                        </p-message>
+                                    </div>
+                                    <div class="ui-g-6">
+                                        <label for="exampleInputPassword1">Name of the Student in Tamil *</label>
+                                        <input type="text" pInputText class="form-control tamil" formControlName="name_tamil" placeholder="Enter the name" (keyup)="onKeySearch($event)">
+                                        <p-message severity="error" text="Student Name in Tamil is required" *ngIf="studentTCdtlsForm.controls.name_tamil.errors && (submitted || studentTCdtlsForm.controls.name_tamil.dirty || studentTCdtlsForm.controls.name_tamil.touched)">
+                                        </p-message>
+                                    </div>
+                                    <div class="ui-g-1">
+                                        <input type="hidden" class="form-control" formControlName="id">
+                                        <input type="hidden" class="form-control" formControlName="unique_id_no">
+                                    </div>
+                                </div>
+                                <div class="ui-g-12">
+                                    <div class="ui-g-6">
+                                        <label>Aadhaar Number</label>
+                                        <input type="text" pInputText pKeyFilter="pnum" class="form-control" formControlName="aadhaar_uid_number" onKeyPress="if(this.value.length==12) return false;" (change)="stucheckaadhar($event.target.value,studentTCdtlsForm.controls.unique_id_no.value)"
+                                            placeholder="Enter Aadhaar Number">
+                                        <!-- <p-message severity="error" text="Aadhaar Number is required"
+                                                    *ngIf="studentTCdtlsForm.controls.aadhaar_uid_number.errors && (submitted || studentTCdtlsForm.controls.aadhaar_uid_number.dirty || studentTCdtlsForm.controls.aadhaar_uid_number.touched)">
+                                                </p-message> -->
+                                        <p-message severity="error" text="Invalid Aadhaar Number" *ngIf="inValidAadhar">
+                                        </p-message>
+                                    </div>
+                                    <div class="ui-g-6">
+                                        <label for="exampleInputPassword1">Date of Birth - பிறந்த தேதி *</label>
+                                        <input class="form-control" type="date" formControlName="dob" dateformat="dd/MM/yyyy" min="2000-01-01" max="{{resultYear}}">
+
+                                        <p-message severity="error" text=" Date of Birth is required" *ngIf="studentTCdtlsForm.controls.dob.errors && (submitted || studentTCdtlsForm.controls.dob.dirty || studentTCdtlsForm.controls.dob.touched)">
+                                        </p-message>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui-g-12">
+                            <div class="ui-g-3">
+                                <label for="exampleInputPassword1">Gender *</label>
+                                <p-dropdown [options]="gender" placeholder="Select Gender" class="flex-dropdown" formControlName="gender"></p-dropdown>
+                                <p-message severity="error" text="Gender is required" *ngIf="studentTCdtlsForm.controls.gender.errors && (submitted || studentTCdtlsForm.controls.gender.dirty || studentTCdtlsForm.controls.gender.touched)">
+                                </p-message>
+                            </div>
+                            <div class="ui-g-3">
+                                <label>Blood Group</label>
+                                <p-dropdown [options]="bloodgrouparr" placeholder="Select Blood Group" class="flex-dropdown" formControlName="bloodgroup"></p-dropdown>
+                                <!-- <p-message severity="error" text="Blood Group is required"
+                                            *ngIf="studentTCdtlsForm.controls.bloodgroup.errors && (submitted || studentTCdtlsForm.controls.bloodgroup.dirty || studentTCdtlsForm.controls.bloodgroup.touched)">
+                                        </p-message> -->
+                            </div>
+                            <div class="ui-g-6">
+                                <label>Mother tongue<span class="required">*</span></label>
+                                <p-dropdown [options]="launguages" placeholder="Choose Mother Tongue" class="flex-dropdown" formControlName="mothertounge_id"></p-dropdown>
+                                <p-message severity="error" text="Mother Tongue is required" *ngIf="studentTCdtlsForm.controls.mothertounge_id.errors && (submitted || studentTCdtlsForm.controls.mothertounge_id.dirty || studentTCdtlsForm.controls.mothertounge_id.touched)">
+                                </p-message>
+                            </div>
+                        </div>
+                        <div class="ui-g-12">
+                            <div class="ui-g-6">
+                                <label>Disability Group Name (இயலாமை குழுவின் பெயர்)
+                                            <!-- <span class="required">*</span> -->
+                                        </label>
+                                <p-dropdown [options]="disabilities" placeholder="Choose Disability Group" class="flex-dropdown" formControlName="differently_abled"></p-dropdown>
+                                <!-- <p-message severity="error" text="Disability Group Name is required"
+                                            *ngIf="studentTCdtlsForm.controls.differently_abled.errors && (submitted || studentTCdtlsForm.controls.differently_abled.dirty || studentTCdtlsForm.controls.differently_abled.touched)">
+                                        </p-message> -->
+                            </div>
+                            <div class="ui-g-6">
+                                <label>Religion<span class="required">*</span></label>
+
+                                <p-dropdown [options]="religion" placeholder="Select Religion" (onChange)="onReligionChange($event.value)" class="flex-dropdown" formControlName="religion_id"></p-dropdown>
+
+                                <p-message severity="error" text="Religion is required" *ngIf="studentTCdtlsForm.controls.religion_id.errors && (submitted || studentTCdtlsForm.controls.religion_id.dirty || studentTCdtlsForm.controls.religion_id.touched)">
+                                </p-message>
+                            </div>
+                        </div>
+                        <div class="ui-g-12">
+                            <div class="ui-g-6">
+                                <label>Community<span class="required">*</span></label>
+                                <p-dropdown [options]="community" placeholder="Select Community" class="flex-dropdown" (onChange)="onCommunityChange($event.value)" formControlName="community_id">
+                                </p-dropdown>
+                                <p-message severity="error" text="Community is required" *ngIf="studentTCdtlsForm.controls.community_id.errors && (submitted || studentTCdtlsForm.controls.community_id.dirty || studentTCdtlsForm.controls.community_id.touched)">
+                                </p-message>
+                            </div>
+                            <div class="ui-g-6">
+                                <label>Caste<span class="required">*</span></label>
+                                <p-dropdown [options]="casteList" placeholder="Select Caste" class="flex-dropdown" formControlName="subcaste_id"></p-dropdown>
+                                <p-message severity="error" text="Caste is required" *ngIf="studentTCdtlsForm.controls.subcaste_id.errors && (submitted || studentTCdtlsForm.controls.subcaste_id.dirty || studentTCdtlsForm.controls.subcaste_id.touched)">
+                                </p-message>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- </div> -->
+                    <div class="">
+                        <hr/>
+                        <h3>Family Details</h3>
+                        <hr/>
+                        <div class="ui-g ui-fluid">
+                            <div class="ui-g-12">
+                                <div class="ui-g-6">
+                                    <label>Father Name in English</label>
+                                    <input type="text" pInputText class="form-control" formControlName="father_name" placeholder="Enter Father Name">
+                                    <!-- <p-message severity="error" text="Father Name is required"
+                                                *ngIf="studentTCdtlsForm.controls.father_name.errors && (submitted || studentTCdtlsForm.controls.father_name.dirty || studentTCdtlsForm.controls.father_name.touched)">
+                                            </p-message> -->
+                                </div>
+                                <div class="ui-g-6">
+                                    <label>Father Name in Tamil</label>
+                                    <input type="text" pInputText class="form-control tamil" formControlName="father_name_tamil" placeholder="Enter Father Name in Tamil" (keyup)="onKeySearchfather($event)">
+                                </div>
+                            </div>
+                            <div class="ui-g-12">
+                                <div class="ui-g-6">
+                                    <label>Father Education Level</label>
+                                    <!-- <input type="text" pInputText class="form-control" placeholder="Enter Father Education Level"
+                                                formControlName="father_qualify"> -->
+                                    <p-dropdown [options]="academic" placeholder="Select Father Education Level" class="flex-dropdown" formControlName="father_qualify"></p-dropdown>
+                                    <!-- <p-message severity="error" text="Father Education Level is required"
+                                                *ngIf="studentTCdtlsForm.controls.father_qualify.errors && (submitted || studentTCdtlsForm.controls.father_qualify.dirty || studentTCdtlsForm.controls.father_qualify.touched)">
+                                            </p-message> -->
+                                </div>
+                                <div class="ui-g-6">
+                                    <label>Father's Occupation</label>
+                                    <p-dropdown [options]="occupation" placeholder="Select Occupation" class="flex-dropdown" formControlName="father_occupation"></p-dropdown>
+                                    <!-- <p-message severity="error" text="Father's Occupation is required"
+                                                *ngIf="studentTCdtlsForm.controls.father_occupation.errors && (submitted || studentTCdtlsForm.controls.father_occupation.dirty || studentTCdtlsForm.controls.father_occupation.touched)">
+                                            </p-message> -->
+                                </div>
+                            </div>
+                            <div class="ui-g-12">
+                                <div class="ui-g-6">
+                                    <label>Mother Name in English</label>
+                                    <input type="text" pInputText class="form-control" formControlName="mother_name" placeholder="Enter Mother Name">
+                                    <!-- <p-message severity="error" text="Mother Name is required"
+                                                *ngIf="studentTCdtlsForm.controls.mother_name.errors && (submitted || studentTCdtlsForm.controls.mother_name.dirty || studentTCdtlsForm.controls.mother_name.touched)">
+                                            </p-message> -->
+                                </div>
+                                <div class="ui-g-6">
+                                    <label>Mother Name in Tamil</label>
+                                    <input type="text" pInputText class="form-control tamil" formControlName="mother_name_tamil" placeholder="Enter Mother Name in Tamil" (keyup)="onKeySearchmother($event)">
+                                </div>
+                            </div>
+                            <div class="ui-g-12">
+                                <div class="ui-g-6">
+                                    <label>Mother Education Level</label>
+                                    <!-- <input type="text" pInputText class="form-control" placeholder="Enter Mother Education Level"
+                                                formControlName="mother_qualify"> -->
+                                    <p-dropdown [options]="academic" placeholder="Select Mother Education Level" class="flex-dropdown" formControlName="mother_qualify"></p-dropdown>
+                                    <!-- <p-message severity="error" text="Mother Education Level is required"
+                                                *ngIf="studentTCdtlsForm.controls.mother_qualify.errors && (submitted || studentTCdtlsForm.controls.mother_qualify.dirty || studentTCdtlsForm.controls.mother_qualify.touched)">
+                                            </p-message> -->
+                                </div>
+                                <div class="ui-g-6">
+                                    <label>Mother's Occupation</label>
+                                    <p-dropdown [options]="occupation" placeholder="Select Occupation" class="flex-dropdown" formControlName="mother_occupation"></p-dropdown>
+                                    <!-- <p-message severity="error" text="Mother's Occupation is required"
+                                                *ngIf="studentTCdtlsForm.controls.mother_occupation.errors && (submitted || studentTCdtlsForm.controls.mother_occupation.dirty || studentTCdtlsForm.controls.mother_occupation.touched)">
+                                            </p-message> -->
+                                </div>
+                            </div>
+                            <div class="ui-g-12">
+                                <div class="ui-g-6">
+                                    <label>Guardian Name in English</label>
+                                    <input type="text" pInputText class="form-control" placeholder="Enter Guardian Name" formControlName="guardian_name">
+                                    <!-- <p-message severity="error" text="Guardian Name is required"
+                                                *ngIf="studentTCdtlsForm.controls.guardian_name.errors && (submitted || studentTCdtlsForm.controls.guardian_name.dirty || studentTCdtlsForm.controls.guardian_name.touched)">
+                                            </p-message> -->
+                                </div>
+                                <div class="ui-g-6">
+                                    <label>Guardian Name in Tamil</label>
+                                    <input type="text" pInputText class="form-control tamil" placeholder="Enter Guardian Name in Tamil" formControlName="guardian_name_tamil" (keyup)="onKeySearchgurdian($event)">
+                                </div>
+                            </div>
+                            <div class="ui-g-12">
+                                <div class="ui-g-6">
+                                    <label>Guardian Education Level</label>
+                                    <!-- <input type="text" pInputText class="form-control" placeholder="Enter Guardian Education Level"
+                                                formControlName="guardian_qualify"> -->
+                                    <p-dropdown [options]="academic" placeholder="Select Guardian Education Level" class="flex-dropdown" formControlName="guardian_qualify"></p-dropdown>
+                                    <!-- <p-message severity="error" text="Guardian Education Level is required"
+                                                *ngIf="studentTCdtlsForm.controls.guardian_qualify.errors && (submitted || studentTCdtlsForm.controls.guardian_qualify.dirty || studentTCdtlsForm.controls.guardian_qualify.touched)">
+                                            </p-message> -->
+                                </div>
+                                <div class="ui-g-6">
+                                    <label>Parents Annual Income</label>
+                                    <p-dropdown [options]="incomes" placeholder="Choose Parents Annual income" class="flex-dropdown" formControlName="parent_income"></p-dropdown>
+                                    <!-- <p-message severity="error" text="Parents Annual Income is required"
+                                                *ngIf="studentTCdtlsForm.controls.parent_income.errors && (submitted || studentTCdtlsForm.controls.parent_income.dirty || studentTCdtlsForm.controls.parent_income.touched)">
+                                            </p-message> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <hr><h3>Communication Details</h3><hr>
+                        <div class="ui-g ui-fluid">
+                            <div class="ui-g-12">
+                                <div class="ui-g-6">
+                                    <label>Mobile Number</label>
+                                    <!-- <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter Mobile number"> -->
+                                    <input type="text" pKeyFilter="pnum" class="form-control" id="phone_number" formControlName="phone_number" placeholder="Enter Mobile number" maxlength="10">
+                                    <!-- <p-message severity="error" text="Mobile Number is required"
+                                                *ngIf="studentTCdtlsForm.controls.phone_number.errors && (submitted || studentTCdtlsForm.controls.phone_number.dirty || studentTCdtlsForm.controls.phone_number.touched)">
+                                            </p-message> -->
+                                    <p-message severity="error" text="Mobile Number is required" *ngIf="studentTCdtlsForm.controls.phone_number.errors && submitted">
+                                    </p-message>
+                                    <p-message severity="error" text="It is not a valid mobile number." *ngIf="studentTCdtlsForm.get('phone_number').hasError('pattern')">
+                                    </p-message>
+                                </div>
+                                <div class="ui-g-6">
+                                    <label>Email ID</label>
+                                    <!-- <input type="email" class="form-control" placeholder="Enter Email id"> -->
+                                    <input type="text" class="form-control" formControlName="email" placeholder="Enter Email id" maxlength="60">
+                                    <!-- <p-message severity="error" text="Email ID is required"
+                                                *ngIf="studentTCdtlsForm.controls.email.errors && (submitted || studentTCdtlsForm.controls.email.dirty || studentTCdtlsForm.controls.email.touched)">
+                                            </p-message> -->
+                                </div>
+                            </div>
+                            <div class="ui-g-12">
+                                <div class="ui-g-6">
+                                    <label>Door no./Building Name<span class="required">*</span></label>
+                                    <input type="text" pInputText class="form-control" formControlName="house_address" placeholder="Enter Door no. / Building Name">
+                                    <p-message severity="error" text="Building Name is required" *ngIf="studentTCdtlsForm.controls.house_address.errors && (submitted || studentTCdtlsForm.controls.house_address.dirty || studentTCdtlsForm.controls.house_address.touched)">
+                                    </p-message>
+                                </div>
+                                <div class="ui-g-6">
+                                    <label>Street Name / Area Name<span class="required">*</span></label>
+                                    <input type="text" pInputText class="form-control" formControlName="street_name" placeholder="Enter Street Name / Area name">
+                                    <p-message severity="error" text="Street Name is required" *ngIf="studentTCdtlsForm.controls.street_name.errors && (submitted || studentTCdtlsForm.controls.street_name.dirty || studentTCdtlsForm.controls.street_name.touched)">
+                                    </p-message>
+                                </div>
+                            </div>
+                            <div class="ui-g-12">
+                                <div class="ui-g-6">
+                                    <label>City name / Village name<span class="required">*</span></label>
+                                    <input type="text" pInputText class="form-control" formControlName="area_village" placeholder="Enter City name / Village name">
+                                    <p-message severity="error" text="City name  is required" *ngIf="studentTCdtlsForm.controls.area_village.errors && (submitted || studentTCdtlsForm.controls.area_village.dirty || studentTCdtlsForm.controls.area_village.touched)">
+                                    </p-message>
+                                </div>
+                                <div class="ui-g-4">
+                                    <label>District<span class="required">*</span></label>
+                                    <p-dropdown [options]="schooldist" placeholder="Choose District" class="flex-dropdown" formControlName="district_id"></p-dropdown>
+                                    <!-- <select class="form-control kt-selectpicker"
+                                                                                                    class="form-control"
+                                                                                                    formControlName="district_id">
+                                                                                                    <option value="">Choose District</option>
+                                                                                                    <option *ngFor="let item of schooldist"
+                                                                                                        value='{{item.id}}'>
+                                                                                                        {{item.district_name}}</option>
+                                                                                                </select> -->
+                                    <p-message severity="error" text="District is required" *ngIf="studentTCdtlsForm.controls.district_id.errors && (submitted || studentTCdtlsForm.controls.district_id.dirty || studentTCdtlsForm.controls.district_id.touched)">
+                                    </p-message>
+                                </div>
+                                <div class="ui-g-2">
+                                    <label>Pincode<span class="required">*</span></label>
+                                    <input type="text" pInputText class="form-control" formControlName="pin_code" pKeyFilter="num" maxlength="6" placeholder="Enter Pincode">
+                                    <p-message severity="error" text="Pincode is required" *ngIf="studentTCdtlsForm.controls.pin_code.errors && (submitted || studentTCdtlsForm.controls.pin_code.dirty || studentTCdtlsForm.controls.pin_code.touched)">
+                                    </p-message>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <hr><h3>Academic Information</h3><hr>
+                        <div class="ui-g ui-fluid">
+                            <div class="ui-g-12">
+                                <div class="ui-g-4">
+                                    <label>Class <span class="required">*</span></label>
+                                    <p-dropdown [options]="classListArr" placeholder="Choose Class" class="flex-dropdown" formControlName="class_studying_id" (onChange)="getSectionForRevalentClass($event.value,true);"></p-dropdown>
+                                </div>
+                                <div class="ui-g-2">
+                                    <label>Section <span class="required">*</span></label>
+                                    <p-dropdown [options]="sectionListArr" placeholder="Choose Section" class="flex-dropdown" formControlName="class_section" (onChange)="getGroupForRevalentClass()"></p-dropdown>
+                                    <p-message severity="error" class="flex-gap-top" text="Section is required" *ngIf="studentTCdtlsForm.controls.class_section.errors && (submitted || studentTCdtlsForm.controls.class_section.dirty || studentTCdtlsForm.controls.class_section.touched)"
+                                        class="validation-error">
+                                    </p-message>
+                                </div>
+                                <div class="ui-g-6">
+                                    <label>Date of Joining - சேர்க்கை தேதி <span class="required">*</span></label>
+                                    <input class="form-control" type="date" formControlName="doj" dateformat="dd-MM-yyyy" [max]="enddate" [min]="startdate">
+                                    <p-message severity="error" text=" Date of Joining is required" *ngIf="studentTCdtlsForm.controls.doj.errors && (submitted || studentTCdtlsForm.controls.doj.dirty || studentTCdtlsForm.controls.doj.touched)">
+                                    </p-message>
+                                </div>
+                            </div>
+                            <div class="ui-g-12">
+                                <div class="ui-g-6">
+                                    <label>Medium of Instruction</label>
+                                    <p-dropdown [options]="mediumofinstruction" class="flex-dropdown" disabled="true" formControlName="education_medium_id"></p-dropdown>
+                                </div>
+                                <div class="ui-g-6">
+                                    <label>Admission Number <span class="required">*</span></label>
+                                    <input type="number" class="form-control" formControlName="school_admission_no">
+                                </div>
+                            </div>
+                            <div class="ui-g-12">
+                                <div class="col-lg-6" *ngIf="groupshow">
+                                    <label>Group Code </label>
+                                    <p-dropdown [options]="groupListArr" class="flex-dropdown" disabled="true" formControlName="group_code_id"></p-dropdown>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!-- <div class="ui-g-12">
+                            <button type="Submit" pButton icon="fa fa-check" label="Save" style="position: absolute; right: 12px;"></button>
+                        </div>
+                        <div class="ui-g-12"> <br> </div> -->
+            <!-- </form> -->
+            </div>
+            <div *ngIf = "PageStage_2_1 == 1">
+                <div *ngIf="selectedCategory != 0 && PageStage_2_1 == 1"  class="font-weight-bold card-header" style="background-color: #2d7464; color:white">
+                    {{student_name}} - {{student_unique_id}}
+                </div>
+                <hr>
+                   <h3>Student Tc Details</h3>
+                    <!-- <i>Note : <ol>
+                        <li>Verify All Details in Student Profile before Generating TC</li>
+                        <li>Scan QR Code And Verify All Details Before Printing TC</li>
+                    </ol></i> -->
+                <hr>
+                <div class="ui-g-12">
+                    <div class="ui-g-6">
+                        <label>Personal Mark of identification 1{{RowId}} <span class="mandatory">*</span></label>
+                        <input type="text"  pInputText class="form-control" formControlName="student_idenitiy1"
+                            placeholder="Enter Personal Mark of identification 1">
+                        <p-message severity="error" class="flex-gap-top"
+                            text="Please fill out this field."
+                            *ngIf="studentTCdtlsForm.controls.student_idenitiy1.errors && (submitted || studentTCdtlsForm.controls.student_idenitiy1.dirty || studentTCdtlsForm.controls.student_idenitiy1.touched)"
+                            class="validation-error">
+                        </p-message>
+                    </div>
+                    <div class="ui-g-6">
+                        <label>Personal Mark of identification 2 </label>
+                        <input type="text" pInputText class="form-control" formControlName="student_idenitiy2"
+                            placeholder="Enter Personal Mark of identification 2">
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-6">
+                        <label>Details of Scholarship or Educational Concession Received <span class="mandatory">*</span></label>
+                        <input type="text" pInputText class="form-control"
+                            formControlName="student_scholarship"
+                            placeholder="Enter Details of Scholarship or Educational Concession Received">
+                            <p-message severity="error" text="Please fill out this field."
+                            *ngIf="studentTCdtlsForm.controls.student_scholarship.errors && (submitted || studentTCdtlsForm.controls.student_scholarship.dirty || studentTCdtlsForm.controls.student_scholarship.touched)">
+                        </p-message>
+                    </div>
+                    <div class="ui-g-6">
+                        <label>Date of Medical inspection during the last academic year <span class="mandatory">*</span></label>
+                        <input class="form-control" type="date" formControlName="student_medical_date" [max]="enddate"
+                            dateformat="dd/MM/yyyy">
+                        <p-message severity="error" text="Please fill out this field."
+                            *ngIf="studentTCdtlsForm.controls.student_medical_date.errors && (submitted || studentTCdtlsForm.controls.student_medical_date.dirty || studentTCdtlsForm.controls.student_medical_date.touched)">
+                        </p-message>
+                    </div>
+                </div>                        
+                <div class="ui-g-12">
+                    <div class="ui-g-6">
+                        <label>Student's conduct and character <span class="mandatory">*</span></label>
+                        <input type="text"  pInputText class="form-control" formControlName="student_conduct"
+                                    placeholder="Enter Student's conduct and character">
+                        <p-message severity="error" text="Please fill out this field."
+                            *ngIf="studentTCdtlsForm.controls.student_conduct.errors && (submitted || studentTCdtlsForm.controls.student_conduct.dirty || studentTCdtlsForm.controls.student_conduct.touched)">
+                        </p-message>
+                    </div>
+                    <div class="ui-g-6">
+                        <label>Student is Promoted to the Next class <span class="mandatory">*</span></label>
+                        <!-- <div style="margin: 8px 0;">
+                            <p-radioButton  value="1" label="Yes" formControlName="bloodgroup">Yes</p-radioButton>&nbsp;&nbsp;
+                            <p-radioButton  value="2" label="No" formControlName="bloodgroup">No</p-radioButton>&nbsp;&nbsp;
+                            <p-radioButton  value="3" label="No-Discontinued" formControlName="bloodgroup">No-Discontinued</p-radioButton>
+                            </div> -->
+                        <p-dropdown [options]="promote" placeholder="Select Promoted Type" class="flex-dropdown"
+                            formControlName="student_promote_class"></p-dropdown>
+                        <p-message severity="error" text="Please fill out this field."
+                            *ngIf="studentTCdtlsForm.controls.student_promote_class.errors && (submitted || studentTCdtlsForm.controls.student_promote_class.dirty || studentTCdtlsForm.controls.student_promote_class.touched)">
+                        </p-message>
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-6">
+                        <label>Student studying in the school from <span class="mandatory">*</span></label>
+                        <p-dropdown [options]="classListArr" placeholder="Select Class" class="flex-dropdown"
+                            formControlName="student_class_id"></p-dropdown>
+                        <p-message severity="error" text="  Please fill out this field."
+                            *ngIf="studentTCdtlsForm.controls.student_class_id.errors && (submitted || studentTCdtlsForm.controls.student_class_id.dirty || studentTCdtlsForm.controls.student_class_id.touched)">
+                        </p-message>
+                    </div>
+                    <div class="ui-g-6">
+                        <label>Date of Joining<span class="mandatory">*</span>
+                        </label>
+                        <input class="form-control" type="date" formControlName="student_admission_date" [max]="enddate"
+                                    dateformat="dd/MM/yyyy">
+                                <p-message severity="error" text="Please fill out this field."
+                                    *ngIf="studentTCdtlsForm.controls.student_admission_date.errors && (submitted || studentTCdtlsForm.controls.student_admission_date.dirty || studentTCdtlsForm.controls.student_admission_date.touched)">
+                                </p-message>
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-6">
+                        <label>Last date on which Student attended school</label>
+                        <input class="form-control" type="date" formControlName="student_last_date" [max]="enddate"
+                                    dateformat="dd/MM/yyyy">
+                    </div>
+                    <div class="ui-g-6">
+                        <label>First Language <span class="mandatory">*</span></label>
+                        <p-dropdown [options]="launguages" placeholder="Select First Language" class="flex-dropdown"
+                            formControlName="student_first_lang"></p-dropdown>
+                        <p-message severity="error" text="Please fill out this field."
+                            *ngIf="studentTCdtlsForm.controls.student_first_lang.errors && (submitted || studentTCdtlsForm.controls.student_first_lang.dirty || studentTCdtlsForm.controls.student_first_lang.touched)">
+                        </p-message>
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-6">
+                        <label>Medium of instruction <span class="mandatory">*</span></label>
+                        <p-dropdown [options]="mediumofinstruction" placeholder="Select medium of instruction" class="flex-dropdown"
+                            formControlName="student_medium_inst" [readonly]="mediumId != '' ? true : false">
+                        </p-dropdown>
+                        <p-message severity="error" text="Please fill out this field."
+                            *ngIf="studentTCdtlsForm.controls.student_medium_inst.errors && (submitted || studentTCdtlsForm.controls.student_medium_inst.dirty || studentTCdtlsForm.controls.student_medium_inst.touched)">
+                        </p-message>
+                        
+                    </div>
+                    <div class="ui-g-6">
+                        <label>DOB In Words - {{labelDob}} </label>
+                        <input type="text"  pInputText class="form-control" formControlName="student_dob_words"
+                                    placeholder="Enter DOB In Words">
+                        <!-- <p-message severity="error" text="Please fill out this field."
+                            *ngIf="studentTCdtlsForm.controls.student_dob_words.errors && (submitted || studentTCdtlsForm.controls.student_dob_words.dirty || studentTCdtlsForm.controls.student_dob_words.touched)">
+                        </p-message> -->
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-6">
+                        <label>Student's Nationality <span class="mandatory">*</span></label>
+                        <input type="text"  pInputText class="form-control" formControlName="student_nationality"
+                            placeholder="Enter Student's Nationality">
+                        <p-message severity="error" class="flex-gap-top"
+                            text="Please fill out this field."
+                            *ngIf="studentTCdtlsForm.controls.student_nationality.errors && (submitted || studentTCdtlsForm.controls.student_nationality.dirty || studentTCdtlsForm.controls.student_nationality.touched)"
+                            class="validation-error">
+                        </p-message>
+                    </div>
+                    <div class="ui-g-6">
+                        <label>School Recognition Number <span *ngIf="schoolTypeId == 2 || schoolTypeId == 3 || schoolTypeId == 4" class="mandatory">*</span></label>
+                        <input type="text" pInputText class="form-control" formControlName="school_recognition_no"
+                            placeholder="Enter School Recognition Number " [readonly]="schoolTypeId == 2 || schoolTypeId == 3 ||schoolTypeId == 4 ? false : true">
+                        <p-message severity="error" text="Please fill out this field."
+                            *ngIf="studentTCdtlsForm.controls.school_recognition_no.errors && (submitted || studentTCdtlsForm.controls.school_recognition_no.dirty || studentTCdtlsForm.controls.school_recognition_no.touched)">
+                        </p-message>
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-6">
+                        <label>Caste / Community / Religion <span class="mandatory">*</span></label>
+                        <p-dropdown [options]="option" placeholder="Select Caste / Community / Religion"
+                        class="flex-dropdown" formControlName="student_community_tc"></p-dropdown>
+                        <p-message severity="error" text="Please fill out this field."
+                                *ngIf="studentTCdtlsForm.controls.student_community_tc.errors && (submitted || studentTCdtlsForm.controls.student_community_tc.dirty || studentTCdtlsForm.controls.student_community_tc.touched)">
+                        </p-message>
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-6">
+                        <label>TC application Date</label>
+                        <input class="form-control" type="date" 
+                            dateformat="dd/MM/yyyy"
+                            formControlName="student_apply_tc"
+                            placeholder="Enter TC Application date">
+                            <!-- <p-message severity="error" text="Please fill out this field."
+                            *ngIf="studentTCdtlsForm.controls.student_apply_tc.errors && (submitted || studentTCdtlsForm.controls.student_apply_tc.dirty || studentTCdtlsForm.controls.student_apply_tc.touched)">
+                        </p-message> -->
+
+                    </div>
+                    <div class="ui-g-6">
+                        <label>TC Issue Date</label>
+                        <input class="form-control" type="date" formControlName="student_tc_date" dateformat="dd/MM/yyyy">
+                        <!-- <p-message severity="error" text="Please fill out this field."
+                            *ngIf="studentTCdtlsForm.controls.student_tc_date.errors && (submitted || studentTCdtlsForm.controls.student_tc_date.dirty || studentTCdtlsForm.controls.student_tc_date.touched)">
+                        </p-message> -->
+                    </div>
+                </div>                        
+                <!-- </div> -->
+            </div>
+        </form>
+            <p-footer>
+                <div class="text-right">
+                    <button *ngIf ="selectedCategory == 0 && PageStage == 2" pButton type="button" icon="fa fa-check" label="Save Details" class="ui-button-success ui-button-rounded" (click)="onSubmit(studentTCdtlsForm.value)" ></button>
+                    <button *ngIf ="selectedCategory != 0 && PageStage_2_1 == 1" pButton type="button" icon="fa fa-check" label="Update TC Details" class="ui-button-success ui-button-rounded" (click)="onSubmitTc(studentTCdtlsForm.value)" ></button>
+                </div>
+            </p-footer>
+            <!-- </p-dialog> -->
+            <!-- </div> -->
+        <!-- </div> -->
+    </p-card>
+</div>
+<p-dialog [header]="transferDialogTitle" [(visible)]="displayTransferDialog" [modal]="true" [responsive]="true" 
+          [draggable]="false"  
+                     [blockScroll]="true" 
+                     [maximizable]="false" 
+                     [contentStyle]="{'max-width':'1000px','max-height': '450px','overflow-y': 'auto'}">
+
+        <form id="transfer_form" [formGroup]="studentTransferForm">
+            <div class="ui-g-12">
+                    <label>Reason for The Transfer Student <span class="mandatory">*</span></label>
+                    <!-- <p-dropdown [options]="reasonList" placeholder="Choose a Reason" class="flex-dropdown"
+                        formControlName="transfer_reason"></p-dropdown> -->
+                        <select class="form-control" data-placeholder="Choose a Reason" formControlName="transfer_reason">
+                            <option *ngFor="let l of reason" [value]="l.value">{{l.label}}</option>
+                        </select>
+                    <p-message severity="error" text="Reason is required"
+                        *ngIf="studentTransferForm.controls.transfer_reason.errors && (studentTransferForm.controls.transfer_reason.dirty || studentTransferForm.controls.transfer_reason.touched)">
+                    </p-message>
+            </div>
+            <!-- <div class="ui-g-12">
+                <button pButton type="Submit" icon="fa fa-check" label="Save" class="ui-button-success ui-button-rounded"></button>
+            </div> -->
+            <div class="ui-g-12">
+                <div class="ui-helper-clearfix" style="text-align: right">
+                    <button pButton type="Submit" icon="fa fa-check" label="Save" class="ui-button-success ui-button-rounded" (click)="removeRteTagConfirmation()"></button>           
+                </div>
+            </div>
+            <div class="ui-g-12"> <br> </div>
+        </form>
+</p-dialog>
+<p-dialog header="Confirmation" [(visible)]="rteRemoveTagConfirmation"
+[modal]="true" [responsive]="true" 
+          [draggable]="false"  
+                     [blockScroll]="true" 
+                     [maximizable]="false" 
+                     [contentStyle]="{'max-width':'1000px','max-height': '450px','overflow-y': 'auto'}">
+<div class="row" style="padding-top:5px">
+    <div class="col-md-12">
+        <h5 class="reg-title text-center text-highlight">The student is admitted under RTE 12.1.c. <br>
+            If the student is moved to common pool, RTE tagging will be removed for this student.<br>
+             Are you sure?"</h5>
+    </div>
+
+</div>
+
+<div class="text-center save-button" style="margin-bottom: 15px;margin-top: 15px;">
+    <button type="submit" class="btn btn-success flex-gap-right" (click)="proceedToRemoveRteTag()">Yes</button>
+    <button type="submit" class="btn btn-danger flex-gap-right" (click)="cancelToRemoveRteTag()">No</button>
+</div>
+</p-dialog>

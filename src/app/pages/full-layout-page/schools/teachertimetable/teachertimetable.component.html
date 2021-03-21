@@ -1,0 +1,133 @@
+
+ <div class="main-body-content">
+  <div class="page-container">
+    <div class="flex-layout-gap">
+      <div class="row"> 
+        <div class="col-md-8">
+     
+          <h3 style="color:green"><strong>Teacher Shedule</strong></h3>
+     </div>
+     <div class="col-md-3 offset-md-1">  
+       <h6 style="color:#39ac39"><strong>School Teachers</strong></h6>
+      <span>
+       <h6 style="color:#ff8000"><strong>Deputation Teachers</strong></h6>
+     </span>
+       <h6 style="color:#9999ff"><strong>Volunteer Teachers</strong></h6>
+       </div>
+     </div>  
+<br>
+<form [formGroup]="teacherdate">
+    <div class="row">
+      <div class="col-md-4">
+    <div class="form-group row">
+     <!--<label class="col-md-6 col-form-label" for="select2">Select Class</label>-->
+      <div class="col-md-9">
+        <select  formControlName="teacher" class="form-control">
+          <option style="font-size: 14px; background-color:#FF0000;  color:white" value="" >Select Teacher</option>  
+              
+          
+          <option style="font-size: 14px; background-color:#39ac39; color:white" *ngFor="let teacherdata of teacherlist" [value]="teacherdata.u_id">
+            {{ teacherdata.teacher_name }}
+            </option>
+            <!--<option style="font-size: 14px; background-color:#ff8000;  color:white" *ngFor="let dteacherdata of deputationteachers"  [value]="dteacherdata.teacher_code" >
+             {{ dteacherdata.teacher_name }}
+              </option> --> 
+            <!--<option style="font-size: 14px; background-color:#9999ff;  color:white" *ngFor="let vteacherdata of volunteerteachers"  [value]="vteacherdata.teacher_id" >
+               {{ vteacherdata.teacher_name }}
+              </option> -->   
+              
+    </select> 
+      </div>
+    </div>
+    </div>
+    <div class="col-md-3">
+    <div class="form-group row">
+      <!--<label class="col-md-6 col-form-label" for="select2">Select Section</label>-->
+      <div class="col-md-9">
+       <input formControlName="date" class="form-control" type="week">
+      </div>
+    </div>
+    </div> 
+    <div class="col-md-2">
+    <button type="button" style="background-color: #065040" class="btn btn-success" (click)="getteacher()">Submit</button>
+    </div>
+    
+    </div> 
+    </form>
+    <table  border="1" bordercolor="green" style="border-width:3px; width:100%;">
+      <thead>
+        <tr style="background-color: #065040;color:white">
+          <th style="text-align:center;width:11%;">DAY</th>
+         
+          <th style="text-align:center;">Period 1</th>
+          <th style="text-align:center;">Period 2</th>
+          <th style="text-align:center;">Period 3</th>
+          <th style="text-align:center;">Period 4</th>
+          <th style="text-align:center;">Period 5</th>
+          <th style="text-align:center;">Period 6</th>
+          <th style="text-align:center;">Period 7</th>
+          <th style="text-align:center;">Period 8</th>
+         
+          
+        </tr>
+        
+      </thead>
+      <tbody>
+      
+             <tr *ngFor="let ts of teacherschedule | keyvalue">
+             <td style="width:10% ;background-color: #63978b;  color:white;text-align: center"><strong>
+               {{ts.key==0?'Monday':ts.key==1?'Tuesday':
+               ts.key==2?'Wednesday':ts.key==3?'Thursday':ts.key==4?'Friday':ts.key==5?'Saturday':ts.key==6?'Sunday':''}}</strong></td>
+             <td style="width:10%; text-align: center;"><div *ngFor = "let innerItem of ts.value">
+              <b>{{ innerItem.status == 1 ? innerItem.classes: '' }}</b>
+             
+            </div></td>
+             <td  style="width:10%;text-align: center"><div *ngFor = "let innerItem of ts.value">
+              <b>{{ innerItem.status == 2 ? innerItem.classes : '' }}</b>
+             
+            </div></td>
+             <td  style="width:10%;text-align: center"><div *ngFor = "let innerItem of ts.value">
+              <b> {{ innerItem.status == 3 ? innerItem.classes : ''  }}</b>
+             
+            </div></td>
+             <td  style="width:10%;text-align: center"><div *ngFor = "let innerItem of ts.value">
+              <b>{{ innerItem.status == 4 ? innerItem.classes : ''}}</b>
+             
+            </div></td>
+             <td  style="width:10%;text-align: center"><div *ngFor = "let innerItem of ts.value">
+              <b>{{ innerItem.status == 5 ? innerItem.classes : ''  }}</b>
+             
+            </div></td>
+             <td  style="width:10%;text-align: center"><div *ngFor = "let innerItem of ts.value">
+              <b>{{ innerItem.status == 6 ? innerItem.classes : ''  }}</b>
+             
+            </div></td>
+             <td  style="width:10%;text-align: center"><div *ngFor = "let innerItem of ts.value">
+              <b>{{ innerItem.status == 7 ? innerItem.classes : ''  }}</b>
+             
+            </div></td>
+            <td  style="width:10%;text-align: center"><div *ngFor = "let innerItem of ts.value">
+              <b>{{ innerItem.status == 8 ? innerItem.classes : ''  }}</b>
+            </div></td>
+             </tr>
+
+           
+           <!--<tr>
+            
+              <td *ngFor="let tclasses of tuesday;" style="text-align:center;background-color: #065040;color:white" >Sunday</td>
+              <td *ngFor="let tclasses of tuesday;">{{ (tclasses.status == 1?tclasses.classes: '') }}  </td>
+              <td *ngFor="let tclasses of tuesday;">{{ (tclasses.status == 2?tclasses.classes: '') }}  </td>
+              <td *ngFor="let tclasses of tuesday;">{{ (tclasses.status == 3?tclasses.classes: '') }}  </td>
+              <td *ngFor="let tclasses of tuesday;">{{ (tclasses.status == 4?tclasses.classes: '') }}  </td>
+              <td *ngFor="let tclasses of tuesday;">{{ (tclasses.status == 5?tclasses.classes: '') }}  </td>
+              <td *ngFor="let tclasses of tuesday;">{{ (tclasses.status == 6?tclasses.classes: '') }}  </td>
+              <td *ngFor="let tclasses of tuesday;">{{ (tclasses.status == 7?tclasses.classes: '') }}  </td>
+              <td *ngFor="let tclasses of tuesday;">{{ (tclasses.status == 8?tclasses.classes: '') }}  </td>
+            </tr>-->
+      </tbody>
+      </table>
+
+
+    </div>
+  </div>
+</div>

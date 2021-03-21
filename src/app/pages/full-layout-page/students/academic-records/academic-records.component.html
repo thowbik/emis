@@ -1,0 +1,234 @@
+<div class="outer-layout" style="padding-top:10px;">
+   <div class="breadcrumbs c-black">
+   <h6 class="url"><span class="flex-gap-right">Students</span> <i class=" clr fa fa-angle-right flex-gap-right" aria-hidden="true"></i> <span class="flex-gap-right">Academic Records</span></h6>
+   </div>
+</div>
+
+<div class="main-body-content">
+    <div class="page-content-inner">
+       <div>
+          <!-- BEGIN EXAMPLE TABLE PORTLET-->
+          <div class="portlet box green">
+             <p-tabView>
+                <p-tabPanel header="1st to 8th Standard">
+                   <form novalidate name="form" [formGroup]="form">
+                      <div class="row">
+                         <div class="col-md-2">
+                            <p-dropdown [style]="{width: '100%'}" [options]="term" formControlName="termid" placeholder="Select Term" ></p-dropdown>
+                         </div>
+                         <div class="col-md-2">
+                            <p-dropdown [style]="{width: '100%'}" [options]="class" formControlName="classid" placeholder="Select Class" (onChange)="getSectionAndSubjectForRevalentClass($event.value)"></p-dropdown>
+                         </div>
+                         <div class="col-md-3">
+                            <p-dropdown [style]="{width: '100%'}" [options]="section" formControlName="sectionid" placeholder="Select Section"></p-dropdown>
+                         </div>
+                         <div class="col-md-3">
+                            <p-dropdown [style]="{width: '100%'}" [options]="subject" formControlName="subid" placeholder="Select Subject"></p-dropdown>
+                         </div>
+                         <div class="col-md-2">
+                            <button pButton type="button" style="float:right" label="Search" (click)="getAcademicRecords()"></button>
+                         </div>
+                      </div>
+                      <div class="row flexGapTop">
+                         <div class="col-lg-12 col-md-12">
+                            <i *ngIf ="primaryStudentRecords.length > 0" style="float:left">
+                               Note : 
+                               <ol>
+                                  <li>Absent Student Are marked by Red; Present Student Are Marked by Green </li>
+                                  <!-- <li></li> -->
+                               </ol>
+                            </i>
+                         </div>
+                      </div>
+                   </form>
+                   <div class="flexGapTop">
+                      <!-- [rowsPerPageOptions]="[10,15,20,25, { showAll: 'All' }]" -->
+                      <p-table #dt
+                      [value]="primaryStudentRecords"  [resizableColumns]="true" [paginator]="true" [rows]="20">
+                      <ng-template pTemplate="header">
+                         <tr class="center">
+                            <th rowspan="2" style="width: 3em">#</th>
+                            <th rowspan="2" style="width: 20em">
+                               <div style="word-wrap: break-word;">Whether Assessed? 
+                                  <p-checkbox binary="true" [ngModel]="parentsCheckbox" (onChange)="parentToggle($event)"></p-checkbox>
+                               </div>
+                            </th>
+                            <th rowspan="2" style="width: 30em">Reason</th>
+                            <th rowspan="2" style="width: 20em">Name</th>
+                            <th colspan="4" style="width: 30em">FA(A) Activity <span style="font-size:6pt"><br> (Out Of 10) </span></th>
+                            <th colspan="4" style="width: 30em">FA(B) Activity <span style="font-size:6pt"><br> (Out Of 10) </span></th>
+                            <th style="width: 10em">FA <span style="font-size:6pt"><br> (Out Of 40) </span></th>
+                            <th style="width: 10em">SA <span style="font-size:6pt"><br> (Out Of 60) </span></th>
+                         </tr>
+                         <tr class="center">
+                            <th>I</th>
+                            <th>II</th>
+                            <th>III</th>
+                            <th>IV</th>
+                            <th>I</th>
+                            <th>II</th>
+                            <th>III</th>
+                            <th>IV</th>
+                            <th>Mark</th>
+                            <th>Mark</th>
+                         </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+                         <tr>
+                            <td style="width: 3em">{{i+1}}</td>
+                            <td class="center">
+                               <!-- <p-checkbox  binary="true" (onChange)="selectRecords($event,i)"></p-checkbox></td> -->
+                               <p-checkbox  binary="true" [(ngModel)]="rowData.checkboxstatus" (onChange)="childToggle($event,rowData)"></p-checkbox>
+                            <td style="width: 14em">
+                               <!-- <p-dropdown *ngIf="rowData.checkboxstatus == false" [options]="reasons" placeholder="select Reason"></p-dropdown></td> -->
+                               <p-dropdown *ngIf="rowData.checkboxstatus == false"  appendTo="body"  [(ngModel)]="rowData.attreason" [options]="reasons" placeholder="select Reason" [showClear]="true"></p-dropdown>
+                            </td>
+                            <td style="width: 12em" pEditableColumn>
+                               <p-cellEditor [ngClass]="{
+                                  'redfont' : rowData.checkboxstatus == false,
+                                  'greenfont' : rowData.checkboxstatus == true
+                                  }">
+                                  <ng-template pTemplate="input">
+                                     <input pInputText type="text" class="width-100" [(ngModel)]="rowData.name" [ngModelOptions]="{standalone: true}">
+                                  </ng-template>
+                                  <ng-template pTemplate="output">
+                                     {{rowData.name}}
+                                  </ng-template>
+                               </p-cellEditor>
+                            </td>
+                            <td *ngIf="rowData.checkboxstatus == true;" pEditableColumn>
+                               <p-cellEditor>
+                                  <ng-template pTemplate="input">
+                                     <input pInputText type="text" pKeyFilter="pnum" maxlength="2" class="width-100" [(ngModel)]="rowData.FAA" [ngModelOptions]="{standalone: true}" (blur)="isBlur($event.target.value,i,'FAA',1);">
+                                  </ng-template>
+                                  <ng-template pTemplate="output">
+                                     {{rowData.FAA}}
+                                  </ng-template>
+                               </p-cellEditor>
+                            </td>
+                            <td *ngIf="rowData.checkboxstatus != true;">{{rowData.FAA}}</td>
+                            <td *ngIf="rowData.checkboxstatus == true;" pEditableColumn>
+                               <p-cellEditor>
+                                  <ng-template pTemplate="input">
+                                     <input pInputText type="text" pKeyFilter="pnum" maxlength="2" class="width-100" [(ngModel)]="rowData.FAB" [ngModelOptions]="{standalone: true}" (blur)="isBlur($event.target.value,i,'FAB',1)">
+                                  </ng-template>
+                                  <ng-template pTemplate="output">
+                                     {{rowData.FAB}}
+                                  </ng-template>
+                               </p-cellEditor>
+                            </td>
+                            <td  *ngIf="rowData.checkboxstatus != true;">{{rowData.FAB}}</td>
+                            <td *ngIf="rowData.checkboxstatus == true;" pEditableColumn>
+                               <p-cellEditor>
+                                  <ng-template pTemplate="input">
+                                     <input pInputText type="text" pKeyFilter="pnum" maxlength="2" class="width-100" [(ngModel)]="rowData.FAC" [ngModelOptions]="{standalone: true}" (blur)="isBlur($event.target.value,i,'FAC',1)">
+                                  </ng-template>
+                                  <ng-template pTemplate="output">
+                                     {{rowData.FAC}}
+                                  </ng-template>
+                               </p-cellEditor>
+                            </td>
+                            <td  *ngIf="rowData.checkboxstatus != true;">{{rowData.FAC}}</td>
+                            <td *ngIf="rowData.checkboxstatus == true;" pEditableColumn>
+                               <p-cellEditor>
+                                  <ng-template pTemplate="input">
+                                     <input pInputText type="text" pKeyFilter="pnum" maxlength="2" class="width-100" [(ngModel)]="rowData.FAD" [ngModelOptions]="{standalone: true}" (blur)="isBlur($event.target.value,i,'FAD',1)">
+                                  </ng-template>
+                                  <ng-template pTemplate="output">
+                                     {{rowData.FAD}}
+                                  </ng-template>
+                               </p-cellEditor>
+                            </td>
+                            <td  *ngIf="rowData.checkboxstatus != true;">{{rowData.FAD}}</td>
+                            <td *ngIf="rowData.checkboxstatus == true;" pEditableColumn>
+                               <p-cellEditor>
+                                  <ng-template pTemplate="input">
+                                     <input pInputText type="text" pKeyFilter="pnum" maxlength="2" class="width-100" [(ngModel)]="rowData.FBA" [ngModelOptions]="{standalone: true}" (blur)="isBlur($event.target.value,i,'FBA',1)">
+                                  </ng-template>
+                                  <ng-template pTemplate="output">
+                                     {{rowData.FBA}}
+                                  </ng-template>
+                               </p-cellEditor>
+                            </td>
+                            <td  *ngIf="rowData.checkboxstatus != true;">{{rowData.FBA}}</td>
+                            <td *ngIf="rowData.checkboxstatus == true;" pEditableColumn>
+                               <p-cellEditor>
+                                  <ng-template pTemplate="input">
+                                     <input pInputText type="text" pKeyFilter="pnum" maxlength="2" class="width-100" [(ngModel)]="rowData.FBB" [ngModelOptions]="{standalone: true}" (blur)="isBlur($event.target.value,i,'FBB',1)">
+                                  </ng-template>
+                                  <ng-template pTemplate="output">
+                                     {{rowData.FBB}}
+                                  </ng-template>
+                               </p-cellEditor>
+                            </td>
+                            <td *ngIf="rowData.checkboxstatus != true;">{{rowData.FBB}}</td>
+                            <td *ngIf="rowData.checkboxstatus == true;" pEditableColumn>
+                               <p-cellEditor>
+                                  <ng-template pTemplate="input">
+                                     <input pInputText type="text" pKeyFilter="pnum" maxlength="2" class="width-100" [(ngModel)]="rowData.FBC" [ngModelOptions]="{standalone: true}" (blur)="isBlur($event.target.value,i,'FBC',1)">
+                                  </ng-template>
+                                  <ng-template pTemplate="output">
+                                     {{rowData.FBC}}
+                                  </ng-template>
+                               </p-cellEditor>
+                            </td>
+                            <td *ngIf="rowData.checkboxstatus != true;">{{rowData.FBC}}</td>
+                            <td *ngIf="rowData.checkboxstatus == true;" pEditableColumn>
+                               <p-cellEditor>
+                                  <ng-template pTemplate="input">
+                                     <input pInputText type="text" pKeyFilter="pnum" maxlength="2" class="width-100" [(ngModel)]="rowData.FBD" [ngModelOptions]="{standalone: true}" (blur)="isBlur($event.target.value,i,'FBD',1)">
+                                  </ng-template>
+                                  <ng-template pTemplate="output">
+                                     {{rowData.FBD}}
+                                  </ng-template>
+                               </p-cellEditor>
+                            </td>
+                            <td *ngIf="rowData.checkboxstatus != true;">{{rowData.FBD}}</td>
+                            <td *ngIf="rowData.checkboxstatus == true && rowData.FAMedit == true;" pEditableColumn>
+                               <p-cellEditor>
+                                  <ng-template pTemplate="input">
+                                     <input pInputText type="text" pKeyFilter="pnum" (blur)="isBlur($event.target.value,i,'FAM',2)" maxlength="2" class="width-100" [(ngModel)]="rowData.FAM" [ngModelOptions]="{standalone: true}">
+                                  </ng-template>
+                                  <ng-template pTemplate="output">
+                                     {{rowData.FAM}}
+                                  </ng-template>
+                               </p-cellEditor>
+                            </td>
+                            <td *ngIf="rowData.checkboxstatus == true && rowData.FAMedit == false;">{{rowData.FAM}}</td>
+                            <td *ngIf="rowData.checkboxstatus != true">{{rowData.FAM}}</td>
+                            <td *ngIf="rowData.checkboxstatus == true;" pEditableColumn>
+                               <p-cellEditor>
+                                  <ng-template pTemplate="input">
+                                     <input pInputText type="text" pKeyFilter="pnum" maxlength="2" class="width-100" [(ngModel)]="rowData.SAM" [ngModelOptions]="{standalone: true}">
+                                  </ng-template>
+                                  <ng-template pTemplate="output">
+                                     {{rowData.SAM}}
+                                  </ng-template>
+                               </p-cellEditor>
+                            </td>
+                            <td *ngIf="rowData.checkboxstatus != true;">{{rowData.SAM}}</td>
+                         </tr>
+                      </ng-template>
+                      <ng-template pTemplate="emptymessage" let-columns>
+                         <tr>
+                            <td colspan="14" style="text-align: center;">
+                               <strong>No records found</strong>
+                            </td>
+                         </tr>
+                      </ng-template>
+                      </p-table>
+                      <div *ngIf ="primaryStudentRecords.length > 0" class="row flexGapTop">
+                         <div class="col-lg-12 col-md-12">
+                            <button pButton type="button" style="float:right" label="Submit" (click)="onSubmit(primaryStudentRecords)"></button>
+                         </div>
+                      </div>
+                   </div>
+                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 flexGapTop">
+                      <!-- <button pButton type="button" label="Save" style="float: right;" (click)="updateAcademicRecords(primaryStudentRecords)"></button>  -->
+                   </div>
+                </p-tabPanel>
+             </p-tabView>
+          </div>
+       </div>
+    </div>
+ </div>

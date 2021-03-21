@@ -1,0 +1,242 @@
+<div class="m-4">
+    <p-card>
+        <div class="container-fluid header_fonts">
+            <div class="row p-1">
+                <div class="col-sm-6 ">
+                    <div class="text-lg-left mt-3">
+                        <div>
+                            <h5>Teacher Assignment for Board Exam Students</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-1">
+                    <div class="row">
+                        <div class="col-sm-6 pb-3 float-right">
+
+                        </div>
+                        <div class="col-sm-6">
+                            <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="text-right py-2">
+                 <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" class="ui-button-success"></button>
+              </div>
+        </div>
+        <div>
+            <p-table #dt [columns]="col" [value]="sch_student_list" [paginator]="true" [rows]="15" [resizableColumns]="true">
+                <ng-template pTemplate="header" let-distname>
+                    <tr class="text-center">
+                        <th class="sno-header-layout">S.NO</th>
+                        <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+                    <tr class="text-center" *ngIf="!noDataFound">
+                        <td class="sno-header-layout"> {{i+1}} </td>
+                        <td class="text-center">{{distwise.ROLLNO}} </td>
+                        <td class="text-left">{{distwise.NAME}} </td>
+                        <td class="text-center">{{distwise.class}} </td>
+                        <td class="text-center">{{distwise.Containment_Zone}} </td>
+                        <td class="text-center">{{distwise.Transport_Reqd}} </td>
+                        <td class="text-left"> {{distwise.teacher_assigned}} </td>
+                        <td class="text-left">{{distwise.Assigned_Exam_Centre}} </td>
+                        <td style="width: 13em;" class="text-center"><a href="javascript:void(0)"><button type="submit" class="btn btn-primary" (click)="handleClick(distwise.ROLLNO,distwise.NAME,distwise.class)">Edit</button></a></td>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr class="text-left" *ngIf="noDataFound">
+                        <td colspan="3"> No Data Found </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </p-card>
+</div>
+
+
+<p-dialog
+    [header]="pop_header" 
+    [(visible)]="showDialogBox" 
+    style="background-color: cadetblue !important;" 
+    [modal]="true" 
+    [style]="{width: '1300px', minWidth: '200px'}" 
+    [responsive]="true" 
+    [minY]="70" 
+    [blockScroll]="true" 
+    [maximizable]="true"
+    [resizable]="true"
+    [baseZIndex]="10000">
+
+    <p-card><div>
+        <form [formGroup]="board_xam_form">
+        <div class="colsm-12 p-1">
+            <div class="row text-center">
+                <label class="col-sm-4 pt-3 text-right"><h6>School Name</h6></label>
+                <div class="col-sm-8">
+                    <input pInputText type="text" class="form-control col-sm-7" formControlName="school_name" [readonly]=true placeholder="School Name"/>
+                </div>
+            </div>
+        </div>
+        <div class="row p-1">
+            <div class="col-sm-6">
+                <div class="col-sm-6 pt-3 float-left">
+                    <label><h6>Living In Same City As Exam Center ?</h6></label>
+                </div>
+                <div class="col-sm-6 float-right">
+                    <input pInputText type="text" class="form-control" formControlName="Same_City" placeholder="City" readonly />
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="col-sm-6 pt-3 float-left">
+                    <label><h6>Living In Containment Zone </h6></label>
+                </div>
+                <div class="col-sm-6 float-right">
+                    <input pInputText type="text" class="form-control" formControlName="Containment_Zone" placeholder="Containment Zone" readonly />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="col-sm-6 pt-3 float-left">
+                    <label><h6>Transport Required ?</h6></label>
+                </div>
+                <div class="col-sm-6 float-right">
+                    <input pInputText type="text" class="form-control" formControlName="Transport_Reqd" placeholder="Transport Required" readonly />
+                </div>
+            </div>
+            <div class="col-sm-6">
+           </div>
+        </div>
+        <div class="row p-1">
+            <div class="col-sm-6">
+                <div class="col-sm-6 pt-3 float-left">
+                    <label><h6>Address</h6></label>
+                </div>
+                <div class="col-sm-6 float-right">
+                    <textarea rows="5" cols="12" class="form-control" formControlName="address" placeholder="Address" [readonly]=true  pInputTextarea></textarea>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="col-sm-6 pt-3 float-left">
+                    <label><h6>Pincode</h6></label>
+                </div>
+                <div class="col-sm-6 float-right">
+                    <input pInputText type="text" class="form-control" formControlName="pincode"  placeholder="Pincode" readonly />
+                </div>
+            </div>
+        </div>
+       
+        <div class="p-1">
+            <div class="col-sm-12">
+                <div>
+                    <h5>Contact Details</h5>
+                </div>
+                <div class="">
+                    <div class="row">
+                      <div class="col-sm-4 border text-center">
+                        <label class="font-weight-bold pt-2 ">
+                            {{mobile1}}
+                          </label>
+                          <span class="px-2">
+                            ({{mobile1_relation}})
+                           </span>
+                      </div>
+                      <div class="col-sm-4 border  text-center">
+                        <label class="font-weight-bold pt-2">
+                            {{mobile2}}
+                          </label>
+                          <span class="px-2">
+                            ({{mobile2_relation}})
+                           </span>
+                      </div>
+                      <div class="col-sm-4 border  text-center">
+                        <label class="font-weight-bold pt-2">
+                            {{mobile3}}
+                          </label>
+                          <span class="px-2">
+                            ({{mobile3_relation}})
+                           </span>                  
+                       </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+
+        <div class="row p-2">
+            <div class="col-sm-6">
+                <div class="col-sm-6 pt-3 float-left">
+                    <label><h6>Teacher Assigned to Coordinate</h6></label>
+                </div>
+                <div class="col-sm-6 float-right">
+                    <p-dropdown [options]="teacher_name_options" placeholder="Select Teacher" formControlName="select_teacher" (onChange)='teacher_option($event)' styleClass="dropdwnvalues"></p-dropdown>
+                    <p-message severity="error"  text="This Field is required" *ngIf="board_xam_form.controls.select_teacher.errors && (submitted || board_xam_form.controls.select_teacher.dirty || board_xam_form.controls.select_teacher.touched)"></p-message>
+                </div>
+            </div>
+            <div class="col-sm-6" *ngIf="emis_id_teacher">
+                <div class="col-sm-6 pt-3 float-left">
+                    <label><h6>Teacher EMIS ID</h6></label>
+                </div>
+                <div class="col-sm-6 float-right">
+                    <input pInputText type="text" class="form-control"  (keyup)="search_teacher($event.target.value)" formControlName="teacher_emis_id" placeholder="Teacher EMIS ID"/>
+                    <p-message severity="error"  text="This Field is required" *ngIf="board_xam_form.controls.teacher_emis_id.errors && (submitted || board_xam_form.controls.teacher_emis_id.dirty || board_xam_form.controls.teacher_emis_id.touched)"></p-message>
+                </div>
+            </div>
+        </div>
+
+        <div class="row p-1" *ngIf="emis_id_teacher">
+            <div class="col-sm-6">
+                <div class="col-sm-6 pt-3 float-left">
+                    <label><h6>Teacher Name</h6></label>
+                </div>
+                <div class="col-sm-6 float-right">
+                    <input pInputText type="text" class="form-control" formControlName="teacher_name" readonly placeholder="Teacher Name"/>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="col-sm-6 pt-3 float-left">
+                    <label><h6>Mobile Number</h6></label>
+                </div>
+                <div class="col-sm-6 float-right">
+                    <input pInputText type="text" class="form-control" formControlName="mbl_nmbr" readonly placeholder="Teacher Mobile"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-1">
+        <div>
+            <h5>Change Exam Centre</h5>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="col-sm-6 pt-3 float-left">
+                    <label><h6>Select Block</h6></label>
+                </div>
+                <div class="col-sm-6 float-right">
+                    <p-dropdown [options]="block_name_options" placeholder="Select Block" formControlName="block_name" (onChange)='block_id($event)' styleClass="dropdwnvalues"></p-dropdown>
+                    <p-message severity="error"  text="This Field is required" *ngIf="board_xam_form.controls.block_name.errors && (submitted || board_xam_form.controls.block_name.dirty || board_xam_form.controls.block_name.touched)"></p-message>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="col-sm-6 pt-3 float-left">
+                    <label><h6>Select New Exam Centre</h6></label>
+                </div>
+                <div class="col-sm-6 float-right">
+                    <p-dropdown [options]="sch_name_options" placeholder="Select School" formControlName="school_namee" styleClass="dropdwnvalues"></p-dropdown>
+                    <p-message severity="error"  text="This Field is required" *ngIf="board_xam_form.controls.school_namee.errors && (submitted || board_xam_form.controls.school_namee.dirty || board_xam_form.controls.school_namee.touched)"></p-message>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="text-right">
+            <button type="submit" class="btn btn-light btn-border m-2" (click)="close_dialog()">Cancel</button>
+            <button type="submit" class="btn btn-success m-2" (click)="save()">Save</button>
+        </div>
+        </form>
+        
+    </div>
+    </p-card>
+</p-dialog>

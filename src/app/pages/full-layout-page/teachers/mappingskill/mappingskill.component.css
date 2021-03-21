@@ -1,0 +1,27 @@
+.mappingform{
+    margin-top: 25px !important;
+  }
+
+.top{
+    border-right: 1px solid #0b5f4c87;
+    border-left: 1px solid #0b5f4c87;
+    border-bottom: 1px solid #0b5f4c87;
+}
+
+div.col-md-8{
+    border-right: 1px solid #0b5f4c87 ;
+}
+
+.padding{
+    padding-top: 15px;
+       padding-bottom: 15px;
+}
+textarea {
+    border-color: #0b5f4c87; 
+    border-radius: 11px; 
+}
+
+textarea:focus {
+    box-shadow: 0 0 8px 2px #0b5f4c87;
+    outline: 0;
+}

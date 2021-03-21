@@ -1,0 +1,28 @@
+button.btn.btn-success {
+    background-color: #075c49;
+    border: 1px solid #075c49;
+}
+
+button.btn.btn-success:hover {
+    color: #075c49;
+    background-color: white;
+}
+
+.btn-border {
+    border: 1px solid #ccc;
+    margin-left: 15px;
+}
+
+.heading {
+    font-weight: 600;
+    font-style: normal;
+    color: black;
+    margin-top: 15px;
+    margin-bottom: 13px;
+    margin-left: 15px;
+}
+.search {
+    height: 33px;
+    width: 98%;
+    text-align: center;
+}

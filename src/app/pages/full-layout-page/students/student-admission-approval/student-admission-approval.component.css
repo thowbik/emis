@@ -1,0 +1,13 @@
+.heading {
+    font-weight: 600;
+    font-style: normal;
+    color: black;
+    margin-top: 15px;
+    margin-bottom: 13px;
+    margin-left: 15px;
+}
+.search {
+    height: 33px;
+    width: 98%;
+    text-align: center;
+}

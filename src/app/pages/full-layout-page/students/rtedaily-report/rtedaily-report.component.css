@@ -1,0 +1,58 @@
+.tabview {
+    margin-top: 13px !important;
+}
+
+.header {
+    margin-top: 20px;
+}
+
+.search {
+    margin-bottom: 7px;
+    margin-top: -14px;
+}
+
+.body {
+    margin-top: 21px;
+}
+
+.heading {
+    font-weight: 600;
+    font-style: normal;
+    color: black;
+}
+
+button.btn.btn-success {
+    background-color: #075c49;
+    border: 1px solid #075c49;
+}
+
+button.btn.btn-success:hover {
+    color: #075c49;
+    background-color: white;
+}
+
+label {
+    color: #646c9a;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.header-align {
+    text-align: center;
+    font-size: 17px;
+    font-weight: 500;
+    color: #075c49;
+}
+
+.appnum {
+    margin-left: -40px;
+}
+
+.textbox {
+    padding-left: 76px;
+    margin-top: 5px;
+}
+
+.application {
+    margin-top: 6px;
+}

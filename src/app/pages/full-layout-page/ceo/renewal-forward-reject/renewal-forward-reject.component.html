@@ -1,0 +1,176 @@
+<div class="main-body-content dashboard-panel">
+    <p-tabView [activeIndex]="index">
+        
+<p-tabPanel header="Submitted Documents">
+    <form [formGroup]="prevform">
+        <div class="backclr-grn  font-16">
+            <strong>Last/Previous Recognition</strong>
+        </div>
+        <div class="form-group row">
+            <div class="col-lg-4">
+                <label>Year of Last Renewal</label>
+                <input class="form-control" type="text" formControlName="yr_last_renwl" readonly> 
+            </div>
+            <div class="col-lg-8">
+                <label>Whether all the condition imposed at the time of granting recognition where fulfilled.</label>
+                <input type="text" formControlName="prev_cond_status" class="col-lg-6 form-control" readonly>
+            </div>
+        </div>
+    </form>
+    <form [formGroup]="form">
+        <div class="backclr-grn  font-16">
+            <strong>CERTIFICATES</strong>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <label></label>
+            </div>
+            <div class="col-lg-2">
+                <label>Order Copy</label>
+            </div>
+            <div class="col-lg-3">
+                <label>Valid Upto</label>
+            </div>
+            <div class="col-lg-3">
+                <label>Comments/Remarks</label>
+            </div>
+        </div>
+        <hr /> 
+        <div formArrayName="school_certi">
+             <div class="form-group row" style="padding-bottom:10px" *ngFor="let item of form.get('school_certi')['controls']; let i = index;" [formGroupName]="i">
+                <div class="col-md-4">
+                    <input class="form-control text" formControlName="doc_description" type="text" placeholder="Document Type" disabled>
+                </div>
+                <div class="col-lg-2">
+                    <button pButton pRipple type="button" class="btn btn-success" (click)="downloadMyFile3(item.value.doc_name_coded)" label="Download" class="p-button-success"></button>
+                </div>
+                <div class="col-lg-3">
+                    <input class="form-control date" formControlName="doc_valid_upto_date" type="date" placeholder="Date" dateformat="yyyy/dd/mm"  min="{{todayDate}}">
+                    <!-- <small class="form-text text-danger"
+                    *ngIf="item.controls.doc_valid_upto_date.errors && (submitted || form.controls.doc_valid_upto_date.dirty || form.controls.doc_valid_upto_date.touched)">
+                    Date is required
+                    </small> -->
+                </div>
+                <div class="col-md-3">
+                    <div>
+                        <textarea type="text" pInputText class="form-control" formControlName="user_remarks" placeholder="Remarks" maxlength="500"></textarea>
+                        <!-- <p-message severity="error" text="Remarks is required" *ngIf="item.controls.user_remarks.errors && (submitted4 || item.controls.user_remarks.dirty || item.controls.user_remarks.touched)"></p-message> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary btn-border m-2" (click)="page_stage(1)" >Next</button>
+    </div>
+
+</p-tabPanel>
+<p-tabPanel header="Officer Declaration">
+    <div>
+        <h3 class="heading"> School Recognition Renewal Status
+        </h3>
+        <div class="container-fluid body">
+            <form [formGroup]="form">
+                <div class="backclr-grn  font-16">
+                    <strong>Officer Declaration</strong>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-5">
+                        <label>Date of Inspection</label>
+                        <input class="form-control" type="date" formControlName="doc_inspect_date" dateformat="yyyy/dd/mm"  max="{{todayDate}}">
+                        <p-message severity="error" text="Date of Inspection is required" *ngIf="form.controls.doc_inspect_date.errors && (submitted4 || form.controls.doc_inspect_date.dirty || form.controls.doc_inspect_date.touched)"></p-message>
+                    </div>
+                    <div class="col-lg-5">
+                        <label>Officer Recommendation</label>
+                        <p-dropdown [options]="ceorecommends" formControlName="recommend" placeholder="Officer Recommendation" styleClass="dropdwnvalues" (onChange)="chooseRecommendation(form.value.recommend)" *ngIf="this.stage != 2"></p-dropdown>
+                        <p-dropdown [options]="ceorecommend" formControlName="recommend" placeholder="Officer Recommendation" styleClass="dropdwnvalues" (onChange)="chooseRecommendation(form.value.recommend)" *ngIf="this.stage != 1"></p-dropdown>
+                        <p-message severity="error" text="Officer Recommendation field is required" *ngIf="form.controls.recommend.errors && (submitted4 || form.controls.recommend.dirty || form.controls.recommend.touched)"></p-message>
+                    </div>
+                </div>
+                <div class="form-group row" *ngIf="this.stage != 1">
+                    <div class="col-lg-5">
+                        <label>Order Valid From Date</label>
+                        <input class="form-control" formControlName="order_valid_from_date" type="date" placeholder="Date" dateformat="yyyy/dd/mm"  max="{{todayDate}}">
+                        <p-message severity="error" text="Order Valid From Date is required" *ngIf="form.controls.order_valid_from_date.errors && (submitted4 || form.controls.order_valid_from_date.dirty || form.controls.order_valid_from_date.touched)"></p-message>
+                    </div>
+                    <div class="col-lg-5">
+                        <label>Order Valid Upto Date</label>
+                        <input class="form-control" type="date" formControlName="order_valid_upto_date" dateformat="yyyy/dd/mm"  min="{{todayDate}}">
+                        <p-message severity="error" text="Order Valid Upto Date is required" *ngIf="form.controls.order_valid_upto_date.errors && (submitted4 || form.controls.order_valid_upto_date.dirty || form.controls.order_valid_upto_date.touched)"></p-message>
+                    </div>
+                </div>
+                <div class="form-group row" *ngIf="this.stage != 1">
+                    <div class="col-lg-5">
+                        <label>From Class</label>
+                        <p-dropdown [options]="classList" formControlName="order_from_class" placeholder="Please Select" styleClass="dropdwnvalues"></p-dropdown>
+                        <p-message severity="error" text="From Class" *ngIf="form.controls.order_from_class.errors && (submitted4 || form.controls.order_from_class.dirty || form.controls.order_from_class.touched)"></p-message>
+                    </div>
+                    <div class="col-lg-5">
+                        <label>To Class</label>
+                        <p-dropdown [options]="classList" formControlName="order_to_class" placeholder="Please Select" styleClass="dropdwnvalues"></p-dropdown>
+                        <p-message severity="error" text="To Class is required" *ngIf="form.controls.order_to_class.errors && (submitted4 || form.controls.order_to_class.dirty || form.controls.order_to_class.touched)"></p-message>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-lg-5">
+                        <label>Officer Remarks</label>
+                        <input type="text" pInputText class="form-control" formControlName="remarks" placeholder=" Officer Remarks" maxlength="500">
+                        <p-message severity="error" text="Officer Remarks field is required" *ngIf="form.controls.remarks.errors && (submitted4 || form.controls.remarks.dirty || form.controls.remarks.touched)"></p-message>
+                    </div>
+                    <div class="col-lg-5">
+                        <label>Officer Inspection Document</label>
+                        <div>
+                            <input #file type='file' formControlName="docUpload" (change)="onSelectFile($event,'docUpload')">
+                            <p-message severity="error" text="Officer docUpload field is required" 
+                            *ngIf="form.controls.docUpload.hasError('required') && submitted4"></p-message>
+                            </div>
+
+                            <!-- <div>
+                                <input #file type='file' (change)="onSelectFile($event,'docUpload')">
+                                <p-message severity="error" text="Officer Remarks field is required" *ngIf="form.controls.doc_name.errors && (submitted4 || form.controls.doc_name.dirty || form.controls.doc_name.touched)"></p-message>
+                            </div> -->
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-5">
+                        <label>Officer File RC Number</label>
+                        <input type="text" pInputText class="form-control" formControlName="order_rc_num" placeholder="Enter Officer File RC Number" maxlength="50">
+                        <p-message severity="error" text="CEO File RC Number field is required" *ngIf="form.controls.order_rc_num.errors && (submitted4 || form.controls.order_rc_num.dirty || form.controls.order_rc_num.touched)"></p-message>
+                    </div>
+                    <div class="col-lg-5">
+                        <label>File Date</label>
+                        <input class="form-control" type="date" formControlName="order_date" dateformat="yyyy/dd/mm"  min="{{todayDate}}">
+                        <p-message severity="error" text="Order Date field is required" *ngIf="form.controls.order_date.errors && (submitted4 || form.controls.order_date.dirty || form.controls.order_date.touched)"></p-message>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <!-- <div class="col-lg-5">
+                        <label>Order Recognised Number</label>
+                        <input type="text" pInputText class="form-control" formControlName="order_recog_number" placeholder="Enter Order Recognised Number">
+                        <p-message severity="error" text="Order Recognised Number is required" *ngIf="form.controls.order_recog_number.errors && (submitted4 || form.controls.order_recog_number.dirty || form.controls.order_recog_number.touched)"></p-message>
+                    </div> -->
+                    <div class="col-lg-5" *ngIf="this.stage != 1">
+                        <label>Condition Documents</label>
+                        <input #file type='file' formControlName="otherCondDoc" (change)="onSelectFile($event,'otherCondDoc')">
+                        <p-message severity="error" text="otherCondDoc field is required" 
+                            *ngIf="form.controls.otherCondDoc.hasError('required') && submitted4"></p-message>
+                            <!-- <label>Condition Documents</label> -->
+                        <!-- <input #file type='file' (change)="onSelectFile($event,'otherCondDoc')"> -->
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <button *ngIf="recvalue == 'RJ'" type=" submit" class="btn btn-success forward btn-clr" (click)="onSave('2') " [disabled]="save_btn" >Reject</button>
+                    <button *ngIf="recvalue == 'RC'" type=" submit" class="btn btn-success forward btn-clr" (click)="onSave('-3') " [disabled]="save_btn" >Request Clarification</button>
+                    <button *ngIf="recvalue == 'R' && this.userStage == 1" type=" submit " class="btn btn-success approved btn-clr" (click)="onSave('3') " [disabled]="save_btn" >Forward</button>
+                    <button *ngIf="recvalue == 'R' && this.userStage == 2" type=" submit " class="btn btn-success approved btn-clr" (click)="onSave('1')" [disabled]="save_btn" >Approve</button>
+                    <button *ngIf="recvalue == 'R' && this.userStage == 2" type=" form " class="btn btn-success btn-clr" (click)="getOrderCopy()" [disabled]="!pdf_btn">View Order Copy</button>
+                </div>
+                <button type="submit" class="btn btn-primary btn-border m-2" (click)="page_stage(0)" >Previous</button>
+            </form>
+        </div>
+    </div>
+</p-tabPanel>
+    </p-tabView>
+</div>

@@ -1,0 +1,874 @@
+<div class="main-body-content">
+	<div class="page-container">
+		<div class="std-adm center h-100">
+			<div class="header-lines"></div>
+			<p class="disable" style="font-weight: bold;font-size: 16px;">Has the student studied in any other school in
+				tamil nadu ?</p>
+			<div class="kt-section__content">
+				<button pButton type="button" label="No" class="ui-button-secondary flex-gap-right"
+					[ngClass]="{'ui-button-info': !isStudentExist}" (click)="goToAdmission()"></button>
+				<button pButton type="button" label="Yes" class="ui-button-secondary flex-gap-right"
+					[ngClass]="{'ui-button-info': isStudentExist}" (click)="showStudentDetails()"></button>
+			</div>
+			<div *ngIf="isStudentExist">
+				<form name="form" [formGroup]="form">
+					<div class="form-group radiobutton-layout">
+						<div class="ui-g" style="margin-bottom:10px;">
+							<div class="ui-g-12" *ngFor="let item of searchList">
+								<p-radioButton name="group1" value="{{item.value}}" label="{{item.name}}"
+									formControlName="db_col" inputId="opt1" (click)="radioSelect(item.name,item.value)">
+								</p-radioButton>
+							</div>
+							<!-- <div class="ui-g-12"><p-radioButton name="group1" value="Option 2" label="Adhaar Number" formControlName="db_col"  inputId="opt2"></p-radioButton></div><div class="ui-g-12"><p-radioButton name="group1" value="Option 3" label="Phone Number" formControlName="db_col"  inputId="opt3"></p-radioButton></div><div class="ui-g-12"><p-radioButton name="group1" value="Option 3" label="UDISE" formControlName="db_col"  inputId="opt3"></p-radioButton></div><div class="ui-g-12"><p-radioButton name="group1" value="Option 3" label="DOB" formControlName="db_col"  inputId="opt3"></p-radioButton></div> -->
+						</div>
+						<!-- <p-dropdown [options]="searchList" formControlName="db_col" optionLabel="Please Select"></p-dropdown> -->
+					</div>
+					<div class="form-group flex-row-center" style="padding-top:42px;">
+						<input type="text" pKeyFilter="pnum" *ngIf="!selectedDatePicker" pInputText
+							class="form-control text-field" formControlName="search_data" placeholder="{{selectedItem}}"
+							maxlength="{{maxLength}}">
+							<input pInputText class="form-control text-field" type="date" *ngIf="selectedDatePicker" formControlName="search_data" dateformat="dd-MM-yyyy" min="2000-01-01" max="2017-01-01">
+
+						<!-- <p-calendar *ngIf="selectedDatePicker" formControlName="search_data" [monthNavigator]="true"
+							dateFormat="dd-mm-yy" [yearNavigator]="true" yearRange="{{resultYear}}"></p-calendar> -->
+						<!-- <input type="date" *ngIf="selectedDatePicker" class="form-control" formControlName="search_data" yearRange="2000 - 2016" value="2000" style="line-height: 2.5;width: 250px !important;"> -->
+						<!-- <input type="text" pInputText [pKeyFilter]="pnum" class="form-control text-field"    formControlName="search_data"   placeholder="{{selectedItem}}"> -->
+						<p-dropdown *ngIf="isSelectedUdise" [options]="classList" (onChange)="selectClass($event)"
+							optionLabel="name" optionValue="value"></p-dropdown>
+					</div>
+					<div class="kt-section__content p-t-30">
+						<button pButton type="button" label="Search" class="ui-button-secondary flex-gap-right"
+							[ngClass]="{'ui-button-info': Search}" (click)="search('isSearch')"></button>
+						<button pButton type="button" label="Search Archive" class="ui-button-secondary flex-gap-right"
+							[ngClass]="{'ui-button-info': ArchieveSearch}" (click)="search('isSearchArchive')"></button>
+					</div>
+					<div *ngIf="studentDetail && studentDetail.length > 0" class="layoutGap">
+						<!-- {{studentDetail.length}} -->
+						<p-table #dt [columns]="dataHeader" [value]="studentDetail" [paginator]="true"
+							[resizableColumns]="true" [rows]="10" [scrollable]="true" scrollHeight="500px">
+							<ng-template pTemplate="caption" *ngIf="showCaption">
+								<div style="text-align: right">
+									<!-- <i class="fa fa-search" style="margin:4px 4px 0 0"></i> -->
+									<input type="text" pInputText  placeholder="Search"
+										(input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+								</div>
+							</ng-template>
+							<ng-template pTemplate="header" let-columns>
+								<tr class="table-header">
+									<th *ngFor="let col of columns"  [style.width]="col.width">
+									{{col.header}}
+										<!-- <p-sortIcon [field]="col.field"></p-sortIcon> -->
+									</th>
+									<th>Action</th>
+								</tr>
+								<tr *ngIf="showCaption">
+									<th *ngFor="let col of columns" [ngSwitch]="col.field">
+										<input pInputText type="text" class="textbox-filter"
+											(input)="dt.filter($event.target.value, col.field, 'contains')">
+										<!-- <p-multiSelect *ngSwitchCase="'class_studying_id'" [style]="{'width':'100%'}" [options]="classFilter" defaultLabel="All Class" (onChange)="dt.filter($event.value, col.field, 'in')"></p-multiSelect> -->
+										<!-- <p-dropdown *ngSwitchCase="'class_section'" [options]="sectionFilter" class="textbox-filter" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown> -->
+										<!-- <p-slider  *ngSwitchCase="'dob'" [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="yearFilter" [min]="1970" [max]="2020" (onChange)="onYearChange($event, dt)"></p-slider> -->
+										<!-- <div *ngSwitchCase="'dob'">
+                            Value > {{yearFilter}}
+                            <i class="fa fa-close" (click)="yearFilter=null;dt.filter(null, col.field, col.filterMatchMode)" style="cursor:pointer" *ngIf="yearFilter"></i><p-slider [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="yearFilter" [min]="1970" [max]="2020" (onChange)="onYearChange($event, dt)"></p-slider></div> -->
+									</th>
+									<th></th>
+								</tr>
+							</ng-template>
+							<ng-template pTemplate="body" let-rowData let-columns="columns">
+								<tr>
+									<!-- <td class="row-selection" (click)="selectRecord(rowData.unique_id_no)">{{rowData.unique_id_no}}</td><td>{{rowData.name}}</td><td>{{rowData.school_name}}</td><td>{{rowData.school_admission_no}}</td><td>{{rowData.class_studying_id}}</td><td>{{rowData.class_section}}</td> -->
+									<td *ngFor="let col of columns" class="ui-resizable-column" [style.width]="col.width">
+										{{rowData[col.field]}}
+									</td>
+									<td>
+										<div *ngIf="stringFlag == 'isSearch'">
+											<button type="button" pButton icon="pi pi-check"
+												*ngIf="rowData.transfer_flag == 1" (click)="selectRecord(rowData)"
+												label="Admit"></button>
+											<button type="button" pButton icon="pi pi-check"
+												*ngIf="rowData.transfer_flag == 0" (click)="selectRecord(rowData)"
+												label="Raise Request"></button>
+										</div>
+										<div *ngIf="stringFlag == 'isSearchArchive'">
+											<button type="button" pButton icon="pi pi-check"
+												(click)="moveToCpool(rowData.unique_id_no)"
+												label="Move to Common Pool"></button>
+										</div>
+									</td>
+								</tr>
+							</ng-template>
+						</p-table>
+					</div>
+					<div *ngIf="searchMessage">
+						<br />{{searchMessage}}
+
+					</div>
+					<ng-template #content></ng-template>
+				</form>
+			</div>
+			<div class="comm-pool ful-width" *ngIf="!isStudentExist">
+				<div class="kt-portlet__body">
+					<div class="kt-grid  kt-wizard-v1 kt-wizard-v1--white page-wizard" id="kt_wizard_v1"
+						data-ktwizard-state="first">
+						<div class="kt-grid__item">
+							<!--begin: Form Wizard Nav -->
+							<div class="kt-wizard-v1__nav">
+								<!-- <p-tabView [activeIndex]="index"><p-tabPanel header="1.Student Personal Information"> -->
+								<div class="kt-grid__item kt-grid__item--fluid kt-wizard-v1__wrapper">
+									<!--begin: Form Wizard Form-->
+									<form class="kt-form" id="kt_form" [formGroup]="studentRegistrationForm">
+										<!--for RTE Admission-->
+										<div class="form-group row" *ngIf="schoolTypeId == 3">
+															<div class="col-lg-5">
+																<label>Student Type *</label>
+																<p-dropdown [options]="Studentdropvalue" formControlName="student_type" (onChange)=chooseStudentType($event)  (click)="goToAdmission()" placeholder="Select Student" styleClass="dropdwnvalues"></p-dropdown>
+															</div>
+															<div class="col-lg-5" *ngIf="studentRegistrationForm.value.student_type == '1'">
+																<label for="exampleInputPassword1">Enter Register No *</label>
+																<input type="text" pInputText class="form-control" formControlName="rte_appli_no" maxlength="11">
+																	<div *ngIf="studentRegistrationForm.controls.rte_appli_no.errors && (submitted || studentRegistrationForm.controls.rte_appli_no.dirty || studentRegistrationForm.controls.rte_appli_no.touched)">
+																		<p-message severity="error" text="Register No is required" *ngIf="studentRegistrationForm.controls.rte_appli_no.errors?.required"></p-message>
+																	</div>
+																</div>
+																<div class="col-lg-2 submit" *ngIf="studentRegistrationForm.value.student_type == '1'" >
+																	<button type="submit" class="btn btn-success" (click)="getRteDetails()">Submit</button>
+																</div>
+															</div>
+										<!--for RTE Admission-->
+										<div *ngIf="isAllowedToView">
+											<div class="kt-wizard-v1__content" data-ktwizard-type="step-content"
+												data-ktwizard-state="current">
+												<div class="kt-form__section kt-form__section--first">
+													<div class="kt-wizard-v1__form">
+														<div class="kt-portlet__body">
+															<h3>1. Student Personal Information</h3>
+															<div class="form-group row">
+																<div class="col-lg-5">
+																	<label>Name of the Student in English *</label>
+
+																	<input type="text" *ngIf="isAllowedToView"
+																		class="form-control" formControlName="name"
+																		placeholder="Enter the name"
+																		[readonly]="!isAllowedToEdit">
+																	<input type="text" *ngIf="!isAllowedToView"
+																		pInputText class="form-control"
+																		formControlName="name" value={{StudName}}
+																		oninput="this.value = this.value.toUpperCase()"
+																		aria-describedby="emailHelp"
+																		placeholder="Enter the name">
+																	<div
+																		*ngIf="studentRegistrationForm.controls.name.errors && (submitted || studentRegistrationForm.controls.name.dirty || studentRegistrationForm.controls.name.touched)">
+																		<p-message severity="error"
+																			text="Student Name in English is required"
+																			*ngIf="studentRegistrationForm.controls.name.errors?.required">
+																		</p-message>
+																		<p-message severity="error"
+																			text="Invalid Student Name"
+																			*ngIf="studentRegistrationForm.controls.name.errors?.pattern">
+																		</p-message>
+																	</div>
+																</div>
+																<div class="col-lg-5">
+																	<label for="exampleInputPassword1">Name of the
+																		Student in Tamil *</label>
+
+																	<!-- <input type="text" [ngClass]="{'tamil': tamilClass}"
+																		(keyup)="onKey($event)"class="form-control" id="test1" name="emis_reg_stu_idname" onkeypress="return  ((event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 65 && event.charCode <= 90) ||  (event.charCode == 32))"  placeholder="தமிழில் மாணவர் பெயர்" onkeyup='this.value=this.value.toUpperCase();' required autocomplete="off"> -->
+																	<input type="text" pInputText
+																		class="form-control tamil" pInputText 
+																		formControlName="name_tamil"
+																		placeholder="Enter the name" (keyup)="onKeySearch($event)">
+																	<div *ngIf="studentRegistrationForm.controls.name_tamil.errors && (submitted || studentRegistrationForm.controls.name_tamil.dirty || studentRegistrationForm.controls.name_tamil.touched)">
+																		<p-message severity="error"
+																			text="Student Name in Tamil is required"
+																			*ngIf="studentRegistrationForm.controls.name_tamil.errors?.required">
+																		</p-message>
+																		<!-- <p-message severity="error" text="Invalid Student Name in Tamil" *ngIf="studentRegistrationForm.controls.name_tamil.errors?.pattern"></p-message> -->
+																	</div>
+																</div>
+															</div>
+															<div class="form-group row">
+																<div class="col-lg-5">
+																	<label>AADHAR Number</label><span
+																		class="required"></span>
+																	<input type="text" pKeyFilter="pnum"
+																		class="form-control"
+																		formControlName="aadhaar_uid_number"
+																		placeholder="Enter Aadhar Number"
+																		(change)="stucheckaadhar($event.target.value)"
+																		maxlength="12">
+
+																	<!-- <input type="text" pInputText pKeyFilter="num" class="form-control" formControlName="aadhaar_uid_number" (change)="stucheckaadhar($event.target.value)" placeholder="Enter Aadhaar Number" maxlength="12"> -->
+																	<!-- <p-message severity="error"
+                                                    text="Aadhaar Number is required"
+                                                    *ngIf="studentRegistrationForm.controls.aadhaar_uid_number.errors && (submitted || studentRegistrationForm.controls.aadhaar_uid_number.dirty || studentRegistrationForm.controls.aadhaar_uid_number.touched)"></p-message> -->
+																	<p-message severity="error"
+																		text="Invalid Aadhaar Number"
+																		*ngIf="inValidAadhar"></p-message>
+																</div>
+																<div class="col-lg-5 flex-column">
+																	<label for="exampleInputPassword1">Date of Birth
+																		- பிறந்த தேதி *</label>
+																	<!-- <div class="input-group"><input type="date"
+                                                        class="form-control kt_datepicker"
+                                                        formControlName="dob"
+                                                        placeholder="Enter DOB"
+                                                        id="kt_datepicker"
+                                                        dateformat="dd/MM/yyyy"><div class="input-group-append"><span class="input-group-text"><i
+																class="la la-calendar-check-o"></i></span></div></div> -->
+
+																	<input *ngIf="isRteStudent" type="text"
+																		class="form-control" value="{{transferedDate}}"
+																		[disabled]="!isAllowedToEdit" [readonly]="true">
+																		<div *ngIf="!isRteStudent">
+																			<input type="date"
+																			class="form-control" formControlName="dob" min="2000-01-01" max="2017-12-31">
+																			<!-- <p-calendar 
+																			formControlName="dob" [monthNavigator]="true"
+																			dateFormat="dd/mm/yy" [yearNavigator]="true"
+																			yearRange="{{resultYear}}" 
+																			[disabled]="!isAllowedToEdit"></p-calendar> -->
+																		</div>
+																
+																	<p-message severity="error"
+																		text=" Date of Birth is required"
+																		*ngIf="studentRegistrationForm.controls.dob.errors && (submitted || studentRegistrationForm.controls.dob.dirty || studentRegistrationForm.controls.dob.touched)">
+																	</p-message>
+																	<!-- <p-message severity="error" text=" Age should be minimum 3 years and maximum 20 years" *ngIf="studentRegistrationForm.controls.doj.errors && (submitted || studentRegistrationForm.controls.doj.dirty || studentRegistrationForm.controls.doj.touched)"></p-message> -->
+																</div>
+															</div>
+															<div class="form-group row">
+																<div class="col-lg-5">
+																	<label for="exampleInputPassword1">Gender *</label>
+																	<div class="row">
+																		<div style="margin-left:8px;">
+																			<p-radioButton name="gender" value="1"
+																				formControlName="gender" label="Male"
+																				[disabled]="!isAllowedToEdit">
+																			</p-radioButton>
+																		</div>
+																		<div style="margin-left: 48px;">
+																			<p-radioButton name="gender" value="2"
+																				formControlName="gender" label="Female"
+																				[disabled]="!isAllowedToEdit">
+																			</p-radioButton>
+																		</div>
+																	</div>
+																	<!-- <p-dropdown [options]="gender" placeholder="Select Gender" class="flex-dropdown" formControlName="gender" [disabled]="!isAllowedToEdit"></p-dropdown> -->
+																	<p-message severity="error"
+																		text="Gender is required"
+																		*ngIf="studentRegistrationForm.controls.gender.errors && (submitted || studentRegistrationForm.controls.gender.dirty || studentRegistrationForm.controls.gender.touched)">
+																	</p-message>
+																</div>
+																<div class="col-lg-5">
+																	<label>Religion
+
+																		<span class="required">*</span>
+																	</label>
+																	<!-- <p-dropdown *ngIf="isSelectedUdise" [options]="classList" (onChange)="selectClass($event)" optionLabel="name" optionValue="value"></p-dropdown> -->
+																	<p-dropdown [options]="religion"
+																		placeholder="Select Religion"
+																		(onChange)="onReligionChange($event,1)"
+																		[filter]="true" class="flex-dropdown"
+																		formControlName="religion_id"></p-dropdown>
+																	<!-- <select class="form-control kt-selectpicker"
+                                                    formControlName="religion_id"
+                                                    (change)="loadDropdownDtls($event.target.value,1)"><option value=''>Choose Religion</option><option *ngFor="let item of religion"
+                                                        value={{item.id}}>
+                                                        {{item.religion_name}}</option></select> -->
+																	<p-message severity="error"
+																		text="Religion is required"
+																		*ngIf="studentRegistrationForm.controls.religion_id.errors && (submitted || studentRegistrationForm.controls.religion_id.dirty || studentRegistrationForm.controls.religion_id.touched)">
+																	</p-message>
+																</div>
+															</div>
+															<div class="form-group row">
+																<div class="col-lg-5">
+																	<label>Community
+
+																		<span class="required">*</span>
+																	</label>
+																	<!-- <select class="form-control kt-selectpicker"><option>Choose Caste</option><option>BC</option><option>MBC</option></select> -->
+																	<!-- <select class="form-control kt-selectpicker"
+                                                    formControlName="subcaste_id"><option value=''>Choose Caste</option><option *ngFor="let item of subcaste"
+                                                        value='{{item.id}}'>
+                                                        {{item.caste_name}}</option></select> -->
+																	<p-dropdown [options]="community"
+																		placeholder="Select Community"
+																		class="flex-dropdown" [filter]="true"
+																		(onChange)="onCommunityChange($event,1)"
+																		formControlName="community_id"></p-dropdown>
+																	<p-message severity="error"
+																		text="Community is required"
+																		*ngIf="studentRegistrationForm.controls.community_id.errors && (submitted || studentRegistrationForm.controls.community_id.dirty || studentRegistrationForm.controls.community_id.touched)">
+																	</p-message>
+																</div>
+																<div class="col-lg-5">
+																	<label>Caste
+
+																		<span class="required">*</span>
+																	</label>
+																	<p-dropdown [options]="casteList"
+																		placeholder="Select Caste" class="flex-dropdown"
+																		[filter]="true" formControlName="subcaste_id">
+																	</p-dropdown>
+																	<p-message severity="error" text="Caste is required"
+																		*ngIf="studentRegistrationForm.controls.subcaste_id.errors && (submitted || studentRegistrationForm.controls.subcaste_id.dirty || studentRegistrationForm.controls.subcaste_id.touched)">
+																	</p-message>
+																</div>
+															</div>
+															<div class="form-group row">
+																<div class="col-lg-5">
+																	<label>Mother tongue
+
+																		<span class="required">*</span>
+																	</label>
+																	<p-dropdown [options]="launguages"
+																		placeholder="Choose Mother Tongue"
+																		class="flex-dropdown" [filter]="true"
+																		formControlName="mothertounge_id"></p-dropdown>
+																	
+																	<!-- <select class="form-control"
+                                                    formControlName="mothertounge_id"><option value=''>Choose Mother Tongue
+                                                    </option><option *ngFor="let item of launguages"
+                                                        value='{{item.ID}}'>
+                                                        {{item.MEDINSTR_DESC}}</option></select> -->
+																	<p-message severity="error"
+																		text="Mother Tongue is required"
+																		*ngIf="studentRegistrationForm.controls.mothertounge_id.errors && (submitted || studentRegistrationForm.controls.mothertounge_id.dirty || studentRegistrationForm.controls.mothertounge_id.touched)">
+																	</p-message>
+																</div>
+																<div class="col-lg-5">
+																	<label>Blood Group</label>
+																	<p-dropdown [options]="bloodgrouparr"
+																		placeholder="Choose blood group"
+																		class="flex-dropdown" [filter]="true"
+																		formControlName="bloodgroup"></p-dropdown>
+																	<p-message severity="error"
+																		text="Blood Group is required"
+																		*ngIf="studentRegistrationForm.controls.bloodgroup.errors && (submitted || studentRegistrationForm.controls.bloodgroup.dirty || studentRegistrationForm.controls.bloodgroup.touched)">
+																	</p-message>
+																</div>
+															</div>
+															<div class="form-group row">
+																<div class="col-lg-5">
+																	<label>Disability Group Name</label>
+																	<p-dropdown [options]="disabilities"
+																		placeholder="Choose Disability Group"
+																		class="flex-dropdown" [filter]="true"
+																		formControlName="differently_abled">
+																	</p-dropdown>
+																	<!-- <select class="form-control kt-selectpicker"
+                                                    formControlName="differently_abled"><option value=''>Choose Disability Group
+                                                        Name</option><option *ngFor="let item of disabilities"
+                                                        value='{{item.id}}'>
+                                                        {{item.da_name}}</option></select> -->
+																	<p-message severity="error"
+																		text="Disability Group Name is required"
+																		*ngIf="studentRegistrationForm.controls.differently_abled.errors && (submitted || studentRegistrationForm.controls.differently_abled.dirty || studentRegistrationForm.controls.differently_abled.touched)">
+																	</p-message>
+																</div>
+																<div class="col-lg-5"></div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<!--end: Form Wizard Step 1-->
+											<!--begin: Form Wizard Step 2-->
+											<div class="kt-wizard-v1__content" data-ktwizard-type="step-content">
+												<h3>2.Family Details</h3>
+												<div class="kt-form__section kt-form__section--first">
+													<div class="kt-wizard-v1__form">
+														<div class="kt-portlet__body">
+															<div class="form-group row">
+																<div class="col-lg-5">
+																	<label>Father Name in English</label>
+																	<input type="text" pInputText class="form-control"
+																		formControlName="father_name"
+																		placeholder="Enter Father Name">
+																	<p-message severity="error"
+																		text="Invalid Father Name"
+																		*ngIf="studentRegistrationForm.controls.father_name.errors?.pattern">
+																	</p-message>
+																</div>
+																<div class="col-lg-5">
+																	<label>Father Name in Tamil</label>
+																	<input type="text" pInputText class="form-control tamil"
+																		formControlName="father_name_tamil"
+																		placeholder="Enter Father Name in Tamil" (keyup)="onKeySearchfather($event)">
+																	<p-message severity="error"
+																		text="Invalid Father Name in Tamil"
+																		*ngIf="studentRegistrationForm.controls.father_name_tamil.errors?.pattern">
+																	</p-message>
+																</div>
+															</div>
+															<div class="form-group row">
+																<div class="col-lg-5">
+																	<label>Father Education Level</label>
+																	<!-- <input type="text" pKeyFilter="alphanum" pInputText class="form-control" placeholder="Enter Father Education Level" formControlName="father_qualify"> -->
+																	<p-dropdown [options]="academic"
+																		placeholder="Select Father Education Level"
+																		class="flex-dropdown" [filter]="true"
+																		formControlName="father_qualify"></p-dropdown>
+																	<p-message severity="error"
+																		text="Father Education Level is required"
+																		*ngIf="studentRegistrationForm.controls.father_qualify.errors && (submitted || studentRegistrationForm.controls.father_qualify.dirty || studentRegistrationForm.controls.father_qualify.touched)">
+																	</p-message>
+																</div>
+																<div class="col-lg-5">
+																	<label>Father's Occupation</label>
+																	<p-dropdown [options]="occupation"
+																		placeholder="Select Occupation"
+																		class="flex-dropdown" [filter]="true"
+																		formControlName="father_occupation">
+																	</p-dropdown>
+																	<!-- <p-message severity="error"
+                                                    text="Father's Occupation is required"
+                                                    *ngIf="studentRegistrationForm.controls.father_occupation.errors && (submitted || studentRegistrationForm.controls.father_occupation.dirty || studentRegistrationForm.controls.father_occupation.touched)"></p-message> -->
+																</div>
+															</div>
+															<div class="form-group row">
+																<div class="col-lg-5">
+																	<label>Mother Name in English</label>
+																	<input type="text" pInputText class="form-control"
+																		formControlName="mother_name"
+																		placeholder="Enter Mother Name">
+																	<p-message severity="error"
+																		text="Invalid Mother Name"
+																		*ngIf="studentRegistrationForm.controls.mother_name.errors?.pattern">
+																	</p-message>
+																</div>
+																<div class="col-lg-5">
+																	<label>Mother Name in Tamil</label>
+																	<input type="text" pInputText class="form-control tamil"
+																		formControlName="mother_name_tamil"
+																		placeholder="Enter Mother's Ta Name" (keyup)="onKeySearchmother($event)">
+																	<p-message severity="error"
+																		text="Invalid Mother Name in Tamil"
+																		*ngIf="studentRegistrationForm.controls.mother_name_tamil.errors?.pattern">
+																	</p-message>
+																</div>
+															</div>
+															<div class="form-group row">
+																<div class="col-lg-5">
+																	<label>Mother Education Level</label>
+																	<!-- <input type="text" pKeyFilter="alphanum" pInputText class="form-control" placeholder="Enter Mother Education Level" formControlName="mother_qualify"> -->
+																	<p-dropdown [options]="academic"
+																		placeholder="Select Mother Education Level"
+																		[filter]="true" class="flex-dropdown"
+																		formControlName="mother_qualify"></p-dropdown>
+																	<p-message severity="error"
+																		text="Mother Education Level is required"
+																		*ngIf="studentRegistrationForm.controls.mother_qualify.errors && (submitted || studentRegistrationForm.controls.mother_qualify.dirty || studentRegistrationForm.controls.mother_qualify.touched)">
+																	</p-message>
+																</div>
+																<div class="col-lg-5">
+																	<label>Mother's Occupation</label>
+																	<p-dropdown [options]="occupation"
+																		placeholder="Select Occupation" [filter]="true"
+																		class="flex-dropdown"
+																		formControlName="mother_occupation">
+																	</p-dropdown>
+																	<!-- <p-message severity="error"
+                                                    text="Mother's Occupation is required"
+                                                    *ngIf="studentRegistrationForm.controls.mother_occupation.errors && (submitted || studentRegistrationForm.controls.mother_occupation.dirty || studentRegistrationForm.controls.mother_occupation.touched)"></p-message> -->
+																</div>
+															</div>
+															<div class="form-group row">
+																<div class="col-lg-5">
+																	<label>Guardian Name in English</label>
+																	<input type="text" pInputText class="form-control"
+																		placeholder="Enter Guardian Name"
+																		formControlName="guardian_name">
+																	<p-message severity="error"
+																		text="Invalid Guardian Name"
+																		*ngIf="studentRegistrationForm.controls.guardian_name.errors?.pattern">
+																	</p-message>
+																</div>
+																<div class="col-lg-5">
+																	<label>Guardian Name in Tamil</label>
+																	<input type="text" pInputText class="form-control tamil"
+																		placeholder="Enter Guardian Name"
+																		formControlName="guardian_name_tamil" (keyup)="onKeySearchgurdian($event)">
+																	<p-message severity="error"
+																		text="Invalid Guardian Name in Tamil"
+																		*ngIf="studentRegistrationForm.controls.guardian_name_tamil.errors?.pattern">
+																	</p-message>
+																</div>
+															</div>
+															<div class="form-group row">
+																<div class="col-lg-5">
+																	<label>Guardian Education Level</label>
+																	<!-- <input type="text" pKeyFilter="alphanum" pInputText class="form-control" placeholder="Enter Guardian Education Level"
+                                                    formControlName="guardian_qualify"> -->
+																	<p-dropdown [options]="academic" [filter]="true"
+																		placeholder="Select Guardian Education Level"
+																		class="flex-dropdown"
+																		formControlName="guardian_qualify"></p-dropdown>
+																	<p-message severity="error"
+																		text="Guardian Education Level is required"
+																		*ngIf="studentRegistrationForm.controls.guardian_qualify.errors && (submitted || studentRegistrationForm.controls.guardian_qualify.dirty || studentRegistrationForm.controls.guardian_qualify.touched)">
+																	</p-message>
+																</div>
+																<div class="col-lg-5">
+																	<label>Parents Annual Income</label>
+																	<p-dropdown [options]="incomes"
+																		placeholder="Choose Annual income"
+																		[filter]="true" class="flex-dropdown"
+																		formControlName="parent_income"></p-dropdown>
+																	<!-- <p-message severity="error"
+                                                    text="Parents Annual Income is required"
+                                                    *ngIf="studentRegistrationForm.controls.parent_income.errors && (submitted || studentRegistrationForm.controls.parent_income.dirty || studentRegistrationForm.controls.parent_income.touched)"></p-message> -->
+																	<!-- <select class="form-control"  formControlName ="parent_income" ><option value="">Parents Annual Income ( பெற்றோரின் ஆண்டு வருமானம் ) </option><option *ngFor="let item of incomes"  value='{{item.id}}'>{{item.income_value}}</option></select> -->
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<!--end: Form Wizard Step 2-->
+											<!--begin: Form Wizard Step 5-->
+											<div class="kt-wizard-v1__content" data-ktwizard-type="step-content">
+												<h3>3.Communication Details</h3>
+												<div class="kt-form__section kt-form__section--first">
+													<div class="kt-wizard-v1__form">
+														<div class="kt-portlet__body">
+															<div class="form-group row">
+																<div class="col-lg-5">
+																	<label>Mobile Number</label>
+																	<span class="required">*</span>
+																	<!-- <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter Mobile number"> -->
+																	<input type="text" pKeyFilter="pnum"
+																		class="form-control"
+																		formControlName="phone_number"
+																		placeholder="Enter Mobile number" maxlength="10"
+																		[readonly]="!isAllowedToEdit">
+																	<p-message severity="error"
+																		text="Mobile Number is required"
+																		*ngIf="studentRegistrationForm.controls.phone_number.errors && submitted">
+																	</p-message>
+																	<p-message severity="error"
+																		text="It is not a valid mobile number."
+																		*ngIf="studentRegistrationForm.get('phone_number').hasError('pattern')">
+																	</p-message>
+																</div>
+																<div class="col-lg-5">
+																	<label>Email ID</label>
+																	<!-- <input type="email" class="form-control" placeholder="Enter Email id"> -->
+																	<input type="text" class="form-control"
+																		formControlName="email"
+																		placeholder="Enter Email id" maxlength="60"
+																		[readonly]="!isAllowedToEdit">
+																	<!-- <p-message severity="error"
+                                                    text="Email ID is required"
+                                                    *ngIf="studentRegistrationForm.controls.email.errors && (submitted || studentRegistrationForm.controls.email.dirty || studentRegistrationForm.controls.email.touched)"></p-message> -->
+																</div>
+															</div>
+															<div class="form-group row">
+																<div class="col-lg-5">
+																	<label>Door no./Building Name
+
+																		<span class="required">*</span>
+																	</label>
+																	<input type="text" pInputText class="form-control"
+																		formControlName="house_address"
+																		placeholder="Enter Door no. / Building Name">
+																	<p-message severity="error"
+																		text="Building Name is required"
+																		*ngIf="studentRegistrationForm.controls.house_address.errors && (submitted || studentRegistrationForm.controls.house_address.dirty || studentRegistrationForm.controls.house_address.touched)">
+																	</p-message>
+																</div>
+																<div class="col-lg-5">
+																	<label>Street Name / Area Name
+
+																		<span class="required">*</span>
+																	</label>
+																	<input type="text" pInputText class="form-control"
+																		formControlName="street_name"
+																		placeholder="Enter Street Name / Area name">
+																	<p-message severity="error"
+																		text="Street Name is required"
+																		*ngIf="studentRegistrationForm.controls.street_name.errors && (submitted || studentRegistrationForm.controls.street_name.dirty || studentRegistrationForm.controls.street_name.touched)">
+																	</p-message>
+																</div>
+															</div>
+															<div class="form-group row">
+																<div class="col-lg-5">
+																	<label>City name / Village name
+
+																		<span class="required">*</span>
+																	</label>
+																	<input type="text" pInputText class="form-control"
+																		formControlName="area_village"
+																		placeholder="Enter City name / Village name">
+																	<p-message severity="error"
+																		text="City name  is required"
+																		*ngIf="studentRegistrationForm.controls.area_village.errors && (submitted || studentRegistrationForm.controls.area_village.dirty || studentRegistrationForm.controls.area_village.touched)">
+																	</p-message>
+																</div>
+																<div class="col-lg-5">
+																	<label>District
+
+																		<span class="required">*</span>
+																	</label>
+																	<p-dropdown [options]="schooldist"
+																		placeholder="Choose District" [filter]="true"
+																		class="flex-dropdown"
+																		formControlName="district_id"></p-dropdown>
+																	<!-- <select class="form-control kt-selectpicker"
+                                                    class="form-control"
+                                                    formControlName="district_id"><option value="">Choose District</option><option *ngFor="let item of schooldist"
+                                                        value='{{item.id}}'>
+                                                        {{item.district_name}}</option></select> -->
+																	<p-message severity="error"
+																		text="District is required"
+																		*ngIf="studentRegistrationForm.controls.district_id.errors && (submitted || studentRegistrationForm.controls.district_id.dirty || studentRegistrationForm.controls.district_id.touched)">
+																	</p-message>
+																</div>
+															</div>
+															<div class="form-group row">
+																<div class="col-lg-5 pl-10">
+																	<label>Pincode
+
+																		<span class="required">*</span>
+																	</label>
+																	<input type="text" pInputText class="form-control"
+																		formControlName="pin_code" pKeyFilter="num"
+																		maxlength="6" placeholder="Enter Pincode">
+																	<p-message severity="error"
+																		text="Pincode is required"
+																		*ngIf="studentRegistrationForm.controls.pin_code.errors && (submitted || studentRegistrationForm.controls.pin_code.dirty || studentRegistrationForm.controls.pin_code.touched)">
+																	</p-message>
+																</div>
+																<div class="col-lg-5 pl-10"></div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="kt-wizard-v1__content" data-ktwizard-type="step-content">
+												<h3>4. Academic info</h3>
+												<div class="kt-form__section kt-form__section--first">
+													<div class="kt-wizard-v1__form">
+														<div class="kt-portlet__body">
+															<div class="form-group row">
+																<div class="col-lg-5">
+																	<label>Class for which Admission is sought for
+
+																		<span class="required">*</span>
+																	</label>
+																	<!-- <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter Mobile number"> -->
+																	<p-dropdown [options]="classes"
+																		(onChange)="onClassChange($event.value)"
+																		placeholder="Choose Class" class="flex-dropdown"
+																		formControlName="class_studying_id"
+																		[disabled]="!isAllowedToEdit"></p-dropdown>
+																	<p-message severity="error" text="Class is required"
+																		*ngIf="studentRegistrationForm.controls.class_studying_id.errors && (submitted || studentRegistrationForm.controls.class_studying_id.dirty || studentRegistrationForm.controls.class_studying_id.touched)">
+																	</p-message>
+																</div>
+																<div class="col-lg-5">
+																	<label>Section
+
+																		<span class="required">*</span>
+																	</label>
+																	<!-- <input type="email" class="form-control" placeholder="Enter Email id"> -->
+																	<p-dropdown [options]="sectionListArr"
+																		placeholder="Choose Section"
+																		class="flex-dropdown"
+																		formControlName="class_section"
+																		(onChange)="onSectionChange()"></p-dropdown>
+																	<p-message severity="error"
+																		text="Section is required"
+																		*ngIf="studentRegistrationForm.controls.class_section.errors && (submitted || studentRegistrationForm.controls.class_section.dirty || studentRegistrationForm.controls.class_section.touched)">
+																	</p-message>
+																</div>
+															</div>
+															<div class="form-group row">
+																<div class="col-lg-5">
+																	<label>Admission Number
+
+																		<span class="required">*</span>
+																	</label>
+																	<input type="text" pKeyFilter="pnum"
+																		class="form-control"
+																		formControlName="school_admission_no"
+																		placeholder="Enter Admission Number">
+																	<p-message severity="error"
+																		text="Admission Number is required"
+																		*ngIf="studentRegistrationForm.controls.school_admission_no.errors && (submitted || studentRegistrationForm.controls.school_admission_no.dirty || studentRegistrationForm.controls.school_admission_no.touched)">
+																	</p-message>
+																</div>
+																<div class="col-lg-5">
+																	<label>Date of Joining - சேர்க்கை தேதி
+
+																		<span class="required">*</span>
+																	</label>
+																	<p-calendar formControlName="doj"
+																		dateFormat="dd/mm/yy" [monthNavigator]="true"
+																		[yearNavigator]="true"
+																		yearRange="{{NowYearRange}}" [minDate]="minDate"
+																		[maxDate]="maxDate"></p-calendar>
+																	<!-- <input class="form-control" type="date" formControlName="doj" dateformat="dd-MM-yyyy" [max]="maxDate" [min]="minDate"> -->
+																	<p-message severity="error"
+																		text=" Date of Joining is required"
+																		*ngIf="studentRegistrationForm.controls.doj.errors && (submitted || studentRegistrationForm.controls.doj.dirty || studentRegistrationForm.controls.doj.touched)">
+																	</p-message>
+																</div>
+															</div>
+															<div class="form-group row">
+																<div class="col-lg-5">
+																	<label>Medium of Instruction
+
+																		<span class="required">*</span>
+																	</label>
+																	<p-dropdown [options]="sortedMediumListArr"
+																		placeholder="Choose Medium"
+																		class="flex-dropdown"
+																		formControlName="education_medium_id"
+																		[readonly]="studentRegistrationForm.controls.contractor_flag.value != true">
+																	</p-dropdown>
+																	<p>
+																		<b class="Note">Note:</b>“Medium will be
+																		selected automatically based on medium of the
+																		section”
+
+																	</p>
+																	<p-message severity="error"
+																		text="Medium of Instruction  is required" *ngIf="studentRegistrationForm.controls.education_medium_id.errors && 
+                                                    (submitted || studentRegistrationForm.controls.education_medium_id.dirty || 
+                                                    studentRegistrationForm.controls.education_medium_id.touched)">
+																	</p-message>
+																</div>
+																<div class="col-lg-5">
+																	<div *ngIf="groupshow">
+																		<label>Group Code </label>
+																		<p-dropdown [options]="groupListArr"
+																			class="flex-dropdown"
+																			formControlName="group_code_id">
+																		</p-dropdown>
+																		<p-message severity="error"
+																			text="Group Code  is required"
+																			*ngIf="studentRegistrationForm.controls.group_code_id.errors && (submitted || studentRegistrationForm.controls.group_code_id.dirty || studentRegistrationForm.controls.group_code_id.touched)">
+																		</p-message>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<!--end: Form Wizard Step 5-->
+											<!--begin: Form Actions -->
+											<div class="kt-form__actions">
+												<!-- <button pButton type="button" label="Previous"
+                                     class="ui-button-secondary flex-gap-right"
+                                     (click)="goToPrev()"></button> -->
+												<button pButton type="Submit" class="ui-button-success flex-gap-right"
+													(click)="onSubmit()" label="Submit"></button>
+												<!-- <button pButton type="button" label="Submit" class="ui-button-success flex-gap-right" (click)="submit()"></button> -->
+												<!-- <button pButton type="button" label="Next"
+                                     class="ui-button-info flex-gap-right"
+                                     (click)="goToNext()"></button> -->
+											</div>
+										</div>
+										<!--end: Form Actions -->
+									</form>
+									<!--end: Form Wizard Form-->
+								</div>
+								<div class="alert alert-warning alert-dismissible fade show text-center" role="alert"
+									*ngIf="isAllowedToView">
+									<p>
+										<strong>Note:</strong> Father Name Or Mother Name Or Guardian Name Either One Is
+										Mandatory!.
+
+									</p>
+								</div>
+								<!-- </p-tabPanel> -->
+								<!-- <p-tabPanel header="2.Family Details"><button pButton type="button" label="Previous" class="ui-button-secondary flex-gap-right" (click)="goToPrev()"></button><button pButton type="button" label="Submit" class="ui-button-success flex-gap-right" (click)="onSubmit()"></button><button pButton type="button" label="Next" class="ui-button-info flex-gap-right" (click)="goToNext()"></button></p-tabPanel> -->
+								<!-- <p-tabPanel header="3.Communication Details"><div class="kt-form__actions"><button pButton type="button" label="Previous" class="ui-button-secondary flex-gap-right" (click)="goToPrev()"></button><button pButton type="button" label="Submit" class="ui-button-success flex-gap-right" (click)="onSubmit()"></button><button pButton type="button" label="Next" class="ui-button-info flex-gap-right" (click)="goToNext()"></button></div></p-tabPanel> -->
+								<!-- </p-tabView> -->
+							</div>
+							<!--end: Form Wizard Nav -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<p-dialog header="Confirmation" [(visible)]="display" [modal]="true" [responsive]="true"
+				[style]="{width: '350px', minWidth: '200px'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+				<h5>Are you sure?</h5>
+				<h6>Do you want to Raise Request for the Student?</h6>
+				<p-footer>
+					<button type="button" pButton icon="pi pi-check" (click)="raiseRequest()" label="Yes"></button>
+					<button type="button" pButton icon="pi pi-close" (click)="cancel()" label="No"
+						class="ui-button-secondary"></button>
+				</p-footer>
+			</p-dialog>
+		</div>
+	</div>
+</div>
+<!-- <p-dialog [header]="admitDialogTitle" [(visible)]="admitDisplayDialog" [modal]="true" [responsive]="true" [style]="{width:'75%'}" [minY]="70" 
+    [maximizable]="true" [baseZIndex]="10000"> -->
+<p-dialog [header]="admitDialogTitle" [(visible)]="admitDisplayDialog" [modal]="true" [responsive]="true"
+	[draggable]="false" [blockScroll]="true" [maximizable]="false"
+	[contentStyle]="{'max-width':'1000px','max-height': '450px','overflow-y': 'auto'}">
+	<form id="admin_form" [formGroup]="studentAdmittedForm">
+		<input type="hidden" formControlName="id">
+		<input type="hidden" formControlName="emis_unique_id_no">
+		<div class="row">
+			<div class="col-lg-6">
+				<label> Enter Admission date *</label>
+
+				<input class="form-control" type="date" formControlName="doj" dateformat="dd-MM-yyyy" [max]="enddate"
+					[min]="startdate">
+				<p-message severity="error" class="flex-gap-top" text="Admission date is required"
+					*ngIf="studentAdmittedForm.controls.doj.errors && (submitted || studentAdmittedForm.controls.doj.dirty || studentAdmittedForm.controls.doj.touched)"
+					class="validation-error"></p-message>
+			</div>
+			<div class="col-lg-6">
+				<label>Select Class</label>
+				<!-- <input class="form-control" type="text" formControlName="emis_class_study" pInputText> -->
+				<p-dropdown [options]="classListArr" placeholder="Choose Class" class="flex-dropdown"
+					formControlName="emis_class_study" (onChange)="getSectionForRevalentClass($event.value)">
+				</p-dropdown>
+			</div>
+			<div class="col-lg-6">
+				<label>Section*</label>
+				<p-dropdown [options]="sectionListArr" placeholder="Choose Section" class="flex-dropdown"
+					formControlName="emis_reg_stu_section" (onChange)="getGroupForRevalentClass()"></p-dropdown>
+			</div>
+			<div class="col-lg-6" *ngIf="groupshow">
+				<label>Group Code*</label>
+				<p-dropdown [options]="groupListArr" class="flex-dropdown" disabled="true"
+					formControlName="emis_reg_grup_code"></p-dropdown>
+			</div>
+			<div class="col-lg-6">
+				<label>Medium of Instruction *</label>
+				<!-- dd -->
+				<p-dropdown [options]="mediumListArr" class="flex-dropdown" disabled="true"
+					formControlName="emis_reg_mediofinst"></p-dropdown>
+			</div>
+			<div class="col-lg-6">
+				<label>Admission Number *</label>
+				<input class="form-control" type="text" formControlName="emis_reg_stu_admission_admiss" pInputText>
+				<p-message severity="error" class="flex-gap-top" text="Admission Number is required"
+					*ngIf="studentAdmittedForm.controls.emis_reg_stu_admission_admiss.errors && (submitted || studentAdmittedForm.controls.emis_reg_stu_admission_admiss.dirty || studentAdmittedForm.controls.emis_reg_stu_admission_admiss.touched)"
+					class="validation-error"></p-message>
+			</div>
+		</div>
+		<p-footer>
+			<div class="row">
+				<!-- <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 col-lg-offset-9 col-md-offset-9 col-sm-offset-9"> -->
+				<br>
+				<br>
+				<button type="submit" class="btn btn-success" style="position: absolute; right: 12px;"
+					(click)="onSubmitAdmitForm(studentAdmittedForm.value)">
+					<span>Save</span>
+				</button>
+				<!-- </div> -->
+			</div>
+		</p-footer>
+	</form>
+</p-dialog>

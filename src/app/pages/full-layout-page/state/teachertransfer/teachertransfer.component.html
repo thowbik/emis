@@ -1,0 +1,288 @@
+<div class="outer-layout" style="padding-top:15px;">
+  <div class="breadcrumbs c-black">
+    <h6 classs="url"><span class="flex-gap-right">Staffs</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right">Adminitartive Transfers</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right">Transfer Teacher</span>
+    </h6>
+ </div>
+</div>
+        <form [formGroup]="teachertransferForm" (ngSubmit)="teachertransfer(teachertransferForm.value)">
+            <div class="animated fadeIn" >
+                <div class="row">
+                  <div class="ui-g-12">
+                   <div class="card">
+                    <div class="card"  style="background-color: #e3eae3; color:white">
+                       
+                      <div class="card-header" style="background-color: #2d7464; color:white">
+                        <strong>Teacher Transfer</strong>
+                        
+                      </div>
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="ui-g-6">
+                            <div class="card">
+                                         
+                            <div class="card-header" style="background-color: lightblue; color:white"> 
+                        
+                              <strong>Present School</strong>
+                            </div>
+                            <br>
+                            <div class="ui-g-12">
+                              <div class="ui-g-4">
+                              <label style="color:green;">Select District</label>
+                              </div>
+                              <div class="ui-g-8">
+                                <p-dropdown [options]="districtdetails" formControlName="p_district" (onChange)="selectdistrict($event.value)" placeholder="Select a District"  styleClass="dropdown"></p-dropdown>
+                                <p-message severity="error" class="flex-gap-top"
+                                text="District is required"
+                                *ngIf="teachertransferForm.controls.p_district.errors && (teachertransferForm.controls.p_district.dirty || teachertransferForm.controls.p_district.touched)"
+                                class="validation-error">
+                            </p-message>
+                              </div>
+                             
+                          </div>
+                          
+                          <div class="ui-g-12">
+                            <div class="ui-g-4">
+                            <label style="color:green;">Select Block</label>
+                            </div>
+                            <div class="ui-g-8">
+                              <p-dropdown [options]="filterblocklist" formControlName="p_block"  (onChange)="selectblock($event.value)" placeholder="Select Block"  styleClass="dropdown"></p-dropdown>
+                              <p-message severity="error" class="flex-gap-top"
+                              text="Block is required"
+                              *ngIf="teachertransferForm.controls.p_block.errors && (teachertransferForm.controls.p_block.dirty || teachertransferForm.controls.p_block.touched)"
+                              class="validation-error">
+                          </p-message>
+                            </div>
+                           
+                        </div>
+                        <div class="ui-g-12">
+                          <div class="ui-g-4">
+                          <label style="color:green;">Select School</label>
+                          </div>
+                          <div class="ui-g-8">
+                            <p-dropdown [options]="filterschoollist" formControlName="p_school" (onChange)="selectschool($event.value)" placeholder="Select School"  styleClass="dropdown"></p-dropdown>
+                            <p-message severity="error" class="flex-gap-top"
+                            text="School is required"
+                            *ngIf="teachertransferForm.controls.p_school.errors && (teachertransferForm.controls.p_school.dirty || teachertransferForm.controls.p_school.touched)"
+                            class="validation-error">
+                        </p-message>
+                          </div>
+                          
+                      </div>
+                      <div class="ui-g-12">
+                        <div class="ui-g-4">
+                        <label style="color:green;">Teacher Type</label>
+                        </div>
+                        <div class="ui-g-8">
+                          <p-dropdown [options]="typeteacher" formControlName="p_teachertype" (onChange)="selectteachertype($event.value)" placeholder="Select Teacher Type"  styleClass="dropdown"></p-dropdown>
+                          <p-message severity="error" class="flex-gap-top"
+                          text="Teacher Type is required"
+                          *ngIf="teachertransferForm.controls.p_teachertype.errors && ( teachertransferForm.controls.p_teachertype.dirty || teachertransferForm.controls.p_teachertype.touched)"
+                          class="validation-error">
+                      </p-message>
+                        </div>
+                      
+                    </div>
+                    <div class="ui-g-12">
+                      <div class="ui-g-4">
+                      <label style="color:green;">Teacher Name</label>
+                      </div>
+                      <div class="ui-g-8">
+                        <p-dropdown [options]="listteacher"  formControlName="teachername" (onChange)="teachername($event.value)" placeholder="Select Teacher Name"  styleClass="dropdown"></p-dropdown>
+                        <p-message severity="error" class="flex-gap-top"
+                        text="Teacher Name is required"
+                        *ngIf="teachertransferForm.controls.teachername.errors && ( teachertransferForm.controls.teachername.dirty || teachertransferForm.controls.teachername.touched)"
+                        class="validation-error">
+                    </p-message>
+                      </div>
+                      
+                  </div>
+                  <div class="ui-g-12">
+                    <div class="ui-g-4">
+                    <label style="color:green;">Transfer Type</label>
+                    </div>
+                    <div class="ui-g-8">
+                      <p-dropdown [options]="transfertype" formControlName="transfertype" (onChange)="selecttransfertype($event.value)" placeholder="Select Transfer Type"  styleClass="dropdown"></p-dropdown>
+                      <p-message severity="error" class="flex-gap-top"
+                      text="Transfer Type is required"
+                      *ngIf="teachertransferForm.controls.transfertype.errors && ( teachertransferForm.controls.transfertype.dirty || teachertransferForm.controls.transfertype.touched)"
+                      class="validation-error">
+                  </p-message>
+                    </div>
+                    
+                </div>
+                                      
+                                    
+                                
+                <div class="ui-g-12">
+                  <div class="ui-g-4">
+                  <label style="color:green;">Remarks</label>
+                  </div>
+                  <div class="ui-g-8">
+                    <textarea [rows]="5" [cols]="30" formControlName="remarks" pInputTextarea autoResize="autoResize" class="form-control" ></textarea>
+                  </div>
+                  <!--<p-message severity="error" class="flex-gap-top"
+                      text="Student Name in English is required"
+                      *ngIf="studentRegistrationForm.controls.name.errors && (submitted || studentRegistrationForm.controls.name.dirty || studentRegistrationForm.controls.name.touched)"
+                      class="validation-error">
+                  </p-message>-->
+              </div>
+                            
+                                        </div>
+                                        </div>
+                                    
+                                        <div class="ui-g-6">
+                                          <div class="card">
+                                          <div class="card-header" style="background-color: lightblue; color:white"> 
+                        
+                                            <strong>New School</strong>
+                                          </div>
+                                          <br>
+                                          <div class="ui-g-12">
+                                            <div class="ui-g-4">
+                                            <label style="color:green;">Currently Deputed?*</label>
+                                            </div>
+                                            <div class="ui-g-8">
+                                              <p-dropdown [options]="deputelist" formControlName="deputetype" (onChange)="selectdepute($event.value)"  placeholder="Select Depute Type"  styleClass="dropdown"></p-dropdown>
+                                              <p-message severity="error" class="flex-gap-top"
+                                              text="Deputed is required"
+                                              *ngIf="teachertransferForm.controls.deputetype.errors && (teachertransferForm.controls.deputetype.dirty || teachertransferForm.controls.deputetype.touched)"
+                                              class="validation-error"></p-message>
+                                            </div>
+                                           
+                            
+                                        </div>
+                                        <div class="ui-g-12">
+                                          <div class="ui-g-4">
+                                          <label style="color:green;">Select District</label>
+                                          </div>
+                                          <div class="ui-g-8">
+                                            <p-dropdown [options]="districtdetails" formControlName="n_district" (onChange)="selectnewdistrict($event.value)" placeholder="Select a District"  styleClass="dropdown"></p-dropdown>
+                                            <p-message severity="error" class="flex-gap-top"
+                                            text="NewDistrict is required"
+                                            *ngIf="teachertransferForm.controls.n_district.errors && ( teachertransferForm.controls.n_district.dirty || teachertransferForm.controls.n_district.touched)"
+                                            class="validation-error">
+                                        </p-message>
+                                          </div>
+                                          
+                                      </div>
+                                      <div class="ui-g-12">
+                                        <div class="ui-g-4">
+                                        <label style="color:green;">Select Block</label>
+                                        </div>
+                                        <div class="ui-g-8">
+                                          <p-dropdown [options]="filternewblocklist" formControlName="n_block" (onChange)="selectnewblock($event.value)" placeholder="Select Block"  styleClass="dropdown"></p-dropdown>
+                                          <p-message severity="error" class="flex-gap-top"
+                                          text="NewBlock is required"
+                                          *ngIf="teachertransferForm.controls.n_block.errors && ( teachertransferForm.controls.n_block.dirty || teachertransferForm.controls.n_block.touched)"
+                                          class="validation-error">
+                                      </p-message>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="ui-g-12">
+                                      <div class="ui-g-4">
+                                      <label style="color:green;">Select School /Office</label>
+                                      </div>
+                                      <div class="ui-g-8">
+                                        <p-dropdown [options]="filternewschoollist" formControlName="n_school"   placeholder="Select One"  styleClass="dropdown"></p-dropdown>
+                                        <p-message severity="error" class="flex-gap-top"
+                                        text="New School/Office is required"
+                                        *ngIf="teachertransferForm.controls.n_school.errors && ( teachertransferForm.controls.n_school.dirty || teachertransferForm.controls.n_school.touched)"
+                                        class="validation-error">
+                                    </p-message>
+                                      </div>
+                                     
+                                  </div>
+                                                      
+                                                   
+                                  <div class="ui-g-12">
+                                    <div class="ui-g-4">
+                                    <label style="color:green;">Teacher Name</label>
+                                    </div>
+                                    <div class="ui-g-8">
+                                     <p style="color:black;">{{teacher_name}} </p> 
+                                    </div>
+                                    <!--<p-message severity="error" class="flex-gap-top"
+                                        text="Student Name in English is required"
+                                        *ngIf="studentRegistrationForm.controls.name.errors && (submitted || studentRegistrationForm.controls.name.dirty || studentRegistrationForm.controls.name.touched)"
+                                        class="validation-error">
+                                    </p-message>-->
+                                </div>
+                                                <div class="ui-g-12">
+                                                  <div class="ui-g-4">
+                                                  <label style="color:green;">Designation Type</label>
+                                                  </div>
+                                                  <div class="ui-g-8">
+                                                    <p-dropdown [options]="typeteacher" formControlName="n_designation" placeholder="Select Designation Type"  styleClass="dropdown"></p-dropdown>
+                                                    <p-message severity="error" class="flex-gap-top"
+                                                    text="Designation Type is required"
+                                                    *ngIf="teachertransferForm.controls.n_designation.errors && ( teachertransferForm.controls.n_designation.dirty || teachertransferForm.controls.n_designation.touched)"
+                                                    class="validation-error">
+                                                </p-message>
+                                                  </div>
+                                                 
+                                              </div>
+                                              <div class="ui-g-12">
+                                                <div class="ui-g-4">
+                                                <label style="color:green;">Transfer Date*</label>
+                                                </div>
+                                                <div class="ui-g-8">
+                                                  <input type="date"  formControlName="transferdate" class="form-control date"  placeholder="D-M-YYYY" />
+                                                  <p-message severity="error" class="flex-gap-top"
+                                                  text="Transfer Date is required"
+                                                  *ngIf="teachertransferForm.controls.transferdate.errors && (teachertransferForm.controls.transferdate.dirty || teachertransferForm.controls.transferdate.touched)"
+                                                  class="validation-error">
+                                              </p-message>
+                                                </div>
+                                                
+                                            </div>
+                                             
+                                            <div class="ui-g-12">
+                                              <div class="ui-g-4">
+                                              <label style="color:green;">Transfered By</label>
+                                              </div>
+                                              <div class="ui-g-8">
+                                                <p-dropdown [options]="transferbyofficers" formControlName="transferby" placeholder="Select Officers"  styleClass="dropdown"></p-dropdown>
+                                                <p-message severity="error" class="flex-gap-top"
+                                                text="Officers is required"
+                                                *ngIf="teachertransferForm.controls.transferby.errors && (teachertransferForm.controls.transferby.dirty || teachertransferForm.controls.transferby.touched)"
+                                                class="validation-error">
+                                            </p-message>
+                                              </div>
+                                              
+                                          </div>
+                                          <div class="ui-g-12">
+                                            <div class="ui-g-4">
+                                            <label >Transfered By</label>
+                                            </div>
+                                            <div class="ui-g-8">
+                                              <button pButton type="Submit"  label="Transfer" style="position: absolute; right: 24px;" ></button>
+                                            </div>
+                                            <!--<p-message severity="error" class="flex-gap-top"
+                                                text="Student Name in English is required"
+                                                *ngIf="studentRegistrationForm.controls.name.errors && (submitted || studentRegistrationForm.controls.name.dirty || studentRegistrationForm.controls.name.touched)"
+                                                class="validation-error">
+                                            </p-message>-->
+                                        </div>
+                                                 
+                                        </div>
+                                                       </div>
+                        </div>
+                       
+                  </div><!--/.col-->
+                 <!-- </div>
+                </div>-->
+                  </div>
+                
+                  </div>
+                </div>
+                </div><!--/.row-->
+               
+              
+              
+               </div>
+               
+    </form>
+ 
+<!-- End OF Subjects Form-->
+     

@@ -1,0 +1,8 @@
+.parent_class{margin: 30px 0 0;}
+.label_text{font-size: 14px;}
+p.label_text {
+  background-color: #075c49;
+  color: white;
+  padding: 10px;
+  margin-bottom: 10px;
+}

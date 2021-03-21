@@ -1,0 +1,302 @@
+<!-- ATSL Report List -->
+<div class="outer-layout" style="padding-top: 5px;">
+<div class="breadcrumbs c-black" >
+    <h6 class="url">
+      <span class="flex-gap-right">Academic Reports</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+      <span class="flex-gap-right">ATSL Reports</span>
+      <span class="flex-gap-right" *ngIf="districtName"><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right" (click)="goBack()">{{districtName}}</span></span>
+      <span class="flex-gap-right" *ngIf="blkname"><i class="fa fa-angle-right flex-gap-right"aria-hidden="true"></i><span class="flex-gap-right" (click)="goBack1()">{{blkname}}</span></span>
+    </h6>
+  </div>
+</div>
+<div *ngIf ="usertypeId != 1"> 
+    <!-- <div class="page-container"> -->
+        <!-- <div class="flex-layout-gap"> -->
+            <br>
+            <form [formGroup]="form">
+                <div class="row" style="margin-left:0px;margin-right:0px;">
+                    <div class="col-md-3">
+                        <select id="select2" formControlName="medium" class="form-control "
+                            >
+                            <!-- <option value="">Select Medium</option> -->
+                            <option *ngFor="let medium of mediumlist" [value]="medium.value">
+                                {{ medium.label }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select id="select2" formControlName="topic" class="form-control">
+                            <!-- <option value="">Select Topic</option> -->
+                            
+                            <option *ngFor="let topic of topiclist" [value]="topic.value">
+                                {{ topic.label }}
+                            </option>
+                           
+                        </select>
+                    </div>
+                    <div class="col-md-3" style="padding-left:10%;">
+                        <button type="button" style="background-color: #065040;" class="btn btn-success"
+                            (click)="getData()">SEARCH</button>
+                    </div>
+                    
+                </div>
+            </form>
+            <br>
+            <div *ngIf="pageStage ===1 || usertypeId == 5 && DropdownVar === 0">
+                <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img"> -->
+                    <p-table #dt [columns]="sampleSelectedColumn" class="prime-table" [value]="data"  [style]="{'width':'250px !important'}" [autoLayout]="true" [paginator]="false" [resizableColumns]="true" [rows]="10" [scrollable]="true" scrollHeight="500px" scrollWidth="100px">
+                        <ng-template pTemplate="caption">
+
+                            <div class="row" style="padding-top:6px;">      
+                                <div class="col-sm-8 col-md-8 text-left"><h5>District Report</h5></div>  
+                                <div class="col-sm-3 col-md-3 col-lg-3 text-right">
+                                <input type="text" pInputText size="20" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto; height: 85%;border: gray 1px solid;border-radius: 2px;padding-left:2%;">
+                                </div>   
+                                <div class="col-sm-1 col-md-1 text-right" style="padding-top: 12px;margin-left:0px;">
+                                    <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                                    (click)="exportExcel()"></i>
+                                   </div>                          
+                            </div>
+                            </ng-template>
+<!--                  
+                        <ng-template pTemplate="caption2">
+                                <div style="text-align: right">        
+                                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                    <input type="text" pInputText size="50" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                                </div>
+                            </ng-template> -->
+                        <ng-template pTemplate="header" let-columns>
+                            <tr class="table-header">
+                                <th rowspan="2">#</th>
+                                <th rowspan="2" colspan="2">District</th>
+                                <th colspan="2" class="center">Score 0</th>
+                                <th colspan="2" class="center">Score 1-5</th>
+                                <th colspan="2" class="center">Score 6 - 10</th>
+                                <th colspan="2" class="center">Score 11-15</th>
+                                <th colspan="2" class="center">Total</th>
+                            </tr>
+                            <tr>
+                                <th class="center">#</th>
+                                <th class="center">%</th>
+                                <th class="center">#</th>
+                                <th class="center">%</th>
+                                <th class="center">#</th>
+                                <th class="center">%</th>
+                                <th class="center">#</th>
+                                <th class="center">%</th>
+                                <th class="center">#</th>
+                                <th class="center">%</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                            <tr>
+                                    <td colspan="1">{{i+1}}</td>
+                                    <td colspan="2" style="color:#337ab7;cursor: pointer;" (click)="getBlockData(rowData,DropdownVar=2,rowData.district_name)">{{rowData.district_name}}</td>
+                                    <td colspan="1" class="center">{{rowData.Score_0}}</td>
+                                    <td colspan="1" class="center">{{Math.round(rowData.Score_0/rowData.Total*100)}}%</td>
+                                    <td colspan="1" class="center">{{rowData.Score_1_5}}</td>
+                                    <td colspan="1" class="center">{{Math.round(rowData.Score_1_5/rowData.Total*100)}}%</td>
+                                    <td colspan="1" class="center">{{rowData.Score_6_10}}</td>
+                                    <td colspan="1" class="center">{{Math.round(rowData.Score_6_10/rowData.Total*100)}}%</td>
+                                    <td colspan="1" class="center">{{rowData.Score_11_15}}</td>
+                                    <td colspan="1" class="center">{{Math.round(rowData.Score_11_15/rowData.Total*100)}}%</td>
+                                    <td>{{rowData.Total}}</td>
+                                    <td>{{Math.round(rowData.Total/rowData.Total*100)}}%</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+<!-- Block Data -->
+            <div class="container-fluid " *ngIf="(pageStage ===2)|| (usertypeId == 9 && DropdownVar1 === 0) || (usertypeId == 10 && DropdownVar1 === 0)  || (usertypeId == 5 && DropdownVar === 2 && DropdownVar1 === 0)">
+                <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img"> -->
+                    <p-table #dt [columns]="sampleSelectedColumn1" class="prime-table" [value]="data1"  [style]="{'width':'250px !important'}" [autoLayout]="true" [paginator]="true" [resizableColumns]="true" [rows]="10" [scrollable]="true" scrollHeight="500px" scrollWidth="100px">
+                        <ng-template pTemplate="caption">
+                            <div class="row" style="padding-top:6px;">
+                                <div class="col-sm-8 col-md-8 text-left"><h5>Block Report</h5></div>
+                                <div class="col-sm-3 col-md-3 text-right">
+                                <input type="text" pInputText size="20" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto; height: 85%;border: gray 1px solid;border-radius: 2px;padding-left:2%;">
+                            </div>
+                            <div class="col-sm-1 col-md-1 text-right" style="padding-top: 12px;margin-left: 0px;">
+                                <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                                (click)="exportBlkExcel()"></i>
+                               </div>  
+                            </div>
+                            </ng-template>
+                 
+                        <ng-template pTemplate="caption2">
+                                <div style="text-align: right">        
+                                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                    <input type="text" pInputText size="50" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                                </div>
+                            </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                            <tr class="table-header">
+                                <th rowspan="2" style="width:4em">#</th>
+                                <th rowspan="2" colspan="2">Block</th>
+                                <th rowspan="2" colspan="2">UDISE Code</th>
+                                <th rowspan="2" colspan="2" style="width:15em;">School Name</th>
+                                <th colspan="2" class="center">Score 0</th>
+                                <th colspan="2" class="center">Score 1-5</th>
+                                <th colspan="2" class="center">Score 6 - 10</th>
+                                <th colspan="2" class="center">Score 11-15</th>
+                                <th colspan="2" class="center">Total</th>
+                            </tr>
+                            <tr>
+                                <th class="center">#</th>
+                                <th class="center">%</th>
+                                <th class="center">#</th>
+                                <th class="center">%</th>
+                                <th class="center">#</th>
+                                <th class="center">%</th>
+                                <th class="center">#</th>
+                                <th class="center">%</th>
+                                <th class="center">#</th>
+                                <th class="center">%</th>
+                            </tr>     
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                            <tr>  
+                                    <td style="width: 4em">{{i+1}}</td>
+                                    <td colspan="2">{{rowData.block_name}}</td>
+                                    <td colspan="2">{{rowData.udise_code}}</td>
+                                    <td colspan="2" style="color:#337ab7;width:15em;cursor: pointer;" (click)="getSchoolData(rowData,DropdownVar1=3,rowData.school_name)">{{rowData.school_name}}</td>
+                                    <td colspan="1" class="center">{{rowData.Score_0}}</td>
+                                    <td colspan="1" class="center">{{Math.round(rowData.Score_0/rowData.Total*100)}}%</td>
+                                    <td colspan="1" class="center">{{rowData.Score_1_5}}</td>
+                                    <td colspan="1" class="center">{{Math.round(rowData.Score_1_5/rowData.Total*100)}}%</td>
+                                    <td colspan="1" class="center">{{rowData.Score_6_10}}</td>
+                                    <td colspan="1" class="center">{{Math.round(rowData.Score_6_10/rowData.Total*100)}}%</td>
+                                    <td colspan="1" class="center">{{rowData.Score_11_15}}</td>
+                                    <td colspan="1" class="center">{{Math.round(rowData.Score_11_15/rowData.Total*100)}}%</td>
+                                    <td class="center">{{rowData.Total}}</td>
+                                    <td class="center">{{Math.round(rowData.Total/rowData.Total*100)}}%</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                <!-- </div> -->
+            </div>
+
+            <!-- School List -->
+            <div *ngIf="pageStage === 3">
+                <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img"> -->
+                    <p-table #dt [columns]="sampleSelectedColumn2" class="prime-table" [value]="data2"  [style]="{'width':'250px !important'}" [autoLayout]="true" [paginator]="true" [resizableColumns]="true" [rows]="10" [scrollable]="true" scrollHeight="500px" scrollWidth="100px">
+                        <ng-template pTemplate="caption">
+                            <div class="row" style="padding-top:6px;">
+                                <div class="col-sm-8 col-md-8 text-left"><h5>School Report</h5></div>
+                                <div class="col-sm-3 col-md-3 text-right">
+                                <input type="text" pInputText size="20" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto; height: 85%;border: gray 1px solid;border-radius: 2px;padding-left:2%;">
+                                </div>  
+                                <div class="col-sm-1 col-md-1 text-right" style="padding-top: 12px;margin-left:0px;">
+                                    <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                                    (click)="exportSchlExcel()"></i>
+                                   </div>         
+                            </div>                         
+                     </ng-template>
+                        <ng-template pTemplate="caption2">
+                                <div style="text-align: right">        
+                                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                    <input type="text" pInputText size="50" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                                </div>
+                            </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                           
+                                <tr class="table-header">
+                                    <th rowspan="2" style="width:4em">#</th>
+                                    
+                                    <th class="center" colspan="2">Score 0</th>
+                                    <th class="center" colspan="2">Score 1-5</th>
+                                    <th class="center" colspan="2">Score 6 - 10</th>
+                                    <th class="center" colspan="2">Score 11-15</th>
+                                    <th class="center" colspan="2">Total</th>
+                                </tr>
+                                <tr>
+                                    <th class="center">#</th>
+                                    <th class="center">%</th>
+                                    <th class="center">#</th>
+                                    <th class="center">%</th>
+                                    <th class="center">#</th>
+                                    <th class="center">%</th>
+                                    <th class="center">#</th>
+                                    <th class="center">%</th>
+                                    <th class="center">#</th>
+                                    <th class="center">%</th>
+                                </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                            <tr>  
+                                    <td style="width:4em">{{i+1}}</td>
+                                    <td colspan="1" class="center">{{rowData.Score_0}}</td>
+                                    <td colspan="1" class="center">{{Math.round(rowData.Score_0/rowData.Total*100)}}%</td>
+                                    <td colspan="1" class="center">{{rowData.Score_1_5}}</td>
+                                    <td colspan="1" class="center">{{Math.round(rowData.Score_1_5/rowData.Total*100)}}%</td>
+                                    <td colspan="1" class="center">{{rowData.Score_6_10}}</td>
+                                    <td colspan="1" class="center">{{Math.round(rowData.Score_6_10/rowData.Total*100)}}%</td>
+                                    <td colspan="1" class="center">{{rowData.Score_11_15}}</td>
+                                    <td colspan="1" class="center">{{Math.round(rowData.Score_11_15/rowData.Total*100)}}%</td>
+                                    <td class="center">{{rowData.Total}}</td>
+                                    <td class="center">{{Math.round(rowData.Total/rowData.Total*100)}}%</td>
+                               
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                <!-- </div> -->
+            </div>
+
+        <!-- </div> -->
+    <!-- </div> -->
+<!-- </div> -->
+<!--School list by kamal-->
+
+<div class="container-fluid main-body-content" *ngIf ="usertypeId == 1 && (cateType == 'Higher Secondary School' || cateType == 'High School')">
+    <div class="col-sm-12">
+        <!-- <p>ATSL Student ScoreCard </p> -->
+    </div>
+        <p-table [value]="scorecarddata">
+            <ng-template  pTemplate="caption">
+            <div class="row">
+                <div class="col-sm-8"></div>
+            <div class="col-sm-4 text-right" style="padding-top: 12px;margin-left:0px;">
+                     <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                                    (click)="exportExcel()"></i>
+                <!-- <button type="button" pButton icon="pi pi-file-excel" iconPos="right" (click)="exportExcel()"label="EXCEL" class="ui-button-success">
+                </button> -->
+               </div>
+            </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+            <tr>
+                <th rowspan="1" style="text-align:center">S.NO</th>
+                <th rowspan="1" style="text-align:center">Student Name</th>
+                <th rowspan="1" style="text-align:center"> Class</th>
+                <th rowspan="1" style="text-align:center"> Medium</th>
+                <th rowspan="1" style="text-align:center">Tamil</th>
+                <th rowspan="1" style="text-align:center">English</th>
+                <th rowspan="1" style="text-align:center"> Logical</th>
+                <th rowspan="1" style="text-align:center">Numerical</th>
+                <th rowspan="1" style="text-align:center">Scientific</th>
+                <th rowspan="1" style="text-align:center">Spatial</th>
+                <th rowspan="1" style="text-align:center">Total</th>
+            </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-scorecarddatas let-i="rowIndex">
+                <tr>
+                    <td>{{i+1}}</td>
+                    <td>{{scorecarddatas.name}}</td>
+                    <td>{{scorecarddatas.class_id}}</td>
+                    <td>{{scorecarddatas.Medium_}}</td>
+                    <td>{{scorecarddatas.Topic1}}</td>
+                    <td>{{scorecarddatas.Topic2}}</td>
+                    <td>{{scorecarddatas.Topic3}}</td>
+                    <td>{{scorecarddatas.Topic4}}</td>
+                    <td>{{scorecarddatas.Topic5}}</td>
+                    <td>{{scorecarddatas.Topic6}}</td>
+                    <td>{{scorecarddatas.Total}}</td>
+                </tr>
+            </ng-template>              
+    </p-table>
+</div>    
+
+
+
+

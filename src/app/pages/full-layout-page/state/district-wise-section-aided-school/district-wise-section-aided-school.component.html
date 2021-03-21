@@ -1,0 +1,224 @@
+<!-- <div class="container"> -->
+  <div class="outer-layout" style="padding-top:10px;">
+    <div class="breadcrumbs c-black">
+      <h6 classs="url"><span class="flex-gap-right">Schools</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right">Sections and Groups</span><span *ngIf="districtName"><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right" (click)='goBack()'>{{districtName}}</span></span>
+        <span *ngIf="schoolName"> <i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right" (click)='goBack1()'>{{schoolName}}</span></span>
+      </h6> 
+   </div>
+  </div>
+    <div class="m-4"  *ngIf="pageStage === 1">
+        <p-card>
+            <div class="container-fluid m-2 header_fonts">
+              <div class="row p-1">
+                <div class="col-sm-12">
+                    <div class="text-lg-left mt-3">
+                      <!-- <h5> District Wise Private School - Section Verification(Aided and UnAided)</h5> -->
+                    </div>
+                </div>
+                </div>
+                <!-- <div class="col-sm-8 p-1 text-right">
+                    <div class="row">
+                      <div class="col-sm-8">
+
+                      </div>   -->
+                      <div class="row">
+                      <div class="col-md-9"></div>
+                      <div class="col-md-3">
+                         <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                      </div>              
+                  </div>              
+                 </div>
+             
+        
+            <div>
+              <p-table #dt [columns]="dataHeader" [value]="district_wise_section_aided_details" [resizableColumns]="true" [paginator]="" 
+              [rows]="10" >
+                <!-- <ng-template pTemplate="caption">
+                  <div class="row">
+                    <div style="text-align:center" class="col-md-12 pt-2">
+                        <h4>Higher Secondary Groups</h4>
+                    </div>
+                  </div>
+                </ng-template> -->
+                <ng-template pTemplate="header" let-NoonMeal>
+                  <tr class="text-center">
+                    <th style="width:4em;">S.No</th>
+                    <th *ngFor="let col of NoonMeal" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                      {{col.header}}
+                      <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-districtwise  let-columns="columns" let-i="rowIndex" >
+                  <tr class="text-center">
+                    <td class="sno-header-layout"> {{i+1}} </td>
+                    <td class="text-left"><a href="javascript:void(0)" (click)="onSelectedId(districtwise.district_id,districtwise.district_name)">{{ districtwise.district_name}}</a></td>
+                    <td> {{ districtwise.total_school}} </td>
+                    <td> {{ districtwise.aided}} </td>
+                    <td> {{ districtwise.self_financed}} </td>
+                    <td> {{ districtwise.unmarked}} </td>      
+                    <td> {{ districtwise.unmediummarked}} </td>      
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                  <tr class="text-center" *ngIf="nodateFound">
+                    <td colspan="18" >No Data Found</td>
+                  </tr>
+              </ng-template>
+              </p-table>
+            </div>
+        </p-card>      
+    </div>
+    <div class="m-4" *ngIf="pageStage === 2">
+      <p-card>
+          <div class="container-fluid m-2 header_fonts">
+            <div class="row p-1">
+              <div class="col-md-12">
+                  <div class="text-lg-left mt-3">
+                    <!-- <h5> Block Wise Private School - Section Verification(Aided and UnAided)</h5> -->
+                  </div>
+              </div>
+            </div>
+          </div>
+            <div class="row" style="padding-bottom:5px;">
+                <div class="col-md-8"></div>
+                      <div class="col-md-3">
+                         <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                      </div>  
+                      <div class="col-md-1 flex-row-center-end">
+                        <div class="text-right" style="padding-top: 10px;margin-left: -7px;">
+                            <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel()"></i>
+                        </div>
+                    </div>            
+                  </div>              
+          <div>
+            <p-table #dt [columns]="dataHeader2" [value]="block_wise_section_aided_details" [resizableColumns]="true" [paginator]="true" 
+            [rows]="10">
+              <!-- <ng-template pTemplate="caption">
+                <div class="row">
+                  <div style="text-align:center" class="col-md-12 pt-2">
+                      <h4>Higher Secondary Groups</h4>
+                  </div>
+                </div>
+              </ng-template> -->
+              <ng-template pTemplate="header" let-NoonMeal>
+                <tr class="text-center">
+                  <th style="width:4em;">S.No</th>
+                  <th *ngFor="let col of NoonMeal" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-blockwise  let-columns="columns" let-i="rowIndex" >
+                <tr class="text-center">
+                  <td class="sno-header-layout"> {{i+1}} </td>                  
+                  <td class="text-left"> {{ blockwise.district_name}} </td>
+                  <td class="text-left"> {{ blockwise.block_name}} </td>
+                  <td> {{ blockwise.udise_code}} </td>
+                  <td class="text-left"><a href="javascript:void(0)" (click)="onSelectedSchoolId(blockwise.school_id,blockwise.school_name)">{{ blockwise.school_name}}</a></td>
+                  <td  class="text-left">{{blockwise.school_type}}</td>
+                  <td> {{ blockwise.aided}} </td>      
+                  <td> {{ blockwise.self_finance}} </td>      
+                  <td> {{ blockwise.unmarked}} </td>      
+                  <td> {{ blockwise.unmediummarked}} </td>      
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="footer">
+                <tr class="text-center" *ngIf="nodateFound2">
+                  <td colspan="18" >No Data Found</td>
+                </tr>
+            </ng-template>
+            </p-table>
+          </div>
+      </p-card>
+    
+  </div>
+  <div class="m-4" *ngIf="pageStage === 3">
+    <p-card>
+        <div class="container-fluid m-2 header_fonts">
+          <!-- <p-breadcrumb [model]="items" [home]="home" (click)="Status()"></p-breadcrumb> -->
+          <div class="row p-1">
+            <div class="col-md-12">
+                <div class="text-lg-left mt-3">
+                  <!-- <h5> School Wise Private School - Section Verification(Aided and UnAided)</h5> -->
+                </div>
+            </div>
+          </div>
+        </div>
+          <div class="row" style="padding-bottom:5px;">
+            <div class="col-md-8"></div>
+                  <div class="col-md-3">
+                     <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                  </div>  
+                  <div class="col-md-1 flex-row-center-end">
+                    <div class="text-right" style="margin-left:-25px;">
+                        <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportSchlExcel()"></i>
+                    </div>
+                </div>            
+              </div>      
+            <!-- <div class="col-sm-6 p-1">
+              <div class="row">
+                <div class="col-sm-6">
+                  
+                </div>  
+                <div class="col-sm-6">
+                   <!-- <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="School Name Filter"> -->
+                <!-- </div>              
+            </div>              -->
+          
+        <div>
+          <p-table #dt [columns]="dataHeader3" [value]="school_wise_section_aided_details" [resizableColumns]="true" [paginator]="true" 
+          [rows]="10" [lazy]="false" [globalFilterFields]="['class_id','section','MEDINSTR_DESC','student_count']">
+            <!-- <ng-template pTemplate="caption">
+              <div class="row">
+                <div style="text-align:center" class="col-md-12 pt-2">
+                    <h4>Higher Secondary Groups</h4>
+                </div>
+              </div>
+            </ng-template> -->
+            <ng-template pTemplate="header" let-NoonMeal>
+              <tr class="text-center">
+                <th style="width:4em;">S.No</th>
+                <th *ngFor="let col of NoonMeal" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                  {{col.header}}
+                  <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-blockwise  let-columns="columns" let-i="rowIndex" >
+              <tr class="text-center">
+                <td class="sno-header-layout"> {{i+1}} </td>                  
+                <td class="text-left" *ngIf="blockwise.class_id === '1'"> I </td>
+                <td class="text-left" *ngIf="blockwise.class_id === '2'"> II </td>
+                <td  class="text-left" *ngIf="blockwise.class_id === '3'">III </td>
+                <td class="text-left" *ngIf="blockwise.class_id === '4'"> IV</td>
+                <td class="text-left" *ngIf="blockwise.class_id === '5'"> V </td>
+                <td  class="text-left"*ngIf="blockwise.class_id === '6'"> VI </td>
+                <td class="text-left" *ngIf="blockwise.class_id === '7'"> VII </td>
+                <td class="text-left" *ngIf="blockwise.class_id === '8'"> VIII </td>
+                <td  class="text-left" *ngIf="blockwise.class_id === '9'"> IX </td>
+                <td class="text-left" *ngIf="blockwise.class_id === '10'"> X </td>
+                <td class="text-left" *ngIf="blockwise.class_id === '11'"> XI </td>     
+                <td class="text-left" *ngIf="blockwise.class_id === '12'"> XII </td>     
+                <td class="text-left" *ngIf="blockwise.class_id === '13'"> LKG </td>     
+                <td class="text-left" *ngIf="blockwise.class_id === '14'"> UKG </td>     
+                <td class="text-left"*ngIf="blockwise.class_id === '15'"> PRE-KG </td>         
+                <td class="text-left"> {{ blockwise.section }} </td>
+                <!-- <td> {{ blockwise.school_type}} </td> -->
+                 <td class="text-left">{{ blockwise.MEDINSTR_DESC}} </td>      
+                <td> {{ blockwise.student_count}} </td>  
+               
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+              <tr class="text-center" *ngIf="nodateFound3">
+                <td colspan="5" >No Data Found</td>
+              </tr>
+          </ng-template>
+          </p-table>
+        </div>
+    </p-card> 
+</div>
+  
+    

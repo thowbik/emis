@@ -1,0 +1,79 @@
+<div class="main-body-content p-3">
+	<div class="outer-layout">
+		<div class="breadcrumbs c-black">
+			<h6 class="url">
+				<span class="flex-gap-right">DCF Reports</span>
+				<i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+				<span class="flex-gap-right">Enrollment By Trade</span>
+			</h6>
+		</div>
+	</div>
+	<p-card>
+		<div class="pr-2 mr-3">
+			<p-card class="mx-2">
+				<p>
+					<b>Note : </b> Reports Updated once a day at 7 PM. Any changes made will be reflected in the report the next day.
+				</p>
+			</p-card>
+			<p-card class="mt-3 pt-3">
+				<!-- Start  -->
+				<div class="m-2 p-2">
+					<div class="row  m-2 pt-1">
+						<div class="col-md-12 mt-1">
+							<p class="label_text">
+								<b>9.3 (b)</b> Enrolment in current academic session 2019-20 (by trade and by job role)
+							</p>
+						</div>
+					</div>
+					<div class="row m-2">
+						<div class="col-md-12">
+							<p-table [columns]="sampleSelectedColumn" [value]="EnrolmentData" [autoLayout]="true" [resizableColumns]="true" [scrollable]="true" scrollHeight="500px" scrollWidth="100px">
+								<ng-template pTemplate="header">
+									<tr class="text-center">
+										<th style="width: 15em">Vocational Sector under NSQF</th>
+										<th style="width: 10em">Job Role</th>
+										<th style="width: 10em" colspan="2">IX</th>
+										<th style="width: 10em" colspan="2">X</th>
+										<th style="width: 10em" colspan="2">XI</th>
+										<th style="width: 10em" colspan="2">XII</th>
+									</tr>
+									<tr class="text-center">
+										<th style="width: 18em"></th>
+										<th style="width: 12em"></th>
+										<th style="width: 5em">Boys</th>
+										<th style="width: 5em">Girls</th>
+										<th style="width: 5em">Boys</th>
+										<th style="width: 5em">Girls</th>
+										<th style="width: 5em">Boys</th>
+										<th style="width: 5em">Girls</th>
+										<th style="width: 5em">Boys</th>
+										<th style="width: 5em">Girls</th>
+									</tr>
+								</ng-template>
+								<ng-template pTemplate="body" let-Enrolment>
+									<tr class="text-center" *ngIf="!noDataFound">
+										<td class="text-left" style="width: 18em">{{Enrolment.sector}}</td>
+										<td class="text-left" style="width: 12em">{{Enrolment.jobrole}}</td>
+										<td style="width: 5em">{{Enrolment.c9_b}}</td>
+										<td style="width: 5em">{{Enrolment.c9_g}}</td>
+										<td style="width: 5em">{{Enrolment.c10_b}}</td>
+										<td style="width: 5em">{{Enrolment.c10_g}}</td>
+										<td style="width: 5em">{{Enrolment.c11_b}}</td>
+										<td style="width: 5em">{{Enrolment.c11_g}}</td>
+										<td style="width: 5em">{{Enrolment.c12_b}}</td>
+										<td style="width: 5em">{{Enrolment.c12_g}}</td>
+									</tr>
+								</ng-template>
+								<ng-template pTemplate="footer">
+									<tr class="text-center" *ngIf="noDataFound">
+										<td colspan="10">No Data Found</td>
+									</tr>
+								</ng-template>
+							</p-table>
+						</div>
+					</div>
+				</div>
+			</p-card>
+		</div>
+	</p-card>
+</div>

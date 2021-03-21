@@ -1,0 +1,113 @@
+<div class="outer-layout" style="padding-top:10px;">
+    <div class="breadcrumbs c-black">
+       <h6 classs="url"><span class="flex-gap-right">Staffs</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right">Training details</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right">Training Attended Report</span></h6>
+    </div>
+ </div>
+ <!-- <div class="container-fluid header"> -->
+    <p-tabView>
+       <p-tabPanel header="Teachers With Training Details">
+          <!-- <div class="container"> -->
+                <p-table #dt [columns]="cols" [value]="teacherwithtraining" [paginator]="true" [rows]="10" [resizableColumns]="true">
+                <ng-template let-childrens pTemplate="caption">
+                   <div class="row mt-2">
+                      <div class="col-md-3">
+                         <p-dropdown [options]="schooltypedropvalue" placeholder="Select School type" styleClass="dropdwnvalues" (onChange)="SchoolTypeOption($event)"></p-dropdown>
+                      </div>
+                   </div>
+                   <div class="row mb-2">
+                      <div class="col-sm-8"></div>
+                      <div class="col-sm-3">
+                         <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                      </div>
+                      <div class="col-sm-1 p-3 ">
+                         <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel()"></i>
+                      </div>
+                      <!-- <div class="col-md-1 excel">
+                         <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" class="ui-button-success"></button>
+                         </div> -->
+                   </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-distname>
+                   <tr class="text-center" *ngIf="!noDataFound1">
+                      <th style="width:4em;">S.NO</th>
+                      <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                      {{col.header}}
+                      <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                      </th>
+                   </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+                   <tr class="text-center">
+                      <td  style="width:4em;"> {{i+1}} </td>
+                      <td class="text-left">{{ distwise.block_name}} </td>
+                      <td> {{ distwise.teacher_id}} </td>
+                      <td class="text-left"> {{ distwise.teacher_name}} </td>
+                      <td class="text-left"> {{ distwise.type_teacher}} </td>
+                      <td> {{ distwise.udise_code}} </td>
+                      <td class="text-left"> {{ distwise.school_name}} </td>
+                      <td class="text-left"> {{ distwise.training}} </td>
+                      <td class="text-left"> {{ distwise.trained_at}} </td>
+                      <td> {{ distwise.Days}} </td>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                <strong>No Data Found</strong>
+                </td>
+                </tr>
+                </ng-template>
+                </p-table>
+       </p-tabPanel>
+       <!-- Dropped out Student -->
+       <p-tabPanel header="Teachers Without Training Details">
+                <p-table #dt [columns]="cols5" [value]="teacherwithouttraining" [paginator]="true" [rows]="10" [resizableColumns]="true">
+                <ng-template let-childrens pTemplate="caption">
+                   <div class="row mt-2">
+                      <div class="col-md-3">
+                         <p-dropdown [options]="schooltypewithout" placeholder="Select School type" styleClass="dropdwnvalues" (onChange)="schooltypewithoutoption($event)"></p-dropdown>
+                      </div>
+                   </div>
+                   <div class="row mb-2">
+                      <div class="col-sm-8"></div>
+                      <div class="col-sm-3">
+                         <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                      </div>
+                      <div class="col-sm-1 p-3">
+                         <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="teacherexportExcel()"></i>
+                      </div>
+                      <!-- <div class="col-md-6 excel">
+                         <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="teacherexportExcel()" class="ui-button-success"></button>
+                         </div> -->
+                   </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-distname>
+                   <tr class="text-center" *ngIf="!noDataFound1">
+                      <th  style="width:4em;">S.NO</th>
+                      <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                      {{col.header}}
+                      <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                      </th>
+                   </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+                   <tr class="text-center">
+                      <td style="width:4em;"> {{i+1}} </td>
+                      <td class="text-left">{{ distwise.block_name}} </td>
+                      <td> {{ distwise.teacher_id}} </td>
+                      <td class="text-left"> {{ distwise.teacher_name}} </td>
+                      <td class="text-left"> {{ distwise.type_teacher}} </td>
+                      <td> {{ distwise.udise_code}} </td>
+                      <td class="text-left"> {{ distwise.school_name}} </td>
+                      <td> {{ distwise.Days}} </td>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                <strong>No Data Found</strong>
+                </td>
+                </tr>
+                </ng-template>
+                </p-table>
+       </p-tabPanel>
+    </p-tabView>
+ <!-- </div> -->

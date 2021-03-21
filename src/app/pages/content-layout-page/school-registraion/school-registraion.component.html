@@ -1,0 +1,157 @@
+<div class="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-subheader--enabled kt-subheader--fixed kt-subheader--solid kt-aside--enabled kt-aside--fixed bg-white">
+    <div class="login-container" >
+        <div class="login-sub-container">
+            <div class="row m-0">
+                <div class="col-12 col-sm-12 col-md-7 col-lg-8 mobile-order-2">
+                    <h1 class="green-title-bar">Educational Management Information System</h1>
+                    <div class="sub-tab-content row m-0">
+                        <h2>What is EMIS?</h2>
+                        <p>Educational Management Information System is the data backbone of School Education Department, Government of Tamil Nadu enabling data driven decisions for the welfare of all stakeholders of the Department.</p>
+                        <div class="row m-0 tab-block">
+                            <div class="col-lg-6 pl-0">
+                                <a href="https://e-learn.tnschools.gov.in" class="kt-portlet kt-iconbox kt-iconbox--animate-slower">
+                                    <div class="kt-portlet__body">
+                                        <div class="kt-iconbox__body">
+                                            <div class="kt-iconbox__icon">
+                                                <img id="icn_headmaster" src="assets/img/e-learning.svg" style="color: #007ad9;" width="40.097" height="40.097" viewBox="0 0 29.097 29.097">
+                                            </div>
+                                            <div class="kt-iconbox__desc">
+                                                <h3 class="kt-iconbox__title">
+                                                    e-Learn
+                                                </h3>
+                                                <div class="kt-iconbox__content">
+                                                    Thousands of digital contents for students to learn anywhere, anytime
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-lg-6 pr-0">
+                                <a href="https://tntp.tnschools.gov.in" class="kt-portlet kt-iconbox kt-iconbox--animate-slower">
+                                    <div class="kt-portlet__body">
+                                        <div class="kt-iconbox__body">
+                                            <div class="kt-iconbox__icon">
+                                                <img id="icn_headmaster" src="assets/img/images (2).png" style="color: #007ad9;" width="40.097" height="40.097" viewBox="0 0 29.097 29.097">
+                                            </div>
+                                            <div class="kt-iconbox__desc">
+                                                <h3 class="kt-iconbox__title">
+                                                    Tamil Nadu Teachers Portal
+                                                </h3>
+                                                <div class="kt-iconbox__content">
+                                                    Teaching and Learning resources for teachers
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-lg-6 pl-0">
+                                <a href="https://contribute.tnschools.gov.in" class="kt-portlet kt-iconbox kt-iconbox--animate-slower">
+                                    <div class="kt-portlet__body">
+                                        <div class="kt-iconbox__body">
+                                            <div class="kt-iconbox__icon">
+                                                <img id="icn_headmaster" src="assets/img/download.png" style="color: #007ad9;" width="40.097" height="40.097" viewBox="0 0 29.097 29.097">
+                                            </div>
+                                            <div class="kt-iconbox__desc">
+                                                <h3 class="kt-iconbox__title">
+                                                    Public Participation Portal
+                                                </h3>
+                                                <div class="kt-iconbox__content">
+                                                    Enabling alumni of Government schools and the public to participate in the improvement of Government schools
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-lg-6 pr-0">
+                                <a href="http://tnschools.gov.in" class="kt-portlet kt-iconbox kt-iconbox--animate-slower">
+                                    <div class="kt-portlet__body">
+                                        <div class="kt-iconbox__body">
+                                            <div class="kt-iconbox__icon">
+                                                <img id="icn_headmaster" src="assets/img/images (1).png" style="color: #007ad9;" width="40.097" height="40.097" viewBox="0 0 29.097 29.097">
+                                            </div>
+                                            <div class="kt-iconbox__desc">
+                                                <h3 class="kt-iconbox__title">
+                                                    School Education Department
+                                                </h3>
+                                                <div class="kt-iconbox__content">
+                                                    Official website of the School Education Department, Government of Tamil Nadu
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-5 col-lg-4 mobile-order-1">
+                    <div class="kt-grid kt-grid--hor kt-grid--root  kt-login kt-login--v4 kt-login--signin" id="kt_login">
+                        <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
+                            <div class="kt-grid__item kt-grid__item--fluid kt-login__wrapper">
+                                <div class="kt-login__container">
+                                    <div class="kt-login__logo">
+                                        <a href="#">
+                                            <img src="assets/img/logo.svg" />
+                                        </a>
+                                    </div>
+                                    <div class="kt-login__signin">
+                                        <form [formGroup]="registration">
+                                        <div class="kt-login__head">
+                                            <h3 class="kt-login__title">கல்வி மேலாண்மைத் தகவல் மையம்</h3>
+                                        </div>
+                                            <div class="form-group">
+                                                <label>School Name</label>
+                                                <input type="text" id="name" class="form-control" formControlName="school_name" placeholder="School name" required>
+                                                <small class="form-text text-danger"
+                                                *ngIf="!registration.get('school_name').valid && (submitted || registration.get('school_name').dirty || registration.get('school_name').touched)">
+                                                School Name is required</small>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>School Email</label>
+                                                <input type="text" id="email" class="form-control" formControlName="school_email" placeholder="School email">
+                                                <small class="form-text text-danger"
+                                                *ngIf="!registration.get('school_email').valid && (submitted || registration.get('school_email').dirty || registration.get('school_email').touched)">
+                                                Email is required</small>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>School/Office Mobile</label>
+                                                <input type="text" id="mobile" class="form-control" formControlName="school_mobile" placeholder="Mobile" maxlength="10">
+                                                <small class="form-text text-danger"
+                                                *ngIf="!registration.get('school_mobile').valid && (submitted || registration.get('school_mobile').dirty || registration.get('school_mobile').touched)">
+                                                Mobile is required</small>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>School Management</label>
+                                                <!-- [options]="schooltypedropvalue" (onChange)="MangmntTypeOption($event)" -->
+                                                <p-dropdown [options]="management_dropdown" (onChange)="MangmntTypeOption($event)" formControlName="school_management" placeholder="Select Management"  styleClass="dropdwnvalues"></p-dropdown>
+                                                <small class="form-text text-danger"
+                                                *ngIf="!registration.get('school_management').valid && (submitted || registration.get('school_management').dirty || registration.get('school_management').touched)">
+                                                Mangmnt Type is required</small>
+                                            </div>
+                                            <div class="row kt-login__extra mx-0 mt-1 p-0">
+                                                <div class="col kt-align-right p-0">
+                                                    <a href="#" class="kt-login__link" >Login</a>
+                                                </div>
+                                            </div>
+                                            <div class="kt-login__actions d-block">
+                                                <div class="btn-group footer-btn-group d-block">
+                                                    <button type="submit" class="btn btn-outline-primary recover-pass" (click)="save_data()" >
+                                                        Submit
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

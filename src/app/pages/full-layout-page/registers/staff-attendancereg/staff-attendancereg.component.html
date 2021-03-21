@@ -1,0 +1,73 @@
+<div class="main-body-content">
+    <div class="page-container">
+        <div class="flex-layout-gap">
+            <br>
+            <form [formGroup]="classsection">
+                <div class="row" style="margin-left:0px;margin-right:0px;">
+                    <div class="col-md-3">
+                        <div class="ui-inputgroup">
+                            <p-calendar formControlName="date" view="month" dateFormat="mm-yy" [yearNavigator]="true" yearRange="2000:2030" [readonlyInput]="true" [showIcon]="false"></p-calendar>
+                            <span class="ui-inputgroup-addon" style="background-color:#007ad9;"><i
+                         class="pi pi-calendar" style="color:white"></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="padding-left:10%;">
+                        <button type="button" style="background-color: #065040;" class="btn btn-success" (click)="getStaffDetails()">SEARCH</button>
+                    </div>
+                </div>
+            </form>
+            <br>
+            <div class="main-body-content">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img">
+                    <p-table #dt class="prime-table" [columns]="sampleSelectedColumn" [value]="staffattendacereglist" [paginator]="true" [rows]="10" [autoLayout]="true" [paginator]="true" [resizableColumns]="true" [rows]="10">
+                        <!-- <p-table #dt class="prime-table" [columns]="sampleSelectedColumn" [value]="staffattendacereglist"
+                   [paginator]="true" [rows]="10"> -->
+                        <ng-template pTemplate="caption">
+                            <div class="row">
+                                <div style="text-align:left" class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <input type="text" pInputText size="20" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto; height: 85%;border: gray 1px solid;border-radius: 2px;padding-left:2%;">
+                                        </div>
+                                        <div class="col-lg-6" style="padding-left:10%;">
+                                            <p-multiSelect [options]="cols" [(ngModel)]="sampleSelectedColumn" optionLabel="header" selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" defaultLabel="Choose Columns">
+                                            </p-multiSelect>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="ui-helper-clearfix col-md-6" style="text-align: right">
+                         <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL"
+                             (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
+                         <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF"
+                             (click)="exportPdf()" class="ui-button-warning"></button>
+                         </div> -->
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                            <tr style="white-space: nowrap" class="table-header">
+                                <th>#</th>
+                                <!-- <th>Student Name</th> -->
+                                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-car let-i="rowIndex" let-columns="columns">
+                            <tr [pSelectableRow]="car">
+                                <td class="sno-header-layout">{{i+1}}</td>
+                                <!-- <td>{{car.name}}</td> -->
+                                <td *ngFor="let col of columns">
+                                    <a *ngIf="col.field == 'teacher_name'">{{car.teacher_name}}</a>
+                                    <a *ngIf="car[col.field]=== '1'"><i class="pi pi-check" style="color:green"></i></a>
+                                    <a *ngIf="car[col.field]=== '0'"><i class="pi pi-times" style="color:red"></i></a>
+                                    <a *ngIf="car[col.field]=== '-1'"> - </a>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

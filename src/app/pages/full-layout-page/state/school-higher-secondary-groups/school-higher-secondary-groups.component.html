@@ -1,0 +1,46 @@
+<!-- <div class="container"> -->
+  <div class="m-4">
+    <p-card>
+        <div class="container-fluid m-2 header_fonts">
+          <div class="row p-1">
+            <div class="col-sm-6">
+                <div class="text-lg-left mt-3">
+                  <h5>Class And Sections</h5>
+                </div>
+            </div>
+            <div class="col-sm-6 p-1">
+                <div class="text-right">
+                     <input type="text" pInputText size="30" placeholder="Class And Sections Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                </div>              
+             </div>
+          </div>
+        </div>
+        <div>
+          <p-table #dt [columns]="dataHeader" [value]="SchoolWiseHigherSectionDetails" [resizableColumns]="true" >
+            <ng-template pTemplate="header" let-NoonMeal>
+              <tr class="text-center">
+                <th class="sno-header-layout">S.No</th>
+                <th *ngFor="let col of NoonMeal" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                  {{col.header}}
+                  <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-schoolwise  let-columns="columns" let-i="rowIndex" >
+              <tr class="text-center">
+                <td class="sno-header-layout"> {{i+1}} </td>
+                <td class="text-left"> {{ schoolwise.namre }}</td>
+                <td> {{ schoolwise.section}} </td>
+                <td> {{ schoolwise.student_count}} </td>
+                <td class="text-left">{{schoolwise.MEDINSTR_DESC}}</td>
+                <td> {{ schoolwise.student_count}} </td>
+                <td> {{ schoolwise.group_name}} </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+    </p-card>
+
+</div>
+
+

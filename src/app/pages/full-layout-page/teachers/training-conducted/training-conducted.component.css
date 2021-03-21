@@ -1,0 +1,11 @@
+.ui-button-trash {
+    color: #ffffff;
+    background-color: #bf0c15;
+    border: 1px solid #bf0c15;
+}
+
+.ui-button-trash:enabled:hover {
+    color: #bf0c15;
+    background-color: #ffffff;
+    border: 1px solid #bf0c15;
+}

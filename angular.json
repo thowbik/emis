@@ -3,13 +3,9 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "exam": {
+    "EMIS": {
       "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
+      "schematics": {},
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -25,18 +21,36 @@
             "aot": false,
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              "src/.htaccess"
+              "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
-              "src/assets/scss/style.scss",
+              "src/assets/layout/css/layout-blue.css",
+              "src/assets/css/demo1/skins/header/base/light.css",
+              "src/assets/css/demo1/skins/header/menu/light.css",
+              "src//assets/css/demo1/skins/brand/dark.css",
+              "src//assets/css/demo1/skins/aside/dark.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/nova-light/theme.css",
+              "src/assets/css/demo1/pages/login/login-4.css",
+              "src/assets/css/demo1/style.bundle.css",
               "src/assets/css/demo1/custom.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "src/styles.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "src/assets/vendors/global/vendors.bundle.css",
+              "node_modules/quill/dist/quill.core.css", 
+              "node_modules/quill/dist/quill.snow.css"
             ],
             "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-    "node_modules/bootstrap/dist/js/bootstrap.min.js"
+              "node_modules/jquery/dist/jquery.js",
+              "src/assets/vendors/general/popper.js/dist/umd/popper.js",
+              "src/assets/js/demo1/scripts.bundle.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "src/assets/vendors/general/bootstrap/dist/js/bootstrap.min.js",
+              "src/assets/vendors/general/js-cookie/src/js.cookie.js",
+              "src/assets/vendors/general/moment/min/moment.min.js",
+              "src/assets/vendors/general/tooltip.js/dist/umd/tooltip.min.js",
+             "node_modules/quill/dist/quill.js"
+
             ]
           },
           "configurations": {
@@ -103,18 +117,21 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "exam:build"
+            "browserTarget": "EMIS:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "exam:build:production"
+              "browserTarget": "EMIS:build:production"
+            },
+            "staging": {
+              "browserTarget": "EMIS:build:staging"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "exam:build"
+            "browserTarget": "EMIS:build"
           }
         },
         "test": {
@@ -129,7 +146,10 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.css",
+              "src/assets/vendors/global/vendors.bundle.css",
+              "src/assets/css/demo1/style.bundle.css",
+              "src/assets/layout/css/layout-blue.css"
             ],
             "scripts": []
           }
@@ -151,19 +171,19 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "exam:serve"
+            "devServerTarget": "EMIS:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "exam:serve:production"
+              "devServerTarget": "EMIS:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "exam",
+  "defaultProject": "EMIS",
   "cli": {
-    "analytics": false
+    "analytics": "ad2ca7a8-ac67-4fec-b4c9-0c91dc0be275"
   }
 }

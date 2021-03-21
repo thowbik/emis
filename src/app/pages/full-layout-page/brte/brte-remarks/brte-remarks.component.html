@@ -1,0 +1,123 @@
+<div class="pr-1 mr-4 ml-3">
+   <p-card class="mx-2 pr-2">
+      <p class="broadccom"> REMARKS OF CLUSTER RESOURCE TEACHER EDUCATOR</p>
+   </p-card>
+</div>
+<div class="m-3">
+   <div class="card">
+      <div class="container">
+         <div class="">
+            <div class="brteheading-align p-4">
+               <label>REMARKS OF CLUSTER RESOURCE TEACHER EDUCATOR</label>
+            </div>
+         </div>
+         <div class="row mb-4">
+            <div class="col-md-6">
+               <div class="col-md-6">
+                  <label class="ml-5">Block List*</label>
+               </div>
+            </div>
+            <div class="col-md-3">
+               <p-dropdown [options]="Blocklist"  placeholder="Select Block" optionLabel="name" [showClear]="true"></p-dropdown>
+            </div>
+         </div>
+        
+         <div class="row mb-4">
+            <div class="col-md-6">
+               <div class="col-md-6">
+                  <label class="ml-5">School List*</label>
+               </div>
+            </div>
+            <div class="col-md-3">
+               <p-dropdown [options]="School" placeholder="Select School" optionLabel="name" [showClear]="true"></p-dropdown>
+            </div>
+         </div>
+         <div class="row mb-4">
+            <div class="col-md-6">
+               <div class="col-md-6">
+                  <label class="ml-5">Teachers List*</label>
+               </div>
+            </div>
+            <div class="col-md-3">
+               <p-dropdown [options]="Teacher" placeholder="Select Teacher" optionLabel="name" [showClear]="true"></p-dropdown>
+            </div>
+            <div class="col-md-3">
+               <button pButton type="button" label="VIEW SELF EVALUATION" class="ui-button-info flex-gap-right" style="font-weight:500">
+               </button>
+           </div>
+         </div>
+         <div class="row mb-4">
+            <div class="col-md-6">
+               <label>1. Designing Learning Experiences for Children*</label>
+            </div>
+            <div class="col-md-6">
+               <p-dropdown [options]="evaluationList" class="flex-dropdown" placeholder="Selected Option" optionLabel="name" [showClear]="true"></p-dropdown>
+            </div>
+         </div>
+         <div class="row mb-4">
+            <div class="col-md-6">
+               <label>2. Knowledge and Understanding of Subject Matter*</label>
+            </div>
+            <div class="col-md-6">
+               <p-dropdown [options]="evaluationList "  class="flex-dropdown" placeholder="Selected Option" optionLabel="name" [showClear]="true"></p-dropdown>
+            </div>
+         </div>
+         <div class="row mb-4">
+            <div class="col-md-6">
+               <label>3. Strategy for Facilitating learning*</label>
+            </div>
+            <div class="col-md-6">
+               <p-dropdown [options]="evaluationList "  class="flex-dropdown" placeholder="Selected Option" optionLabel="name" [showClear]="true"></p-dropdown>
+            </div>
+         </div>
+         <div class="row mb-4">
+            <div class="col-md-6">
+               <label>4. Interpersonal Relationship*</label>
+            </div>
+            <div class="col-md-6">
+               <p-dropdown [options]="evaluationList "  class="flex-dropdown" placeholder="Selected Option" optionLabel="name" [showClear]="true"></p-dropdown>
+            </div>
+         </div>
+         <div class="row mb-4">
+            <div class="col-md-6">
+               <label>5. Professional Development*</label>
+            </div>
+            <div class="col-md-6">
+               <p-dropdown [options]="evaluationList "   class="flex-dropdown" placeholder="Selected Option" optionLabel="name" [showClear]="true"></p-dropdown>
+            </div>
+         </div>
+         <div class="row mb-4">
+            <div class="col-md-6">
+               <label>6. School Development*</label>
+            </div>
+            <div class="col-md-6">
+               <p-dropdown [options]="evaluationList "  class="flex-dropdown" placeholder="Selected Option" optionLabel="name" [showClear]="true"></p-dropdown>
+            </div>
+         </div>
+         <div class="row mb-4">
+            <div class="col-md-6">
+               <label>7. Teacher Attendance*</label>
+            </div>
+            <div class="col-md-6">
+               <p-dropdown [options]="evaluationList "   class="flex-dropdown" placeholder="Selected Option" optionLabel="name" [showClear]="true"></p-dropdown>
+            </div>
+         </div>
+         <div class="row mb-4">
+            <div class="col-md-6">
+               <label>8. Promoting Health and Hygiene*</label>
+            </div>
+            <div class="col-md-6">
+               <p-dropdown [options]="evaluationList"   class="flex-dropdown" placeholder="Selected Option" optionLabel="name" [showClear]="true"></p-dropdown>
+            </div>
+         </div>
+         <div>
+            <label>It is found correct by verifying the school records of teacher handling the class and subject and the number of days present in the school during working days (2019-20) and certified that the entries are made correctly.
+            </label>
+         </div>
+         <div class="row" style="margin-left:35%">
+            <button pButton type="button" label="Submit " ></button>
+            <button pButton type="button" label="Cancel" class="ui-button-secondary ml-2"></button>
+         </div>
+      </div>
+   </div>
+</div>

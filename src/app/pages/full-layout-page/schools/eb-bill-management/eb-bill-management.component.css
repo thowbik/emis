@@ -1,0 +1,54 @@
+button.btn.btn-success {
+    background-color: #075c49;
+    border: 1px solid #075c49;
+}
+
+button.btn.btn-success:hover {
+    color: #075c49;
+    background-color: white;
+}
+
+.btn-border {
+    border: 1px solid #ccc;
+    margin-left: 15px;
+}
+label {
+    color: #646c9a;
+    font-weight: 600;
+    font-style: normal;
+}
+.header{
+        margin-left: 300px;
+        color: 646c9a;
+        color: #646c9a;
+        margin-bottom: 7px;
+        font-weight: bold;
+    }
+    .labelalign
+     {
+        margin-left: 50px;
+    }
+    
+.deleteicon
+{
+    margin-left: 11px;
+}
+/* .updatecolor
+{
+    background-color: green;
+
+} */
+.buttonsize
+{
+    font-size: small;
+
+}
+.flex-upload-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.uploaded-img {
+    width: 250px;
+    height: 250px;
+}

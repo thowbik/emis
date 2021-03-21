@@ -1,0 +1,383 @@
+<div class="main-body-content p-3">
+	<div class="outer-layout">
+		<div class="breadcrumbs c-black">
+			<h6 class="url">
+				<span class="flex-gap-right">DCF Reports</span>
+				<i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+				<span class="flex-gap-right">Facilities provided </span>
+			</h6>
+		</div>
+	</div>
+	<p-card>
+		<div class="pr-2 mr-3">
+			<p-card class="mx-2">
+				<p>
+					<b>Note : </b> Reports Updated once a day at 7 PM. Any changes made will be reflected in the report the next day.
+				</p>
+			</p-card>
+			<p-card class="mt-3 pt-3">
+				<!-- Start  -->
+				<div class="m-2 p-2">
+					<div class="row  m-2 pt-1">
+						<div class="col-md-12 mt-1">
+							<p class="label_text">
+								<b>5.1</b> Facilities provided to children (Previous academic year, Primary Grade I-V)
+							</p>
+						</div>
+					</div>
+					<div class="row m-2">
+						<div class="col-md-12">
+							<p-table [value]="FacilitiesChildren1" [autoLayout]="true" [resizableColumns]="true" [scrollable]="true" scrollHeight="500px" scrollWidth="100px">
+								<ng-template pTemplate="header">
+									<tr class="text-center">
+										<th style="width: 12em"></th>
+										<th style="width: 12em" colspan="2">General Students</th>
+										<th style="width: 10em" colspan="2">SC Students</th>
+										<th style="width: 10em" colspan="2">ST Students</th>
+										<th style="width: 10em" colspan="2">OBC Students</th>
+										<th style="width: 10em" colspan="2">Total Students</th>
+										<th style="width: 12em" colspan="2">Muslim Minority</th>
+										<th style="width: 14em" colspan="2">Other Minority Groups</th>
+									</tr>
+									<tr class="text-center">
+										<th style="width: 12em">Type of Facility</th>
+										<th style="width: 6em">Boys</th>
+										<th style="width: 6em">Girls</th>
+										<th style="width: 5em">Boys</th>
+										<th style="width: 5em">Girls</th>
+										<th style="width: 5em">Boys</th>
+										<th style="width: 5em">Girls</th>
+										<th style="width: 5em">Boys</th>
+										<th style="width: 5em">Girls</th>
+										<th style="width: 5em">Boys</th>
+										<th style="width: 5em">Girls</th>
+										<th style="width: 6em">Boys</th>
+										<th style="width: 6em">Girls</th>
+										<th style="width: 7em">Boys</th>
+										<th style="width: 7em">Girls</th>
+									</tr>
+								</ng-template>
+								<ng-template pTemplate="body" let-fas_onetofive>
+									<tr *ngIf="!noDataFac1" class="text-center">
+										<td style="width: 12em" class="text-left">Free textbooks</td>
+										<td style="width: 6em">{{fas_onetofive.txtbk_gen_b}}</td>
+										<td style="width: 6em">{{fas_onetofive.txtbk_gen_g}}</td>
+										<td style="width: 5em">{{fas_onetofive.txtbk_sc_b}}</td>
+										<td style="width: 5em">{{fas_onetofive.txtbk_sc_g}}</td>
+										<td style="width: 5em">{{fas_onetofive.txtbk_st_b}}</td>
+										<td style="width: 5em">{{fas_onetofive.txtbk_st_g}}</td>
+										<td style="width: 5em">{{fas_onetofive.txtbk_obc_b}}</td>
+										<td style="width: 5em">{{fas_onetofive.txtbk_obc_g}}</td>
+										<td style="width: 5em">{{fas_onetofive.tot_txtbk_boys}}</td>
+										<td style="width: 6em">{{fas_onetofive.tot_txtbk_girls}}</td>
+										<td style="width: 6em">{{fas_onetofive.txtbk_mus_b}}</td>
+										<td style="width: 6em">{{fas_onetofive.txtbk_mus_g}}</td>
+										<td style="width: 7em">{{fas_onetofive.txtbk_min_b}}</td>
+										<td style="width: 7em">{{fas_onetofive.txtbk_min_g}}</td>
+									</tr>
+									<tr *ngIf="!noDataFac1" class="text-center">
+										<td style="width: 12em" class="text-left">Uniforms</td>
+										<td style="width: 6em">{{fas_onetofive.uni_gen_b}}</td>
+										<td style="width: 6em">{{fas_onetofive.uni_gen_g}}</td>
+										<td style="width: 5em">{{fas_onetofive.uni_sc_b}}</td>
+										<td style="width: 5em">{{fas_onetofive.uni_sc_g}}</td>
+										<td style="width: 5em">{{fas_onetofive.uni_st_b}}</td>
+										<td style="width: 5em">{{fas_onetofive.uni_st_g}}</td>
+										<td style="width: 5em">{{fas_onetofive.uni_obc_b}}</td>
+										<td style="width: 5em">{{fas_onetofive.uni_obc_g}}</td>
+										<td style="width: 5em">{{fas_onetofive.tot_uni_boys}}</td>
+										<td style="width: 6em">{{fas_onetofive.tot_uni_girls}}</td>
+										<td style="width: 6em">{{fas_onetofive.uni_mus_b}}</td>
+										<td style="width: 6em">{{fas_onetofive.uni_mus_g}}</td>
+										<td style="width: 7em">{{fas_onetofive.uni_min_b}}</td>
+										<td style="width: 7em">{{fas_onetofive.uni_min_g}}</td>
+									</tr>
+									<tr *ngIf="!noDataFac1" class="text-center">
+										<td style="width: 12em" class="text-left">Transport facility</td>
+										<td style="width: 6em">{{fas_onetofive.trans_gen_b}}</td>
+										<td style="width: 6em">{{fas_onetofive.trans_gen_g}}</td>
+										<td style="width: 5em">{{fas_onetofive.trans_sc_b}}</td>
+										<td style="width: 5em">{{fas_onetofive.trans_sc_g}}</td>
+										<td style="width: 5em">{{fas_onetofive.trans_st_b}}</td>
+										<td style="width: 5em">{{fas_onetofive.trans_st_g}}</td>
+										<td style="width: 5em">{{fas_onetofive.trans_obc_b}}</td>
+										<td style="width: 5em">{{fas_onetofive.trans_obc_g}}</td>
+										<td style="width: 5em">{{fas_onetofive.tot_trans_boys}}</td>
+										<td style="width: 6em">{{fas_onetofive.tot_trans_girls}}</td>
+										<td style="width: 6em">{{fas_onetofive.trans_mus_b}}</td>
+										<td style="width: 6em">{{fas_onetofive.trans_mus_g}}</td>
+										<td style="width: 7em">{{fas_onetofive.trans_min_b}}</td>
+										<td style="width: 7em">{{fas_onetofive.trans_min_g}}</td>
+									</tr>
+									<tr *ngIf="!noDataFac1" class="text-center">
+										<td style="width: 12em" class="text-left">Escort</td>
+										<td style="width: 6em">{{fas_onetofive.escort_gen_b}}</td>
+										<td style="width: 6em">{{fas_onetofive.escort_gen_g}}</td>
+										<td style="width: 5em">{{fas_onetofive.escort_sc_b}}</td>
+										<td style="width: 5em">{{fas_onetofive.escort_sc_g}}</td>
+										<td style="width: 5em">{{fas_onetofive.escort_st_b}}</td>
+										<td style="width: 5em">{{fas_onetofive.escort_st_g}}</td>
+										<td style="width: 5em">{{fas_onetofive.escort_obc_b}}</td>
+										<td style="width: 5em">{{fas_onetofive.escort_obc_g}}</td>
+										<td style="width: 5em">{{fas_onetofive.tot_escort_boys}}</td>
+										<td style="width: 6em">{{fas_onetofive.tot_escort_girls}}</td>
+										<td style="width: 6em">{{fas_onetofive.escort_mus_b}}</td>
+										<td style="width: 6em">{{fas_onetofive.escort_mus_g}}</td>
+										<td style="width: 7em">{{fas_onetofive.escort_min_b}}</td>
+										<td style="width: 7em">{{fas_onetofive.escort_min_g}}</td>
+									</tr>
+									<tr *ngIf="!noDataFac1" class="text-center">
+										<td style="width: 12em" class="text-left">Bicycle</td>
+										<td style="width: 6em">{{fas_onetofive.cicyle_gen_b}}</td>
+										<td style="width: 6em">{{fas_onetofive.cicyle_gen_g}}</td>
+										<td style="width: 5em">{{fas_onetofive.cicyle_sc_b}}</td>
+										<td style="width: 5em">{{fas_onetofive.cicyle_sc_g}}</td>
+										<td style="width: 5em">{{fas_onetofive.cicyle_st_b}}</td>
+										<td style="width: 5em">{{fas_onetofive.cicyle_st_g}}</td>
+										<td style="width: 5em">{{fas_onetofive.cicyle_obc_b}}</td>
+										<td style="width: 5em">{{fas_onetofive.cicyle_obc_g}}</td>
+										<td style="width: 5em">{{fas_onetofive.tot_cicyle_boys}}</td>
+										<td style="width: 6em">{{fas_onetofive.tot_cicyle_girls}}</td>
+										<td style="width: 6em">{{fas_onetofive.cicyle_mus_b}}</td>
+										<td style="width: 6em">{{fas_onetofive.cicyle_mus_g}}</td>
+										<td style="width: 7em">{{fas_onetofive.cicyle_min_b}}</td>
+										<td style="width: 7em">{{fas_onetofive.cicyle_min_g}}</td>
+									</tr>
+									<tr *ngIf="!noDataFac1" class="text-center">
+										<td style="width: 12em" class="text-left">(State defined)</td>
+										<td style="width: 6em">{{fas_onetofive.state_gen_b}}</td>
+										<td style="width: 6em">{{fas_onetofive.state_gen_g}}</td>
+										<td style="width: 5em">{{fas_onetofive.state_sc_b}}</td>
+										<td style="width: 5em">{{fas_onetofive.state_sc_g}}</td>
+										<td style="width: 5em">{{fas_onetofive.state_st_b}}</td>
+										<td style="width: 5em">{{fas_onetofive.state_st_g}}</td>
+										<td style="width: 5em">{{fas_onetofive.state_obc_b}}</td>
+										<td style="width: 5em">{{fas_onetofive.state_obc_g}}</td>
+										<td style="width: 5em">{{fas_onetofive.tot_state_boys}}</td>
+										<td style="width: 6em">{{fas_onetofive.tot_state_girls}}</td>
+										<td style="width: 6em">{{fas_onetofive.state_mus_b}}</td>
+										<td style="width: 6em">{{fas_onetofive.state_mus_g}}</td>
+										<td style="width: 7em">{{fas_onetofive.state_min_b}}</td>
+										<td style="width: 7em">{{fas_onetofive.state_min_g}}</td>
+									</tr>
+								</ng-template>
+								<ng-template pTemplate="footer">
+									<tr *ngIf="noDataFac1" class="text-center">
+										<td>No Data Found</td>
+									</tr>
+								</ng-template>
+							</p-table>
+						</div>
+					</div>
+					<div class="row  m-2 mt-3 pt-3">
+						<div class="col-md-12 mt-1">
+							<p class="label_text">
+								<b>5.2</b> Facilities provided to children (Previous academic year, for Upper Primary Grade VI-VIII)
+							</p>
+						</div>
+					</div>
+					<div class="row m-2">
+						<div class="col-md-12">
+							<p-table [value]="FacilitiesChildren2" [autoLayout]="true" [resizableColumns]="true" [scrollable]="true" scrollHeight="500px" scrollWidth="100px">
+								<ng-template pTemplate="header">
+									<tr class="text-center">
+										<th style="width: 12em"></th>
+										<th style="width: 12em" colspan="2">General Students</th>
+										<th style="width: 10em" colspan="2">SC Students</th>
+										<th style="width: 10em" colspan="2">ST Students</th>
+										<th style="width: 10em" colspan="2">OBC Students</th>
+										<th style="width: 10em" colspan="2">Total Students</th>
+										<th style="width: 12em" colspan="2">Muslim Minority</th>
+										<th style="width: 14em" colspan="2">Other Minority Groups</th>
+									</tr>
+									<tr class="text-center">
+										<th style="width: 12em">Type of Facility</th>
+										<th style="width: 6em">Boys</th>
+										<th style="width: 6em">Girls</th>
+										<th style="width: 5em">Boys</th>
+										<th style="width: 5em">Girls</th>
+										<th style="width: 5em">Boys</th>
+										<th style="width: 5em">Girls</th>
+										<th style="width: 5em">Boys</th>
+										<th style="width: 5em">Girls</th>
+										<th style="width: 5em">Boys</th>
+										<th style="width: 5em">Girls</th>
+										<th style="width: 6em">Boys</th>
+										<th style="width: 6em">Girls</th>
+										<th style="width: 7em">Boys</th>
+										<th style="width: 7em">Girls</th>
+									</tr>
+								</ng-template>
+								<ng-template pTemplate="body" let-fas_sixtoeight>
+									<tr *ngIf="!noDataFac1" class="text-center">
+										<td style="width: 12em" class="text-left">Free textbooks</td>
+										<td style="width: 6em">{{fas_sixtoeight.txtbk_gen_b}}</td>
+										<td style="width: 6em">{{fas_sixtoeight.txtbk_gen_g}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.txtbk_sc_b}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.txtbk_sc_g}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.txtbk_st_b}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.txtbk_st_g}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.txtbk_obc_b}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.txtbk_obc_g}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.tot_txtbk_boys}}</td>
+										<td style="width: 6em">{{fas_sixtoeight.tot_txtbk_girls}}</td>
+										<td style="width: 6em">{{fas_sixtoeight.txtbk_mus_b}}</td>
+										<td style="width: 6em">{{fas_sixtoeight.txtbk_mus_g}}</td>
+										<td style="width: 7em">{{fas_sixtoeight.txtbk_min_b}}</td>
+										<td style="width: 7em">{{fas_sixtoeight.txtbk_min_g}}</td>
+									</tr>
+									<tr *ngIf="!noDataFac1" class="text-center">
+										<td style="width: 12em" class="text-left">Uniforms</td>
+										<td style="width: 6em">{{fas_sixtoeight.uni_gen_b}}</td>
+										<td style="width: 6em">{{fas_sixtoeight.uni_gen_g}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.uni_sc_b}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.uni_sc_g}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.uni_st_b}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.uni_st_g}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.uni_obc_b}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.uni_obc_g}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.tot_uni_boys}}</td>
+										<td style="width: 6em">{{fas_sixtoeight.tot_uni_girls}}</td>
+										<td style="width: 6em">{{fas_sixtoeight.uni_mus_b}}</td>
+										<td style="width: 6em">{{fas_sixtoeight.uni_mus_g}}</td>
+										<td style="width: 7em">{{fas_sixtoeight.uni_min_b}}</td>
+										<td style="width: 7em">{{fas_sixtoeight.uni_min_g}}</td>
+									</tr>
+									<tr *ngIf="!noDataFac1" class="text-center">
+										<td style="width: 12em" class="text-left">Transport facility</td>
+										<td style="width: 6em">{{fas_sixtoeight.trans_gen_b}}</td>
+										<td style="width: 6em">{{fas_sixtoeight.trans_gen_g}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.trans_sc_b}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.trans_sc_g}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.trans_st_b}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.trans_st_g}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.trans_obc_b}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.trans_obc_g}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.tot_trans_boys}}</td>
+										<td style="width: 6em">{{fas_sixtoeight.tot_trans_girls}}</td>
+										<td style="width: 6em">{{fas_sixtoeight.trans_mus_b}}</td>
+										<td style="width: 6em">{{fas_sixtoeight.trans_mus_g}}</td>
+										<td style="width: 7em">{{fas_sixtoeight.trans_min_b}}</td>
+										<td style="width: 7em">{{fas_sixtoeight.trans_min_g}}</td>
+									</tr>
+									<tr *ngIf="!noDataFac1" class="text-center">
+										<td style="width: 12em" class="text-left">Escort</td>
+										<td style="width: 6em">{{fas_sixtoeight.escort_gen_b}}</td>
+										<td style="width: 6em">{{fas_sixtoeight.escort_gen_g}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.escort_sc_b}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.escort_sc_g}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.escort_st_b}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.escort_st_g}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.escort_obc_b}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.escort_obc_g}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.tot_escort_boys}}</td>
+										<td style="width: 6em">{{fas_sixtoeight.tot_escort_girls}}</td>
+										<td style="width: 6em">{{fas_sixtoeight.escort_mus_b}}</td>
+										<td style="width: 6em">{{fas_sixtoeight.escort_mus_g}}</td>
+										<td style="width: 7em">{{fas_sixtoeight.escort_min_b}}</td>
+										<td style="width: 7em">{{fas_sixtoeight.escort_min_g}}</td>
+									</tr>
+									<tr *ngIf="!noDataFac1" class="text-center">
+										<td style="width: 12em" class="text-left">Bicycle</td>
+										<td style="width: 6em">{{fas_sixtoeight.cicyle_gen_b}}</td>
+										<td style="width: 6em">{{fas_sixtoeight.cicyle_gen_g}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.cicyle_sc_b}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.cicyle_sc_g}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.cicyle_st_b}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.cicyle_st_g}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.cicyle_obc_b}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.cicyle_obc_g}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.tot_cicyle_boys}}</td>
+										<td style="width: 6em">{{fas_sixtoeight.tot_cicyle_girls}}</td>
+										<td style="width: 6em">{{fas_sixtoeight.cicyle_mus_b}}</td>
+										<td style="width: 6em">{{fas_sixtoeight.cicyle_mus_g}}</td>
+										<td style="width: 7em">{{fas_sixtoeight.cicyle_min_b}}</td>
+										<td style="width: 7em">{{fas_sixtoeight.cicyle_min_g}}</td>
+									</tr>
+									<tr *ngIf="!noDataFac1" class="text-center">
+										<td style="width: 12em" class="text-left">(State defined)</td>
+										<td style="width: 6em">{{fas_sixtoeight.state_gen_b}}</td>
+										<td style="width: 6em">{{fas_sixtoeight.state_gen_g}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.state_sc_b}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.state_sc_g}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.state_st_b}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.state_st_g}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.state_obc_b}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.state_obc_g}}</td>
+										<td style="width: 5em">{{fas_sixtoeight.tot_state_boys}}</td>
+										<td style="width: 6em">{{fas_sixtoeight.tot_state_girls}}</td>
+										<td style="width: 6em">{{fas_sixtoeight.state_mus_b}}</td>
+										<td style="width: 6em">{{fas_sixtoeight.state_mus_g}}</td>
+										<td style="width: 7em">{{fas_sixtoeight.state_min_b}}</td>
+										<td style="width: 7em">{{fas_sixtoeight.state_min_g}}</td>
+									</tr>
+								</ng-template>
+								<ng-template pTemplate="footer">
+									<tr *ngIf="noDataFac2" class="text-center">
+										<td>No Data Found</td>
+									</tr>
+								</ng-template>
+							</p-table>
+						</div>
+					</div>
+					<div class="row  m-2 mt-3 pt-3">
+						<div class="col-md-12 mt-1">
+							<p class="label_text">
+								<b>5.3</b> Facilities provided to CWSN (Previous academic year)
+							</p>
+						</div>
+					</div>
+					<div class="row m-2">
+						<div class="col-md-12">
+							<p-table [value]="FacilitiesCWSN" [autoLayout]="true" [resizableColumns]="true" [scrollable]="true" scrollHeight="500px" scrollWidth="100px">
+								<ng-template pTemplate="header">
+									<tr class="text-center">
+										<th style="width: 12em"></th>
+										<th style="width: 10em" colspan="2">Pre-Primary</th>
+										<th style="width: 10em" colspan="2">Primary</th>
+										<th style="width: 10em" colspan="2">Upper Primary</th>
+										<th style="width: 10em" colspan="2">Secondary</th>
+										<th style="width: 10em" colspan="2">Higher Secondary</th>
+									</tr>
+									<tr class="text-center">
+										<th style="width: 12em">Type of Facility</th>
+										<th style="width: 5em">Boys</th>
+										<th style="width: 5em">Girls</th>
+										<th style="width: 5em">Boys</th>
+										<th style="width: 5em">Girls</th>
+										<th style="width: 5em">Boys</th>
+										<th style="width: 5em">Girls</th>
+										<th style="width: 5em">Boys</th>
+										<th style="width: 5em">Girls</th>
+										<th style="width: 5em">Boys</th>
+										<th style="width: 5em">Girls</th>
+									</tr>
+								</ng-template>
+								<ng-template pTemplate="body" let-fas_CWSN>
+									<tr *ngIf="!noDataFac3">
+										<td style="width: 12em">{{fas_CWSN.row}}</td>
+										<td style="width: 5em"></td>
+										<td style="width: 5em"></td>
+										<td style="width: 5em"></td>
+										<td style="width: 5em"></td>
+										<td style="width: 5em"></td>
+										<td style="width: 5em"></td>
+										<td style="width: 5em"></td>
+										<td style="width: 5em"></td>
+										<td style="width: 5em"></td>
+										<td style="width: 5em"></td>
+									</tr>
+								</ng-template>
+								<ng-template pTemplate="footer">
+									<tr *ngIf="noDataFac3" class="text-center">
+										<td>No Data Found</td>
+									</tr>
+								</ng-template>
+							</p-table>
+						</div>
+					</div>
+				</div>
+			</p-card>
+		</div>
+	</p-card>
+</div>

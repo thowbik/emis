@@ -1,0 +1,33 @@
+.border {
+    border: 1px solid #dee2e6 !important;
+}
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+  }
+  
+
+.btn {
+    border: 2px solid dodgerblue;
+    color: white;
+    background-color: dodgerblue;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: bold;
+  }
+  
+  
+  .upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+
+  .sno-header-css{
+    width: 1em !important;
+    /* background-color: red; */
+  }

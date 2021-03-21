@@ -1,0 +1,231 @@
+<div class="outer-layout p-3">
+	<div class="breadcrumbs c-black">
+		<h6 class="url">
+            <span class="flex-gap-right">RTE Applicant</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+            <span class="flex-gap-right">RTE Applicant Verification
+            </span>
+        </h6>
+	</div>
+</div>
+<div class="m-3" *ngIf="student_list">
+	<p-card>
+		<div class="container-fluid header_fonts">
+			<div class="row p-2">
+				<div class="col-sm-8">
+					<div class="text-lg-left mt-3"></div>
+				</div>
+				<div class="col-sm-3">
+					<input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Student Name Filter">
+				</div>
+				<div class="col-sm-1 text-right p-2"> <i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="exportExcel()"></i>
+				</div>
+			</div>
+		</div>
+		<div>
+			<p-table #dt [columns]="cols" [value]="verificationstudentlistapi" [paginator]="true" [rows]="100" [resizableColumns]="true">
+				<ng-template pTemplate="header" let-distname>
+					<tr class="text-center">
+						<th class="sno-header-layouts">S.NO</th>
+						<th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">{{col.header}}
+							<p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+						</th>
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+					<tr class="text-center" *ngIf="!noDataFound">
+						<td class="sno-header-layouts">{{i+1}}</td>
+						<td style="width: 13em;" class="text-left"><a href="javascript:void(0)" (click)="getSelectedStudentDetails(distwise.register_no)">{{distwise.student_name}}</a>
+						</td>
+						<td class="text-left">{{ distwise.map_address}}</td>
+						<td class="text-left">{{ distwise.category}}</td>
+						<!-- <td class="text-left" *ngIf="distwise.verify_status === '0'">Eligible</td>
+                        <td class="text-left" *ngIf="distwise.verify_status === '1' ">Not Eligible</td>
+                        <td class="text-left" *ngIf="distwise.verify_status === '2' ">Missing Document </td> -->
+						<td class="text-left">{{ distwise.verify_status}}</td>
+						<td class="text-left">{{ distwise.reason}}</td>
+						<!-- <td class="text-left" *ngIf="distwise.reason === '0' "></td>
+                        <td class="text-left" *ngIf="distwise.reason === '1' ">Invalid Document</td>
+                        <td class="text-left" *ngIf="distwise.reason === '2' ">Incorrect Residence</td>
+                        <td class="text-left" *ngIf="distwise.reason === '3' ">Others</td> -->
+						<td class="text-left">{{ distwise.remarks}}</td>
+				</ng-template>
+				<ng-template pTemplate="footer">
+					<tr class="text-left" *ngIf="noDataFound">
+						<td colspan="24">No Data Found</td>
+					</tr>
+				</ng-template>
+			</p-table>
+		</div>
+	</p-card>
+</div>
+<!-- <p-dialog 
+[header]="RegisterNumber"
+[(visible)]="showDialogBox"
+style="background-color: cadetblue !important;"
+[modal]="true" 
+[responsive]="true" 
+[style]="{width: '950px', minWidth: '200px'}" 
+[minY]="70" 
+[maximizable]="true"
+[baseZIndex]="10000"
+> -->
+<div class="m-4" *ngIf="showDialogBox">
+	<p-card>
+		<p-toolbar class="p-2">
+			<div class=""> <i class="fa fa-arrow-left font_siz" (click)="Home_page()" aria-hidden="true"></i>
+				<span class="col-sm-11 font-weight-bold">
+                {{Header_value}}
+        </span>
+			</div>
+		</p-toolbar>
+		<form [formGroup]="studentverificationdetail">
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="p-2 text-center">
+						<div *ngIf="photo_filepath != null">
+							<img class="img_sz" src={{photo_filepath}} width="280px" height="150px">
+							<!-- <div class="text-center font-weight-bold pt-1">Photo</div> --></div>
+						<div *ngIf="photo_filepath == null">
+							<img class="img_sz rounded-circle" src="../../../../../assets/img/no_image_available.png" width="150px" height="150px">
+							<!-- <div class="text-center font-weight-bold pt-1">Photo</div> --></div>
+					</div>
+					<div class="pt-2">
+						<div class="row p-2">
+							<div class="col-sm-4">
+								<label class="font-weight-bold pt-3">Name</label>
+							</div>
+							<div class="col-sm-8">
+								<input pInputText type="text" size="10" class="form-control" formControlName="student_name" [readonly]=true placeholder="Student Name" />
+							</div>
+						</div>
+						<div class="row p-2">
+							<div class="col-sm-4">
+								<label class="font-weight-bold pt-3">Class</label>
+							</div>
+							<div class="col-sm-8">
+								<input pInputText type="text" size="10" class="form-control" formControlName="class" [readonly]=true placeholder="Student Name" />
+							</div>
+						</div>
+						<div class="row p-2">
+							<div class="col-sm-4">
+								<label class="font-weight-bold pt-3">DOB</label>
+							</div>
+							<div class="col-sm-8">
+								<input pInputText type="text" size="10" [ngClass]="{ red_clr : cond_tr == true, green_clr :  cond_tr == false }" class="form-control " value="{{dob_pop | date:'dd MMM yyyy'}}" formControlName="dob" [readonly]=true placeholder="Student Name" />
+							</div>
+						</div>
+						<div class="row p-2">
+							<div class="col-sm-4">
+								<label class="font-weight-bold pt-3">Gender</label>
+							</div>
+							<div class="col-sm-8 row pl-4 pt-3">
+								<p-radioButton name="gender" formControlName="gender" value="1" label="Male" [disabled]="true" inputId="opt1"></p-radioButton>
+								<div class="pl-2">
+									<p-radioButton name="gender" formControlName="gender" value="2" label="Female" [disabled]="true" inputId="opt1"></p-radioButton>
+								</div>
+							</div>
+						</div>
+						<div class="row p-2">
+							<div class="col-sm-4">
+								<label class="font-weight-bold pt-3">Category</label>
+							</div>
+							<div class="col-sm-8">
+								<input pInputText type="text" size="10" class="form-control" formControlName="category" [readonly]=true placeholder="Student Name" />
+							</div>
+						</div>
+						<div class="row p-2">
+							<div class="col-sm-4">
+								<label class="font-weight-bold pt-3">Subcategory</label>
+							</div>
+							<div class="col-sm-8">
+								<input pInputText type="text" size="10" class="form-control" formControlName="sub_category" [readonly]=true placeholder="Student Name" />
+							</div>
+						</div>
+						<div class="row p-2">
+							<div class="col-sm-4">
+								<label class="font-weight-bold pt-3">Phone</label>
+							</div>
+							<div class="col-sm-8">
+								<input pInputText type="text" size="10" class="form-control" formControlName="mobile" [readonly]=true placeholder="Student Name" />
+							</div>
+						</div>
+						<div class="row p-2">
+							<div class="col-sm-4">
+								<label class="font-weight-bold pt-3">Map Address</label>
+							</div>
+							<div class="col-sm-8">
+								<textarea rows="5" cols="12" class="form-control" formControlName="map_address" [readonly]=true pInputTextarea></textarea>
+								<!-- <input pInputText type="text" size="10" class="form-control" formControlName="student_name" [readonly]=true placeholder="Student Name"/> -->
+							</div>
+						</div>
+						<div class="row p-2">
+							<div class="col-sm-4">
+								<label class="font-weight-bold pt-3">Address</label>
+							</div>
+							<div class="col-sm-8">
+								<textarea rows="5" cols="12" class="form-control" formControlName="address" [readonly]=true pInputTextarea></textarea>
+								<!-- <input pInputText type="text" size="10" class="form-control" formControlName="student_name" [readonly]=true placeholder="Student Name"/> -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-8">
+					<p-carousel [value]="images" styleClass="custom-carousel" [numVisible]="1" [numScroll]="1" [circular]="true">
+						<!-- <p-carousel [value]="images" styleClass="custom-carousel" [numVisible]="1" [numScroll]="1" [autoplayInterval]="3000" [circular]="true"> -->
+						<!-- <p-header>
+          <h3></h3>
+      </p-header> -->
+						<ng-template let-imgage pTemplate="item">
+							<div class="car-details">
+								<div class="p-grid p-nogutter">
+									<div class="p-col-6">
+										<img class="carousel-img img_sz" src="{{imgage.img}}" width="595px" height="842px" alt="No Image Found">
+										<!-- <img src="assets/img/{{imgage.img}}.jfif" class="carousel-img"/> -->
+									</div>
+								</div>
+							</div>
+						</ng-template>
+					</p-carousel>
+				</div>
+				<div class="col-sm-12">
+					<div class="row">
+						<div class="col-sm-3">
+							<label class="font-weight-bold">Eligible</label>
+							<p-dropdown [options]="studentsverification" formControlName="verify_status" (onChange)="StudentVerificationType($event)" placeholder="Select"></p-dropdown>
+							<p-message severity="error" text="This Field is required" *ngIf="studentverificationdetail.controls.verify_status.errors && (submitted || studentverificationdetail.controls.verify_status.dirty || studentverificationdetail.controls.verify_status.touched)"></p-message>
+						</div>
+						<div class="col-sm-3" *ngIf="reason_for_not_eligible || studentverificationdetail.value.verify_status == 3">
+							<label class="font-weight-bold">Reason For Not-Eligible</label>
+							<p-dropdown [options]="studentsverificationReason" formControlName="reason" placeholder="Select"></p-dropdown>
+							<p-message severity="error" text="This Field is required" *ngIf="studentverificationdetail.controls.reason.errors && (submitted || studentverificationdetail.controls.reason.dirty || studentverificationdetail.controls.reason.touched)"></p-message>
+						</div>
+						<div class=col-sm-3>
+							<label class="font-weight-bold">Remarks *</label>
+							<input pInputText type="text" size="20" class="form-control" formControlName="remarks" placeholder="Remarks" />
+							<p-message severity="error" text="This Field is required" *ngIf="studentverificationdetail.controls.remarks.errors && (submitted || studentverificationdetail.controls.remarks.dirty || studentverificationdetail.controls.remarks.touched)"></p-message>
+						</div>
+						<div class=col-sm-3>
+							<label class="font-weight-bold">Verified By</label>
+							<input pInputText type="text" size="20" class="form-control" formControlName="verified_by" placeholder="Verified By" maxlength="15" />
+							<p-message severity="error" text="This Field is required" *ngIf="studentverificationdetail.controls.verified_by.errors && (submitted || studentverificationdetail.controls.verified_by.dirty || studentverificationdetail.controls.verified_by.touched)"></p-message>
+						</div>
+						<input pInputText type="hidden" size="20" class="form-control" formControlName="register_no" placeholder="register_no" />
+					</div>
+				</div>
+				<div class="col-sm-12">
+					<div class="row p-2">
+						<div class=col-sm-4></div>
+						<div class=col-sm-4></div>
+					</div>
+				</div>
+				<div class="col-sm-12">
+					<div class="text-right mt-3">
+						<button type="submit" class="btn btn-light btn-border m-2" (click)="Home_page()">Cancel</button>
+						<button type="submit" class="btn btn-success m-2" (click)="save()">Save</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</p-card>
+</div>
+<!-- </p-dialog> -->

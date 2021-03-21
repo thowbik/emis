@@ -1,0 +1,83 @@
+.align {
+    text-align: center;
+}
+
+.color-box-green {
+    cursor: pointer;
+    width: 29px;
+    height: 11px;
+    border-radius: 3px; 
+} 
+
+.align-progress {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.align {
+    text-align: center;
+}
+
+.bs-callout-lightsteelblue {
+    border-left: 8px solid #646c9a;
+    border-radius: 3% !important;
+}
+
+
+.dashboard-stat2 .display {
+    margin-bottom: 2px !important;
+   
+}
+
+.dashboard-stat2 .display .number {
+    text-align: left;
+    display: inline-block;
+}
+
+green-sharp {
+    color: #2ab4c0!important;
+}
+
+.bottom {
+    border-bottom: 1px solid gray;
+}
+
+.dashboard-stat2 {
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+    border-radius: 2px;
+    background: #fff;
+    padding: 15px 15px 30px;
+}
+
+
+.dashboard-stat2 .display .icon>i {
+    color: #cbd4e0;
+    font-size: 26px;
+}
+[class*=" fa-"]:not(.fa-stack), [class*=" glyphicon-"], [class*=" icon-"], [class^=fa-]:not(.fa-stack), [class^=glyphicon-], [class^=icon-] {
+    display: inline-block;
+    line-height: 14px;
+    -webkit-font-smoothing: antialiased;
+}
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+.text-align {
+    margin-top: auto;
+    padding-top: auto;
+    text-align: left;
+    color: black;
+    margin-bottom: auto;
+    font-size: 16px;
+    font-weight: 500;
+}

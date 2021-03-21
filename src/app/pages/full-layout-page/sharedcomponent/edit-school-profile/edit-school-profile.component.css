@@ -1,0 +1,16 @@
+.title{font-size: 24px;margin: 0 0 8px 4px;font-weight: bold;}
+.dropdwnvalues {border: 1px solid #e2e5ec !important;width: 100% !important;padding: 4px;}
+.label-title{font-size: 14px;color: #000;margin: 0 7px 7px;}
+.mandatory{color: firebrick;}
+.small_char{font-size: 11px;font-weight: bold;}
+.error_message{font-size: 12px;font-weight: bold;color: firebrick;margin: 5px;}
+.form_calander input{width: 100% !important;}
+.ui-inputtext.ui-widget.ui-state-default.ui-corner-all.ng-star-inserted{width: 100% !important;}
+.schoolEditProfile{max-height: 470px;}
+.teacher-layout {margin-top: 8%;}
+.accessdenied { display: block; margin-left: auto; margin-right: auto; }
+.greenhighlight { color: green; }
+.redhighlight { color: red; }
+.not-allowed {
+    pointer-events: none;
+}

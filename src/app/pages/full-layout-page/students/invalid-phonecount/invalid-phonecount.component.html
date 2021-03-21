@@ -1,0 +1,94 @@
+
+<div class="main-body-content">
+
+  
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img">
+   
+        <p-table *ngIf="isDataAvailable" #dt [columns]="selectedColumns" class="prime-table" [value]="data" dataKey="name" [style]="{'width':'250px !important'}" [autoLayout]="true" [paginator]="true" [resizableColumns]="true" [rows]="10" [scrollable]="true" scrollHeight="500px" scrollWidth="100px" editMode="row">
+            <!-- <ng-template pTemplate="caption">
+                <div class="row">
+                     
+                            <div style="text-align:left" class="col-md-6">
+                                    <p-multiSelect [options]="dataHeader" [(ngModel)]="selectedColumns" optionLabel="header"
+                                                selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" defaultLabel="Choose Columns"></p-multiSelect>
+                                </div>
+                                <div class="ui-helper-clearfix col-md-6" style="text-align: right">
+
+                                        <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
+                                        <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF" (click)="exportPdf()" class="ui-button-warning"></button>
+                                    </div>
+                </div>
+                  
+                </ng-template>
+      -->
+            <ng-template pTemplate="caption2">
+                    <div style="text-align: right">        
+                        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                        <input type="text" pInputText size="50" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>
+                </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr class="table-header">
+                       
+            <th style="width: 4em">#</th>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field"></p-sortIcon>
+                    </th>
+                    <th>Action</th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <!-- <th></th> -->
+
+                        <th *ngFor="let col of columns" [ngSwitch]="col.field" >
+                           
+                                <input  pInputText type="text" class="textbox-filter" (input)="dt.filter($event.target.value, col.field, 'contains')">
+                            
+                        </th>
+                        <th></th>
+                    </tr>
+              
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex" let-editing="editing">
+                <tr  [pEditableRow]="rowData">
+                        
+                            <td style="width: 4em">{{i+1}}</td>
+                    <td *ngFor="let col of columns"  class="ui-resizable-column">
+                       <span *ngIf="col.field !='phone_number'"> {{rowData[col.field]}}</span>
+                       <!-- <input *ngIf="col.field =='aadhaar_uid_number'" pInputText type="text" required> -->
+                       <p-cellEditor *ngIf="col.field =='phone_number'">
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="phoneNo" style="width: 100% !important;" required>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{rowData.phoneNo}}
+                           
+                        </ng-template>
+                    </p-cellEditor>
+                       <!-- <span>{{col.field}}</span> -->
+                       <!-- <span>{{rowData.aadhaar_uid_number}}</span> -->
+                    </td>
+                    <td class="text-center">
+                        <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" class="ui-button-info" (click)="onRowEditSave(rowData)"></button>
+                        <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" class="ui-button-success" style="margin-right: .5em" (click)="onRowEditSave(rowData,phoneNo)"></button>
+                        <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" class="ui-button-danger" (click)="onRowEditCancel(rowData, i)"></button>
+                  
+                        <!-- <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" class="ui-button-info" (click)="onRowEditInit(rowData)"></button>
+                        <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" class="ui-button-success" style="margin-right: .5em" (click)="onRowEditSave(rowData,aaadharNo)"></button>
+                        <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" class="ui-button-danger" (click)="onRowEditCancel(rowData, ri)"></button> -->
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+           <div *ngIf="!isDataAvailable" class="text-center">
+<h4>No Records Found</h4>
+           </div>     
+</div>
+</div>
+
+
+
+
+

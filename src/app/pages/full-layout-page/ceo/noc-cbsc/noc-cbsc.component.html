@@ -1,0 +1,1095 @@
+<!-- Statelogin -->
+<!-- ceologin -->
+<div class="container-fluid table">
+    <p-card>
+        <p-tabView>
+            <p-tabPanel header="Submitted Documents">
+                <h3 class="heading"> NOC for CBSE Affiliation</h3>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="backclr-grn  font-16">
+                            <strong>Name & Address
+                      </strong>
+                        </div>
+                        <form [formGroup]="userform">
+                            <div class="form-group row">
+                                <div class="col-lg-4">
+                                    <label>Name of the Management Trust / Society</label>
+                                    <input type="text" pInputText class="form-control" formControlName="mgmt_name" placeholder="Enter the Management Name" disabled="true">
+                                    <small class="form-text text-danger" *ngIf="!userform.get('mgmt_name').valid && (submitted || userform.get('mgmt_name').dirty || userform.get('mgmt_name').touched)">
+                            Management name Field is required</small>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Address</label>
+                                    <input type="text" pInputText class="form-control" formControlName="mgmt_address" placeholder="Enter the address" disabled="true">
+                                    <small class="form-text text-danger" *ngIf="!userform.get('mgmt_address').valid && (submitted || userform.get('mgmt_address').dirty || userform.get('mgmt_address').touched)">
+                            Address Field is required</small>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>Pincode</label><span class="required"></span>
+                                    <input type="text" pKeyFilter="pnum" class="form-control" formControlName="mgmt_pincode" placeholder="Enter the Pincode" maxlength="6" disabled="true">
+                                    <small class="form-text text-danger" *ngIf="!userform.get('mgmt_pincode').valid && (submitted || userform.get('mgmt_pincode').dirty || userform.get('mgmt_pincode').touched)">
+                            Pincode Field is required</small>
+                                    <small class="form-text text-danger" *ngIf="userform.get('mgmt_pincode').hasError('pattern')">
+                            It is not a valid Pincode</small>
+                                </div>
+                            </div>
+                            <div class="backclr-grn  font-16">
+                                <strong>Registration Details</strong>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-sm-3 text-align">
+                                    <label><span class="num-align"></span>Is the trust registered?<span class="manditory"></span></label>
+                                </div>
+                                <td>
+                                    <p-radioButton name="mgmt_register_yn" value="1" formControlName="mgmt_register_yn" label="YES" (click)="chooseIsthetrustregister(userform.value.mgmt_register_yn)" disabled="true"></p-radioButton>
+                                    <p-radioButton name="mgmt_register_yn" value="2" class="radio" formControlName="mgmt_register_yn" label="NO" (click)="chooseIsthetrustregister(userform.value.mgmt_register_yn)" disabled="true"></p-radioButton>
+                                </td>
+                                <small class="form-text text-danger" *ngIf="userform.controls.mgmt_register_yn.errors && (submitted || userform.controls.mgmt_register_yn.dirty || userform.controls.mgmt_register_yn.touched)">
+                                    Is the trust registered Field is required</small>
+                            </div>
+                            <hr/>
+                            <div *ngIf="userform.value.mgmt_register_yn == '1'">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <label>Date of Registration</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>Place of Registration</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-lg-3">
+                                        <!-- <input class="form-control" type="date" placeholder="Date" dateformat="yyyy/dd/mm" formControlName="mgmt_register_date"> -->
+                                        <input class="form-control" type="date" placeholder="Date" min={{todate}} max={{todate}} dateformat="yyyy/dd/mm" formControlName="mgmt_register_date" disabled="true">
+                                        <small class="form-text text-danger" *ngIf="!userform.get('mgmt_register_date').valid && (submitted || userform.get('mgmt_register_date').dirty || userform.get('mgmt_register_date').touched)">
+                               Management name Field is required</small>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input type="text" pInputText class="form-control" formControlName="mgmt_register_place" placeholder="Enter the place of Registration" disabled="true">
+                                        <small class="form-text text-danger" *ngIf="!userform.get('mgmt_register_place').valid && (submitted || userform.get('mgmt_register_place').dirty || userform.get('mgmt_register_place').touched)">
+                               Place of RegistrationField is required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backclr-grn  font-16">
+                                <strong>Name of other institutions to which the Management of Trust running</strong>
+                            </div>
+                            <div class="table">
+                                <p-table #dt [columns]="cols" [value]="districtwise" [rows]="10" [resizableColumns]="true">
+                                    <ng-template pTemplate="header" let-distname>
+                                        <tr class="center">
+                                            <th class="sno-header-layout">S.NO</th>
+                                            <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                                                {{col.header}}
+                                                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                            </th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+                                        <tr class="text-center">
+                                            <td class="sno-header-layout"> {{i+1}} </td>
+                                            <td class="text-left"><a href="javascript:void(0)" (click)="onSelectedId(distwise.district_id)"> {{ distwise.district_name}} </a></td>
+                                            <td> {{ distwise.Government}} </td>
+                                            <td> {{ distwise.Fully_Aided}} </td>
+                                    </ng-template>
+                                    <ng-template pTemplate="emptymessage" let-columns>
+                                        <tr>
+                                            <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                                                <strong>No data found</strong>
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                            </div>
+                            <div class="backclr-grn  font-16">
+                                <strong>Minority Status</strong>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-sm-4 text-align">
+                                    <label><span class="num-align"></span>Does the institution have minority status?<span class="manditory"></span></label>
+                                </div>
+                                <td>
+                                    <p-radioButton name="minority_yn" formControlName="minority_yn" value="1" label="YES" inputId="opt1" disabled="true"></p-radioButton>
+                                    <p-radioButton name="minority_yn" class="radio" formControlName="minority_yn" value="2" label="NO" inputId="opt1" disabled="true"></p-radioButton>
+                                </td>
+                                <small class="form-text text-danger" *ngIf="userform.controls.minority_yn.errors && (submitted || userform.controls.minority_yn.dirty || userform.controls.minority_yn.touched)">
+                                    Does the institution have minority status Field is required</small>
+                            </div>
+                            <hr/>
+                            <div *ngIf="userform.value.minority_status">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <label>Details of Documents</label>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label>Building License Certificate</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>Previous Remarks</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>Remarks</label>
+                                    </div>
+                                </div>
+                                <div formArrayName="minority_status">
+                                    <div *ngFor="let item of userform.get('minority_status')['controls']; let i = index;" [formGroupName]="i" class="row">
+
+                                        <div class="col-lg-4">
+                                            <div class="flex-col-start">
+                                                <label class="label-text"><span class="titile">Issuing Authority:</span><span>{{item.value.doc_inspect_issue_authority}}</span></label>
+                                                <label class="label-text"><span class="titile">File Number:</span><span> {{item.value.doc_file_num}}</span> </label>
+                                                <label class="label-text"><span class="titile">File Date:</span><span>{{item.value.doc_file_date}}</span> </label>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <button pButton pRipple type="button" class="btn btn-success" (click)="downloadMyFile(item.value.doc_name_coded)" label="Download" class="p-button-success"></button>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <!-- <div *ngFor="let remarks of item.value.previous_remarks;let i =index;">
+                                                <p class="label-text" *ngIf="remarks">{{remarks.user_type}}</p>
+                                            </div> -->
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div>
+                                                <textarea name="w3review" rows="3" cols="25" formControlName="user_remarks">
+                                                 
+                                                </textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backclr-grn  font-16">
+                                <strong>Other Supporting Documents</strong>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-sm-4 text-align">
+                                    <label><span class="num-align"></span>Is the school situated in a hilly area?<span class="manditory"></span></label>
+                                </div>
+                                <td>
+                                    <p-radioButton name="hilly_yn" formControlName="hilly_yn" value="1" label="YES" inputId="opt1" disabled="true"></p-radioButton>
+                                    <p-radioButton name="hilly_yn" class="radio" formControlName="hilly_yn" value="2" label="NO" inputId="opt1" disabled="true"></p-radioButton>
+                                </td>
+                                <small class="form-text text-danger" *ngIf="userform.controls.hilly_yn.errors && (submitted || userform.controls.hilly_yn.dirty || userform.controls.hilly_yn.touched)">
+                Issuing Authority Field is required</small>
+                            </div>
+                            <hr/>
+                            <div *ngIf="userform.value.hilly_yn == '1'">
+                                <div class="form-group row">
+                                    <div class="col-lg-2">
+                                        <label>Upload Permission Certificate from concerned authority</label>
+                                        <div>
+                                            <!-- <input #file type='file' (change)="onSelectFile($event,'supportDoc',0)">
+                                            <p><b class="Note">Note:</b>(Only PDF files with a maximum size of 2MB)</p>
+                                            <small class="form-text text-danger" *ngIf="!userform.get('upload_permission').valid && (submitted || userform.get('upload_permission').dirty || userform.get('upload_permission').touched)">
+                Management name Field is required</small> -->
+                                            <button pButton pRipple type="button" class="btn btn-success" (click)="downloadMyFile(userform.value.upload_permission)" label="Download" class="p-button-success"></button>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Previous Remarks</label>
+                                        <div *ngFor="let remarks of uploadPermiRemarks; let j=index">
+                                           
+                                        
+                                            <p class="label-text m-b-5" *ngIf="remarks.user_type"><span class="usertype-label">{{remarks.user_type}}:</span><span class="remarks-label">{{remarks.user_remarks}}</span></p>
+                                      
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Remarks</label>
+                                        <div>
+                                            <textarea name="w3review" rows="3" cols="25" formControlName="upload_permi_remarks">
+                                                 
+                                            </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-2">
+                                    <label>Upload School Photographs as a Single Document</label>
+                                    <div>
+                                        <button pButton pRipple type="button" class="btn btn-success" (click)="downloadMyFile(userform.value.school_photo)" label="Download" class="p-button-success"></button>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Previous Remarks</label>
+                                        <div *ngFor="let remarks of schoolPhotoRemarks; let j=index">
+                                       
+                                    
+                                            <p class="label-text m-b-5" *ngIf="remarks.user_type"><span class="usertype-label">{{remarks.user_type}}:</span><span class="remarks-label">{{remarks.user_remarks}}</span></p>
+                                      
+                                        </div>
+                                  
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Remarks</label>
+                                    <div>
+                                        <textarea name="w3review" rows="3" cols="25" formControlName="school_photo_remarks">
+                                             
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="backclr-grn  font-16">
+                                    <strong>Land Details</strong>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <label>Survey Number</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>Area of land in acres</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>Area of land in Square Feet</label>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div formArrayName="Landdetails">
+                                    <div class="form-group row" style="padding-bottom:10px" *ngFor="let item of userform.get('Landdetails')['controls']; let i = index;" [formGroupName]="i">
+                                        <div class="col-lg-3">
+                                            <input type="text" pKeyFilter="pnum" pInputText class="form-control" formControlName="survey_number" placeholder="Enter the Survey Number" maxlength="5" disabled="true">
+                                            <small class="form-text text-danger" *ngIf="item.controls.survey_number.errors && (submitted ||schoollandinvalid || item.controls.survey_number.dirty || item.controls.survey_number.touched)">
+                Survey Number Field is required</small>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <input type="text" pKeyFilter="pnum" pInputText class="form-control" formControlName="area" placeholder="Enter the Area of land in acres" maxlength="5" disabled="true">
+                                            <small class="form-text text-danger" *ngIf="item.controls.area.errors && (submitted ||schoollandinvalid || item.controls.area.dirty || item.controls.area.touched)">
+                Area of land is acres Field is required</small>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <!-- <input type="text" pKeyFilter="pnum" pInputText class="form-control" formControlName="area" placeholder="Enter the Area of land in acres" maxlength="5" (change)="convertSqureFeet($event.target.value)"> -->
+                                            <input type="text" pKeyFilter="pnum" pInputText class="form-control" formControlName="sqfeet" maxlength="5" disabled="true">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- hideandshow -->
+                                <div class="row form-group">
+                                    <div class="col-sm-4 text-align">
+                                        <label><span class="num-align"></span>Is the land registered in the name of the School?<span class="manditory"></span></label>
+                                    </div>
+                                    <td>
+                                        <p-radioButton name="land_registered" formControlName="land_registered" value="1" label="YES" disabled="true"></p-radioButton>
+                                        <p-radioButton name="land_registered" class="radio" formControlName="land_registered" value="2" label="NO" disabled="true"></p-radioButton>
+                                    </td>
+                                    <!-- <small class="form-text text-danger" *ngIf="!userform.get('closure_order_yn').valid && (submitted || userform.get('closure_order_yn').dirty || userform.get('closure_order_yn').touched)">
+                                    Is the land registered in the name of the School Field is required</small> -->
+                                </div>
+                                <div class=" row">
+                                    <div class="col-lg-4">
+                                        <label>Nature of Ownership</label>
+
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <label>Sale Deed Document/Lease Document Number</label>
+
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-lg-3">
+                                        <p-dropdown [options]="languagedropvalue" formControlName="ownership_type" placeholder="Select  Ownership" styleClass="dropdwnvalues" disabled="true"></p-dropdown>
+                                        <small class="form-text text-danger" *ngIf="!userform.get('ownership_type').valid && (submitted || userform.get('ownership_type').dirty || userform.get('ownership_type').touched)">
+             Nature of Ownership Field is required</small>
+                                    </div>
+                                    <div class="col-lg-3 saledeed">
+                                        <input type="text" pKeyFilter="pnum" pInputText class="form-control" formControlName="doc_details" placeholder="Sale Deed Document Number" disabled="true">
+                                        <small class="form-text text-danger" *ngIf="!userform.get('doc_details').valid && (submitted || userform.get('doc_details').dirty || userform.get('doc_details').touched)">
+             Sale Deed Document Number Field is required</small>
+                                    </div>
+                                </div>
+                                <div *ngIf="userform.value.ownership_type == '2'">
+                                    <div class=" row">
+                                        <div class="col-lg-4">
+                                            <label>Numbers of Years of lease</label>
+
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label>Lease valid upto</label>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-3">
+                                            <input type="text" pKeyFilter="pnum" pInputText class="form-control" formControlName="lease_yrs" placeholder="Enter the Number of year of lease" disabled="true">
+                                            <small class="form-text text-danger" *ngIf="!userform.get('lease_yrs').valid && (submitted || userform.get('lease_yrs').dirty || userform.get('lease_yrs').touched)">
+             Numbers of Years of lease Field is required</small>
+                                        </div>
+                                        <div class="col-lg-3 saledeed">
+                                            <input class="form-control" type="date" placeholder="Date" dateformat="yyyy/dd/mm" formControlName="doc_valid_upto_date" disabled="true">
+                                            <small class="form-text text-danger" *ngIf="!userform.get('doc_valid_upto_date').valid && (submitted || userform.get('doc_valid_upto_date').dirty || userform.get('doc_valid_upto_date').touched)">
+             Lease valid upto Field is required</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" row">
+                                    <div class="col-lg-4">
+                                        <label>Sale Deed / Lease Document Date
+                                        </label>
+
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label>Sub Registrar Office Location</label>
+
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-lg-3">
+                                        <input class="form-control" type="date" placeholder="Date" dateformat="yyyy/dd/mm" formControlName="doc_file_date" disabled="true">
+                                        <small class="form-text text-danger" *ngIf="!userform.get('doc_file_date').valid && (submitted || userform.get('doc_file_date').dirty || userform.get('doc_file_date').touched)">
+             Document date Field is required</small>
+                                    </div>
+                                    <div class="col-lg-3 saledeed">
+                                        <input type="text" pInputText class="form-control" formControlName="doc_issue_place" placeholder="Enter Sub Registrar Office Location" disabled="true">
+                                        <small class="form-text text-danger" *ngIf="!userform.get('doc_issue_place').valid && (submitted || userform.get('doc_issue_place').dirty || userform.get('doc_issue_place').touched)">
+             Sub Registrar Office Location Field is required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Building Documents-->
+                            <div>
+                                <div class="backclr-grn  font-16">
+                                    <strong>Building Documents</strong>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <label>Details of Documents</label>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label>Building Plan</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>Previous Remarks</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>Remarks</label>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div formArrayName="validupto">
+                                    <div class="form-group row" style="padding-bottom:10px" *ngFor="let item of userform.get('validupto')['controls']; let i = index;" [formGroupName]="i">
+                                        <div class="col-lg-4">
+                                            <div class="flex-col-start">
+                                                <label class="label-text"><span class="titile">Plan Number:</span><span> {{item.value.doc_details}}</span> </label>
+                                                <label class="label-text"><span class="titile">Valid upto:</span><span>{{item.value.doc_valid_upto_date}}</span> </label>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <button pButton pRipple type="button" class="btn btn-success" (click)="downloadMyFile(item.value.doc_name_coded)" label="Download" class="p-button-success"></button>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div *ngIf ="item.value.previousReamrks && item.value.previousReamrks.length > 0">
+                                           
+                                            <div formArrayName="previousReamrks"
+                                            *ngFor="let remarks of item.get('previousReamrks').controls; let j=index">
+                                            <div [formGroupName]="j">
+                                        <div *ngIf="remarks.value.user_type">
+                                            <p class="label-text m-b-5"  *ngIf="remarks.value.doc_id == i+1"><span class="usertype-label">{{remarks.value.user_type}}:</span><span class="remarks-label">{{remarks.value.user_remarks}}</span></p>
+                                        </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div>
+                                                <textarea name="w3review" rows="3" cols="25" formControlName="user_remarks">
+                                                 
+                                                </textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Building Stability Certificate-->
+                            <div>
+
+
+                                <div class="backclr-grn  font-16">
+                                    <strong>Building Stability Certificate
+ </strong>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <label>Details of Documents</label>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label>Building Stability Certificate</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>Previous Remarks</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>Remarks</label>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div formArrayName="building">
+                                    <div class="form-group row" style="padding-bottom:10px" *ngFor="let item of userform.get('building')['controls']; let i = index;" [formGroupName]="i">
+                                        <div class="col-lg-4">
+                                            <div class="flex-col-start">
+                                                <label class="label-text"><span class="titile">Survey Number:</span><span> {{item.value.doc_details}}</span> </label>
+                                                <label class="label-text"><span class="titile">Valid upto:</span><span>{{item.value.doc_valid_upto_date}}</span> </label>
+                                                <label class="label-text"><span class="titile">Issuing Authority:</span><span>{{item.value.doc_inspect_issue_authority}}</span></label>
+                                                <label class="label-text"><span class="titile">File number of Issuing Authority:</span><span>{{item.value.doc_file_num}}</span></label>
+                                                <label class="label-text"><span class="titile">File Date:</span><span>{{item.value.doc_file_date}}</span></label>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <button pButton pRipple type="button" class="btn btn-success" (click)="downloadMyFile(item.value.doc_name_coded)" label="Download" class="p-button-success"></button>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="col-lg-3">
+                                                <div *ngIf ="item.value.previousReamrks && item.value.previousReamrks.length > 0">
+                                                <div formArrayName="previousReamrks"
+                                                *ngFor="let remarks of item.get('previousReamrks').controls; let j=index">
+                                                <div [formGroupName]="j">
+                                            
+                                                    <div *ngIf="remarks.value.user_type">
+                                                        <p class="label-text m-b-5"  *ngIf="remarks.value.doc_id == i+1"><span class="usertype-label">{{remarks.value.user_type}}:</span><span class="remarks-label">{{remarks.value.user_remarks}}</span></p>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div>
+                                                <textarea name="w3review" rows="3" cols="25" formControlName="user_remarks">
+                                                 
+                                                </textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" row">
+                                    <div class="col-lg-3">
+                                        <label>Total Building Value</label>
+
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <label>Number of students that can be accomodated </label>
+
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-lg-3">
+                                        <input type="text" pKeyFilter="pnum" pInputText class="form-control" formControlName="bldg_value" placeholder="Enter the Building Value" disabled="true">
+                                        <small class="form-text text-danger" *ngIf="!userform.get('bldg_value').valid && (submitted || userform.get('bldg_value').dirty || userform.get('bldg_value').touched)">
+ Total Building Value is required</small>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <input type="text" pKeyFilter="pnum" pInputText class="form-control" formControlName="students_accomodate_strength1" placeholder="Enter Number of students that can be accomodated" disabled="true">
+                                            <small class="form-text text-danger" *ngIf="!userform.get('students_accomodate_strength1').valid && (submitted || userform.get('students_accomodate_strength1').dirty || userform.get('students_accomodate_strength1').touched)">
+ Number of students that can be accomodated</small> </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Building License-->
+                            <div>
+                                <div class="backclr-grn  font-16">
+                                    <strong>Building License</strong>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <label>Details of Documents</label>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label>Building License Certificate</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>Previous Remarks</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>Remarks</label>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div formArrayName="students">
+                                    <div class="form-group row" style="padding-bottom:10px" *ngFor="let item of userform.get('students')['controls']; let i = index;" [formGroupName]="i">
+                                        <div class="col-lg-4">
+                                            <div class="flex-col-start">
+                                                <label class="label-text"><span class="titile">Survey Number:</span><span> {{item.value.doc_survey_no}}</span> </label>
+                                                <label class="label-text"><span class="titile">Valid upto:</span><span>{{item.value.doc_valid_upto_date}}</span> </label>
+                                                <label class="label-text"><span class="titile">Issuing Authority:</span><span>{{item.value.doc_inspect_issue_authority}}</span></label>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <button pButton pRipple type="button" class="btn btn-success" (click)="downloadMyFile(item.value.doc_name_coded)" label="Download" class="p-button-success"></button>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div *ngIf ="item.value.previousReamrks && item.value.previousReamrks.length > 0">
+                                            <div formArrayName="previousReamrks"
+                                            *ngFor="let remarks of item.get('previousReamrks').controls; let j=index">
+                                            <div [formGroupName]="j">
+                                        
+                                                <div *ngIf="remarks.value.user_type">
+                                                    <p class="label-text m-b-5"  *ngIf="remarks.value.doc_id == i+1"><span class="usertype-label">{{remarks.value.user_type}}:</span><span class="remarks-label">{{remarks.value.user_remarks}}</span></p>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div>
+                                                <textarea name="w3review" rows="3" cols="25" formControlName="user_remarks">
+                                                 
+                                                </textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Sanitary Certificate -->
+                            <div class="backclr-grn  font-16">
+                                <strong>Sanitary Certificate</strong>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <label>Details of Documents</label>
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>Sanitary Certificate</label>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>Previous Remarks</label>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>Remarks</label>
+                                </div>
+                            </div>
+                            <hr />
+                            <div formArrayName="sanitary_certificate">
+                                <div class="form-group row" style="padding-bottom:10px" *ngFor="let item of userform.get('sanitary_certificate')['controls']; let i = index;" [formGroupName]="i">
+                                    <div class="col-lg-4">
+                                        <div class="flex-col-start">
+                                            <label class="label-text"><span class="titile">Inspecting authority:</span><span> {{item.value.doc_inspect_issue_authority}}</span>
+                                    </label>
+                                            <label class="label-text"><span class="titile">Inspection date:</span><span>{{item.value.doc_inspect_date}}</span>
+                                    </label>
+                                            <label class="label-text"><span class="titile">File number:</span><span>{{item.value.doc_file_num}}</span></label>
+                                            <label class="label-text"><span class="titile">File Date:</span><span> {{item.value.doc_file_date}}</span>
+                                    </label>
+                                            <label class="label-text"><span class="titile">Certificate Valid upto:</span><span>{{item.value.doc_valid_upto_date}}</span>
+                                    </label>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <button pButton pRipple type="button" class="btn btn-success" (click)="downloadMyFile(item.value.doc_name_coded)" label="Download" class="p-button-success"></button>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div *ngIf ="item.value.previousReamrks && item.value.previousReamrks.length > 0">
+                                        <div formArrayName="previousReamrks"
+                                        *ngFor="let remarks of item.get('previousReamrks').controls; let j=index">
+                                        <div [formGroupName]="j">
+                                    
+                                            <p class="label-text m-b-5" *ngIf="remarks.value.user_type"><span class="usertype-label">{{remarks.value.user_type}}:</span><span class="remarks-label">{{remarks.value.user_remarks}}</span></p>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <textarea name="w3review" rows="3" cols="25" formControlName="user_remarks">
+                                                 
+                                            </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Fire Safety Certificate -->
+                            <div class="backclr-grn  font-16">
+                                <strong>Fire Safety Certificate</strong>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <label>Details of Documents</label>
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>Fire Safety Certificate</label>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>Previous Remarks</label>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>Remarks</label>
+                                </div>
+                            </div>
+                            <hr />
+                            <div formArrayName="fire_safety">
+                                <div class="form-group row" style="padding-bottom:10px" *ngFor="let item of userform.get('fire_safety')['controls']; let i = index;" [formGroupName]="i">
+                                    <div class="col-md-4">
+                                        <div class="flex-col-start">
+                                            <label class="label-text"><span class="titile">Inspecting authority:</span><span> {{item.value.doc_inspect_issue_authority}}</span>
+                                    </label>
+                                            <label class="label-text"><span class="titile">Inspection date:</span><span>{{item.value.doc_inspect_date}}</span>
+                                    </label>
+                                            <label class="label-text"><span class="titile">File number:</span><span>{{item.value.doc_file_num}}</span></label>
+                                            <label class="label-text"><span class="titile">File Date:</span><span> {{item.value.doc_file_date}}</span>
+                                    </label>
+                                            <label class="label-text"><span class="titile">Certificate Valid upto:</span><span>{{item.value.doc_valid_upto_date}}</span>
+                                    </label>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <button pButton pRipple type="button" class="btn btn-success" (click)="downloadMyFile(item.value.doc_name_coded)" label="Download" class="p-button-success"></button>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div *ngIf ="item.value.previousReamrks && item.value.previousReamrks.length > 0">
+                                        <div formArrayName="previousReamrks"
+                                        *ngFor="let remarks of item.get('previousReamrks').controls; let j=index">
+                                        <div [formGroupName]="j">
+                                    
+                                            <p class="label-text m-b-5" *ngIf="remarks.value.user_type"><span class="usertype-label">{{remarks.value.user_type}}:</span><span class="remarks-label">{{remarks.value.user_remarks}}</span></p>
+                                        </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div>
+                                            <textarea name="w3review" rows="3" cols="25" formControlName="user_remarks">
+                                                 
+                                            </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="backclr-grn  font-16">
+                                <strong>Declaration</strong>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-sm-6 text-align">
+                                    <label><span class="num-align"></span>Whether closure order for existing school has been obtained by concerned Director of Department in order to obtain NOC for CBSE / ICSE<span class="manditory"></span></label>
+                                </div>
+                                <td>
+                                    <p-radioButton name="closure_order_yn" formControlName="closure_order_yn" value="1" label="YES" inputId="opt1" disabled="true"></p-radioButton>
+                                    <p-radioButton name="closure_order_yn" class="radio" formControlName="closure_order_yn" value="2" label="NO" inputId="opt1" disabled="true"></p-radioButton>
+                                </td>
+                                <small class="form-text text-danger" *ngIf="userform.controls.closure_order_yn.errors && (submitted || userform.controls.closure_order_yn.dirty || userform.controls.closure_order_yn.touched)">
+                                    Whether closure order for existing school has been obtained by concerned Director of Department in order to obtain NOC for CBSE / ICSE Field id required</small>
+                            </div>
+                            <div *ngIf="userform.value.closure_order_yn == '1'">
+                                <div class="row form-group">
+                                    <div class="col-lg-2">
+                                        <label>Upload Closure order</label>
+                                        <div>
+                                            <button pButton pRipple type="button" class="btn btn-success" (click)="downloadMyFile(userform.value.upload_closure)" label="Download" class="p-button-success"></button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Previous Remarks</label>
+                                            <div *ngFor="let remarks of closureRemarks; let j=index">
+                                           
+                                        
+                                                <p class="label-text m-b-5" *ngIf="remarks.user_type"><span class="usertype-label">{{remarks.user_type}}:</span><span class="remarks-label">{{remarks.user_remarks}}</span></p>
+                                          
+                                            </div>
+                                      
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Remarks</label>
+                                        <div>
+                                            <textarea name="w3review" rows="3" cols="25" formControlName="closure_remarks">
+                                                 
+                                            </textarea>
+                                        </div>
+                                    </div>
+                            
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <!-- <button type="submit" class="btn btn-success save">Save & Submit Later</button> -->
+                    <button *ngIf="userform.value.closure_order_yn != 2" type=" submit " class="btn btn-success " (click)="onSave() ">Save</button>
+                    <!-- <button type="submit " class="btn btn-light btn-border">Cancel</button> -->
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="Checklist Verification">
+                <h3 class="heading"> NOC for CBSE Affiliation</h3>
+                <div class="container-fluid body">
+                    <form [formGroup]="schoolceoform">
+                        <div class="backclr-grn  font-16">
+                            <strong>Facilities</strong>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6 text-align">
+                                <label><span class="num-align"></span>Does the school have enough library facility?<span class="manditory"></span></label>
+                            </div>
+                            <td>
+                                <p-radioButton name="library_yn" formControlName="library_yn" value="1" label="Yes" inputId="opt1" disabled="true"></p-radioButton>
+                                <p-radioButton name="library_yn" class="radio" formControlName="library_yn" value="2" label="NO" inputId="opt1" disabled="true"></p-radioButton>
+                            </td>
+                            <small class="form-text text-danger" *ngIf="!schoolceoform.get('library_yn').valid && (submitted2 || schoolceoform.get('library_yn').dirty || schoolceoform.get('library_yn').touched)">
+ Does the school have enough library facility Field is required</small>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6 text-align">
+                                <label><span class="num-align"></span>Does the school library have at least 1500 books(2500 in case of ICSE schools)<span class="manditory"> </span></label>
+                            </div>
+                            <td>
+                                <p-radioButton name="books_yn" formControlName="books_yn" value="1" label="Yes" inputId="opt1" disabled="true"></p-radioButton>
+                                <p-radioButton name="books_yn" class="radio" formControlName="books_yn" value="2" label="NO" inputId="opt1" disabled="true"></p-radioButton>
+                                <small class="form-text text-danger" *ngIf="!schoolceoform.get('books_yn').valid && (submitted2 || schoolceoform.get('books_yn').dirty || schoolceoform.get('books_yn').touched)">
+ Does the school library have at least 1500 books Field is required</small>
+                            </td>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6 text-align">
+                                <label><span class="num-align"></span>Is sufficient lab facility available in the school?<span class="manditory"></span></label>
+                            </div>
+                            <td>
+                                <p-radioButton name="labs_yn" formControlName="labs_yn" value="1" label="Yes" inputId="opt1" disabled="true"></p-radioButton>
+                                <p-radioButton name="labs_yn" class="radio" formControlName="labs_yn" value="2" label="NO" inputId="opt1" disabled="true"></p-radioButton>
+                            </td>
+                            <small class="form-text text-danger" *ngIf="!schoolceoform.get('labs_yn').valid && (submitted2 || schoolceoform.get('labs_yn').dirty || schoolceoform.get('labs_yn').touched)">
+ Does the school library have at least 1500 books Field is required</small>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6 text-align">
+                                <label><span class="num-align"></span>Any other schools functioning within the same campus?<span class="manditory"> </span></label>
+                            </div>
+                            <td>
+                                <p-radioButton name="sch_same_campus_yn" formControlName="sch_same_campus_yn" value="1" label="Yes" disabled="true"></p-radioButton>
+                                <p-radioButton name="sch_same_campus_yn" class="radio" formControlName="sch_same_campus_yn" value="2" label="NO" disabled="true"></p-radioButton>
+                            </td>
+                            <small class="form-text text-danger" *ngIf="!schoolceoform.get('sch_same_campus_yn').valid && (submitted2 || schoolceoform.get('sch_same_campus_yn').dirty || schoolceoform.get('sch_same_campus_yn').touched)">
+ Any other schools functioning within the same campus Field is required</small>
+                        </div>
+                        <div *ngIf="schoolceoform.value.sch_same_campus_yn == '1'">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <label>Survey Number of the school in the same campus</label>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label> Area in acres</label>
+                                </div>
+                            </div>
+                            <div formArrayName="Campus">
+                                <div class="form-group row" style="padding-bottom:10px" *ngFor="let item of schoolceoform.get('Campus')['controls']; let i = index;" [formGroupName]="i">
+                                    <div class="col-lg-3">
+                                        <input type="text" pKeyFilter="pnum" pInputText class="form-control" formControlName="survey_number" placeholder="Enter the Survey Number" maxlength="5" disabled="true">
+                                        <small class="form-text text-danger" *ngIf="item.controls.survey_number.errors && (submitted2 ||surveylandinvalid || item.controls.survey_number.dirty || item.controls.survey_number.touched)">
+ Survey Number Field is required</small>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input type="text" pKeyFilter="pnum" pInputText class="form-control" formControlName="area" placeholder="Enter the Area of land in acres" maxlength="5" disabled="true">
+                                        <small class="form-text text-danger" *ngIf="item.controls.area.errors && (submitted2 ||surveylandinvalid || item.controls.area.dirty || item.controls.area.touched)">
+ Area of land in acres Field is required</small>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <!-- <input type="text" pKeyFilter="pnum" pInputText class="form-control" formControlName="area" placeholder="Enter the Area of land in acres" maxlength="5" (change)="convertSqureFeet($event.target.value)"> -->
+                                        <input type="text" pKeyFilter="pnum" pInputText class="form-control" formControlName="sqfeet" maxlength="5" disabled="true">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" row">
+                            <div class="col-lg-5">
+                                <label>Number of classrooms in the school</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-3">
+                                <input pInputText type="text" class="form-control" formControlName="classrooms" placeholder="Enter the Number of classrooms in the school" disabled="true">
+                                <small class="form-text text-danger" *ngIf="!schoolceoform.get('classrooms').valid && (submitted2 || schoolceoform.get('classrooms').dirty || schoolceoform.get('classrooms').touched)">
+ Number of classrooms in the school Field is required</small>
+                            </div>
+                        </div>
+                        <div class="backclr-grn  font-16">
+                            <strong>Location & Nearby Schools</strong>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6 text-align">
+                                <label><span class="num-align"></span>Are there any English Medium schools in the 5km radius of this school?<span class="manditory"> </span></label>
+                            </div>
+                            <td>
+                                <p-radioButton name="em_sch_yn" formControlName="em_sch_yn" value="1" label="Yes" inputId="opt1" disabled="true"></p-radioButton>
+                                <p-radioButton name="em_sch_yn" class="radio" formControlName="em_sch_yn" value="2" label="NO" inputId="opt1" disabled="true"></p-radioButton>
+                            </td>
+                            <small class="form-text text-danger" *ngIf="!schoolceoform.get('em_sch_yn').valid && (submitted2 || schoolceoform.get('em_sch_yn').dirty || schoolceoform.get('em_sch_yn').touched)">
+ Are there any English Medium schools in the 5km radius of this school Field is required</small>
+                        </div>
+                        <div *ngIf="schoolceoform.value.em_sch_yn == '1'">
+                            <div class="form-group row">
+                                <div class="col-lg-5">
+                                    <label>UDISE Code</label>
+                                    <input type="text" pKeyFilter="pnum" class="form-control" (keyup)="getSchoolName(schoolceoform.value.sch1_udise,'1')" formControlName="sch1_udise" placeholder="Enter UDISE code" maxlength="11">
+                                    <small class="form-text text-danger" *ngIf="schoolceoform.controls.sch1_udise.errors && (submitted2 || schoolceoform.controls.sch1_udise.dirty || schoolceoform.controls.sch1_udise.touched)">
+ UDISE Code Field is required</small> </div>
+                                <div class="col-lg-5">
+                                    <label>School Name</label>
+                                    <input type="text" pInputText class="form-control" formControlName="sch1_name" placeholder="School Name" disabled="true">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-5">
+                                    <label>UDISE Code</label>
+                                    <input type="text" pKeyFilter="pnum" class="form-control" formControlName="sch2_udise" (keyup)="getSchoolName(schoolceoform.value.sch2_udise,'2')" placeholder="Enter UDISE code" maxlength="11" disabled="true">
+                                    <small class="form-text text-danger" *ngIf="schoolceoform.controls.sch2_udise.errors && (submitted2 || schoolceoform.controls.sch2_udise.dirty || schoolceoform.controls.sch2_udise.touched)">
+ UDISE Code Field is required</small>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label>School Name</label>
+                                    <input type="text" pInputText class="form-control" formControlName="sch2_name" placeholder="School Name" disabled="true">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-5">
+                                    <label>UDISE Code</label>
+                                    <input type="text" pKeyFilter="pnum" class="form-control" formControlName="sch3_udise" (keyup)="getSchoolName(schoolceoform.value.sch3_udise,'3')" placeholder="Enter UDISE code" maxlength="11" disabled="true">
+                                    <small class="form-text text-danger" *ngIf="schoolceoform.controls.sch3_udise.errors && (submitted2 || schoolceoform.controls.sch3_udise.dirty || schoolceoform.controls.sch3_udise.touched)">
+ UDISE Code Field is required</small>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label>School Name</label>
+                                    <input type="text" pInputText class="form-control" formControlName="sch3_name" placeholder="School Name" disabled="true">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-5">
+                                    <label>UDISE Code</label>
+                                    <input type="text" pKeyFilter="pnum" class="form-control" formControlName="sch4_udise" (keyup)="getSchoolName(schoolceoform.value.sch4_school_id,'4')" placeholder="Enter UDISE code" maxlength="11" disabled="true">
+                                    <small class="form-text text-danger" *ngIf="schoolceoform.controls.sch4_udise.errors && (submitted2 || schoolceoform.controls.sch4_udise.dirty || schoolceoform.controls.sch4_udise.touched)">
+ UDISE Code Field is required</small>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label>School Name</label>
+                                    <input type="text" pInputText class="form-control" formControlName="sch4_name" placeholder="School Name" disabled="true">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-5">
+                                    <label>UDISE Code</label>
+                                    <input type="text" pKeyFilter="pnum" class="form-control" formControlName="sch5_udise" (keyup)="getSchoolName(schoolceoform.value.sch5_school_id,'5')" placeholder="Enter UDISE code" maxlength="11" disabled="true">
+                                    <small class="form-text text-danger" *ngIf="schoolceoform.controls.sch5_udise.errors && (submitted2 || schoolceoform.controls.sch5_udise.dirty || schoolceoform.controls.sch5_udise.touched)">
+ UDISE Code Field is required</small>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label>School Name</label>
+                                    <input type="text" pInputText class="form-control" formControlName="sch5_name" placeholder="School Name" disabled="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6 text-align">
+                                <label><span class="num-align"></span>NOC received from any of the nearby  Schools?<span class="manditory"> </span></label>
+                            </div>
+                            <td>
+                                <p-radioButton name="sch1_noc_yn" formControlName="sch1_noc_yn" value="1" label="Yes" inputId="opt1" disabled="true"></p-radioButton>
+                                <p-radioButton name="sch1_noc_yn" class="radio" formControlName="sch1_noc_yn" value="2" label="NO" inputId="opt1" disabled="true"></p-radioButton>
+                            </td>
+                            <small class="form-text text-danger" *ngIf="!schoolceoform.get('sch1_noc_yn').valid && (submitted2 || schoolceoform.get('sch1_noc_yn').dirty || schoolceoform.get('sch1_noc_yn').touched)">
+ NOC received from any of the nearby English Medium Schools Field is required</small>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6 text-align">
+                                <label><span class="num-align"></span>Will any other school be affected due to opening of this school?<span class="manditory"> </span></label>
+                            </div>
+                            <td>
+                                <p-radioButton name="other_sch_affect_yn" formControlName="other_sch_affect_yn" value="1" label="Yes" inputId="opt1" disabled="true"></p-radioButton>
+                                <p-radioButton name="other_sch_affect_yn" class="radio" formControlName="other_sch_affect_yn" value="2" label="NO" inputId="opt1" disabled="true"></p-radioButton>
+                            </td>
+                            <small class="form-text text-danger" *ngIf="!schoolceoform.get('other_sch_affect_yn').valid && (submitted2 || schoolceoform.get('other_sch_affect_yn').dirty || schoolceoform.get('other_sch_affect_yn').touched)">
+ Will any other school be affected due to opening of this school Field is required</small>
+                        </div>
+                        <div class="text-center mt-3">
+                            <!-- <button type="submit" class="btn btn-success save">Save & Submit Later</button> -->
+                            <button type="submit" class="btn btn-success preview" (click)="onSavepreview() ">Preview Application</button>
+                            <!-- <button type=" submit " class="btn btn-success submit " (click)="onSaveschool() ">Submit</button> -->
+                            <!-- <button type="submit " class="btn btn-light btn-border ">Cancel</button> -->
+                        </div>
+                    </form>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="Officer Declaration">
+                <div *ngIf="statelogin">
+                    <h3 class="heading"> NOC for CBSE Affiliation</h3>
+                    <div class="container-fluid body">
+                        <form [formGroup]="stateform">
+                            <!-- <h3 class=""> NOC for CBSE Affiliation</h3> -->
+                            <div class="backclr-grn  font-16">
+                                <strong>Officer Declaration</strong>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-5">
+                                    <label>Date of Inspection</label>
+                                    <input class="form-control" class="date" type="date" formControlName="order_valid_from_date">
+                                    <!-- <input class="form-control" type="date" placeholder="Date" dateformat="yyyy/mm/dd" FormControlName="order_valid_from_date"> -->
+                                    <!-- <input type="text" pInputText class="form-control" formControlName="inspection_date" placeholder=" Date of Inspection"> -->
+                                    <!-- <p-message severity="error" text="Date of Inspection field is required" *ngIf="ceoform.controls.inspection_date.errors && (submitted || ceoform.controls.inspection_date.dirty || ceoform.controls.inspection_date.touched)"></p-message> -->
+                                </div>
+                                <div class="col-lg-5">
+                                    <label>Officer Recommendation</label>
+                                    <p-dropdown [options]="statedropdown" formControlName="recommend" placeholder="Officer Recommendation" styleClass="dropdwnvalues" (onChange)="chooseStateRecommendation(stateform.value.recommend)"></p-dropdown>
+                                    <p-message severity="error" text="Officer Recommendation field is required" *ngIf="stateform.controls.recommend.errors && (submitted4 || stateform.controls.recommend.dirty || stateform.controls.recommend.touched)"></p-message>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-5">
+                                    <label>Order Valid From Date</label>
+                                    <input class="form-control" class="date" type="date" formControlName="order_valid_from_date">
+                                    <!-- <input class="form-control" type="date" placeholder="Date" dateformat="yyyy/mm/dd" FormControlName="order_valid_from_date"> -->
+                                    <!-- <input type="text" pInputText class="form-control" formControlName="inspection_date" placeholder=" Date of Inspection"> -->
+                                    <p-message severity="error" text="Order Valid From Date is required" *ngIf="stateform.controls.order_valid_from_date.errors && (submitted4 || stateform.controls.order_valid_from_date.dirty || stateform.controls.order_valid_from_date.touched)"></p-message>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label>Order Valid Upto Date</label>
+                                    <input class="form-control" class="date" type="date" formControlName="order_valid_upto_date">
+                                    <p-message severity="error" text=">Order Valid Upto Date is required" *ngIf="stateform.controls.order_valid_upto_date.errors && (submitted4 || stateform.controls.order_valid_upto_date.dirty || stateform.controls.order_valid_upto_date.touched)"></p-message>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-5">
+                                    <label>From Class</label>
+                                    <p-dropdown [options]="classList" formControlName="order_from_class" placeholder="Please Select" styleClass="dropdwnvalues"></p-dropdown>
+                                    <!-- <input class="form-control" type="date" placeholder="Date" dateformat="yyyy/mm/dd" FormControlName="order_valid_from_date"> -->
+                                    <!-- <input type="text" pInputText class="form-control" formControlName="inspection_date" placeholder=" Date of Inspection"> -->
+                                    <p-message severity="error" text="From Class" *ngIf="stateform.controls.order_from_class.errors && (submitted4 || stateform.controls.order_from_class.dirty || stateform.controls.order_from_class.touched)"></p-message>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label>To Class</label>
+                                    <p-dropdown [options]="classList" formControlName="order_to_class" placeholder="Please Select" styleClass="dropdwnvalues"></p-dropdown>
+                                    <p-message severity="error" text="To Class is required" *ngIf="stateform.controls.order_to_class.errors && (submitted4 || stateform.controls.order_to_class.dirty || stateform.controls.order_to_class.touched)"></p-message>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-lg-5">
+                                    <label>Officer Remarks</label>
+                                    <input type="text" pInputText class="form-control" formControlName="remarks" placeholder=" Officer Remarks">
+                                    <p-message severity="error" text="Officer Remarks field is required" *ngIf="stateform.controls.remarks.errors && (submitted4 || stateform.controls.remarks.dirty || stateform.controls.remarks.touched)"></p-message>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label>Officer Inspection Document</label>
+                                    <div>
+                                        <input #file type='file' (change)="onSelectFile($event,'docUpload')">
+                                        <p-message severity="error" text="Officer Remarks field is required" *ngIf="stateform.controls.doc_name.errors && (submitted4 || stateform.controls.doc_name.dirty || stateform.controls.doc_name.touched)"></p-message>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-5">
+                                    <label>Officer File RC Number</label>
+                                    <input type="text" pInputText class="form-control" formControlName="order_rc_num" placeholder="Enter Officer File RC Number">
+                                    <p-message severity="error" text="CEO File RC Number field is required" *ngIf="stateform.controls.order_rc_num.errors && (submitted4 || stateform.controls.order_rc_num.dirty || stateform.controls.order_rc_num.touched)"></p-message>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label>File Date</label>
+                                    <input class="form-control" type="date" formControlName="order_date">
+                                    <!-- <input class="form-control" type="date" placeholder="Date" dateformat="yyyy/dd/mm" FormControlName="order_date"> -->
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-5">
+                                    <label>Order Recognised Number</label>
+                                    <input type="text" pInputText class="form-control" formControlName="order_recog_number" placeholder="Enter Order Recognised Number">
+                                    <p-message severity="error" text="Order Recognised Number is required" *ngIf="stateform.controls.order_recog_number.errors && (submitted4 || stateform.controls.order_recog_number.dirty || stateform.controls.order_recog_number.touched)"></p-message>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label>Condition Documents</label>
+                                    <input #file type='file' (change)="onSelectFile($event,'otherCondDoc')">
+                                </div>
+                             
+                            </div>
+                            <div class="text-center mt-3">
+                                <button *ngIf="stateform.value.recommend != '' && stateform.value.recommend == 2" type=" submit " class="btn btn-success forward " (click)="onSavestate() ">Request Clarification</button>
+                                <button *ngIf="stateform.value.recommend != '' && stateform.value.recommend != 2" type=" submit " class="btn btn-success approved " (click)="onSavestate() ">Approve</button>
+                                <button *ngIf="stateform.value.recommend != '' && stateform.value.recommend != 2" type=" stateform " class="btn btn-success " (click)="getOrderCopy()">View Order Copy</button>
+                                <!-- <button type="submit " class="btn btn-light btn-border ">Cancel</button> -->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div *ngIf="ceologin">
+                    <h3 class="heading"> NOC for CBSE Affiliation</h3>
+                    <div class="container-fluid body">
+                        <form [formGroup]="ceoform">
+                            <!-- <h3 class=""> NOC for CBSE Affiliation</h3> -->
+                            <div class="backclr-grn  font-16">
+                                <strong>Officer Declaration</strong>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <label>Date of Inspection</label>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Officer Recommendation</label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-3">
+                                    <input class="form-control date" type="date" placeholder="Date" dateformat="yyyy/mm/dd" FormControlName="inspection_date" max="{{todayDate}}">
+                                </div>
+                                <div class="col-lg-4 dropdown">
+                                    <p-dropdown [options]="ceorecommend" formControlName="recommend" placeholder="Officer Recommendation" styleClass="dropdwnvalues" (onChange)="chooseCeoRemarks(ceoform.value.recommend)"></p-dropdown>
+                                    <p-message severity="error" text="Officer Recommendation field is required" *ngIf="ceoform.controls.recommend.errors && (submitted3 || ceoform.controls.recommend.dirty || ceoform.controls.recommend.touched)"></p-message>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <label>Officer Remarks</label>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Officer Inspection Document</label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-3">
+                                    <input type="text" pInputText class="form-control" formControlName="remarks" placeholder=" Officer Remarks">
+                                    <p-message severity="error" text="Officer Remarks field is required" *ngIf="ceoform.controls.remarks.errors && (submitted3 || ceoform.controls.remarks.dirty || ceoform.controls.remarks.touched)"></p-message>
+                                </div>
+                                <div class="col-lg-4 dropdown ">
+                                    <div>
+                                        <input #file type='file' (change)="onSelectFile($event,'docUpload')" formControlName="doc_name">
+                                        <p-message severity="error" text="Officer Inspection Document" *ngIf="ceoform.controls.doc_name.errors && (submitted3 || ceoform.controls.doc_name.dirty || ceoform.controls.doc_name.touched)"></p-message>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <label>Officer File RC Number </label>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>File Date</label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-3">
+                                    <input type="text" pInputText class="form-control" formControlName="order_rc_num" placeholder="Enter Officer File RC Number">
+                                    <p-message severity="error" text="CEO File RC Number field is required" *ngIf="ceoform.controls.order_rc_num.errors && (submitted3 || ceoform.controls.order_rc_num.dirty || ceoform.controls.order_rc_num.touched)"></p-message>
+                                </div>
+                                <div class="col-lg-3 dropdown">
+                                    <input class="form-control date" type="date" placeholder="Date" dateformat="yyyy/dd/mm" FormControlName="order_date" max="{{todayDate}}">
+                                </div>
+                            </div>
+                            <div class="text-center mt-3">
+                                <button *ngIf="ceoform.value.recommend == '2'" type=" submit " class="btn btn-success forward " (click)="onSaveceo() ">Request Clarification to School</button>
+                                <button *ngIf="ceoform.value.recommend == 'R' || ceoform.value.recommend == 'RC'" type=" submit " class="btn btn-success " (click)="onSaveceo() ">Forward</button>
+                                <!-- <button type=" submit " class="btn btn-success " (click)="onSaveceo() ">Submit</button> -->
+                                <!-- <button type="submit " class="btn btn-light btn-border ">Cancel</button> -->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </p-tabPanel>
+        </p-tabView>
+    </p-card>
+</div>

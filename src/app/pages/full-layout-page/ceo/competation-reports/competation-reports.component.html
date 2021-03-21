@@ -1,0 +1,195 @@
+<div class="outer-layout" style="padding-top:5px;">
+    <div class="breadcrumbs c-black">
+        <h6 class="url">
+            <span class="flex-gap-right">Students</span> <i class="fa fa-angle-right flex-gap-right"
+                aria-hidden="true"></i>
+            <span class="flex-gap-right">Competition Reports</span>
+        </h6>
+    </div>
+</div>
+<div class="container-fluid">
+    <p-card>
+        <form [formGroup]="competitionForm">
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label class="font-weight-bold" style="color: teal;font-size: 14px;">Select Competition<span
+                            class="text-danger"> *
+                        </span></label>
+                    <select id="select2" formControlName="contestid" class="form-control "
+                        style="border: 1px solid #a6a6a6;" (change)="onChangeComp()">
+                        <option value="" style="font-weight:500">Select Competition</option>
+                        <option *ngFor="let Competition of competitionNames" [value]="Competition.value">
+                            {{ Competition.label }}
+                        </option>
+                    </select>
+                    <p-message severity="error" class="flex-gap-top" text="This field is required"
+                        *ngIf="competitionForm.controls.contestid.errors && ( competitionForm.controls.contestid.dirty || competitionForm.controls.contestid.touched)"
+                        class="validation-error"></p-message>
+                </div>
+            </div>
+        </form>
+    </p-card>
+    <br>
+    <p-table #db [columns]="dataHeader1" [value]="competitionResults" [resizableColumns]="true" [paginator]="true"
+        [rows]="10"
+        [globalFilterFields]="['DistName','EduDist','BlkName','UDISE','SchName','EmisID','StdName','ClassID','CntsID']">
+        <ng-template pTemplate="caption">
+            <div class="row">
+                <!-- <div class="col-md-8"></div> -->
+                <div class="col-sm-8 pt-3 text-left">
+                    <i>Note : Please update each student details separately. </i>
+            </div>
+                <div class="col-md-3 text-right">
+                    <input class="form-control" type="text" (input)="db.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Search">
+                </div>
+                <div class="col-md-1 text-right" style="padding-top: 15px;padding-right:28px;">
+                    <i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="exportExcel()"></i>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr class="text-center">
+                <th style="width:4em;">S.No</th>
+                <!-- <th *ngFor="let col of columns" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+                        ariaLabelDesc="Activate to sort in descending order"
+                        ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th> -->
+                <th *ngIf="userTypeId==5" style="width:13em;" pSortableColumn="DistName" class="text-center">
+                    District Name<p-sortIcon field="DistName"></p-sortIcon>
+                </th>
+                <th *ngIf="userTypeId==3 || userTypeId==9 || userTypeId==5" style="width:13em" pSortableColumn="EduDist"
+                    class="text-center">
+                    Education District Name<p-sortIcon field="EduDist"></p-sortIcon>
+                </th>
+                <th *ngIf="userTypeId==10 || userTypeId==3 || userTypeId==9 || userTypeId==5" style="width:13em"
+                    pSortableColumn="BlkName" class="text-center">
+                    Block Name<p-sortIcon field="BlkName"></p-sortIcon>
+                </th>
+                <th *ngIf="userTypeId==6 || userTypeId==10 || userTypeId==3 || userTypeId==9 || userTypeId==5"
+                    style="width:13em" pSortableColumn="UDISE" class="text-center">UDISE<p-sortIcon field="UDISE">
+                    </p-sortIcon>
+                </th>
+                <th *ngIf="userTypeId==6 || userTypeId==10 || userTypeId==3 || userTypeId==9 || userTypeId==5"
+                    style="width:19em" pSortableColumn="SchName" class="text-center"> School Name<p-sortIcon
+                        field="SchName"></p-sortIcon>
+                </th>
+                <th style="width:16em" pSortableColumn="EmisID" class="text-center">EMIS Id<p-sortIcon field="EmisID">
+                    </p-sortIcon>
+                </th>
+                <th style="width:15em" pSortableColumn="StdName" class="text-center">Student Name<p-sortIcon
+                        field="StdName"></p-sortIcon>
+                </th>
+                <th style="width:7em" pSortableColumn="ClassID" class="text-center"> Class<p-sortIcon field="ClassID">
+                    </p-sortIcon>
+                </th>
+                <th style="width:13em" pSortableColumn="CntsID" class="text-center">Competition<p-sortIcon
+                        field="CntsID"></p-sortIcon>
+                </th>
+                <th *ngIf="this.userTypeId==5" style="width:20em" pSortableColumn="StatRnk" class="text-center">State
+                    Prize<p-sortIcon field="StatRnk"></p-sortIcon>
+                </th>
+                <th *ngIf="this.userTypeId==3 || this.userTypeId==9 " style="width:20em" pSortableColumn="DstRnk"
+                    class="text-center">District Prize<p-sortIcon field="DstRnk"></p-sortIcon>
+                </th>
+                <th *ngIf="this.userTypeId==10" style="width:20em" pSortableColumn="EduRnk" class="text-center">
+                    Education District Prize<p-sortIcon field="EduRnk"></p-sortIcon>
+                </th>
+                <th *ngIf="this.userTypeId==6" style="width:20em" pSortableColumn="BlkRnk" class="text-center">Block
+                    Prize<p-sortIcon field="BlkRnk"></p-sortIcon>
+                </th>
+                <th *ngIf="this.userTypeId==1" style="width:20em" pSortableColumn="SchRnk" class="text-center">School
+                    Prize<p-sortIcon field="SchRnk"></p-sortIcon>
+                </th>
+                <th   style="width:17em" *ngIf="(this.userTypeId == 3 || this.userTypeId == 9 || this.userTypeId == 10)" class="text-center">File Upload
+                  
+                </th>
+                <th style="width:13em" class="text-center">Save
+                </th>
+
+
+
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-comp let-columns="columns" let-i="rowIndex">
+            <tr *ngIf="!noData">
+                <td class="sno-header-layouts"> {{i+1}} </td>
+                <!-- <td class="text-left"> {{ distwise.district_name}} </td> -->
+                <td class="text-left" *ngIf="userTypeId==5">
+                    {{ comp.DistName}} </td>
+                <td class="text-left" *ngIf="userTypeId==3 || userTypeId==9 || userTypeId==5">
+                    {{ comp.EduDist}} </td>
+                <td class="text-left"*ngIf="userTypeId==10 || userTypeId==3 || userTypeId==9 || userTypeId==5">
+                    {{ comp.BlkName}} </td>
+                <td class="text-center"
+                    *ngIf="userTypeId==6 || userTypeId==10 || userTypeId==3 || userTypeId==9 || userTypeId==5">{{
+                    comp.UDISE}} </td>
+                <td class="text-left"  *ngIf="userTypeId==6 || userTypeId==10 || userTypeId==3 || userTypeId==9 || userTypeId==5"> {{
+                    comp.SchName}} </td>
+                <td class="text-left"> {{ comp.EmisID}} </td>
+                <td class="text-left"> {{ comp.StdName}} </td>
+                <td class="text-center"> {{ comp.ClassID}} </td>
+                <td class="text-center"> {{ (comp.CntsID == "1") ? "Essay Tamil" : (comp.CntsID == "2") ? "Speech
+                    Tamil" : (comp.CntsID == "3" )? "Quiz" : (comp.CntsID == "4") ? "Wall Painting" : (comp.CntsID
+                    == "5") ? "Yoga Olympiad" : "Rangotsav"}} </td>
+                <td>
+                    <p-dropdown [options]="RankSelection" appendTo="body" placeholder="Select Competition Prize" 
+                        autoWidth="false" [style]="{'width':'100%'}" [(ngModel)]="comp.rank"></p-dropdown>
+                    </td>
+                    <td *ngIf="(this.userTypeId == 3 || this.userTypeId == 9 || this.userTypeId == 10)">
+                        <div class="row row flex-row-center flex-gap-top"  *ngIf="comp.rank!=0">
+                              <label class="filebutton">
+                               <span><input #file  type='file' (change)="onSelectFile($event,comp)"> <i class="pi pi-cloud-upload color icon"></i></span>
+                            </label>
+                            <button pButton type="button" icon="pi pi-eye" class="ui-button-info custom cursor" (click)="getUploadedFiles(comp)" style="margin-right: .5em"></button>
+                            <button pButton type="button" icon="pi pi-times" class="ui-button-danger custom cursor" *ngIf="comp.filename!='' && comp.filename!=null"  (click)="removeUploadedFiles(comp)" style="margin-right: .5em"></button>
+                        </div> 
+                    
+                    </td>
+              
+                <td style="text-align: center;"> <button pButton type="button" icon="pi pi-check"
+                        class="ui-button-success" (click)="savingWinner(comp)"></button>
+                </td>
+            </tr>
+
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+                <td [attr.colspan]="10" style="text-align: center;">
+                    <strong>No records found</strong>
+                </td>
+            </tr>
+        </ng-template>
+
+    </p-table>
+</div>
+
+<p-confirmDialog header="Confirmation" [style]="{width: '25vw'}"></p-confirmDialog>
+
+
+<p-dialog header="View the File" [(visible)]="displayEditDialog" [modal]="true" [draggable]="false" [responsive]="true"
+    [blockScroll]="true" [maximizable]="false"
+    [contentStyle]="{'max-width':'1000px','max-height': '450px','overflow-y': 'auto'}">
+    <form id="edit_form">
+        <div>
+            <h4></h4>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+                    <div class="ui-g-3">
+                        <label class="hoverable" for="fileInput">
+                            <img [src]="image" width="200" height="200" alt="Image" accept="image/*">
+                            <div class="hover-text"></div>
+                            <div class="background"></div>
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+
+</p-dialog>

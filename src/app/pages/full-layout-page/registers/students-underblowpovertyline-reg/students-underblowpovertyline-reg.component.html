@@ -1,0 +1,91 @@
+<div class="main-body-content">
+    <div class="outer-layout">
+        <div class="breadcrumbs c-black">
+            <h6 class="url">
+                <span class="flex-gap-right" (click)="onBack()">Registers</span> <i
+                    class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+                <span class="flex-gap-right" (click)="onBack()">Student Summary Registers</span><i
+                    class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+                <span class="flex-gap-right">Students under Below Poverty Line</span>
+            </h6>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <p-table #dt [columns]="sampleSelectedColumn" [value]="data" [resizableColumns]="true">
+            <ng-template let-childrens pTemplate="caption">
+                <div class="row  header flex-row-center-start flex-gap-bottom">
+                    <div class="col-lg-3">
+                        <!-- <p-dropdown [options]="school_type" (onChange)="school_type_val($event)"></p-dropdown> -->
+                    </div>
+                    <div class="col-lg-1">
+                        <!-- <button type="submit" class="btn btn-success" (click)="SearchData()">Submit</button> -->
+                    </div>
+                </div>
+                <div class="row  header flex-row-center">
+                    <div class="col-lg-3 p-1">
+
+                        <p-multiSelect [options]="cols" [(ngModel)]="sampleSelectedColumn" optionLabel="header"
+                            selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}"
+                            defaultLabel="Choose Columns"></p-multiSelect>
+                    </div>
+                    <div class="col-lg-5">
+
+                    </div>
+
+                    <div class="col-sm-3 p-1">
+                        <div class="text-right">
+                            <input class="form-control" type="text"
+                                (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Filter">
+                        </div>
+                    </div>
+                    <div class="col-sm-1 p-1 flex-row-center-end">
+                        <div class="text-right">
+                            <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"
+                                (click)="exportPdf(data,sampleSelectedColumn)"></i>
+                            <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                                (click)="exportExcel(data)"></i>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+
+            <ng-template pTemplate="header" let-columns>
+                <tr style="white-space: nowrap" class="table-header">
+                    <th style="width: 4em">#</th>
+                    <th style="width: 15em">Students Under BPL</th>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field"></p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-car let-i="rowIndex" let-columns="columns">
+                <tr [pSelectableRow]="car">
+                    <td>{{i+1}}</td>
+                    <td>Below Poverty Line</td>
+                    <td *ngFor="let col of columns">
+                        {{car[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr class="text-left" *ngIf="noDataFound">
+                    <td colspan="15" style="text-align: center;"> No Data Found </td>
+                </tr>
+            </ng-template>
+            <!-- <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                        <strong>No records found</strong>
+                    </td>
+                </tr>
+            </ng-template> -->
+        </p-table>
+    </div>
+</div>
+
+
+
+
+

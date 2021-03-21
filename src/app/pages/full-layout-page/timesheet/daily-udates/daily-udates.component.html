@@ -1,0 +1,76 @@
+<div class="container">
+   <p-card>
+       <form [formGroup]="dailyupdates">
+       <div class="text-center">
+        <label class="font-weight-bold font_Szi">
+            EMIS - Daily Timesheet
+        </label>
+        <p class="text-center font-weight-light font_sz">This timesheet is to be filled by EMIS team members on a daily basis. </p>
+        <p class="text-center font-weight-light font_sz">Please represent your time utilisation as accurately as possible. </p>
+       </div>
+       <div class="row p-3 align-self-center pl-5">  
+        <div class="col-sm-4">
+            <!-- (Please refer your scope document for ID) -->
+            <label class="font-weight-bold">
+                Date
+            </label>
+            <div>
+                <input class="form-control" type="date" formControlName="date" placeholder="Date" dateformat="yyyy/dd/mm">
+                <p-message severity="error"  text="This Field is required" *ngIf="dailyupdates.controls.date.errors && (submitted || dailyupdates.controls.date.dirty || dailyupdates.controls.date.touched)"></p-message>
+            </div>      
+        </div> 
+        <div class="col-sm-4">
+            <label class="font-weight-bold">
+                Name
+            </label>
+            <div>
+                <input id="input" type="text" formControlName="name"  readonly class=form-control pInputText > 
+                <input id="input" type="hidden" formControlName="userid"  readonly class=form-control pInputText > 
+                <!-- <p-dropdown [options]="dropdown" size="15" placeholder="Name"  formControlName="name" styleClass="dropdwnvalues" ></p-dropdown> -->
+                <p-message severity="error"  text="This Field is required" *ngIf="dailyupdates.controls.name.errors && (submitted || dailyupdates.controls.name.dirty || dailyupdates.controls.name.touched)"></p-message>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <label class="font-weight-bold">
+                Task Reference ID  
+            </label>
+            <div>
+                <p-dropdown [options]="taskrefOptions" size="15" placeholder="Task Id"  formControlName="taskid" styleClass="dropdwnvalues" ></p-dropdown>
+                <p-message severity="error"  text="This Field is required" *ngIf="dailyupdates.controls.taskid.errors && (submitted || dailyupdates.controls.taskid.dirty || dailyupdates.controls.taskid.touched)"></p-message>
+            </div>
+        </div>     
+       </div>
+         <div class="row p-3 pl-5">   
+            <div class="col-sm-4">
+                <label class="font-weight-bold">
+                    Task Type
+                </label>
+                <div>
+                    <p-dropdown [options]="tasktypeOptions" size="15" placeholder="Task Type"  formControlName="tasktype" styleClass="dropdwnvalues" ></p-dropdown>
+                    <p-message severity="error"  text="This Field is required" *ngIf="dailyupdates.controls.tasktype.errors && (submitted || dailyupdates.controls.tasktype.dirty || dailyupdates.controls.tasktype.touched)"></p-message>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label class="font-weight-bold">
+                    Task Duration (in hours) 
+                </label>
+                <div>
+                    <p-dropdown [options]="duration" size="15" placeholder="Duration"  formControlName="duration" styleClass="dropdwnvalues" ></p-dropdown>
+                    <p-message severity="error"  text="This Field is required" *ngIf="dailyupdates.controls.duration.errors && (submitted || dailyupdates.controls.duration.dirty || dailyupdates.controls.duration.touched)"></p-message>
+                </div>
+            </div>        
+            <div class="col-sm-4">
+                <label class="font-weight-bold">
+                    Remarks 
+                </label>
+                <div>
+                    <input id="input" type="text" formControlName="remarks"  class=form-control pInputText > 
+                </div>
+            </div>       
+        </div>
+    </form>
+        <div class="text-right pr-3">
+            <button type="submit"   (click)="save()" class="btn btn-success m-2">Save</button> 
+          </div>
+   </p-card>
+</div>

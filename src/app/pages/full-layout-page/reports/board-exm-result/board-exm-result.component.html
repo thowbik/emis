@@ -1,0 +1,293 @@
+<div class="main-body-content p-3">
+	<div class="outer-layout">
+		<div class="breadcrumbs c-black">
+			<h6 class="url">
+				<span class="flex-gap-right">DCF Reports</span>
+				<i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+				<span class="flex-gap-right">Regular(X) </span>
+			</h6>
+		</div>
+	</div>
+<p-card class="mx-2">
+    <p><b>Note : </b> Reports Updated once a day at 7 PM. Any changes made will be reflected in the report the next day.</p>
+</p-card>
+<p-tabView>
+    <div class="text-lg-left mt-3 mb-3 font-weight-bold">
+        (A) 7.1 Result of the Grade X Board Examination in the previous academic year
+    </div>
+    <div class="flexGapTop">
+        <p-table #dt [value]="XBoardExamRegularResults" [styleClass]="'base-table'" [paginator]="false" [scrollable]="true" scrollHeight="500px" scrollWidth="500px">
+            <ng-template pTemplate="header">
+                <tr class="center">
+                    <th colspan="20">(a) Regular Students</th>
+                </tr>
+                <tr class="center">
+                    <th colspan="10">Number of Students Appeared</th>
+                    <th colspan="10">Number of Students Passed/Qualified</th>
+                </tr>
+                <tr class="center">
+                    <th colspan="2">General</th>
+                    <th colspan="2">OBC</th>
+                    <th colspan="2">SC</th>
+                    <th colspan="2">ST</th>
+                    <th colspan="2">Total</th>
+                    <th colspan="2">General</th>
+                    <th colspan="2">OBC</th>
+                    <th colspan="2">SC</th>
+                    <th colspan="2">ST</th>
+                    <th colspan="2">Total</th>
+                </tr>
+                <tr class="center">
+                    <th>Boys</th>
+                    <th>Girls</th>
+                    <th>Boys</th>
+                    <th>Girls</th>
+                    <th>Boys</th>
+                    <th>Girls</th>
+                    <th>Boys</th>
+                    <th>Girls</th>
+                    <th>Boys</th>
+                    <th>Girls</th>
+                    <th>Boys</th>
+                    <th>Girls</th>
+                    <th>Boys</th>
+                    <th>Girls</th>
+                    <th>Boys</th>
+                    <th>Girls</th>
+                    <th>Boys</th>
+                    <th>Girls</th>
+                    <th>Boys</th>
+                    <th>Girls</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-regularstudents let-rowData let-columns="columns" let-i="rowIndex">
+                <tr [pSelectableRow]="rowData" class="text-center" *ngIf="!noDataFound">
+                    <td>{{regularstudents.gen_app_b}}</td>
+                    <td>{{regularstudents.gen_app_g}}</td>
+                    <td>{{regularstudents.obc_app_b}}</td>
+                    <td>{{regularstudents.obc_app_g}}</td>
+                    <td>{{regularstudents.sc_app_b}}</td>
+                    <td>{{regularstudents.sc_app_g}}</td>
+                    <td>{{regularstudents.st_app_b}}</td>
+                    <td>{{regularstudents.st_app_g}}</td>
+                    <td>{{regularstudents.total_app_boys}}</td>
+                    <td>{{regularstudents.total_app_girls}}</td>
+                    <td>{{regularstudents.gen_pass_b}}</td>
+                    <td>{{regularstudents.gen_pass_g}}</td>
+                    <td>{{regularstudents.obc_pass_b}}</td>
+                    <td>{{regularstudents.obc_pass_g}}</td>
+                    <td>{{regularstudents.sc_pass_b}}</td>
+                    <td>{{regularstudents.sc_pass_g}}</td>
+                    <td>{{regularstudents.st_pass_b}}</td>
+                    <td>{{regularstudents.st_pass_g}}</td>
+                    <td>{{regularstudents.total_pass_boys}}</td>
+                    <td>{{regularstudents.total_pass_girls}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr class="text-center" *ngIf="noDataFound">
+                    <td>No Data Found</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div class="text-lg-left my-3 pt-3 font-weight-bold">
+        (B) 7.1 Result of the Grade X Board Examination in the previous academic year
+    </div>
+    <div class="flexGapTop">
+        <p-table #dt [value]="XBoardExamOtherResults" [styleClass]="'base-table'" [paginator]="false" [scrollable]="true" scrollHeight="500px" scrollWidth="500px">
+            <ng-template pTemplate="header">
+                <tr class="center">
+                    <th colspan="20">(a) Other Than Regular Students</th>
+                </tr>
+                <tr class="center">
+                    <th colspan="10">Number of Students Appeared</th>
+                    <th colspan="10">Number of Students Passed/Qualified</th>
+                </tr>
+                <tr class="center">
+                    <th colspan="2">General</th>
+                    <th colspan="2">OBC</th>
+                    <th colspan="2">SC</th>
+                    <th colspan="2">ST</th>
+                    <th colspan="2">Total</th>
+                    <th colspan="2">General</th>
+                    <th colspan="2">OBC</th>
+                    <th colspan="2">SC</th>
+                    <th colspan="2">ST</th>
+                    <th colspan="2">Total</th>
+                </tr>
+                <tr class="center">
+                    <th>Boys</th>
+                    <th>Girls</th>
+                    <th>Boys</th>
+                    <th>Girls</th>
+                    <th>Boys</th>
+                    <th>Girls</th>
+                    <th>Boys</th>
+                    <th>Girls</th>
+                    <th>Boys</th>
+                    <th>Girls</th>
+                    <th>Boys</th>
+                    <th>Girls</th>
+                    <th>Boys</th>
+                    <th>Girls</th>
+                    <th>Boys</th>
+                    <th>Girls</th>
+                    <th>Boys</th>
+                    <th>Girls</th>
+                    <th>Boys</th>
+                    <th>Girls</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-regularstudents let-rowData let-columns="columns" let-i="rowIndex">
+                <tr [pSelectableRow]="rowData" class="text-center">
+                    <td>{{regularstudents.gen_app_b}}</td>
+                    <td>{{regularstudents.gen_app_g}}</td>
+                    <td>{{regularstudents.obc_app_b}}</td>
+                    <td>{{regularstudents.obc_app_g}}</td>
+                    <td>{{regularstudents.sc_app_b}}</td>
+                    <td>{{regularstudents.sc_app_g}}</td>
+                    <td>{{regularstudents.st_app_b}}</td>
+                    <td>{{regularstudents.st_app_g}}</td>
+                    <td>{{regularstudents.b_total_app_boys}}</td>
+                    <td>{{regularstudents.b_total_app_girls}}</td>
+
+                    <td>{{regularstudents.gen_pass_b}}</td>
+                    <td>{{regularstudents.gen_pass_g}}</td>
+                    <td>{{regularstudents.obc_pass_b}}</td>
+                    <td>{{regularstudents.obc_pass_g}}</td>
+                    <td>{{regularstudents.sc_pass_b}}</td>
+                    <td>{{regularstudents.sc_pass_g}}</td>
+                    <td>{{regularstudents.st_pass_b}}</td>
+                    <td>{{regularstudents.st_pass_g}}</td>
+                    <td>{{regularstudents.b_total_pass_boys}}</td>
+                    <td>{{regularstudents.b_total_pass_girls}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr class="text-center" *ngIf="noDataFound2">
+                    <td>
+                        No Data Found
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</p-tabView>
+<p-tabView>
+    <div class="row  m-2 pt-1">
+        <div class="col-md-12 mt-1">
+            <div class="text-lg-left mt-3 font-weight-bold">
+                7.2 Number of Regular Students passed/qualified the Secondary School Board (Grade X) Examination by range of marks (in previous academic year)
+            </div>
+        </div>
+    </div>
+    <div class="row m-2">
+        <p-table [value]="XBoardRegularExamResults">
+            <ng-template pTemplate="header">
+                <tr class="text-center">
+                    <th></th>
+                    <th colspan="2">General Students</th>
+                    <th colspan="2">SC Students</th>
+                    <th colspan="2">ST Students</th>
+                    <th colspan="2">OBC Students</th>
+                    <th colspan="2">Total Students</th>
+                </tr>
+                <tr class="text-center">
+                    <th>Range of Mark</th>
+                    <th>Boys</th>
+                    <th>Girls</th>
+                    <th>Boys</th>
+                    <th>Girls</th>
+                    <th>Boys</th>
+                    <th>Girls</th>
+                    <th>Boys</th>
+                    <th>Girls</th>
+                    <th>Boys</th>
+                    <th>Girls</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-ExamResults>
+                <tr>
+                    <td>{{ExamResults.marks_range_id}}</td>
+                    <td>{{ExamResults.gen_b}}</td>
+                    <td>{{ExamResults.gen_g}}</td>
+                    <td>{{ExamResults.sc_b}}</td>
+                    <td>{{ExamResults.sc_g}}</td>
+                    <td>{{ExamResults.st_b}}</td>
+                    <td>{{ExamResults.st_g}}</td>
+                    <td>{{ExamResults.obc_b}}</td>
+                    <td>{{ExamResults.obc_g}}</td>
+                    <td>{{ExamResults.total_boys}}</td>
+                    <td>{{ExamResults.total_girls}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr class="text-center" *ngIf="noDataFound3">
+                    <td colspan="11">
+                        No Data Found
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</p-tabView>
+<p-tabView>
+    <div class="row  m-2 pt-1">
+        <div class="col-md-12 mt-1">
+            <div class="text-lg-left mt-3 font-weight-bold">
+                7.3 Number of Other than Regular Students passed/qualified the Secondary School Board (Grade X) Examination by range of marks (in previous academic year)
+            </div>
+        </div>
+    </div>
+    <div class="row m-2">
+        <p-table [value]="XBoardOtherExamResults">
+            <ng-template pTemplate="header">
+                <tr class="text-center">
+                    <th></th>
+                    <th colspan="2">General Students</th>
+                    <th colspan="2">SC Students</th>
+                    <th colspan="2">ST Students</th>
+                    <th colspan="2">OBC Students</th>
+                    <th colspan="2">Total Students</th>
+                </tr>
+                <tr class="text-center">
+                    <th>Range of Mark</th>
+                    <th>Boys</th>
+                    <th>Girls</th>
+                    <th>Boys</th>
+                    <th>Girls</th>
+                    <th>Boys</th>
+                    <th>Girls</th>
+                    <th>Boys</th>
+                    <th>Girls</th>
+                    <th>Boys</th>
+                    <th>Girls</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-OthersExamResults>
+                <tr>
+                    <td>{{OthersExamResults.marks_range_id}}</td>
+                    <td>{{OthersExamResults.gen_b}}</td>
+                    <td>{{OthersExamResults.gen_g}}</td>
+                    <td>{{OthersExamResults.sc_b}}</td>
+                    <td>{{OthersExamResults.sc_g}}</td>
+                    <td>{{OthersExamResults.st_b}}</td>
+                    <td>{{OthersExamResults.st_g}}</td>
+                    <td>{{OthersExamResults.obc_b}}</td>
+                    <td>{{OthersExamResults.obc_g}}</td>
+                    <td>{{OthersExamResults.total_boys}}</td>
+                    <td>{{OthersExamResults.total_girls}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr class="text-center" *ngIf="noDataFound4">
+                    <td colspan="11">
+                        No Data Found
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</p-tabView>
+</div>

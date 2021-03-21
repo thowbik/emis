@@ -1,0 +1,268 @@
+<div class="main-body-content">
+    <div class="outer-layout">
+        <div class="breadcrumbs c-black">
+             <h6 class="url"><span class="flex-gap-right">Cash Incentive</span> 
+                <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i><span class="flex-gap-right">Student List</span>
+            </h6>
+        </div>
+    </div>
+<!-- </div> -->
+<!-- <div class="main-body-content">  -->
+    <div class="container-fluid">
+        <p-table [columns]="cols" [value]="studcashincentivelist" selectionMode="single"  [globalFilterFields]="['name','stu_unique_id','class_studying','class_section','eligible_label','phone_number','cash_incentive_status']" [(selection)]="selectedStudent" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="10" [scrollable]="true" scrollWidth="400%">  
+             <ng-template pTemplate="caption">
+                        
+                    <!-- </ng-template> -->
+            <!-- <ng-template pTemplate="caption">  -->
+                    <!-- <div class="ui-helper-clearfix" style="text-align: right"> -->
+                        <div class="row">
+                            <div class="col-sm-8 pt-3 text-left">
+                                    <i>Note : Please Select the Row To Update the Details </i>
+                            </div>
+                            <div class="col-sm-4 p-1">
+                              <div class="row">
+                                <div class="col-sm-8">
+                                    <!-- <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search"> -->
+                                </div>
+                                <div class="col-sm-4 pt-3" style="padding-left: 95px;">
+                                    <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true" (click)="exportPdf()" ></i> -->
+                                    <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel()"></i>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        <!-- <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                        <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel()"></i> -->
+                        <!-- <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button> -->
+                        <!-- <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF" (click)="exportPdf()" class="ui-button-warning"></button> -->
+                    <!-- </div> -->
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th class="sno-header-layout">#</th>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field"></p-sortIcon>
+                    </th>
+                    <!-- <th>Action</th> -->
+                </tr>
+                <!-- <tr>
+                    <th></th>
+                    <th *ngFor="let col of columns" [ngSwitch]="col.field" >
+                        <input  pInputText type="text" class="textbox-filter" (input)="dt.filter($event.target.value, col.field, 'contains')">        
+                    </th>
+                    <th></th>
+                </tr> -->
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                <tr [pSelectableRow]="rowData">
+                    <td class="sno-header-layout">{{i+1}}</td>
+                    <td *ngFor="let col of columns">
+                        {{rowData[col.field]}}
+                    </td>
+                    <!-- <td style="text-align: center;">
+                        !-- class="ui-button-success" label="Delete" --
+                        <button type="button" pButton icon="fa fa-trash" class="ui-button-warning"  (click)="delete(rowData.id)"></button>
+                    </td> -->
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                    <strong>No records found</strong>
+                </td>
+                </tr>
+            </ng-template>
+            <!-- <ng-template pTemplate="summary" let-rowData>
+                <div style="text-align:left">
+                    <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add"></button>
+                </div>
+            </ng-template>     -->
+        </p-table>
+    </div>
+</div>
+
+<p-dialog  [header]="dialogTitle" 
+                     [(visible)]="displayDialog" 
+                     [modal]="true" 
+                     [draggable]="false"  
+                     [responsive]="true" 
+                     [blockScroll]="true" 
+                     [maximizable]="false" 
+                     [contentStyle]="{'max-width':'1000px','max-height': '450px','overflow-y': 'auto'}">
+    
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid dialogbodycontent">
+        <div class="ui-g ui-fluid">
+            <form [formGroup]="cashincentive">
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="student_eligible">Student Status <span class="mandatory"> * </span></label>
+                    </div>
+                    <div class="ui-g-8">
+                        <p-dropdown [options]="eligibleList" placeholder="Select Student Eligible" class="flex-dropdown"
+                        formControlName="student_eligible"></p-dropdown>  
+                      <small *ngIf="cashincentive.controls.student_eligible.errors && (cashincentive.controls.student_eligible.dirty || cashincentive.controls.student_eligible.touched)">Student Eligible is required</small>
+                    </div>
+                </div>
+                <div class="ui-g-12" >
+                    <div class="ui-g-4">
+                        <label for="ifsc_code">Indian Financial System Code (IFSC) <span *ngIf="available" class="mandatory"> * </span></label>
+                    </div>
+                    <div class="ui-g-8">
+                      <input type="text" class="form-control" formControlName="ifsc_code"  maxlength="11" placeholder="IFSC Code" pInputText oninput="this.value = this.value.toUpperCase()" (change)="getBankname($event.target.value)" [readonly]=!available>
+                      <small *ngIf="cashincentive.controls.ifsc_code.errors && (cashincentive.controls.ifsc_code.dirty || cashincentive.controls.ifsc_code.touched)">IFSC Code is required</small>
+                      <small *ngIf="inValidMsg1">&nbsp;&nbsp;{{inValidMsg1}}</small>
+                    </div>
+                </div>
+                <div class="ui-g-12" >
+                    <div class="ui-g-4">
+                        <label for="micr_code" >Magnetic Ink Character Recognition (MICR) Code</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input type="text" pInputText  class="form-control" formControlName="micr_code"  placeholder="Enter MCIR Code" readonly>
+                    </div>
+                </div>
+                <div class="ui-g-12" >
+                    <div class="ui-g-4">
+                        <label for="branch">Branch Name </label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input  type="text" pInputText class="form-control" formControlName="branch" readonly placeholder="Enter Branch">
+                    </div>
+                </div>
+                <div class="ui-g-12" >
+                    <div class="ui-g-4">
+                        <label for="bank_name">Bank</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input  type="text" pInputText class="form-control" formControlName="bank_name" readonly placeholder="Enter Bank" >
+                    </div>
+                </div>
+                <div class="ui-g-12" >
+                    <div class="ui-g-4">
+                        <label for="bank_acc">Bank Account <span *ngIf="available" class="mandatory"> * </span></label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input type="text" pInputText pKeyFilter="pnum" class="form-control"
+                        formControlName="bank_acc" 
+                        placeholder="Enter Account No" [readonly]=!available
+                        (change)="checkAccno($event.target.value)">
+                        <small *ngIf="cashincentive.controls.bank_acc.errors && (cashincentive.controls.bank_acc.dirty || cashincentive.controls.bank_acc.touched)">Account is required</small>
+                        <small *ngIf="inValidMsg2">&nbsp;&nbsp;{{inValidMsg2}}</small>
+                    </div>
+                    
+                </div>
+                <div class="ui-g-12" >
+                    <div class="ui-g-4">
+                        <label for="bank_acc_open_date">Bank Account Open Date <span *ngIf="available" class="mandatory"> * </span></label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input class="form-control" type="date" formControlName="bank_acc_open_date" dateformat="dd/MM/yyyy" [max]="maxDate" [readonly]=!available>
+                        <small *ngIf="cashincentive.controls.bank_acc_open_date.errors && (cashincentive.controls.bank_acc_open_date.dirty || cashincentive.controls.bank_acc_open_date.touched)">Account`s Opening Date is required</small>
+                    </div>
+                </div>
+                <div class="ui-g-12" >
+                    <div class="ui-g-4">
+                        <label for="bank_acc_status">Bank Account Status <span *ngIf="available" class="mandatory"> * </span></label>
+                    </div>
+                    <div class="ui-g-8">
+                        <!-- <p-radioButton  value="1" label="Active" formControlName="bank_acc_status">Yes</p-radioButton>&nbsp;&nbsp;
+                        <p-radioButton  value="2" label="In-Active" >No</p-radioButton> -->
+                        <p-dropdown [options]="bankaccList" placeholder="Select Account Status" class="flex-dropdown" [readonly]=!available
+                        formControlName="bank_acc_status"></p-dropdown>  
+                        <small *ngIf="cashincentive.controls.bank_acc_status.errors && (cashincentive.controls.bank_acc_status.dirty || cashincentive.controls.bank_acc_status.touched)"> &nbsp;&nbsp; What the Status of Bank is Active Or Not ?</small>
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="stu_mobile_no">Students Mobile Number</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input type="text" pInputText pKeyFilter="pnum" class="form-control"
+                        formControlName="stu_mobile_no" 
+                        placeholder="Enter Mobile Number" readonly>
+                        <!-- onKeyPress="if(this.value.length==10) return false;" -->
+                        <!-- <small *ngIf="cashincentive.get('stu_mobile_no').hasError('pattern')">
+                            It is not a valid mobile number . &nbsp;&nbsp;
+                        </small>
+                        <small *ngIf="cashincentive.controls.stu_mobile_no.errors && (cashincentive.controls.stu_mobile_no.dirty || cashincentive.controls.stu_mobile_no.touched)">Mobile is required</small> -->
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="study_at_X">X Std Studied IN<span class="mandatory"> * </span></label>
+                    </div>
+                    <div class="ui-g-8">
+                        <p-dropdown [options]="studiedList" placeholder="Select Category" class="flex-dropdown"
+                        formControlName="study_at_X"></p-dropdown>  
+                        <small *ngIf="cashincentive.controls.study_at_X.errors && (cashincentive.controls.study_at_X.dirty || cashincentive.controls.study_at_X.touched)">Category is required</small>
+                    </div>
+                </div>
+                <div class="ui-g-12" *ngIf="cashincentive.controls.study_at_X.value ==='Partially Aided'">
+                    <div class="ui-g-4">
+                        <label for="study_at_X_sec">X Std Studied IN Section<span class="mandatory"> * </span></label>
+                    </div>
+                    <div class="ui-g-8">
+                        <!-- <p-radioButton  value="Aided" label="Aided" formControlName="study_at_X_sec"></p-radioButton>&nbsp;&nbsp;
+                        <p-radioButton  value="Self Finance" label="Self Finance" formControlName="study_at_X_sec"></p-radioButton> -->
+                        <p-dropdown [options]="studiedList2" placeholder="Select Section" class="flex-dropdown"
+                        formControlName="study_at_X_sec"></p-dropdown>  
+                        <small *ngIf="cashincentive.controls.study_at_X_sec.errors && (cashincentive.controls.study_at_X_sec.dirty || cashincentive.controls.study_at_X_sec.touched)">&nbsp;&nbsp; X Std Studied IN Section is required</small>
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="study_at_XI">XI Std Studied IN<span class="mandatory"> * </span></label>
+                    </div>
+                    <div class="ui-g-8">
+                        <p-dropdown [options]="studiedList" placeholder="Select Category" class="flex-dropdown"
+                        formControlName="study_at_XI"></p-dropdown>  
+                        <small *ngIf="cashincentive.controls.study_at_XI.errors && (cashincentive.controls.study_at_XI.dirty || cashincentive.controls.study_at_XI.touched)">Category is required</small>
+                    </div>
+                </div>
+                <div class="ui-g-12" *ngIf="cashincentive.controls.study_at_XI.value ==='Partially Aided'">
+                    <div class="ui-g-4">
+                        <label for="study_at_XI_sec">XI Std Studied IN Section<span class="mandatory"> * </span></label>
+                    </div>
+                    <div class="ui-g-8">
+                        <!-- <p-radioButton  value="Aided" label="Aided" formControlName="study_at_XI_sec"></p-radioButton>&nbsp;&nbsp;
+                        <p-radioButton  value="Self Finance" label="Self Finance" formControlName="study_at_XI_sec"></p-radioButton> -->
+                        <p-dropdown [options]="studiedList2" placeholder="Select Section" class="flex-dropdown"
+                        formControlName="study_at_XI_sec"></p-dropdown>  
+                        <small *ngIf="cashincentive.controls.study_at_XI_sec.errors && (cashincentive.controls.study_at_XI_sec.dirty || cashincentive.controls.study_at_XI_sec.touched)">XI Std Studied IN Section  is required</small>
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="study_at_XII">XII Std Studied IN<span class="mandatory"> * </span></label>
+                    </div>
+                    <div class="ui-g-8">
+                        <p-dropdown [options]="studiedList" placeholder="Select Category" class="flex-dropdown"
+                        formControlName="study_at_XII"></p-dropdown>
+                        <small *ngIf="cashincentive.controls.study_at_XII.errors && (cashincentive.controls.study_at_XII.dirty || cashincentive.controls.study_at_XII.touched)">Category is required</small>
+                    </div>
+                </div>
+                <div class="ui-g-12" *ngIf="cashincentive.controls.study_at_XII.value ==='Partially Aided'">
+                    <div class="ui-g-4">
+                        <label>XII Std Studied IN Section<span class="mandatory"> * </span></label>
+                    </div>
+                    <div class="ui-g-8">
+                        
+                        
+                        <!-- <p-radioButton  value="Aided" label="Aided" formControlName="study_at_XII_sec"></p-radioButton>&nbsp;&nbsp;
+                        <p-radioButton  value="Self Finance" label="Self Finance" formControlName="study_at_XII_sec"></p-radioButton> -->
+                        <p-dropdown [options]="studiedList2" placeholder="Select Section" class="flex-dropdown"
+                        formControlName="study_at_XII_sec"></p-dropdown>  
+                        <small *ngIf="cashincentive.controls.study_at_XII_sec.errors && (cashincentive.controls.study_at_XII_sec.dirty || cashincentive.controls.study_at_XII_sec.touched)">&nbsp;&nbsp;XII Std Studied IN Section is required</small>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <p-footer>
+            <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                <button type="button" pButton icon="fa fa-check" (click)="save()" label="Save"></button>
+            </div>
+        
+    </p-footer>
+</p-dialog>

@@ -1,0 +1,208 @@
+<div class="main-body-content">
+  <div class="outer-layout">
+<div class="breadcrumbs c-black" *ngIf="page === '1'">
+<h6 class="url"><span class="flex-gap-right">Staffs</span><i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i> <span class="flex-gap-right">Training Details</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i> <span class="flex-gap-right">PINDICS Monitoring Report</span></h6>
+</div>
+<div class="breadcrumbs c-black" *ngIf="page === '2'">
+  <h6 class="url"><span class="flex-gap-right">Monitoring Reports</span><i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i> <span class="flex-gap-right">PINDICS Monitoring</span> </h6>
+  </div>
+</div>
+
+<!--- Stage 1-->
+<div class="container-fluid" *ngIf="pageStage === 1">
+  <p-table #dt [columns]="dataHeader" [value]="hmpindicsreport" [autoLayout]="true" [resizableColumns]="true" (sortFunction)="customSort($event)" [customSort]="true" [autoLayout]="true">
+      <ng-template let-childrens pTemplate="caption">
+          <div class="row header flex-row-center">
+              <div class="col-sm-8 text-left">
+                <h5>Distrcit Report</h5>
+              </div>
+              <div class="col-sm-3 p-1">
+                  <div class="text-right">
+                      <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                  </div>
+              </div>
+              <div class="col-sm-1 p-1 flex-row-center-end">
+                  <div class="text-right" style="margin-left:-11px;padding-top:16px;">
+                      <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"  (click)="exportPdf(hmpindicsreport,dataHeader)"></i> -->
+                      <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel(hmpindicsreport)"></i>
+                  </div>
+              </div>
+          </div>
+         
+      </ng-template>
+      <ng-template pTemplate="header" let-Datas>
+          <tr class="text-center">
+              <th class="sno-header-layout">#</th>
+              <th *ngFor="let Data of dataHeader" [pSortableColumn]="Data.field" [style.width]="Data.widthstyle" pResizableColumn>
+                  {{Data.header}}
+                <p-sortIcon [field]="Data.field"  ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon> 
+              </th>
+              <!-- <th>Total</th> -->
+              
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-distname let-columns="columns" let-i="rowIndex">
+          <tr>
+            <td class="ui-resizable-column" style="width:4em;"> {{i+1}} </td>
+              <td class="text-left ui-resizable-column">{{ distname.district_name}}</td>
+              <td class="ui-resizable-column"style="text-align: center;"> {{ distname.teach_staff}} </td>
+              <td class="ui-resizable-column"style="text-align: center;"> {{ distname.teach_completed}} </td>
+              <td class="ui-resizable-column"style="text-align: center;"> {{ distname.teach_staff - distname.teach_completed}} </td>
+              <td class="ui-resizable-column"style="text-align: center;"> {{ distname.hm_completed}} </td>
+              <td class="ui-resizable-column"style="text-align: center;"> {{ distname.teach_staff - distname.hm_completed}} </td>
+              <td class="ui-resizable-column"style="text-align: center;"> {{ distname.brte_completed}} </td>
+              <td class="ui-resizable-column"style="text-align: center;"> {{ distname.teach_staff - distname.brte_completed}} </td>
+              <!-- <td class="ui-resizable-column"style="font-weight: bold;">{{ (distname.teach_staff - distname.teach_completed) + (distname.teach_staff - distname.hm_completed)+ (distname.teach_staff - distname.brte_completed) }} </td> -->
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <tr class="text-center">
+            <!-- <td></td> -->
+            <td colspan="2" class="text-center">Total</td>
+            <td class="ui-resizable-column">{{grandTotal_teach_staff}}</td>
+            <td class="ui-resizable-column">{{grandTotal_teach_completed}}</td>
+            <td class="ui-resizable-column">{{grandTotal_teach_staff - grandTotal_teach_completed}}</td>
+            <td class="ui-resizable-column">{{grandTotal_hm_completed}}</td>
+            <td class="ui-resizable-column">{{grandTotal_teach_staff - grandTotal_hm_completed}}</td>
+            <td class="ui-resizable-column">{{grandTotal_brte_completed}}</td>
+            <td class="ui-resizable-column">{{grandTotal_teach_staff - grandTotal_brte_completed }}</td>
+            <td class="ui-resizable-column">{{ (grandTotal_teach_staff * 1) + (grandTotal_teach_completed * 1) + (grandTotal_teach_staff - grandTotal_teach_completed) + (grandTotal_brte_completed * 1) + (grandTotal_teach_staff - grandTotal_brte_completed)}} </td>
+    </ng-template>
+      <!-- <ng-template pTemplate="footer">
+          <tr class="text-left" *ngIf="noDataFound">
+              <td colspan="6" style="text-align: center;"> No Data Found </td>
+          </tr>
+      </ng-template> -->
+      <ng-template pTemplate="emptymessage" let-columns>
+          <tr>
+              <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                  <strong>No records found</strong>
+              </td>
+          </tr>
+      </ng-template>
+  </p-table>
+</div>
+
+<!--- Stage 2-->
+<div class="container-fluid" *ngIf="pageStage === 2">
+  <p-table #dt [columns]="cols1" [value]="hmpindicsreport" [resizableColumns]="true" (sortFunction)="customSort($event)" [customSort]="true">
+      <ng-template let-childrens pTemplate="caption">
+          <div class="row header flex-row-center">
+              <div class="col-sm-8">
+                
+              </div>
+              <div class="col-sm-3 p-1">
+                  <div class="text-right">
+                      <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                  </div>
+              </div>
+              <div class="col-sm-1 p-1 flex-row-center-end">
+                  <div class="text-right">
+                      <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"  (click)="exportPdf(hmpindicsreport,dataHeader)"></i> -->
+                      <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel(hmpindicsreport)"></i>
+                  </div>
+              </div>
+          </div>
+         
+      </ng-template>
+      <ng-template pTemplate="header" let-Datas>
+          <tr class="text-center">
+              <th style="width:4em;">#</th>
+              <th *ngFor="let Data of cols1" [pSortableColumn]="Data.field" [style.width]="Data.widthstyle">
+                  {{Data.header}}
+                  <!-- <p-sortIcon [field]="Data.field"  ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon> -->
+              </th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-distname let-columns="columns" let-i="rowIndex">
+          <tr>
+            <td style="width:4em;"> {{i+1}} </td>
+            <td class="text-left">{{ distname.block_name}}</td>
+            <td style="text-align: center;"> {{ distname.teach_staff}} </td>
+            <td style="text-align: center;"> {{ distname.teach_completed}} </td>
+            <td style="text-align: center;"> {{ distname.teach_staff - distname.teach_completed}} </td>
+            <td style="text-align: center;"> {{ distname.hm_completed}} </td>
+            <td style="text-align: center;"> {{ distname.teach_staff - distname.hm_completed}} </td>
+            <td style="text-align: center;"> {{ distname.brte_completed}} </td>
+            <td style="text-align: center;"> {{ distname.teach_staff - distname.brte_completed}} </td>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="footer">
+          <tr class="text-left" *ngIf="noDataFound">
+              <td colspan="6" style="text-align: center;"> No Data Found </td>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage" let-columns>
+          <tr>
+              <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                  <strong>No records found</strong>
+              </td>
+          </tr>
+      </ng-template>
+  </p-table>
+</div>
+
+<!--- Stage 3-->
+<div class="container-fluid" *ngIf="pageStage === 3">
+  <p-table #dt [columns]="cols1" [value]="hmpindicsreport" [resizableColumns]="true" (sortFunction)="customSort($event)" [customSort]="true">
+      <ng-template let-childrens pTemplate="caption">
+          <div class="row header flex-row-center">
+              <div class="col-sm-8">
+                
+              </div>
+              <div class="col-sm-3 p-1">
+                  <div class="text-right">
+                      <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                  </div>
+              </div>
+              <div class="col-sm-1 p-1 flex-row-center-end">
+                  <div class="text-right">
+                      <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"  (click)="exportPdf(hmpindicsreport,cols1)"></i> -->
+                      <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel(hmpindicsreport)"></i>
+                  </div>
+              </div>
+          </div>
+         
+      </ng-template>
+      <ng-template pTemplate="header" let-Datas>
+          <tr class="text-center">
+              <th class="sno-header-layout">#</th>
+              <th *ngFor="let Data of cols1" [pSortableColumn]="Data.field" [style.width]="Data.widthstyle">
+                  {{Data.header}}
+                  <p-sortIcon [field]="Data.field"  ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+              </th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-distname let-columns="columns" let-i="rowIndex">
+          <tr>
+            <td class="sno-header-layout"> {{i+1}} </td>
+              <td class="text-left">{{ distname.block_name}}</td>
+              <td style="text-align: center;"> {{ distname.teach_staff}} </td>
+              <td style="text-align: center;"> {{ distname.teach_completed}} </td>
+              <td style="text-align: center;"> {{ distname.teach_staff - distname.teach_completed}} </td>
+              <td style="text-align: center;"> {{ distname.hm_completed}} </td>
+              <td style="text-align: center;"> {{ distname.teach_staff - distname.hm_completed}} </td>
+              <td style="text-align: center;"> {{ distname.brte_completed}} </td>
+              <td style="text-align: center;"> {{ distname.teach_staff - distname.brte_completed}} </td>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="footer">
+          <tr class="text-left" *ngIf="noDataFound">
+              <td colspan="6" style="text-align: center;"> No Data Found </td>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage" let-columns>
+          <tr>
+              <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                  <strong>No records found</strong>
+              </td>
+          </tr>
+      </ng-template>
+  </p-table>
+</div>
+
+</div>
+
+
+
+

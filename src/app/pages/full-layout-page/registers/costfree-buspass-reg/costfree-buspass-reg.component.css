@@ -1,0 +1,10 @@
+body .ui-table .ui-table-thead>tr>th {
+    background-color: #2d7464 !important;
+    color: white !important;
+    padding-right: 1.5rem;
+}
+
+.excel {
+    margin-top: -41px;
+    padding-left: 867px;
+}

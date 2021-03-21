@@ -1,0 +1,344 @@
+<div class="main-body-content">
+    <div class="page-wrapper">
+        <div class="col-md-12">
+        <div class="container row justify-content-start">
+            <div class="col-md-4 page-logo">
+                <a href="#">
+                    <img src=" assets/media/logos/emis_logo.png" style="width:350px;">
+                </a>
+            </div>
+        </div>
+        </div>
+        <!-- <div style="margin-left: -90px;"> -->
+        <div class="container-fluid  banner_w3lspvt">
+             <div class="container"> 
+                <div class="row">
+                    <!-- style="margin-left: -69px; margin-right: -120px;" -->
+                    <div class="col-md-4 card card_img">
+                        <div class="row form-group">
+                            <div class="col-md-4">
+                                <img class="img-circle img" src="assets/img/3303050360300451.jpg" style="width:130px;">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="bck" style="padding: 7px 2px 6px;">
+                                    <h3 class="text-center font_clr">{{this.studentname}} </h3>
+                                    <div style="border-bottom: 1px solid #4fbaa5;margin-right: 15px;margin-left: 15px;">
+
+                                    </div>
+                                    <ul class="group">
+                                        <li class="g-1">
+                                            <b>
+                                                <i class="pi pi-calendar" area-hidden="true" style="color:#4fbaa5;"></i>
+                                                :
+                                            </b>
+                                            <span class="font_clr" style="font-family: Arial, Helvetica, sans-serif;">{{this.dob}}</span>
+                                        </li>
+                                        <li class="g-1">
+                                            <b>
+                                                <i class="fa fa-tint" area-hidden="true"
+                                                    style="color:#4fbaa5;padding-left:7px;"></i>
+                                                :
+                                            </b>
+
+                                            <span class="font_clr"  style="font-family: Arial, Helvetica, sans-serif;">{{ this.Bloodgroup}}</span>
+                                        </li>
+                                        <li class="g-1">
+                                            <b>
+                                                <i class="pi pi-mobile" area-hidden="true" style="color:#4fbaa5;"></i>
+                                                :
+                                            </b>
+                                            <span  class="font_clr" style="font-family: Arial, Helvetica, sans-serif;">{{ this.phonenumber}}</span>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- </div> -->
+                        <!-- </p-card> -->
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-7 card_two">
+                        <!-- <p-card> -->
+                            <div class="portlet light ">
+                                <div class="caption">
+                                    <span>PROFILE DETAILS</span>
+                                </div>
+                                <p-scrollPanel [style]="{width: '100%', height: '400px'}">
+                                    <div class="caption_one">
+                                        <i class="fa fa-info-circle" style="zoom: 1.89; color: #4fbaa5;">
+                                            <span style="font-size:11px;"> Student Personal Info</span> </i>
+                                    </div>
+                                    <div style="padding-top:25px;">
+                                        <form [formGroup]="studentForm">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label class="font">School Name</label>
+                                                </div>
+                                                <b>:</b>
+                                                <div class="col-md-7 align">
+                                                    <input type="text" class="form-control inp-control"
+                                                        formControlName="SclName"  disabled="true">
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-top:10px;">
+                                                <div class="col-md-4">
+                                                    <label class="font">Name of the Student in Tamil </label>
+                                                </div>
+                                                <b>:</b>
+                                                <div class="col-md-7 align">
+                                                    <input type="text" formControlName="TamilName"
+                                                        class="form-control inp-control"  disabled="true">
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-top:10px;">
+                                                <div class="col-md-4">
+                                                    <label class="font">EMIS ID</label>
+                                                </div>
+                                                <b>:</b>
+                                                <div class="col-md-7 align ">
+                                                    <input type="text" class="form-control inp-control"
+                                                        formControlName="UniqueId"  disabled="true">
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-top:10px;">
+                                                <div class="col-md-4">
+                                                    <label class="font">Gender</label>
+                                                </div>
+                                                <b>:</b>
+                                                <div class="col-md-7 align">
+                                                    <input type="text" class="form-control inp-control"
+                                                        formControlName="Gender"  disabled="true">
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-top:10px;">
+                                                <div class="col-md-4">
+                                                    <label class="font">Blood Group </label>
+                                                </div>
+                                                <b>:</b>
+                                                <div class="col-md-7 align">
+                                                    <input type="text" formControlName="BloodGrp"
+                                                        class="form-control inp-control"  disabled="true">
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-top:10px;">
+                                                <div class="col-md-4">
+                                                    <label class="font">Mother Tongue</label>
+                                                </div>
+                                                <b>:</b>
+                                                <div class="col-md-7 align">
+                                                    <input type="text" class="form-control inp-control"
+                                                        formControlName="MothTungName"  disabled="true">
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-top:10px;">
+                                                <div class="col-md-4">
+                                                    <label class="font">Disability Group Name </label>
+                                                </div>
+                                                <b>:</b>
+                                                <div class="col-md-7 align">
+                                                    <input type="text" formControlName="DiffAbled"
+                                                        class="form-control inp-control"  disabled="true">
+                                                </div>
+                                            </div>
+                                            <!-- parents -->
+                                            <div class="caption_one">
+                                                <i class="fa fa-users" style="zoom:1.89; color: #4fbaa5;">
+                                                    <span style="font-size:11px;"> Family Details</span> </i>
+                                            </div>
+                                            <div style="padding-top:25px;">
+                                                <!-- <form [formGroup]="studentForm"> -->
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label class="font">Father Name</label>
+                                                    </div>
+                                                    <b>:</b>
+                                                    <div class="col-md-7 align">
+                                                        <input type="text" class="form-control inp-control"
+                                                            formControlName="FathNam"  disabled="true">
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-top:10px;">
+                                                    <div class="col-md-4">
+                                                        <label class="font">Mother Name </label>
+                                                    </div>
+                                                    <b>:</b>
+                                                    <div class="col-md-7 align">
+                                                        <input type="text" formControlName="MothNam"
+                                                            class="form-control inp-control"  disabled="true">
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-top:10px;">
+                                                    <div class="col-md-4">
+                                                        <label class="font">Father's Occupation</label>
+                                                    </div>
+                                                    <b>:</b>
+                                                    <div class="col-md-7 align">
+                                                        <input type="text" class="form-control inp-control"
+                                                            formControlName="FatherOcc"  disabled="true">
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-top:10px;">
+                                                    <div class="col-md-4">
+                                                        <label class="font">MOther's Occupation</label>
+                                                    </div>
+                                                    <b>:</b>
+                                                    <div class="col-md-7 align">
+                                                        <input type="text" class="form-control inp-control"
+                                                            formControlName="MotherOcc"  disabled="true">
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-top:10px;">
+                                                    <div class="col-md-4">
+                                                        <label class="font">Guardian Name </label>
+                                                    </div>
+                                                    <b>:</b>
+                                                    <div class="col-md-7 align">
+                                                        <input type="text" formControlName="GuardName"
+                                                            class="form-control inp-control"  disabled="true">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Communication -->
+                                            <div class="caption_one">
+                                                <i class="fa fa-phone-square" style="zoom:1.89; color: #4fbaa5;">
+                                                    <span style="font-size:11px;"> Communication Details</span> </i>
+                                            </div>
+                                            <div style="padding-top:25px;">
+                                                <!-- <form [formGroup]="studentForm"> -->
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label class="font">Door no. / Building Name</label>
+                                                    </div>
+                                                    <b>:</b>
+                                                    <div class="col-md-7 align ">
+                                                        <input type="text" class="form-control inp-control"
+                                                            formControlName="HouseAdds"  disabled="true">
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-top:10px;">
+                                                    <div class="col-md-4">
+                                                        <label class="font">Street Name / Area name </label>
+                                                    </div>
+                                                    <b>:</b>
+                                                    <div class="col-md-7 align">
+                                                        <input type="text" formControlName="StrName"
+                                                            class="form-control inp-control"  disabled="true">
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-top:10px;">
+                                                    <div class="col-md-4">
+                                                        <label class="font">City name / Village name</label>
+                                                    </div>
+                                                    <b>:</b>
+                                                    <div class="col-md-7 align">
+                                                        <input type="text" class="form-control inp-control"
+                                                            formControlName="AreaVillage"  disabled="true">
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-top:10px;">
+                                                    <div class="col-md-4">
+                                                        <label class="font">District</label>
+                                                    </div>
+                                                    <b>:</b>
+                                                    <div class="col-md-7 align">
+                                                        <input type="text" class="form-control inp-control"
+                                                            formControlName="DistName"  disabled="true">
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-top:10px;">
+                                                    <div class="col-md-4">
+                                                        <label class="font">Pincode </label>
+                                                    </div>
+                                                    <b>:</b>
+                                                    <div class="col-md-7 align">
+                                                        <input type="text" formControlName="PinCode"
+                                                            class="form-control inp-control"  disabled="true">
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-top:10px;">
+                                                    <div class="col-md-4">
+                                                        <label class="font">Mobile No.</label>
+                                                    </div>
+                                                    <b>:</b>
+                                                    <div class="col-md-7 align">
+                                                        <input type="text" class="form-control inp-control"
+                                                            formControlName="PhoneNum"  disabled="true">
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-top:10px;">
+                                                    <div class="col-md-4">
+                                                        <label class="font">Email Id </label>
+                                                    </div>
+                                                    <b>:</b>
+                                                    <div class="col-md-7 align">
+                                                        <input type="text" formControlName="Email"
+                                                            class="form-control inp-control"  disabled="true">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Academic Info -->
+                                            <div class="caption_one">
+                                                <i class="fa fa-graduation-cap" style="zoom:1.89; color: #4fbaa5;">
+                                                    <span style="font-size:11px;"> Academic Info</span> </i>
+                                            </div>
+                                            <div style="padding-top:25px;">
+                                                <!-- <form [formGroup]="studentForm"> -->
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label class="font">Date of Joining</label>
+                                                    </div>
+                                                    <b>:</b>
+                                                    <div class="col-md-7 align">
+                                                        <input type="text" class="form-control inp-control"
+                                                            formControlName="DOJ"  disabled="true">
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-top:10px;">
+                                                    <div class="col-md-4">
+                                                        <label class="font">Class & Section </label>
+                                                    </div>
+                                                    <b>:</b>
+                                                    <div class="col-md-7 align">
+                                                        <input type="text" formControlName="ClsSec"
+                                                            class="form-control inp-control"  disabled="true">
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-top:10px;">
+                                                    <div class="col-md-4">
+                                                        <label class="font">Medium of Instruction</label>
+                                                    </div>
+                                                    <b>:</b>
+                                                    <div class="col-md-7 align">
+                                                        <input type="text" class="form-control inp-control"
+                                                            formControlName="MEDINSTR"  disabled="true">
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-top:10px;">
+                                                    <div class="col-md-4">
+                                                        <label class="font">Admission Number</label>
+                                                    </div>
+                                                    <b>:</b>
+                                                    <div class="col-md-7 align">
+                                                        <input type="text" class="form-control inp-control"
+                                                            formControlName="SclAdmNo" disabled="true" >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <!-- </div>  -->
+                                    </div>
+                                </p-scrollPanel>
+                            </div>
+                        <!-- </p-card> -->
+                    </div>      
+            </div> 
+          </div>
+         </div>
+    </div>
+    <div class="icons">
+        <img _ngcontent-wyv-c12="" alt="" class="img-fluid shape-wthree shape-w3-one" src="/assets/img/img-shape1.png">
+    </div>
+</div>
+ 

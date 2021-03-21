@@ -1,0 +1,179 @@
+<div class="container-fluid">
+
+  <!-- State -->
+
+    <div class="main-body-content m-2" *ngIf="pageLeval === 1">  
+      <p-table  [columns]="dataHeader" [value]="oscDisctData" [resizableColumns]="true" >
+          <ng-template let-childrens pTemplate="caption">
+            <div class="row p-1">
+              <div class="col-sm-6">
+                  <div class="text-lg-left mt-3">
+                    <h5>Out Student List | District-Wise</h5>
+                  </div>
+              </div>
+              <div class="col-sm-6 p-1">
+                  <div class="text-right">
+                       <input type="text" pInputText size="30" placeholder="Out Student List" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                  </div>              
+               </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-outStudents>
+            <tr class="text-center">
+              <th class="sno-header-layout">#</th>
+              <th *ngFor="let col of outStudents" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-outStudents let-rowData let-columns="columns" let-i="rowIndex">
+            <tr class="text-center" *ngFor="let outStudentValue of outStudents">
+              <td class="sno-header-layout"> {{i+1}} </td>
+              <td class="text-left"><a href="javascript:void(0)" (click)="onSelectedDistrict(outStudentValue.district_id)"> {{ outStudentValue.district_name}} </a></td>
+               <td> {{ outStudentValue.cnt}} </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="footer">
+              <tr class="text-center" *ngIf="noDataFound === 1">
+                <td colspan="3">No Data Found</td>
+              </tr>
+          </ng-template>
+        </p-table>
+  </div> 
+
+  <!-- end state -->
+
+  <!-- Ceo -->
+
+  <div class="main-body-content m-2"  *ngIf="pageLeval === 2">  
+    <p-table  [columns]="dataHeader2" [value]="oscListCitywiseData" [resizableColumns]="true" >
+      <ng-template let-childrens pTemplate="caption">
+        <div class="row p-1">
+          <div class="col-sm-6">
+              <div class="text-lg-left mt-3">
+                <h5>Out Student List | City-Wise</h5>
+              </div>
+          </div>
+          <div class="col-sm-6 p-1">
+              <div class="text-right">
+                   <input type="text" pInputText size="30" placeholder="Out Student List" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+              </div>              
+           </div>
+        </div>
+      </ng-template>
+        <ng-template pTemplate="header" let-outStudents>
+          <tr class="text-center">
+            <th class="sno-header-layout">#</th>
+            <th *ngFor="let col of outStudents" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+              {{col.header}}
+              <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-outStudents let-rowData let-columns="columns" let-i="rowIndex" >
+          <tr class="text-center" *ngFor="let outStudentValue of outStudents">
+            <td class="sno-header-layout"> {{i+1}} </td>
+            <td class="text-left"><a href="javascript:void(0)" (click)="onSelectedSchoolwise(outStudentValue)"> {{ outStudentValue.block_name}} </a></td>
+             <td> {{ outStudentValue.cnt}} </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <tr class="text-center" *ngIf="noDataFound === 2">
+            <td colspan="3">No Data Found</td>
+          </tr>
+      </ng-template>
+      </p-table>
+</div> 
+
+  <!-- end ceo  -->
+
+  <!-- School wise -->
+
+  <div class="main-body-content m-2" *ngIf="pageLeval === 3">  
+    <p-table  [columns]="dataHeader3" [value]="oscListSchoolWiseData" [resizableColumns]="true" >
+      <ng-template let-childrens pTemplate="caption">
+        <div class="row p-1">
+          <div class="col-sm-6">
+              <div class="text-lg-left mt-3">
+                <h5>Out Student List | School-Wise</h5>
+              </div>
+          </div>
+          <div class="col-sm-6 p-1">
+              <div class="text-right">
+                   <input type="text" pInputText size="30" placeholder="Out Student List" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+              </div>              
+           </div>
+        </div>
+      </ng-template>
+        <ng-template pTemplate="header" let-outStudents>
+          <tr class="text-center">
+            <th class="sno-header-layout">#</th>
+            <th *ngFor="let col of outStudents" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+              {{col.header}}
+              <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-outStudents let-rowData let-columns="columns" let-i="rowIndex" >
+          <tr class="text-center" *ngFor="let outStudentValue of outStudents">
+            <td class="sno-header-layout"> {{i+1}} </td>
+            <td class="text-left"><a href="javascript:void(0)" (click)="onSelectedoscSchoolWise(outStudentValue)"> {{ outStudentValue.school_name}} </a></td>
+             <td> {{ outStudentValue.cnt}} </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <tr class="text-center" *ngIf="noDataFound === 3">
+            <td colspan="3">No Data Found</td>
+          </tr>
+      </ng-template>
+      </p-table>
+</div> 
+
+  <!-- end school wise -->
+
+  <!-- Student wise -->
+
+  <div class="main-body-content m-2" *ngIf="pageLeval === 4">  
+    <p-table  [columns]="dataHeader" [value]="oscStudentListData" [resizableColumns]="true" >
+      <ng-template let-childrens pTemplate="caption">
+        <div class="row p-1">
+          <div class="col-sm-6">
+              <div class="text-lg-left mt-3">
+                <h5>Out Student List | Studnet-Wise</h5>
+              </div>
+          </div>
+          <div class="col-sm-6 p-1">
+              <div class="text-right">
+                   <input type="text" pInputText size="30" placeholder="Out Student List" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+              </div>              
+           </div>
+        </div>
+      </ng-template>
+        <ng-template pTemplate="header" let-outStudents>
+          <tr class="text-center">
+            <th class="sno-header-layout">#</th>
+            <th *ngFor="let col of outStudents" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+              {{col.header}}
+              <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-outStudents let-rowData let-columns="columns" let-i="rowIndex" >
+          <tr class="text-center" *ngFor="let outStudentValue of outStudents">
+            <td class="sno-header-layout"> {{i+1}} </td>
+            <td class="text-left"><a href="javascript:void(0)"> {{ outStudentValue.school_name}} </a></td>
+             <td> {{ outStudentValue.cnt}} </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <tr class="text-center" *ngIf="noDataFound === 4">
+            <td colspan="3">No Data Found</td>
+          </tr>
+      </ng-template>
+      </p-table>
+</div> 
+
+<!-- end student wise -->
+
+</div>      

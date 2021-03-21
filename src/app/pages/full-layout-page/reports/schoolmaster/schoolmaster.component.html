@@ -1,0 +1,49 @@
+<div class="main-body-content mt-5">
+    <div class="breadcrumbs c-black header">
+       <h6 class="url"><span class="flex-gap-right">UDISE + Reports</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i> <span class="flex-gap-right">School Master</span><span><i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i></span></h6>
+    </div>
+    <div class="m-4">
+       <p-table #dt [columns]="selectedColumns" [value]="schoolmasterreport" [paginator]="true" [rows]="50" [resizableColumns]="true">
+       <ng-template let-childrens pTemplate="caption">
+          <div class="row  header flex-row-left">
+             <div class="col-md-8 p-1 text-left">
+                <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header" selectedItemsLabel="{0} columns selected" [style]="{minWidth: '225px'}" defaultLabel="Choose Columns"></p-multiSelect>
+             </div>
+             <div class="col-md-3 p-1">
+                <div class="text-center">
+                   <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search Filter">
+                </div>
+             </div>
+             <div class="col-md-1 p-3">
+                <div class="text-right">
+                   <i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="exportExcel(schoolmasterreport)"></i>
+                </div>
+             </div>
+          </div>
+       </ng-template>
+       <ng-template pTemplate="header" let-childrens>
+          <tr class="text-center">
+             <th class="sno-header-layout sno">S.NO</th>
+             <th *ngFor="let col of selectedColumns" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+             {{col.header}}
+             <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+             </th>
+          </tr>
+       </ng-template>
+       <ng-template pTemplate="body" let-schoolmasterreport let-columns="columns" let-i="rowIndex">
+          <tr>
+             <td class="sno-header-layout">{{i+1}}</td>
+             <td *ngFor="let col of columns" [class]="col.class">
+             {{schoolmasterreport[col.field]}}
+             </td>
+       </ng-template>
+       <ng-template pTemplate="emptymessage" let-columns>
+       <tr>
+       <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+       <strong>No Data Found</strong>
+       </td>
+       </tr>
+       </ng-template>
+       </p-table>
+    </div>
+ </div>

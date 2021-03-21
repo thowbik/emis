@@ -1,0 +1,171 @@
+<div class="container-fluid p-4">
+	<div class="outer-layout">
+		<div class="breadcrumbs c-black">
+			<h6 class="url">
+                <span class="flex-gap-right">Data Validation Report</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+                <span class="flex-gap-right">Schools Access Report
+                </span>
+            </h6>
+		</div>
+	</div>
+	<!-- <div class="col-sm-12">
+        <span><b>Nearest Government Schools Report</b></span>
+    </div> -->
+	<p-card>
+		<div>
+			<p-table #dt [columns]="cols" [value]="data" [autoLayout]="true">
+				<ng-template pTemplate="caption">
+					<div>
+						<form [formGroup]="govtSchoolForm">
+							<div class="row">
+								<div clas="col-sm-4 ">
+									<p-dropdown [options]="school" fromControlName="selectedtype" (onChange)="schltypevalues($event)"></p-dropdown>
+								</div>
+								<div class=" col-md-1">
+									<button type='button' class="btn btn-success" (click)="getData()">Submit</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="row">
+						<div class="col-sm-8"></div>
+						<div class="col-sm-3">
+							<input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search Filter">
+							<!-- <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                            <input type="text" pInputText size="20" placeholder="Search"
+                                (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto"> -->
+						</div>
+						<div class="col-sm-1 p-2"> <i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="exportExcel()"></i>
+							<!-- <button type="button" pButton icon="pi pi-file-excel" iconPos="left" (click)="exportExcel()"
+                                label="EXCEL" class="ui-button-success">
+                            </button> -->
+						</div>
+					</div>
+				</ng-template>
+				<ng-template pTemplate="header">
+					<tr>
+						<th>S.No</th>
+						<th>Block</th>
+						<th>UDISE Code</th>
+						<th>School Name</th>
+						<th>School Type</th>
+						<th>Category</th>
+						<th>Latitude</th>
+						<th>Longitude</th>
+						<th>Distance from Primary School in km</th>
+						<th>Distance from Upper Primary School in km</th>
+						<th>Distance from Secondary School in km</th>
+						<th>Distance from Hr Secondary School in km</th>
+						<th>Connected by All Weather Road</th>
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="body" let-reports let-i="rowIndex">
+					<tr>
+						<td>{{i+1}}</td>
+						<td>{{reports.block_name}}</td>
+						<td>{{reports.udise_code}}</td>
+						<td><a href="javascript:void(0)" (click)="getschoolpopup(reports.school_key_id,reports.distance_pri,reports.distance_upr,reports.distance_sec,reports.distance_hsec,reports.All_Weather_Road)">{{reports.school_name}}</a>
+						</td>
+						<td>{{reports.school_type}}</td>
+						<td>{{reports.cate_type}}</td>
+						<td>{{reports.latitude}}</td>
+						<td>{{reports.longitude}}</td>
+						<td>{{reports.distance_pri}}</td>
+						<td>{{reports.distance_upr}}</td>
+						<td>{{reports.distance_sec}}</td>
+						<td>{{reports.distance_hsec}}</td>
+						<td>{{reports.All_Weather_Road}}</td>
+					</tr>
+				</ng-template>
+			</p-table>
+		</div>
+	</p-card>
+</div>
+<!-- <div class="c-dialog-overflow" *ngIf = "showDialogBox"> -->
+<p-dialog [(visible)]="showDialogBox" [style]="{'width':'50vw','overflow-y':'scroll','max-height':'80vh','min-height':'80%'}" [modal]="true" [maximizable]="true" [baseZIndex]="10000">
+	<p-header>Confirmation Dialog</p-header>
+	<form [formGroup]="govtSchoolForm">
+		<div class="row form-group " style="padding-top: 10px;">
+			<div class="col-sm-1 col-md-1"></div>
+			<div class="col-sm-10 col-md-10">
+				<label>Distance of the school (in km.) from the nearest Govt./Govt. Aided school</label>
+			</div>
+		</div>
+		<div class="row form-group " style="padding-top: 10px;">
+			<div class="col-sm-1 col-md-1"></div>
+			<div class="col-sm-5 col-md-5">
+				<label>(a) From Primary school/section</label>
+			</div>
+			<div class="col-sm-5 col-md-5">
+				<input type="text" maxlength="4" name="distance_pri" formControlName="distance_pri" class="form-control">
+				<p-message severity="error" text="This Field is required" *ngIf="f.distance_pri.errors && (submitted || f.distance_pri.dirty || f.distance_pri.touched)"></p-message>
+				<p-message severity="error" text="Please give decimal value" *ngIf="f.distance_pri.errors?.pattern"></p-message>
+			</div>
+		</div>
+		<div class="row form-group" style="padding-top: 5px;">
+			<div class="col-sm-1 col-md-1"></div>
+			<div class="col-sm-5 col-md-5">
+				<label>(b) From Upper Primary school/section</label>
+			</div>
+			<div class="col-sm-5 col-md-5">
+				<input type="text" maxlength="4" name="distance_upr" formControlName="distance_upr" class="form-control">
+				<p-message severity="error" text="This Field is required" *ngIf="f.distance_upr.errors && (submitted || f.distance_upr.dirty || f.distance_upr.touched)"></p-message>
+				<p-message severity="error" text="Please give decimal value" *ngIf="f.distance_upr.errors?.pattern"></p-message>
+			</div>
+		</div>
+		<div class="row form-group" style="padding-top: 5px;">
+			<div class="col-sm-1 col-md-1"></div>
+			<div class="col-sm-5 col-md-5">
+				<label>(c) From Secondary school/section</label>
+			</div>
+			<div class="col-sm-5 col-md-5">
+				<input type="text" maxlength="4" name="distance_sec" formControlName="distance_sec" class="form-control">
+				<p-message severity="error" text="This Field is required" *ngIf="f.distance_sec.errors && (submitted || f.distance_sec.dirty || f.distance_sec.touched)"></p-message>
+				<p-message severity="error" text="Please give decimal value" *ngIf="f.distance_sec.errors?.pattern"></p-message>
+			</div>
+		</div>
+		<br>
+		<div class="row form-group" style="padding-top: 5px;">
+			<div class="col-sm-1 col-md-1"></div>
+			<div class="col-sm-5 col-md-5">
+				<label>(d) From Higher Secondary school/junior college</label>
+			</div>
+			<div class="col-sm-5 col-md-5">
+				<input type="text" maxlength="4" name="distance_hsec" formControlName="distance_hsec" class="form-control">
+				<p-message severity="error" text="This Field is required" *ngIf="f.distance_hsec.errors && (submitted || f.distance_hsec.dirty || f.distance_hsec.touched)"></p-message>
+				<p-message severity="error" text="Please give decimal value" *ngIf="f.distance_hsec.errors?.pattern"></p-message>
+			</div>
+		</div>
+		<div class="row form-group" style="padding-top: 5px;">
+			<div class="col-sm-1 col-md-1"></div>
+			<div class="col-sm-5 col-md-5">
+				<label>Whether school is approachable by all-weather roads ?</label>
+			</div>
+			<div class="col-sm-3 col-md-3">
+				<p-radioButton name="weather_roads" formControlName="All_Weather_Road" value="1" label="YES" (click)="onRoadReset(govtSchoolForm.value.All_Weather_Road)"></p-radioButton>
+				<p-message severity="error" text="This Field is required" *ngIf="f.All_Weather_Road.errors && (submitted || f.All_Weather_Road.dirty || f.All_Weather_Road.touched)"></p-message>
+			</div>
+			<div class="col-sm-3 col-md-3">
+				<p-radioButton name="weather_roads" formControlName="All_Weather_Road" value="2" label="NO" (click)="onRoadReset(govtSchoolForm.value.All_Weather_Road)"></p-radioButton>
+			</div>
+		</div>
+		<div class="row form-group" *ngIf="govtSchoolForm.value.All_Weather_Road== '2'" style="padding-top: 5px;">
+			<div class="col-sm-1 col-md-1"></div>
+			<div class="col-sm-5 col-md-5">
+				<label>Distance to road in metres</label>
+			</div>
+			<div class="col-sm-5 col-md-5">
+				<input type="text" pKeyFilter="pnum" maxlength="4" pInputText formControlName="distance_road" class="form-control">
+				<p-message severity="error" text="This Field is required" *ngIf="f.distance_road.errors && (submitted || f.distance_road.dirty || f.distance_road.touched)"></p-message>
+			</div>
+		</div>
+		<br>
+		<p-footer>
+			<div class="text-right">
+				<button type="submit" class="btn btn-success" name="Save" (click)="save()">Save</button>
+				<button type="submit" class="btn btn-light" (click)="close_dialog()">Cancel</button>
+			</div>
+		</p-footer>
+	</form>
+</p-dialog>
+<!-- </div> -->

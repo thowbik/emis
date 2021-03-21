@@ -1,0 +1,97 @@
+<div class="outer-layout mt-5" style="padding-top:5px;">
+  <div class="breadcrumbs c-black">
+    <h6 classs="url"><span class="flex-gap-right">Schools</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right">Private School</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right" (click)="goBack()">Un-Recognized Schools</span><span *ngIf="districtNames"><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i>{{districtNames}}</span>
+  </h6>
+  </div>
+</div>
+<div class="container-fluid" *ngIf="pageStage === 1">
+  <div class="main-body-content m-2">  
+    <p-table #dt  [columns]="dataHeader" [value]="unRecognized" [resizableColumns]="true" [lazy]="false" [globalFilterFields]="['district_name','tot']">
+        <ng-template let-unrecognized pTemplate="caption">
+          <div class="row p-1">
+            <div class="col-sm-6">
+                <div class="text-lg-left mt-3">
+                  <h5>Un-Recognized School Report</h5>
+                </div>
+            </div>
+            <div class="col-sm-6 p-1">
+                <div class="text-right">
+                     <input type="text" pInputText size="30" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                </div>              
+             </div>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-unrecognized>
+          <tr class="text-center">
+            <th class="sno-header-layout">S.No</th>
+            <th *ngFor="let col of unrecognized" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+              {{col.header}}
+              <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-unrecognized let-rowData let-columns="columns" let-i="rowIndex" >
+          <tr class="text-center" *ngIf="!noDataFound">
+            <td class="sno-header-layout text-center"> {{i+1}} </td>
+            <td class="text-left"><a href="javascript:void(0)" (click)="UnRecognizedDistric(unrecognized.district_id,unrecognized.district_name)"> {{unrecognized.district_name}}  </a></td>
+            <td>{{unrecognized.tot}}</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <tr class="text-center" *ngIf="noDataFound" >
+            <td colspan="3"> No Data Found </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    
+    </div> 
+  </div>    
+  
+  <!-- Stage 2 -->
+
+  <div class="container-fluid" *ngIf="pageStage === 2">
+    <div class="main-body-content m-2">  
+      <p-table #dt  [columns]="dataHeader2" [value]="UnRecongnizedData" [resizableColumns]="true" [lazy]="false" [globalFilterFields]="['block_name','udise_code','school_name']" >
+          <ng-template let-unrecognized pTemplate="caption">
+            <div class="row p-1">
+              <div class="col-sm-8">
+                  <div class="text-lg-left mt-3">
+                    <h5>Un-Recognized School Report</h5>
+                  </div>
+              </div>
+              <div class="col-sm-3 p-1">
+                  <div class="text-right">
+                       <input type="text" pInputText size="30" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                  </div>              
+               </div>
+               <div class="col-sm-1 col-md-1" style="padding-top:10px;">
+                <i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="exportExcel()"></i>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-unrecognized>
+            <tr class="text-center">
+              <th class="sno-header-layout">S.No</th>
+              <th *ngFor="let col of unrecognized" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-unrecognized let-rowData let-columns="columns" let-i="rowIndex" >
+            <tr class="text-left" *ngIf="!noDataFound2">
+              <td class="sno-header-layout text-center"> {{i+1}} </td>
+              <td>{{unrecognized.block_name}}</td>
+              <td>{{unrecognized.udise_code}}</td>
+              <td>{{unrecognized.school_name}}</td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <tr class="text-center" *ngIf="noDataFound2" >
+              <td colspan="4"> No Data Found </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      
+      </div> 
+    </div>      

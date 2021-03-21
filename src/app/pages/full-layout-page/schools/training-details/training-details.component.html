@@ -1,0 +1,1038 @@
+<div class="outer-layout" style="padding-top:5px;">
+    <div class="breadcrumbs c-black">
+    <h6 class="url"><span class="flex-gap-right">UDISE+</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i> <span class="flex-gap-right">Training-Details</span></h6>
+    </div>
+</div>
+<div class="form-actions main-body-content">
+    <div class="page-container">
+        <form [formGroup]="form">
+            <div class="portlet light portlet-fit">
+                <div class="portlet-title">
+                    <!--               
+                                                                       <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" (click)="test()">VIEW/EDIT</button>
+                </div> -->
+                </div>
+                <!-- <p-calendar [(ngModel)]="value" showTime="true" hourFormat="12"></p-calendar> -->
+                <div class="portlet-body">
+                    <div class="form-row">
+                        <div class="title-layout flex-gap-bottom">
+                            <span class="caption-subject text-white sbold uppercase">School Days and Hours Details</span>
+                        </div>
+
+                        <div class="col-lg-12 row">
+                            <div class="col-lg-2">
+                                <label class="label header-label">Category <span style="color:#dd4b39;">*</span></label>
+                            </div>
+                            <div class="col-lg-2">
+                                <label class="label header-label">Number of Instructional days <span style="color:#dd4b39;">*</span></label>
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="label header-label">Working Hours for Children (per day) (HH:MM)  <span style="color:#dd4b39;">*</span></label>
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="label header-label">Working Hours for Teachers (per day) (HH:MM)   <span style="color:#dd4b39;">*</span></label>
+                            </div>
+                            <div class="col-lg-2">
+                                <label class="label header-label">Whether Continuous Comprehensive Evaluation (CCE) implemented? <span style="color:#dd4b39;">*</span></label>
+                            </div>
+                        </div>
+                        <div class="flex-column">
+                            <div formArrayName="daysHoursInfo" *ngFor="let daysHours of form.get('daysHoursInfo')['controls']; let i = index" class="flex-gap-bottom">
+                                <div [formGroupName]="i">
+                                    <div class="col-lg-12 row">
+
+
+                                        <div class="col-lg-2">
+                                            <p-dropdown [options]="schoolTypes" formControlName="school_type" (onChange)="chooseCategory($event,i)" styleClass="select_dropdown" placeholder="Choose"></p-dropdown>
+                                            <p-message severity="error" text="Field is required" *ngIf="daysHours.controls.school_type.errors && (submitted || dayEntryInvalid || daysHours.controls.school_type.dirty || daysHours.controls.school_type.touched)"></p-message>
+                                        </div>
+
+
+                                        <div class="col-md-2">
+                                            <input type="text" pKeyFilter="pnum" maxlength="3" pInputText formControlName="instr_dys" class="form-control">
+                                            <p-message severity="error" text="Field is required" *ngIf="daysHours.controls.instr_dys.errors && (submitted || dayEntryInvalid || daysHours.controls.instr_dys.dirty || daysHours.controls.instr_dys.touched)"></p-message>
+                                        </div>
+                                        <div class="col-md-3 flex-column">
+                                            <div class="flex">
+                                                <input type="text" pKeyFilter="pnum" maxlength="2" min="0" max="12" pInputText formControlName="hrs_chldrn_sty_schl" placeholder="Hours" class="form-control flex-gap-right">
+                                                <input type="text" pKeyFilter="pnum" maxlength="2" pInputText formControlName="mns_chldrn_sty_schl" placeholder="Mins" class="form-control">
+                                            </div>
+
+                                            <div class="flex">
+                                                <p-message severity="error" class="flex-gap-right" text="Field is required" *ngIf="daysHours.controls.hrs_chldrn_sty_schl.errors && (submitted || dayEntryInvalid || daysHours.controls.hrs_chldrn_sty_schl.dirty || daysHours.controls.hrs_chldrn_sty_schl.touched)"></p-message>
+                                                <p-message severity="error" text="Field is required" *ngIf="daysHours.controls.mns_chldrn_sty_schl.errors && (submitted || dayEntryInvalid || daysHours.controls.mns_chldrn_sty_schl.dirty || daysHours.controls.mns_chldrn_sty_schl.touched)"></p-message>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 flex-column">
+                                            <div class="flex">
+                                                <input type="text" pKeyFilter="pnum" maxlength="2" pInputText formControlName="hrs_tchrs_sty_schl" placeholder="Hours" class="form-control flex-gap-right">
+                                                <input type="text" pKeyFilter="pnum" maxlength="2" pInputText formControlName="mns_tchrs_sty_schl" placeholder="Mins" class="form-control">
+                                            </div>
+                                            <div class="flex">
+                                                <p-message severity="error" class="flex-gap-right" text="Field is required" *ngIf="daysHours.controls.hrs_tchrs_sty_schl.errors && (submitted || dayEntryInvalid || daysHours.controls.hrs_tchrs_sty_schl.dirty || daysHours.controls.hrs_tchrs_sty_schl.touched)"></p-message>
+                                                <p-message severity="error" text="Field is required" *ngIf="daysHours.controls.mns_tchrs_sty_schl.errors && (submitted || dayEntryInvalid || daysHours.controls.mns_tchrs_sty_schl.dirty || daysHours.controls.mns_tchrs_sty_schl.touched)"></p-message>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-lg-2">
+                                            <p-radioButton name="cce_{{i}}" value="1" formControlName="cce_impl" label="Yes"></p-radioButton>
+                                            <p-radioButton name="cce_{{i}}" value="2" formControlName="cce_impl" label="No" class="ml-2"></p-radioButton>
+                                            <p-message severity="error" text="Field is required" *ngIf="daysHours.controls.cce_impl.errors && (submitted || dayEntryInvalid || daysHours.controls.cce_impl.dirty || daysHours.controls.cce_impl.touched)"></p-message>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-lg-12 row">
+                                <p-message severity="error"  text="Field is required" *ngIf="libraryData.controls.num_books.errors && (submitted || libraryError || libraryData.controls.num_books.dirty || libraryData.controls.num_books.touched)"></p-message>
+                            </div> -->
+                                    <div class="col-lg-12 row flex-gap-top" *ngIf="form.value.daysHoursInfo[i].cce_impl == '1'">
+                                        <div class="col-lg-1">
+                                        </div>
+                                        <div class="col-lg-4 flex-column">
+
+                                            <label class="header-label"><strong>Are Cumulative Records maintained?</strong></label>
+
+                                            <p-radioButton name="cumulative_{{i}}" formControlName="cce_cum" value="1" label="Yes"></p-radioButton>
+
+                                            <p-radioButton name="cumulative_{{i}}" formControlName="cce_cum" value="2" label="No" class="mt-2"></p-radioButton>
+                                            <p-message severity="error" text="Field is required" *ngIf="daysHours.controls.cce_cum.errors && (submitted || dayEntryInvalid || daysHours.controls.cce_cum.dirty || daysHours.controls.cce_cum.touched)"></p-message>
+
+                                        </div>
+                                        <div class="col-lg-4 flex-column">
+                                            <label class="header-label"><strong>Are Cumulative Records Shared with parents?</strong></label>
+
+                                            <p-radioButton name="cumulativeparents_{{i}}" formControlName="cce_shared" value="1" label="Yes"></p-radioButton>
+
+                                            <p-radioButton name="cumulativeparents_{{i}}" formControlName="cce_shared" value="2" label="No" class="mt-2"></p-radioButton>
+                                            <p-message severity="error" text="Field is required" *ngIf="daysHours.controls.cce_shared.errors && (submitted || dayEntryInvalid || daysHours.controls.cce_shared.dirty || daysHours.controls.cce_shared.touched)"></p-message>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="row m-3">
+                                <button pButton type="button" icon="pi pi-plus" (click)="addDaysEntry()" class="flex-gap-left flex-gap-right" iconPos="left"></button>
+                                <button pButton type="button" icon="pi pi-minus" (click)="removedaysEntry()" iconPos="left"></button>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th> No.of children enrolled at entry level under Section 12 of the RTE Act in current academic year:<span style="color:#dd4b39;">*</span></th>
+                                        <th><input type="text" pInputText pKeyFilter="num" formControlName="rte_25p_applied" class="form-control" maxlength="4">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_25p_applied.errors && (submitted || form.controls.rte_25p_applied.dirty || form.controls.rte_25p_applied.touched)"></p-message>
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th>No. of students continuing who got admission under Section 12 of the RTE Act in previous years :<span style="color:#dd4b39;">*</span></th>
+                                        <th><input type="text" pInputText pKeyFilter="num" formControlName="rte_25p_enrolled" class="form-control" maxlength="4">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_25p_enrolled.errors && (submitted || form.controls.rte_25p_enrolled.dirty || form.controls.rte_25p_enrolled.touched)"></p-message>
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th> Total no. of students enrolled under Section 12 of the RTE Act (25% quota as per RTE Act):<span style="color:#dd4b39;">*</span></th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <p-table [value]="studenrollby" [rows]="1" [scrollable]="true" [totalRecords]="90" scrollHeight="100px" [lazy]="true">
+                                <ng-template pTemplate="colgroup">
+                                    <colgroup>
+                                        <col [style.width]="'300px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                    </colgroup>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr style="text-align: center;">
+                                        <th></th>
+                                        <th colspan="2">Pre Primary</th>
+                                        <th colspan="2">I</th>
+                                        <th colspan="2">II</th>
+                                        <th colspan="2">III</th>
+                                        <th colspan="2">IV</th>
+                                        <th colspan="2">V</th>
+                                        <th colspan="2">VI</th>
+                                        <th colspan="2">VII</th>
+                                        <th colspan="2">VIII</th>
+                                    </tr>
+                                    <tr style="text-align: center;">
+                                        <th></th>
+                                        <th *ngFor="let enrol of studenrollhead" [pSortableColumn]="enrol.field" pResizableColumn style="text-align: center;">
+                                            {{enrol.header}}
+                                        </th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-row>
+                                    <tr>
+                                        <td><strong> In Private unaided and specified category schools under section 12(1)(c)  </strong></td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_pvt_c0_b">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_pvt_c0_b.errors && (submitted || form.controls.rte_pvt_c0_b.dirty || form.controls.rte_pvt_c0_b.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_pvt_c0_g">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_pvt_c0_g.errors && (submitted || form.controls.rte_pvt_c0_g.dirty || form.controls.rte_pvt_c0_g.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_pvt_c1_b">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_pvt_c1_b.errors && (submitted || form.controls.rte_pvt_c1_b.dirty || form.controls.rte_pvt_c1_b.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_pvt_c1_g">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_pvt_c1_g.errors && (submitted || form.controls.rte_pvt_c1_g.dirty || form.controls.rte_pvt_c1_g.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_pvt_c2_b">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_pvt_c2_b.errors && (submitted || form.controls.rte_pvt_c2_b.dirty || form.controls.rte_pvt_c2_b.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_pvt_c2_g">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_pvt_c2_g.errors && (submitted || form.controls.rte_pvt_c2_g.dirty || form.controls.rte_pvt_c2_g.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_pvt_c3_b">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_pvt_c3_b.errors && (submitted || form.controls.rte_pvt_c3_b.dirty || form.controls.rte_pvt_c3_b.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_pvt_c3_g">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_pvt_c3_g.errors && (submitted || form.controls.rte_pvt_c3_g.dirty || form.controls.rte_pvt_c3_g.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_pvt_c4_b">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_pvt_c4_b.errors && (submitted || form.controls.rte_pvt_c4_b.dirty || form.controls.rte_pvt_c4_b.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_pvt_c4_g">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_pvt_c4_g.errors && (submitted || form.controls.rte_pvt_c4_g.dirty || form.controls.rte_pvt_c4_g.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_pvt_c5_b">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_pvt_c5_b.errors && (submitted || form.controls.rte_pvt_c5_b.dirty || form.controls.rte_pvt_c5_b.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_pvt_c5_g">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_pvt_c5_g.errors && (submitted || form.controls.rte_pvt_c5_g.dirty || form.controls.rte_pvt_c5_g.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_pvt_c6_b">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_pvt_c6_b.errors && (submitted || form.controls.rte_pvt_c6_b.dirty || form.controls.rte_pvt_c6_b.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_pvt_c6_g">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_pvt_c6_g.errors && (submitted || form.controls.rte_pvt_c6_g.dirty || form.controls.rte_pvt_c6_g.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_pvt_c7_b">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_pvt_c7_b.errors && (submitted || form.controls.rte_pvt_c7_b.dirty || form.controls.rte_pvt_c7_b.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_pvt_c7_g">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_pvt_c7_g.errors && (submitted || form.controls.rte_pvt_c7_g.dirty || form.controls.rte_pvt_c7_g.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_pvt_c8_b">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_pvt_c8_b.errors && (submitted || form.controls.rte_pvt_c8_b.dirty || form.controls.rte_pvt_c8_b.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_pvt_c8_g">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_pvt_c8_g.errors && (submitted || form.controls.rte_pvt_c8_g.dirty || form.controls.rte_pvt_c8_g.touched)"></p-message>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th>No. of Economically Weaker Section*(EWS) students enrolled in Schools that have received land, building, equipment or other facilities at concessional rate:<span style="color:#dd4b39;">*</span></th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <p-table [value]="economicweakersecbody" [rows]="1" [scrollable]="true" [totalRecords]="90" scrollHeight="100px" [lazy]="true">
+                                <ng-template pTemplate="colgroup">
+                                    <colgroup>
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                        <col [style.width]="'100px'">
+                                    </colgroup>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr style="text-align: center;">
+                                        <th colspan="2">Pre Primary</th>
+                                        <th colspan="2">Class I</th>
+                                        <th colspan="2">Class II</th>
+                                        <th colspan="2">Class III</th>
+                                        <th colspan="2">Class IV</th>
+                                        <th colspan="2">Class V</th>
+                                        <th colspan="2">Class VI</th>
+                                        <th colspan="2">Class VII</th>
+                                        <th colspan="2">Class VIII</th>
+                                        <th colspan="2">Class IX</th>
+                                        <th colspan="2">Class X</th>
+                                        <th colspan="2">Class XI</th>
+                                        <th colspan="2">Class XII</th>
+                                    </tr>
+                                    <tr style="text-align: center;">
+                                        <th *ngFor="let enrol of economicweakersec" [pSortableColumn]="enrol.field" pResizableColumn style="text-align: center;" [style.width]="'100px'">
+                                            {{enrol.header}}
+                                        </th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-row>
+                                    <tr>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_bld_c0_b">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_bld_c0_b.errors && (submitted || form.controls.rte_bld_c0_b.dirty || form.controls.rte_bld_c0_b.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_bld_c0_g">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_bld_c0_g.errors && (submitted || form.controls.rte_bld_c0_g.dirty || form.controls.rte_bld_c0_g.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_bld_c1_b">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_bld_c1_b.errors && (submitted || form.controls.rte_bld_c1_b.dirty || form.controls.rte_bld_c1_b.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_bld_c1_g">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_bld_c1_g.errors && (submitted || form.controls.rte_bld_c1_g.dirty || form.controls.rte_bld_c1_g.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_bld_c2_b">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_bld_c2_b.errors && (submitted || form.controls.rte_bld_c2_b.dirty || form.controls.rte_bld_c2_b.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_bld_c2_g">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_bld_c2_g.errors && (submitted || form.controls.rte_bld_c2_g.dirty || form.controls.rte_bld_c2_g.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_bld_c3_b">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_bld_c3_b.errors && (submitted || form.controls.rte_bld_c3_b.dirty || form.controls.rte_bld_c3_b.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_bld_c3_g">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_bld_c3_g.errors && (submitted || form.controls.rte_bld_c3_g.dirty || form.controls.rte_bld_c3_g.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_bld_c4_b">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_bld_c4_b.errors && (submitted || form.controls.rte_bld_c4_b.dirty || form.controls.rte_bld_c4_b.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_bld_c4_g">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_bld_c4_g.errors && (submitted || form.controls.rte_bld_c4_g.dirty || form.controls.rte_bld_c4_g.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_bld_c5_b">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_bld_c5_b.errors && (submitted || form.controls.rte_bld_c5_b.dirty || form.controls.rte_bld_c5_b.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_bld_c5_g">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_bld_c5_g.errors && (submitted || form.controls.rte_bld_c5_g.dirty || form.controls.rte_bld_c5_g.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_bld_c6_b">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_bld_c6_b.errors && (submitted || form.controls.rte_bld_c6_b.dirty || form.controls.rte_bld_c6_b.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_bld_c6_g">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_bld_c6_g.errors && (submitted || form.controls.rte_bld_c6_g.dirty || form.controls.rte_bld_c6_g.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_bld_c7_b">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_bld_c7_b.errors && (submitted || form.controls.rte_bld_c7_b.dirty || form.controls.rte_bld_c7_b.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_bld_c7_g">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_bld_c7_g.errors && (submitted || form.controls.rte_bld_c7_g.dirty || form.controls.rte_bld_c7_g.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_bld_c8_b">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_bld_c8_b.errors && (submitted || form.controls.rte_bld_c8_b.dirty || form.controls.rte_bld_c8_b.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_bld_c8_g">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_bld_c8_g.errors && (submitted || form.controls.rte_bld_c8_g.dirty || form.controls.rte_bld_c8_g.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_ews_c9_b">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_ews_c9_b.errors && (submitted || form.controls.rte_ews_c9_b.dirty || form.controls.rte_ews_c9_b.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_ews_c9_g">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_ews_c9_g.errors && (submitted || form.controls.rte_ews_c9_g.dirty || form.controls.rte_ews_c9_g.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_ews_c10_b">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_ews_c10_b.errors && (submitted || form.controls.rte_ews_c10_b.dirty || form.controls.rte_ews_c10_b.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_ews_c10_g">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_ews_c10_g.errors && (submitted || form.controls.rte_ews_c10_g.dirty || form.controls.rte_ews_c10_g.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_ews_c11_b">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_ews_c11_b.errors && (submitted || form.controls.rte_ews_c11_b.dirty || form.controls.rte_ews_c11_b.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_ews_c11_g">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_ews_c11_g.errors && (submitted || form.controls.rte_ews_c11_g.dirty || form.controls.rte_ews_c11_g.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_ews_c12_b">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_ews_c12_b.errors && (submitted || form.controls.rte_ews_c12_b.dirty || form.controls.rte_ews_c12_b.touched)"></p-message>
+                                        </td>
+                                        <td><input type="text" pInputText pKeyFilter="num" value="" class="form-control" formControlName="rte_ews_c12_g">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.rte_ews_c12_g.errors && (submitted || form.controls.rte_ews_c12_g.dirty || form.controls.rte_ews_c12_g.touched)"></p-message>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                            <!-- <p-table [columns]="economicweakersec" [value]="economicweakersecbody">
+                        <ng-template pTemplate="header" let-columns>
+                            <tr style="text-align: center;">
+                                <th colspan="2">Pre Primary</th>
+                                <th colspan="2">Class I</th>
+                                <th colspan="2">Class II</th>
+                                <th colspan="2">Class  III</th>
+                                <th colspan="2">Class IV</th>
+                                <th colspan="2">Class V</th>
+                                <th colspan="2">Class VI</th>
+                                <th colspan="2">Class VII</th>
+                                <th colspan="2">Class VIII</th>
+                                <th colspan="2">Class IX</th>
+                                <th colspan="2">Class X</th>
+                                <th colspan="2">Class XI</th>
+                                <th colspan="2">Class XII</th>
+                            </tr> 
+                            <tr style="text-align: center;">
+                              <th  *ngFor="let enrol of economicweakersec" [pSortableColumn]="enrol.field" pResizableColumn style="text-align: center;"> 
+                                {{enrol.header}}
+                              </th> 
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body"  let-i="rowIndex">
+                            <tr>
+                                <td *ngFor="let cnt of economicweakersec"><input type="text" value="" class="form-control"></td>
+                            </tr>
+                        </ng-template>
+                    </p-table> -->
+                        </div>
+
+
+
+                        <div class="form-group col-md-12">
+
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th>When does the Academic Session start? Please indicate the month: <span style="color:#dd4b39;">*</span></th>
+                                        <th>
+                                            <p-dropdown placeholder="Please Select" [options]="month" formControlName="acad_mnth_start" class="flex-dropdown"></p-dropdown>
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.acad_mnth_start.errors && (submitted || form.controls.acad_mnth_start.dirty || form.controls.acad_mnth_start.touched)">
+                                            </p-message>
+                                        </th>
+                                        <th></th>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="form-group col-md-12">
+
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th>Whether full set of textbook received in current academic year ?</th>
+                                        <th>
+                                            <p-radioButton name="txtbk_recd_yn" formControlName="txtbk_recd_yn" value="1" label="Yes" (click)="txtbkRecdYn(form.value.txtbk_recd_yn)"></p-radioButton>
+                                            <p-radioButton name="txtbk_recd_yn" formControlName="txtbk_recd_yn" value="2" label="No" (click)="txtbkRecdYn(form.value.txtbk_recd_yn)"></p-radioButton>
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.txtbk_recd_yn.errors && (submitted || form.controls.txtbk_recd_yn.dirty || form.controls.txtbk_recd_yn.touched)">
+                                            </p-message>
+                                        </th>
+                                    </tr>
+                                    <tr *ngIf="form.value.txtbk_recd_yn == '1' ">
+                                        <th>if, Yes when were the textbook received in current academic year?(Month)</th>
+                                        <th>
+                                            <p-dropdown placeholder="Please Select" [options]="month" formControlName="txtbk_recd_mon" class="flex-dropdown"></p-dropdown>
+                                            <!-- <input type="text" pKeyFilter="pnum" pInputText formControlName="txtbk_recd_mon" class="form-control" maxlength="4"> -->
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.txtbk_recd_mon.errors && (submitted || form.controls.txtbk_recd_mon.dirty || form.controls.txtbk_recd_mon.touched)">
+                                            </p-message>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th colspan="2">
+                                            Whether any child enrolled in the School is attending Special Training? <span style="color:#dd4b39;">*</span>
+
+                                        </th>
+                                        <th>
+                                            <p-radioButton name="special_train" value="1" formControlName="special_train" (click)="trainingAttendChange(form.value.special_train)" label="Yes"></p-radioButton>
+                                            <p-radioButton name="special_train" value="2" formControlName="special_train" label="No" (click)="trainingAttendChange(form.value.special_train)"></p-radioButton>
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.special_train.errors && (submitted || form.controls.special_train.dirty || form.controls.special_train.touched)">
+                                            </p-message>
+                                            <!--uppri_schl int(11) schoolnew_academicinfo2-->
+                                        </th>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="form-group col-md-12" *ngIf="form.value.special_train == '1'">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th></th>
+                                        <th>Boys</th>
+                                        <th>Girls</th>
+                                    </tr>
+                                    <tr>
+                                        <th>No. of children provided Special Training in the Current Academic Year</th>
+                                        <th>
+                                            <input type="text" pKeyFilter="pnum" maxlength="2" class="form-control" formControlName="train_prov_boys">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.train_prov_boys.errors && (submitted || form.controls.train_prov_boys.dirty || form.controls.train_prov_boys.touched)">
+                                            </p-message>
+                                        </th>
+                                        <th><input type="text" pKeyFilter="pnum" maxlength="2" class="form-control" formControlName="train_prov_grls">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.train_prov_grls.errors && (submitted || form.controls.train_prov_grls.dirty || form.controls.train_prov_grls.touched)">
+                                            </p-message>
+                                        </th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>No of children enrolled for Special Training in Previous academic year</th>
+                                        <th>
+                                            <input type="text" pKeyFilter="pnum" maxlength="2" class="form-control" formControlName="spltrg_py_enrol_b">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.spltrg_py_enrol_b.errors && (submitted || form.controls.spltrg_py_enrol_b.dirty || form.controls.spltrg_py_enrol_b.touched)">
+                                            </p-message>
+                                        </th>
+                                        <th><input type="text" pKeyFilter="pnum" maxlength="2" class="form-control" formControlName="spltrg_py_enrol_g">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.spltrg_py_enrol_g.errors && (submitted || form.controls.spltrg_py_enrol_g.dirty || form.controls.spltrg_py_enrol_g.touched)">
+                                            </p-message>
+                                        </th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>No of children completed Special Training in Previous academic year</th>
+                                        <th>
+                                            <input type="text" pKeyFilter="pnum" maxlength="2" class="form-control" formControlName="spltrg_py_prov_b">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.spltrg_py_prov_b.errors && (submitted || form.controls.spltrg_py_prov_b.dirty || form.controls.spltrg_py_prov_b.touched)">
+                                            </p-message>
+                                        </th>
+                                        <th><input type="text" pKeyFilter="pnum" maxlength="2" class="form-control" formControlName="spltrg_py_prov_g">
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.spltrg_py_prov_g.errors && (submitted || form.controls.spltrg_py_prov_g.dirty || form.controls.spltrg_py_prov_g.touched)">
+                                            </p-message>
+                                        </th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Special Training is conducted by?</th>
+                                        <th>
+                                            <p-dropdown placeholder="Please Select" [options]="trainingCondBy" formControlName="train_cond_by" class="flex-dropdown"></p-dropdown>
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.train_cond_by.errors && (submitted || form.controls.train_cond_by.dirty || form.controls.train_cond_by.touched)">
+                                            </p-message>
+                                        </th>
+                                        <!--<th id="ifothersth_0"><input type="text" maxlength="100" id="ifothers_0" name="ifothers_0" onkeypress="return  event.charCode >= 97 && event.charCode <= 122 || event.charCode >= 65 && event.charCode <= 90 || event.charCode == 32" class="form-control"></th>-->
+                                    </tr>
+                                    <tr>
+                                        <th>Special Training is conducted in </th>
+                                        <th>
+                                            <p-dropdown placeholder="Please Select" [options]="trainingLocation" formControlName="train_cond_in" class="flex-dropdown"></p-dropdown>
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.train_cond_in.errors && (submitted || form.controls.train_cond_in.dirty || form.controls.train_cond_in.touched)">
+                                            </p-message>
+
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <th>Type of Training being conducted</th>
+                                        <th>
+                                            <p-dropdown placeholder="Please Select" [options]="trainingType" formControlName="train_type" class="flex-dropdown"></p-dropdown>
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.train_type.errors && (submitted || form.controls.train_type.dirty || form.controls.train_type.touched)">
+                                            </p-message>
+                                        </th>
+                                        <th></th>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th colspan="2">
+                                            Does the school provide Psychological counselling to the students? <span style="color:#dd4b39;">*</span>
+                                        </th>
+                                        <th>
+                                            <p-radioButton name="stu_councel" formControlName="stu_councel" value="1" label="Yes"></p-radioButton>
+                                            <p-radioButton name="stu_councel" formControlName="stu_councel" value="2" label="No"></p-radioButton>
+                                            <p-message severity="error" text="Field is required" *ngIf="form.controls.stu_councel.errors && (submitted || form.controls.stu_councel.dirty || form.controls.stu_councel.touched)">
+                                            </p-message>
+                                        </th>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-lg-12">
+                            <label style="text-align: center;font-weight: bold;
+                         color: black;"> Club Details</label>
+                        </div>
+                        <div class="flex-column">
+
+
+                            <div formArrayName="clubDetails" *ngFor="let clubDetails of form.get('clubDetails')['controls']; let i = index" class="flex-gap-bottom flex-column">
+                                <div [formGroupName]="i">
+                                    <div class="col-lg-12 row">
+
+                                        <div class="col-lg-2">
+
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <p-dropdown [options]="clubList" formControlName="extra_cc" (onChange)="chooseClub($event,i)" placeholder="Choose"></p-dropdown>
+                                            <p-message severity="error" text="Field is required" *ngIf="clubDetails.controls.extra_cc.errors && (submitted || clubEntryInvalid || clubDetails.controls.extra_cc.dirty || clubDetails.controls.extra_cc.touched)"></p-message>
+                                        </div>
+
+
+                                        <div class="col-lg-4">
+                                            <input type="text" *ngIf="clubDetails.value.extra_cc == '-1'" formControlName="other_cc" class="form-control">
+                                            <p-message severity="error" text="Field is required" *ngIf="clubDetails.controls.other_cc.errors && (submitted || clubEntryInvalid || clubDetails.controls.other_cc.dirty || clubDetails.controls.other_cc.touched)"></p-message>
+                                        </div>
+
+
+
+
+
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                            <div class="row m-3">
+                                <button pButton type="button" icon="pi pi-plus" (click)="addClubEntry()" class="flex-gap-left flex-gap-right" iconPos="left"></button>
+                                <button pButton type="button" icon="pi pi-minus" (click)="removeClubEntry()" iconPos="left"></button>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <!-- <table class="table">
+                            <tbody><tr>
+                                <th>Club Details</th>
+                             <th></th>
+                            </tr> 
+                            <tr>
+                                <th style="width: 281px;">
+                                    <p-dropdown [options]="clubList" formControlName="club_details" styleClass="select_dropdown"  placeholder="Choose"></p-dropdown>
+                                    <p-message severity="error"
+                                    text="Field is required"
+                                    *ngIf="form.controls.club_details.errors && (submitted || form.controls.club_details.dirty || form.controls.club_details.touched)">
+                                </p-message>
+                                </th>
+                                <th>   <input type="text" *ngIf="isShowOthers" formControlName="other_ans" class="form-control">
+                                    <p-message severity="error"
+                                    text="Field is required"
+                                    *ngIf="form.controls.other_ans.errors && (submitted || form.controls.other_ans.dirty || form.controls.other_ans.touched)">
+                                </p-message>
+                                </th>
+                            </tr>
+                        </tbody></table> -->
+                        </div>
+                        <div class="title-layout flex-gap-bottom">
+                            <span class="caption-subject text-white sbold uppercase">School Safety</span>
+                        </div>
+                        <div class="col-lg-12 row">
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <label class="label ">Whether the School Disaster Management Plan (SDMP) has been developed ?</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="sdmp_dev" formControlName="sdmp_dev" value="1" label="Yes"></p-radioButton>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="sdmp_dev" formControlName="sdmp_dev" value="2" label="No" class="ml-2"></p-radioButton>
+                                    <p-message severity="error" text="Field is required" *ngIf="form.controls.sdmp_dev.errors && (submitted || form.controls.sdmp_dev.dirty || form.controls.sdmp_dev.touched)"></p-message>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 row">
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <label class="label ">Whether Structural Safety Audit has been conducted ?</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="sturct_saf" formControlName="sturct_saf" value="1" label="Yes"></p-radioButton>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="sturct_saf" formControlName="sturct_saf" value="2" label="No" class="ml-2"></p-radioButton>
+                                    <p-message severity="error" text="Field is required" *ngIf="form.controls.sturct_saf.errors && (submitted || form.controls.sturct_saf.dirty || form.controls.sturct_saf.touched)"></p-message>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 row">
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <label class="label ">Whether Non- structural Safety Audit has been conducted ?</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="nonsturct_saf" formControlName="nonsturct_saf" value="1" label="Yes" label="Yes"></p-radioButton>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="nonsturct_saf" formControlName="nonsturct_saf" value="2" label="Yes" label="No" class="ml-2"></p-radioButton>
+                                    <p-message severity="error" text="Field is required" *ngIf="form.controls.nonsturct_saf.errors && (submitted || form.controls.nonsturct_saf.dirty || form.controls.nonsturct_saf.touched)"></p-message>
+                                </div>
+                            </div>
+                        </div><br>
+                        <div class="col-lg-12 row">
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <label class="label ">Whether CCTV Cameras available in school ?</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="cctv_school" formControlName="cctv_school" value="1" label="Yes"></p-radioButton>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="cctv_school" formControlName="cctv_school" value="2" label="No" class="ml-2"></p-radioButton>
+                                    <p-message severity="error" text="Field is required" *ngIf="form.controls.cctv_school.errors && (submitted || form.controls.cctv_school.dirty || form.controls.cctv_school.touched)"></p-message>
+                                </div>
+                            </div>
+                        </div><br>
+                        <div class="col-lg-12 row">
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <label class="label ">Whether Fire Extinguishers are installed ?</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="firext_schl" formControlName="firext_schl" value="1" label="Yes"></p-radioButton>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="firext_schl" formControlName="firext_schl" value="2" label="No" class="ml-2"></p-radioButton>
+                                    <p-message severity="error" text="Field is required" *ngIf="form.controls.firext_schl.errors && (submitted || form.controls.firext_schl.dirty || form.controls.firext_schl.touched)"></p-message>
+                                </div>
+                            </div>
+                        </div><br>
+                        <div class="col-lg-12 row">
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <label class="label ">Does the school have a nodal teacher for school safety ?</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="nodtchr_schlsaf" formControlName="nodtchr_schlsaf" value="1" label="Yes"></p-radioButton>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="nodtchr_schlsaf" formControlName="nodtchr_schlsaf" value="2" label="No" class="ml-2"></p-radioButton>
+                                    <p-message severity="error" text="Field is required" *ngIf="form.controls.nodtchr_schlsaf.errors && (submitted || form.controls.nodtchr_schlsaf.dirty || form.controls.nodtchr_schlsaf.touched)"></p-message>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 row">
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <label class="label ">Whether students and teachers undergo regular training in school safety and disaster preparedness ?</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="dister_trng" formControlName="dister_trng" value="1" label="Yes"></p-radioButton>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="dister_trng" formControlName="dister_trng" value="2" label="No" class="ml-2"></p-radioButton>
+                                    <p-message severity="error" text="Field is required" *ngIf="form.controls.dister_trng.errors && (submitted || form.controls.dister_trng.dirty || form.controls.dister_trng.touched)"></p-message>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 row">
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <label class="label">Whether disaster management is being taught as part of the curriculum ?</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="dister_part" formControlName="dister_part" value="1" label="Yes"></p-radioButton>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="dister_part" formControlName="dister_part" value="2" label="No" class="ml-2"></p-radioButton>
+                                    <p-message severity="error" text="Field is required" *ngIf="form.controls.dister_part.errors && (submitted || form.controls.dister_part.dirty || form.controls.dister_part.touched)"></p-message>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 row">
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <label class="label">Whether school has received grant for Self Defense Training for Girls?</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="slfdfse_trng" formControlName="slfdfse_trng" value="1" label="Yes" (click)="trainForGirls(form.value.slfdfse_trng)"></p-radioButton>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="slfdfse_trng" formControlName="slfdfse_trng" value="2" label="No" (click)="trainForGirls(form.value.slfdfse_trng)"></p-radioButton>
+                                    <p-message severity="error" text="Field is required" *ngIf="form.controls.slfdfse_trng.errors && (submitted || form.controls.slfdfse_trng.dirty || form.controls.slfdfse_trng.touched)"></p-message>
+                                </div>
+                            </div>
+                        </div><br>
+                        <div class="col-lg-12 row" *ngIf="form.value.slfdfse_trng == '1' ">
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <label class="label ">No. of students provided training (provide actual number of student trained)        </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <input type="text" pKeyFilter="pnum" maxlength="3" pInputText formControlName="noslfdfse_trng" class="form-control">
+                                    <p-message severity="error" text="Field is required" *ngIf="form.controls.noslfdfse_trng.errors && (submitted || form.controls.noslfdfse_trng.dirty || form.controls.noslfdfse_trng.touched)">
+                                    </p-message>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-12 row">
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <label class="label ">Whether the school has displayed safety guidelines on display board?</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="guidline_disply_brd" formControlName="guidline_disply_brd" value="1" label="Yes"></p-radioButton>
+                                    <p-message severity="error" text="Field is required" *ngIf="form.controls.guidline_disply_brd.errors && (submitted || form.controls.guidline_disply_brd.dirty || form.controls.guidline_disply_brd.touched)"></p-message>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="guidline_disply_brd" formControlName="guidline_disply_brd" value="2" label="No" class="ml-2"></p-radioButton>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 row">
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <label class="label ">Whether all teachers have received  grant for working as first level counselors? (Only for government schools)</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="grnt_frstlvl_conslrs" formControlName="grnt_frstlvl_conslrs" value="1" label="Yes" (click)="allTeachers(form.value.grnt_frstlvl_conslrs)"></p-radioButton>
+                                    <p-message severity="error" text="Field is required" *ngIf="form.controls.grnt_frstlvl_conslrs.errors && (submitted || form.controls.grnt_frstlvl_conslrs.dirty || form.controls.grnt_frstlvl_conslrs.touched)"></p-message>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="grnt_frstlvl_conslrs" formControlName="grnt_frstlvl_conslrs" value="2" label="No" class="ml-2" (click)="allTeachers(form.value.grnt_frstlvl_conslrs)"></p-radioButton>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-12 row" *ngIf="form.value.grnt_frstlvl_conslrs == '1' ">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="label" style="color:#5c62a9;font-weight:bold">Whether the school has carried out the following Activities?</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 row" *ngIf="form.value.grnt_frstlvl_conslrs == '1' ">
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <label class="label">Guidelines & Counselling</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="guidlins_counsling" formControlName="guidlins_counsling" value="1" label="Yes"></p-radioButton>
+                                    <p-message severity="error" text="Field is required" *ngIf="form.controls.guidlins_counsling.errors && (submitted || form.controls.guidlins_counsling.dirty || form.controls.guidlins_counsling.touched)"></p-message>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="guidlins_counsling" formControlName="guidlins_counsling" value="2" label="No" class="ml-2"></p-radioButton>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 row" *ngIf="form.value.grnt_frstlvl_conslrs == '1' ">
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <label class="label ">Sensitization of parents</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="sensitiz_parnts" formControlName="sensitiz_parnts" value="1" label="Yes"></p-radioButton>
+                                    <p-message severity="error" text="Field is required" *ngIf="form.controls.sensitiz_parnts.errors && (submitted || form.controls.sensitiz_parnts.dirty || form.controls.sensitiz_parnts.touched)"></p-message>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="sensitiz_parnts" formControlName="sensitiz_parnts" value="2" label="No" class="ml-2"></p-radioButton>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-12 row" *ngIf="form.value.grnt_frstlvl_conslrs == '1' ">
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <label class="label ">Awareness generation for students and community</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="awrnss_studscomm" formControlName="awrnss_studscomm" value="1" label="Yes"></p-radioButton>
+                                    <p-message severity="error" text="Field is required" *ngIf="form.controls.awrnss_studscomm.errors && (submitted || form.controls.awrnss_studscomm.dirty || form.controls.awrnss_studscomm.touched)"></p-message>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="awrnss_studscomm" formControlName="awrnss_studscomm" value="2" label="No" class="ml-2"></p-radioButton>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-12 row" *ngIf="form.value.grnt_frstlvl_conslrs == '1' ">
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <label class="label ">Provision for taking feedback of the students</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="studs_feedbck" formControlName="studs_feedbck" value="1" label="Yes"></p-radioButton>
+                                    <p-message severity="error" text="Field is required" *ngIf="form.controls.studs_feedbck.errors && (submitted || form.controls.studs_feedbck.dirty || form.controls.studs_feedbck.touched)"></p-message>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="studs_feedbck" formControlName="studs_feedbck" value="2" label="No" class="ml-2"></p-radioButton>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 row" *ngIf="form.value.grnt_frstlvl_conslrs == '1' ">
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <label class="label ">Suggestions/Complaint bos in the schools</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="safty_sugstn" formControlName="safty_sugstn" value="1" label="Yes"></p-radioButton>
+                                    <p-message severity="error" text="Field is required" *ngIf="form.controls.safty_sugstn.errors && (submitted || form.controls.safty_sugstn.dirty || form.controls.safty_sugstn.touched)"></p-message>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="safty_sugstn" formControlName="safty_sugstn" value="2" label="No" class="ml-2"></p-radioButton>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-12 row" *ngIf="form.value.grnt_frstlvl_conslrs == '1' ">
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <label class="label ">Providing copies of safety guidelines to the students</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="copies_studs" formControlName="copies_studs" value="1" label="Yes"></p-radioButton>
+                                    <p-message severity="error" text="Field is required" *ngIf="form.controls.copies_studs.errors && (submitted || form.controls.copies_studs.dirty || form.controls.copies_studs.touched)"></p-message>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <p-radioButton name="copies_studs" formControlName="copies_studs" value="2" label="No" class="ml-2"></p-radioButton>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="text-center m-3">
+                <button type="submit" class="btn btn-success" (click)="save()">Save</button>
+
+                <button type="submit" class="btn btn-light btn-border">Cancel</button>
+            </div>
+            <!-- <div class="text-center m-3">
+            <button type="submit" class="btn btn-success" (click)="save()" [disabled]="schoolDetails.part_3 == 2">Save</button>
+            <button type="submit" class="btn btn-success" (click)="onFinalSubmit()" style="margin-left:15px;" [disabled]="schoolDetails.part_3 == 2">Final Submit</button>
+            <button type="submit" class="btn btn-light btn-border" [disabled]="schoolDetails.part_3 == 2">Cancel</button>
+         </div> -->
+            <p-confirmDialog header="Confirmation" [style]="{width: '50vw'}"></p-confirmDialog>
+        </form>
+    </div>
+</div>

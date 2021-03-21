@@ -1,0 +1,70 @@
+small{
+    font-weight: bold;
+    /* font-style: italic; */
+    color: red;
+}
+.input-group-text{
+    font-weight: bold;
+}
+
+.mandatory{
+    color: red;
+}
+
+/* p-panel{
+    border: 1px solid #2d7464 !important;
+    background-color: #2d7464 !important;
+    color: #ffffff !important;
+  } */
+  
+.responsive{
+  width: 100%;
+  height: auto;
+}
+  .hoverable{
+    position: relative;
+    display: flex;
+    cursor: pointer;
+    width: 200;
+    height: 200;
+    /* border: 5px solid #000; */
+    /* border-radius: 50%; */
+  }
+  .hoverable .hover-text{
+    position: absolute;
+    display: none;
+    width: 200;
+    height: 200;
+    transform: translate(-50%,-50%);   
+    z-index: 2;
+  }
+  .hoverable .background{
+    position: absolute;
+    display: none;
+    width: 200;
+    height: 200;
+    background-color:rgba(255, 255, 255, 0.5);
+    pointer-events: none;
+    z-index: 1;
+  }
+  i{
+    font-size: 87.5%;
+    color: #e83e8c;
+    text-align: center !important;
+    display: flex;
+  }
+
+  .hoverable:hover .hover-text{
+    display: block;
+  }
+  .hoverable:hover .background{
+    display: block;
+  }
+  
+  #fileInput{
+    display: none;
+  }
+  .button{
+    margin-left: 850px;
+
+  }

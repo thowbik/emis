@@ -1,0 +1,54 @@
+<div class="m-4">
+    <p-card >
+        <div class="container-fluid header_fonts">
+              <div class="row p-1">
+                <div class="col-sm-12">
+                    <div class="text-lg-left mt-3">
+                      <h5>SLAS Marks Range - SUBJECT : (TAMIL) Gender : (BOYS & GIRLS) DISTRICT_WISE</h5>
+                    </div>
+                </div>
+              </div>
+        </div>
+        <div>
+          <p-table [columns]="schlhead"  [value]="schliststudDetail">
+            <ng-template pTemplate="header" let-Datas>
+                <tr>
+                    <th class="sno-header-layout"></th>
+                    <th ></th>
+                    <th></th>
+                    <th *ngFor="let Data of schlhead" [pSortableColumn]="Data.field" [style.width]="Data.widthstyle"  colspan="2" style="text-align: center;">
+                      {{Data.header}}
+                      <p-sortIcon [field]="Data.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                    </th>
+                  </tr>
+                <tr>
+                  <th class="sno-header-layout">S.NO</th>
+                  <th *ngFor="let Data of schlbody" [pSortableColumn]="Data.field" [style.width]="Data.widthstyle">
+                    {{Data.header}}
+                    <p-sortIcon [field]="Data.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-schlist let-columns="columns" let-i="rowIndex">
+                <tr >
+                    <td>{{i+1}}</td>
+                    <td style="text-align: center;">{{schlist.school_name}}</td>
+                    <td style="text-align: center;">{{schlist.total}}</td>
+                    <td style="text-align: center;">{{schlist.p0}}</td>
+                    <td style="text-align: center;">{{schlist.per0}}%</td>
+                    <td style="text-align: center;">{{schlist.p1}}</td>
+                    <td style="text-align: center;">{{schlist.per1}}%</td>
+                    <td style="text-align: center;">{{schlist.p2}}</td>
+                    <td style="text-align: center;">{{schlist.per2}}%</td>
+                    <td style="text-align: center;">{{schlist.p3}}</td>
+                    <td style="text-align: center;">{{schlist.per3}}%</td>
+                    <td style="text-align: center;">{{schlist.p4}}</td>
+                    <td style="text-align: center;">{{schlist.per4}}%</td>
+                   
+                </tr>                                                                                                                           
+            </ng-template> 
+        </p-table>
+        </div>
+    </p-card>
+</div>
+

@@ -1,0 +1,1722 @@
+<div class="main-body-content" style="padding-left:1%;padding-right:1%;" *ngIf="usertypeId == 5 && DistVar === 0 && studentdistmark===0 && staffdistmark===0 || distback===2">
+    <p-card>
+        <label style="font-size:18px;font-weight:500;">Attendance Report</label>
+    </p-card>
+</div>
+
+<div class="main-body-content" style="padding-left:1%;padding-right:1%;" *ngIf="usertypeId == 5 && DistVar === 0 && studentdistmark===0 && staffdistmark === 0 || distback===2">
+    <div class="page-container">
+        <div class="flex-layout-gap">
+            <br>
+            <form [formGroup]="classsection">
+                <div class="row" style="margin-left:0px;margin-right:0px;">
+                    <div class="col-md-3">
+                        <div class="ui-inputgroup">
+                            <p-calendar formControlName="date" dateFormat="dd-mm-yy"></p-calendar>
+                            <span class="ui-inputgroup-addon" style="background-color:#007ad9;"><i
+                                    class="pi pi-calendar" style="color:white"></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="padding-left:10%;">
+                        <button type="button" style="background-color: #065040;" class="btn btn-success"
+                            (click)="getStaffDetails()">SUBMIT</button>
+                    </div>
+                </div>
+            </form>
+            <br>
+
+            <div class="has-chart">
+                <p-tabView>
+                    <p-tabPanel header="Student Attendance"><br>
+                        <p-fieldset [toggleable]="true">
+                            <p-header style="color:black;font-weight:500;font-size:15px">Category-wise School Count
+                            </p-header>
+                            <div class="main-body-content">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img">
+                                    <p-table #dt [columns]="sampleSelectedColumnScat" class="prime-table"
+                                        [value]="schoolcatdata" [style]="{'width':'250px !important'}"
+                                        [autoLayout]="true" [paginator]="false" [resizableColumns]="true" [rows]="10"
+                                        [scrollable]="true" scrollHeight="500px" scrollWidth="100px">
+                                        <!-- <ng-template pTemplate="caption">
+                                            <div class="row">
+                                                <div style="text-align:left" class="col-md-7"> -->
+                                                    <!-- <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <input type="text" pInputText size="20" placeholder="Search"
+                                                                (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                                                style="width:auto; height: 85%;border: gray 1px solid;border-radius: 2px;padding-left:2%;">
+                                                        </div>
+                                                    </div> -->
+                                                <!-- </div> -->
+                                                <!-- <div class="ui-helper-clearfix col-md-6" style="text-align: right">
+                                                                        <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL"
+                                                                            (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
+                                                                        <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF"
+                                                                            (click)="exportPdf()" class="ui-button-warning"></button>
+                                                                    </div> -->
+                                            <!-- </div>
+                                        </ng-template> -->
+                                        <ng-template pTemplate="header" let-columns>
+                                            <tr class="table-header">
+                                                <th style="width: 3em">#</th>
+                                                <th *ngFor="let col of columns" [pSortableColumn]="col.field"
+                                                    pResizableColumn>
+                                                    {{col.header}}
+                                                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                                                </th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-rowData let-columns="columns"
+                                            let-i="rowIndex">
+                                            <tr>
+                                                <td style="width: 3em">{{i+1}}</td>
+                                                <td>{{rowData.school_type}}</td>
+                                                <td style="text-align: center;">{{rowData.total_school}}</td>
+                                                <td style="text-align: center;">{{rowData.Fully_Marked}}</td>
+                                                <td style="text-align: center;">{{rowData.Partially_Marked}}</td>
+                                                <td style="text-align: center;">
+                                                    {{rowData.total_school-rowData.Fully_Marked-rowData.Partially_Marked}}
+                                                </td>
+                                                <td>
+                                                    <div class="progress">
+                                                        <div class="progress-bar" role="progressbar"
+                                                            style="background-color: green;font-size: 1 rem;"
+                                                            [style.width]="((rowData.Fully_Marked/rowData.total_school)*100).toFixed() + '%' ">
+                                                            {{((rowData.Fully_Marked/rowData.total_school)*100).toFixed()}}%
+                                                        </div>
+                                                        <div class="progress-bar" role="progressbar"
+                                                            style="background-color: blue;font-size: 1 rem;"
+                                                            [style.width]="((rowData.Partially_Marked/rowData.total_school)*100).toFixed() + '%' ">
+                                                            {{((rowData.Partially_Marked/rowData.total_school)*100).toFixed()}}%
+                                                        </div>
+                                                        <div class="progress-bar" role="progressbar"
+                                                            style="background-color: red;"
+                                                            [style.width]="(((rowData.total_school-rowData.Fully_Marked-rowData.Partially_Marked)/rowData.total_school)*100).toFixed() + '%' ">
+                                                            {{(((rowData.total_school-rowData.Fully_Marked-rowData.Partially_Marked)/rowData.total_school)*100).toFixed()}}%
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6"></div>
+                                    <div class="col-lg-2">
+                                        <div class="row">
+                                            <div class="col-lg-2 align-progress">
+                                                <div class="color-box-green" style="background-color: green;"></div>
+                                            </div>
+                                            <div class="col-lg-10">
+                                                <div style="padding-left: 5%;">Fully Marked</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="row">
+                                            <div class="col-lg-2 align-progress">
+                                                <div class="color-box-green" style="background-color: blue;"></div>
+                                            </div>
+                                            <div class="col-lg-10">
+                                                <div style="padding-left: 5%;">Partially Marked</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="row">
+                                            <div class="col-lg-2 align-progress">
+                                                <div class="color-box-green" style="background-color: red;"></div>
+                                            </div>
+                                            <div class="col-lg-10">
+                                                <div style="padding-left: 5%;">Not Marked</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </p-fieldset><br><br>
+                        <p-fieldset [toggleable]="true">
+                            <p-header style="color:black;font-weight:500;font-size:15px">District-wise School Count
+                            </p-header>
+                            <div class="main-body-content">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img">
+                                    <p-table #dt [columns]="sampleSelectedColumnSdist" class="prime-table"
+                                        [value]="schooldistdata" [style]="{'width':'250px !important'}"
+                                        [autoLayout]="true" [paginator]="false" [resizableColumns]="true" [rows]="10"
+                                        [scrollable]="true" scrollHeight="500px" scrollWidth="100px">
+                                        <!-- <ng-template pTemplate="caption">
+                                            <div class="row">
+                                                <div style="text-align:left" class="col-md-7">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <input type="text" pInputText size="20" placeholder="Search"
+                                                                (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                                                style="width:auto; height: 85%;border: gray 1px solid;border-radius: 2px;padding-left:2%;">
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+                                                <!-- <div class="ui-helper-clearfix col-md-6" style="text-align: right">
+                                                                            <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL"
+                                                                                (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
+                                                                            <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF"
+                                                                                (click)="exportPdf()" class="ui-button-warning"></button>
+                                                                        </div> -->
+                                            <!-- </div>
+                                        </ng-template> -->
+                                        <ng-template pTemplate="header" let-columns>
+                                            <tr class="table-header">
+
+                                                <th style="width: 3em">#</th>
+                                                <th *ngFor="let col of columns" [pSortableColumn]="col.field"
+                                                    pResizableColumn>
+                                                    {{col.header}}
+                                                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                                                </th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-rowData let-columns="columns"
+                                            let-i="rowIndex">
+                                            <tr>
+                                                <td style="width: 3em">{{i+1}}</td>
+
+                                                <td (click)="onDistrict(rowData,DistVar=2)" style="color:#337ab7;cursor: pointer;">
+                                                    {{rowData.district_name}}</td>
+                                                <td style="text-align: center;">{{rowData.total_school}}</td>
+                                                <td style="text-align: center;" class="align"
+                                                    >{{rowData.Fully_Marked_school}}</td>
+                                                <td style="text-align: center;" class="align" 
+                                                    >{{rowData.Partially_Marked_school}}</td>
+                                                <td style="text-align: center;" class="align" 
+                                                    >
+                                                    {{rowData.total_school-rowData.Fully_Marked_school-rowData.Partially_Marked_school}}
+                                                </td>
+                                                <!-- <td (click)="onDistrict(rowData,DistVar=2)" style="color:#337ab7;cursor: pointer;">
+                                                    {{rowData.district_name}}</td>
+                                                <td style="text-align: center;">{{rowData.total_school}}</td>
+                                                <td style="text-align: center;" class="align" style="color:#337ab7;cursor: pointer;"
+                                                    (click)="onFullyMarked(rowData,studentdistmark=2)">{{rowData.Fully_Marked_school}}</td>
+                                                <td style="text-align: center;" class="align" style="color:#337ab7;cursor: pointer;"
+                                                    (click)="onPartiallyMarked(rowData,studentdistmark=2)">{{rowData.Partially_Marked_school}}</td>
+                                                <td style="text-align: center;" class="align" style="color:#337ab7;cursor: pointer;"
+                                                    (click)="onNoMarked(rowData,studentdistmark=2)">
+                                                    {{rowData.total_school-rowData.Fully_Marked_school-rowData.Partially_Marked_school}}
+                                                </td> -->
+                                                <td>
+                                                    <div class="progress">
+                                                        <div class="progress-bar" role="progressbar"
+                                                            style="background-color: green;font-size: 1 rem;"
+                                                            [style.width]="((rowData.Fully_Marked_school/rowData.total_school)*100).toFixed() + '%' ">
+                                                            {{((rowData.Fully_Marked_school/rowData.total_school)*100).toFixed()}}%
+                                                        </div>
+                                                        <div class="progress-bar" role="progressbar"
+                                                            style="background-color: blue;font-size: 1 rem;"
+                                                            [style.width]="((rowData.Partially_Marked_school/rowData.total_school)*100).toFixed() + '%' ">
+                                                            {{((rowData.Partially_Marked_school/rowData.total_school)*100).toFixed()}}%
+                                                        </div>
+                                                        <div class="progress-bar" role="progressbar"
+                                                            style="background-color: red;"
+                                                            [style.width]="(((rowData.total_school-rowData.Fully_Marked_school-rowData.Partially_Marked_school)/rowData.total_school)*100).toFixed() + '%' ">
+                                                            {{(((rowData.total_school-rowData.Fully_Marked_school-rowData.Partially_Marked_school)/rowData.total_school)*100).toFixed()}}%
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6"></div>
+                                    <div class="col-lg-2">
+                                        <div class="row">
+                                            <div class="col-lg-2 align-progress">
+                                                <div class="color-box-green" style="background-color: green;"></div>
+                                            </div>
+                                            <div class="col-lg-10">
+                                                <div style="padding-left: 5%;">Fully Marked</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="row">
+                                            <div class="col-lg-2 align-progress">
+                                                <div class="color-box-green" style="background-color: blue;"></div>
+                                            </div>
+                                            <div class="col-lg-10">
+                                                <div style="padding-left: 5%;">Partially Marked</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="row">
+                                            <div class="col-lg-2 align-progress">
+                                                <div class="color-box-green" style="background-color: red;"></div>
+                                            </div>
+                                            <div class="col-lg-10">
+                                                <div style="padding-left: 5%;">Not Marked</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </p-fieldset>
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Staff Attendance"> <br>
+                        <p-fieldset [toggleable]="true">
+                            <p-header style="color:black;font-weight:500;font-size:15px">Category-wise School Count
+                            </p-header>
+                            <div class="main-body-content">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img">
+                                    <p-table #dt [columns]="sampleSelectedColumnTcat" class="prime-table"
+                                        [value]="teachercatdata" [style]="{'width':'250px !important'}"
+                                        [autoLayout]="true" [paginator]="false" [resizableColumns]="true" [rows]="10"
+                                        [scrollable]="true" scrollHeight="500px" scrollWidth="100px">
+                                        <!-- <ng-template pTemplate="caption">
+                                            <div class="row">
+                                                <div style="text-align:left" class="col-md-7">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <input type="text" pInputText size="20" placeholder="Search"
+                                                                (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                                                style="width:auto; height: 85%;border: gray 1px solid;border-radius: 2px;padding-left:2%;">
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+                                                <!-- <div class="ui-helper-clearfix col-md-6" style="text-align: right">
+                                                            <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL"
+                                                                (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
+                                                            <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF"
+                                                                (click)="exportPdf()" class="ui-button-warning"></button>
+                                                        </div> -->
+                                            <!-- </div>
+                                        </ng-template> -->
+                                        <ng-template pTemplate="header" let-columns>
+                                            <tr class="table-header">
+                                                <th style="width: 3em">#</th>
+                                                <th *ngFor="let col of columns" [pSortableColumn]="col.field"
+                                                    pResizableColumn>
+                                                    {{col.header}}
+                                                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                                                </th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-rowData let-columns="columns"
+                                            let-i="rowIndex">
+                                            <tr>
+
+                                                <td style="width: 3em">{{i+1}}</td>
+                                                <td>{{rowData.school_type}}</td>
+                                                <td style="text-align: center;">{{rowData.total_school}}</td>
+                                                <td style="text-align: center;">{{rowData.marked_school}}</td>
+                                                <td style="text-align: center;">
+                                                    {{rowData.total_school - rowData.marked_school}}</td>
+
+                                                <td>
+                                                    <div class="progress">
+                                                        <div class="progress-bar" role="progressbar"
+                                                            style="background-color: green;font-size: 1 rem;"
+                                                            [style.width]="((rowData.marked_school/rowData.total_school)*100).toFixed() + '%' ">
+                                                            {{((rowData.marked_school/rowData.total_school)*100).toFixed()}}%
+                                                        </div>
+                                                        <div class="progress-bar" role="progressbar"
+                                                            style="background-color: red;"
+                                                            [style.width]="(((rowData.total_school-rowData.marked_school)/rowData.total_school)*100).toFixed() + '%' ">
+                                                            {{(((rowData.total_school-rowData.marked_school)/rowData.total_school)*100).toFixed()}}%
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-7"></div>
+                                    <div class="col-lg-2">
+                                        <div class="row">
+                                            <div class="col-lg-2 align-progress">
+                                                <div class="color-box-green" style="background-color: green;"></div>
+                                            </div>
+                                            <div class="col-lg-10">
+                                                <div style="padding-left: 5%;">Marked Schools</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="row">
+                                            <div class="col-lg-1 align-progress">
+                                                <div class="color-box-green" style="background-color: red;"></div>
+                                            </div>
+                                            <div class="col-lg-10">
+                                                <div style="padding-left: 7%;">Not Marked schools</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </p-fieldset><br><br>
+                        <p-fieldset [toggleable]="true">
+                            <p-header style="color:black;font-weight:500;font-size:15px">District-wise School Count
+                            </p-header>
+                            <div class="main-body-content">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img">
+                                    <p-table #dt [columns]="sampleSelectedColumnTdist" class="prime-table"
+                                        [value]="teacherdistdata" [style]="{'width':'250px !important'}"
+                                        [autoLayout]="true" [paginator]="false" [resizableColumns]="true" [rows]="10"
+                                        [scrollable]="true" scrollHeight="500px" scrollWidth="100px">
+                                        <!-- <ng-template pTemplate="caption">
+                                            <div class="row">
+                                                <div style="text-align:left" class="col-md-7">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <input type="text" pInputText size="20" placeholder="Search"
+                                                                (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                                                style="width:auto; height: 85%;border: gray 1px solid;border-radius: 2px;padding-left:2%;">
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+                                                <!-- <div class="ui-helper-clearfix col-md-6" style="text-align: right">
+                                                                            <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL"
+                                                                                (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
+                                                                            <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF"
+                                                                                (click)="exportPdf()" class="ui-button-warning"></button>
+                                                                        </div> -->
+                                            <!-- </div>
+                                        </ng-template> -->
+                                        <ng-template pTemplate="header" let-columns>
+                                            <tr class="table-header">
+
+                                                <th style="width: 3em">#</th>
+                                                <th *ngFor="let col of columns" [pSortableColumn]="col.field"
+                                                    pResizableColumn>
+                                                    {{col.header}}
+                                                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                                                </th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-rowData let-columns="columns"
+                                            let-i="rowIndex">
+                                            <tr>
+                                                <td style="width: 3em">{{i+1}}</td>
+                                                <td (click)="onDistrict(rowData,DistVar=2)" style="color:#337ab7;cursor: pointer;">
+                                                    {{rowData.district_name}}</td>
+                                                <td style="text-align: center;">{{rowData.total_school}}</td>
+                                                <!-- <td style="text-align: center;color:#337ab7;cursor: pointer;"
+                                                    (click)="onStaffMarkedSchool(rowData,staffdistmark=2)">{{rowData.marked_school}}
+                                                </td>
+                                                <td style="text-align: center;color:#337ab7;cursor: pointer;"
+                                                    (click)="onStaffNotmarkedSchool(rowData,staffdistmark=2)">
+                                                    {{rowData.total_school - rowData.marked_school}}</td>
+
+                                                <td> -->
+                                                    <td style="text-align: center;"
+                                                    >{{rowData.marked_school}}
+                                                </td>
+                                                <td style="text-align: center;"
+                                                    >
+                                                    {{rowData.total_school - rowData.marked_school}}</td>
+
+                                                <td>
+                                                    <div class="progress">
+                                                        <div class="progress-bar" role="progressbar"
+                                                            style="background-color: green;font-size: 1 rem;"
+                                                            [style.width]="((rowData.marked_school/rowData.total_school)*100).toFixed() + '%' ">
+                                                            {{((rowData.marked_school/rowData.total_school)*100).toFixed()}}%
+                                                        </div>
+                                                        <div class="progress-bar" role="progressbar"
+                                                            style="background-color: red;"
+                                                            [style.width]="(((rowData.total_school-rowData.marked_school)/rowData.total_school)*100).toFixed() + '%' ">
+                                                            {{(((rowData.total_school-rowData.marked_school)/rowData.total_school)*100).toFixed()}}%
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-7"></div>
+                                    <div class="col-lg-2">
+                                        <div class="row">
+                                            <div class="col-lg-2 align-progress">
+                                                <div class="color-box-green" style="background-color: green;"></div>
+                                            </div>
+                                            <div class="col-lg-10">
+                                                <div style="padding-left: 5%;">Marked Schools</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="row">
+                                            <div class="col-lg-1 align-progress">
+                                                <div class="color-box-green" style="background-color: red;"></div>
+                                            </div>
+                                            <div class="col-lg-10">
+                                                <div style="padding-left: 7%;">Not Marked schools</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </p-fieldset>
+                    </p-tabPanel>
+
+                    <!-- <p-tabPanel header="Sample Tab">
+                    </p-tabPanel> -->
+
+                </p-tabView>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 
+block list -->
+
+
+<!-- <div class="main-body-content" style="padding-left:1%;padding-right:1%;" *ngIf="(usertypeId == 9 && blockVar === 0 && blockVarstaff===0 && stucateblock===0 && blockstaffmark===0) || (usertypeId == 10 && blockVar === 0 && blockVarstaff===0 && stucateblock===0 && blockstaffmark===0)  || (usertypeId == 5 && DistVar === 2 && blockVar === 0 && blockVarstaff===0 && stucateblock===0 && blockstaffmark===0)" > -->
+    <!-- <p-card>
+        <div class="row"> -->
+            <!-- <div style="text-align:center" class="col-lg-11">
+                <label style="font-size:20px;font-weight:500;">{{this.date}}</label>
+            </div> -->
+            <!-- <div class="col-lg-1" style="text-align: left;">
+                <button pButton type="button" icon="pi pi-arrow-left" class="ui-button-info" href="javascript:void(0)"
+                    (click)="onDistrictBack(distback=2)"></button>
+            </div> -->
+        <!-- </div>
+    </p-card> -->
+<!-- </div> -->
+
+
+<div class="main-body-content" style="padding-left:1%;padding-right:1%;" *ngIf="(usertypeId == 9 && blockVar === 0 && blockVarstaff===0 && stucateblock===0 && blockstaffmark===0) || (usertypeId == 10 && blockVar === 0 && blockVarstaff===0 && stucateblock===0 && blockstaffmark===0)  || (usertypeId == 5 && DistVar === 2 && blockVar === 0) && blockVarstaff===0 && stucateblock===0 && blockstaffmark===0">
+    <div class="page-container">
+        <div class="flex-layout-gap">
+            <div class="has-chart">
+                <p-tabView>
+                    <p-tabPanel header="Student Attendance"><br>
+                        <p-fieldset [toggleable]="true">
+                            <p-header style="color:black;font-weight:500;font-size:15px">Category-wise School Count
+                            </p-header>
+                            <div class="main-body-content">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img">
+                                    <p-table #dt [columns]="sampleSelectedColumnScat1" class="prime-table"
+                                        [value]="schoolcatdata1" [style]="{'width':'250px !important'}"
+                                        [autoLayout]="true" [paginator]="false" [resizableColumns]="true" [rows]="10"
+                                        [scrollable]="true" scrollHeight="500px" scrollWidth="100px">
+                                        <!-- <ng-template pTemplate="caption">
+                                            <div class="row">
+                                                <div style="text-align:left" class="col-md-7">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <input type="text" pInputText size="20" placeholder="Search"
+                                                                (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                                                style="width:auto; height: 85%;border: gray 1px solid;border-radius: 2px;padding-left:2%;">
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+                                                <!-- <div class="ui-helper-clearfix col-md-6" style="text-align: right">
+                                                                            <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL"
+                                                                                (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
+                                                                            <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF"
+                                                                                (click)="exportPdf()" class="ui-button-warning"></button>
+                                                                        </div> -->
+                                            <!-- </div>
+                                        </ng-template> -->
+                                        <ng-template pTemplate="header" let-columns>
+                                            <tr class="table-header">
+                                                <th style="width: 3em">#</th>
+                                                <th *ngFor="let col of columns" [pSortableColumn]="col.field"
+                                                    pResizableColumn>
+                                                    {{col.header}}
+                                                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                                                </th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-rowData let-columns="columns"
+                                            let-i="rowIndex">
+                                            <tr>
+                                                <td style="width: 3em">{{i+1}}</td>
+                                                <td>{{rowData.school_type}}</td>
+                                                <td style="text-align: center;">{{rowData.total_school}}</td>
+                                                <td style="text-align: center;"
+                                                >{{rowData.Fully_Marked}}</td>
+                                                <td style="text-align: center;"
+                                                >{{rowData.Partially_Marked}}</td>
+                                                <td style="text-align: center;"
+                                                >
+                                                    {{rowData.total_school-rowData.Fully_Marked-rowData.Partially_Marked}}
+                                                </td>
+                                                <!-- <td style="text-align: center;color:#337ab7;cursor: pointer;"
+                                                (click)="onFullyMarkedCate(rowData,stucateblock=2)">{{rowData.Fully_Marked}}</td>
+                                                <td style="text-align: center;color:#337ab7;cursor: pointer;"
+                                                (click)="onPartiallyMarkedCate(rowData,stucateblock=2)">{{rowData.Partially_Marked}}</td>
+                                                <td style="text-align: center;color:#337ab7;cursor: pointer;"
+                                                (click)="onNoMarkedCate(rowData,stucateblock=2)">
+                                                    {{rowData.total_school-rowData.Fully_Marked-rowData.Partially_Marked}}
+                                                </td> -->
+                                                <td>
+                                                    <div class="progress">
+                                                        <div class="progress-bar" role="progressbar"
+                                                            style="background-color: green;font-size: 1 rem;"
+                                                            [style.width]="((rowData.Fully_Marked/rowData.total_school)*100).toFixed() + '%' ">
+                                                            {{((rowData.Fully_Marked/rowData.total_school)*100).toFixed()}}%
+                                                        </div>
+                                                        <div class="progress-bar" role="progressbar"
+                                                            style="background-color: blue;font-size: 1 rem;"
+                                                            [style.width]="((rowData.Partially_Marked/rowData.total_school)*100).toFixed() + '%' ">
+                                                            {{((rowData.Partially_Marked/rowData.total_school)*100).toFixed()}}%
+                                                        </div>
+                                                        <div class="progress-bar" role="progressbar"
+                                                            style="background-color: red;"
+                                                            [style.width]="(((rowData.total_school-rowData.Fully_Marked-rowData.Partially_Marked)/rowData.total_school)*100).toFixed() + '%' ">
+                                                            {{(((rowData.total_school-rowData.Fully_Marked-rowData.Partially_Marked)/rowData.total_school)*100).toFixed()}}%
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6"></div>
+                                    <div class="col-lg-2">
+                                        <div class="row">
+                                            <div class="col-lg-2 align-progress">
+                                                <div class="color-box-green" style="background-color: green;"></div>
+                                            </div>
+                                            <div class="col-lg-10">
+                                                <div style="padding-left: 5%;">Fully Marked</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="row">
+                                            <div class="col-lg-2 align-progress">
+                                                <div class="color-box-green" style="background-color: blue;"></div>
+                                            </div>
+                                            <div class="col-lg-10">
+                                                <div style="padding-left: 5%;">Partially Marked</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="row">
+                                            <div class="col-lg-2 align-progress">
+                                                <div class="color-box-green" style="background-color: red;"></div>
+                                            </div>
+                                            <div class="col-lg-10">
+                                                <div style="padding-left: 5%;">Not Marked</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </p-fieldset><br><br>
+                        <p-fieldset [toggleable]="true">
+                            <p-header style="color:black;font-weight:500;font-size:15px">Block-wise School Count
+                            </p-header>
+                            <div class="main-body-content">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img">
+                                    <p-table #dt [columns]="sampleSelectedColumnSdist1" class="prime-table"
+                                        [value]="schooldistdata1" [style]="{'width':'250px !important'}"
+                                        [autoLayout]="true" [paginator]="false" [resizableColumns]="true" [rows]="10"
+                                        [scrollable]="true" scrollHeight="500px" scrollWidth="100px">
+                                        <!-- <ng-template pTemplate="caption">
+                                            <div class="row">
+                                                <div style="text-align:left" class="col-md-7">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <input type="text" pInputText size="20" placeholder="Search"
+                                                                (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                                                style="width:auto; height: 85%;border: gray 1px solid;border-radius: 2px;padding-left:2%;">
+                                                        </div>
+
+                                                    </div>
+                                                </div> -->
+                                                <!-- <div class="ui-helper-clearfix col-md-6" style="text-align: right">
+                                                                                <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL"
+                                                                                    (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
+                                                                                <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF"
+                                                                                    (click)="exportPdf()" class="ui-button-warning"></button>
+                                                                            </div> -->
+                                            <!-- </div>
+                                        </ng-template> -->
+                                        <ng-template pTemplate="header" let-columns>
+                                            <tr class="table-header">
+
+                                                <th style="width: 3em">#</th>
+                                                <th *ngFor="let col of columns" [pSortableColumn]="col.field"
+                                                    pResizableColumn>
+                                                    {{col.header}}
+                                                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                                                </th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-rowData let-columns="columns"
+                                            let-i="rowIndex">
+                                            <tr>
+                                                <td style="width: 3em">{{i+1}}</td>
+                                                <td style="color:#337ab7;cursor: pointer;" (click)="onStudentAttendance(rowData,blockVar= 2)">
+                                                    {{rowData.block_name}}</td>
+                                                <td style="text-align: center;">{{rowData.total_school}}</td>
+                                                <!-- <td style="text-align: center;color:#337ab7;cursor: pointer;"
+                                                    (click)="onFullyMarkedblock(rowData,blockstaffmark=2)">{{rowData.Fully_Marked_school}}
+                                                </td>
+                                                <td style="text-align: center;color:#337ab7;cursor: pointer;"
+                                                    (click)="onPartiallyMarkedblock(rowData,blockstaffmark=2)">
+                                                    {{rowData.Partially_Marked_school}}</td>
+                                                <td style="text-align: center;color:#337ab7;cursor: pointer;"
+                                                    (click)="onNoMarkedblock(rowData)">
+                                                    {{rowData.total_school-rowData.Fully_Marked_school-rowData.Partially_Marked_school}}
+                                                </td> -->
+                                                <td style="text-align: center;"
+                                                >{{rowData.Fully_Marked_school}}
+                                            </td>
+                                            <td style="text-align: center;"
+                                                >
+                                                {{rowData.Partially_Marked_school}}</td>
+                                            <td style="text-align: center;"
+                                              >
+                                                {{rowData.total_school-rowData.Fully_Marked_school-rowData.Partially_Marked_school}}
+                                            </td>
+                                                <td>
+                                                    <div class="progress">
+                                                        <div class="progress-bar" role="progressbar"
+                                                            style="background-color: green;font-size: 1 rem;"
+                                                            [style.width]="((rowData.Fully_Marked_school/rowData.total_school)*100).toFixed() + '%' ">
+                                                            {{((rowData.Fully_Marked_school/rowData.total_school)*100).toFixed()}}%
+                                                        </div>
+                                                        <div class="progress-bar" role="progressbar"
+                                                            style="background-color: blue;font-size: 1 rem;"
+                                                            [style.width]="((rowData.Partially_Marked_school/rowData.total_school)*100).toFixed() + '%' ">
+                                                            {{((rowData.Partially_Marked_school/rowData.total_school)*100).toFixed()}}%
+                                                        </div>
+                                                        <div class="progress-bar" role="progressbar"
+                                                            style="background-color: red;"
+                                                            [style.width]="(((rowData.total_school-rowData.Fully_Marked_school-rowData.Partially_Marked_school)/rowData.total_school)*100).toFixed() + '%' ">
+                                                            {{(((rowData.total_school-rowData.Fully_Marked_school-rowData.Partially_Marked_school)/rowData.total_school)*100).toFixed()}}%
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6"></div>
+                                    <div class="col-lg-2">
+                                        <div class="row">
+                                            <div class="col-lg-2 align-progress">
+                                                <div class="color-box-green" style="background-color: green;"></div>
+                                            </div>
+                                            <div class="col-lg-10">
+                                                <div style="padding-left: 5%;">Fully Marked</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="row">
+                                            <div class="col-lg-2 align-progress">
+                                                <div class="color-box-green" style="background-color: blue;"></div>
+                                            </div>
+                                            <div class="col-lg-10">
+                                                <div style="padding-left: 5%;">Partially Marked</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="row">
+                                            <div class="col-lg-2 align-progress">
+                                                <div class="color-box-green" style="background-color: red;"></div>
+                                            </div>
+                                            <div class="col-lg-10">
+                                                <div style="padding-left: 5%;">Not Marked</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </p-fieldset>
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Staff Attendance"> <br>
+                        <p-fieldset [toggleable]="true">
+                            <p-header style="color:black;font-weight:500;font-size:15px">Category-wise School Count
+                            </p-header>
+                            <div class="main-body-content">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img">
+                                    <p-table #dt [columns]="sampleSelectedColumnTcat1" class="prime-table"
+                                        [value]="teachercatdata1" [style]="{'width':'250px !important'}"
+                                        [autoLayout]="true" [paginator]="false" [resizableColumns]="true" [rows]="10"
+                                        [scrollable]="true" scrollHeight="500px" scrollWidth="100px">
+                                        <!-- <ng-template pTemplate="caption">
+                                            <div class="row">
+                                                <div style="text-align:left" class="col-md-7">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <input type="text" pInputText size="20" placeholder="Search"
+                                                                (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                                                style="width:auto; height: 85%;border: gray 1px solid;border-radius: 2px;padding-left:2%;">
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+                                                <!-- <div class="ui-helper-clearfix col-md-6" style="text-align: right">
+                                                                <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL"
+                                                                    (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
+                                                                <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF"
+                                                                    (click)="exportPdf()" class="ui-button-warning"></button>
+                                                            </div> -->
+                                            <!-- </div>
+                                        </ng-template> -->
+                                        <ng-template pTemplate="header" let-columns>
+                                            <tr class="table-header">
+                                                <th style="width: 3em">#</th>
+                                                <th *ngFor="let col of columns" [pSortableColumn]="col.field"
+                                                    pResizableColumn>
+                                                    {{col.header}}
+                                                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                                                </th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-rowData let-columns="columns"
+                                            let-i="rowIndex">
+                                            <tr>
+
+                                                <td style="width: 3em">{{i+1}}</td>
+                                                <td>{{rowData.school_type}}</td>
+                                                <td style="text-align: center;">{{rowData.total_school}}</td>
+                                                <td style="text-align: center;">{{rowData.marked_school}}</td>
+                                                <td style="text-align: center;">
+                                                    {{rowData.total_school - rowData.marked_school}}</td>
+
+                                                <td>
+                                                    <div class="progress">
+                                                        <div class="progress-bar" role="progressbar"
+                                                            style="background-color: green;font-size: 1 rem;"
+                                                            [style.width]="((rowData.marked_school/rowData.total_school)*100).toFixed() + '%' ">
+                                                            {{((rowData.marked_school/rowData.total_school)*100).toFixed()}}%
+                                                        </div>
+                                                        <div class="progress-bar" role="progressbar"
+                                                            style="background-color: red;"
+                                                            [style.width]="(((rowData.total_school-rowData.marked_school)/rowData.total_school)*100).toFixed() + '%' ">
+                                                            {{(((rowData.total_school-rowData.marked_school)/rowData.total_school)*100).toFixed()}}%
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <!-- <td *ngFor="let col of columns" class="ui-resizable-column align">
+                                                        <a *ngIf="col.field == 'school_type'">{{rowData.school_type}}</a>
+                                                        <a *ngIf="col.field == 'total_school'">{{rowData.total_school}}</a>
+                                                        <a *ngIf="col.field == 'marked_school'">{{rowData.marked_school}}</a>
+                                                        <a *ngIf="col.field  == 'notmarked'">{{rowData.total_school - rowData.marked_school}}</a>
+                                                        <a *ngIf="col.field == 'percentage'"><p-progressBar [value]="100"></p-progressBar>
+                                                        </a>
+                                                    </td> -->
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-7"></div>
+                                    <div class="col-lg-2">
+                                        <div class="row">
+                                            <div class="col-lg-2 align-progress">
+                                                <div class="color-box-green" style="background-color: green;"></div>
+                                            </div>
+                                            <div class="col-lg-10">
+                                                <div style="padding-left: 5%;">Marked Schools</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="row">
+                                            <div class="col-lg-1 align-progress">
+                                                <div class="color-box-green" style="background-color: red;"></div>
+                                            </div>
+                                            <div class="col-lg-10">
+                                                <div style="padding-left: 7%;">Not Marked schools</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </p-fieldset><br><br>
+                        <p-fieldset [toggleable]="true">
+                            <p-header style="color:black;font-weight:500;font-size:15px">Block-wise School Count
+                            </p-header>
+                            <div class="main-body-content">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img">
+                                    <p-table #dt [columns]="sampleSelectedColumnTdist1" class="prime-table"
+                                        [value]="teacherdistdata1" [style]="{'width':'250px !important'}"
+                                        [autoLayout]="true" [paginator]="false" [resizableColumns]="true" [rows]="10"
+                                        [scrollable]="true" scrollHeight="500px" scrollWidth="100px">
+                                        <!-- <ng-template pTemplate="caption">
+                                            <div class="row">
+                                                <div style="text-align:left" class="col-md-7">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <input type="text" pInputText size="20" placeholder="Search"
+                                                                (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                                                style="width:auto; height: 85%;border: gray 1px solid;border-radius: 2px;padding-left:2%;">
+                                                        </div>
+
+                                                    </div>
+                                                </div> -->
+                                                <!-- <div class="ui-helper-clearfix col-md-6" style="text-align: right">
+                                                                                <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL"
+                                                                                    (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
+                                                                                <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF"
+                                                                                    (click)="exportPdf()" class="ui-button-warning"></button>
+                                                                            </div> -->
+                                            <!-- </div>
+                                        </ng-template> -->
+                                        <ng-template pTemplate="header" let-columns>
+                                            <tr class="table-header">
+
+                                                <th style="width: 3em">#</th>
+                                                <th *ngFor="let col of columns" [pSortableColumn]="col.field"
+                                                    pResizableColumn>
+                                                    {{col.header}}
+                                                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                                                </th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-rowData let-columns="columns"
+                                            let-i="rowIndex">
+                                            <tr>
+                                                <td style="width: 3em">{{i+1}}</td>
+                                                <td (click)="onStaffAttendance(rowData,blockVarstaff= 2)" style="color:#337ab7;cursor: pointer;">
+                                                    {{rowData.block_name}}</td>
+                                                <td style="text-align: center;">{{rowData.total_school}}</td>
+                                                <!-- <td style="text-align: center;color:#337ab7;cursor: pointer;" (click)="onStaffMarkedSchool(rowData)">
+                                                    {{rowData.marked_school}}</td>
+                                                <td style="text-align: center;color:#337ab7;cursor: pointer;"
+                                                    (click)="onStaffNotmarkedSchool(rowData)">
+                                                    {{rowData.total_school - rowData.marked_school}}</td>
+
+                                                <td> -->
+                                                    <td style="text-align: center;" >
+                                                        {{rowData.marked_school}}</td>
+                                                    <td style="text-align: center;"
+                                                        >
+                                                        {{rowData.total_school - rowData.marked_school}}</td>
+    
+                                                    <td>
+                                                    <div class="progress">
+                                                        <div class="progress-bar" role="progressbar"
+                                                            style="background-color: green;font-size: 1 rem;"
+                                                            [style.width]="((rowData.marked_school/rowData.total_school)*100).toFixed() + '%' ">
+                                                            {{((rowData.marked_school/rowData.total_school)*100).toFixed()}}%
+                                                        </div>
+                                                        <div class="progress-bar" role="progressbar"
+                                                            style="background-color: red;"
+                                                            [style.width]="(((rowData.total_school-rowData.marked_school)/rowData.total_school)*100).toFixed() + '%' ">
+                                                            {{(((rowData.total_school-rowData.marked_school)/rowData.total_school)*100).toFixed()}}%
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-7"></div>
+                                    <div class="col-lg-2">
+                                        <div class="row">
+                                            <div class="col-lg-2 align-progress">
+                                                <div class="color-box-green" style="background-color: green;"></div>
+                                            </div>
+                                            <div class="col-lg-10">
+                                                <div style="padding-left: 5%;">Marked Schools</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="row">
+                                            <div class="col-lg-1 align-progress">
+                                                <div class="color-box-green" style="background-color: red;"></div>
+                                            </div>
+                                            <div class="col-lg-10">
+                                                <div style="padding-left: 7%;">Not Marked schools</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </p-fieldset>
+                    </p-tabPanel>
+                </p-tabView>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- student school list -->
+
+<!-- <div class="main-body-content" style="padding-left:1%;padding-right:1%;" *ngIf="usertypeId == 6 && schoolvar===0 || blockVar === 2 && schoolvar===0">
+    <p-card>
+        <div class="row">
+            <div style="text-align:center" class="col-lg-11">
+            </div>
+            <div class="col-lg-1" style="text-align: left;">
+                <button pButton type="button" icon="pi pi-arrow-left" class="ui-button-info"
+                    (click)="onBack()"></button>
+            </div>
+        </div>
+    </p-card>
+</div> -->
+
+<div class="main-body-content" style="padding-left:1%;padding-right:1%;" *ngIf="usertypeId == 6 && schoolvar===0 || blockVar === 2 && schoolvar===0">
+    <div class="page-container">
+        <div class="flex-layout-gap">
+            <div class="main-body-content">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img">
+                    <p-table #dt [columns]="sampleSelectedColumnScats" class="prime-table" [value]="schoolcatdatas"
+                        [style]="{'width':'250px !important'}" [autoLayout]="true" [paginator]="true"
+                        [resizableColumns]="true" [rows]="10" [scrollable]="true" scrollHeight="500px"
+                        scrollWidth="100px">
+                        <ng-template pTemplate="caption">       
+                            <div _ngcontent-srd-c14="" class="container-fluid header_fonts" style="background-color: none;margin-bottom:2%;">
+                                <div _ngcontent-srd-c14="" class="row p-1">
+                                    <!-- <div _ngcontent-srd-c14="" class="col-lg-10 text-align" style="padding-left:0px;">
+                                        <label style="padding-right: 5%;">Student Attendance | Block - {{this.blockname}}</label>
+                                   
+                                        <label>Day-Wise Attendance Report - {{this.date}}</label>
+                                    </div> -->
+                                    <!-- <div class="ui-helper-clearfix col-lg-3" style="text-align: right">
+                                        <button type="button" pButton icon="pi pi-file-excel" iconPos="left"
+                                            label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;"
+                                            class="ui-button-success"></button>
+                                        <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF"
+                                            (click)="exportPdf()" class="ui-button-warning"></button>
+                                    </div> -->
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div style="text-align:left" class="col-md-7">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <input type="text" pInputText size="20" placeholder="Search"
+                                                (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                                style="width:auto; height: 85%;border: gray 1px solid;border-radius: 2px;padding-left:2%;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="ui-helper-clearfix col-md-6" style="text-align: right">
+                                                            <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL"
+                                                                (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
+                                                            <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF"
+                                                                (click)="exportPdf()" class="ui-button-warning"></button>
+                                                        </div> -->
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                            <tr class="table-header">
+                                <th style="width: 3em">#</th>
+                                <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                            <tr>
+                                <td style="width: 3em">{{i+1}}</td>
+                                <!-- <td style="color:#337ab7;cursor: pointer;" (click)="onStudentByClass(rowData,schoolvar=2)">
+                                    {{rowData.udise_code}}</td> -->
+                                    <td  >
+                                        {{rowData.udise_code}}</td>
+                                <td>{{rowData.school_name}}</td>
+                                <td style="text-align: center;">{{rowData.marked_section}} / {{rowData.section_nos}}
+                                </td>
+                                <td style="text-align: center;">{{rowData.total_persent}} /
+                                    {{rowData.today_total_student}}</td>
+                                <td style="text-align: center;color:green">{{rowData.total_persent}}</td>
+                                <td style="text-align: center;color:red">{{rowData.today_absent}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- school by class  -->
+
+
+<!-- <div class="main-body-content" style="padding-left:1%;padding-right:1%;" *ngIf="usertypeId == 6 && schoolvarsection===0 || schoolvar===2 && schoolvarsection===0">
+    <p-card>
+        <div class="row">
+            <div style="text-align:center" class="col-lg-11">
+            </div>
+            <div class="col-lg-1" style="text-align: left;">
+                <button pButton type="button" icon="pi pi-arrow-left" class="ui-button-info"
+                    (click)="onBack()"></button>
+
+            </div>
+        </div>
+    </p-card>
+</div> -->
+<!-- <div class="main-body-content" style="padding-left:1%;padding-right:1%;" *ngIf="usertypeId == 6 && schoolvarsection===0 || schoolvar===2 && schoolvarsection===0">
+    <div class="page-container">
+        <div class="flex-layout-gap">
+            <div class="main-body-content">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img">
+                    <p-table #dt [columns]="sampleSelectedColumnScatclass" class="prime-table" [value]="markdetaillistclass"
+                        [style]="{'width':'250px !important'}" [autoLayout]="true" [paginator]="true"
+                        [resizableColumns]="true" [rows]="10" [scrollable]="true" scrollHeight="500px"
+                        scrollWidth="100px">
+                        <ng-template pTemplate="caption">
+
+                            <div _ngcontent-srd-c14="" class="container-fluid header_fonts" style="background-color: none;margin-bottom:2%;">
+                                <div _ngcontent-srd-c14="" class="row p-1">
+                                    <div _ngcontent-srd-c14="" class="col-lg-9 text-align" style="padding-left:0px;">
+                                        <label style="padding-right: 5%;">Attendance By Class | School Name - {{this.schoolname}}</label>
+                                    </div> -->
+                                    <!-- <div class="ui-helper-clearfix col-lg-3" style="text-align: right">
+                                        <button type="button" pButton icon="pi pi-file-excel" iconPos="left"
+                                            label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;"
+                                            class="ui-button-success"></button>
+                                        <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF"
+                                            (click)="exportPdf()" class="ui-button-warning"></button>
+                                    </div> -->
+                                <!-- </div>
+                            </div>
+                            <div class="row">
+                                <div style="text-align:left" class="col-md-7">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <input type="text" pInputText size="20" placeholder="Search"
+                                                (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                                style="width:auto; height: 85%;border: gray 1px solid;border-radius: 2px;padding-left:2%;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                            <tr class="table-header">
+                                <th style="width: 3em">#</th>
+                                <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn style="text-align: center;"> 
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                            <tr>
+                                <td style="width: 3em">{{i+1}}</td>
+                                <td style="color:#337ab7;text-align: center;cursor:pointer;" (click)="onAttendanceBySection(rowData,schoolvarsection=2)">
+                                    <a *ngIf="rowData.class == 1"> I </a>
+                                    <a *ngIf="rowData.class == 2"> II </a>
+                                    <a *ngIf="rowData.class == 3"> III  </a>
+                                    <a *ngIf="rowData.class == 4"> IV </a>
+                                    <a *ngIf="rowData.class == 5"> V </a>
+                                    <a *ngIf="rowData.class == 6"> VI </a>
+                                    <a *ngIf="rowData.class == 7"> VII </a>
+                                    <a *ngIf="rowData.class == 8"> VIII </a>
+                                    <a *ngIf="rowData.class == 9"> IX </a>
+                                    <a *ngIf="rowData.class == 10"> X </a>
+                                    <a *ngIf="rowData.class == 11"> XI </a>
+                                    <a *ngIf="rowData.class == 12"> XII </a>
+                                    <a *ngIf="rowData.class == 15"> PRE-KG </a>
+                                    <a *ngIf="rowData.class == 13"> LKG </a>
+                                    <a *ngIf="rowData.class == 14"> UKG </a>
+                                </td> -->
+                                <!-- <td style="color:#337ab7;text-align: center;cursor:pointer;" (click)="onAttendanceBySection(rowData)">{{rowData.class}}</td> -->
+                                <!-- <td style="text-align: center;">{{rowData.total_class}}</td>
+                                <td style="text-align: center;color:green">{{rowData.present}}</td>
+                                <td style="text-align: center;color:red">{{rowData.absent}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+ <!-- school by section  -->
+
+<!-- <div class="main-body-content" style="padding-left:1%;padding-right:1%;" *ngIf="usertypeId == 6  || schoolvarsection===2">
+    <p-card>
+        <div class="row">
+            <div style="text-align:center" class="col-lg-11">
+            </div>
+            <div class="col-lg-1" style="text-align: left;">
+                <button pButton type="button" icon="pi pi-arrow-left" class="ui-button-info"
+                    (click)="onBack()"></button>
+            </div>
+        </div>
+    </p-card>
+</div> -->
+<!-- <div class="main-body-content" style="padding-left:1%;padding-right:1%;" *ngIf="usertypeId == 6  || schoolvarsection===2">
+    <div class="page-container">
+        <div class="flex-layout-gap">
+            <div class="main-body-content">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img">
+                    <p-table #dt [columns]="sampleSelectedColumnScatsection" class="prime-table" [value]="markdetaillistsection"
+                        [style]="{'width':'250px !important'}" [autoLayout]="true" [paginator]="true"
+                        [resizableColumns]="true" [rows]="10" [scrollable]="true" scrollHeight="500px"
+                        scrollWidth="100px">
+                        <ng-template pTemplate="caption">
+
+                            <div _ngcontent-srd-c14="" class="container-fluid header_fonts" style="background-color: none;margin-bottom:2%;">
+                                <div _ngcontent-srd-c14="" class="row p-1">
+                                    <div _ngcontent-srd-c14="" class="col-lg-9 text-align" style="padding-left:0px;">
+                                        <label style="padding-right: 5%;">Attendance By Section  |  School Name  -  {{this.schoolname}}  |  Class  -  {{this.class}}</label>
+                                    </div> -->
+                                    <!-- <div class="ui-helper-clearfix col-lg-3" style="text-align: right">
+                                        <button type="button" pButton icon="pi pi-file-excel" iconPos="left"
+                                            label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;"
+                                            class="ui-button-success"></button>
+                                        <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF"
+                                            (click)="exportPdf()" class="ui-button-warning"></button>
+                                    </div> -->
+                                <!-- </div>
+                            </div>
+                            <div class="row">
+                                <div style="text-align:left" class="col-md-7">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <input type="text" pInputText size="20" placeholder="Search"
+                                                (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                                style="width:auto; height: 85%;border: gray 1px solid;border-radius: 2px;padding-left:2%;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                            <tr class="table-header">
+                                <th style="width: 3em">#</th>
+                                <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                                </th>
+                                <th style="text-align: center;">{{this.date}}</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                            <tr>
+                                <td style="width: 3em">{{i+1}}</td>
+                                <td >{{rowData.name}}</td>
+                                <td>{{rowData.section}}</td>
+                                <td style="text-align: center;">
+                                    <a *ngIf="rowData.present == 1"> <i class="pi pi-check-circle" style="color:green"></i></a>
+                                    <a *ngIf="rowData.present == -1"><i class="pi pi-times-circle" style="color:red"></i> </a>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+
+<!-- staff list school -->
+<!-- <div class="main-body-content" style="padding-left:1%;padding-right:1%;" *ngIf="usertypeId == 6 && staffvar===0 || blockVarstaff === 2 && staffvar===0">
+    <p-card>
+        <div class="row">
+            <div style="text-align:center" class="col-lg-11">
+            </div>
+            <div class="col-lg-1" style="text-align: left;">
+                <button pButton type="button" icon="pi pi-arrow-left" class="ui-button-info"
+                    (click)="onBack()"></button>
+            </div>
+        </div>
+    </p-card>
+</div> -->
+
+<div class="main-body-content" style="padding-left:1%;padding-right:1%;" *ngIf="usertypeId == 6 && staffvar===0 || blockVarstaff === 2 && staffvar===0">
+    <div class="page-container">
+        <div class="flex-layout-gap">
+            <div class="main-body-content">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img">
+                    <p-table #dt [columns]="sampleSelectedColumnScatstaff" class="prime-table" [value]="schoolcatdatastaff"
+                        [style]="{'width':'250px !important'}" [autoLayout]="true" [paginator]="true"
+                        [resizableColumns]="true" [rows]="10" [scrollable]="true" scrollHeight="500px"
+                        scrollWidth="100px">
+                        <ng-template pTemplate="caption">
+
+                            <div _ngcontent-srd-c14="" class="container-fluid header_fonts" style="background-color: none;margin-bottom:2%;">
+                                <div _ngcontent-srd-c14="" class="row p-1">
+                                    <!-- <div _ngcontent-srd-c14="" class="col-lg-9 text-align" style="padding-left:0px;">
+                                        <label style="padding-right: 5%;">Staff Attendance | Block - {{this.blockname}}</label>
+                                        <label>Day-Wise Attendance Report - {{this.date}}</label>
+                                    </div> -->
+                                    <!-- <div class="ui-helper-clearfix col-lg-3" style="text-align: right">
+                                        <button type="button" pButton icon="pi pi-file-excel" iconPos="left"
+                                            label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;"
+                                            class="ui-button-success"></button>
+                                        <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF"
+                                            (click)="exportPdf()" class="ui-button-warning"></button>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div style="text-align:left" class="col-md-7">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <input type="text" pInputText size="20" placeholder="Search"
+                                                (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                                style="width:auto; height: 85%;border: gray 1px solid;border-radius: 2px;padding-left:2%;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                            <tr class="table-header">
+                                <th style="width: 3em">#</th>
+                                <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                            <tr>
+                                <td style="width: 3em">{{i+1}}</td>
+                                <td  >{{rowData.udise_code}}</td>
+                                <!-- <td style="color:#337ab7;cursor: pointer;" (click)="onAttendancebyStaff(rowData,staffvar=2)">{{rowData.udise_code}}</td> -->
+                                <td>{{rowData.school_name}}</td>
+                                <td style="text-align: center;">{{rowData.total_teacher}} </td>
+                                <td style="text-align: center;color:green">{{rowData.present}}</td>
+                                <td style="text-align: center;color:red">{{rowData.absent}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 
+staff Attendance -->
+
+<!-- <div class="main-body-content" style="padding-left:1%;padding-right:1%;" *ngIf="usertypeId == 6 || staffvar===2">
+    <p-card>
+        <div class="row">
+            <div style="text-align:center" class="col-lg-11">
+            </div>
+            <div class="col-lg-1" style="text-align: left;">
+                <button pButton type="button" icon="pi pi-arrow-left" class="ui-button-info"
+                    (click)="onBack()"></button>
+            </div>
+        </div>
+    </p-card>
+</div> -->
+
+<!-- <div class="main-body-content" style="padding-left:1%;padding-right:1%;" *ngIf="usertypeId == 6 || staffvar===2">
+    <div class="page-container">
+        <div class="flex-layout-gap">
+            <div class="main-body-content">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img">
+                    <p-table #dt [columns]="sampleSelectedColumnScatstaffattend" class="prime-table" [value]="markdetailliststaffattend"
+                        [style]="{'width':'250px !important'}" [autoLayout]="true" [paginator]="true"
+                        [resizableColumns]="true" [rows]="10" [scrollable]="true" scrollHeight="500px"
+                        scrollWidth="100px">
+                        <ng-template pTemplate="caption">
+
+                            <div _ngcontent-srd-c14="" class="container-fluid header_fonts" style="background-color: none;margin-bottom:2%;">
+                                <div _ngcontent-srd-c14="" class="row p-1">
+                                    <div _ngcontent-srd-c14="" class="col-lg-9 text-align" style="padding-left:0px;">
+                                        <label style="padding-right: 5%;">Attendance By Staff  |  School Name  -  {{ this.schoolname }}</label>
+                                    </div> -->
+                                    <!-- <div class="ui-helper-clearfix col-lg-3" style="text-align: right">
+                                        <button type="button" pButton icon="pi pi-file-excel" iconPos="left"
+                                            label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;"
+                                            class="ui-button-success"></button>
+                                        <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF"
+                                            (click)="exportPdf()" class="ui-button-warning"></button>
+                                    </div> -->
+                                <!-- </div>
+                            </div>
+                            <div class="row">
+                                <div style="text-align:left" class="col-md-7">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <input type="text" pInputText size="20" placeholder="Search"
+                                                (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                                style="width:auto; height: 85%;border: gray 1px solid;border-radius: 2px;padding-left:2%;">
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <!-- <div class="ui-helper-clearfix col-md-6" style="text-align: right">
+                                                            <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL"
+                                                                (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
+                                                            <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF"
+                                                                (click)="exportPdf()" class="ui-button-warning"></button>
+                                                        </div> -->
+                            <!-- </div>
+                        </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                            <tr class="table-header">
+                                <th style="width: 3em">#</th>
+                                <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                                </th>
+                                <th style="text-align: center;">{{this.date}}</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                            <tr>
+                                <td style="width: 3em">{{i+1}}</td>
+                                <td >{{rowData.teacher_name}}</td> -->
+                                <!-- <td>{{rowData.gender}}</td> -->
+                                <!-- <td >
+                                    <a *ngIf="rowData.gender == 1"> Male </a>
+                                    <a *ngIf="rowData.gender == 2"> Female </a>
+                                </td>
+                                
+                                <td style="text-align: center;"><a *ngIf="rowData.present == 0"> <i class="pi pi-check-circle" style="color:green"></i></a>
+                                    <a *ngIf="rowData.present == 1"><i class="pi pi-times-circle" style="color:red"></i> </a>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+<!-- student district mark -->
+
+<!-- <div class="main-body-content" style="padding-left:1%;padding-right:1%;"  *ngIf="usertypeId == 5 && studentdistmark === 2">
+    <p-card>
+        <div class="row">
+            <div style="text-align:center" class="col-lg-11">
+            </div>
+            <div class="col-lg-1" style="text-align: left;">
+                <button pButton type="button" icon="pi pi-arrow-left" class="ui-button-info"
+                    (click)="onBack()"></button>
+
+            </div>
+        </div>
+    </p-card>
+</div> -->
+
+<!-- <div class="main-body-content" style="padding-left:1%;padding-right:1%;" *ngIf="usertypeId == 5 && studentdistmark === 2">
+    <div class="page-container">
+        <div class="flex-layout-gap">
+            <div class="main-body-content">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img">
+                    <p-table #dt [columns]="sampleSelectedColumnScatdistmark" class="prime-table" [value]="markdetaillistdistmark"
+                        [style]="{'width':'250px !important'}" [autoLayout]="true" [paginator]="true"
+                        [resizableColumns]="true" [rows]="10" [scrollable]="true" scrollHeight="500px"
+                        scrollWidth="100px">
+                        <ng-template pTemplate="caption">
+                            <div _ngcontent-srd-c14="" class="container-fluid header_fonts" style="background-color: none;margin-bottom:2%;">
+                                <div _ngcontent-srd-c14="" class="row p-1">
+                                    <div _ngcontent-srd-c14="" class="col-lg-9 text-align" style="padding-left:0px;">
+                                        <label style="padding-right: 5%;">Student Attendance | District - {{this.distname}}</label>
+                                        <label>Day-Wise Attendance Report - {{this.date}}</label>
+                                    </div> -->
+                                    <!-- <div class="ui-helper-clearfix col-lg-3" style="text-align: right">
+                                        <button type="button" pButton icon="pi pi-file-excel" iconPos="left"
+                                            label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;"
+                                            class="ui-button-success"></button>
+                                        <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF"
+                                            (click)="exportPdf()" class="ui-button-warning"></button>
+                                    </div> -->
+                                <!-- </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div style="text-align:left" class="col-md-7">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <input type="text" pInputText size="20" placeholder="Search"
+                                                (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                                style="width:auto; height: 85%;border: gray 1px solid;border-radius: 2px;padding-left:2%;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                            <tr class="table-header">
+                                <th style="width: 3em">#</th>
+                                <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                            <tr>
+                                <td style="width: 3em">{{i+1}}</td>
+                                <td style="color:#337ab7;" (click)="onAttendanceByClass(rowData)">{{rowData.udise_code}}</td>
+                                <td>{{rowData.school_name}}</td>
+                                <td style="text-align: center;">{{rowData.marked_section}} / {{rowData.section_nos}}
+                                </td>
+                                <td style="text-align: center;">{{rowData.total_persent}} /
+                                    {{rowData.today_total_student}}</td>
+                                <td style="text-align: center;color:green">{{rowData.total_persent}}</td>
+                                <td style="text-align: center;color:red">{{rowData.today_absent}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+<!-- staff district mark -->
+
+<!-- <div class="main-body-content" style="padding-left:1%;padding-right:1%;" *ngIf="usertypeId == 5 && staffdistmark === 2">
+    <p-card>
+        <div class="row">
+            <div style="text-align:center" class="col-lg-11">
+            </div>
+            <div class="col-lg-1" style="text-align: left;">
+                <button pButton type="button" icon="pi pi-arrow-left" class="ui-button-info"
+                    (click)="onBack()"></button>
+            </div>
+        </div>
+    </p-card>
+</div> -->
+
+<!-- <div class="main-body-content" style="padding-left:1%;padding-right:1%;" *ngIf="usertypeId == 5 && staffdistmark === 2">
+    <div class="page-container">
+        <div class="flex-layout-gap">
+            <div class="main-body-content">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img">
+                    <p-table #dt [columns]="sampleSelectedColumnScatstafdistmark" class="prime-table" [value]="markdetailliststafdistmark"
+                        [style]="{'width':'250px !important'}" [autoLayout]="true" [paginator]="true"
+                        [resizableColumns]="true" [rows]="10" [scrollable]="true" scrollHeight="500px"
+                        scrollWidth="100px">
+                        <ng-template pTemplate="caption">
+                            <div _ngcontent-srd-c14="" class="container-fluid header_fonts" style="background-color: none;margin-bottom:2%;">
+                                <div _ngcontent-srd-c14="" class="row p-1">
+                                    <div _ngcontent-srd-c14="" class="col-lg-9 text-align" style="padding-left:0px;">
+                                        <label style="padding-right: 5%;">Staff Attendance | District - {{this.distname}}</label>
+                                        <label>Day-Wise Attendance Report - {{this.date}}</label>
+                                    </div> -->
+                                    <!-- <div class="ui-helper-clearfix col-lg-3" style="text-align: right">
+                                        <button type="button" pButton icon="pi pi-file-excel" iconPos="left"
+                                            label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;"
+                                            class="ui-button-success"></button>
+                                        <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF"
+                                            (click)="exportPdf()" class="ui-button-warning"></button>
+                                    </div> -->
+                                <!-- </div>
+                            </div>
+                            <div class="row">
+                                <div style="text-align:left" class="col-md-7">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <input type="text" pInputText size="20" placeholder="Search"
+                                                (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                                style="width:auto; height: 85%;border: gray 1px solid;border-radius: 2px;padding-left:2%;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                            <tr class="table-header">
+                                <th style="width: 3em">#</th>
+                                <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                            <tr>
+                                <td style="width: 3em">{{i+1}}</td>
+                                <td style="color:#337ab7;" (click)="onAttendanceByStaff(rowData)">{{rowData.udise_code}}</td>
+                                <td>{{rowData.school_name}}</td>
+                                <td style="text-align: center;">{{rowData.total_teacher}} </td>
+                                <td style="text-align: center;color:green">{{rowData.present}}</td>
+                                <td style="text-align: center;color:red">{{rowData.absent}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+<!-- student block cateory list -->
+
+<!-- <div class="main-body-content" style="padding-left:1%;padding-right:1%;" *ngIf="(usertypeId == 9 && stucateblock===2) || (usertypeId == 10 && stucateblock ===2)  || (usertypeId == 5  && stucateblock ===2)" >
+    <p-card>
+        <div class="row">
+            <div style="text-align:center" class="col-lg-11">
+            </div>
+            <div class="col-lg-1" style="text-align: left;">
+                <button pButton type="button" icon="pi pi-arrow-left" class="ui-button-info"
+                    (click)="onBack()"></button>
+
+            </div>
+        </div>
+    </p-card>
+</div> -->
+
+<!-- <div class="main-body-content" style="padding-left:1%;padding-right:1%;" *ngIf="(usertypeId == 9 && stucateblock===2) || (usertypeId == 10 && stucateblock ===2)  || (usertypeId == 5  && stucateblock ===2)">
+    <div class="page-container">
+        <div class="flex-layout-gap">
+            <div class="main-body-content">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img">
+                    <p-table #dt [columns]="sampleSelectedColumnScatstudentcatblock" class="prime-table" [value]="markdetailliststudentcatblock"
+                        [style]="{'width':'250px !important'}" [autoLayout]="true" [paginator]="true"
+                        [resizableColumns]="true" [rows]="10" [scrollable]="true" scrollHeight="500px"
+                        scrollWidth="100px">
+                        <ng-template pTemplate="caption">
+                            <div _ngcontent-srd-c14="" class="container-fluid header_fonts" style="background-color: none;margin-bottom:2%;">
+                                <div _ngcontent-srd-c14="" class="row p-1">
+                                    <div _ngcontent-srd-c14="" class="col-lg-10 text-align" style="padding-left:0px;">
+                                        <label style="padding-right: 5%;">Student Attendance | Category - {{this.cate}}</label>
+                                        <label>Day-Wise Attendance Report - {{this.date}}</label>
+                                    </div> -->
+                                    <!-- <div class="ui-helper-clearfix col-lg-3" style="text-align: right">
+                                        <button type="button" pButton icon="pi pi-file-excel" iconPos="left"
+                                            label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;"
+                                            class="ui-button-success"></button>
+                                        <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF"
+                                            (click)="exportPdf()" class="ui-button-warning"></button>
+                                    </div> -->
+                                <!-- </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div style="text-align:left" class="col-md-7">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <input type="text" pInputText size="20" placeholder="Search"
+                                                (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                                style="width:auto; height: 85%;border: gray 1px solid;border-radius: 2px;padding-left:2%;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                            <tr class="table-header">
+                                <th style="width: 3em">#</th>
+                                <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                            <tr>
+                                <td style="width: 3em">{{i+1}}</td>
+                                <td style="color:#337ab7;" (click)="onAttendanceByClass(rowData)">{{rowData.udise_code}}</td>
+                                <td>{{rowData.school_name}}</td>
+                                <td style="text-align: center;">{{rowData.marked_section}} / {{rowData.section_nos}}
+                                </td>
+                                <td style="text-align: center;">{{rowData.total_persent}} /
+                                    {{rowData.today_total_student}}</td>
+                                <td style="text-align: center;color:green">{{rowData.total_persent}}</td>
+                                <td style="text-align: center;color:red">{{rowData.today_absent}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+<!-- student block mark list -->
+
+<!-- <div class="main-body-content" style="padding-left:1%;padding-right:1%;" *ngIf="(usertypeId == 9 && blockstaffmark === 2) || (usertypeId == 10 && blockstaffmark === 2)  || (usertypeId == 5 && blockstaffmark === 2)">
+    <p-card>
+        <div class="row">
+            <div style="text-align:center" class="col-lg-11">
+            </div>
+            <div class="col-lg-1" style="text-align: left;">
+                <button pButton type="button" icon="pi pi-arrow-left" class="ui-button-info"
+                    (click)="onBack()"></button>
+            </div>
+        </div>
+    </p-card>
+</div> -->
+
+<!-- <div class="main-body-content" style="padding-left:1%;padding-right:1%;" *ngIf="(usertypeId == 9 && blockstaffmark === 2) || (usertypeId == 10 && blockstaffmark === 2)  || (usertypeId == 5 && blockstaffmark === 2)">
+    <div class="page-container">
+        <div class="flex-layout-gap">
+            <div class="main-body-content">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img">
+                    <p-table #dt [columns]="sampleSelectedColumnScatstaffblock" class="prime-table" [value]="markdetailliststaffblock"
+                        [style]="{'width':'250px !important'}" [autoLayout]="true" [paginator]="true"
+                        [resizableColumns]="true" [rows]="10" [scrollable]="true" scrollHeight="500px"
+                        scrollWidth="100px">
+                        <ng-template pTemplate="caption">
+                            <div _ngcontent-srd-c14="" class="container-fluid header_fonts" style="background-color: none;margin-bottom:2%;">
+                                <div _ngcontent-srd-c14="" class="row p-1">
+                                    <div _ngcontent-srd-c14="" class="col-lg-9 text-align" style="padding-left:0px;">
+                                        <label style="padding-right: 5%;">Student Attendance | Block - {{this.blockname}}</label>
+                                        <label>Day-Wise Attendance Report - {{this.date}}</label>
+                                    </div> -->
+                                    <!-- <div class="ui-helper-clearfix col-lg-3" style="text-align: right">
+                                        <button type="button" pButton icon="pi pi-file-excel" iconPos="left"
+                                            label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;"
+                                            class="ui-button-success"></button>
+                                        <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF"
+                                            (click)="exportPdf()" class="ui-button-warning"></button>
+                                    </div> -->
+                                <!-- </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div style="text-align:left" class="col-md-7">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <input type="text" pInputText size="20" placeholder="Search"
+                                                (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                                style="width:auto; height: 85%;border: gray 1px solid;border-radius: 2px;padding-left:2%;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                            <tr class="table-header">
+                                <th style="width: 3em">#</th>
+                                <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                            <tr>
+                                <td style="width: 3em">{{i+1}}</td>
+                                <td style="color:#337ab7;" (click)="onAttendanceByClass(rowData)">{{rowData.udise_code}}</td>
+                                <td>{{rowData.school_name}}</td>
+                                <td style="text-align: center;">{{rowData.marked_section}} / {{rowData.section_nos}}
+                                </td>
+                                <td style="text-align: center;">{{rowData.total_persent}} /
+                                    {{rowData.today_total_student}}</td>
+                                <td style="text-align: center;color:green">{{rowData.total_persent}}</td>
+                                <td style="text-align: center;color:red">{{rowData.today_absent}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+

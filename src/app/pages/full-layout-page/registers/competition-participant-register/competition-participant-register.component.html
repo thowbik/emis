@@ -1,0 +1,50 @@
+<br><div class="main-body-content">
+<div class="container-fluid">
+    <p-table #db [columns]="dataHeader" [value]="competitionRegister" [resizableColumns]="true">
+        <ng-template pTemplate="caption">
+            <div class="row">
+                <div class="col-md-8"></div>
+                <div class="col-md-3 text-right">
+                    <input class="form-control" type="text" (input)="db.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Search">
+                </div>
+                <div class="col-md-1 text-right" style="padding-top: 15px;padding-right:28px;">
+                    <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                        (click)="exportExcel()"></i>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr class="text-center">
+                <th style="width:4em;">S.No</th>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+                        ariaLabelDesc="Activate to sort in descending order"
+                        ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-compreg let-columns="columns" let-i="rowIndex">
+            <tr class="text-center">
+                <td>{{i+1}}</td>
+                <td style="width: 13em;" class="text-left">{{compreg.EmisID}}</td>
+                <td class="text-left"> {{compreg.StudName}} </td>
+                <td> {{compreg.StudCls}} </td>
+                <td> {{compreg.ClsSec}} </td>
+                <td class="text-left"> {{compreg.CntsName}} </td>
+            </tr>
+        </ng-template>
+    
+        <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+                <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                    <strong>No records found</strong>
+                </td>
+            </tr>
+        </ng-template>
+
+    </p-table>
+</div>
+</div>

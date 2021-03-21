@@ -1,0 +1,216 @@
+<p-card>
+    <div class="container-fluid">
+        <form [formGroup]="studentmonthlyreport">
+            <div class="row form-group " style="padding-top: 10px;">
+                <div class="col-sm-10 col-md-10">
+                    <h3><b>Fit India-Monthly Report</b></h3>
+                </div>
+            </div>
+          
+            <div class="row form-group" style="padding-top:5px;">
+                <div class="col-sm-3 col-md-3" style="margin-left:3%;">
+                    <input class="form-control date" type="month" min="2019-01" placeholder="Choose Month"  (change)="getMonth($event)">
+                </div>
+            </div>
+            <div *ngIf ="selectMonth === true"> 
+             <div class="row form-group" style="padding-top: 5px;">
+                <div class="col-sm-5 col-md-5" style="margin-left:3%;">
+                    <label>1. Certified as Fit India School?</label>
+                </div>
+                <div class="col-sm-3 col-md-3">
+                    <p-selectButton [options]="option1" formControlName="certified_yn"></p-selectButton>
+                </div>
+            </div>
+             <div class="row form-group" style="padding-top:5px;">
+                <div class="col-sm-5 col-md-5" style="margin-left:3%;">
+                    <label>2. Participated in Fit India Activities?</label>
+                </div>
+                <div class = "col-sm-3 col-md-3">
+                    <p-selectButton [options]="option2" formControlName="participate_yn" (onChange)="Select_Value(studentmonthlyreport.value.participate_yn)"></p-selectButton>
+                </div>
+            </div>
+            <div *ngIf="studentmonthlyreport.value.participate_yn == ''">
+                <div class="row form-group" style="padding-top:5px;">
+                    <div class="col-sm-5 col-md-5" style="margin-left:4%;">
+                        <label>a) Number of students who participated in activities</label>
+                    </div>
+                    <div class="col-sm-1 col-md-1">
+                        <input type="text" pKeyFilter="pnum" maxlength="3" pInputText formControlName="students"
+                            class="form-control">
+                        <p-message severity="error" text="This Field is required"
+                            *ngIf="studentmonthlyreport.controls.students.errors && (submitted || studentmonthlyreport.controls.students.dirty || studentmonthlyreport.controls.students.touched)">
+                        </p-message>
+                    </div>
+                </div>
+                <div class="row form-group"  style="padding-top:5px;">
+                    <div class="col-sm-5 col-md-5" style="margin-left:4%;">
+                        <label>b) Number of Flags won</label>
+                    </div>
+                    <div class="col-sm-1 col-md-1">
+                        <input type="text" pKeyFilter="pnum" maxlength="2" pInputText formControlName="flags"
+                            class="form-control">
+                        <p-message severity="error" text="This Field is required"
+                            *ngIf="studentmonthlyreport.controls.flags.errors && (submitted || studentmonthlyreport.controls.flags.dirty || studentmonthlyreport.controls.flags.touched)">
+                        </p-message>
+                    </div>
+                </div>
+                <div class="row form-group" style="padding-top:5px;">
+                    <div class="col-sm-5 col-md-5" style="margin-left:4%;">
+                        <label>c) Ratings Achieved</label>
+                    </div>
+                    <div class = "col-sm-5 col-md-5">
+                        <p-selectButton [options]="option3" formControlName="rating"></p-selectButton>
+                    </div>
+       
+                </div>
+                <div class="row form-group" style="padding-top:5px;">
+                    <div class="col-sm-5 col-md-5" style="margin-left:4%;">
+                        <label>d) Number of Photos shared</label>
+                    </div>
+                    <div class="col-sm-1 col-md-1">
+                        <input type="text" pKeyFilter="pnum" maxlength="2" pInputText formControlName="photos_upload"
+                            class="form-control">
+                        <p-message severity="error" text="This Field is required"
+                            *ngIf="studentmonthlyreport.controls.photos_upload.errors && (submitted || studentmonthlyreport.controls.photos_upload.dirty || studentmonthlyreport.controls.photos_upload.touched)">
+                        </p-message>
+                    </div>
+                </div>
+                <div class="row form-group"  style="padding-top:5px;">
+                    <div class="col-sm-5 col-md-5" style="margin-left:4%;">
+                        <label>e) Number of Videos shared</label>
+                    </div>
+                    <div class="col-sm-1 col-md-1">
+                        <input type="text" pKeyFilter="pnum" maxlength="2" pInputText formControlName="videos_upload"
+                            class="form-control">
+                        <p-message severity="error" text="This Field is required"
+                            *ngIf="studentmonthlyreport.controls.videos_upload.errors && (submitted || studentmonthlyreport.controls.videos_upload.dirty || studentmonthlyreport.controls.videos_upload.touched)">
+                        </p-message>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="studentmonthlyreport.value.participate_yn == '1'">
+            <div class="row form-group" style="padding-top:5px;">
+                <div class="col-sm-5 col-md-5" style="margin-left:4%;">
+                    <label>a) Number of students who participated in activities</label>
+                </div>
+                <div class="col-sm-1 col-md-1">
+                    <input type="text" pKeyFilter="pnum" maxlength="3" pInputText formControlName="students"
+                        class="form-control">
+                    <p-message severity="error" text="This Field is required"
+                        *ngIf="studentmonthlyreport.controls.students.errors && (submitted || studentmonthlyreport.controls.students.dirty || studentmonthlyreport.controls.students.touched)">
+                    </p-message>
+                </div>
+            </div>
+            <div class="row form-group"  style="padding-top:5px;">
+                <div class="col-sm-5 col-md-5" style="margin-left:4%;">
+                    <label>b) Number of Flags won</label>
+                </div>
+                <div class="col-sm-1 col-md-1">
+                    <input type="text" pKeyFilter="pnum" maxlength="2" pInputText formControlName="flags"
+                        class="form-control">
+                    <p-message severity="error" text="This Field is required"
+                        *ngIf="studentmonthlyreport.controls.flags.errors && (submitted || studentmonthlyreport.controls.flags.dirty || studentmonthlyreport.controls.flags.touched)">
+                    </p-message>
+                </div>
+            </div>
+            <div class="row form-group" style="padding-top:5px;">
+                <div class="col-sm-5 col-md-5" style="margin-left:4%;">
+                    <label>c) Ratings Achieved</label>
+                </div>
+                <div class = "col-sm-5 col-md-5">
+                    <p-selectButton [options]="option3" formControlName="rating"></p-selectButton>
+                </div>
+   
+            </div>
+            <div class="row form-group" style="padding-top:5px;">
+                <div class="col-sm-5 col-md-5" style="margin-left:4%;">
+                    <label>d) Number of Photos shared</label>
+                </div>
+                <div class="col-sm-1 col-md-1">
+                    <input type="text" pKeyFilter="pnum" maxlength="2" pInputText formControlName="photos_upload"
+                        class="form-control">
+                    <p-message severity="error" text="This Field is required"
+                        *ngIf="studentmonthlyreport.controls.photos_upload.errors && (submitted || studentmonthlyreport.controls.photos_upload.dirty || studentmonthlyreport.controls.photos_upload.touched)">
+                    </p-message>
+                </div>
+            </div>
+            <div class="row form-group"  style="padding-top:5px;">
+                <div class="col-sm-5 col-md-5" style="margin-left:4%;">
+                    <label>e) Number of Videos shared</label>
+                </div>
+                <div class="col-sm-1 col-md-1">
+                    <input type="text" pKeyFilter="pnum" maxlength="2" pInputText formControlName="videos_upload"
+                        class="form-control">
+                    <p-message severity="error" text="This Field is required"
+                        *ngIf="studentmonthlyreport.controls.videos_upload.errors && (submitted || studentmonthlyreport.controls.videos_upload.dirty || studentmonthlyreport.controls.videos_upload.touched)">
+                    </p-message>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="studentmonthlyreport.value.participate_yn == '2'">
+            <div class="row form-group" style="padding-top:5px;">
+                <div class="col-sm-5 col-md-5" style="margin-left:4%;">
+                    <label>a) Number of students who participated in activities</label>
+                </div>
+                <div class="col-sm-1 col-md-1">
+                    <input type="text" pKeyFilter="pnum" maxlength="3" pInputText formControlName="students"
+                        class="form-control" disabled="true">
+                    <p-message severity="error" text="This Field is required"
+                        *ngIf="studentmonthlyreport.controls.students.errors && (submitted || studentmonthlyreport.controls.students.dirty || studentmonthlyreport.controls.students.touched)">
+                    </p-message>
+                </div>
+            </div>
+            <div class="row form-group"  style="padding-top:5px;">
+                <div class="col-sm-5 col-md-5" style="margin-left:4%;">
+                    <label>b) Number of Flags won</label>
+                </div>
+                <div class="col-sm-1 col-md-1">
+                    <input type="text" pKeyFilter="pnum" maxlength="2" pInputText formControlName="flags"
+                        class="form-control"  disabled="true">
+                    <p-message severity="error" text="This Field is required"
+                        *ngIf="studentmonthlyreport.controls.flags.errors && (submitted || studentmonthlyreport.controls.flags.dirty || studentmonthlyreport.controls.flags.touched)">
+                    </p-message>
+                </div>
+            </div>
+            <div class="row form-group" style="padding-top:5px;">
+                <div class="col-sm-5 col-md-5" style="margin-left:4%;">
+                    <label>c) Ratings Achieved</label>
+                </div>
+                <div class = "col-sm-5 col-md-5">
+                    <p-selectButton [options]="option3" formControlName="rating"  disabled="true"></p-selectButton>
+                </div>
+   
+            </div>
+            <div class="row form-group" style="padding-top:5px;">
+                <div class="col-sm-5 col-md-5" style="margin-left:4%;">
+                    <label>d) Number of Photos shared</label>
+                </div>
+                <div class="col-sm-1 col-md-1">
+                    <input type="text" pKeyFilter="pnum" maxlength="2" pInputText formControlName="photos_upload"
+                        class="form-control"  disabled="true">
+                    <p-message severity="error" text="This Field is required"
+                        *ngIf="studentmonthlyreport.controls.photos_upload.errors && (submitted || studentmonthlyreport.controls.photos_upload.dirty || studentmonthlyreport.controls.photos_upload.touched)">
+                    </p-message>
+                </div>
+            </div>
+            <div class="row form-group"  style="padding-top:5px;">
+                <div class="col-sm-5 col-md-5" style="margin-left:4%;">
+                    <label>e) Number of Videos shared</label>
+                </div>
+                <div class="col-sm-1 col-md-1">
+                    <input type="text" pKeyFilter="pnum" maxlength="2" pInputText formControlName="videos_upload"
+                        class="form-control"  disabled="true">
+                    <p-message severity="error" text="This Field is required"
+                        *ngIf="studentmonthlyreport.controls.videos_upload.errors && (submitted || studentmonthlyreport.controls.videos_upload.dirty || studentmonthlyreport.controls.videos_upload.touched)">
+                    </p-message>
+                </div>
+            </div>
+        </div>
+    <div class="text-center" style="padding-top: 3px;">
+      <button type="submit" class="btn btn-primary" (click)="Submit()">Submit</button>
+    </div>
+            </div>
+        </form>
+    </div>
+</p-card> 
+

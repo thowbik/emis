@@ -1,0 +1,255 @@
+<div class="main-body-content p-3">
+   <div class="text-left py-2">
+      <button pButton type="button" label="Learner Details" class="ui-button-secondary flex-gap-right" [ngClass]="{'ui-button-info': PageStage == 1}" (click)="learnerlist()"></button>
+      <button pButton type="button" label="Volunteer Teachers Details" class="ui-button-secondary flex-gap-right" [ngClass]="{'ui-button-info': PageStage == 2 }" (click)="volunteerteacher()"></button>
+      <button pButton type="button" label="Summary Report" class="ui-button-secondary flex-gap-right" (click)="summaryreport()"></button>
+      <!-- <button type="submit" class="btn btn-primary m-2" (click)="learnerlist()">Learner Details</button> -->
+      <!-- <button type="submit" class="btn btn-primary m-2" (click)="volunteerteacher()">Volunteer Teachers Details</button> -->
+      <!-- <button type="submit" class="btn btn-primary m-2" (click)="summaryreport() ">Summary Report</button> -->
+   </div>
+   <p-card>
+      <div *ngIf="PageStage == 1">
+         <form [formGroup]="forms">
+            <!-- Row1 -->
+            <div class="row p-2">
+               <div class="col-lg-4">
+                  <label class="font-weight-bold">Learner Name<span class="text-danger font-weight-bold"> *</span></label>
+                  <input type="text" pInputText class="form-control" formControlName="StudNam" placeholder="Learner Name">
+                  <small class="form-text text-danger" *ngIf="!forms.get('StudNam').valid && (submitted || forms.get('StudNam').dirty || forms.get('StudNam').touched)">
+                  Learner Name Field is required</small>
+               </div>
+               <div class="col-lg-4">
+                  <label class="font-weight-bold">Gender<span class="text-danger"> *</span></label>
+                  <p-dropdown [options]="Gendertype" formControlName="Gendr" placeholder="Select Gender" styleClass="dropdwnvalues"></p-dropdown>
+                  <small class="form-text text-danger" *ngIf="!forms.get('Gendr').valid && (submitted || forms.get('Gendr').dirty || forms.get('Gendr').touched)">
+                  Gender Field is required</small>
+               </div>
+               <div class="col-lg-4">
+                  <label class="font-weight-bold">Age<span class="text-danger"> *</span></label>
+                  <p-dropdown [options]="all_age_value" formControlName="AGE" [filter]="true" [showClear]="true" placeholder="Select Age" styleClass="dropdwnvalues"></p-dropdown>
+                  <!-- <input type="text" pInputText class="form-control" formControlName="AGE" placeholder="Enter Age"> -->
+                  <small class="form-text text-danger" *ngIf="!forms.get('AGE').valid && (submitted || forms.get('AGE').dirty || forms.get('AGE').touched)">
+                  Age Field is required</small>
+               </div>
+            </div>
+            <!-- Row 2 -->
+            <div class="row p-2">
+               <div class="col-lg-4">
+                  <label class="font-weight-bold">AADHAR Number<span class="text-danger font-weight-bold"> </span></label>
+                  <input type="text" pInputText pKeyFilter="num" class="form-control" formControlName="Aadhar" placeholder="AADHAR Number" maxlength="12">
+                  <small class="form-text text-danger" *ngIf="!forms.get('Aadhar').valid && (submitted  || forms.get('Aadhar').dirty || forms.get('Aadhar').touched)">
+                  AADHAR Number Field is required</small>
+                  <small class="form-text text-danger" *ngIf="inValidAadhar1">
+                  Invalid AADHAR Number</small>
+               </div>
+               <div class="col-lg-4">
+                  <label class="font-weight-bold">Choose Guardian Type<span class="text-danger"> *</span></label>
+                  <p-dropdown [options]="ParentTypelist" formControlName="ParentType"  placeholder="Select Guardian" styleClass="dropdwnvalues"></p-dropdown>
+                  <small class="form-text text-danger" *ngIf="!forms.get('ParentType').valid && (submitted || forms.get('ParentType').dirty || forms.get('ParentType').touched)">
+                  Guardian Field is required</small>
+               </div>
+               <div class="col-lg-4">
+                  <label class="font-weight-bold">Enter Guardian/Parents Name<span class="text-danger"> *</span></label>
+                  <input type="text" pInputText class="form-control" formControlName="ParentName" placeholder="Parents Name">
+                  <small class="form-text text-danger" *ngIf="!forms.get('ParentName').valid && (submitted || forms.get('ParentName').dirty || forms.get('ParentName').touched)">
+                  Gurdian/Parents Name Field is required</small>
+               </div>
+            </div>
+            <!-- Row 3 -->
+            <div class="row p-2">
+               <div class="col-lg-4">
+                  <label class="font-weight-bold">Current Address<span class="text-danger font-weight-bold"> *</span></label>
+                  <input type="text" pInputText class="form-control" formControlName="Address" placeholder="Current Address">
+                  <small class="form-text text-danger" *ngIf="!forms.get('Address').valid && (submitted || forms.get('Address').dirty || forms.get('Address').touched)">
+                  Current Address Field is required</small>
+               </div>
+               <div class="col-lg-4">
+                  <label class="font-weight-bold">Current District<span class="text-danger"> *</span></label>
+                  <p-dropdown [options]="all_district_value" formControlName="DistrictId" [filter]="true" [showClear]="true" placeholder="Select Current District" styleClass="dropdwnvalues"></p-dropdown>
+                  <small class="form-text text-danger" *ngIf="!forms.get('DistrictId').valid && (submitted || forms.get('DistrictId').dirty || forms.get('DistrictId').touched)">
+                  Current District Field is required</small>
+               </div>
+               <div class="col-lg-4">
+                  <label class="font-weight-bold">Native District<span class="text-danger"> *</span></label>
+                  <p-dropdown [options]="all_district_values" formControlName="NativeDistrictId" [filter]="true" [showClear]="true" placeholder="Select Current District" styleClass="dropdwnvalues"></p-dropdown>
+                  <small class="form-text text-danger" *ngIf="!forms.get('NativeDistrictId').valid && (submitted || forms.get('NativeDistrictId').dirty || forms.get('NativeDistrictId').touched)">
+                  Native District Field is required</small>
+               </div>
+            </div>
+            <!-- Row 4 -->
+            <div class="row p-2">
+               <div class="col-lg-4">
+                  <label class="font-weight-bold">Pincode</label><span class="required"></span>
+                  <input type="text" pKeyFilter="pnum" class="form-control" formControlName="Pincode" placeholder="Enter the Pincode" maxlength="6">
+                  <small class="form-text text-danger" *ngIf="!forms.get('Pincode').valid && (submitted || forms.get('Pincode').dirty || forms.get('Pincode').touched)">
+                  Pincode Field is required</small>
+                  <small class="form-text text-danger" *ngIf="forms.get('Pincode').hasError('pattern')">
+                  It is not a valid Pincode</small>
+               </div>
+               <div class="col-lg-4">
+                  <label class="font-weight-bold">Mobile Number<span class="text-danger"> *</span></label>
+                  <input type="text" pKeyFilter="pnum" class="form-control" formControlName="Mobile" placeholder="Enter Mobile number" maxlength="10">
+                  <small class="form-text text-danger" *ngIf="!forms.get('Mobile').valid && (submitted || forms.get('Mobile').dirty || forms.get('Mobile').touched)">
+                  Mobile No Field is required</small>
+                  <small class="form-text text-danger" *ngIf="forms.get('Mobile').hasError('pattern')">
+                  It is not a valid Phoneno</small>
+               </div>
+               <div class="col-lg-4">
+                  <label class="font-weight-bold">Date Of Enrollment<span class="text-danger"> *</span></label>
+                  <input class="form-control date" max="{{todayDate}}" type="date" placeholder="Date" dateformat="yyyy/dd/mm" formControlName="DOJ">
+                  <small class="form-text text-danger" *ngIf="!forms.get('DOJ').valid && (submitted || forms.get('DOJ').dirty || forms.get('DOJ').touched)">
+                  Date Of Enrollment Field is required</small>
+               </div>
+            </div>
+            <!-- Row 6 -->
+            <div class="row p-2">
+               <div class="col-lg-4">
+                  <label class="font-weight-bold">Mother Tongue<span class="text-danger"> *</span></label>
+                  <p-dropdown [options]="MotherLang" formControlName="MotherTongue" [filter]="true" [showClear]="true" placeholder="Select Mother Tongue " styleClass="dropdwnvalues"></p-dropdown>
+                  <small class="form-text text-danger" *ngIf="!forms.get('MotherTongue').valid && (submitted || forms.get('MotherTongue').dirty || forms.get('MotherTongue').touched)">
+                  Mother Tongue Field is required</small>
+               </div>
+               <div class="col-lg-4">
+                  <label class="font-weight-bold">Differently Abled<span class="text-danger"> *</span></label>
+                  <p-dropdown [options]="all_differntly_value" formControlName="Disability" [filter]="true" [showClear]="true" placeholder="Select Differently Abled" styleClass="dropdwnvalues"></p-dropdown>
+                  <small class="form-text text-danger" *ngIf="!forms.get('Disability').valid && (submitted || forms.get('Disability').dirty || forms.get('Disability').touched)">
+                  Differently Abled is required</small>
+               </div>
+               <div class="col-lg-4">
+                  <label class="font-weight-bold">Studied up to<span class="text-danger"> *</span></label>
+                  <p-dropdown [options]="StudiedUpto" formControlName="AcademicQualify" placeholder="Select Studied up to" styleClass="dropdwnvalues"></p-dropdown>
+                  <small class="form-text text-danger" *ngIf="!forms.get('AcademicQualify').valid && (submitted || forms.get('AcademicQualify').dirty || forms.get('AcademicQualify').touched)">
+                  Studied up to Field is required</small>
+               </div>
+            </div>
+            <!-- Row 5 -->
+            <div class="row p-2">
+               <div class="col-lg-4" *ngIf="this.allowedtoview == false">
+                  <label class="font-weight-bold">Block<span class="text-danger"> *</span></label>
+                  <p-dropdown [options]="BlockOption" formControlName="Block" (onChange)="OnBlockChange($event.value)"  [filter]="true" [showClear]="true" placeholder="Select" styleClass="dropdwnvalues"></p-dropdown>
+                  <small class="form-text text-danger" *ngIf="!forms.get('Block').valid && (submitted1 || forms.get('Block').dirty || forms.get('Block').touched)">
+                  Block is required</small>
+               </div>
+               <div class="col-lg-4" *ngIf="this.allowedtoview == false">
+                  <label class="font-weight-bold">School(Learner Literacy Center) <span class="text-danger"> *</span></label>
+                  <!-- <input type="text" pInputText class="form-control" formControlName="SchlID" placeholder="School Learner Literachy">
+                     <small class="form-text text-danger" *ngIf="!forms.get('SchlID').valid && (submitted || forms.get('SchlID').dirty || forms.get('SchlID').touched)">
+                     School Field is required</small> -->
+                  <p-dropdown [options]="BlockSchoolOption1" [disabled]="!schoolDrop1" [filter]="true" [showClear]="true" formControlName="SchlID" placeholder="Select" styleClass="dropdwnvalues"></p-dropdown>
+                  <small class="form-text text-danger" *ngIf="!forms.get('SchlID').valid && (submitted || forms.get('SchlID').dirty || forms.get('SchlID').touched)">
+                  School Field is required</small>
+               </div>
+               <div class="col-lg-4">
+                  <label class="font-weight-bold">Social Category<span class="text-danger"> *</span></label>
+                  <p-dropdown [options]="all_socialcategory_value" formControlName="SocialCategory" placeholder="Select Social Category" styleClass="dropdwnvalues"></p-dropdown>
+                  <small class="form-text text-danger" *ngIf="!forms.get('SocialCategory').valid && (submitted || forms.get('SocialCategory').dirty || forms.get('SocialCategory').touched)">
+                  Social Category Field is required</small>
+               </div>
+            </div>
+            <div class="row p-2">
+            </div>
+            <!-- button -->
+            <div class="text-right mt-3">
+               <button type="submit" class="btn btn-success save" *ngIf="this.allowedtoview == true" (click)="onSaveschool('Update')">Update</button>
+               <button type="submit" *ngIf="this.allowedtoview == false"  class="btn btn-success save" (click)="onSaveschool('save')">Save</button>
+            </div>
+         </form>
+      </div>
+      <div *ngIf="PageStage == 2">
+         <form [formGroup]="form">
+            <!-- <div> -->
+            <div class="row p-2">
+               <div class="col-lg-4">
+                  <label class="font-weight-bold">Volunteer Teacher Name  With Initial<span class="text-danger"> *</span></label>
+                  <input type="text" pInputText class="form-control" formControlName="TeachNam" placeholder="Enter Name">
+                  <small class="form-text text-danger" *ngIf="!form.get('TeachNam').valid && (submitted1 || form.get('TeachNam').dirty || form.get('TeachNam').touched)">
+                  Teacher name Field is required</small>
+               </div>
+               <div class="col-lg-4">
+                  <label class="font-weight-bold">Gender<span class="text-danger"> *</span></label>
+                  <p-dropdown [options]="gender" formControlName="Gendr" placeholder="Select"></p-dropdown>
+                  <small class="form-text text-danger" *ngIf="!form.get('Gendr').valid && (submitted1 || form.get('Gendr').dirty || form.get('Gendr').touched)">
+                  Gender is required</small>
+               </div>
+               <div class="col-lg-4">
+                  <label class="font-weight-bold">Age<span class="text-danger"> *</span></label>
+                  <p-dropdown [options]="all_age_value" formControlName="AGE" placeholder="Select Age" [filter]="true" [showClear]="true"></p-dropdown>
+                  <!-- (onChange)="OnBlockChange($event.value)" -->
+                  <!-- <input type="text" pInputText class="form-control" formControlName="age" placeholder="Enter Age"> -->
+                  <small class="form-text text-danger" *ngIf="!form.get('AGE').valid && (submitted1 || form.get('AGE').dirty || form.get('AGE').touched)">
+                  Age is required</small>
+               </div>
+            </div>
+            <div class="row p-2">
+               <div class="col-lg-4">
+                  <label class="font-weight-bold">Mobile No<span class="text-danger"> *</span></label>
+                  <input type="text" pKeyFilter="pnum" class="form-control" formControlName="MblNo" placeholder="Enter Mobile Number" maxlength="10">
+                  <small class="form-text text-danger" *ngIf="!form.get('MblNo').valid && (submitted1 || form.get('MblNo').dirty || form.get('MblNo').touched)">
+                  Mobile No  is required</small>
+               </div>
+               <div class="col-lg-4">
+                  <label class="font-weight-bold">AADHAR Number<span class="text-danger"> </span></label>
+                  <input type="text" pInputText pKeyFilter="num" class="form-control" formControlName="Aadhar" placeholder="Enter Aadhar Number" maxlength="12">
+                  <small class="form-text text-danger" *ngIf="!form.get('Aadhar').valid && (submitted1 || form.get('Aadhar').dirty || form.get('Aadhar').touched)">
+                  AADHAR Number is required</small>
+                  <small class="form-text text-danger" *ngIf="inValidAadhar">
+                  Invalid AADHAR Number</small>
+               </div>
+               <div class="col-lg-4">
+                  <label class="font-weight-bold">Email<span class="text-danger"> *</span></label>
+                  <input type="text" class="form-control" formControlName="Email" placeholder="Enter Email">
+                  <small class="form-text text-danger" *ngIf="!form.get('Email').valid && (submitted1 || form.get('Email').dirty || form.get('Email').touched)">
+                  Email is required</small>
+               </div>
+            </div>
+            <div class="row p-2">
+               <div class="col-lg-4">
+                  <label class="font-weight-bold">Academic Qualification<span class="text-danger"> *</span></label>
+                  <p-dropdown [options]="AcademicOption" formControlName="Academic" placeholder="Select"></p-dropdown>
+                  <small class="form-text text-danger" *ngIf="!form.get('Academic').valid && (submitted1 || form.get('Academic').dirty || form.get('Academic').touched)">
+                  Academic Qualification is required</small>
+               </div>
+               <div class="col-lg-4">
+                  <label class="font-weight-bold">Social Category<span class="text-danger"> *</span></label>
+                  <p-dropdown [options]="SocialOption" formControlName="SclCategory" placeholder="Select"></p-dropdown>
+                  <small class="form-text text-danger" *ngIf="!form.get('SclCategory').valid && (submitted1 || form.get('SclCategory').dirty || form.get('SclCategory').touched)">
+                  Social Category is required</small>
+               </div>
+               <div class="col-lg-4">
+                  <label class="font-weight-bold">Volunteer Category<span class="text-danger"> *</span></label>
+                  <p-dropdown [options]="VolunteerCategory" formControlName="VolunteerCategory" placeholder="Select"></p-dropdown>
+                  <small class="form-text text-danger" *ngIf="!form.get('VolunteerCategory').valid && (submitted1 || form.get('VolunteerCategory').dirty || form.get('VolunteerCategory').touched)">
+                  Volunteer Category is required</small>
+               </div>
+            </div>
+            <div class="row p-2">
+               <div class="col-lg-4">
+                  <label class="font-weight-bold">Date Of Join<span class="text-danger"> *</span></label>
+                  <input class="form-control col-sm-12"  type="date" formControlName="StaffJoin" placeholder="Date" dateformat="yyyy/dd/mm">
+                  <small class="form-text text-danger" *ngIf="!form.get('StaffJoin').valid && (submitted1 || form.get('StaffJoin').dirty || form.get('StaffJoin').touched)">
+                  Date Of Join is required</small>
+               </div>
+               <div class="col-lg-4" *ngIf="this.allowedtoview == false">
+                  <label class="font-weight-bold">Block<span class="text-danger"> *</span></label>
+                  <p-dropdown [options]="BlockOption" formControlName="Block" (onChange)="OnBlockChange($event.value)" [filter]="true" [showClear]="true" placeholder="Select"></p-dropdown>
+                  <small class="form-text text-danger" *ngIf="!form.get('Block').valid && (submitted1 || form.get('Block').dirty || form.get('Block').touched)">
+                  Block is required</small>
+               </div>
+               <div class="col-lg-4" *ngIf="this.allowedtoview == false">
+                  <label class="font-weight-bold">School (Learner Literacy Center)<span class="text-danger"> *</span></label>
+                  <p-dropdown [options]="BlockSchoolOption" [disabled]="!schoolDrop" [filter]="true" [showClear]="true" formControlName="SchlID" placeholder="Select"></p-dropdown>
+                  <small class="form-text text-danger" *ngIf="!form.get('SchlID').valid && (submitted1 || form.get('SchlID').dirty || form.get('SchlID').touched)">
+                  School is required</small>
+               </div>
+            </div>
+            <div class="row p-2">
+            </div>
+            <div class="text-right mt-4">
+               <button type="submit" class="btn btn-success m-2" *ngIf="this.allowedtoview == true" (click)="save_brte()">Update</button>
+               <button type="submit" class="btn btn-success m-2" *ngIf="this.allowedtoview == false" (click)="save_brte()">Save</button>
+            </div>
+            <!-- </div> -->
+         </form>
+      </div>
+   </p-card>
+</div>

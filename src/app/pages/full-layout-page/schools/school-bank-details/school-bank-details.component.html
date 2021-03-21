@@ -1,0 +1,116 @@
+<div style="margin-top: 20px;">
+    <div class="backclr-grn font-16" style="text-align: center;">
+        <strong>School Bank Details</strong>
+     </div>
+    <p-card>
+        <form [formGroup]="form">
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="font-weight-bold" style="color: teal;font-size: 14px;">IFS Code<span class="text-danger"> *
+                  </span></label><br>
+                  <!-- <input type="text" class="form-control" formControlName="ifsc_code"  *ngIf="bankdata == 1" readonly maxlength="11" placeholder="IFS Code" pInputText oninput="this.value = this.value.toUpperCase()" (change)="getBankname($event.target.value)" > -->
+
+                    <input type="text" class="form-control" formControlName="ifsc_code"  maxlength="11" placeholder="IFS Code" pInputText oninput="this.value = this.value.toUpperCase()" (change)="getBankname($event.target.value)" >
+                    <p-message severity="error" text="IFS Code is required"
+                    *ngIf="form.controls.ifsc_code.errors  && (submitted || form.controls.ifsc_code.dirty || form.controls.ifsc_code.touched)">
+                </p-message>
+                      <small *ngIf="inValidMsg1">&nbsp;&nbsp;{{inValidMsg1}}</small>
+                   
+                </div>
+                <div class="col-md-4">
+                    <label class="font-weight-bold" style="color: teal;font-size: 14px;">Bank<span class="text-danger"> *
+                    </span></label><br>
+                    <input  type="text" pInputText class="form-control" formControlName="bank_name" readonly placeholder="Enter Bank" >
+                    <p-message severity="error" text="Bank Name is required"
+                    *ngIf="form.controls.bank_name.errors  && (submitted || form.controls.bank_name.dirty || form.controls.bank_name.touched)">
+                </p-message>
+                </div>
+                <div class="col-md-4">
+                    <label class="font-weight-bold" style="color: teal;font-size: 14px;">Branch Name<span class="text-danger"> *
+                    </span></label><br>
+                    <input  type="text" pInputText class="form-control" formControlName="branch" readonly placeholder="Enter Branch">
+                    <p-message severity="error" text="Branch Name is required"
+                    *ngIf="form.controls.branch.errors  && (submitted || form.controls.branch.dirty || form.controls.branch.touched)">
+                </p-message>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 15px;">
+                <div class="col-md-4">
+                    <label class="font-weight-bold" style="color: teal;font-size: 14px;">Account No.<span class="text-danger"> *
+                    </span></label><br>
+                    <!-- <input type="text" pInputText pKeyFilter="pnum" class="form-control"
+                        formControlName="SMCAccNo" 
+                        placeholder="Enter Account No" 
+                        *ngIf="bankdata == 1" readonly 
+                        (change)="checkAccno($event.target.value)"> -->
+                        <input type="text" pInputText pKeyFilter="pnum" class="form-control"
+                        formControlName="SMCAccNo" 
+                        placeholder="Enter Account No" 
+                        (change)="checkAccno($event.target.value)">
+                        <p-message severity="error" text="Account No. is required"
+                    *ngIf="form.controls.SMCAccNo.errors  && (submitted || form.controls.SMCAccNo.dirty || form.controls.SMCAccNo.touched)">
+                </p-message>
+                        <small *ngIf="inValidMsg2">&nbsp;&nbsp;{{inValidMsg2}}</small>
+                </div>
+                <div class="col-md-4">
+                    <label class="font-weight-bold" style="color: teal;font-size: 14px;">Re-Enter Account No.<span class="text-danger"> *
+                    </span></label><br>
+                    <!-- <input type="text" pInputText pKeyFilter="pnum" class="form-control"
+                        formControlName="re_bank_acc" 
+                        placeholder="Re-Enter Account No" 
+                        *ngIf="bankdata == 1" readonly 
+
+                        > -->
+                        <input type="text" pInputText pKeyFilter="pnum" class="form-control"
+                        formControlName="re_bank_acc" 
+                        placeholder="Re-Enter Account No" 
+
+                        >
+                        <p-message severity="error" text="Account No. is again required"
+                    *ngIf="form.controls.re_bank_acc.errors  && (submitted || form.controls.re_bank_acc.dirty || form.controls.re_bank_acc.touched)">
+                </p-message>
+                        <small *ngIf="inValidMsg2">&nbsp;&nbsp;{{inValidMsg2}}</small>
+                </div>
+                <div class="col-md-4">
+                    <label class="font-weight-bold" style="color: teal;font-size: 14px;">Account Holder Name.<span class="text-danger"> *
+                    </span></label><br>
+                    <!-- <input type="text" pInputText class="form-control" class="form-control"
+                        formControlName="SMCAccNam" 
+                        placeholder="Account Holder Name"
+                        *ngIf="bankdata == 1" readonly 
+
+                        > -->
+                        <input type="text" pInputText class="form-control" class="form-control"
+                        formControlName="SMCAccNam" 
+                        placeholder="Account Holder Name"
+
+                        >
+                        <p-message severity="error" text="Account Holder Name is required"
+                        *ngIf="form.controls.SMCAccNam.errors  && (submitted || form.controls.SMCAccNam.dirty || form.controls.SMCAccNam.touched)">
+                </p-message>
+                        <small *ngIf="inValidMsg2">&nbsp;&nbsp;{{inValidMsg2}}</small>
+                </div>
+            </div>
+          
+
+
+        </form>
+        <br>
+        <p>   ***Please ensure that the account details provided are correct. 
+            You cannot edit the details after saving the account details.
+             In case of any corrections to be carried out,
+             A letter should be submitted to the Corresponding Directorate 
+             with the approval of CEO of the respective district </p>
+             <br>
+
+             <div class="row" style="margin-top:15px;padding-left:933px;">
+                <div >
+                        <button pButton type="button"    (click)="confirm()"    label="Save" class="ui-button-raised ui-button-success"></button>
+                </div>
+            </div>
+    </p-card>
+    <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+</div>
+
+
+<!-- *ngIf="bankdata == 2"  -->

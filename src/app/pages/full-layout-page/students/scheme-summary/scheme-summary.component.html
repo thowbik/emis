@@ -1,0 +1,50 @@
+<div class="main-body-content">
+    <!-- <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid"> -->
+          <p-table #dt [columns]="cols" [value]="schemesListArr" [paginator]="true" [rows]="10" [responsive]="true" [resizableColumns]="true">
+                <ng-template pTemplate="caption">
+                    <div class="row">
+                        <div class="col-md-6" style="text-align: left">        Schemes Summary
+                        </div>
+                        <!-- <div class="ui-helper-clearfix" style="text-align: left"> -->
+                            <!-- <button type="button" pButton icon="pi pi-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="margin-right: 0.5em;"></button> -->
+                            <!-- <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button> -->
+                            <!-- <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF" (click)="exportPdf()" class="ui-button-warning"></button> -->
+                            <!-- <button type="button" pButton icon="pi pi-file" iconPos="left" label="CSV - Selection Only" (click)="dt.exportCSV({selectionOnly:true})" style="float:right"></button> -->
+                        <!-- </div> -->
+                        <div class="col-md-6" style="text-align: right">        
+                            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                <input type="text" pInputText size="50" placeholder=" Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th class="sno-header-layout">#</th>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </th> 
+                    </tr>
+                </ng-template>
+                            <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+                                <tr>
+                                    <td class="sno-header-layout">{{i+1}}</td>
+                                    <td>
+                                        <a class="nav-link" [routerLink]="rowData.route" routerLinkActive="active">{{rowData.scheme_name}}</a></td>
+                                    <td> <span class="badge badge-success">In Progress</span>
+                                        <!-- <span class="badge badge-danger">Not Yet Start</span> --></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>      
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage" let-columns>
+                                <tr>
+                                  <td [attr.colspan]="(columns.length)+2" style="text-align: center;">
+                                     <strong>No records found</strong>
+                                  </td>
+                                </tr>
+                            </ng-template>
+          </p-table>
+    <!-- </div> -->
+</div>

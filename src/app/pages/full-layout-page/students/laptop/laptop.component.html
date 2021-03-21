@@ -1,0 +1,260 @@
+<!-- <p-toast [style]="{marginTop: '80px'}"></p-toast> -->
+<div class="main-body-content">
+    <div class="outer-layout">
+       <div class="breadcrumbs c-black">
+          <h6 class="url"><span class="flex-gap-right">Schemes</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i> <span class="flex-gap-right">Laptop</span><i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i><span class="flex-gap-right">SPECIAL SCHEME : Laptop {{tableTitle}}</span></h6>
+       </div>
+    </div>
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
+       <div class="card">
+          <div class="card-body">
+             <!-- <h4 class="card-title">SPECIAL SCHEME : Laptop {{tableTitle}} </h4> -->
+             <form [formGroup]="filterForm" (ngSubmit)="searchableSubmit(filterForm.value)">
+             <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+                <div class="ui-grid-row">
+                   <div class="ui-grid-col-3">
+                      Academic Year *
+                      <p-dropdown [options]="ayList" formControlName="ac_year_id" (onChange)="ischecked($event.value)"></p-dropdown>
+                      <p-message severity="error" text="Academic Year is required" *ngIf="!filterForm.controls['ac_year_id'].valid&&filterForm.controls['ac_year_id'].dirty"></p-message>
+                   </div>
+                   <div class="ui-grid-col-3" >
+                      <span *ngIf="!checked">
+                         Available Classes *
+                         <p-dropdown [options]="classList" formControlName="class_id" (onChange)="getSectionForRevalentClass($event.value)"></p-dropdown>
+                         <p-message severity="error" text="Class is required" *ngIf="!filterForm.controls['class_id'].valid&&filterForm.controls['class_id'].dirty"></p-message>
+                      </span>
+                   </div>
+                   <div class="ui-grid-col-3">
+                      <span *ngIf="!checked">
+                         Available Section *
+                         <p-dropdown [options]="sectionList" formControlName="section"></p-dropdown>
+                         <p-message severity="error" text="Section is required" *ngIf="!filterForm.controls['section'].valid&&filterForm.controls['section'].dirty"></p-message>
+                      </span>
+                   </div>
+                   <!-- <div class="ui-grid-col-2"><br><br></div> -->
+                   <div class="ui-grid-col-2">
+                      <br/>
+                      <button style="float: right;" pButton type="submit" label="Search" class="ui-button-raised" [disabled]="!filterForm.valid"></button>
+                   </div>
+                </div>
+                <div class="ui-grid-row" *ngIf="submitted">
+                   <!-- <div style="text-align:center;margin-top:20px" >
+                      Form Submitted
+                      <br>
+                      {{diagnostic}}
+                      </div> -->
+                </div>
+             </div>
+             </form>  
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-12">
+                   <i>Note : To Update the Details Please Tick the Checkboxes </i>
+                </div>
+             </div>
+             <p-table *ngIf="filterForm.controls['ac_year_id'].value == 0" class="ui-g-12"  #dt 
+             [style]="{ height: 'fit-content', 'margin-top': '10px' }"
+             [resizableColumns]="false" columnResizeMode="fit" emptyMessage="No records found"
+             [columns]="cols" 
+             [paginator]="true" 
+             [rows]="10" 
+             [(selection)]="selectedList" 
+             [value]="laptopListArr" 
+             [responsive]="true">
+             <!-- [scrollable]="true" scrollWidth="100%"> -->
+             <ng-template pTemplate="caption">
+                <div class="row">
+                   <div class="col-md-8"></div>
+                   <div class="col-md-3" style="text-align: left">
+                      <input class="form-control" type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Filter" />
+                      <!-- <input type="text" class="form-control" placeholder=" Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto"> -->
+                   </div>
+                   <!-- <div class="col-md-5"></div> -->
+                   <!-- <button type="button" pButton icon="pi pi-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="margin-right: 0.5em;"></button> -->
+                   <div class = "col-md-1" style="padding-top:10px;padding-left: 60px;">
+                      <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"  (click)="exportPdf()"></i> -->
+                      <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel(laptopListArr)"></i>
+                   </div>
+                </div>
+             </ng-template>
+             <ng-template pTemplate="header" let-columns>
+                <tr>
+                   <th style="width: 3em">
+                      <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                   </th>
+                   <th style="width:4em;">#</th>
+                   <th *ngFor="let col of columns" [pSortableColumn]="col.field" [style.width]="col.width">
+                   {{col.header}}
+                   <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                   </th>
+                </tr>
+                <tr>
+                   <th></th>
+                   <th></th>
+                   <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                   <input *ngSwitchCase="'distribution_date'" pInputText type="date" (input)="assignTheDistributionDate($event.target.value, col.field)" style="width: 10em;">
+                   </th>
+                </tr>
+             </ng-template>
+             <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+                <tr>
+                   <td>
+                      <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                   </td>
+                   <td style="width:4em;">{{i+1}}</td>
+                   <td>{{rowData.unique_id_no}}</td>
+                   <td>{{rowData.name}}</td>
+                   <td>{{rowData.class_and_section}}</td>
+                   <!-- <td>{{classesInRoman[rowData.class_studying_id]}} - {{rowData.class_section}} </td> -->
+                   <td pEditableColumn>
+                      <p-cellEditor>
+                         <ng-template pTemplate="input">
+                            <input pInputText type="number" min="0" onKeyPress="if(this.value.length==20) return false;"  [(ngModel)]="rowData.unique_supply" (change)="checkWithExisting($event.target.value,i,1)">
+                         </ng-template>
+                         <ng-template pTemplate="output">
+                            {{rowData.unique_supply}}
+                         </ng-template>
+                      </p-cellEditor>
+                   </td>
+                   <!-- <td>{{rowData.indent | date:"dd/MM/yyyy" }}</td> -->
+                   <td pEditableColumn style="width: 6em !important">
+                      <p-cellEditor>
+                         <ng-template pTemplate="input">
+                            <input pInputText type="date" [(ngModel)]="rowData.distribution_date" dateformat="dd/MM/yyyy" >
+                            <!-- <p-calendar [(ngModel)]="rowData.distribution_date"></p-calendar> -->
+                            <!-- [(inputStyle)]="width:6em" -->
+                            <!-- <p-calendar 
+                               [(ngModel)]="rowData.distribution_date" 
+                               [dateFormat]="'dd/mm/yy'">
+                                </p-calendar>
+                                -->
+                         </ng-template>
+                         <ng-template pTemplate="output">
+                            {{rowData.distribution_date | date:"dd/MM/yyyy"}}
+                         </ng-template>
+                      </p-cellEditor>
+                   </td>
+                   <!-- <span>{{ value|json }}</span> -->
+                </tr>
+             </ng-template>
+             <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                   <td [attr.colspan]="(columns.length)+2" style="text-align: center;">
+                      <strong>No records found</strong>
+                   </td>
+                </tr>
+             </ng-template>
+             <!-- <ng-template pTemplate="summary">
+                <ul>
+                    <li *ngFor="let sl of selectedList" style="text-align: left">
+                        {{sl.student_id + ' - ' + sl.name + ' - ' + sl.class_studying_id + ' - ' + sl.class_section + ' - ' + sl.is_opted + ' - ' + sl.indent}}
+                    </li>
+                </ul>
+                </ng-template> -->
+             </p-table>
+             <p-table class="ui-g-12" *ngIf="filterForm.controls['ac_year_id'].value != 0" #dt2 
+             [style]="{ height: 'fit-content', 'margin-top': '10px' }"
+             [resizableColumns]="false" columnResizeMode="fit" emptyMessage="No records found"
+             [columns]="cols2" 
+             [paginator]="true" 
+             [rows]="10" 
+             [(selection)]="selectedList2" 
+             [value]="laptopListArr2" 
+             [responsive]="true">
+             <!-- [scrollable]="true" scrollWidth="100%"> -->
+             <ng-template pTemplate="caption">
+                <div class="row header flex-row-center">
+                   <div class="col-sm-8">
+                   </div>
+                   <div class="col-sm-3 p-1">
+                      <div class="text-right">
+                         <input class="form-control" type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search Filter">
+                      </div>
+                   </div>
+                   <div class="col-sm-1 p-1 flex-row-center-end">
+                      <div class="text-right">
+                         <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true" (click)="exportPdf()" ></i>
+                         <!-- <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"   (click)="exportExcel(laptopListArr)"></i> -->
+                      </div>
+                   </div>
+                </div>
+             </ng-template>
+             <ng-template pTemplate="header" let-columns>
+                <tr>
+                   <th style="width: 3em">
+                      <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                   </th>
+                   <th style="width: 3.5em">#</th>
+                   <th *ngFor="let col of columns" [pSortableColumn]="col.field" [style.width]="col.width">
+                   {{col.header}}
+                   <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                   </th>
+                </tr>
+                <tr>
+                   <th></th>
+                   <th></th>
+                   <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                   <input *ngSwitchCase="'LAPTOPDISTRIBUTIONDATE'" pInputText type="date" (input)="assignTheDistributionDate2($event.target.value, col.field)" style="width: 10em;">
+                   </th>
+                </tr>
+             </ng-template>
+             <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+                <tr>
+                   <td>
+                      <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                   </td>
+                   <td>{{i+1}}</td>
+                   <td>{{rowData.REGNO}}</td>
+                   <td>{{rowData.NAME}}</td>
+                   <!-- <td>{{rowData.YEAR}}</td> -->
+                   <td>{{rowData.result}}</td>
+                   <td>{{rowData.MANAGEMENT}}</td>
+                   <td>{{rowData.laptop_distributed  == 1 ? 'Yes' :  'No'}}</td>
+                   <td pEditableColumn>
+                      <p-cellEditor>
+                         <ng-template pTemplate="input">
+                            <input pInputText  min="0" type="number" onKeyPress="if(this.value.length==20) return false;"  [(ngModel)]="rowData.LAPTOPSERIALNO" (change)="checkWithExisting($event.target.value,i,2)">
+                         </ng-template>
+                         <ng-template pTemplate="output">
+                            {{rowData.LAPTOPSERIALNO}}
+                         </ng-template>
+                      </p-cellEditor>
+                   </td>
+                   <td pEditableColumn style="width: 6em !important">
+                      <p-cellEditor>
+                         <ng-template pTemplate="input">
+                            <input pInputText type="date" [(ngModel)]="rowData.LAPTOPDISTRIBUTIONDATE" dateformat="dd/MM/yyyy" >
+                         </ng-template>
+                         <ng-template pTemplate="output">
+                            {{rowData.LAPTOPDISTRIBUTIONDATE | date:"dd/MM/yyyy"}}
+                         </ng-template>
+                      </p-cellEditor>
+                   </td>
+                </tr>
+             </ng-template>
+             <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                   <td [attr.colspan]="(columns.length)+2" style="text-align: center;">
+                      <strong>No records found</strong>
+                   </td>
+                </tr>
+             </ng-template>
+             <!-- <ng-template pTemplate="summary">
+                <ul>
+                    <li *ngFor="let sl of selectedList" style="text-align: left">
+                        {{sl.student_id + ' - ' + sl.name + ' - ' + sl.class_studying_id + ' - ' + sl.class_section + ' - ' + sl.is_opted + ' - ' + sl.indent}}
+                    </li>
+                </ul>
+                </ng-template> -->
+             </p-table>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-9"><br><br></div>
+                <div class="ui-grid-col-2">
+                   <br>
+                   <button style="float: right;" *ngIf="filterForm.controls['ac_year_id'].value == 0" pButton type="button" label=" Submit " class="ui-button-raised ui-button-rounded" (click)="onSubmit(selectedList,0)"></button>
+                   <button style="float: right;" *ngIf="filterForm.controls['ac_year_id'].value != 0" pButton type="button" label=" Submit " class="ui-button-raised ui-button-rounded" (click)="onSubmit(selectedList2,1)"></button>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>

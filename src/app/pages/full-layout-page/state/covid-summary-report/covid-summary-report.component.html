@@ -1,0 +1,152 @@
+<div class="main-body-content">
+    <div class="outer-layout" style="padding-top:5px;">
+        <div class="breadcrumbs c-black">
+            <h6 classs="url"><span class="flex-gap-right">Monitoring Reports</span>
+                <i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i>
+                <span class="flex-gap-right" style="cursor:pointer" (click)="goBack_b()">Covid Watch Question Response
+                </span>
+                <span class="flex-gap-right" style="cursor:pointer" *ngIf="showNoList==true" (click)="goBack_sc()"><i
+                        class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>Schools Responded No</span>
+            </h6>
+        </div>
+
+    </div>
+    <div class="container-fluid" *ngIf="pageStage===1">
+        <p-card>
+            <form [formGroup]="covidSummaryReport">
+                <div class="row">
+                    <div class="col-md-3">
+                        <input class="form-control col-sm-12" type="date" formControlName="date" placeholder="Date"
+                            dateformat="yyyy/dd/mm" max="{{todayDate}}">
+                    </div>
+                    <div class="col-md-3 ">
+                        <p-dropdown [options]="school_type" formControlName="schl_type_id"></p-dropdown>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" style="background-color: #065040" class="btn btn-success"
+                            (click)="onSubmitCovidSummary()">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </p-card>
+        <br>
+        <p-table #db [columns]="dataHeader" [value]="covidSummaryReportList" [resizableColumns]="true">
+            <ng-template pTemplate="caption">
+                <div class="row">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-3 text-right">
+                        <input class="form-control" type="text"
+                            (input)="db.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                    </div>
+                    <div class="col-md-1 text-right" style="padding-top: 15px;padding-right:28px;">
+                        <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                            (click)="exportExcelSummary()"></i>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr class="text-center">
+                    <th style="width:4em;">S.No</th>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+                            ariaLabelDesc="Activate to sort in descending order"
+                            ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-summary let-columns="columns" let-i="rowIndex">
+                <tr class="text-center">
+                    <td>{{i+1}}</td>
+                    <td style="width: 13em;" class="text-left">{{summary.Quest}}</td>
+                    <td> {{ summary.RespDate}} </td>
+                    <td> {{ summary.TotSchlCount}} </td>
+                    <!-- <td> {{ summary.TotMarkdCount}} </td> -->
+                    <td><a href="javascript:void(0)" (click)="redirectToNoMarked(summary.QuestID)"> {{
+                            summary.TotNoCount}}</a> </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                        <strong>No records found</strong>
+                    </td>
+                </tr>
+            </ng-template>
+
+        </p-table>
+    </div>
+
+
+    <div class="container-fluid" *ngIf="pageStage===2">
+        <p-card>
+            <form [formGroup]="covidSummaryReport">
+                <div class="row">
+                    <div class="col-md-3">
+                        <input class="form-control col-sm-12" type="date" formControlName="date" placeholder="Date"
+                            dateformat="yyyy/dd/mm" max="{{todayDate}}">
+                    </div>
+                    <div class="col-md-3 ">
+                        <p-dropdown [options]="school_type" formControlName="schl_type_id"></p-dropdown>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" style="background-color: #065040" class="btn btn-success"
+                            (click)="onSubmitCovidSummary()">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </p-card>
+        <br>
+        <p-table #db2 [columns]="dataHeader2" [value]="covidSummaryNoList" [resizableColumns]="true" [paginator]="true" [rows]="10"  >
+            <ng-template pTemplate="caption">
+                <div class="row">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-3 text-right">
+                        <input class="form-control" type="text"
+                            (input)="db2.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                    </div>
+                    <div class="col-md-1 text-right" style="padding-top: 15px;padding-right:28px;">
+                        <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                            (click)="exportExcelSchoolSummary()"></i>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr class="text-center">
+                    <th style="width:4em;">S.No</th>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+                            ariaLabelDesc="Activate to sort in descending order"
+                            ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-totalnolist let-columns="columns" let-i="rowIndex">
+                <tr class="text-center">
+                    <td>{{i+1}}</td>
+
+                    <td style="width: 13em;" class="text-left" *ngIf="usertypeId==5">{{totalnolist.DistName}}
+                    </td>
+                    <td class="text-left"> {{ totalnolist.BlckName}} </td>
+                    <td> {{ totalnolist.UDISE}} </td>
+                    <td class="text-left"> {{ totalnolist.SchlName}} </td>
+                    <td> {{ totalnolist.SchlTyp}} </td>
+
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                        <strong>No records found</strong>
+                    </td>
+                </tr>
+            </ng-template>
+
+        </p-table>
+    </div>
+
+</div>

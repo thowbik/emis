@@ -1,0 +1,27 @@
+.page-wizard.kt-wizard-v1 .form-group {
+    text-align: left;
+    flex-direction: row !important;
+    align-items: start!important;
+    place-content: center space-around !important;
+}
+::ng-deep  .ui-fieldset-toggleable .ui-fieldset-legend {
+    padding: 0;
+    width: 25%;
+}
+::ng-deep body .ui-fieldset .ui-fieldset-legend a {
+    background-color: #32c5d2 !important;
+}
+::ng-deep body .ui-fieldset.ui-fieldset-toggleable .ui-fieldset-legend a:hover .ui-fieldset-toggler {
+    color: #333333 !important;
+}
+
+.flex-container {
+    margin-top: 30px !important;
+}
+.sub-text {
+    display: flex !important;
+    color: red;
+    font-style: italic;
+    font-weight: 500;
+    margin-top: 5px;
+}

@@ -1,0 +1,16 @@
+.brteheading-align {
+    text-align: center !important;
+    font-size: 15px;
+    font-weight: 500;
+     color:green;
+}
+::ng-deep body .ui-dropdown {
+    width: 100% !important;
+} 
+.flex-dropdown {
+    display: flex !important;
+}
+.broadccom
+{
+    color: rgb(92, 98, 169);
+}

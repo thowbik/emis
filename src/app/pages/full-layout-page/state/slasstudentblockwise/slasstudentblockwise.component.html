@@ -1,0 +1,53 @@
+<div class="m-4">
+    <p-card >
+        <div class="container-fluid header_fonts">
+              <div class="row p-1">
+                <div class="col-sm-12">
+                    <div class="text-lg-left mt-3">
+                      <h5>SLAS Marks Range - SUBJECT : (TAMIL) Gender : (BOYS & GIRLS) DISTRICT :</h5>
+                    </div>
+                </div>
+              </div>
+        </div>
+        <div>
+          <p-table [columns]="blkhead"  [value]="studdistDetail">
+            <ng-template pTemplate="header" let-Datas>
+                <tr>
+                    <th class="sno-header-layout"></th>
+                    <th ></th>
+                    <th></th>
+                    <th *ngFor="let blks of blkhead" [pSortableColumn]="blks.field" [style.width]="blks.widthstyle"  colspan="2" style="text-align: center;">
+                      {{blks.header}}
+                      <p-sortIcon [field]="blks.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                    </th>
+                  </tr>
+                <tr>
+                  <th class="sno-header-layout">S.NO</th>
+                  <th *ngFor="let blkby of blkbody" [pSortableColumn]="blkby.field" [style.width]="blkby.widthstyle">
+                    {{blkby.header}}
+                    <p-sortIcon [field]="blkby.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-stdblk let-columns="columns" let-i="rowIndex">
+                <tr >
+                    <td>{{i+1}}</td>
+                    <td><a class="link-url" href="javascript:void(0)" (click)="studschool(stdblk.block_id)">{{stdblk.block_name}}</a></td>
+                    <td style="text-align: center;">{{stdblk.total}}</td>
+                    <td style="text-align: center;">{{stdblk.p0}}</td>
+                    <td style="text-align: center;">{{stdblk.per0 }}%</td>
+                    <td style="text-align: center;">{{stdblk.p1}}</td>
+                    <td style="text-align: center;">{{stdblk.per1 }}%</td>
+                    <td style="text-align: center;">{{stdblk.p2}}</td>
+                    <td style="text-align: center;">{{stdblk.per2}}%</td>
+                    <td style="text-align: center;">{{stdblk.p3 }}</td>
+                    <td style="text-align: center;">{{stdblk.per3}}%</td>
+                    <td style="text-align: center;">{{stdblk.p4}}</td>
+                    <td style="text-align: center;">{{stdblk.per4}}%</td>
+                </tr>                                                                                                                           
+            </ng-template> 
+        </p-table>
+        </div>
+    </p-card>
+</div>
+

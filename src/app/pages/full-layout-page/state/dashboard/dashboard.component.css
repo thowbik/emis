@@ -1,0 +1,40 @@
+.container-fluid{
+    padding-top:10px;
+}
+.card_one{
+    padding-top:5%;
+    padding-right:0px ;
+    width: 300px;
+    height:95%;
+    margin-bottom: 3em;
+    margin-left:1px;
+    margin-right: -1px;
+    background-color:tomato;
+    border : white;
+    opacity :1px;
+}
+.pi pi-user{
+    margin:20px;
+    padding-top: 6%;
+}
+.card_c{
+    color:white;
+    float : center;
+    padding-right:10px;
+}
+.profile-img{
+    padding-top : 10px;
+    width:100px;
+    height:60px;
+
+}
+.img-fluid {
+    margin-left: -7px;
+    padding-top: 36px;
+    color: whitesmoke;
+    margin-top: -23px;
+    filter : brightness(50) grayscale(100%) invert(0) contrast(500%) saturate(0%) drop-shadow(0px 0px 0px white);
+    /* -webkit-filter: opacity(.5) drop-shadow(0 0 0 white);
+    filter: opacity(.5) drop-shadow(0 0 0 white); */
+    
+}

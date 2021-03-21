@@ -1,0 +1,6 @@
+<svg id="icn_next" xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 45 45">
+  <path id="Path_413" data-name="Path 413" d="M22.5,0A22.5,22.5,0,1,1,0,22.5,22.5,22.5,0,0,1,22.5,0Z" transform="translate(45 45) rotate(180)" fill="#375aa8"/>
+  <g id="arrow-point-to-right" transform="translate(18.125 13.154)">
+    <path id="Path_16" data-name="Path 16" d="M107.03,9.891,99.29,17.63a1.26,1.26,0,1,1-1.783-1.782L104.356,9,97.508,2.152A1.261,1.261,0,1,1,99.29.369l7.74,7.74a1.26,1.26,0,0,1,0,1.782Z" transform="translate(-97.138 0)" fill="#fff"/>
+  </g>
+</svg>

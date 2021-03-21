@@ -1,0 +1,325 @@
+<div class="main-body-content">
+  <div class="outer-layout">
+    <div class="breadcrumbs c-black" *ngIf="!districtId">
+      <h6 class="url">
+        <span class="flex-gap-right">Schemes</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+        <span class="flex-gap-right" (click)="goBack()">Laptop Distribution</span>
+        <span class="flex-gap-right" *ngIf="dist_name" (click)="goBack_b()"><i
+            class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>{{dist_name}}</span>
+        <span *ngIf="schoolname"><i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>{{schoolname}}</span>
+        </h6>
+    </div>
+    <div class="breadcrumbs c-black" *ngIf="districtId">
+      <h6 class="url">
+        <span class="flex-gap-right">Schemes</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+        <span class="flex-gap-right" (click)="goBack_b()">Laptop Distribution</span>
+        <span *ngIf="schoolname"><i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>{{schoolname}}</span>
+        </h6>
+    </div>
+  </div>
+  <div class="container-fluid" *ngIf="pageStage === 1">
+    <p-table #dt [columns]="cols" [value]="laptopdistrlist">
+      <ng-template let-childrens pTemplate="caption">
+
+        <div class="row  header flex-row-center">
+          <div class="col-lg-3 p-1">
+
+            <!-- <p-multiSelect [options]="dataHeader1" [(ngModel)]="selectedColumns1" optionLabel="header"
+                                  selectedItemsLabel="{0} columns selected" [style]="{minWidth: '225px'}" defaultLabel="Choose Columns"></p-multiSelect> -->
+          </div>
+          <div class="col-lg-5">
+
+          </div>
+
+          <div class="col-sm-3 p-1">
+            <div class="text-right">
+              <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                placeholder="Search">
+            </div>
+          </div>
+          <div class="col-sm-1 p-1 flex-row-center-end">
+            <div class="text-right">
+              <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"
+                          (click)="exportPdf(studentList1,selectedColumns1)"></i>
+                      <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                          (click)="exportExcel(studentList1)"></i> -->
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header" let-distname>
+        <tr class="text-center">
+          <th class="sno-header-layout">#</th>
+          <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+            {{col.header}}
+            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+              ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order">
+            </p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-distname let-rowData let-columns="columns" let-i="rowIndex">
+        <tr [pSelectableRow]="rowData" class="text-center">
+          <td class="sno-header-layout"> {{i+1}} </td>
+          <td class="text-left clr-blue"> <a class="nav-link" routerLinkActive="active"
+              (click)="laptopdirst(distname.district_id,distname.district_name)">{{ distname.district_name}} </a></td>
+          <td> {{ distname.Class11_Enr}} </td>
+          <td> {{ distname.Class11_dist}} </td>
+          <td> {{ distname.Class12_Enr}} </td>
+          <td> {{ distname.Class12_dist}} </td>
+          <td> {{ distname.Class12_19_20}} </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <tr class="text-center" *ngIf="noDataFound === 1">
+          <td colspan="7"> No Data Found </td>
+        </tr>
+      </ng-template>
+
+    </p-table>
+  </div>
+  <div class="container-fluid" *ngIf="pageStage === 2">
+    <p-table #dt [columns]="colsCode" [value]="laptopDistributionList" [paginator]="true" [rows]="10">
+      <ng-template let-childrens pTemplate="caption">
+
+        <div class="row  header flex-row-center">
+          <div class="col-lg-3 p-1">
+
+            <!-- <p-multiSelect [options]="dataHeader1" [(ngModel)]="selectedColumns1" optionLabel="header"
+                                selectedItemsLabel="{0} columns selected" [style]="{minWidth: '225px'}" defaultLabel="Choose Columns"></p-multiSelect> -->
+          </div>
+          <div class="col-lg-5">
+
+          </div>
+
+          <div class="col-sm-3 p-1">
+            <div class="text-right">
+              <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                placeholder="Search">
+            </div>
+          </div>
+          <div class="col-sm-1 p-1 flex-row-center-end">
+            <div class="text-right">
+              <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"
+                        (click)="exportPdf(studentList1,selectedColumns1)"></i>
+                    <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                        (click)="exportExcel(studentList1)"></i> -->
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header" let-distname>
+        <tr class="text-center">
+          <th class="sno-header-layout">#</th>
+          <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+            {{col.header}}
+            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+              ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order">
+            </p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-distname let-rowData let-columns="columns" let-i="rowIndex">
+        <tr [pSelectableRow]="rowData" class="text-center">
+          <td class="sno-header-layout"> {{i+1}} </td>
+          <td> {{ distname.udise_code}} </td>
+          <td class="text-left"> {{ distname.block_name}} </td>
+          <td class="text-left"> {{ distname.edu_dist_name}} </td>
+          <td class="text-left clr-blue"><a class="nav-link" routerLinkActive="active"
+              (click)="laptopdirstscl(distname.school_id,distname.school_name)"> {{ distname.school_name}}</a></td>
+          <td> {{ distname.Class11_Enr}} </td>
+          <td> {{ distname.Class11_dist}} </td>
+          <td> {{ distname.Class12_Enr}} </td>
+          <td> {{ distname.Class12_dist}} </td>
+          <td> {{ distname.Class12_19_20}} </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <tr class="text-center" *ngIf="noDataFound === 2">
+          <td colspan="10"> No Data Found </td>
+        </tr>
+      </ng-template>
+
+    </p-table>
+  </div>
+  <div class="container-fluid" *ngIf="pageStage === 3">
+    <p-tabView>
+      <p-tabPanel header="Current Year 11th Standard" ng-if="movies.length">
+        <p-table #dt [columns]="colsStudent" [value]="laptopDistributionsclnextList" [paginator]="true" [rows]="10">
+          <ng-template let-childrens pTemplate="caption">
+
+            <div class="row  header flex-row-center">
+              <div class="col-lg-3 p-1">
+
+                <!-- <p-multiSelect [options]="dataHeader1" [(ngModel)]="selectedColumns1" optionLabel="header"
+                                selectedItemsLabel="{0} columns selected" [style]="{minWidth: '225px'}" defaultLabel="Choose Columns"></p-multiSelect> -->
+              </div>
+              <div class="col-lg-5">
+
+              </div>
+
+              <div class="col-sm-3 p-1">
+                <div class="text-right">
+                  <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                    placeholder="Search">
+                </div>
+              </div>
+              <div class="col-sm-1 p-1 flex-row-center-end">
+                <div class="text-right">
+                  <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"
+                        (click)="exportPdf(studentList1,selectedColumns1)"></i>
+                    <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                        (click)="exportExcel(studentList1)"></i> -->
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-distname>
+            <tr class="text-center">
+              <th class="sno-header-layout">#</th>
+              <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+                  ariaLabelDesc="Activate to sort in descending order"
+                  ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-distname let-rowData let-columns="columns" let-i="rowIndex">
+            <tr [pSelectableRow]="rowData" class="text-center">
+              <td class="sno-header-layout"> {{i+1}} </td>
+              <td> {{ distname.unique_id_no}} </td>
+              <td class="text-left"> {{ distname.name}} </td>
+              <td>{{ distname.class_studying_id}} - {{ distname.class_section}}</td>
+              <td class="text-left">{{ distname.unique_id_no}}</td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <tr class="text-center" *ngIf="noDataFound === 3">
+              <td colspan="5"> No Data Found </td>
+            </tr>
+          </ng-template>
+
+        </p-table>
+      </p-tabPanel>
+      <p-tabPanel header="Current Year 12th Standard">
+        <p-table #dt [columns]="colsStudent" [value]="laptopDistributionsclCurrentList" [paginator]="true" [rows]="10">
+          <ng-template let-childrens pTemplate="caption">
+
+            <div class="row  header flex-row-center">
+              <div class="col-lg-3 p-1">
+
+                <!-- <p-multiSelect [options]="dataHeader1" [(ngModel)]="selectedColumns1" optionLabel="header"
+                                selectedItemsLabel="{0} columns selected" [style]="{minWidth: '225px'}" defaultLabel="Choose Columns"></p-multiSelect> -->
+              </div>
+              <div class="col-lg-5">
+
+              </div>
+
+              <div class="col-sm-3 p-1">
+                <div class="text-right">
+                  <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                    placeholder="Search">
+                </div>
+              </div>
+              <div class="col-sm-1 p-1 flex-row-center-end">
+                <div class="text-right">
+                  <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"
+                        (click)="exportPdf(studentList1,selectedColumns1)"></i>
+                    <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                        (click)="exportExcel(studentList1)"></i> -->
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-distname>
+            <tr class="text-center">
+              <th class="sno-header-layout">#</th>
+              <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+                  ariaLabelDesc="Activate to sort in descending order"
+                  ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-distname let-rowData let-columns="columns" let-i="rowIndex">
+            <tr [pSelectableRow]="rowData" class="text-center">
+              <td class="sno-header-layout"> {{i+1}} </td>
+              <td> {{ distname.unique_id_no}} </td>
+              <td class="text-left"> {{ distname.name}} </td>
+              <td>{{ distname.class_studying_id}} - {{ distname.class_section}}</td>
+              <td class="text-left">{{ distname.unique_id_no}}</td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <tr class="text-center" *ngIf="noDataFound === 3">
+              <td colspan="5"> No Data Found </td>
+            </tr>
+          </ng-template>
+
+        </p-table>
+      </p-tabPanel>
+      <p-tabPanel header="Previous Year 12th Standard">
+        <p-table #dt [columns]="colsStudent" [value]="laptopDistributionsclLastList" [paginator]="true" [rows]="10">
+          <ng-template let-childrens pTemplate="caption">
+
+            <div class="row  header flex-row-center">
+              <div class="col-lg-3 p-1">
+
+                <!-- <p-multiSelect [options]="dataHeader1" [(ngModel)]="selectedColumns1" optionLabel="header"
+                                selectedItemsLabel="{0} columns selected" [style]="{minWidth: '225px'}" defaultLabel="Choose Columns"></p-multiSelect> -->
+              </div>
+              <div class="col-lg-5">
+
+              </div>
+
+              <div class="col-sm-3 p-1">
+                <div class="text-right">
+                  <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                    placeholder="Search">
+                </div>
+              </div>
+              <div class="col-sm-1 p-1 flex-row-center-end">
+                <div class="text-right">
+                  <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"
+                        (click)="exportPdf(studentList1,selectedColumns1)"></i>
+                    <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                        (click)="exportExcel(studentList1)"></i> -->
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-distname>
+            <tr class="text-center">
+              <th class="sno-header-layout">#</th>
+              <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+                  ariaLabelDesc="Activate to sort in descending order"
+                  ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-distname let-rowData let-columns="columns" let-i="rowIndex">
+            <tr [pSelectableRow]="rowData" class="text-center">
+              <td class="sno-header-layout"> {{i+1}} </td>
+              <td> {{ distname.unique_id_no}} </td>
+              <td class="text-left"> {{ distname.name}} </td>
+              <td>{{ distname.class_studying_id}} - {{ distname.class_section}}</td>
+              <td class="text-left">{{ distname.unique_id_no}}</td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <tr class="text-center" *ngIf="noDataFound === 3">
+              <td colspan="5"> No Data Found </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+
+ 
+
+</div>

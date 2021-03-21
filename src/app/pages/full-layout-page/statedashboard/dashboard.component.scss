@@ -1,0 +1,33 @@
+.header-text {
+    font-size: 21px;
+    cursor:pointer;
+}
+.outer-layout {
+    flex-direction: column;
+    align-items: center;
+    place-content: center;
+    flex-direction: row;
+    display: flex;
+    place-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+.header-text-layout {
+    width: 300px;
+    text-align: center;
+}
+.flex-gap {
+    margin:40px 100px 40px;
+}
+.url {
+    cursor: pointer;
+    outline: none;
+}
+
+.kt-portlet.kt-iconbox{height: 48px !important;}
+.kt-iconbox__desc p, .kt-iconbox__desc h4{margin-left: 5px;}
+
+.text-title{text-align: center;}
+// .url:hover {
+//     background-color: blue;
+// }

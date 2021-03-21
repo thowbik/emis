@@ -1,0 +1,169 @@
+<div class="outer-layout" style="padding-top:5px;">
+    <div class="breadcrumbs c-black">
+      <h6 classs="url"><span class="flex-gap-right">Students</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right">Student Summary</span></h6>
+    </div>
+  </div>
+
+<div class="container-fluid table">
+    <p-card>
+        <p-tabView>
+            <p-tabPanel header="Class I-X">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img">
+                    <div class="row ">
+                        <div class="col-md-4 text-left">
+                        </div>
+                        <div class="col-md-3">
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text"
+                                (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search Filter">
+                        </div>
+                        <div class="col-md-2 text-right" style="padding-top: 15px;padding-right:28px;">
+                            <i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="ExportExcel()"></i>
+                            <!-- <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL"
+                                (click)="ExportExcel()" class="ui-button-success"></button> -->
+                        </div>
+                    </div><br>
+                    <p-table #dt1 [columns]="sampleSelectedColumn" class="prime-table" [value]="data"
+                        [style]="{'width':'250px !important'}" [autoLayout]="true" [scrollable]="true"
+                        scrollHeight="500px" scrollWidth="100px">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="center" style="width: 5em">#</th>
+                                <th class="center" style="width: 7em">Class</th>
+                                <th class="center" style="width: 7em">Section</th>
+                                <th>Medium</th>
+                                <th>Class Teacher </th>
+                                <th class="center">Boys</th>
+                                <th class="center">Girls</th>
+                                <th class="center" style="font-weight: bold;">Total</th>
+                            </tr>
+
+                        </ng-template>
+
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                            <tr>
+                                <td class="center" style="width: 5em">{{i+1}}</td>
+                                <td class="center" style="width: 7em">{{rowData.class_id}}</td>
+                                <td class="center" style="width: 7em">{{rowData.section}}</td>
+                                <td>{{rowData.Medium}}</td>
+                                <td>{{rowData.teacher_name}}</td>
+                                <td class="center">{{rowData.boys}}</td>
+                                <td class="center">{{rowData.girls}}</td>
+                                <td class="center" style="font-weight: bold;">{{rowData.total}}</td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="footer">
+                            <tr class="text-center">
+                                <td style="width: 5em;font-weight: bold;">Total</td>
+                                <td style="width: 7em"></td>
+                                <td style="width: 7em"></td>
+                                <td></td>
+                                <td></td>
+                                <td class="ui-resizable-column">{{tot_boys}}</td>
+                                <td class="ui-resizable-column">{{tot_girls}}</td>
+                                <td>{{tot_boysgirls}}</td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage" let-columns>
+                            <tr>
+                                <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                                    <strong>No Data Found</strong>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                    <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img" *ngIf="!isDataAvailable">
+                   <h5 class="text-center"> No Records Found</h5>
+                   </div> -->
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="Class XI - XII" *ngIf="cateType == 'Higher Secondary School'">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img">
+
+                    <div class="row ">
+                        <div class="col-md-4 text-left">
+                        </div>
+                        <div class="col-md-3">
+                        </div>
+                        <div class="col-md-3 ">
+                            <input class="form-control" type="text"
+                                (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search Filter">
+                        </div>
+                        <div class="col-md-2 text-right" style="padding-top: 15px;padding-right:28px;">
+                            <i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="ExportExcelgroup()"></i>
+                            <!-- <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL"
+                                (click)="ExportExcelgroup()" class="ui-button-success"></button> -->
+                        </div>
+                    </div><br>
+                    <p-table #dt [columns]="sampleSelectedColumn1" class="prime-table" [value]="data1"
+                        [style]="{'width':'250px !important'}" [autoLayout]="true" [scrollable]="true"
+                        scrollHeight="500px" scrollWidth="100px">
+                        <ng-template pTemplate="caption2">
+                            <div style="text-align: right">
+                                <input class="form-control" type="text"
+                                    (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                    placeholder="Search Filter">
+                                <!-- <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                <input type="text" pInputText size="50" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto"> -->
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="center" style="width: 5em">#</th>
+                                <th class="center" style="width: 7em">Class</th>
+                                <th class="center" style="width: 7em">Section</th>
+                                <th>Group</th>
+                                <th style="width: 10em">Medium</th>
+                                <th class="center" style="width: 7em">Boys</th>
+                                <th class="center" style="width: 7em">Girls</th>
+                                <th class="center" style="font-weight: bold;">Total</th>
+                            </tr>
+
+                        </ng-template>
+
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                            <tr>
+                                <td class="center" style="width: 5em">{{i+1}}</td>
+                                <td class="center" style="width: 7em">{{rowData.class_studying_id}}</td>
+                                <td class="center" style="width: 7em">{{rowData.class_section}}</td>
+                                <td>{{rowData.grp}}</td>
+                                <td style="width: 10em">{{rowData.edu_med}}</td>
+                                <td class="center" style="width: 7em">{{rowData.male}}</td>
+                                <td class="center" style="width: 7em">{{rowData.Female}}</td>
+                                <td class="center" style="font-weight: bold;">{{rowData.total}}</td>
+                                <!-- <td class="center" style="font-weight: bold;">{{(rowData.male)*1 +(rowData.Female)*1}}</td> -->
+                                <!-- <td style="width: 3em">{{i+1}}</td>
+                                <td *ngFor="let col of columns">
+                                    {{rowData[col.field]}}
+                                </td> -->
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="footer">
+                            <tr class="text-center">
+                                <td class="ui-resizable-column" style="width: 5em;font-weight: bold;">Total</td>
+                                <td style="width: 7em"></td>
+                                <td style="width: 7em"></td>
+                                <td></td>
+                                <td style="width: 10em"></td>
+                                <td class="ui-resizable-column" style="width: 7em">{{tot_boys1}}</td>
+                                <td class="ui-resizable-column" style="width: 7em">{{tot_girls1}}</td>
+                                <td class="ui-resizable-column">{{tot_boysgirls1}}</td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage" let-columns>
+                            <tr>
+                                <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                                    <strong>No Data Found</strong>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                    <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img" *ngIf="!isDataAvailable">
+                   <h5 class="text-center"> No Records Found</h5>
+                   </div> -->
+                </div>
+            </p-tabPanel>
+        </p-tabView>
+    </p-card>
+</div>

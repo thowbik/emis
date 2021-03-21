@@ -1,0 +1,273 @@
+<div class="main-body-content">
+    <div class="pr-2 mr-3 mt-3" >
+        <p-card class="mt-3 pt-3">
+            <!-- Start  -->
+            <div class="m-2 p-2">
+                <div class="row  m-2 pt-1 mb-3">
+                    <div class="col-md-10 mt-1">
+                        <h4 class="label_text">ADD SCHOOL MANAGEMENT DETAILS </h4>
+                    </div>
+                    <div class="col-md-2 mt-1">
+                        <button type="button" (click)="showBasicDialog2()" pButton label="ADD SCHOOL"></button>
+                    </div>
+                </div>
+                <div class="m-4">
+                    <p-card>
+                      <div>
+                        <p-table #dt  [columns]="cols"  [rows]="10" [resizableColumns]="true" >
+                          <ng-template pTemplate="header" let-distname>
+                            <tr>
+                              <th class="sno-header-layout">S.NO</th>
+                              <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                                {{col.header}}
+                                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                              </th>
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+                            <tr class="text-center">
+                              <td class="sno-header-layout"> {{i+1}} </td>
+                              <td class="text-left"> {{ distwise.udise_code}} </td>
+                              <td> {{ distwise.school_name}} </td>
+                              <td> {{ distwise.cate_type}} </td>
+                              <td> {{ distwise.elig_sg}} </td>
+                              <td> {{ distwise.elig_bt_eng}} </td>
+                              <td> {{ distwise.elig_bt_mat}} </td>
+                              <td> {{ distwise.elig_bt_sci}} </td>
+                              <td> {{ distwise.elig_bt_ss}} </td>
+                              <td> {{ distwise.elig_bt_tam}} </td>
+                              <td class="font-weight-bold"> {{ distwise.elig_bt_total}} </td>
+                            </tr>
+                          </ng-template>
+
+                          <ng-template pTemplate="footer">
+                            <tr class="text-center" *ngIf="nodateFound">
+                              <td colspan="6" >No Data Found</td>
+                            </tr>
+                          </ng-template>
+                        </p-table>
+                      </div>
+                    </p-card>
+                  </div>
+
+            </div>
+        </p-card>
+    </div>
+
+    <p-dialog header="ADD SCHOOL" [(visible)]="displayBasic2" [style]="{width: '50vw' }" [baseZIndex]="10000">
+        <div class="row">
+            <div class="col-md-6">
+                 <div class="label-title">
+                     <span>Education District<span class="mandatory"> * </span></span>
+                 </div>
+                 <div class="form-group">
+                     <p-dropdown name="curr_stat"  placeholder="Select School Status" styleClass="dropdwnvalues"  ></p-dropdown>
+                 </div>
+            </div>
+            <div class="col-md-6">
+                <div class="label-title">
+                    <span>Block<span class="mandatory"> * </span></span>
+                </div>
+                <div class="form-group">
+                    <p-dropdown name="curr_stat"  placeholder="Select School Status" styleClass="dropdwnvalues"  ></p-dropdown>
+                </div>
+            </div>
+            <div class="col-md-6" >
+                <div class="label-title">
+                    <span>School Name <span class="mandatory"> * </span></span>
+                </div>
+                <div class="form-group">
+                    <input type="text"  placeholder="School Name" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6" >
+                <div class="label-title">
+                    <span>School Short Name (36 Chars)<span class="mandatory"> * </span></span>
+                </div>
+                <div class="form-group">
+                    <input type="text"  placeholder="School Name" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6" >
+                <div class="label-title">
+                    <span>School Name in Tamil<span class="mandatory"> * </span></span>
+                </div>
+                <div class="form-group">
+                    <input type="text"  placeholder="School Name" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6" >
+                <div class="label-title">
+                    <span>Address<span class="mandatory"> * </span></span>
+                </div>
+                <div class="form-group">
+                    <input type="text"  placeholder="School Name" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6" >
+                <div class="label-title">
+                    <span>Pincode<span class="mandatory"> * </span></span>
+                </div>
+                <div class="form-group">
+                    <input type="text"  placeholder="School Name" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="label-title">
+                    <span>Location<span class="mandatory"> * </span></span>
+                </div>
+                <div class="form-group">
+                    <p-dropdown name="curr_stat"  placeholder="Select School Status" styleClass="dropdwnvalues"  ></p-dropdown>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="label-title">
+                    <span>School Management<span class="mandatory"> * </span></span>
+                </div>
+                <div class="form-group">
+                    <p-dropdown name="curr_stat"  placeholder="Select School Status" styleClass="dropdwnvalues"  ></p-dropdown>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="label-title">
+                    <span>School Category<span class="mandatory"> * </span></span>
+                </div>
+                <div class="form-group">
+                    <p-dropdown name="curr_stat"  placeholder="Select School Status" styleClass="dropdwnvalues"  ></p-dropdown>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="label-title">
+                    <span>Type<span class="mandatory"> * </span></span>
+                </div>
+                <div class="form-group">
+                    <p-dropdown name="curr_stat"  placeholder="Select School Status" styleClass="dropdwnvalues"  ></p-dropdown>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="label-title">
+                    <span>Low Class<span class="mandatory"> * </span></span>
+                </div>
+                <div class="form-group">
+                    <p-dropdown name="curr_stat"  placeholder="Select School Status" styleClass="dropdwnvalues"  ></p-dropdown>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="label-title">
+                    <span>High Class<span class="mandatory"> * </span></span>
+                </div>
+                <div class="form-group">
+                    <p-dropdown name="curr_stat"  placeholder="Select School Status" styleClass="dropdwnvalues"  ></p-dropdown>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="label-title">
+                    <span>Village / Ward<span class="mandatory"> * </span></span>
+                </div>
+                <div class="form-group">
+                    <p-dropdown name="curr_stat"  placeholder="Select School Status" styleClass="dropdwnvalues"  ></p-dropdown>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="label-title">
+                    <span>Cluster<span class="mandatory"> * </span></span>
+                </div>
+                <div class="form-group">
+                    <p-dropdown name="curr_stat"  placeholder="Select School Status" styleClass="dropdwnvalues"  ></p-dropdown>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="label-title">
+                    <span>Habitation<span class="mandatory"> * </span></span>
+                </div>
+                <div class="form-group">
+                    <p-dropdown name="curr_stat"  placeholder="Select School Status" styleClass="dropdwnvalues"  ></p-dropdown>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="label-title">
+                    <span>Panchayat<span class="mandatory"> * </span></span>
+                </div>
+                <div class="form-group">
+                    <p-dropdown name="curr_stat"  placeholder="Select School Status" styleClass="dropdwnvalues"  ></p-dropdown>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="label-title">
+                    <span>Municipality<span class="mandatory"> * </span></span>
+                </div>
+                <div class="form-group">
+                    <p-dropdown name="curr_stat"  placeholder="Select School Status" styleClass="dropdwnvalues"  ></p-dropdown>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="label-title">
+                    <span>City<span class="mandatory"> * </span></span>
+                </div>
+                <div class="form-group">
+                    <p-dropdown name="curr_stat"  placeholder="Select School Status" styleClass="dropdwnvalues"  ></p-dropdown>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="label-title">
+                    <span>Assembly Constituency<span class="mandatory"> * </span></span>
+                </div>
+                <div class="form-group">
+                    <p-dropdown name="curr_stat"  placeholder="Select School Status" styleClass="dropdwnvalues"  ></p-dropdown>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="label-title">
+                    <span>Parliamentary Constituency<span class="mandatory"> * </span></span>
+                </div>
+                <div class="form-group">
+                    <p-dropdown name="curr_stat"  placeholder="Select School Status" styleClass="dropdwnvalues"  ></p-dropdown>
+                </div>
+            </div>
+            <div class="col-md-6" >
+                <div class="label-title">
+                    <span>Latitude<span class="mandatory"> * </span></span>
+                </div>
+                <div class="form-group">
+                    <input type="text"  placeholder="School Name" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6" >
+                <div class="label-title">
+                    <span>Longitude<span class="mandatory"> * </span></span>
+                </div>
+                <div class="form-group">
+                    <input type="text"  placeholder="School Name" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="label-title">
+                    <span>Applied for UDISE code on<span class="mandatory"> * </span></span>
+                </div>
+                <div class="form-group">
+                    <input type="date" placeholder="date" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="label-title">
+                    <span>Approved on<span class="mandatory"> * </span></span>
+                </div>
+                <div class="form-group">
+                    <input type="date" placeholder="date" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6" >
+                <div class="label-title">
+                    <span>UDISE Assigned by MHRD<span class="mandatory"> * </span></span>
+                </div>
+                <div class="form-group">
+                    <input type="text"  placeholder="School Name" class="form-control">
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <p-footer>
+            <button type="button"  pButton icon="pi pi-check" (click)="displayBasic2=false" label="Save"></button>
+            <button type="button" class="btn-clr" pButton icon="pi pi-times" (click)="displayBasic2=false" label="Cancel" class="ui-button-secondary"></button>
+        </p-footer>
+    </p-dialog>

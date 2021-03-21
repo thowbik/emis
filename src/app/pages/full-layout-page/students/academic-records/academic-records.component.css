@@ -1,0 +1,51 @@
+.portlet.light {
+    padding: 12px 20px 15px;
+    background-color: #fff;
+}
+.portlet {
+    box-shadow: 0 2px 3px 2px rgba(0, 0, 0, .03);
+}
+.portlet {
+    margin-top: 0;
+    margin-bottom: 25px;
+    padding: 0;
+    border-radius: 2px;
+}
+.flexGapTop {
+    margin-top: 20px !important;
+}
+.fixedwidth {
+    width:50px;
+}
+.flex-gap {
+    float: left;
+}
+.fixedWidth-200 {
+    width: 200px;
+}
+.fixedWidth-100 {
+    width: 100px;  
+}
+.width-100 {
+    width: 200px;
+}
+.center{
+    text-align: center;
+}
+
+
+.redfont {
+    color: #eb2d2d;
+}
+
+.greenfont {
+    color: green;
+}
+
+i{
+    font-size: 87.5%;
+    color: #e83e8c;
+    }
+    .clr{
+        color: black;
+    }

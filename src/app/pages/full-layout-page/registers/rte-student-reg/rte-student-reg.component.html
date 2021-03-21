@@ -1,0 +1,70 @@
+<div class="main-body-content">
+	<div class="outer-layout">
+		<div class="breadcrumbs c-black">
+			<h6 class="url">
+                <span class="flex-gap-right" (click)="onBack()">Registers</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+                <span class="flex-gap-right" (click)="onBack()">Student Summary Registers</span><i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+                <span class="flex-gap-right">RTE Student Register</span>
+            </h6>
+		</div>
+	</div>
+	<p-table #dt class="prime-table" [columns]="sampleSelectedColumn" [value]="data" [paginator]="true" [rows]="10" [autoLayout]="true" [paginator]="true" [resizableColumns]="true" [rows]="10">
+		<ng-template let-childrens pTemplate="caption">
+			<div class="row mt-2">
+				<div class="col-md-3 text-left">
+					<p-multiSelect [options]="cols" [(ngModel)]="sampleSelectedColumn" optionLabel="header" selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" defaultLabel="Choose Columns"></p-multiSelect>
+				</div>
+				<div class="col-md-1">
+					<!-- <button type="submit" class="btn btn-success" (click)="SearchData()">Submit</button> -->
+				</div>
+			</div>
+			<div class="row ">
+				<div class="col-md-8 text-left">
+					<!-- <h5>Verification Status Monitoring Reports </h5> -->
+				</div>
+				<div class="col-md-3">
+					<input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Filter">
+				</div>
+				<div class="col-md-1 p-3 flex-row-center-end"> <i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="exportExcel()"></i>
+				</div>
+			</div>
+		</ng-template>
+		<ng-template pTemplate="header" let-columns>
+			<tr class="table-header">
+				<th>#</th>
+				<!-- <th>Student Name</th> -->
+				<th *ngFor="let col of columns" [pSortableColumn]="col.field">{{col.header}}
+					<p-sortIcon [field]="col.field"></p-sortIcon>
+				</th>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="body" let-data let-i="rowIndex" let-columns="columns">
+			<tr [pSelectableRow]="data">
+				<td class="sno-header-layout">{{i+1}}</td>
+				<td>{{data.unique_id_no}}</td>
+				<td style="width: 20em">{{data.name}}</td>
+				<td>{{data.gender === "1" ? 'Boy' : 'Girl'}}</td>
+				<td>{{data.community_name}}</td>
+				<td style="width: 15em">{{data.dob | date: 'dd-MM-yyyy'}}</td>
+				<td *ngIf="data.class_studying_id === '1'">I</td>
+				<td *ngIf="data.class_studying_id === '2'">II</td>
+				<td *ngIf="data.class_studying_id === '3'">III</td>
+				<td *ngIf="data.class_studying_id === '4'">IV</td>
+				<td *ngIf="data.class_studying_id === '5'">V</td>
+				<td *ngIf="data.class_studying_id === '6'">VI</td>
+				<td *ngIf="data.class_studying_id === '7'">VII</td>
+				<td *ngIf="data.class_studying_id === '8'">VIII</td>
+				<td *ngIf="data.class_studying_id === '9'">IX</td>
+				<td *ngIf="data.class_studying_id === '10'">X</td>
+				<td *ngIf="data.class_studying_id === '11'">XI</td>
+				<td *ngIf="data.class_studying_id === '12'">XII</td>
+				<td *ngIf="data.class_studying_id === '13'">LKG</td>
+				<td *ngIf="data.class_studying_id === '14'">UKG</td>
+				<td *ngIf="data.class_studying_id === '15'">Pre-KG</td>
+				<td>{{data.class_section}}</td>
+				<td>{{data.child_admitted_under_reservation}}</td>
+				<td style="width: 20em">{{data.category}} - {{data.sub_category }}</td>
+			</tr>
+		</ng-template>
+	</p-table>
+</div>

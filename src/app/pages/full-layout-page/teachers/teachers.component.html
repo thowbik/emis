@@ -1,0 +1,1731 @@
+<div class="outer-layout" style="padding-top:10px;">
+    <div class="breadcrumbs c-black">
+    <h6 class="url"><span class="flex-gap-right">Staffs</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i> <span class="flex-gap-right">{{userTypeId == 22 ? 'Staff Details' : 'Teacher Details'}}</span></h6>
+    </div>
+</div>
+
+<!--pdf start-->
+<div *ngIf="generatePdf">
+    <form id="staffReg" [formGroup]="teachingstaffregistration">
+        <!-- <p-panel header="Title" [toggleable]="true"></p-panel> -->
+        <div class="row">
+            <div class="col-sm-6 col-md-6"></div>
+            <div class="col-sm-6 col-md-6">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Category <span class="mandatory"> * </span></span>
+                        </div>
+                        <select class="form-control" formControlName="category">
+                <option value=null>Select Category</option>
+                <option value="1">Teaching</option>
+                <option value="2">Non-Teaching</option>
+            </select>
+                        <!-- <div class="input-group-append">
+              <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+            </div> -->
+                    </div>
+                    <small *ngIf="teachingstaffregistration.controls.category.errors && (teachingstaffregistration.controls.category.dirty || teachingstaffregistration.controls.category.touched)">Please fill out this field.</small>
+                </div>
+            </div>
+        </div>
+        <p-panel header="Personal Information" [toggleable]="true">
+
+            <div class="ui-g ui-fluid">
+                <div *ngIf="!gotosave" [className]="gotosave ? 'ui-g-12' : 'ui-g-3'">
+                    <label class="hoverable" for="fileInput">
+                              <img [src]="profileurl" width="200" height="200" alt="StaffProfilePic" accept="image/*">
+                              <div class="hover-text"></div>
+                              <div class="background"></div>
+                          </label>
+                    <input id="fileInput" type='file' (change)="onSelectFile($event)">
+                    <i>Click Photo to Updated Image <br/>  Width-150px, Heigth-175px <br> Size-25kb</i>
+                </div>
+                <div [className]="gotosave ? 'ui-g-12' : 'ui-g-9'">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Name of the Staff <span class="mandatory"> * </span></span>
+                                    </div>
+                                    <!-- placeholder="பணியாளர் பெயர்" -->
+                                    <input type="text" class="form-control" formControlName="teacher_name" oninput="this.value = this.value.toUpperCase()" placeholder="Enter Name" onkeypress="return  event.charCode >= 97 && event.charCode <= 122 || event.charCode >= 65 && event.charCode <= 90 || event.charCode == 32">
+                                    <!-- <div class="input-group-append">
+                                          <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                        </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.teacher_name.errors && (teachingstaffregistration.controls.teacher_name.dirty || teachingstaffregistration.controls.teacher_name.touched)">Please fill out this field.</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Name of the Staff &nbsp;(TamilName)</span>
+                                    </div>
+                                    <!-- placeholder="பணியாளர் பெயர் (தமிழில்)" -->
+                                    <input type="text" class="form-control" formControlName="teacher_name_tamil" placeholder="Enter Tamil Name" onkeypress="return  event.charCode >= 97 && event.charCode <= 122 || event.charCode >= 65 && event.charCode <= 90 || event.charCode == 32">
+                                    <!-- <div class="input-group-append">
+                                          <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                        </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.row-->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Aadhaar Number<span class="mandatory"> * </span></span>
+                                    </div>
+                                    <!-- placeholder="ஆதார் எண்" -->
+                                    <input type="text" class="form-control" formControlName="aadhar_no" placeholder="Enter Aadhaar Number" (change)="stfcheckaadhar($event.target.value)" (keypress)="numberOnly($event)" maxlength="12">
+                                    <!-- <div class="input-group-append">
+                                          <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                        </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.aadhar_no.errors && (teachingstaffregistration.controls.aadhar_no.dirty || teachingstaffregistration.controls.aadhar_no.touched)">Please fill out this field.</small>
+                                <small *ngIf="inValidAadhar"> Invalid Aadhaar Number</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Gender<span class="mandatory"> * </span></span>
+                                    </div>
+                                    <select class="form-control" formControlName="gender">
+                                          <option value=null>Select Gender</option>
+                                          <option value="1">Male</option>
+                                          <option value="2">Female</option>
+                                          <option value="3">Transgender</option>
+                                        </select>
+                                    <!-- <div class="input-group-append">
+                                          <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                        </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.gender.errors && (teachingstaffregistration.controls.gender.dirty || teachingstaffregistration.controls.gender.touched)">Please fill out this field.</small>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.row-->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Blood Group<span class="mandatory"> * </span></span>
+                                    </div>
+                                    <select class="form-control" formControlName="e_blood_grp">
+                                          <!-- இரத்த வகை -->
+                                          <option value=null>Select Blood Group</option>
+                                          <option *ngFor="let blood of bloodgroup" [value]="blood.id">
+                                            {{ blood.group }}
+                                          </option>
+                                        </select>
+                                    <!-- <div class="input-group-append">
+                                          <span class="input-group-text"><i class="fa fa-medkit"></i></span>
+                                        </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.e_blood_grp.errors && (teachingstaffregistration.controls.e_blood_grp.dirty || teachingstaffregistration.controls.e_blood_grp.touched)">Please fill out this field.</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Date of Birth<span class="mandatory"> * </span></span>
+                                    </div>
+                                    <input class="form-control" class="form-control" formControlName="staff_dob" (change)="_changeDate($event.target.value,1)" type="date" placeholder="date" [max]="dobMaxDate">
+                                    <!-- <div class="input-group-append">
+                                          <span class="input-group-text"><i class="fa fa-birthday-cake"></i></span>
+                                        </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.staff_dob.errors && (teachingstaffregistration.controls.staff_dob.dirty || teachingstaffregistration.controls.staff_dob.touched)">Please fill out this field.</small>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.row-->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Social Category<span class="mandatory"> * </span></span>
+                                    </div>
+                                    <select class="form-control" formControlName="social_category">
+                                          <option value=null>Select Category</option>
+                                          <option *ngFor="let social of social_category" [value]="social.id">
+                                            {{ social.social_cat }}
+                                          </option>
+                                        </select>
+                                    <!-- <div class="input-group-append">
+                                          <span class="input-group-text"><i class="fa fa-scribd"></i></span>
+                                        </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.social_category.errors && (teachingstaffregistration.controls.social_category.dirty || teachingstaffregistration.controls.social_category.touched)">Please fill out this field.</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Father's Name<span class="mandatory"> * </span></span>
+                                    </div>
+                                    <!-- placeholder="தந்தை பெயர்" -->
+                                    <input type="text" formControlName="e_prnts_nme" placeholder="Enter Father's Name" class="form-control" oninput="this.value = this.value.toUpperCase()">
+                                    <!-- <div class="input-group-append">
+                                          <span class="input-group-text"><i class="fa fa-male"></i></span>
+                                        </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.e_prnts_nme.errors && (teachingstaffregistration.controls.e_prnts_nme.dirty || teachingstaffregistration.controls.e_prnts_nme.touched)">Please fill out this field.</small>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.row-->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Mother's Name<span class="mandatory"> * </span></span>
+                                    </div>
+                                    <!-- placeholder="தாய் பெயர்" -->
+                                    <input type="text" class="form-control" formControlName="teacher_mother_name" oninput="this.value = this.value.toUpperCase()" placeholder="Enter Mother's Name" onkeypress="return  event.charCode >= 97 && event.charCode <= 122 || event.charCode >= 65 && event.charCode <= 90 || event.charCode == 32">
+                                    <!-- <div class="input-group-append">
+                                          <span class="input-group-text"><i class="fa fa-female"></i></span>
+                                        </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.teacher_mother_name.errors && (teachingstaffregistration.controls.teacher_mother_name.dirty || teachingstaffregistration.controls.teacher_mother_name.touched)">Please fill out this field.</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Spouse Name, if applicable.</span>
+                                    </div>
+                                    <!-- வாழ்க்கைத்துணை -->
+                                    <input type="text" formControlName="teacher_spouse_name" placeholder="Enter Spouse Name" class="form-control" oninput="this.value = this.value.toUpperCase()" onkeypress="return  event.charCode >= 97 && event.charCode <= 122 || event.charCode >= 65 && event.charCode <= 90 || event.charCode == 32">
+                                    <!-- <div class="input-group-append">
+                                          <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                        </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.teacher_spouse_name.errors && (teachingstaffregistration.controls.teacher_spouse_name.dirty || teachingstaffregistration.controls.teacher_spouse_name.touched)">Please fill out this field.</small>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--/.row-->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Differently abled type, If any<span class="mandatory"> * </span></span>
+                                    </div>
+                                    <select class="form-control" formControlName="disability_type" (change)="divshowhide($event.target.value,'1d')">
+                                          <option value=null>Select Type of Disability</option>
+                                          <option value="1">Not Applicaple</option>
+                                          <option value="2">Physically Challenged</option>
+                                          <option value="3">Visually Impaired</option>
+                                          <option value="5">Hearing Impaired</option>
+                                          <option value="4">others</option>
+                                          <option value="6">Loco motor</option>
+                
+                                        </select>
+                                    <!-- <div class="input-group-append">
+                                          <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                        </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.disability_type.errors && (teachingstaffregistration.controls.disability_type.dirty || teachingstaffregistration.controls.disability_type.touched)">Please fill out this field.</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="diffableyes">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Differently abled Details(including percentage)<span class="mandatory"> * </span></span>
+                                        </div>
+                                        <input type="text" formControlName="types_disability" placeholder="Enter Differently abled Details(including percentage)" class="form-control">
+                                        <!-- <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                          </div> -->
+                                    </div>
+                                    <small *ngIf="teachingstaffregistration.controls.types_disability.errors && (teachingstaffregistration.controls.disability_type.dirty || teachingstaffregistration.controls.types_disability.touched)">Please fill out this field.</small>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p-panel>
+
+        <!-- 1 Personal Information card closed -->
+        <p-panel header="Joining Details" [toggleable]="true">
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Designationss of Staff<span class="mandatory"> * </span></span>
+                                    </div>
+                                    <select class="form-control" formControlName="teacher_type" (change)="divshowhide($event.target.value,'6d');">
+                                    <option value=null>Select Staff Category</option>
+                                    <option *ngFor="let staff of staff_category" [value]="staff.id">
+                                      {{ staff.type_teacher}}
+                                    </option>
+                                  </select>
+                                    <!-- <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fa fa-address-card"></i></span>
+                                  </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.teacher_type.errors && (teachingstaffregistration.controls.teacher_type.dirty || teachingstaffregistration.controls.joining_present_block.touched)">Please fill out this field.</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Appointed for the Subject<span *ngIf="teachingstaffregistration.controls.category.value == '1'" class="mandatory"> * </span></span>
+                                    </div>
+                                    <select class="form-control" formControlName="appointed_subject">
+                                    <option value=null>Select Subject</option>
+                                    <option *ngFor="let subject of appointedsubject" [value]="subject.id">
+                                      {{ subject.subjects }}
+                                    </option>
+                                  </select>
+                                    <!-- <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fa fa-book"></i></span>
+                                  </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.appointed_subject.errors && (teachingstaffregistration.controls.appointed_subject.dirty || teachingstaffregistration.controls.appointed_subject.touched)">Please fill out this field.</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <!-- சேர்க்கை தேதி * -->
+                                        <span class="input-group-text">Date of Joining in Service<span class="mandatory"> * </span></span>
+                                    </div>
+                                    <input class="form-control" class="form-control" formControlName="staff_service_join" [readonly]="teachingstaffregistration.get('staff_dob').value ? false : true" type="date" placeholder="date" [min]="teachingstaffregistration.get('staff_dob').value"
+                                        [max]="maxDate" (change)="_changeDate($event.target.value,2)">
+                                    <!-- <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                  </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.staff_service_join.errors && (teachingstaffregistration.controls.staff_service_join.dirty || teachingstaffregistration.controls.staff_service_join.touched)">Please fill out this field.</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Date of Joining in Present Post<span class="mandatory"> * </span></span>
+                                    </div>
+                                    <input class="form-control" class="form-control" formControlName="staff_pjoin" [readonly]="teachingstaffregistration.get('staff_service_join').value ? false : true" type="date" placeholder="date" [min]="teachingstaffregistration.get('staff_service_join').value"
+                                        [max]="maxDate">
+                                    <!-- <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                  </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.staff_pjoin.errors && (teachingstaffregistration.controls.staff_pjoin.dirty || teachingstaffregistration.controls.staff_pjoin.touched)">Please fill out this field.</small>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.row-->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Date of Joining in Present School<span class="mandatory"> * </span></span>
+                                    </div>
+                                    <input class="form-control" class="form-control" formControlName="staff_psjoin" [readonly]="teachingstaffregistration.get('staff_service_join').value ? false : true" type="date" placeholder="date" [min]="teachingstaffregistration.get('staff_service_join').value"
+                                        [max]="maxDate">
+                                    <!-- <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                  </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.staff_psjoin.errors && (teachingstaffregistration.controls.staff_psjoin.dirty || teachingstaffregistration.controls.staff_psjoin.touched)">Please fill out this field.</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" *ngIf="(teachingstaffregistration.get('category').value == '1')">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Date of Joining in Present Block<span class="mandatory"> * </span></span>
+                                    </div>
+                                    <input class="form-control" class="form-control" formControlName="joining_present_block" [readonly]="teachingstaffregistration.get('staff_service_join').value ? false : true" type="date" placeholder="date" [min]="teachingstaffregistration.get('staff_service_join').value"
+                                        [max]="maxDate">
+                                    <!-- <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                  </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.joining_present_block.errors && (teachingstaffregistration.controls.joining_present_block.dirty || teachingstaffregistration.controls.joining_present_block.touched)">Please fill out this field.</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" *ngIf="(sesnTypeId == 2 || sesnTypeId == 4)">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Nature of Posting<span class="mandatory"> * </span></span>
+                                    </div>
+                                    <select class="form-control" formControlName="posting_nature">
+                                        <option value=null>Select Nature of Posting</option>
+                                        <option value="1">government posting</option>
+                                        <option value="2">management posting</option>
+                                  </select>
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.posting_nature.errors && (teachingstaffregistration.controls.posting_nature.dirty || teachingstaffregistration.controls.posting_nature.touched)">Please fill out this field.</small>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.row-->
+                    <div *ngIf="(sesnTypeId == 1 || sesnTypeId == 2 || sesnTypeId == 4 ) && (teachingstaffregistration.get('category').value == '1')">
+                        <div class="card">
+
+                            <strong>Date of Regularisation</strong>
+                            <hr/>
+                            <!-- style="color: #2d7464;" -->
+                            <div formArrayName="regularisation">
+                                <div *ngFor="let reg of teachingstaffregistration.controls.regularisation['controls']; let i=index;  let last=last;" [formGroupName]="i">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-4" *ngIf="!subjectappointedflag">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">Date of Regularisation</span>
+                                                        </div>
+                                                        <select class="form-control" formControlName="type_date">
+                  
+                                                <option *ngFor="let r of regulation" [value]="r.id">
+                                                  {{ r.regulation}}
+                                                </option>
+                                              </select>
+                                                        <!-- <div class="input-group-append">
+                                                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                              </div> -->
+                                                    </div>
+                                                    <!-- <small *ngIf="reg.controls.type_date.errors && (reg.controls.type_date.dirty || reg.controls.type_date.touched)">Please fill out this field.</small> -->
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4" *ngIf="!subjectappointedflag">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">Date </span>
+                                                        </div>
+                                                        <input class="form-control" class="form-control" formControlName="dates" type="date" placeholder="date" [max]="maxDate">
+                                                        <!-- <div class="input-group-append">
+                                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                              </div> -->
+                                                    </div>
+                                                    <small *ngIf="reg.controls.dates.errors && (reg.controls.dates.dirty || reg.controls.dates.touched)">Please fill out this field.</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">Mode of Appointment</span>
+                                                        </div>
+                                                        <select class="form-control" formControlName="appoint_nature">
+                                                <option value=null>Select Mode of Appointment</option>
+                                                <option value="1">TNPSC</option>
+                                                <option value="2">TRB</option>
+                                                <option value="11">TET</option>
+                                                <option value="3">Compassionate Grounds</option>
+                                                <option value="4">Transfer of Services</option>
+                                                <option value="6">Employment Seniority</option>
+                                                <option value="7">Retrenched Census Employees</option>
+                                                <option value="8">Management</option>
+                                                <option value="9">SSA</option>
+                                                <option value="10">Direct Recruitment</option>
+                                                <option value="12">Promotion</option>
+                  
+                  
+                                              </select>
+                                                        <!-- <div class="input-group-append">
+                                                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                              </div> -->
+                                                    </div>
+                                                    <small *ngIf="reg.controls.appoint_nature.errors && (reg.controls.appoint_nature.dirty || reg.controls.appoint_nature.touched)">Please fill out this field.</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12" align="right" *ngIf="!subjectappointedflag">
+                                                <button type="button" *ngIf="last" (click)="addRegularisation()" class="ui-button-success ui-button-rounded"> <strong> + </strong> </button>&nbsp;&nbsp;
+                                                <button type="button" (click)="deleteRegularisation(i)" class="ui-button-danger ui-button-rounded"> <strong> - </strong> </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="(sesnTypeId == 1 || sesnTypeId == 2 || sesnTypeId == 4 ) && (teachingstaffregistration.get('category').value == '1') && !subjectappointedflag">
+                        <br>
+                        <div class="card">
+                            <strong>Date of Probation Declaration</strong>
+                            <hr/>
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Date of Probation Declaration <span class="mandatory"> * </span></span>
+                                                </div>
+                                                <select class="form-control" formControlName="probation_declaration">
+            
+                                          <option *ngFor="let r of regulation" [value]="r.id">
+                                            {{ r.regulation}}
+                                          </option>
+                                        </select>
+                                                <!-- <div class="input-group-append">
+                                          <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                        </div> -->
+                                            </div>
+                                            <small *ngIf="teachingstaffregistration.controls.probation_declaration.errors && (teachingstaffregistration.controls.probation_declaration.dirty || teachingstaffregistration.controls.probation_declaration.touched)">Please fill out this field.</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Date <span class="mandatory"> * </span></span>
+                                                </div>
+                                                <input class="form-control" class="form-control" formControlName="probation_date" [readonly]="teachingstaffregistration.get('staff_service_join').value ? false : true" type="date" placeholder="date" [min]="teachingstaffregistration.get('staff_service_join').value"
+                                                    [max]="maxDate">
+                                                <!-- <div class="input-group-append">
+                                          <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                        </div> -->
+                                            </div>
+                                            <!-- <small *ngIf="teachingstaffregistration.controls.probation_date.errors && (teachingstaffregistration.controls.probation_date.dirty || teachingstaffregistration.controls.probation_date.touched)">Please fill out this field.</small> -->
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="(sesnTypeId == 1 || sesnTypeId == 2 || sesnTypeId == 4) && !subjectappointedflag">
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">GPF/CPS/EPF/TPF Details <span class="mandatory"> * </span></span>
+                                        </div>
+                                        <select class="form-control" formControlName="cps_gps_details" (change)="divshowhide($event.target.value,'2d')">
+                                        <option value=null>Select Type of GPF/CPS/EPF/TPF</option>
+                                        <option value="1">GPF</option>
+                                        <option value="2">CPS</option>
+                                        <option value="6">TPF</option>
+                                        <option value="5">EPF</option>
+                                        <option value="3">Applied</option>
+                                        <option value="4">Not Applicaple</option>
+          
+                                      </select>
+                                        <!-- <div class="input-group-append">
+                                        <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                      </div> -->
+                                    </div>
+                                    <small *ngIf="teachingstaffregistration.controls.cps_gps_details.errors && (teachingstaffregistration.controls.cps_gps_details.dirty || teachingstaffregistration.controls.cps_gps_details.touched)">Please fill out this field.</small>
+                                </div>
+                            </div>
+                            <div class="col-sm-6" *ngIf="gcetnumberyes">
+                                <div class="form-group" style="width:100%;">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">GPF/CPS/EPF/TPF Number<span class="mandatory"> * </span></span>
+
+                                        </div>
+                                        <input type="text" formControlName="cps_gps" class="form-control" (keypress)="numberOnly($event)" placeholder="NOTE : GPF/CPS/EPF/TPF Eg. 1234567">
+                                        <!-- <div class="input-group-append">
+                                        <span class="input-group-text"><i class="fa fa-road"></i></span>
+                                      </div> -->
+                                    </div>
+                                    <small *ngIf="teachingstaffregistration.controls.cps_gps.errors && (teachingstaffregistration.controls.cps_gps.dirty || teachingstaffregistration.controls.cps_gps.touched)">Please fill out this field.</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6" *ngIf="suffixyes">
+                                <div class="form-group" style=" width:100%;">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Suffix <span class="mandatory"> * </span></span>
+                                        </div>
+                                        <select class="form-control" formControlName="suffix">
+                                          <option value=null>Select Suffix</option>
+                                          <option *ngFor="let suf of suffix" [value]="suf.id">
+                                            {{ suf.suffix }}
+                                          </option>
+                                        </select>
+                                    </div>
+                                    <small *ngIf="teachingstaffregistration.controls.suffix.errors && (teachingstaffregistration.controls.suffix.dirty || teachingstaffregistration.controls.suffix.touched)">Please fill out this field.</small>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/.row-->
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Mode of First Appointment <span class="mandatory"> * </span></span>
+                                        </div>
+                                        <select class="form-control" formControlName="recruit_type" (change)="divshowhide($event.target.value,'3d')">
+                                        <option value=null>Select Mode of First Appointment</option>
+                                        <option value="1">TNPSC</option>
+                                        <option value="2">TRB</option>
+                                        <option value="11">TET</option>
+                                        <option value="3">Compassionate Grounds</option>
+                                        <option value="4">Transfer of Services</option>
+                                        <option value="6">Employment Seniority</option>
+                                        <option value="7">Retrenched Census Employees</option>
+                                        <option value="8">Management</option>
+                                        <option value="9">SSA</option>
+                                        <option value="10">Direct Recruitment</option>
+          
+                                      </select>
+                                        <!-- <div class="input-group-append">
+                                        <span class="input-group-text"><i class="fa fa-road"></i></span>
+                                      </div> -->
+                                    </div>
+                                    <small *ngIf="teachingstaffregistration.controls.recruit_type.errors && (teachingstaffregistration.controls.recruit_type.dirty || teachingstaffregistration.controls.recruit_type.touched)">Please fill out this field.</small>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Nature of appointment<span class="mandatory"> * </span></span>
+                                        </div>
+                                        <select class="form-control" formControlName="appointment_nature">
+                                        <option value=null>Select Type of Appointment</option>
+                                        <option value="1">Regular</option>
+                                        <option value="2">Contract</option>
+                                        <option value="3">Part-Time</option>
+          
+                                      </select>
+                                    </div>
+                                    <small *ngIf="teachingstaffregistration.controls.appointment_nature.errors && (teachingstaffregistration.controls.appointment_nature.dirty || teachingstaffregistration.controls.appointment_nature.touched)">Please fill out this field.</small>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/.row-->
+                        <div class="row" *ngIf="recruitmentyes">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Recruitment Rank <span class="mandatory"> * </span></span>
+                                        </div>
+                                        <input type="text" formControlName="recruit_rank" class="form-control" placeholder="Enter Rank">
+                                    </div>
+                                    <small *ngIf="teachingstaffregistration.controls.recruit_rank.errors && (teachingstaffregistration.controls.recruit_rank.dirty || teachingstaffregistration.controls.recruit_rank.touched)">Please fill out this field.</small>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Year Selection <span class="mandatory"> * </span></span>
+                                        </div>
+                                        <select class="form-control" formControlName="recruit_year">
+                                          <option value=null>Select Year</option>
+                                          <option *ngFor="let yr of yeararr" [value]="yr">
+                                            {{ yr }}
+                                          </option>
+                                          <!-- <option value="2004">2004</option>
+                                          <option value="2005">2005</option>
+                                          <option value="2006">2006</option>
+                                          <option value="2007">2007</option>
+                                          <option value="2008">2008</option>
+                                          <option value="2009">2009</option>
+                                          <option value="2010">2010</option>
+                                          <option value="2011">2011</option>
+                                          <option value="2012">2012</option>
+                                          <option value="2013">2013</option>
+                                          <option value="2014">2014</option>
+                                          <option value="2015">2015</option>
+                                          <option value="2016">2016</option>
+                                          <option value="2017">2017</option>
+                                          <option value="2018">2018</option>
+                                          <option value="2019">2019</option> -->
+          
+                                        </select>
+                                        <!-- <div class="input-group-append">
+                                          <span class="input-group-text"><i class="fa fa-road"></i></span>
+                                        </div> -->
+                                    </div>
+                                    <small *ngIf="teachingstaffregistration.controls.recruit_year.errors && (teachingstaffregistration.controls.recruit_year.dirty || teachingstaffregistration.controls.recruit_year.touched)">Please fill out this field.</small>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/.row-->
+                        <div class="row" *ngIf="(teachingstaffregistration.get('category').value == '1')">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">If Unit Transfer / Dept.Transfer Date of Joining in DSE /
+                                          DEE</span>
+                                        </div>
+                                        <input class="form-control" class="form-control" formControlName="doj_dept" type="date" placeholder="date" [max]="maxDate">
+                                        <!-- <div class="input-group-append">
+                                        <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                      </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/.row-->
+                        <div class="row">
+                            <div class="col-sm-12" *ngIf="(teachingstaffregistration.get('category').value == '1')">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Whether he/she already relinquished the similar promotion
+                                          ? <span class="mandatory"> * </span> </span>
+                                        </div>
+                                        <select class="form-control" formControlName="relinguish" (change)="divshowhide($event.target.value,'5d')">
+                                        <option value=null>Select Option</option>
+                                        <option value="1">Yes</option>
+                                        <option value="2">No</option>
+          
+          
+                                      </select>
+                                        <!-- <div class="input-group-append">
+                                        <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                      </div> -->
+                                    </div>
+                                    <small *ngIf="teachingstaffregistration.controls.relinguish.errors && (teachingstaffregistration.controls.relinguish.dirty || teachingstaffregistration.controls.relinguish.touched)">Please fill out this field.</small>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/.row-->
+                        <div class="row">
+                            <div class="col-sm-6" *ngIf="relinguishment">
+                                <div class="form-group">
+                                    <div class="input-group">
+
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Date of Relinquishment <span class="mandatory"> * </span></span>
+                                        </div>
+                                        <input class="form-control" class="form-control" formControlName="date_relinguish" type="date" [readonly]="teachingstaffregistration.get('staff_service_join').value ? false : true" placeholder="date" [max]="maxDate" [min]="teachingstaffregistration.get('staff_service_join').value">
+                                        <!-- <div class="input-group-append">
+                                          <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                        </div> -->
+                                    </div>
+                                    <small *ngIf="teachingstaffregistration.controls.date_relinguish.errors && (teachingstaffregistration.controls.date_relinguish.dirty || teachingstaffregistration.controls.date_relinguish.touched)">Please fill out this field.</small>
+                                </div>
+                            </div>
+                            <div class="col-sm-6" *ngIf="(teachingstaffregistration.get('category').value == '1')">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Pay Drawing Head <span class="mandatory"> * </span></span>
+                                        </div>
+                                        <select class="form-control" formControlName="head_account">
+                                          <option value=null>Select Type of Account</option>
+                                          <option *ngFor="let headaccount of headaccount" [value]="headaccount.id">
+                                            {{ headaccount.head_of_account}}
+                                          </option>
+                                        </select>
+                                        <!-- <div class="input-group-append">
+                                          <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                        </div> -->
+                                    </div>
+                                    <small *ngIf="teachingstaffregistration.controls.head_account.errors && (teachingstaffregistration.controls.head_account.dirty || teachingstaffregistration.controls.head_account.touched)">Please fill out this field.</small>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/.row-->
+                    </div>
+                </div>
+            </div>
+        </p-panel>
+        <!-- 2 Joining Details card closed -->
+        <p-panel header="Communication Details" [toggleable]="true">
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Mobile Number<span class="mandatory"> * </span></span>
+                                    </div>
+                                    <!-- placeholder="கைபேசி எண் *" -->
+                                    <input type="text" formControlName="mbl_nmbr" class="form-control" (keypress)="numberOnly($event)" maxlength="10" placeholder="Enter Mobile Number">
+                                    <!-- <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-phone-square"></i></span>
+                                          </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.mbl_nmbr.errors && (teachingstaffregistration.controls.mbl_nmbr.dirty || teachingstaffregistration.controls.mbl_nmbr.touched)">Please fill out this field.</small>
+                                <small *ngIf="teachingstaffregistration.get('mbl_nmbr').hasError('pattern')">
+                                            It is not a valid mobile number.
+                                        </small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">E-Mail Id<span class="mandatory"> * </span></span>
+                                    </div>
+                                    <!-- placeholder="மின்னஞ்சல் " -->
+                                    <input type="text" formControlName="email_id" class="form-control" placeholder="Enter Email">
+                                    <!-- <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                                          </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.email_id.errors && (teachingstaffregistration.controls.email_id.dirty || teachingstaffregistration.controls.email_id.touched)">Please fill out this field.</small>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.row-->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Door No. / Building Name <span class="mandatory"> * </span></span>
+                                    </div>
+                                    <!-- placeholder="கதவு எண் / கட்டிடத்தின் பெயர் *" -->
+                                    <input type="text" formControlName="e_prsnt_doorno" class="form-control" placeholder="Enter Door No / Building Name">
+                                    <!-- <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-location-arrow"></i></span>
+                                          </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.e_prsnt_doorno.errors && (teachingstaffregistration.controls.e_prsnt_doorno.dirty || teachingstaffregistration.controls.e_prsnt_doorno.touched)">Please fill out this field.</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Street Name / Area Name <span class="mandatory"> * </span></span>
+                                    </div>
+                                    <!-- placeholder="தெரு பெயர் / பகுதியின் பெயர் *" -->
+                                    <input type="text" formControlName="e_prsnt_street" class="form-control" placeholder="Enter Street / Area Name">
+                                    <!-- <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-map-marker"></i></span>
+                                          </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.e_prsnt_street.errors && (teachingstaffregistration.controls.e_prsnt_street.dirty || teachingstaffregistration.controls.e_prsnt_street.touched)">Please fill out this field.</small>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.row-->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">City name / Village name <span class="mandatory"> * </span></span>
+                                    </div>
+                                    <!-- placeholder="நகரம் / கிராமத்தின் பெயர் *" -->
+                                    <input type="text" formControlName="e_prsnt_place" class="form-control" placeholder="Enter City / Village Name">
+                                    <!-- <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-address-card"></i></span>
+                                          </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.e_prsnt_place.errors && (teachingstaffregistration.controls.e_prsnt_place.dirty || teachingstaffregistration.controls.e_prsnt_place.touched)">Please fill out this field.</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">District <span class="mandatory"> * </span></span>
+                                    </div>
+                                    <!-- placeholder="மாவட்டம் *" -->
+                                    <select class="form-control" formControlName="e_prsnt_distrct">
+                                            <option value=null>Select District</option>
+                                            <option *ngFor="let district of districtdet" [value]="district.id">
+                                              {{ district.district_name}}
+                                            </option>
+                                          </select>
+                                    <!-- <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-area-chart"></i></span>
+                                          </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.e_prsnt_distrct.errors && (teachingstaffregistration.controls.e_prsnt_distrct.dirty || teachingstaffregistration.controls.e_prsnt_distrct.touched)">Please fill out this field.</small>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.row-->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Postal Index Number (PIN) <span class="mandatory"> * </span></span>
+                                    </div>
+                                    <!-- placeholder="அஞ்சல் குறியீட்டு எண் *" -->
+                                    <input type="text" formControlName="e_prsnt_pincode" class="form-control" (keypress)="numberOnly($event)" maxlength="6" placeholder="Enter Pincode">
+                                    <!-- <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-pinterest"></i></span>
+                                          </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.e_prsnt_pincode.errors && (teachingstaffregistration.controls.e_prsnt_pincode.dirty || teachingstaffregistration.controls.e_prsnt_pincode.touched)">Please fill out this field.</small>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--/.row-->
+
+
+
+
+                </div>
+            </div>
+        </p-panel>
+        <!-- 3 Communication Details card closed -->
+        <p-panel header="Academic Qualification" [toggleable]="true">
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+                    <div class="row" *ngIf="(teachingstaffregistration.get('category').value == '1')">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">10th Standard passed in Month / Year <span class="mandatory"> * </span> </span>
+                                    </div>
+                                    <input class="form-control" class="form-control" formControlName="tenth_passed" type="date" placeholder="date" [max]="maxDate" (change)="_changeDate($event.target.value,3)">
+                                    <!-- <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                          </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.tenth_passed.errors && (teachingstaffregistration.controls.tenth_passed.dirty || teachingstaffregistration.controls.tenth_passed.touched)">Please fill out this field.</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">12th Standard passed in Month / Year</span>
+                                    </div>
+                                    <input class="form-control" class="form-control" formControlName="twelth_passed" type="date" [readonly]="teachingstaffregistration.get('tenth_passed').value ? false : true" placeholder="date" [min]="teachingstaffregistration.get('tenth_passed').value"
+                                        [max]="maxDate">
+                                    <!-- <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                          </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.row-->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Academic<span class="mandatory"> * </span></span>
+                                    </div>
+                                    <select class="form-control" formControlName="academic" (change)="divshowhide($event.target.value,'4d')">
+                                            <option value=null>Select Academic</option>
+                                            <option *ngFor="let academic of academic" [value]="academic.id">
+                                              {{ academic.academic_teacher}}
+                                            </option>
+                                          </select>
+
+                                    <!-- <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-graduation-cap"></i></span>
+                                          </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.academic.errors && (teachingstaffregistration.controls.academic.dirty || teachingstaffregistration.controls.academic.touched)">Please fill out this field.</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Professional<span class="mandatory"> * </span></span>
+                                    </div>
+                                    <select class="form-control" formControlName="professional">
+                                            <option value=null>Select Professional</option>
+                                            <option *ngFor="let Profession of professional" [value]="Profession.id">
+                                              {{ Profession.professional}}
+                                            </option>
+                                          </select>
+                                    <!-- <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-graduation-cap"></i></span>
+                                          </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.professional.errors && (teachingstaffregistration.controls.professional.dirty || teachingstaffregistration.controls.professional.touched)">Please fill out this field.</small>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.row-->
+                    <div class="row">
+
+                        <div class="col-sm-6">
+                            <div *ngIf="ugyes">
+                                <div class="form-group" style="width:100%;">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">UG<span class="mandatory"> * </span></span>
+                                        </div>
+                                        <select class="form-control" formControlName="e_ug">
+                                              <option value=null>Select Type of UG</option>
+                                              <option *ngFor="let ug of ug" [value]="ug.id">
+                                                {{ ug.ug_degree}}
+                                              </option>
+                                            </select>
+                                        <!-- <div class="input-group-append">
+                                              <span class="input-group-text"><i class="fa fa-road"></i></span>
+                                            </div> -->
+                                    </div>
+                                    <small *ngIf="teachingstaffregistration.controls.e_ug.errors && (teachingstaffregistration.controls.e_ug.dirty || teachingstaffregistration.controls.e_ug.touched)">Please fill out this field.</small>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div *ngIf="pgyes">
+                                <div class="form-group" style="width:100%;">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">PG<span class="mandatory"> * </span></span>
+                                        </div>
+                                        <select class="form-control" formControlName="e_pg">
+                                              <option value=null>Select Type of PG</option>
+                                              <option *ngFor="let pg of pg" [value]="pg.id">
+                                                {{ pg.pg_degree}}
+                                              </option>
+                                            </select>
+                                        <!-- <div class="input-group-append">
+                                              <span class="input-group-text"><i class="fa fa-sign-in"></i></span>
+                                            </div> -->
+                                    </div>
+                                    <small *ngIf="teachingstaffregistration.controls.e_pg.errors && (teachingstaffregistration.controls.e_pg.dirty || teachingstaffregistration.controls.e_pg.touched)">Please fill out this field.</small>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.row-->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Science Studied upto</span>
+                                    </div>
+                                    <select class="form-control" formControlName="science_upto">
+                  
+                                            <option *ngFor="let studyupto of studyupto" [value]="studyupto.id">
+                                              {{ studyupto.value}}
+                                            </option>
+                                          </select>
+
+                                    <!-- <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-graduation-cap"></i></span>
+                                          </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.science_upto.errors && (teachingstaffregistration.controls.science_upto.dirty || teachingstaffregistration.controls.science_upto.touched)">Please fill out this field.</small>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Maths Studied upto</span>
+                                    </div>
+                                    <select class="form-control" formControlName="math_upto">
+                  
+                                            <option *ngFor="let studyupto of studyupto" [value]="studyupto.id">
+                                              {{ studyupto.value}}
+                                            </option>
+                                          </select>
+                                    <!-- <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-graduation-cap"></i></span>
+                                          </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.math_upto.errors && (teachingstaffregistration.controls.math_upto.dirty || teachingstaffregistration.controls.math_upto.touched)">Please fill out this field.</small>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.row-->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">English studied up to</span>
+                                    </div>
+                                    <select class="form-control" formControlName="english_upto">
+                  
+                                            <option *ngFor="let studyupto of studyupto" [value]="studyupto.id">
+                                              {{ studyupto.value}}
+                                            </option>
+                                          </select>
+
+                                    <!-- <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-graduation-cap"></i></span>
+                                          </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.english_upto.errors && (teachingstaffregistration.controls.english_upto.dirty || teachingstaffregistration.controls.english_upto.touched)">Please fill out this field.</small>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Social Studies Studied upto</span>
+                                    </div>
+                                    <select class="form-control" formControlName="soc_study_upto">
+                  
+                                            <option *ngFor="let studyupto of studyupto" [value]="studyupto.id">
+                                              {{ studyupto.value}}
+                                            </option>
+                                          </select>
+                                    <!-- <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-graduation-cap"></i></span>
+                                          </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.soc_study_upto.errors && (teachingstaffregistration.controls.soc_study_upto.dirty || teachingstaffregistration.controls.soc_study_upto.touched)">Please fill out this field.</small>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.row-->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Language( as per Schedule VIII) studied up to</span>
+                                    </div>
+                                    <select class="form-control" formControlName="lang_study_upto">
+                                            <option *ngFor="let studyupto of studyupto" [value]="studyupto.id">
+                                              {{ studyupto.value}}
+                                            </option>
+                                          </select>
+
+                                    <!-- <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-graduation-cap"></i></span>
+                                          </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.lang_study_upto.errors && (teachingstaffregistration.controls.lang_study_upto.dirty || teachingstaffregistration.controls.lang_study_upto.touched)">Please fill out this field.</small>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--/.row-->
+                </div>
+            </div>
+        </p-panel>
+        <!-- 4 Academic card closed-->
+        <p-panel header="Main Subjects Taught" [toggleable]="true" *ngIf="(teachingstaffregistration.get('category').value == '1')">
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Subject1 <span class="mandatory"> * </span></span>
+                                    </div>
+                                    <select class="form-control" formControlName="subject1" (change)="_subjectvalidation(1);">
+                                            <option value=null>Select Subject</option>
+                                            <option *ngFor="let subject of firstsubject" [value]="subject.id">
+                                              {{ subject.subjects }}
+                                            </option>
+                                          </select>
+
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.subject1.errors && (teachingstaffregistration.controls.subject1.dirty || teachingstaffregistration.controls.subject1.touched)">Please fill out this field.</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Subject2</span>
+                                    </div>
+                                    <select class="form-control" formControlName="subject2" (change)="_subjectvalidation(2);">
+                                            <option value=null>Select Subject</option>
+                                            <option *ngFor="let subject of secondsubject" [value]="subject.id">
+                                              {{ subject.subjects }}
+                                            </option>
+                                          </select>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.row-->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Subject3</span>
+                                    </div>
+                                    <select class="form-control" formControlName="subject3" (change)="_subjectvalidation(3);">
+                                            <option value=null>Select Subject</option>
+                                            <option *ngFor="let subject of thridsubject" [value]="subject.id" >
+                                              {{ subject.subjects }}
+                                            </option>
+                                          </select>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Subject4</span>
+                                    </div>
+                                    <select class="form-control" formControlName="subject4" (change)="_subjectvalidation(4);">
+                                            <option value=null>Select Subject</option>
+                                            <option *ngFor="let subject of forthsubject" [value]="subject.id">
+                                              {{ subject.subjects }}
+                                            </option>
+                                          </select>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.row-->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Subject5</span>
+                                    </div>
+                                    <select class="form-control" formControlName="subject5" (change)="_subjectvalidation(5);">
+                                            <option value=null>Select Subject</option>
+                                            <option *ngFor="let subject of fifthsubject" [value]="subject.id">
+                                              {{ subject.subjects }}
+                                            </option>
+                                          </select>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Subject6</span>
+                                    </div>
+                                    <select class="form-control" formControlName="subject6" (change)="_subjectvalidation(6);">
+                                            <option value=null>Select Subject</option>
+                                            <option *ngFor="let subject of sixthsubject" [value]="subject.id">
+                                              {{ subject.subjects }}
+                                            </option>
+                                          </select>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </p-panel>
+        <!--5 main subject card closed-->
+        <p-panel header="Training Details" [toggleable]="true">
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Training Received <span class="mandatory"> * </span></span>
+                                    </div>
+                                    <select class="form-control" formControlName="trng_received">
+                  
+                                            <option *ngFor="let trainingneed of trainingneed" [value]="trainingneed.id">
+                                              {{ trainingneed.value }}
+                                            </option>
+                                          </select>
+                                    <!-- <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-book"></i></span>
+                                          </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.trng_received.errors && (teachingstaffregistration.controls.trng_received.dirty || teachingstaffregistration.controls.trng_received.touched)">Please fill out this field.</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Training Need <span class="mandatory"> * </span></span>
+                                    </div>
+                                    <select class="form-control" formControlName="trng_needed">
+                  
+                                            <option *ngFor="let trainingneed of trainingneed" [value]="trainingneed.id">
+                                              {{ trainingneed.value }}
+                                            </option>
+                                          </select>
+                                    <!-- <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-book"></i></span>
+                                          </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.trng_needed.errors && (teachingstaffregistration.controls.trng_needed.dirty || teachingstaffregistration.controls.trng_needed.touched)">Please fill out this field.</small>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.row-->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Tranined In Computers for Teaching <span class="mandatory"> * </span></span>
+                                    </div>
+                                    <select class="form-control" formControlName="trained_comp">
+                                            <option value=null>Select Option</option>
+                                            <option value="1">Yes</option>
+                                            <option value="2">No</option>
+                                          </select>
+                                    <!-- <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-book"></i></span>
+                                          </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.trained_comp.errors && (teachingstaffregistration.controls.trained_comp.dirty || teachingstaffregistration.controls.trained_comp.touched)">Please fill out this field.</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Trained to Teach CWSN Students <span class="mandatory"> * </span></span>
+                                    </div>
+                                    <select class="form-control" formControlName="trained_cwsn">
+                                            <option value=null>Select Option</option>
+                                            <option value="1">Yes</option>
+                                            <option value="2">No</option>
+                                          </select>
+                                    <!-- <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-book"></i></span>
+                                          </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.trained_cwsn.errors && (teachingstaffregistration.controls.trained_cwsn.dirty || teachingstaffregistration.controls.trained_cwsn.touched)">Please fill out this field.</small>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.row-->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Class Taught <span class="mandatory"> * </span></span>
+                                    </div>
+                                    <select class="form-control" formControlName="class_taught">
+                                            <option value=null>Select Option</option>
+                                            <option *ngFor="let classttaught of classttaught" [value]="classttaught.id">
+                                              {{ classttaught.category }}
+                                            </option>
+                                          </select>
+                                    <!-- <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-book"></i></span>
+                                          </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.class_taught.errors && (teachingstaffregistration.controls.class_taught.dirty || teachingstaffregistration.controls.class_taught.touched)">Please fill out this field.</small>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">No. of working days spent on non teaching assignments in Last
+                                              Academic Year <span class="mandatory"> * </span></span>
+                                    </div>
+                                    <input type="text" formControlName="nontch_days" class="form-control" placeholder="Enter Number of Days">
+                                    <!-- <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-book"></i></span>
+                                          </div> -->
+                                </div>
+
+                                <small *ngIf="teachingstaffregistration.controls.nontch_days.errors && (teachingstaffregistration.controls.nontch_days.dirty || teachingstaffregistration.controls.nontch_days.touched)">Please fill out this field.</small>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </p-panel>
+        <!--6 training details card closed -->
+        <p-panel header="Bank Details" [toggleable]="true">
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Indian Financial System Code (IFSC)</span>
+                                    </div>
+                                    <input type="text" formControlName="ifsc_code" class="form-control" (change)="getbankdetails($event.target.value)" placeholder="Enter IFSC">
+                                    <!-- <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-book"></i></span>
+                                          </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.ifsc_code.errors && (teachingstaffregistration.controls.ifsc_code.dirty || teachingstaffregistration.controls.ifsc_code.touched)">Please fill out this field.</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Branch Name</span>
+                                    </div>
+                                    <input type="text" formControlName="branch" class="form-control" placeholder="Get Branch Name" readonly>
+                                    <!-- <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-book"></i></span>
+                                          </div> -->
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.row-->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Bank Name</span>
+                                    </div>
+                                    <input type="text" formControlName="bank_name" class="form-control" placeholder="Get Bank Name" readonly>
+                                    <!-- <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-book"></i></span>
+                                          </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Account Number</span>
+                                    </div>
+                                    <input type="text" formControlName="bank_acc" class="form-control" (change)="stfcheckbankacc($event.target.value)" placeholder="Enter Account Number">
+                                    <!-- <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-book"></i></span>
+                                          </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.bank_acc.errors && (teachingstaffregistration.controls.bank_acc.dirty || teachingstaffregistration.controls.bank_acc.touched)">Please fill out this field.</small>
+                                <small *ngIf="inValidAccno"> Invalid Account Number</small>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.row-->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Permanent Account Number (PAN)</span>
+                                    </div>
+                                    <input type="text" formControlName="pan_no" class="form-control" placeholder="Enter PAN">
+                                    <!-- <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-book"></i></span>
+                                          </div> -->
+                                </div>
+                                <small *ngIf="teachingstaffregistration.controls.pan_no.errors && (teachingstaffregistration.controls.pan_no.dirty || teachingstaffregistration.controls.pan_no.touched)">Please fill out this field.</small>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </p-panel>
+        <!--7 bank details card closed -->
+
+
+    </form>
+</div>
+<!--pdf end-->
+
+<div *ngIf="sesnId" class="main-body-content">
+    <p-tabView>
+        <p-tabPanel header="Staff List">
+
+            <p-table #db [columns]="colsschstaff" [value]="schoolteacherdetails" [paginator]="true" [rows]="10" 
+            [resizableColumns]="true" [autoLayout]="true" [globalFilterFields] = "['teacher_name','category','desgination','appsub','formatted_staff_psjoin','depute_todate']">
+                <ng-template pTemplate="caption">
+                    <div class="row">
+                        <div class="col-md-2" style="text-align:left !important">
+                            <button type="button" pButton icon="fa fa-plus" label="Add" class="ui-button-info" (click)="onAddStaffList()">
+                </button>
+                        </div>
+                        <div class="col-md-7"></div>
+                        <div class="col-md-2" style="text-align: right !important">
+                            <input type="text" class="form-control" (input)="db.filterGlobal($event.target.value, 'contains')" style="width:auto" placeholder="Filter">
+                        </div>
+                        <div class="col-md-1" style="text-align:right !important;margin-left:-10px;padding-top:8px;">
+                            <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel()"></i>
+                             <!-- <button type="button" pButton icon="pi pi-file-excel" iconPos="left" (click)="exportExcel()" label="EXCEL" class="ui-button-success"> --> 
+                    <!-- </button> -->
+                        </div>
+                        <!-- <div class="col-md-1" style="text-align:right !important">
+                            <button type="button" pButton icon="fa fa-plus" label="Add" class="ui-button-info" (click)="onAddStaffList()">
+                </button>
+                        </div> -->
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr class="table-header">
+                        <th style ="width:3em;">#</th>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                        <!-- <th style="width:10%;">Transfer</th>-->
+                        <!--<th style="width:8%">Depute</th>-->
+                        <th style="width:12%">Action</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-schoolteachers let-rowData let-columns="columns" let-i="rowIndex">
+                    <tr>
+                        <td style ="width:3em;"> {{i+1}} </td>
+                        <td> {{ schoolteachers.teacher_name}} </td>
+                        <td> {{ (schoolteachers.category == 1?'Teaching': 'Non-Teaching') }} </td>
+                        <td> {{ schoolteachers.desgination}} </td>
+                        <!--<td>{{ schoolteachers.professional }} </td> -->
+                        <td> {{ schoolteachers.appsub }} </td>
+                        <td> {{ schoolteachers.formatted_staff_psjoin }} </td>
+                        <td> {{ schoolteachers.depute_todate=='0000-00-00'?'On Deputation':'Not Applicable'}} </td>
+                        <!--<td><span class="badge badge-success">Active</span></td> -->
+                        <!--<td class="ui-resizable-column">
+                        <button pButton type="button" class="ui-button-raised ui-button-rounded" label="Transfer"  ></button>
+                    </td> -->
+                        <!--<td class="ui-resizable-column">
+                        <button pButton type="button" style="font-size: 10px;" label="Depute" class="ui-button-success" (click)="dupute(schoolteachers.u_id)" ></button>
+                    </td> -->
+                        <td class="ui-resizable-column">
+                            <button pButton type="button" icon="pi pi-pencil" class="ui-button-info" (click)="onEditStaffList(schoolteachers)" style="margin-right: .5em"></button>
+                            <!-- note : Staff Transfer Temporarily Hided 
+                       -->
+                            <button pButton type="button" icon="pi pi-arrow-circle-right" class="ui-button-success" (click)="onRowTransfer(rowData)" *ngIf="userTypeId == 1 || userTypeId == 9 || userTypeId == 6 || userTypeId == 10" style="margin-top: .5em"></button>
+                            <!-- <button pButton type="button" icon="pi pi-users"  class="ui-button-success"  (click)="onDeputationStaffList(schoolteachers.teacher_code)"></button> -->
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td [attr.colspan]="(columns.length)+2" style="text-align: center;">
+                            <strong>No records found</strong>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+
+        </p-tabPanel>
+        <div *ngIf="userTypeId != 22">
+            <p-tabPanel header="Deputation List">
+
+                <p-table #dt [columns]="colsdeputation" [value]="deputationteacherdetails" [paginator]="true" 
+                [rows]="10" [resizableColumns]="true"  [autoLayout]="true"
+                [globalFilterFields] ="['teacher_name','category','type_teacher','s1','s2','s3','school_name','depute_frmdate','depute_todate']">
+                    <ng-template pTemplate="caption">
+                        <div class="row">
+                            <div class="col-md-9"></div>
+                            <div class="col-md-2" style="text-align: right !important">
+                                <input type="text" class="form-control" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto" placeholder="Filter">
+                            </div>
+                            <div class="col-md-1" style="text-align:right !important;margin-left:-10px;padding-top:8px;">
+                                <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel1(deputationteacherdetails)"></i>
+                            </div>
+                          
+                        </div>
+                    </ng-template>
+                  
+                    <ng-template pTemplate="header" let-columns>
+                        <tr class="table-header">
+                            <th style="width: 3em">#</th>
+                            <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
+                                {{col.header}}
+                                <p-sortIcon [field]="col.field"></p-sortIcon>
+                            </th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-schooldeputeteachers let-rowData let-columns="columns" let-i="rowIndex">
+                        <tr>
+                            <td style="width: 3em">{{i+1}}</td>
+                            <td> {{ schooldeputeteachers.teacher_name}} </td>
+                            <td> {{ (schooldeputeteachers.category == 'TEACHING'?'Teaching': 'Non-Teaching') }} </td>
+                            <td> {{ schooldeputeteachers.type_teacher}} </td>
+                            <td> {{ schooldeputeteachers.s1}} ,{{ schooldeputeteachers.s2}},{{ schooldeputeteachers.s3}}</td>
+                            <td> {{ schooldeputeteachers.school_name }} </td>
+                            <td> {{ schooldeputeteachers.depute_frmdate }} </td>
+                            <td> {{ schooldeputeteachers.depute_todate}} </td>
+                            <!--<td>
+                         <span class="badge badge-success">Active</span>
+                      </td> -->
+                            <td class="ui-resizable-column text-center">
+    
+                                <i class="pi pi-pencil flex-gap-right" style="font-size: 2em"></i>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr>
+                            <td [attr.colspan]="(columns.length)+2" style="text-align: center;">
+                                <strong>No records found</strong>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+    
+            </p-tabPanel>
+        </div>
+        <div *ngIf="userTypeId != 22">
+        <p-tabPanel header="Volunteers List">
+
+            <p-table #dd [columns]="colsvolunter" [value]="volunteerteacherdetails" [paginator]="true" [rows]="10" [resizableColumns]="true"
+             [autoLayout]="true" [globalFilterFields] = "['teacher_name','organization_name','organization_type','s1','s2','s3','from_date','to_date']">
+                <ng-template pTemplate="caption">
+                    <div class="row">
+                        <div class="col-md-9"></div>
+                        <div class="col-md-2" style="text-align: right !important">
+                            <input type="text" class="form-control" (input)="dd.filterGlobal($event.target.value, 'contains')" style="width:auto" placeholder="Filter">
+                        </div>
+                        <div class="col-md-1" style="text-align:right !important;margin-left:-10px;padding-top:8px;">
+                            <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel2(volunteerteacherdetails)"></i>
+                        </div>
+                      
+                    </div>
+                </ng-template>
+              
+                <ng-template pTemplate="header" let-schoolvolunteerteachers let-columns>
+
+                    <!--{{schooldeputeteachers| json}}-->
+                    <tr>
+                        <th style="width: 3em">#</th>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-schoolvolunteerteachers let-columns="columns" let-rowData let-i="rowIndex">
+                    <tr>
+                        <td style="width: 3em">{{i+1}}</td>
+                        <td> {{ schoolvolunteerteachers.teacher_name }} </td>
+                        <td> {{ schoolvolunteerteachers.organization_name }} </td>
+                        <td> {{ schoolvolunteerteachers.organization_type}} </td>
+                        <td> {{ schoolvolunteerteachers.s1 }}, {{ schoolvolunteerteachers.s2 }},{{ schoolvolunteerteachers.s3}}
+                        </td>
+
+                        <td> {{ schoolvolunteerteachers.from_date }} </td>
+                        <td> {{ schoolvolunteerteachers.to_date}} </td>
+                        <!--<td>
+                     <span class="badge badge-success">Active</span>
+                  </td> -->
+                        <td class="ui-resizable-column text-center">
+                            <i class="pi pi-pencil flex-gap-right" style="font-size: 2em"></i>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td [attr.colspan]="(columns.length)+2" style="text-align: center;">
+                            <strong>No records found</strong>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+
+        </p-tabPanel>
+        </div>
+    </p-tabView>
+</div>
+<img *ngIf="!sesnId" [src]="deinedurl" alt="Access Deined" accept="image/*" class="center">
+
+<!-- SELECTOR NAME : app-add-edit-staff ( this is a child Component )
+      Refer mentioned HTML and TS ->--- add-edit-staff.component.html and add-edit-staff.component.ts 
+      Argument are., 1) dtls ->--- Input to the Child Component (staff data are load to child component).
+                     2) _display ->--- Input to the Child Component (dialog show and hide)
+                     3) onClose ->--- Dialog Close and refresh the datatable -->
+<app-add-edit-staff *ngIf="staffListDialog" [dtls]="staffListDtls" [(_display)]="staffListDialog" (onClose)="onCloseStaffList()">
+</app-add-edit-staff>
+
+<!-- Staff Transfer Module -->
+<p-dialog [header]="transferDialogTitle" [(visible)]="displayTransferDialog" [modal]="true" [responsive]="true" [draggable]="false" [blockScroll]="true" [maximizable]="false" [contentStyle]="{'max-width':'1000px','max-height': '450px','overflow-y': 'auto'}">
+
+    <form id="transfer_form" [formGroup]="staffTransferForm" (ngSubmit)="onSubmitTransferredStaff(staffTransferForm.value)">
+        <div class="ui-g-12">
+            <label>Reason for Transferring Teacher to Common Pool <span class="mandatory">*</span></label>
+            <!-- <p-dropdown [options]="reasonList" placeholder="Choose a Reason" class="flex-dropdown"
+                        formControlName="transfer_reason"></p-dropdown> -->
+            <select class="form-control" data-placeholder="Choose a Reason" formControlName="transfer_reason">
+                            <option *ngFor="let l of reason" [value]="l.value">{{l.label}}</option>
+                        </select>
+            <!-- <p-message severity="error" text="Reason is required"
+                        *ngIf="staffTransferForm.controls.transfer_reason.errors && (staffTransferForm.controls.transfer_reason.dirty || staffTransferForm.controls.transfer_reason.touched)">
+                    </p-message> -->
+        </div>
+        <!-- <div class="ui-g-12">
+                <button pButton type="Submit" icon="fa fa-check" label="Save" class="ui-button-success ui-button-rounded"></button>
+            </div> -->
+        <div class="ui-g-12">
+            <div class="ui-helper-clearfix" style="text-align: right">
+                <button pButton type="Submit" icon="fa fa-check" label="Save" class="ui-button-success ui-button-rounded"></button>
+            </div>
+        </div>
+        <div class="ui-g-12"> <br> </div>
+    </form>
+</p-dialog>
+<!-- Staff Transfer Module Ends -->
+<!-- End of teachers Form-->

@@ -1,0 +1,306 @@
+<div class="main-body-content">
+   <div class="outer-layout">
+     <div class="breadcrumbs c-black" *ngIf="page === '1'">
+       <h6 class="url">
+         <span class="flex-gap-right">Academic Reports</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+         <span class="flex-gap-right" (click)="goBack()">SLAS 2019 Student-wise</span>
+         <span class="flex-gap-right" *ngIf="districtName" (click)="goBackBlock()"><i class="fa fa-angle-right flex-gap-right"aria-hidden="true"></i>{{districtName}}</span>
+         <span *ngIf="blkname"><i class="fa fa-angle-right flex-gap-right"aria-hidden="true"></i>{{blkname}}</span>
+       </h6>
+     </div>
+     <div class="breadcrumbs c-black" *ngIf="page === '2' && !districtId">
+      <h6 class="url">
+        <span class="flex-gap-right">Students</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+        <span class="flex-gap-right">SLAS Report-2019</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+        <span class="flex-gap-right" (click)="goBack()">Student-wise</span>
+        <span class="flex-gap-right" *ngIf="districtName" (click)="goBackBlock()"><i class="fa fa-angle-right flex-gap-right"aria-hidden="true"></i>{{districtName}}</span>
+        <span *ngIf="blkname"><i class="fa fa-angle-right flex-gap-right"aria-hidden="true"></i>{{blkname}}</span>
+      </h6>
+    </div>
+    <div class="breadcrumbs c-black" *ngIf="districtId">
+      <h6 class="url">
+        <span class="flex-gap-right">Students</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+        <span class="flex-gap-right">SLAS Report-2019</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+        <span class="flex-gap-right" (click)="goBackBlock()">Student-wise</span>
+        <span *ngIf="blkname"><i class="fa fa-angle-right flex-gap-right"aria-hidden="true"></i>{{blkname}}</span>
+      </h6>
+    </div>
+   </div>
+
+
+
+   <div class="container-fluid" *ngIf="pageStage === 1">
+      <p-table #dt [columns]="dataHeader" [value]="stud_dist" [resizableColumns]="true" [lazy]="false"
+      [globalFilterFields]="['district_name','total','p0','per0','p1','per1','p2','per2','p3','per3','p4','per4']">
+        
+        <ng-template let-childrens pTemplate="caption">
+          <div class="row header flex-row-center">
+            <div class="col-sm-8">
+  
+            </div>
+            <div class="col-sm-3 p-1">
+              <div class="text-right">
+                <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                  placeholder="Search">
+              </div>
+            </div>
+            <div class="col-sm-1 p-1 text-right" style="padding-top:10px;">
+                <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"
+                  (click)="exportPdf(verifymonitorstate,dataHeader)"></i> -->
+                <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                  (click)="exportExcel()"></i>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-Datas>
+         <tr>
+            <th style="width:4em"></th>
+            <th style="width:13em"></th>
+            <th style="width:7em"></th>
+            <th *ngFor="let Data of dataHeader" [pSortableColumn]="Data.field" [style.width]="Data.widthstyle"  colspan="2" style="text-align: center;">
+            {{Data.header}}
+            <p-sortIcon [field]="Data.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+         </tr>
+         <tr>
+            <th style="width:5em">S.NO</th>
+            <th *ngFor="let Data of subdataHeader" [pSortableColumn]="Data.field" [style.width]="Data.widthstyle">
+            {{Data.header}}
+            <p-sortIcon [field]="Data.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+         </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-diststud let-columns="columns" let-i="rowIndex">
+         <tr>
+            <td>{{i+1}}</td>
+            <td style="width:15em"><a class="link-url" href="javascript:void(0)" (click)="distwisestudetrep(diststud.district_id,diststud.district_name)">{{diststud.district_name}}</a></td>
+            <td style="text-align: center;">{{diststud.total}}</td>
+            <td style="text-align: center;">{{diststud.p0}}</td>
+            <td style="text-align: center;">{{diststud.per0 }}%</td>
+            <td style="text-align: center;">{{diststud.p1 }}</td>
+            <td style="text-align: center;">{{diststud.per1 }}%</td>
+            <td style="text-align: center;">{{diststud.p2 }}</td>
+            <td style="text-align: center;">{{diststud.per2 }}%</td>
+            <td style="text-align: center;">{{diststud.p3 }}</td>
+            <td style="text-align: center;">{{diststud.per3 }}%</td>
+            <td style="text-align: center;">{{diststud.p4 }}</td>
+            <td style="text-align: center;">{{diststud.per4 }}%</td>
+         </tr>
+      </ng-template>
+      <ng-template pTemplate="footer">
+         <tr>
+             <td></td>
+             <td >Total</td>
+             <td class="ui-resizable-column text-center">{{total}}</td>
+             <td class="ui-resizable-column text-center">{{distp0}}</td>
+             <td></td>
+             <td class="ui-resizable-column text-center">{{distp1}}</td>
+             <td></td>
+             <td class="ui-resizable-column text-center">{{distp2}}</td>
+             <td></td>
+             <td class="ui-resizable-column text-center">{{distp3}}</td>
+             <td></td>
+             <td class="ui-resizable-column text-center">{{distp4}}</td>
+             <td></td>
+
+         </tr>
+     </ng-template>
+      <ng-template pTemplate="emptymessage" let-columns>
+        <tr>
+            <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                <strong>No Data Found</strong>
+            </td>
+        </tr>
+    </ng-template>
+      </p-table>
+    </div>
+
+
+
+<!-- blockwise -->
+<div class="container-fluid" *ngIf="pageStage === 2">
+   <p-table #dt [columns]="dataHeader1" [value]="studdistDetail" [resizableColumns]="true" [lazy]="false"
+   [globalFilterFields]="['block_name','total','p0','per0','p1','per1','p2','per2','p3','per3','p4','per4']">
+     <ng-template let-childrens pTemplate="caption">
+       <div class="row header flex-row-center">
+         <div class="col-sm-8">
+
+         </div>
+         <div class="col-sm-3 p-1"> 
+           <div class="text-right">
+             <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+               placeholder="Search">
+           </div>
+         </div>
+         <div class="col-sm-1 p-1 flex-row-center-end">
+           <div class="text-right">
+             <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"
+               (click)="exportPdf(verifymonitorstate,dataHeader)"></i>-->
+              <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+               (click)="exportExcelBlk()"></i> 
+           </div>
+         </div>
+       </div>
+
+     </ng-template>
+     <ng-template pTemplate="header" let-Datas>
+      <tr>
+         <th style="width:4em"></th>
+         <th style="width:13em"></th>
+         <th style="width:7em"></th>
+         <th *ngFor="let blks of dataHeader1" [pSortableColumn]="blks.field" [style.width]="blks.widthstyle"  colspan="2" style="text-align: center;">
+         {{blks.header}}
+         <p-sortIcon [field]="blks.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+         </th>
+      </tr>
+      <tr>
+         <th style="width:5em">S.NO</th>
+         <th *ngFor="let blkby of subdataHeader1" [pSortableColumn]="blkby.field" [style.width]="blkby.widthstyle">
+         {{blkby.header}}
+         <p-sortIcon [field]="blkby.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+         </th>
+      </tr>
+   </ng-template>
+   <ng-template pTemplate="body" let-stdblk let-columns="columns" let-i="rowIndex">
+      <tr >
+         <td>{{i+1}}</td>
+         <td><a class="link-url" href="javascript:void(0)" (click)="studschool(stdblk.block_id,stdblk.block_name)">{{stdblk.block_name}}</a></td>
+         <td style="text-align: center;">{{stdblk.total}}</td>
+         <td style="text-align: center;">{{stdblk.p0}}</td>
+         <td style="text-align: center;width:3em;">{{stdblk.per0 }}%</td>
+         <td style="text-align: center;">{{stdblk.p1}}</td>
+         <td style="text-align: center;">{{stdblk.per1 }}%</td>
+         <td style="text-align: center;">{{stdblk.p2}}</td>
+         <td style="text-align: center;">{{stdblk.per2}}%</td>
+         <td style="text-align: center;">{{stdblk.p3 }}</td>
+         <td style="text-align: center;">{{stdblk.per3}}%</td>
+         <td style="text-align: center;">{{stdblk.p4}}</td>
+         <td style="text-align: center;">{{stdblk.per4}}%</td>
+      </tr>
+   </ng-template>
+   <ng-template pTemplate="footer">
+      <tr>
+          <td></td>
+          <td >Total</td>
+          <td class="ui-resizable-column text-center">{{total}}</td>
+          <td class="ui-resizable-column text-center">{{blkp0}}</td>
+          <td></td>
+          <td class="ui-resizable-column text-center">{{blkp1}}</td>
+          <td></td>
+          <td class="ui-resizable-column text-center">{{blkp2}}</td>
+          <td></td>
+          <td class="ui-resizable-column text-center">{{blkp3}}</td>
+          <td></td>
+          <td class="ui-resizable-column text-center">{{blkp4}}</td>
+          <td></td>
+
+      </tr>
+  </ng-template>
+   <ng-template pTemplate="emptymessage" let-columns>
+     <tr>
+         <td [attr.colspan]="(columns.length)+2" style="text-align: center;">
+             <strong>No Data Found</strong>
+         </td>
+     </tr>
+ </ng-template>
+   </p-table>
+ </div>
+
+
+
+
+<!-- schoolwise -->
+
+<div class="container-fluid" *ngIf="pageStage === 3">
+   <p-table #dt [columns]="dataHeader2" [value]="schliststudDetail" [resizableColumns]="true" [lazy]="false"
+   [globalFilterFields]="['school_name','total','p0','per0','p1','per1','p2','per2','p3','per3','p4','per4']">
+     <ng-template let-childrens pTemplate="caption">
+       <div class="row header flex-row-center">
+         <div class="col-sm-8">
+
+         </div>
+         <div class="col-sm-3 p-1">
+           <div class="text-right">
+             <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+               placeholder="Search">
+           </div>
+         </div>
+         <div class="col-sm-1 p-1 flex-row-center-end">
+           <div class="text-right">
+             <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"
+               (click)="exportPdf(verifymonitorstate,dataHeader)"></i>-->
+            <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+               (click)="exportExcelSchl()"></i>
+           </div>
+         </div>
+       </div>
+
+     </ng-template>
+     <ng-template pTemplate="header" let-Datas>
+      <tr>
+         <th style="width:4em"></th>
+         <th style="width:13em"></th>
+         <th style="width:7em"></th>
+         <th *ngFor="let Data of dataHeader2" [pSortableColumn]="Data.field" [style.width]="Data.widthstyle"  colspan="2" style="text-align: center;">
+         {{Data.header}}
+         <p-sortIcon [field]="Data.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+         </th>
+      </tr>
+      <tr>
+         <th style="width:5em">S.NO</th>
+         <th *ngFor="let Data of subdataHeader2" [pSortableColumn]="Data.field" [style.width]="Data.widthstyle">
+         {{Data.header}}
+         <p-sortIcon [field]="Data.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+         </th>
+      </tr>
+   </ng-template>
+   <ng-template pTemplate="body" let-schlist let-columns="columns" let-i="rowIndex">
+      <tr >
+         <td>{{i+1}}</td>
+         <td >{{schlist.school_name}}</td>
+         <td style="text-align: center;">{{schlist.total}}</td>
+         <td style="text-align: center;">{{schlist.p0}}</td>
+         <td style="text-align: center;">{{schlist.per0}}%</td>
+         <td style="text-align: center;">{{schlist.p1}}</td>
+         <td style="text-align: center;">{{schlist.per1}}%</td>
+         <td style="text-align: center;">{{schlist.p2}}</td>
+         <td style="text-align: center;">{{schlist.per2}}%</td>
+         <td style="text-align: center;">{{schlist.p3}}</td>
+         <td style="text-align: center;">{{schlist.per3}}%</td>
+         <td style="text-align: center;">{{schlist.p4}}</td>
+         <td style="text-align: center;">{{schlist.per4}}%</td>
+      </tr>
+   </ng-template>
+   <ng-template pTemplate="footer">
+      <tr>
+          <td></td>
+          <td >Total</td>
+          <td class="ui-resizable-column text-center">{{total}}</td>
+          <td class="ui-resizable-column text-center">{{sclp0}}</td>
+          <td></td>
+          <td class="ui-resizable-column text-center">{{sclp1}}</td>
+          <td></td>
+          <td class="ui-resizable-column text-center">{{sclp2}}</td>
+          <td></td>
+          <td class="ui-resizable-column text-center">{{sclp3}}</td>
+          <td></td>
+          <td class="ui-resizable-column text-center">{{sclp4}}</td>
+          <td></td>
+
+      </tr>
+  </ng-template>
+   <ng-template pTemplate="emptymessage" let-columns>
+     <tr>
+         <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+             <strong>No Data Found</strong>
+         </td>
+     </tr>
+ </ng-template>
+   </p-table>
+ </div>
+
+
+
+
+
+</div>

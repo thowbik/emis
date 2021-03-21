@@ -1,0 +1,507 @@
+<div class="outer-layout" style="padding-top:6px;">
+    <div class="breadcrumbs c-black">
+      <h6 classs="url"><span class="flex-gap-right">Students</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right">Student Tagging</span></h6>
+    </div>
+  </div>
+
+<div class="">
+    <div class="page-container flex-layout-gap">
+     
+        <form name="form" [formGroup]="form">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row block-H" [ngClass]="{'block-H-shrink': isShowTable}">
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <p-dropdown [options]="classList_val" (onChange)="onChangeClass($event)" formControlName="class_id" placeholder="Select Class"></p-dropdown>
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" *ngIf="sele_cls_id!=0">
+                    <p-dropdown [options]="section_sc" (onChange)="onChangeSection($event)" formControlName="section" placeholder="Select Section"></p-dropdown>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                   
+                    <button pButton type="button" label="Submit" class="ui-button-success flex-gap-right" (click)="submit()"></button>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row login-img">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-2" *ngIf="isShowTable">
+                    <p-table #dt [columns]="selectedColumns" [value]="studentList" [style]="{'width':'250px !important'}" [autoLayout]="true" [paginator]="true" [resizableColumns]="true" [rows]="10" [scrollable]="true" scrollHeight="500px" scrollWidth="100px">
+
+                        <ng-template pTemplate="caption2">
+                            <div style="text-align: right">
+                                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                <input type="text" pInputText size="50" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                            <tr class="table-header">
+                                <th style="width: 4em">#</th>
+                                <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                                </th>
+
+                            </tr>
+
+                        </ng-template>
+                        <!-- <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                                <tr>
+                                    <td style="width: 3em"> 
+                                        <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                                    </td>
+                                    <td style="width: 3em">{{i+1}}</td>
+                                    <td *ngFor="let col of columns"  class="ui-resizable-column">
+                                        {{rowData[col.field]}}
+                                    </td>
+                                </tr>
+                        </ng-template> -->
+                        <ng-template pTemplate="body" let-rowData let-editing="editing" let-i="rowIndex">
+                            <tr [pEditableRow]="rowData">
+
+                                <td style="width: 4em">{{i+1}}</td>
+                                <td (click)="onStudentSelect(rowData,i)" [ngClass]="{'highlight-text': selectedStudentIndex == i}">
+                                    <span class="url">{{rowData.name}}</span>
+                                </td>
+                                <!-- <td style="text-align:center">
+                                        <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" class="ui-button-info" (click)="onRowEditInit(rowData)"></button>
+                                        <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" class="ui-button-success" style="margin-right: .5em" (click)="onRowEditSave(rowData)"></button>
+                                        <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" class="ui-button-danger" (click)="onRowEditCancel(rowData, ri)"></button>
+                                </td> -->
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage" let-columns>
+                            <tr>
+                                <td colspan="2" style="text-align: center;">
+                                    <strong>Students Not Found in Selected Class And Section </strong>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9" *ngIf="displayDialog">
+
+                    <p-fieldset legend="RTE" [toggleable]="true" *ngIf="schoolTypeId == 2 || schoolTypeId == 3 || schoolTypeId == 4">
+
+                        <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v1__wrapper">
+                            <div class="kt-wizard-v1__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
+
+                                <div class="kt-form__section kt-form__section--first">
+                                    <div class="kt-wizard-v1__form">
+                                        <div class="kt-portlet__body">
+                                            <div class="form-group row">
+                                                <div class="col-lg-5">
+                                                    <label>RTE *</label>
+                                                    <p-dropdown [options]="rte" class="flex-dropdown" formControlName="rte" placeholder="Select RTE"></p-dropdown>
+                                                </div>
+                                                <div class="col-lg-5" *ngIf="form.value.rte == 'Yes'">
+                                                    <label>RTE Type</label>
+                                                    <p-dropdown [options]="rte_typ_val" class="flex-dropdown" formControlName="rte_type"  placeholder="Select RTE Type"></p-dropdown>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-lg-5">
+                                                    <button type="button" pButton icon="fa fa-save" class="flex-gap-right" (click)="saveRTE()" label="Save"></button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </p-fieldset>
+
+                    <div class="flex-gap-bottom"></div>
+                    <p-fieldset legend="CWSN" [toggleable]="true" *ngIf="(class_id >= 1 && class_id <= 12)">
+                        <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v1__wrapper">
+                            <!--begin: Form Wizard Form-->
+
+                            <!--begin: Form Wizard Step 1-->
+                            <div class="kt-wizard-v1__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
+
+                                <div class="kt-form__section kt-form__section--first">
+                                    <div class="kt-wizard-v1__form">
+                                        <div class="kt-portlet__body">
+                                            <div class="form-group row">
+                                                <div class="col-lg-5">
+
+                                                    <label>CWSN *</label>
+                                                    <p-dropdown [options]="cwseList" class="flex-dropdown" formControlName="cwsn" placeholder="Select CWSN"></p-dropdown>
+
+                                                </div>
+                                                <div class="col-lg-5">
+                                                    <label>National Id</label>
+                                                    <input type="text" pInputText class="form-control" formControlName="nation_id">
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-lg-5">
+
+                                                    <label>Benefit *</label>
+                                                    <p-dropdown [options]="benefitList" class="flex-dropdown" formControlName="benefit" placeholder="Select Benefit">
+                                                    </p-dropdown>
+
+
+                                                </div>
+                                                <div class="col-lg-5">
+                                                    <label>Provided By</label>
+                                                    <p-dropdown [options]="providedByList" class="flex-dropdown" formControlName="provided_by" placeholder="Select Provided">
+                                                    </p-dropdown>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-lg-5">
+
+                                                    <label>Academic year *</label>
+                                                    <p-dropdown [options]="acadYearList" class="flex-dropdown" formControlName="academic_year" placeholder="Select Provided">
+                                                    </p-dropdown>
+
+
+                                                </div>
+                                                <div class="col-lg-5">
+
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-lg-5">
+                                                    <button type="button" pButton icon="fa fa-save" class="flex-gap-right" (click)="saveCWSN()" label="Save"></button>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!--begin: Form Actions -->
+
+                        </div>
+
+                    </p-fieldset>
+                  
+                    <!-- <div class="flex-gap-bottom"></div> -->
+                    <p-fieldset legend="Clubs Participation" [toggleable]="true" *ngIf="schoolTypeId == 3 || schoolTypeId == 5 || schoolTypeId == 1 && class_id == 6 || class_id==7 || class_id == 8 || class_id==9 || class_id == 10 || class_id==11 || class_id==12 || class_id==0">
+                        <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v1__wrapper">
+                         
+                            <div class="kt-wizard-v1__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
+
+                                <div class="kt-form__section kt-form__section--first">
+                                    <div class="kt-wizard-v1__form">
+                                        <div class="kt-portlet__body">
+                                            <div class="form-group row">
+                                                <div class="col-sm-4 text-align">
+                                                    <label><span class="num-align"></span>Academic year *<span class="manditory"></span></label>
+                                                </div>
+                                                <p-dropdown [options]="acadYearLists" class="flex-dropdown" formControlName="acyear" (onChange)="ChangeYear($event)" placeholder="Select Year">
+                                                </p-dropdown>
+                                                
+                                            </div>
+                                           
+                                            <div class="form-group row">
+                                                <div class="col-sm-4 text-align">
+                                                    <label><span class="num-align"></span>Eco-club<span class="manditory"></span></label>
+                                                </div>
+                                                <p-inputSwitch formControlName="participate_subtype_id1" [(ngModel)]="checked1" (onChange)="handleChangeEcoclub($event)"></p-inputSwitch>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-4 text-align">
+                                                    <label><span class="num-align"></span>National Service Scheme<span class="manditory"></span></label>
+                                                </div>
+                                                <p-inputSwitch formControlName="participate_subtype_id2" [(ngModel)]="checked2" (onChange)="handleChangeNSS($event)" ></p-inputSwitch>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-4 text-align">
+                                                    <label><span class="num-align"></span>Junior Red Cross<span class="manditory"></span></label>
+                                                </div>
+                                                <p-inputSwitch formControlName="participate_subtype_id3" [(ngModel)]="checked3"(onChange)="handleChangeJRC($event)"></p-inputSwitch>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-4 text-align">
+                                                    <label><span class="num-align"></span>National Cadet Corps<span class="manditory"></span></label>
+                                                </div>
+                                                <p-inputSwitch formControlName="participate_subtype_id4" [(ngModel)]="checked4" (onChange)="handleChangeNCC($event)"></p-inputSwitch> 
+                                            </div>
+                                            <div class="form-group row" *ngIf="checked4==true">
+                                                <div class="col-sm-4 text-align">
+                                                    <label><span class="num-align"></span>NCC Level<span class="manditory"></span></label>
+                                                </div>
+                                                <p-inputSwitch formControlName="Participationlevel4" [(ngModel)]="checked6" (onChange)="handleChangeNCCLevel($event)"></p-inputSwitch> 
+                                                <span class="pl-5 font-weight-bold" *ngIf="checked6==true">Senior</span><span *ngIf="checked6==false" class="pl-5 font-weight-bold">Junior</span>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-4 text-align">
+                                                    <label><span class="num-align"></span>Scouts & Guides<span class="manditory"></span></label>
+                                                </div>
+                                                <p-inputSwitch formControlName="participate_subtype_id5" [(ngModel)]="checked5" (onChange)="handleChangeScoutsGuide($event)"></p-inputSwitch>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-lg-5">
+                                                 
+                                                    <button type="button" pButton icon="fa fa-save" class="flex-gap-right" (click)="submitclubs()" label="Save"></button>
+                                                </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!--begin: Form Actions -->
+
+                        </div>
+
+                    </p-fieldset>
+                    <div class="flex-gap-bottom"></div>
+                    <!-- <p-fieldset legend="Awards" [toggleable]="true">
+                            <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v1__wrapper">
+                                <div class="kt-wizard-v1__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
+
+                                    <div class="kt-form__section kt-form__section--first">
+                                        <div class="kt-wizard-v1__form">
+                                            <div class="kt-portlet__body">
+                                                <div class="form-group row">
+                                                    <div class="col-lg-5">
+
+                                                        <label>NMMS Exam Passed on *</label>
+                                                        <p-calendar   [monthNavigator]="true" dateFormat="dd/mm/yy" [yearNavigator]="true" formControlName="nmms_exam_passed" yearRange="2000:2030"></p-calendar>
+                                                        
+                                                    </div>
+                                                    <div class="col-lg-5">
+                                                        <label>TRSTSE Exam Passed on</label>
+                                                        <p-calendar   [monthNavigator]="true" dateFormat="dd/mm/yy" [yearNavigator]="true" formControlName="trstse_exam_passed" yearRange="2000:2030"></p-calendar>
+                                                    </div>
+                                                
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-lg-5">
+
+                                                        <label>Inspire Award Date *</label>
+                                                        <p-calendar   [monthNavigator]="true" dateFormat="dd/mm/yy" [yearNavigator]="true" formControlName="inspire_award_date" yearRange="2000:2030"></p-calendar>
+                                                        
+
+                                                    </div>
+                                                    <div class="col-lg-5">
+                                                        <label>Inspire Award Topic</label>
+                                                        <input type="text" formControlName="trstse_exam_passed" formControlName="inspire_award_topic" pInputText class="form-control">
+                                                    </div>
+                                                
+                                                </div>
+                                            
+                                                <div class="form-group row">
+                                                    <div class="col-lg-5">
+                                                        <button type="button" pButton icon="fa fa-save" class="flex-gap-right" (click)="saveTaggingAwards()" label="Save"></button>
+                                                    
+                                                    </div>
+                                                
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </p-fieldset> -->
+                    <!-- <div class="flex-gap-bottom"></div> -->
+                    <!-- <p-fieldset legend="Sports" [toggleable]="true">
+                            <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v1__wrapper">
+                                <div class="kt-wizard-v1__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
+
+                                    <div class="kt-form__section kt-form__section--first">
+                                        <div class="kt-wizard-v1__form">
+                                            <div class="kt-portlet__body">
+                                                <div class="form-group row">
+                                                    <div class="col-lg-5">
+
+                                                        <label>Game Participating *</label>
+                                                    <p-dropdown  [options]="sportsList" class="flex-dropdown" formControlName="rte"  placeholder="Select Game" ></p-dropdown> 
+                                                        
+                                                    </div>
+                                                    <div class="col-lg-5">
+                                                        <label>Participating Date</label>
+                                                        <p-calendar   [monthNavigator]="true" dateFormat="dd/mm/yy" [yearNavigator]="true" yearRange="2000:2030"></p-calendar>
+                                                    
+                                                    </div>
+                                                
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-lg-5">
+
+                                                        <label>Played Level *</label>
+                                                        <p-dropdown  [options]="playedLevelList" class="flex-dropdown"   placeholder="Select Level" ></p-dropdown> 
+                                                        
+
+                                                    </div>
+                                                    <div class="col-lg-5">
+                                                        <label>If Winner in any Level, Details</label>
+                                                        <p-dropdown  [options]="winnerLevelList" class="flex-dropdown"   placeholder="Select Details" ></p-dropdown> 
+                                                    </div>
+                                                
+                                                </div>
+                                            
+                                                <div class="form-group row">
+                                                    <div class="col-lg-5">
+                                                        <button type="button" pButton icon="fa fa-save" class="flex-gap-right" (click)="save()" label="Save"></button>
+                                                    
+                                                    </div>
+                                                
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+
+
+                            </div>
+
+                        </p-fieldset> -->
+                    <!-- <div class="flex-gap-bottom"></div> -->
+                    <!-- <p-fieldset legend="OSC" [toggleable]="true">
+                            <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v1__wrapper">
+                                <div class="kt-wizard-v1__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
+
+                                    <div class="kt-form__section kt-form__section--first">
+                                        <div class="kt-wizard-v1__form">
+                                            <div class="kt-portlet__body">
+                                                <div class="form-group row">
+                                                    <div class="col-lg-5">
+
+                                                        <label>Present Status *</label>
+                                                    <p-dropdown  [options]="presentStatus"  class="flex-dropdown" formControlName="present_status"  placeholder="Select status" ></p-dropdown> 
+                                                        
+                                                    </div>
+                                                    <div class="col-lg-5">
+                                                        <label>Training Type</label>
+                                                        <p-dropdown  [options]="TrainingTypeList" class="flex-dropdown" formControlName="training_type"  placeholder="Select Training Type" ></p-dropdown> 
+                                                    </div>
+                                                
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-lg-5">
+
+                                                        <label>Academic Year *</label>
+                                                        <p-dropdown  [options]="acadYearList" class="flex-dropdown" formControlName="ac_year"  placeholder="Select Year" ></p-dropdown> 
+                                                        
+
+                                                    </div>
+                                                    <div class="col-lg-5">
+                                                    
+                                                    </div>
+                                                
+                                                </div>
+                                            
+                                                <div class="form-group row">
+                                                    <div class="col-lg-5">
+                                                        <button type="button" pButton icon="fa fa-save" class="flex-gap-right" (click)="saveOSC()" label="Save"></button>
+                                                    
+                                                    </div>
+                                                
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                    </p-fieldset> -->
+                    <div class="flex-gap-bottom"></div>
+                    <p-fieldset legend="Vocation (NSQF)" [toggleable]="true" *ngIf="schoolTypeId == 1 && (sele_cls_id == 9 || sele_cls_id == 10 || sele_cls_id == 11 || sele_cls_id == 12)">
+                        <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v1__wrapper">
+                            <!--begin: Form Wizard Form-->
+
+                            <!--begin: Form Wizard Step 1-->
+                            <div class="kt-wizard-v1__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
+
+                                <div class="kt-form__section kt-form__section--first">
+                                    <div class="kt-wizard-v1__form">
+                                        <div class="kt-portlet__body">
+                                            <div class="form-group row">
+                                                <div class="col-lg-5">
+
+                                                    <label>Sector *</label>
+                                                    <p-dropdown [options]="sectorList" class="flex-dropdown" formControlName="sector" placeholder="Select Sector">
+                                                    </p-dropdown>
+
+                                                </div>
+                                                <div class="col-lg-5" *ngIf="form.value.sector != '0'">
+                                                    <label>Job Role *</label>
+                                                    <p-dropdown [options]="jobRoleList" class="flex-dropdown" formControlName="jobrole" placeholder="Select Role">
+                                                    </p-dropdown>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <div class="col-lg-5">
+                                                    <button type="button" pButton icon="fa fa-save" class="flex-gap-right" (click)="saveVocation()" label="Save"></button>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!--begin: Form Actions -->
+
+                        </div>
+
+                    </p-fieldset>
+                    <!-- <p-dialog header="Student Details" [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '500px'}">
+                      <div class="ui-g ui-fluid">
+                        <div class="ui-g-12">
+                            <div class="ui-g-4">
+                                <label>Name</label>
+                            </div>
+                            <div class="ui-g-8">
+                                <input pInputText id="vin" value="{{studentName}}" autofocus />
+                            </div>
+                        </div>
+                        <div class="ui-g-12">
+                            <div class="ui-g-4">
+                                <label>NMMS Exam Passed on</label>
+                            </div>
+                            <div class="ui-g-8">
+                                <input pInputText id="vin" value="{{nmmsExamPassedOn}}" autofocus />
+                            </div>
+                        </div>
+                        <div class="ui-g-12">
+                            <div class="ui-g-4">
+                                <label>TRSTSE Exam Passed on</label>
+                            </div>
+                            <div class="ui-g-8">
+                                <input pInputText id="year" value="{{trstseExamPassedOn}}" />
+                            </div>
+                        </div>
+                        <div class="ui-g-12">
+                            <div class="ui-g-4">
+                                <label>Inspire Award Topic</label>
+                            </div>
+                            <div class="ui-g-8">
+                                <input pInputText id="brand" value="{{awardTopic}}" />
+                            </div>
+                        </div>
+                    </div>
+                    <p-footer>
+                        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                            <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Delete"></button>
+                            <button type="button" pButton icon="fa fa-check" (click)="save()" label="Save"></button>
+                        </div>
+                    </p-footer>
+                </p-dialog> -->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

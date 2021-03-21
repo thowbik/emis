@@ -1,0 +1,241 @@
+
+
+  <p-table [columns]="cols" [value]="nsqfstftrainlist" selectionMode="single" [(selection)]="selectedVocational" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="10">
+    <ng-template pTemplate="caption">
+        <div class="ui-helper-clearfix" style="text-align: left">
+            <div style="float:left">                
+            <i>Note : 1 ) Only for Schools in which NSQF Vocational Training Course is Conducted <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 ) Please Select the Row To Update the Details </i></div>
+            <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add" style="float:right"></button>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th class="sno-header-layout">#</th>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+            <th>Action</th>
+        </tr>
+        <!-- <tr>
+            <th></th>
+            <th *ngFor="let col of columns" [ngSwitch]="col.field" >
+                <input  pInputText type="text" class="textbox-filter" (input)="dt.filter($event.target.value, col.field, 'contains')">        
+            </th>
+            <th></th>
+        </tr> -->
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+        <tr [pSelectableRow]="rowData">
+            <td class="sno-header-layout">{{i+1}}</td>
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+            <td style="text-align: center;">
+                <!-- class="ui-button-success" label="Delete" -->
+                 <button type="button" pButton icon="fa fa-trash" class="ui-button-warning"  (click)="delete(rowData.id)"></button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns>
+        <tr>
+          <td [attr.colspan]="(columns.length)+2" style="text-align: center;">
+            <strong>No records found</strong>
+          </td>
+        </tr>
+    </ng-template>
+    <!-- <ng-template pTemplate="summary" let-rowData>
+        <div style="text-align:left">
+            <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add"></button>
+        </div>
+    </ng-template>     -->
+</p-table>
+
+<!-- <p-dialog [header]="dialogTitle" [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"  
+    [style]="{width:'50%'}" [minY]="70" 
+    [maximizable]="true" [baseZIndex]="10000"> -->
+    
+    <p-dialog  [header]="dialogTitle" [(visible)]="displayDialog"
+    [modal]="true" 
+    [draggable]="false"  
+    [responsive]="true" 
+    [blockScroll]="true" 
+    [maximizable]="false" 
+    [contentStyle]="{'max-width':'1000px','max-height': '450px','overflow-y': 'auto'}"
+    >
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+        <div class="ui-g ui-fluid">
+            <form [formGroup]="NSQFform">
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="teacher_name">Teacher Name <span class="mandatory"> * </span></label>
+                    </div>
+                    <div class="ui-g-8">
+                      <input type="text" formControlName="teacher_name" pInputText class="form-control" oninput="this.value = this.value.toUpperCase()" 
+                      placeholder="Enter Teacher Name">
+                      <small *ngIf="NSQFform.controls.teacher_name.errors && (NSQFform.controls.teacher_name.dirty || NSQFform.controls.teacher_name.touched)">Teacher Name is required</small>
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="aadhaar" >Aadhaar Number<span class="mandatory"> * </span></label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input type="text" pInputText pKeyFilter="pnum" class="form-control"
+                        formControlName="aadhaar"
+                        onKeyPress="if(this.value.length==12) return false;"
+                        (change)="checkAadhar($event.target.value)"
+                        placeholder="Enter Aadhaar Number">
+                        <small *ngIf="inValidAadhar"> Invalid Aadhaar Number . &nbsp;&nbsp;</small> 
+                        <small *ngIf="NSQFform.controls.aadhaar.errors && (NSQFform.controls.aadhaar.dirty || NSQFform.controls.aadhaar.touched)">Aadhaar is required</small>
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="dob">Date of Birth <span class="mandatory"> * </span></label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input class="form-control" type="date" formControlName="dob" dateformat="dd/MM/yyyy" [max]="dobMaxDate">
+                        <small *ngIf="NSQFform.controls.dob.errors && (NSQFform.controls.dob.dirty || NSQFform.controls.dob.touched)">DOB is required</small>
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="gender">Gender <span class="mandatory"> * </span></label>
+                    </div>
+                    <div class="ui-g-8">
+                        <p-dropdown [options]="genderlist" placeholder="Select Gender" class="flex-dropdown"
+                  formControlName="gender"></p-dropdown>
+                  <small *ngIf="NSQFform.controls.gender.errors && (NSQFform.controls.gender.dirty || NSQFform.controls.gender.touched)">Gender is required</small>
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="mobile">Mobile Number <span class="mandatory"> * </span></label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input type="text" pInputText pKeyFilter="pnum" class="form-control"
+                        formControlName="mobile" 
+                        onKeyPress="if(this.value.length==10) return false;"
+                        placeholder="Enter Mobile Number">
+                        <small *ngIf="NSQFform.get('mobile').hasError('pattern')">
+                            It is not a valid mobile number . &nbsp;&nbsp;
+                        </small>
+                        <small *ngIf="NSQFform.controls.mobile.errors && (NSQFform.controls.mobile.dirty || NSQFform.controls.mobile.touched)">Mobile is required</small>
+                    </div>
+                    
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="soc_cat">Social Category <span class="mandatory"> * </span></label>
+                    </div>
+                    <div class="ui-g-8">
+                        <p-dropdown [options]="socialcategory" placeholder="Select Social Category" class="flex-dropdown"
+                        formControlName="soc_cat"></p-dropdown>  
+                        <small *ngIf="NSQFform.controls.soc_cat.errors && (NSQFform.controls.soc_cat.dirty || NSQFform.controls.soc_cat.touched)">Social Category is required</small>
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="nature_of_appt">Nature of Appointment <span class="mandatory"> * </span></label>
+                    </div>
+                    <div class="ui-g-8">
+                        <p-dropdown [options]="appointment" placeholder="Select Nature of Appointment" class="flex-dropdown"
+                        formControlName="nature_of_appt"></p-dropdown>  
+                        <small *ngIf="NSQFform.controls.nature_of_appt.errors && (NSQFform.controls.nature_of_appt.dirty || NSQFform.controls.nature_of_appt.touched)">Social Nature of Appointment is required</small>
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="qual_acad">Academic<span class="mandatory"> * </span></label>
+                    </div>
+                    <div class="ui-g-8">
+                        <p-dropdown [options]="academic" placeholder="Select Academic" class="flex-dropdown"
+                        formControlName="qual_acad"></p-dropdown>
+                        <small *ngIf="NSQFform.controls.qual_acad.errors && (NSQFform.controls.qual_acad.dirty || NSQFform.controls.qual_acad.touched)">Academic is required</small>
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="qual_prof">Professional<span class="mandatory"> * </span></label>
+                    </div>
+                    <div class="ui-g-8">
+                        <p-dropdown [options]="professional" placeholder="Select Professional" class="flex-dropdown"
+                        formControlName="qual_prof"></p-dropdown>  
+                        <small *ngIf="NSQFform.controls.qual_prof.errors && (NSQFform.controls.qual_prof.dirty || NSQFform.controls.qual_prof.touched)">Professional is required</small>
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="industry_exp">Industry Experience<span class="mandatory"> * </span></label>
+                    </div>
+                    <div class="ui-g-8">
+                        <p-dropdown [options]="experience" placeholder="Select Industry Experience" class="flex-dropdown"
+                        formControlName="industry_exp"></p-dropdown>  
+                        <small *ngIf="NSQFform.controls.industry_exp.errors && (NSQFform.controls.industry_exp.dirty || NSQFform.controls.industry_exp.touched)">Industry Experience is required</small>
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="training_exp">Training Experience<span class="mandatory"> * </span></label>
+                    </div>
+                    <div class="ui-g-8">
+                        <p-dropdown [options]="experience" placeholder="Select Training Experience" class="flex-dropdown"
+                        formControlName="training_exp"></p-dropdown>  
+                        <small *ngIf="NSQFform.controls.training_exp.errors && (NSQFform.controls.training_exp.dirty || NSQFform.controls.training_exp.touched)">Training Experience is required</small>
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="appoint_sector">Sector for Which Appointed<span class="mandatory"> * </span></label>
+                    </div>
+                    <div class="ui-g-8">
+                        <p-dropdown [options]="sector" placeholder="Select Appointed Sector" class="flex-dropdown"
+                        formControlName="appoint_sector"></p-dropdown>  
+                        <small *ngIf="NSQFform.controls.appoint_sector.errors && (NSQFform.controls.appoint_sector.dirty || NSQFform.controls.appoint_sector.touched)">Appointed Sector is required</small>
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="class_taught">Class Taught Name<span class="mandatory"> * </span></label>
+                    </div>
+                    <div class="ui-g-8">
+                        <p-dropdown [options]="classtaught" placeholder="Select Class Taught" class="flex-dropdown"
+                        formControlName="class_taught"></p-dropdown>
+                        <small *ngIf="NSQFform.controls.class_taught.errors && (NSQFform.controls.class_taught.dirty || NSQFform.controls.class_taught.touched)">Class Taught is required</small>
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label>Received Induction Training<span class="mandatory"> * </span></label>
+                    </div>
+                    <div class="ui-g-8">
+                        <p-radioButton  value="1" label="Yes" formControlName="inductrain_receive_yn">Yes</p-radioButton>&nbsp;&nbsp;
+                        <p-radioButton  value="2" label="No" formControlName="inductrain_receive_yn">No</p-radioButton>
+                        <!-- <p-dropdown [options]="options" placeholder="Select Received Induction Training" class="flex-dropdown"
+                        ></p-dropdown> -->
+                        <small *ngIf="NSQFform.controls.inductrain_receive_yn.errors && (NSQFform.controls.inductrain_receive_yn.dirty || NSQFform.controls.inductrain_receive_yn.touched)">Received Induction Training is required</small>
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label>Received In-service Training in this Academic Year<span class="mandatory"> * </span></label>
+                    </div>
+                    <div class="ui-g-8">
+                        <p-radioButton  value="1" label="Yes" formControlName="inservtrain_receive_yn">Yes</p-radioButton>&nbsp;&nbsp;
+                        <p-radioButton  value="2" label="No" formControlName="inservtrain_receive_yn">No</p-radioButton>
+                        <!-- <p-dropdown [options]="options" placeholder="Select Received In-service Training in this Academic Year" class="flex-dropdown"
+                        formControlName="inservtrain_receive_yn"></p-dropdown> -->
+                        <small *ngIf="NSQFform.controls.inservtrain_receive_yn.errors && (NSQFform.controls.inservtrain_receive_yn.dirty || NSQFform.controls.inservtrain_receive_yn.touched)">Received In-service Training in this Academic Year is required</small>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <p-footer>
+            <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                <button type="button" pButton icon="fa fa-check" (click)="save()" label="Save"></button>
+            </div>
+        
+    </p-footer>
+</p-dialog>

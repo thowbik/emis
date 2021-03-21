@@ -1,0 +1,54 @@
+
+
+<div class="outer-layout m-t-150">
+    <div>
+        <h5 class="text-center">SMC School Grants</h5>
+      </div>
+    <p-table [value]="products">
+        <ng-template pTemplate="header">
+            <tr style="display: none;">
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+            <tr>
+                <td>SMC Resolution</td>
+                <td style="text-align: center;">  <button (click)="openFile(1)" class="btn btn-info w-250">Upload
+                </button>
+                <input type="file" style="display:none" (change)="onSelectFile($event)">
+            </td>
+                <td style="text-align: center;"> <button type="submit" class="btn btn-info w-250" (click)="viewUploadedFile(resolutionImageKey)">View
+                    Uploaded Photo</button></td>
+            </tr>
+            <tr>
+                <td>SMC Action Plan</td>  
+                <td style="text-align: center;"> <button (click)="openFile(2)" class="btn btn-info w-250">Upload
+    
+    
+                </button>
+                <input type="file" style="display:none" (change)="onSelectFile($event)"></td>
+                <td style="text-align: center;"><button type="submit" class="btn btn-info w-250" (click)="viewUploadedFile(ActionPlanImageKey)">View
+                    Uploaded Photo</button></td>
+                
+            </tr>
+        </ng-template>
+    </p-table>
+    <div class="flex-gap-top">
+        <span style="color:red;font-style: italic;padding-right:5px;padding-left:5px;padding-top: 10px;">Note:</span><span style="color:#467e71;font-style: italic">Only  JPG / JPEG /PDF files with maximum size 1MB</span>
+    </div>
+    
+</div>
+
+<p-dialog [(visible)]="showImage"  [modal]="true" 
+[responsive]="true" class="uploaded-img"
+ >
+ <img src="{{image}}" class="uploaded-img" *ngIf="!showPdfViewer">
+   
+ <pdf-viewer [src]="image" *ngIf="showPdfViewer" class="uploaded-img"
+              [original-size]="false"
+  ></pdf-viewer>
+ 
+  
+</p-dialog>

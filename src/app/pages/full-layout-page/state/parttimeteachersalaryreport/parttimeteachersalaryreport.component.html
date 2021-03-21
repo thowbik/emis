@@ -1,0 +1,50 @@
+<div class="main-body-content m-2">
+    <p-table #dt [columns]="dataHeader" [value]="partimeteacher" [resizableColumns]="true" [paginator]="paginator" [rows]="rows">
+        <ng-template pTemplate="caption">
+            <div class="row mb-2">
+                <div class="col-md-7" class="dropdown">
+                    <h5>{{pageTitle}}</h5>
+                </div>
+                <div class="col-md-6" class="search">
+                    <input type="text" pInputText size="20" placeholder="PT Staff Report Search" (input)="dt.filterGlobal($event.target.value, 'contains')">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" class="dropdown">
+                    <p-dropdown [options]="monthList" [(ngModel)]="monthfilterdd" (ngModelChange)="getparttimeteachersalaryreport($event)"></p-dropdown>
+                </div>
+                <div class="col-md-6" class="excel">
+                    <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" class="ui-button-success"></button>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr class="text-center">
+                <th class="sno-header-layout">S.No</th>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+            <tr class="text-center">
+                <td class="sno-header-layout"> {{i+1}} </td>
+                <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field">
+                    <div *ngSwitchCase="'dynCol'" class="greenalign">
+                        <span *ngIf="rptFlag !== 4 ; else elseBlock"><a href="javascript:void(0)" (click)="drill_to_nxt(monthfilterdd,rowData,rptFlag)"> {{rowData[col.field]}} </a></span>
+                        <ng-template #elseBlock>{{rowData[col.field]}}</ng-template>
+                    </div>
+                    <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+                <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                    <strong>No records found</strong>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

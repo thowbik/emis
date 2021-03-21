@@ -1,0 +1,399 @@
+<div class="main-body-content p-3">
+    <div class="outer-layout" style="padding-top:5px;">
+        <div class="breadcrumbs c-black">
+            <h6 classs="url"><span class="flex-gap-right">Schools</span><i class="fa fa-angle-right flex-gap-right"
+                    area-hidden="true"></i><span class="flex-gap-right"
+                    (click)="GoBack()">Student-Banking-Details</span>
+                <span *ngIf="Page === 2"><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span
+                        class="flex-gap-right" (click)="GoBack1()">StudentTransactionDetails</span></span>
+                <span *ngIf="Page === 3 || Page === 4 "><i class="fa fa-angle-right flex-gap-right"
+                        area-hidden="true"></i><span class="flex-gap-right">StudentFormDetails</span></span>
+            </h6>
+        </div>
+    </div>
+
+    <div class="conainer-fluid p-3" *ngIf="showForm">
+        <p-card>
+            <form [formGroup]="form">
+                <div class="form-group row">
+                    <!--<label class="col-md-6 col-form-label" for="select2">Select Class</label>-->
+                    <div class="col-md-4">
+                        <select id="select2" formControlName="class" class="form-control "
+                            (change)="onChangeClass($event.target.value)" style="border: 1px solid #a6a6a6;">
+                            <option value="">Select Class</option>
+                            <option *ngFor="let classes of classlist" [value]="classes.value">
+                                {{ classes.roman }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <p-dropdown [options]="section" formControlName="section" (onChange)="onChangeSection($event)"
+                            placeholder="Select Section"></p-dropdown>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" style="background-color: #065040" class="btn btn-success" label="Submit"
+                            (click)="getStudentList()">Submit</button>
+                    </div>
+                    <div class="col-md-2">
+                        <button pButton type="button" class="ui-button-info" label="Add Student Account"
+                            (click)="onAddAccount()"></button>
+                    </div>
+                </div>
+            </form>
+        </p-card>
+    </div>
+    <div class="container-fluid p-3" *ngIf="Page === 1">
+        <p-card>
+            <br>
+            <p-confirmDialog [style]="{width: '36vw'}" [baseZIndex]="10000"></p-confirmDialog>
+            <p-table #db [columns]="dataHeader" [value]="data" [autoLayout]="true"
+                [globalFilterFields]="['StudentName','roman','Section','CurrentBal']">
+                <ng-template pTemplate="caption">
+                    <div class="row">
+                        <div class="col-md-8"></div>
+                        <div class="col-md-3 text-right">
+                            <input class="form-control" type="text"
+                                (input)="db.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                        </div>
+                        <div class="col-md-1 text-right" style="padding-top: 15px;padding-right:28px;">
+                            <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                                (click)="exportExcel()"></i>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr class="text-center">
+                        <th style="width: 3em;">S.No</th>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+                                ariaLabelDesc="Activate to sort in descending order"
+                                ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-studenlist let-columns="columns" let-i="rowIndex">
+                    <tr class="text-center">
+                        <td style="width: 3em;">{{i+1}}</td>
+                        <td class="text-left"><a href="javascript:void(0)"
+                                (click)="getCurrentStdDetails(studenlist)">{{studenlist.StudentName}}</a></td>
+                        <td>{{studenlist.roman}}</td>
+                        <td>{{studenlist.Section}}</td>
+                        <td>{{studenlist.CurrentBalance}}</td>
+                        <td>
+                            <button pButton type="button" class="ui-button-info" (click)="onAddTransaction(studenlist)"
+                                label="Update"></button>&nbsp;
+                            <button pButton type="button" icon="fa fa-pencil" class="ui-button-success"
+                                (click)="onEditAccount(studenlist)" label="Edit"></button>&nbsp;
+                            <button pButton type="button" icon="fa fa-trash" class="ui-button-warning"
+                                (click)="onDeleteAccount(studenlist)" label="Delete"></button>&nbsp;
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                            <strong>No Records Found </strong>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-card>
+    </div>
+
+    <div class="conatiner-fluid p-4" *ngIf="Page === 2">
+        <p-card>
+            <h5 class="text-center" style="color: #646c9a;">Student Account Detail</h5>
+            <p-confirmDialog [style]="{width: '36vw'}" [baseZIndex]="10000"></p-confirmDialog>
+            <div class="col-md-6 row">
+                <div class="col-md-4">
+                    <label class="fnt-size font-weight-bold tex-right">
+                        Student Name
+                    </label>
+                </div>
+                <div class="col-md-8">
+                    <label> <span class="text-space">:</span> {{name}}</label>
+                </div>
+            </div>
+            <div class="col-md-6 row">
+                <div class="col-md-4">
+                    <label class="fnt-size font-weight-bold">
+                        Class
+                    </label>
+                </div>
+                <div class="col-md-8">
+                    <label> <span class="text-space">:</span> {{cls_Id}}</label>
+                </div>
+            </div>
+            <div class="col-md-6 row">
+                <div class="col-md-4">
+                    <label class="fnt-size font-weight-bold tex-right">
+                        Section
+                    </label>
+                </div>
+                <div class="col-md-8">
+                    <label> <span class="text-space">:</span> {{sec}}</label>
+                </div>
+            </div>
+        </p-card>
+        <br>
+        <p-card>
+            <p-table #dd [columns]="dataHeader1" [value]="student_account_detais" [autoLayout]="true">
+                <ng-template pTemplate="caption">
+                    <div class="row">
+                        <div class="col-md-10"></div>
+                        <div class="col-md-2 text-right" style="padding-top: 15px;padding-right:28px;">
+                            <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                                (click)="exportExcel1()"></i>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr class="text-center">
+                        <th style="width: 3em;">S.No</th>
+                        <th *ngFor="let col of columns">
+                            {{col.header}}
+                            <!-- <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+                                ariaLabelDesc="Activate to sort in descending order"
+                                ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon> -->
+                        </th>
+                        <th width="10%" style="text-align:center">Action</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body"  let-studen_Acc_list let-i="rowIndex">
+                    <tr class="text-center">
+                        <td style="width: 3em;">{{i+1}}</td>
+                        <td class="text-left">{{studen_Acc_list.DateOfCheckd }}</td>
+                        <td>{{studen_Acc_list.CurntBalnc}}</td>
+                        <td style="text-align:center">
+                            <button pButton type="button" icon="fa fa-pencil" class="ui-button-success"
+                                (click)="onEditTransactionData(studen_Acc_list)"></button>&nbsp;
+                            <button pButton type="button" icon="fa fa-trash" class="ui-button-warning"
+                                (click)="onDeleteTransactionData(studen_Acc_list)"></button>&nbsp;
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr class="text-left" *ngIf="noData">
+                        <td colspan="4" style="text-align: center;"> No Data Found </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr class="text-left" *ngIf="!noData">
+                        <td colspan="4" style="text-align: center;"> <b>No Records Found </b> </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-card>
+    </div>
+    <!-- INSERT AccuntForm -->
+    <div class="container-fluid p-4" *ngIf="Page === 3">
+        <p-card>
+            <h5 class="text-center p-3" style="color: #646c9a;"><b>Student Account Form</b></h5>
+            <br>
+            <form [formGroup]="AcconutForm">
+                <div class="row" *ngIf = "show_Field_std">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">
+                        <label class="font-weight-bold" style="color: #646c9a">Class <span class=" font-weight-bold"
+                                style="color:#646c9a;margin-left:0.6em;"> *</span> </label>
+                        <select id="select2" formControlName="Class" class="form-control"
+                            (change)="onChangeClass($event.target.value)"
+                            style="border:1px solid #a6a6a6;width:25.6em;margin-left: 0.87em;">
+                            <option value="">Select Class</option>
+                            <option *ngFor="let classes of classlist" [value]="classes.value">
+                                {{ classes.roman }}
+                            </option>
+                        </select>
+                        <small class="form-text text-danger"
+                            *ngIf="!AcconutForm.get('Class').valid && (submitted || AcconutForm.get('Class').dirty || AcconutForm.get('Class').touched)">
+                            Class is required</small>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">
+                        <label class="font-weight-bold" style="color: #646c9a">Section <span class=" font-weight-bold"
+                                style="color:#646c9a"> *</span> </label>
+                        <p-dropdown [options]="section" formControlName="Section" placeholder="Select Section"
+                            (onChange)="onChangeSection($event)"></p-dropdown>
+                        <small class="form-text text-danger"
+                            *ngIf="!AcconutForm.get('Section').valid && (submitted || AcconutForm.get('Section').dirty || AcconutForm.get('Section').touched)">
+                            Section is required</small>
+                    </div>
+                </div>
+                <div class="row" *ngIf = "show_Field">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">
+                        <label class="font-weight-bold" style="color: #646c9a">Class <span class=" font-weight-bold"
+                                style="color:#646c9a;margin-left: 0.7em;"> *</span> </label>
+                        <input type="text" class="form-control" [value]="student_class" style="width:25.6em;
+                        margin-left: 0.87em;" readonly>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">
+                        <label class="font-weight-bold" style="color: #646c9a">Section <span class=" font-weight-bold"
+                                style="color:#646c9a"> *</span> </label>
+                        <input type="text" class="form-control" [value]="student_section" readonly>
+                    </div>
+                </div>
+                <div class="row p-3">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4" *ngIf="show_Field_std">
+                        <label class="font-weight-bold" style="color: #646c9a">Student List <span
+                                class=" font-weight-bold" style="color:#646c9a"> *</span> </label>
+                        <p-dropdown [options]="student_name_list" formControlName="StudentID"
+                            placeholder="Select Student" (onChange)="getStudent_list_dropdown($event)"></p-dropdown>
+                        <small class="form-text text-danger"
+                            *ngIf="!AcconutForm.get('StudentID').valid && (submitted || AcconutForm.get('StudentID').dirty || AcconutForm.get('StudentID').touched)">
+                            StudentName is required</small>
+                    </div>
+                    <div class="col-md-4" *ngIf="show_Field">
+                        <label class="font-weight-bold" style="color: #646c9a">Student List <span class=" font-weight-bold"
+                                style="color:#646c9a"> *</span> </label>
+                        <input type="text" class="form-control" [value]="student_Name" readonly>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">
+                        <label class="font-weight-bold" style="color: #646c9a">Account Number <span
+                                class=" font-weight-bold" style="color:#646c9a"> *</span> </label>
+                        <input type="text" pKeyFilter="pnum" class="form-control" formControlName="AccNum"
+                            placeholder="Enter Account number" maxlength="18">
+                        <small class="form-text text-danger"
+                            *ngIf="!AcconutForm.get('AccNum').valid && (submitted || AcconutForm.get('AccNum').dirty || AcconutForm.get('AccNum').touched)">
+                            Account Number is required</small>
+                        <!-- <small class="form-text text-danger" *ngIf="AcconutForm.get('AccNum').hasError('pattern')">
+                        Enter correct account number</small> -->
+                    </div>
+                </div>
+                <div class="row p-3" *ngIf="showField">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">
+                        <label class="font-weight-bold" style="color: #646c9a">IFSC Code </label>
+                        <input type="text" (change)="ifsc_cde($event.target.value)" class="form-control text-uppercase"
+                            formControlName="ifsc_code" placeholder="IFSC Code" maxlength="11">
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">
+                        <label class="font-weight-bold" style="color: #646c9a">Branch </label>
+                        <input type="text" pKeyFilter="pnum" class="form-control" formControlName="branch"
+                            placeholder="Branch Name" readonly>
+                    </div>
+                    <!-- <small class="form-text text-danger"
+                        *ngIf="!AcconutForm.get('ifsc_code').valid && (submitted || AcconutForm.get('ifsc_code').dirty || AcconutForm.get('ifsc_code').touched)">
+                         IFSC Code is required</small> -->
+                </div>
+                <div class="row p-3" *ngIf="showField">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">
+                        <label class="font-weight-bold" style="color: #646c9a">Bank Name</label>
+                        <input type="text" class="form-control" formControlName="bank_name" placeholder="Bank Name"
+                            readonly>
+                    </div>
+                </div>
+                <div class="row p-3">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">
+                        <label class="font-weight-bold" style="color: #646c9a">File Upload <span
+                                class=" font-weight-bold" style="color:#646c9a"> *</span> </label>
+                        <input #file type='file' (change)="onSelectFile($event,'photo')" placeholder="Select File">
+                        <br>
+                        <br>
+                        <button type="submit" class="btn btn-info" (click)="getUploadedFle()" *ngIf="updateBtn">View
+                            Uploaded Photo</button>
+                        <div>
+                            <img src="{{image}}" *ngIf="show_image" class="uploaded-img" width="350" height="200">
+                        </div>
+                        <small class="form-text text-danger"
+                            *ngIf="!AcconutForm.get('PassBookImg').valid && (submitted || AcconutForm.get('PassBookImg').dirty || AcconutForm.get('PassBookImg').touched)">
+                            File Upload is required</small>
+                    </div>
+                </div>
+                <div class="row p-4">
+                    <div class="col-md-12 text-right">
+                        <button type="submit" class="btn btn-info" (click)="onSaveAccountInsert()"
+                            *ngIf="saveBtn">Save</button>
+                        <button type="submit" class="btn btn-success" (click)="onUpdateAccount()"
+                            *ngIf="updateBtn">update</button>
+                        <button type="submit " class="btn btn-light btn-border"
+                            (click)="onAccountCancel()">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </p-card>
+    </div>
+    <!-- TRANSACTION FORM  -->
+    <div class="container-fluid" *ngIf="Page === 4">
+        <p-card>
+            <h5 class="text-center p-3" style="color: #646c9a"><b>Student Account Form</b></h5>
+            <form [formGroup]="TransacAcconutForm">
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">
+                        <label class="font-weight-bold" style="color: #646c9a">Class <span class=" font-weight-bold"
+                                style="color:#646c9a;margin-left: 0.7em;"> *</span> </label>
+                        <input type="text" class="form-control" [value]="cls_Id" style="width:25.6em;
+                        margin-left: 0.87em;" readonly>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">
+                        <label class="font-weight-bold" style="color: #646c9a">Section <span class=" font-weight-bold"
+                                style="color:#646c9a"> *</span> </label>
+                        <input type="text" class="form-control" [value]="sec" readonly>
+                    </div>
+                </div>
+            
+                <div class="row p-3">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">
+                        <label class="font-weight-bold" style="color: #646c9a">Student List <span
+                                class="font-weight-bold" style="color:#646c9a"> *</span> </label>
+                        <input type="text" class="form-control" [value]="name" readonly>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">
+                        <label class="font-weight-bold" style="color: #646c9a">Transaction Date<span
+                                class="font-weight-bold" style="color:#646c9a"> *</span></label>
+                        <input class="form-control col-sm-12" type="date" formControlName="DOJ" placeholder="Date"
+                            dateformat="yyyy/dd/mm">
+                        <small class="form-text text-danger"
+                            *ngIf="!TransacAcconutForm.get('DOJ').valid && (submitted || TransacAcconutForm.get('DOJ').dirty || TransacAcconutForm.get('DOJ').touched)">
+                            Date is required</small>
+                    </div>
+                </div>
+                <div class="row p-3">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">
+                        <label class="font-weight-bold" style="color: #646c9a">Current Balance <span
+                                class=" font-weight-bold" style="color:#646c9a"> *</span> </label>
+                        <input type="text" pKeyFilter="pnum" class="form-control" formControlName="CurrentBal"
+                            placeholder="Enter amount">
+                        <small class="form-text text-danger"
+                            *ngIf="!TransacAcconutForm.get('CurrentBal').valid && (submitted || TransacAcconutForm.get('CurrentBal').dirty || TransacAcconutForm.get('CurrentBal').touched)">
+                            Current Balance is required</small>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">
+                        <label class="font-weight-bold" style="color: #646c9a">Remarks <span class=" font-weight-bold"
+                                style="color:#646c9a"> *</span> </label>
+                        <input type="text" class="form-control" formControlName="Remarks" placeholder="Enter Remarks">
+                        <small class="form-text text-danger"
+                            *ngIf="!TransacAcconutForm.get('Remarks').valid && (submitted || TransacAcconutForm.get('Remarks').dirty || TransacAcconutForm.get('Remarks').touched)">
+                            Remarks is required</small>
+                    </div>
+                </div>
+                <div class="row p-4">
+                    <div class="col-md-12 text-right">
+                        <button type="submit" class="btn btn-info"
+                            (click)="onSaveTransactionData(TransacAcconutForm.value)" *ngIf="saveBtn">Save</button>
+                            <button type="submit " class="btn btn-light btn-border"
+                            (click)="onUpdateTransactionCancel()" *ngIf="saveBtn">Cancel</button>
+                        <button type="submit" class="btn btn-success"
+                            (click)="onSaveEditedTransaction(TransacAcconutForm.value)" *ngIf="update">update</button>
+                        <button type="submit " class="btn btn-light btn-border"
+                            (click)="onEditTransactionCancel()" *ngIf="update">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </p-card>
+    </div>
+
+</div>

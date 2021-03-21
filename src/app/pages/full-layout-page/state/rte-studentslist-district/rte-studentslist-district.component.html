@@ -1,0 +1,233 @@
+<div class="container-fluid">
+  <div class="outer-layout mt-5" style="padding-top:5px;">
+    <div class="breadcrumbs c-black">
+      <h6 classs="url"><span class="flex-gap-right">RTE-Applicant</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i>
+        <span class="flex-gap-right" (click)="goBack()">RTE-Student</span>
+        <!-- <span class="flex-gap-right" *ngIf="usertypeid === 9" >RTE-Student</span> -->
+        <span *ngIf="districtNames"><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i>Block-Wise</span>
+    </h6>
+    </div>
+  </div>
+  <div class="m-4" *ngIf="pageStage === 1">
+    <p-card >
+        <div class="container-fluid header_fonts">
+              <div class="row p-1">
+                <div class="col-sm-6">
+                    <div class="text-lg-left mt-3">
+                      <h5>RTE-Student Report District-wise</h5>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-1">
+                    <div class="text-right">
+                         <input type="text" pInputText size="30" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>              
+                 </div>
+              </div>
+            </div>  
+        <div>
+            <p-table #dt  [columns]="cols" [value]="RTEStudentsListDisct"  [rows]="10" [resizableColumns]="true">
+                <ng-template pTemplate="header" let-distname>
+                  <tr class="text-center">
+                    <th style="width:5em;">S.NO</th>
+                    <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                      {{col.header}}
+                      <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+                  <tr class="text-center" *ngIf="!noDataFound">
+                    <td> {{i+1}} </td>
+                    <td class="text-left"><a href="javascript:void(0)" (click)="onSelectedDistrict(distwise.district_id)"> {{ distwise.district_name}} </a></td>
+                    <td> {{ distwise.prkg}} </td>
+                    <td> {{ distwise.lkg}} </td>
+                    <td> {{ distwise.ukg}} </td>
+                    <td> {{ distwise.class1}} </td>
+                    <td> {{ distwise.class2}} </td>
+                    <td> {{ distwise.class3}} </td>
+                    <td> {{ distwise.class4}} </td>
+                    <td> {{ distwise.class5}} </td>
+                    <td> {{ distwise.class6}} </td>
+                    <td> {{ distwise.class7}} </td>
+                    <td> {{ distwise.class8}} </td>
+                    <td style="font-weight: bold;"> {{ ( distwise.prkg * 1 ) + ( distwise.lkg * 1 ) + ( distwise.ukg * 1 ) + ( distwise.class1 * 1 ) + ( distwise.class2 * 1 ) + ( distwise.class3 * 1 ) + ( distwise.class4 * 1 ) + ( distwise.class5 * 1 ) + ( distwise.class6 * 1 ) + ( distwise.class7 * 1 ) + ( distwise.class8 * 1 ) }} </td>
+                    </tr>
+                    <!-- <td> {{ ( distwise.pre_kg * 1 ) + ( distwise.lkg * 1 ) + ( distwise.ukg * 1 ) + ( distwise.C1 * 1 ) + ( distwise.C2 * 1 ) + ( distwise.C3 * 1 ) + ( distwise.C4 * 1 ) + ( distwise.C5 * 1 ) + ( distwise.C6 * 1 ) + ( distwise.C7 * 1 ) + ( distwise.C8 * 1 ) }} </td> -->
+                </ng-template>
+                <!-- <ng-template pTemplate="footer"> -->
+                  <!-- <tr class="text-left" *ngIf="noDataFound" > -->
+                    <ng-template pTemplate="footer">
+                      <tr class="text-center" *ngIf="!noDataFound">
+                          <!-- <td></td> -->
+                          <td colspan="2" class="text-center">Total</td>
+                          <td class="ui-resizable-column">{{grandTotal_prkg}}</td>
+                          <td class="ui-resizable-column">{{grandTotal_lkg}}</td>
+                          <td class="ui-resizable-column">{{grandTotal_ukg}}</td>
+                          <td class="ui-resizable-column">{{grandTotal_class1}}</td>
+                          <td class="ui-resizable-column">{{grandTotal_class2}}</td>
+                          <td class="ui-resizable-column">{{grandTotal_class3}}</td>
+                          <td class="ui-resizable-column">{{grandTotal_class4}}</td>
+                          <td class="ui-resizable-column">{{grandTotal_class5}}</td>
+                          <td class="ui-resizable-column">{{grandTotal_class6}}</td>
+                          <td class="ui-resizable-column">{{grandTotal_class7}}</td>
+                          <td class="ui-resizable-column">{{grandTotal_class8}}</td>
+                          <td class="ui-resizable-column">{{ (grandTotal_prkg * 1) + (grandTotal_lkg * 1) + (grandTotal_ukg * 1) + (grandTotal_class1 * 1) + (grandTotal_class2 * 1) + (grandTotal_class3 * 1) + (grandTotal_class4 * 1) + (grandTotal_class5 * 1) + (grandTotal_class6 * 1) + ( grandTotal_class7 * 1) + ( grandTotal_class8 * 1)}}</td>
+                      </tr>
+                  </ng-template>
+                  <ng-template pTemplate="emptymessage">
+                    <tr class="text-center" *ngIf="noDataFound">
+                    <td colspan="24"> No Data Found </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+        </div>
+    </p-card>
+
+</div>
+</div>
+
+<!-- Stage 2  -->
+
+<div class="m-4" *ngIf="pageStage === 2">
+  <p-card >
+      <div class="container-fluid header_fonts">
+            <div class="row p-1">
+              <div class="col-sm-6">
+                  <div class="text-lg-left mt-3">
+                    <h5>RTE-Student Report Block-wise</h5>
+                  </div>
+              </div>
+              <div class="col-sm-6 p-1">
+                <div class="row">
+                  <div class="col-sm-11">
+                    <!-- <div class="text-right">
+                      <input type="text" pInputText placeholder="RTE-Student Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>   -->
+                    <div class="text-right">
+                      <input type="text" pInputText placeholder="Search" (input)="db.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div> 
+                  </div>
+                  <div class="col-sm-1 text-left pt-2">
+                    <i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="exportExcel()"></i>
+                    <!-- (click)="exportExcel()" -->
+                  </div>
+                </div>
+               </div>
+            </div>
+      </div>
+      <div>
+          <p-table #db  [columns]="cols2" [value]="RTEStudentsListBlock"  [rows]="10" [resizableColumns]="true" >
+              <ng-template pTemplate="header" let-distname>
+                <tr class="text-center">
+                  <th style="width:5em;">S.NO</th>
+                  <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+                <tr class="text-center" *ngIf="!noDataFound2">
+                  <td> {{i+1}} </td>
+                  <td> {{ distwise.udise_code}} </td>
+                  <td class="text-left"> {{ distwise.block_name | uppercase}} </td>
+                  <td class="text-left"> {{ distwise.school_name}} </td>
+                  <td class="text-left"> {{ distwise.school_type}} </td>
+                  <td> {{ distwise.pre_kg}} </td>
+                  <td> {{ distwise.lkg}} </td>
+                  <td> {{ distwise.ukg}} </td>
+                  <td> {{ distwise.c1}} </td>
+                  <td> {{ distwise.c2}} </td>
+                  <td> {{ distwise.c3}} </td>
+                  <td> {{ distwise.c4}} </td>
+                  <td> {{ distwise.c5}} </td>
+                  <td> {{ distwise.c6}} </td>
+                  <td> {{ distwise.c7}} </td>
+                  <td> {{ distwise.c8}} </td>
+                  <td style="font-weight: bold;"> {{ ( distwise.pre_kg * 1 ) + ( distwise.lkg * 1 ) + ( distwise.ukg * 1 ) + ( distwise.c1 * 1 ) + ( distwise.c2 * 1 ) + ( distwise.c3 * 1 ) + ( distwise.c4 * 1 ) + ( distwise.c5 * 1 ) + ( distwise.c6 * 1 ) + ( distwise.c7 * 1 ) + ( distwise.c8 * 1 ) }} </td>
+              </ng-template>
+              <ng-template pTemplate="footer">
+                <tr class="text-center" *ngIf="!noDataFound2" >
+                <td colspan="5" class="text-center">Total</td>
+                <td class="ui-resizable-column">{{grandTotal2_pre_kg}}</td>
+                <td class="ui-resizable-column">{{grandTotal2_lkg}}</td>
+                <td class="ui-resizable-column">{{grandTotal2_ukg}}</td>
+                <td class="ui-resizable-column">{{grandTotal2_c1}}</td>
+                <td class="ui-resizable-column">{{grandTotal2_c2}}</td>
+                <td class="ui-resizable-column">{{grandTotal2_c3}}</td>
+                <td class="ui-resizable-column">{{grandTotal2_c4}}</td>
+                <td class="ui-resizable-column">{{grandTotal2_c5}}</td>
+                <td class="ui-resizable-column">{{grandTotal2_c6}}</td>
+                <td class="ui-resizable-column">{{grandTotal2_c7}}</td>
+                <td class="ui-resizable-column">{{grandTotal2_c8}}</td>
+                <td class="ui-resizable-column">{{ (grandTotal2_pre_kg * 1) + (grandTotal2_lkg * 1) + (grandTotal2_ukg * 1) + (grandTotal2_c1 * 1) + (grandTotal2_c2 * 1) + (grandTotal2_c3 * 1) + (grandTotal2_c4 * 1) + (grandTotal2_c5 * 1) + (grandTotal2_c6 * 1) + ( grandTotal2_c7 * 1) + ( grandTotal2_c8 * 1)}}</td>
+                </tr> 
+              </ng-template>
+              <ng-template pTemplate="empty-message">
+                   <tr class="text-left" *ngIf="noDataFound2" >
+                   <td colspan="24"> No Data Found </td>
+                   </tr>
+              </ng-template>
+            </p-table>
+      </div>
+  </p-card>
+</div>
+
+<!-- Stage 3  -->
+
+<div class="m-4" *ngIf="pageStage === 3">
+  <p-card >
+      <div class="container-fluid header_fonts">
+            <div class="row p-1">
+              <div class="col-sm-6">
+                  <div class="text-lg-left mt-3">
+                    <h5>RTE-Student Report Block-wise</h5>
+                  </div>
+              </div>
+              <div class="col-sm-6 p-1">
+                  <div class="text-right">
+                       <input type="text" pInputText size="30" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                  </div>              
+               </div>
+            </div>
+      </div>
+      <div>
+          <p-table #dt  [columns]="cols2" [value]="BlockList"  [rows]="10" [resizableColumns]="true" >
+              <ng-template pTemplate="header" let-distname>
+                <tr class="text-center">
+                  <th style="width:5em;">S.NO</th>
+                  <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+                <tr class="text-center" *ngIf="!noDataFound2">
+                  <td> {{i+1}} </td>
+                  <td> {{ distwise.udise_code}} </td>
+                  <td class="text-left"> {{ distwise.block_name | uppercase}} </td>
+                  <td class="text-left"> {{ distwise.school_name}} </td>
+                  <td class="text-left"> {{ distwise.school_type}} </td>
+                  <td> {{ distwise.pre_kg}} </td>
+                  <td> {{ distwise.lkg}} </td>
+                  <td> {{ distwise.ukg}} </td>
+                  <td> {{ distwise.c1}} </td>
+                  <td> {{ distwise.c2}} </td>
+                  <td> {{ distwise.c3}} </td>
+                  <td> {{ distwise.c4}} </td>
+                  <td> {{ distwise.c5}} </td>
+                  <td> {{ distwise.c6}} </td>
+                  <td> {{ distwise.c7}} </td>
+                  <td> {{ distwise.c8}} </td>
+                  <td style="font-weight: bold;"> {{ ( distwise.pre_kg * 1 ) + ( distwise.lkg * 1 ) + ( distwise.ukg * 1 ) + ( distwise.c1 * 1 ) + ( distwise.c2 * 1 ) + ( distwise.c3 * 1 ) + ( distwise.c4 * 1 ) + ( distwise.c5 * 1 ) + ( distwise.c6 * 1 ) + ( distwise.c7 * 1 ) + ( distwise.c8 * 1 ) }} </td>
+              </ng-template>
+              <ng-template pTemplate="footer">
+                <tr class="text-left" *ngIf="noDataFound2" >
+                  <td colspan="24"> No Data Found </td>
+                </tr>
+              </ng-template>
+            </p-table>
+      </div>
+  </p-card>
+</div>

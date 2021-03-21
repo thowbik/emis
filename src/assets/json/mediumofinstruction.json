@@ -1,0 +1,259 @@
+{"mediumofinstruction":[
+  {
+    "ID": 16,
+    "MEDINSTR_ID": 16,
+    "MEDINSTR_DESC": "Tamil",
+    "MEDINSTR_PARENT": 16,
+    "PREDEFINED": 0,
+    "VISIBLE_YN": 1
+  },
+    {
+      "ID": 1,
+      "MEDINSTR_ID": 1,
+      "MEDINSTR_DESC": "Assamese",
+      "MEDINSTR_PARENT": 1,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 0
+    },
+    {
+      "ID": 2,
+      "MEDINSTR_ID": 2,
+      "MEDINSTR_DESC": "Bengali",
+      "MEDINSTR_PARENT": 2,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 0
+    },
+    {
+      "ID": 3,
+      "MEDINSTR_ID": 3,
+      "MEDINSTR_DESC": "Gujarati",
+      "MEDINSTR_PARENT": 3,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 0
+    },
+    {
+      "ID": 4,
+      "MEDINSTR_ID": 4,
+      "MEDINSTR_DESC": "Hindi",
+      "MEDINSTR_PARENT": 4,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 0
+    },
+    {
+      "ID": 5,
+      "MEDINSTR_ID": 5,
+      "MEDINSTR_DESC": "Kannada",
+      "MEDINSTR_PARENT": 5,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 1
+    },
+    {
+      "ID": 6,
+      "MEDINSTR_ID": 6,
+      "MEDINSTR_DESC": "Kashmiri",
+      "MEDINSTR_PARENT": 6,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 0
+    },
+    {
+      "ID": 7,
+      "MEDINSTR_ID": 7,
+      "MEDINSTR_DESC": "Konkani",
+      "MEDINSTR_PARENT": 7,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 0
+    },
+    {
+      "ID": 8,
+      "MEDINSTR_ID": 8,
+      "MEDINSTR_DESC": "Malayalam",
+      "MEDINSTR_PARENT": 8,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 1
+    },
+    {
+      "ID": 9,
+      "MEDINSTR_ID": 9,
+      "MEDINSTR_DESC": "Manipuri",
+      "MEDINSTR_PARENT": 9,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 0
+    },
+    {
+      "ID": 10,
+      "MEDINSTR_ID": 10,
+      "MEDINSTR_DESC": "Marathi",
+      "MEDINSTR_PARENT": 10,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 1
+    },
+    {
+      "ID": 11,
+      "MEDINSTR_ID": 11,
+      "MEDINSTR_DESC": "Nepali",
+      "MEDINSTR_PARENT": 11,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 0
+    },
+    {
+      "ID": 12,
+      "MEDINSTR_ID": 12,
+      "MEDINSTR_DESC": "Oriya",
+      "MEDINSTR_PARENT": 12,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 0
+    },
+    {
+      "ID": 13,
+      "MEDINSTR_ID": 13,
+      "MEDINSTR_DESC": "Punjabi",
+      "MEDINSTR_PARENT": 13,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 0
+    },
+    {
+      "ID": 14,
+      "MEDINSTR_ID": 14,
+      "MEDINSTR_DESC": "Sanskrit",
+      "MEDINSTR_PARENT": 14,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 0
+    },
+    {
+      "ID": 15,
+      "MEDINSTR_ID": 15,
+      "MEDINSTR_DESC": "Sindhi",
+      "MEDINSTR_PARENT": 15,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 0
+    },
+    {
+      "ID": 17,
+      "MEDINSTR_ID": 17,
+      "MEDINSTR_DESC": "Telugu",
+      "MEDINSTR_PARENT": 17,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 1
+    },
+    {
+      "ID": 18,
+      "MEDINSTR_ID": 18,
+      "MEDINSTR_DESC": "Urdu",
+      "MEDINSTR_PARENT": 18,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 1
+    },
+    {
+      "ID": 19,
+      "MEDINSTR_ID": 19,
+      "MEDINSTR_DESC": "English",
+      "MEDINSTR_PARENT": 19,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 1
+    },
+    {
+      "ID": 20,
+      "MEDINSTR_ID": 20,
+      "MEDINSTR_DESC": "Bodo",
+      "MEDINSTR_PARENT": 20,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 0
+    },
+    {
+      "ID": 21,
+      "MEDINSTR_ID": 21,
+      "MEDINSTR_DESC": "Mising",
+      "MEDINSTR_PARENT": 21,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 0
+    },
+    {
+      "ID": 22,
+      "MEDINSTR_ID": 22,
+      "MEDINSTR_DESC": "Dogri",
+      "MEDINSTR_PARENT": 22,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 0
+    },
+    {
+      "ID": 23,
+      "MEDINSTR_ID": 23,
+      "MEDINSTR_DESC": "Khasi",
+      "MEDINSTR_PARENT": 23,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 0
+    },
+    {
+      "ID": 24,
+      "MEDINSTR_ID": 24,
+      "MEDINSTR_DESC": "Garo",
+      "MEDINSTR_PARENT": 24,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 0
+    },
+    {
+      "ID": 25,
+      "MEDINSTR_ID": 25,
+      "MEDINSTR_DESC": "Mizo",
+      "MEDINSTR_PARENT": 25,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 0
+    },
+    {
+      "ID": 26,
+      "MEDINSTR_ID": 26,
+      "MEDINSTR_DESC": "Bhutia",
+      "MEDINSTR_PARENT": 26,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 0
+    },
+    {
+      "ID": 27,
+      "MEDINSTR_ID": 27,
+      "MEDINSTR_DESC": "Lepcha",
+      "MEDINSTR_PARENT": 27,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 0
+    },
+    {
+      "ID": 28,
+      "MEDINSTR_ID": 28,
+      "MEDINSTR_DESC": "Limboo",
+      "MEDINSTR_PARENT": 28,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 0
+    },
+    {
+      "ID": 29,
+      "MEDINSTR_ID": 29,
+      "MEDINSTR_DESC": "French",
+      "MEDINSTR_PARENT": 29,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 1
+    },
+    {
+      "ID": 30,
+      "MEDINSTR_ID": 30,
+      "MEDINSTR_DESC": "German",
+      "MEDINSTR_PARENT": 30,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 1
+    },
+    {
+      "ID": 31,
+      "MEDINSTR_ID": 31,
+      "MEDINSTR_DESC": "Arabic",
+      "MEDINSTR_PARENT": 31,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 0
+    },
+    {
+      "ID": 98,
+      "MEDINSTR_ID": 98,
+      "MEDINSTR_DESC": "None",
+      "MEDINSTR_PARENT": 98,
+      "PREDEFINED": 0,
+      "VISIBLE_YN": 1
+    }
+  ]}
+

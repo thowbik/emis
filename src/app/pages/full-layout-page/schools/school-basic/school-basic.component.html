@@ -1,0 +1,878 @@
+<div class="card ui-card-body my-3 box-shwd">
+  <h3>SCHOOL DETAILS - PART I</h3>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="backclr-grn  font-16">
+        PRELIMINARY DETAILS
+      </div>
+      <form [formGroup]="form" novalidate >
+        <div class="row form-group" style="margin-top:3%;">
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">1. </span> UDISE Code </label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pKeyFilter="pnum" pInputText formControlName="udise_code" class="form-control" readonly>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">2. </span> Latitude </label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pKeyFilter="pnum" pInputText formControlName="latitude" class="form-control" readonly>
+          </div>
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">3. </span> Longitude </label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pKeyFilter="pnum" pInputText formControlName="longitude" class="form-control" readonly>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">4. </span> School Name (In Capital Letters)
+            </label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText formControlName="school_name" class="form-control"
+              style="text-transform: uppercase;" size="10" readonly>
+          </div>
+          <div class="col-sm-3 text-align" style="font-size:10px;padding-right:0px;">
+            <label><span class="num-align">5. </span>Select Management Category</label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText formControlName="manage_name" class="form-control" readonly>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">6. </span>Select Management
+            </label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText formControlName="management" class="form-control" readonly>
+          </div>
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">7. </span> Selected Affiliation</label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText formControlName="department" class="form-control" readonly>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">8. </span> School Category(Code) </label>
+          </div>
+          <div class="col-sm-3">
+            <p-dropdown [options]="schoolCategoryList" placeholder="Choose Columns" class="flex-dropdown"
+              [style]="{minWidth: '100%'}" formControlName="sch_cate_id" readonly="true"></p-dropdown>
+          </div>
+          <!-- <div class="col-sm-3 text-align">
+            <label><span class="num-align">9. </span>Management of the School(Code)
+            </label>
+          </div>
+          <div class="col-sm-3">
+            <p-dropdown [options]="managementSchoolcodeList" placeholder="Choose Columns" class="flex-dropdown"
+              [style]="{minWidth: '100%'}" formControlName="sch_management_id" readonly="true"></p-dropdown>
+          </div> -->
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">9. </span> Type of School</label>
+          </div>
+          <div class="col-sm-3">
+            <p-radioButton name="schooltype" formControlName="school_type" value="Boys" label="Boys"
+              [disabled]="isDisabled">
+            </p-radioButton>
+          </div>
+          <div class="col-sm-3">
+            <p-radioButton name="schooltype" formControlName="school_type" value="Girls" label="Girls"
+              [disabled]="isDisabled">
+            </p-radioButton>
+          </div>
+          <div class="col-sm-3">
+            <p-radioButton name="schooltype" formControlName="school_type" value="Co-Ed" label="Co-educational"
+              [disabled]="isDisabled"></p-radioButton>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">10. </span> Lowest Class in School</label>
+          </div>
+          <div class="col-sm-3">
+            <p-dropdown [options]="ClassList" placeholder="Choose Columns" class="flex-dropdown"
+              [style]="{minWidth: '100%'}" formControlName="low_class" readonly="true"></p-dropdown>
+          </div>
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">11. </span>Highest Class in School</label>
+          </div>
+          <div class="col-sm-3">
+            <p-dropdown [options]="ClassList" placeholder="Choose Columns" class="flex-dropdown"
+              [style]="{minWidth: '100%'}" formControlName="high_class" readonly="true"></p-dropdown>
+          </div>
+        </div>
+
+
+        <div class="row form-group">
+          <div class="col-sm-6">
+            <label><span class="num-align">12. </span>Whether pre-primary section ( other than Anganwadi) attached to
+              school?</label>
+          </div>
+          <div class="col-md-6 row">
+            <div class="col-md-6">
+              <p-radioButton name="an_section" formControlName="anganwadi" value="1" label="YES" readonly="true"
+                [disabled]="isDisabled">
+              </p-radioButton>
+            </div>
+            <div class="col-md-6">
+              <p-radioButton name="an_section" formControlName="anganwadi" value="2" label="NO" readonly="true"
+                [disabled]="isDisabled">
+              </p-radioButton>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="row form-group">
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">14. </span>Anganwadi Number<span class="manditory"> *</span></label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText formControlName="anganwadi_center" class="form-control" readonly>
+          </div>
+        </div> -->
+
+
+        <div class="row form-group" *ngIf="form.controls.anganwadi.value == '1'">
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align"></span>Total Number of Workers in Anganwadi
+            </label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText formControlName="angan_wrks" class="form-control" readonly>
+          </div>
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align"></span>Total Number of Children in Anganwadi
+            </label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText formControlName="angan_childs" class="form-control" readonly>
+          </div>
+        </div>
+
+
+        <div class="row form-group">
+          <div class="col-sm-6">
+            <label><span class="num-align">13. </span>Whether Anganwadi Centre is located school premises ?</label>
+          </div>
+          <div class="col-md-6 row">
+            <div class="col-md-6">
+              <p-radioButton name="an_school" formControlName="anganwadi_schl" value="1" label="YES"
+                [disabled]="isDisabled">
+              </p-radioButton>
+            </div>
+            <div class="col-md-6">
+              <p-radioButton name="an_school" formControlName="anganwadi_schl" value="2" label="NO"
+                [disabled]="isDisabled">
+              </p-radioButton>
+            </div>
+          </div>
+        </div>
+
+        <div class="row form-group" *ngIf="form.controls.anganwadi_schl.value == '1'">
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align"></span>Code of the Anganwadi Centre</label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText formControlName="anganwadi_center" class="form-control" readonly>
+          </div>
+        </div>
+
+
+        <div class="row form-group" *ngIf="form.controls.anganwadi_schl.value == '1'">
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align"></span>Total Children in Anganwadi Centre<span class="manditory">
+                *</span></label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText formControlName="angan_childs" class="form-control" readonly>
+          </div>
+        </div>
+
+        <div class="row form-group" *ngIf="form.controls.anganwadi_schl.value == '1'">
+          <div class="col-sm-6">
+            <label><span class="num-align"></span>Is the Anganwadi Worker trained in early childhood education ?</label>
+          </div>
+          <div class="col-md-6 row">
+            <div class="col-md-6">
+              <p-radioButton name="an_name" formControlName="anganwadi_train" value="1" label="YES" readonly="true"
+                [disabled]="isDisabled">
+              </p-radioButton>
+            </div>
+            <div class="col-md-6">
+              <p-radioButton name="an_name" formControlName="anganwadi_train" value="2" label="NO" readonly="true"
+                [disabled]="isDisabled">
+              </p-radioButton>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="backclr-grn  font-16 mt-3">
+          LOCATION DETAILS
+        </div>
+        <div class="row form-group">
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">14. </span>District</label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText formControlName="district_name" class="form-control" readonly>
+          </div>
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">15. </span>School Location(Rural / Urban)</label>
+          </div>
+          <div class="col-sm-3">
+            <p-dropdown [options]="urbanruralList" placeholder="Choose Columns" class="flex-dropdown"
+              [style]="{minWidth: '100%'}" formControlName="urbanrural" readonly="true"></p-dropdown>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">16. </span> Local Body </label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText class="form-control" formControlName="zone_type" readonly>
+          </div>
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">17. </span> Village/Town/Municipality </label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText formControlName="village_munci" class="form-control" readonly>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">18. </span> Village Name/Ward Number</label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText formControlName="municipal_name" class="form-control" readonly>
+          </div>
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">19. </span> Name of Cluster Resource Centre (CRC)</label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText formControlName="cluster_name" class="form-control" readonly>
+          </div>
+        </div>
+
+
+        <div class="row form-group">
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">20. </span> Name of Gram Panchayat (for rural areas only)</label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText formControlName="panchayat_id" class="form-control" readonly>
+          </div>
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">21. </span> Name of Community Development (CD) Block/Mandal/
+              Taluka</label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText formControlName="block_name" class="form-control" readonly>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">22. </span> Habitation Name (for rural area)/Mohalla or equivalent urban unit
+              for planning (for urban
+              area)</label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText formControlName="village_ward" class="form-control" readonly>
+          </div>
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">23. </span> Name of Education Block/Mandal/Taluka</label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText formControlName="edu_dist_name" class="form-control" readonly>
+          </div>
+        </div>
+
+
+        <div class="row form-group">
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">24. </span> Name of Assembly Constituency</label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText formControlName="assembly_name" class="form-control" readonly>
+          </div>
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">25. </span>Name of Parliamentary Constituency</label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText formControlName="parli_name" class="form-control" readonly>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">26. </span>Name of Municipality (where applicable)</label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText formControlName="lb_vill_town_muni_name" class="form-control" readonly>
+          </div>
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">27. </span>Name of City (where applicable)</label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText formControlName="city_id" class="form-control" readonly>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">28. </span> Pincode </label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pKeyFilter="pnum" maxlength="6" pInputText formControlName="pincode" class="form-control"
+              readonly>
+          </div>
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">29. </span> Address <span class="manditory"> *</span></label>
+          </div>
+          <div class="col-sm-3">
+            <textarea pInputTextarea formControlName="address" class="form-control">Address</textarea>
+            <!-- <input type="text" pInputText > -->
+            <p-message severity="error" text="Address is required"
+              *ngIf="form.controls.address.errors && (submitted || form.controls.address.dirty || form.controls.address.touched)">
+            </p-message>
+          </div>
+        </div>
+        <!-- <div class="row form-group">
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">36. </span> Address Line 1 <span class="manditory"> *</span></label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText formControlName="address" class="form-control">
+            <p-message severity="error" text="Address is required"
+              *ngIf="form.controls.address.errors && (submitted || form.controls.address.dirty || form.controls.address.touched)">
+            </p-message>
+          </div>
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">37. </span> Address Line 2 <span class="manditory"> *</span></label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText class="form-control">
+          </div>
+        </div> -->
+
+        <div class="backclr-grn  font-16 mt-3">
+          COMMUNICATION DETAILS
+        </div>
+        <div class="row form-group">
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">30. </span> Respondent Name <span class="manditory">*</span>(In Capital
+              Letters)</label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText formControlName="corr_name" class="form-control">
+            <p-message severity="error" text="Respondent name is required"
+              *ngIf="form.controls.corr_name.errors && (submitted || form.controls.corr_name.dirty || form.controls.corr_name.touched)">
+            </p-message>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-12">
+            <label><span class="num-align">31. </span>Head of School</label>
+          </div>
+        </div>
+        <div class="row form-group">
+          <div class="col-sm-3 text-align">
+            <label>STD Code</label>
+          </div>
+          <div class="col-sm-3">
+            <p-dropdown [options]="stdList"  class="flex-dropdown"
+            [style]="{minWidth: '100%'}" formControlName="office_std_code" placeholder="Select STD Code"></p-dropdown>
+            <!-- <input type="text" pKeyFilter="pnum" maxlength="11" pInputText formControlName="office_std_code"
+              class="form-control" readonly> -->
+
+            <p-message severity="error" text="STD code is required"
+              *ngIf="form.controls.office_std_code.errors && (submitted || form.controls.office_std_code.dirty || form.controls.office_std_code.touched)">
+            </p-message>
+          </div>
+          <div class="col-sm-3 text-align">
+            <label>Landline No <span class="manditory">*</span></label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText pKeyFilter="pnum" maxlength="8" formControlName="office_landline"
+              class="form-control">
+            <p-message severity="error" text="Landline no is required"
+              *ngIf="form.controls.office_landline.errors && (submitted || form.controls.office_landline.dirty || form.controls.office_landline.touched)">
+            </p-message>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-3 text-align">
+            <label>Mobile No <span class="manditory">*</span></label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText pKeyFilter="pnum" maxlength="10" formControlName="office_mobile"
+              class="form-control">
+            <p-message severity="error" text="Mobile no is required"
+              *ngIf="form.controls.office_mobile.errors && (submitted || form.controls.office_mobile.dirty || form.controls.office_mobile.touched)">
+            </p-message>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-12">
+            <label><span class="num-align">32. </span>Respondent Contact No</label>
+          </div>
+        </div>
+        <div class="row form-group">
+          <div class="col-sm-3 text-align">
+            <label> STD Code</label>
+          </div>
+          <div class="col-sm-3">
+            <p-dropdown [options]="stdList"  class="flex-dropdown"
+            [style]="{minWidth: '100%'}" formControlName="corr_std_code" placeholder="Select STD Code"></p-dropdown>
+            
+            <!-- <input type="text" pInputText pKeyFilter="pnum" formControlName="corr_std_code" maxlength="5"
+              class="form-control" readonly> -->
+            <p-message severity="error" text="STD code is required"
+              *ngIf="form.controls.corr_std_code.errors && (submitted || form.controls.corr_std_code.dirty || form.controls.corr_std_code.touched)">
+            </p-message>
+          </div>
+          <div class="col-sm-3 text-align">
+            <label> Landline No <span class="manditory">*</span></label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText pKeyFilter="pnum" maxlength="8" formControlName="corr_landlline"
+              class="form-control">
+            <p-message severity="error" text="Landline no is required"
+              *ngIf="form.controls.corr_landlline.errors && (submitted || form.controls.corr_landlline.dirty || form.controls.corr_landlline.touched)">
+            </p-message>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-3 text-align">
+            <label> Mobile No <span class="manditory">*</span></label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText pKeyFilter="pnum" maxlength="10" formControlName="corr_mobile"
+              class="form-control">
+            <p-message severity="error" text="Mobile no is required"
+              *ngIf="form.controls.corr_mobile.errors && (submitted || form.controls.corr_mobile.dirty || form.controls.corr_mobile.touched)">
+            </p-message>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">33. </span> Email</label><span class="manditory"> *</span>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText formControlName="sch_email" class="form-control">
+            <p-message severity="error" text="Email is required"
+              *ngIf="form.controls.sch_email.errors && (submitted || form.controls.sch_email.dirty || form.controls.sch_email.touched)">
+            </p-message>
+            <p-message severity="error" text="Please give valid email" *ngIf="form.controls.sch_email.errors?.pattern">
+            </p-message>
+          </div>
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">34.</span> Website</label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText formControlName="website" class="form-control">
+          </div>
+        </div>
+
+        <div class="backclr-grn  font-16 mt-3">
+          ESTABLISHMENT DETAILS
+        </div>
+        <div class="row form-group">
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">35. </span>Year of establishment of School</label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText pKeyFilter="pnum" maxlength="4" formControlName="yr_estd_schl"
+              class="form-control" readonly>
+            <p-message severity="error" text="Field is required"
+              *ngIf="form.controls.yr_estd_schl.errors && (submitted || form.controls.yr_estd_schl.dirty || form.controls.yr_estd_schl.touched)">
+            </p-message>
+          </div>
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">36. </span>Year of first recognization of school<span
+                style="color:black;padding-left:2px">(Only for Govt. Aided and Private Unaided)</span></label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText pKeyFilter="pnum" maxlength="4" formControlName="yr_recgn_first"
+              class="form-control" readonly>
+            <p-message severity="error" text="Field is required"
+              *ngIf="form.controls.yr_recgn_first.errors && (submitted || form.controls.yr_recgn_first.dirty || form.controls.yr_recgn_first.touched)">
+            </p-message>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">37. </span>Year of last renewal of school<span
+                style="color:black;padding-left:2px">(Only for Govt. Aided and Private Unaided)</span></label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText pKeyFilter="pnum" maxlength="4" formControlName="yr_last_renwl"
+              class="form-control" readonly>
+            <p-message severity="error" text="Field is required"
+              *ngIf="form.controls.yr_last_renwl.errors && (submitted || form.controls.yr_last_renwl.dirty || form.controls.yr_last_renwl.touched)">
+            </p-message>
+          </div>
+          <div class="col-sm-3 text-align">
+            <label><span class="num-align">38. </span>Certificate Number <span
+                style="color:black;padding-left:2px">(Only for Govt. Aided and Private Unaided)</span></label>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" pInputText formControlName="certifi_no" class="form-control" readonly>
+            <p-message severity="error" text="Field is required"
+              *ngIf="form.controls.certifi_no.errors && (submitted || form.controls.certifi_no.dirty || form.controls.certifi_no.touched)">
+            </p-message>
+          </div>
+        </div>
+        <div>
+          <label><span class="num-align">39. </span>Year of Recognition of School<span
+              style="color:black;padding-left:2px">(Only for Govt. Aided and Private Unaided)</span></label>
+          <div class="row form-group">
+            <div class="col-sm-3 text-align">
+              <label>Primary</label>
+            </div>
+            <div class="col-sm-3">
+              <input type="text" pKeyFilter="pnum" maxlength="4" pInputText formControlName="yr_recogn_schl"
+                class="form-control" readonly>
+              <!-- <p-message severity="error" text="Field is required"
+              *ngIf="form.controls.yr_recogn_schl.errors && (submitted || form.controls.yr_recogn_schl.dirty || form.controls.yr_recogn_schl.touched)">
+            </p-message> -->
+            </div>
+            <div class="col-sm-3 text-align">
+              <label>Upper Primary</label>
+            </div>
+            <div class="col-sm-3">
+              <input type="text" pKeyFilter="pnum" maxlength="4" pInputText formControlName="yr_rec_schl_elem"
+                class="form-control" readonly>
+              <!-- <p-message severity="error" text="Field is required"
+                *ngIf="form.controls.yr_rec_schl_elem.errors && (submitted || form.controls.yr_rec_schl_elem.dirty || form.controls.yr_rec_schl_elem.touched)">
+              </p-message> -->
+            </div>
+          </div>
+
+          <div class="row form-group">
+            <div class="col-sm-3 text-align">
+              <label>Secondary</label>
+            </div>
+            <div class="col-sm-3">
+              <input type="text" pKeyFilter="pnum" maxlength="4" pInputText formControlName="yr_rec_schl_sec"
+                class="form-control" readonly>
+              <!-- <p-message severity="error" text="Field is required"
+                *ngIf="form.controls.yr_rec_schl_sec.errors && (submitted || form.controls.yr_rec_schl_sec.dirty || form.controls.yr_rec_schl_sec.touched)">
+              </p-message> -->
+            </div>
+            <div class="col-sm-3 text-align">
+              <label>Higher Secondary</label>
+            </div>
+            <div class="col-sm-3">
+              <input type="text" pKeyFilter="pnum" maxlength="4" pInputText formControlName="yr_rec_schl_hsc"
+                class="form-control" readonly>
+              <!-- <p-message severity="error" text="Field is required"
+                *ngIf="form.controls.yr_rec_schl_hsc.errors && (submitted || form.controls.yr_rec_schl_hsc.dirty || form.controls.yr_rec_schl_hsc.touched)">
+              </p-message> -->
+            </div>
+          </div>
+        </div>
+        <div>
+          <label><span class="num-align">40. </span>Year of Upgradation of the School</label>
+          <div class="row form-group">
+            <div class="col-sm-3 text-align">
+              <label>Primary to Upper Primary</label>
+            </div>
+            <div class="col-sm-3">
+              <input type="text" pInputText pKeyFilter="pnum" maxlength="4" formControlName="upgrad_prito_uprpri"
+                class="form-control" readonly>
+              <!-- <p-message severity="error" text="Field is required"
+              *ngIf="form.controls.upgrad_pri_to_uprpri.errors && (submitted || form.controls.upgrad_pri_to_uprpri.dirty || form.controls.upgrad_pri_to_uprpri.touched)">
+            </p-message> -->
+            </div>
+            <div class="col-sm-3 text-align">
+              <label>Upper Primary to Secondary</label>
+            </div>
+            <div class="col-sm-3">
+              <input type="text" pInputText pKeyFilter="pnum" maxlength="4" formControlName="upgrad_uprprito_sec"
+                class="form-control" readonly>
+              <!-- <p-message severity="error" text="Field is required"
+              *ngIf="form.controls.upgrad_uprpri_to_sec.errors && (submitted || form.controls.upgrad_uprpri_to_sec.dirty || form.controls.upgrad_uprpri_to_sec.touched)">
+            </p-message> -->
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-sm-3 text-align">
+              <label>Secondary to Higher Secondary</label>
+            </div>
+            <div class="col-sm-3">
+              <input type="text" pInputText pKeyFilter="pnum" maxlength="4" class="form-control"
+                formControlName="upgrad_secto_higsec" readonly>
+              <!-- <p-message severity="error" text="Field is required"
+                *ngIf="form.controls.upgrad_sec_to_higsec.errors && (submitted || form.controls.upgrad_sec_to_higsec.dirty || form.controls.upgrad_sec_to_higsec.touched)">
+              </p-message> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6"><span class="num-align">41. </span>
+            Is this a special school for CWSN ?
+          </div>
+          <div class="col-md-6 row">
+            <div class="col-md-6">
+              <p-radioButton name="cwsn" formControlName="cwsn_scl" value="1" label="YES" [disabled]="isDisabled">
+              </p-radioButton>
+            </div>
+            <div class="col-md-6">
+              <p-radioButton name="cwsn" formControlName="cwsn_scl" value="2" label="NO" [disabled]="isDisabled">
+              </p-radioButton>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="padding-top:10px">
+          <div class="col-md-6"><span class="num-align">42. </span>
+            Is this a shift school ?
+          </div>
+          <div class="col-md-6 row">
+            <div class="col-md-6">
+              <p-radioButton name="shift" formControlName="shftd_schl" value="1" label="YES" [disabled]="isDisabled">
+              </p-radioButton>
+            </div>
+            <div class="col-md-6">
+              <p-radioButton name="shift" formControlName="shftd_schl" value="2" label="NO" [disabled]="isDisabled">
+              </p-radioButton>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="padding-top:10px">
+          <div class="col-md-6"><span class="num-align">43. </span>
+            Is this a residential school ?
+          </div>
+          <div class="col-md-6 row">
+            <div class="col-md-6">
+              <p-radioButton name="residential" value="1" label="YES" formControlName="resid_schl"
+                [disabled]="isDisabled">
+              </p-radioButton>
+            </div>
+            <div class="col-md-6">
+              <p-radioButton name="residential" value="2" label="NO" formControlName="resid_schl"
+                [disabled]="isDisabled">
+              </p-radioButton>
+            </div>
+          </div>
+        </div>
+        <div class="row form-group" *ngIf="form.controls.resid_schl.value == '1'" class="row"
+          style="padding-top:10px;padding-left:4px;">
+          <div class="col-md-3">
+            <label> Type of residential school </label>
+          </div>
+          <div class="col-md-3">
+            <p-dropdown [options]="typeofResidentialSchoolList" placeholder="Choose Columns" class="flex-dropdown"
+              [style]="{minWidth: '100%'}" formControlName="typ_resid_schl" readonly="true"></p-dropdown>
+          </div>
+        </div>
+        <div class="row form-group" *ngIf="form.controls.resid_schl.value == '1'"
+          style="padding-top:10px;padding-left:4px;">
+          <div class="col-md-12">
+            <span>Whether boarding / residential facilities are available for the following stage / level</span>
+          </div>
+        </div>
+        <div class="row form-group" *ngIf="form.controls.resid_schl.value == '1'"
+          style="padding-top:10px;padding-left:4px;">
+          <div class="col-md-2">
+            <label>Primary</label>
+          </div>
+          <div class="col-md-2">
+            <p-radioButton name="primary" value="1" label="YES" formControlName="boarding_pri_yn"
+             >
+            </p-radioButton>
+          </div>
+          <div class="col-md-2">
+            <p-radioButton name="primary" value="2" label="NO" formControlName="boarding_pri_yn"
+              >
+            </p-radioButton>
+          </div>
+          <div class="col-md-2 text-align" *ngIf="form.controls.boarding_pri_yn.value == '1'">
+            <label>Number of Boys</label>
+          </div>
+          <div class="col-md-1" *ngIf="form.controls.boarding_pri_yn.value == '1'">
+            <input type="text" pInputText formControlName="boarding_pri_b" class="form-control" >
+          </div>
+          <div class="col-md-2 text-align" *ngIf="form.controls.boarding_pri_yn.value == '1'">
+            <label>Number of Girls</label>
+          </div>
+          <div class="col-md-1" *ngIf="form.controls.boarding_pri_yn.value == '1'">
+            <input type="text" pInputText formControlName="boarding_pri_g" class="form-control" >
+          </div>
+        </div>
+
+        <div class="row form-group" *ngIf="form.controls.resid_schl.value == '1'"
+          style="padding-top:10px;padding-left:4px;">
+          <div class="col-md-2">
+            <label>Upper Primary</label>
+          </div>
+          <div class="col-md-2">
+            <p-radioButton name="upperprimary" value="1" label="YES" formControlName="boarding_upr_yn"
+              ></p-radioButton>
+          </div>
+          <div class="col-md-2">
+            <p-radioButton name="upperprimary" value="2" label="NO" formControlName="boarding_upr_yn"
+              ></p-radioButton>
+          </div>
+          <div class="col-md-2 text-align" *ngIf="form.controls.boarding_upr_yn.value == '1'">
+            <label>Number of Boys</label>
+          </div>
+          <div class="col-md-1" *ngIf="form.controls.boarding_upr_yn.value == '1'">
+            <input type="text" pInputText formControlName="boarding_upr_b" class="form-control" >
+          </div>
+          <div class="col-md-2 text-align" *ngIf="form.controls.boarding_upr_yn.value == '1'">
+            <label>Number of Girls</label>
+          </div>
+          <div class="col-md-1" *ngIf="form.controls.boarding_upr_yn.value == '1'">
+            <input type="text" pInputText formControlName="boarding_upr_g" class="form-control" >
+          </div>
+        </div>
+
+        <div class="row form-group" *ngIf="form.controls.resid_schl.value == '1'"
+          style="padding-top:10px;padding-left:4px;">
+          <div class="col-md-2">
+            <label>Secondary</label>
+          </div>
+          <div class="col-md-2">
+            <p-radioButton name="secondary" value="1" label="YES" formControlName="boarding_sec_yn"
+             ></p-radioButton>
+          </div>
+          <div class="col-md-2">
+            <p-radioButton name="secondary" value="2" label="NO" formControlName="boarding_sec_yn"
+             >
+            </p-radioButton>
+          </div>
+          <div class="col-md-2 text-align" *ngIf="form.controls.boarding_sec_yn.value == '1'">
+            <label>Number of Boys</label>
+          </div>
+          <div class="col-md-1" *ngIf="form.controls.boarding_sec_yn.value == '1'">
+            <input type="text" pInputText class="form-control" formControlName="boarding_sec_b" >
+          </div>
+          <div class="col-md-2 text-align" *ngIf="form.controls.boarding_sec_yn.value == '1'">
+            <label>Number of Girls</label>
+          </div>
+          <div class="col-md-1" *ngIf="form.controls.boarding_sec_yn.value == '1'">
+            <input type="text" pInputText class="form-control" formControlName="boarding_sec_g" >
+          </div>
+        </div>
+
+        <div class="row form-group" *ngIf="form.controls.resid_schl.value == '1'"
+          style="padding-top:10px;padding-left:4px;">
+          <div class="col-md-2">
+            <label>Higher Secondary</label>
+          </div>
+          <div class="col-md-2">
+            <p-radioButton name="highersecondary" value="1" label="YES" formControlName="boarding_hsec_yn"
+              ></p-radioButton>
+          </div>
+          <div class="col-md-2">
+            <p-radioButton name="highersecondary" value="2" label="NO" formControlName="boarding_hsec_yn"
+              ></p-radioButton>
+          </div>
+          <div class="col-md-2 text-align" *ngIf="form.controls.boarding_hsec_yn.value == '1'">
+            <label>Number of Boys</label>
+          </div>
+          <div class="col-md-1" *ngIf="form.controls.boarding_hsec_yn.value == '1'">
+            <input type="text" pInputText class="form-control" formControlName="boarding_hsec_b" >
+          </div>
+          <div class="col-md-2 text-align" *ngIf="form.controls.boarding_hsec_yn.value == '1'">
+            <label>Number of Girls</label>
+          </div>
+          <div class="col-md-1" *ngIf="form.controls.boarding_hsec_yn.value == '1'">
+            <input type="text" pInputText class="form-control" formControlName="boarding_hsec_g" >
+          </div>
+        </div>
+
+        <div class="row form-group" style="padding-top:10px">
+          <div class="col-md-6"><span class="num-align">44. </span>
+            Is the School situated in Hill/Forest/Others Area?
+          </div>
+
+          <div class="col-md-6 row my-3">
+            <div class="col-md-6" style="padding-top:2%;">
+              <p-radioButton formControlName="hill_frst" value="1" label="In Forest/Hill area" [disabled]="isDisabled">
+              </p-radioButton>
+            </div>
+            <div class="col-md-6" style="padding-top:2%;">
+              <p-radioButton formControlName="hill_frst" value="2" label="Near Forest/Hill area"
+                [disabled]="isDisabled">
+              </p-radioButton>
+            </div>
+            <div class="col-md-6" style="padding-top:2%;">
+              <p-radioButton formControlName="hill_frst" value="3" label="Near the High ways" [disabled]="isDisabled">
+              </p-radioButton>
+            </div>
+
+            <div class="col-md-6" style="padding-top:2%;">
+              <p-radioButton formControlName="hill_frst" value="4" label="Near Coastal Area" [disabled]="isDisabled">
+              </p-radioButton>
+            </div>
+            <div class="col-md-6" style="padding-top:2%;">
+              <p-radioButton formControlName="hill_frst" value="0" label="Not Applicable" [disabled]="isDisabled">
+              </p-radioButton>
+            </div>
+
+          </div>
+          <div class="col-md-6">
+            <span class="num-align">45. </span>
+            Whether School has special educator ?
+          </div>
+          <div class="col-md-6 row my-3">
+            <div class="col-md-4">
+              <p-radioButton name="specialedu" formControlName="spl_edtor" value="1" label="Dedicated"
+                [disabled]="isDisabled">
+              </p-radioButton>
+            </div>
+            <div class="col-md-4">
+              <p-radioButton name="specialedu" formControlName="spl_edtor" value="2" label="At cluster level"
+                [disabled]="isDisabled">
+              </p-radioButton>
+            </div>
+            <div class="col-md-4">
+              <p-radioButton name="specialedu" formControlName="spl_edtor" value="3" label="NO" [disabled]="isDisabled">
+              </p-radioButton>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-3">
+          <button type="submit" class="btn btn-success" (click)="onSave()">Save</button>   
+          <button type="submit" class="btn btn-light btn-border" (click)="onCancel()">Cancel</button>
+        </div>
+        <!-- <div class="text-center mt-3">
+          <button type="submit" class="btn btn-success" (click)="onSave()" [disabled]="schoolBasicDetails.part_1 == 2">Save</button>
+          <button type="submit" class="btn btn-success" (click)="onFinalSubmit()" style="margin-left:15px;" [disabled]="schoolBasicDetails.part_1 == 2">Final Submit</button>
+          <button type="submit" class="btn btn-light btn-border" (click)="onCancel()" [disabled]="schoolBasicDetails.part_1 == 2">Cancel</button>
+        </div> -->
+        <p-confirmDialog header="Confirmation" [style]="{width: '50vw'}"></p-confirmDialog>
+      </form>
+    </div>
+  </div>
+</div>

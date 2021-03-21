@@ -1,0 +1,312 @@
+<!-- STATE -->
+<div class="container-fluid" *ngIf ="!ceodislogin">
+    <h4>RTE-Reimbursements </h4>
+    <p-card>
+    <p-table #dn [columns]="colsstate" [value]="stateData" [autoLayout]="true">
+            <ng-template pTemplate="caption">
+                <form [formGroup]="studentListForm">
+                    <div class="row">
+                        <div class="col-sm-2 col-md-2">
+                            <p-dropdown [options]="studentyear" formControlName="selectedyear"
+                              (onChange)="studenttypevalue($event)"></p-dropdown>
+                        </div>
+                        <div class="co-sm-1 col-md-1"></div>
+                        <div class="col-sm-5 col-md-5 text-right">
+                            <button type="button" pButton icon="pi pi-file-excel" iconPos="left" (click)="exportExcel()"
+                                label="EXCEL" class="ui-button-success" style="margin:8px;">
+                            </button>
+                        </div>
+                        <div class="col-sm-4 col-md-4 text-right">
+                            <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                            <input type="text" pInputText size="30" placeholder="Search"
+                                (input)="dn.filterGlobal($event.target.value, 'contains')" style="padding:6px;">
+                        </div>
+                    </div>
+                </form>
+            </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+        <th>S.No</th>
+        <th>District Name</th>
+        <th>Current KG Students</th>
+        <th>Current 1-8 Students</th>
+        <th>Submitted KG STudents</th>
+        <th>Submitted 1-8 Students</th>
+        <th>Total Submitted Students</th>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-statestudentlist let-i="rowIndex">
+        <tr>
+        <td>{{i+1}}</td>
+        <td style="color:#337ab7;cursor: pointer;" (click)="getDistrictData(statestudentlist.district_id)">{{statestudentlist.district_name}}</td>
+        <td>{{statestudentlist.Current_KG_All}}</td>
+        <td>{{statestudentlist.Current_1_8_All}}</td>
+        <td>{{statestudentlist.Submitted_KG}}</td>
+        <td>{{statestudentlist.Submited_1_8}}</td>
+        <td>{{statestudentlist.Submitted_Total}}</td>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <tr class="text-center" *ngIf="noDataFound" >
+          <td colspan="7"> No Data Found </td>
+        </tr>
+      </ng-template>
+</p-table>
+</p-card>
+</div>
+<!-- DISTRICT & CEO LOGIN --> 
+
+<div class="container-fluid" *ngIf = "ceodislogin">
+   <h5>RTE Student List</h5>
+<p-tabView>
+    <p-tabPanel header="Number of Students">
+        <p-table #dd [columns]="cols" [value]="data" [autoLayout]="true">
+            <ng-template pTemplate="caption">
+                <form [formGroup]="studentListForm">
+                    <div class="row">
+                        <div class="col-sm-2 col-md-2">
+                            <p-dropdown [options]="studentyear" formControlName="selectedyear"
+                              (onChange)="studenttypevalue($event)"></p-dropdown>
+                        </div>
+                        <div class="co-sm-1 col-md-1"></div>
+                        <div class="col-sm-5 col-md-5 text-right">
+                            <button type="button" pButton icon="pi pi-file-excel" iconPos="left" (click)="exportExcel()"
+                                label="EXCEL" class="ui-button-success" style="margin:8px;">
+                            </button>
+                        </div>
+                        <div class="col-sm-4 col-md-4 text-right">
+                            <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                            <input type="text" pInputText size="20" placeholder="Search"
+                                (input)="dd.filterGlobal($event.target.value, 'contains')" style="padding:6px;">
+                        </div>
+                    </div>
+                </form>
+            </ng-template>
+            <ng-template pTemplate="header" >
+                <tr>
+                    <th>S.No</th>
+                    <th>Block</th>
+                    <th>UDISE Code</th>
+                    <th>School Name</th>
+                    <th>Total KG Students</th>
+                    <th>Total 1-8 Students</th>
+                    <th>Current KG Students</th>
+                    <th>Current 1-8 Students</th>
+                    <th>Submitted KG STudents</th>
+                    <th>Submitted 1-8 Students</th>
+                    <th>Total Submitted Students</th>
+                    <th>Confirm</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-studentlists let-i="rowIndex">
+                <tr>
+                    <td>{{i+1}}</td>
+                    <td>{{studentlists.block_name}}</td>
+                    <td>{{studentlists.udise_code}}</td>
+                    <td>{{studentlists.school_name}}</td>
+                    <td>{{studentlists.Current_KG_All}}</td>
+                    <td>{{studentlists.Current_1_8_All}}</td>
+                    <td>{{studentlists.Current_RTE_KG}}</td>
+                    <td>{{studentlists.Current_RTE_1_8}}</td>
+                    <td>{{studentlists.Submitted_KG}}</td>
+                    <td>{{studentlists.Submited_1_8}}</td>
+                    <td>{{studentlists.Submitted_Total}}</td>
+                    <td>
+                        <button type="button" class="btn btn-success" (click)="getData(studentlists.Current_KG_All,studentlists.Current_1_8_All,studentlists.Current_RTE_KG,studentlists.Current_RTE_1_8,studentlists.school_id)">Button</button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr class="text-center" *ngIf="noDataFound" >
+                  <td colspan="12"> No Data Found </td>
+                </tr>
+              </ng-template>
+        </p-table>
+        </p-tabPanel>
+
+<!-- TAB2 -->
+
+    <p-tabPanel header="Reimbursement Amount">
+        <p-table #ds [columns]="cols1" [value]="amountData"  [autoLayout]="true">
+            <ng-template pTemplate="caption">
+                <form [formGroup]="studentListForm">
+                    <div class="row">
+                        <div class="col-sm-2 col-md-2">
+                            <p-dropdown [options]="studentyear" formControlName="selectedyear"
+                              (onChange)="studenttypevalue($event)"></p-dropdown>
+                        </div>
+                        <div class="co-sm-1 col-md-1"></div>
+                        <div class="col-sm-5 col-md-5 text-right">
+                            <button type="button" pButton icon="pi pi-file-excel" iconPos="left" (click)="exportExcel()"
+                                label="EXCEL" class="ui-button-success" style="margin:8px;">
+                            </button>
+                        </div>
+                        <div class="col-sm-4 col-md-4 text-right">
+                            <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                            <input type="text" pInputText size="20" placeholder="Search"
+                                (input)="ds.filterGlobal($event.target.value, 'contains')" style="padding:6px;">
+                        </div>
+                    </div>
+                </form>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th>S.No</th>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                    </th>
+                    <th>Confirm </th>
+                </tr> 
+                <tr>
+                    <th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+                    <th><input pInputText type="date" (input)="assignTheDistributionFromDate($event)" style="width: 6em;"></th>
+                    <th><input pInputText type="date" (input)="assignTheDistributionToDate($event)" style="width: 6em;"></th>
+                    <th></th>
+                </tr>
+
+                   
+            </ng-template>
+        
+            <ng-template pTemplate="body" let-reimbursementsamount let-columns="columns"
+              let-i="rowIndex">
+                <tr>
+                    <td>{{i+1}}</td>
+                    <td>{{reimbursementsamount.block_name}}</td>
+                    <td>{{reimbursementsamount.udise_code}}</td>
+                    <td>{{reimbursementsamount.school_name}}</td>
+                    <td>{{reimbursementsamount.Submitted_KG}}</td>
+                    <td>{{reimbursementsamount.Submited_1_8}}</td>
+                    <td>{{reimbursementsamount.Submitted_Total}}</td>
+                    <td>{{reimbursementsamount.calculated_amount_kg}}</td>
+                    <td>{{reimbursementsamount.calculated_amount_1_8}}</td>
+                    <td>{{reimbursementsamount.calculated_amount_total}}</td>
+                    <td pEditableColumn style="width: 5em !important">
+                        <p-cellEditor>
+                          <ng-template pTemplate="input" >
+                            <input pInputText type="date" [(ngModel)]="reimbursementsamount[cols1[9].field]" dateformat="dd-MM-yy" (input)="assignTheDistributionFromDate($event)">
+                        </ng-template>
+                          <ng-template pTemplate="output">
+                              {{reimbursementsamount[cols1[9].field] | date:"dd-MM-yyyy"}}
+
+                          </ng-template>
+                        </p-cellEditor>
+                      </td>
+               
+                    
+                      <td pEditableColumn style="width: 6em !important">
+                        <p-cellEditor>
+                          <ng-template pTemplate="input">
+                                 <input pInputText type="date" [(ngModel)]="reimbursementsamount[cols1[10].field]" dateformat="dd-MM-yyyy" (input)="assignTheDistributionToDate($event)"> 
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                              {{ reimbursementsamount[cols1[10].field] | date:"dd-MM-yyyy"}}
+                          </ng-template>
+                        </p-cellEditor>
+                      </td>
+                    <td>
+                        <button type="button" class="btn btn-success" (click)="getDialog(reimbursementsamount.from_date,reimbursementsamount.to_date,reimbursementsamount.school_id)">Button</button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr class="text-center" *ngIf="noDataFound" >
+                  <td colspan="13"> No Data Found </td>
+                </tr>
+              </ng-template>
+        </p-table>
+        </p-tabPanel>
+        <p-dialog 
+        [(visible)]="showDialogBox" [modal]="true" [style]="{'width':'500px','margin-left':'50px','margin-top':'6%'}" [maximizable]="true" [baseZIndex]="10000">
+         <div class="row item">
+             <div class="col-sm-12 col-md-12">
+           
+        <p><b> Data once submitted cannot be edited again.</b></p>
+        <p><b>Are you sure you want to submit?</b><p>
+        </div>
+    </div>
+    <br>
+    <div class="row item_one">
+        <div class="col-sm-3 col-md-3 float-center">
+           
+            <button type="submit" class="btn btn-success" name="Yes" (click)="Yes()">Yes</button><span></span>
+        </div>
+        <div class="col-sm-3 col-md-3 float-center">
+           <button type="submit" class="btn btn-success" (click)="close_dialog()">No</button>
+   
+        </div>
+        </div>
+    </p-dialog>
+
+        <!-- Tab3 -->
+
+        <p-tabPanel header="Reimbursement Status">
+            <p-table #dt [columns]="cols2" [value]="statusData"  [autoLayout]="true">
+                <ng-template pTemplate="caption">
+                    <form [formGroup]="studentListForm">
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2">
+                                <p-dropdown [options]="studentyear" formControlName="selectedyear"
+                                  (onChange)="studenttypevalue($event)"></p-dropdown>
+                            </div>
+                            <div class="co-sm-1 col-md-1"></div>
+                            <div class="col-sm-5 col-md-5 text-right">
+                                <button type="button" pButton icon="pi pi-file-excel" iconPos="left" (click)="exportExcel()"
+                                    label="EXCEL" class="ui-button-success" style="margin:8px;">
+                                </button>
+                            </div>
+                            <div class="col-sm-4 col-md-4 text-right">
+                                <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                                <input type="text" pInputText size="20" placeholder="Search"
+                                    (input)="dt.filterGlobal($event.target.value, 'contains')" style="padding:6px;">
+                            </div>
+                        </div>
+                    </form>
+                </ng-template>
+                <ng-template pTemplate="header" >
+                    <tr>
+                        <th>S.No</th>
+                        <th>Block</th>
+                        <th>UDISE Code</th>
+                        <th>School Name</th>
+                        <th>Reimbursement Claimed KG</th>
+                        <th>Reimbursement Claimed 1-8</th>
+                        <th>Total Reimbursement Claimed </th>
+                        <th>Reimbursement Approved KG</th>
+                        <th>Reimbursement Approved 1-8</th>
+                        <th>Total Reimbursement Approved </th>
+                        <th>Submission Status</th>
+                        <th>Approved Status</th>
+                        <th>Reimbursement Status</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-reimbursementsstatus
+                  let-i="rowIndex">
+                    <tr>
+                        <td>{{i+1}}</td>
+                        <td>{{reimbursementsstatus.block_name}}</td>
+                        <td>{{reimbursementsstatus.udise_code}}</td>
+                        <td>{{reimbursementsstatus.school_name}}</td>
+                        <td>{{reimbursementsstatus.Current_KG_All}}</td>
+                        <td>{{reimbursementsstatus.Current_1_8_All}}</td>
+                        <td>{{reimbursementsstatus.calculated_amount_total}}</td>
+                        <td>{{reimbursementsstatus.Approved_KG_Amt}}</td>
+                        <td>{{reimbursementsstatus.Approved_1_8_Amt}}</td>
+                        <td>{{reimbursementsstatus.Approved_Total_Amt}}</td>
+                        <td>{{reimbursementsstatus.Submission_Status}}</td>
+                        <td>{{reimbursementsstatus.Approve_Status}}</td>
+                        <td>{{reimbursementsstatus.Reimburse_Status}}</td>
+                      
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr class="text-center" *ngIf="noDataFound" >
+                      <td colspan="13"> No Data Found </td>
+                    </tr>
+                  </ng-template>
+            </p-table>
+            </p-tabPanel>
+</p-tabView>
+</div>

@@ -1,0 +1,34 @@
+/* ::ng-deep  body .ui-dialog {
+    padding: 0;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);
+    width: 300px;
+    z-index: 1001;
+    left: 766px !important;
+    top: 114px !important;
+    transform: none;
+    opacity: 1;
+} */
+.block-H {
+height:  250px;
+}
+.block-H-shrink {
+height: 50px !important;
+}
+
+/* fieldset customize */
+::ng-deep .ui-fieldset-toggleable .ui-fieldset-legend {
+    font-size: 14px !important;
+}
+::ng-deep  .ui-fieldset-toggleable .ui-fieldset-legend {
+    padding: 0;
+    width: 25%;
+}
+::ng-deep body .ui-fieldset .ui-fieldset-legend a {
+    background-color: #32c5d2 !important;
+}
+::ng-deep body .ui-fieldset.ui-fieldset-toggleable .ui-fieldset-legend a:hover .ui-fieldset-toggler {
+    color: #333333 !important;
+}
+.highlight-text {
+    background: #f1dd38 !important;
+}

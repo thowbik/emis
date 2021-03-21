@@ -1,0 +1,592 @@
+<div class="main-body-content">
+    <div class="outer-layout">
+        <div class="breadcrumbs c-black" *ngIf="!districtid">
+            <h6 class="url">
+                <span class="flex-gap-right">Students</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+                <span class="flex-gap-right">CWSN</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+                <span class="flex-gap-right" (click)="goBack()">CWSN Details</span>
+                <span class="flex-gap-right" *ngIf="disrtct_name" (click)="goBack_b()"><i
+                    class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>{{disrtct_name}}</span>
+                <span class="flex-gap-right" *ngIf="block_name" (click)="goBack_sc()"><i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>{{block_name}}</span>
+                <span *ngIf="school_namee"><i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>{{school_namee}}</span>
+              </h6>
+        </div>
+        <div class="breadcrumbs c-black" *ngIf="districtid">
+            <h6 class="url">
+                <span class="flex-gap-right">Students</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+                <span class="flex-gap-right">CWSN</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+                <span class="flex-gap-right" (click)="goBack_b()">CWSN Details</span>
+                <span class="flex-gap-right" *ngIf="block_name" (click)="goBack_sc()"><i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>{{block_name}}</span>
+                <span *ngIf="school_namee"><i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>{{school_namee}}</span>
+              </h6>
+        </div>
+    </div>
+    <div class="container-fluid" *ngIf="pageStage === 1">
+            <div>
+                <p-table #dt [columns]="cols" [value]="statelogincwsn" [resizableColumns]="true" [lazy]="false" [globalFilterFields]="['district_name','CWSN_Student_in_school','CWSN_CP','School','SRP_Center','Home_Based','NID','UDID','Account_Number']" >
+                    <ng-template let-childrens pTemplate="caption">
+                        <div class="row  header flex-row-center-start flex-gap-bottom">
+                            <div class="col-lg-3">
+                                <p-dropdown [options]="schooltypedropvalue" (onChange)="StateSchoolTypeOption($event)"></p-dropdown>
+                            </div>
+                            <!-- <div class="col-lg-1">
+                                <button type="submit" class="btn btn-success" (click)="SearchData()">Submit</button>
+                            </div> -->
+                        </div>
+                        <div class="row  header flex-row-center">
+                            <div class="col-lg-3 p-1">
+                                <!-- <p-multiSelect [options]="dataHeader2" [(ngModel)]="selectedColumns" optionLabel="header"
+                                            selectedItemsLabel="{0} columns selected" [style]="{minWidth: '225px'}" defaultLabel="Choose Columns"></p-multiSelect> -->
+                           </div>
+                            <div class="col-lg-5">
+                               
+                            </div>
+                        
+                            <div class="col-sm-3 p-1">
+                                <div class="text-right">
+                                    <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                                </div>
+                            </div>
+                            <div class="col-sm-1 p-1 flex-row-center-end">
+                                <div class="text-right">
+                                    <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true" disabled ></i> -->
+                                    <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel()"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header" let-distname>
+                        <tr class="text-center">
+                            <th class="sno-header-layouts">S.NO</th>
+                            <th *ngFor="let cols of distname" [pSortableColumn]="cols.field" [style.width]="cols.widthstyle">
+                                {{cols.header}}
+                                <p-sortIcon [field]="cols.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+                        <tr class="text-center" *ngIf="!noDataFound">
+                            <td class="sno-header-layouts"> {{i+1}} </td>
+                            <!-- <td class="text-left"> {{ distwise.district_name}} </td> -->
+                            <td style="width: 13em;" class="text-left"><a href="javascript:void(0)" (click)="getSelecteddistrictid(distwise.district_id,distwise.district_name)">{{distwise.district_name}}</a></td>
+                            <td> {{ distwise.CWSN_Student_in_school}} </td>
+                            <td> {{ distwise.CWSN_CP}} </td>
+                            <td> {{ distwise.School}} </td>
+                            <td> {{ distwise.SRP_Center}} </td>
+                            <td> {{ distwise.Home_Based}} </td>
+                            <td> {{ distwise.NID}} </td>
+                            <td> {{ distwise.UDID}} </td>
+                            <td> {{ distwise.Account_Number}} </td>
+                    </ng-template>
+                    <ng-template pTemplate="footer">
+                        <tr class="text-center" *ngIf="!noDataFound">
+                            <!-- <td></td> -->
+                            <td colspan="2" class="text-center">Total</td>
+                            <td class="ui-resizable-column">{{grandtotal_CWSN_Student_in_school}}</td>
+                            <td class="ui-resizable-column">{{grandtotal_CWSN_CP}}</td>
+                            <td class="ui-resizable-column">{{grandtotal_School}}</td>
+                            <td class="ui-resizable-column">{{grandtotal_SRP_Center}}</td>
+                            <td class="ui-resizable-column">{{grandtotal_Home_Based}}</td>
+                            <td class="ui-resizable-column">{{grandtotal_NID}}</td>
+                            <td class="ui-resizable-column">{{grandtotal_UDID}}</td>
+                            <td class="ui-resizable-column">{{grandtotal_Account_Number}}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr class="text-left" *ngIf="noDataFound">
+                            <td colspan="24"> No Data Found </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+    </div>
+    <!-- <div *ngIf=""> -->
+    <div class="container-fluid " *ngIf="pageStage === 2">
+            <div>
+                <p-table #dt [columns]="cols1" [value]="statelogincwsn_block" [lazy]="false" [globalFilterFields]="['block_name','CWSN_Student_in_school','CWSN_CP','School','SRP_Center','Home_Based','NID','UDID','Account_Number']" [resizableColumns]="true">
+                    <ng-template let-childrens pTemplate="caption">
+                        <div class="row  header flex-row-center-start flex-gap-bottom">
+                            <div class="col-lg-3">
+                                <p-dropdown [options]="schooltypedropvalue" (onChange)="blockSchoolTypeOption($event)"></p-dropdown>
+                            </div>
+                            <!-- <div class="col-lg-1">
+                                <button type="submit" class="btn btn-success" (click)="SearchData()">Submit</button>
+                            </div> -->
+                        </div>
+                        <div class="row  header flex-row-center">
+                            <div class="col-lg-3 p-1">
+                                <!-- <p-multiSelect [options]="dataHeader2" [(ngModel)]="selectedColumns" optionLabel="header"
+                                            selectedItemsLabel="{0} columns selected" [style]="{minWidth: '225px'}" defaultLabel="Choose Columns"></p-multiSelect> -->
+                           </div>
+                            <div class="col-lg-5">
+                               
+                            </div>
+                        
+                            <div class="col-sm-3 p-1">
+                                <div class="text-right">
+                                    <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                                </div>
+                            </div>
+                            <div class="col-sm-1 p-1 flex-row-center-end">
+                                <div class="text-right">
+                                    <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true" disabled ></i> -->
+                                    <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="ExportExcel()"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header" let-distname>
+                        <tr class="text-center">
+                            <th class="sno-header-layouts">S.NO</th>
+                            <th *ngFor="let cols1 of distname" [pSortableColumn]="cols1.field" [style.width]="cols1.widthstyle">
+                                {{cols1.header}}
+                                <p-sortIcon [field]="cols1.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+                        <tr class="text-center" *ngIf="!noDataFound1">
+                            <td class="sno-header-layouts"> {{i+1}} </td>
+                            <!-- <td *ngIf="distwise.block_name === ''"> Total</td> -->
+                            <td style="width: 13em;" class="text-left"><a href="javascript:void(0)"  (click)="getSelected_blockid(distwise.block_id,distwise.block_name)">{{distwise.block_name}}</a></td>
+                            <td> {{ distwise.CWSN_Student_in_school}} </td>
+                            <td> {{ distwise.CWSN_CP}} </td>
+                            <td> {{ distwise.School}} </td>
+                            <td> {{ distwise.SRP_Center}} </td>
+                            <td> {{ distwise.Home_Based}} </td>
+                            <td> {{ distwise.NID}} </td>
+                            <td> {{ distwise.UDID}} </td>
+                            <td> {{ distwise.Account_Number}} </td>
+                    </ng-template>
+                    <ng-template pTemplate="footer">
+                        <tr class="text-center">
+                            <!-- <td></td> -->
+                            <td colspan="2" class="text-center">Total</td>
+                            <td class="ui-resizable-column">{{grandtotal_CWSN_Student_in_school}}</td>
+                            <td class="ui-resizable-column">{{grandtotal_CWSN_CP}}</td>
+                            <td class="ui-resizable-column">{{grandtotal_School}}</td>
+                            <td class="ui-resizable-column">{{grandtotal_SRP_Center}}</td>
+                            <td class="ui-resizable-column">{{grandtotal_Home_Based}}</td>
+                            <td class="ui-resizable-column">{{grandtotal_NID}}</td>
+                            <td class="ui-resizable-column">{{grandtotal_UDID}}</td>
+                            <td class="ui-resizable-column">{{grandtotal_Account_Number}}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr class="text-left" *ngIf="noDataFound1">
+                            <td colspan="24"> No Data Found </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+    </div>
+    <!-- </div> -->
+    <div class="container-fluid" *ngIf="pageStage === 3">
+            <div>
+                <p-table #dt [columns]="cols2" [value]="statelogincwsn_school" [lazy]="false" [globalFilterFields]="['udise_code','school_name','cate_type','CWSN_Student_in_school','CWSN_CP','School','SRP_Center','Home_Based','NID','UDID','Account_Number']" [resizableColumns]="true">
+                    <ng-template let-childrens pTemplate="caption">
+                        <div class="row  header flex-row-center-start flex-gap-bottom">
+                            <div class="col-lg-3">
+                                <p-dropdown [options]="schooltypedropvalue" (onChange)="SchSchoolTypeOption($event)"></p-dropdown>
+                            </div>
+                            <!-- <div class="col-lg-1">
+                                <button type="submit" class="btn btn-success" (click)="SearchData()">Submit</button>
+                            </div> -->
+                        </div>
+                        <div class="row  header flex-row-center">
+                            <div class="col-lg-3 p-1">
+                                <!-- <p-multiSelect [options]="dataHeader2" [(ngModel)]="selectedColumns" optionLabel="header"
+                                            selectedItemsLabel="{0} columns selected" [style]="{minWidth: '225px'}" defaultLabel="Choose Columns"></p-multiSelect> -->
+                           </div>
+                            <div class="col-lg-5">
+                               
+                            </div>
+                        
+                            <div class="col-sm-3 p-1">
+                                <div class="text-right">
+                                    <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                                </div>
+                            </div>
+                            <div class="col-sm-1 p-1 flex-row-center-end">
+                                <div class="text-right">
+                                    <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true" disabled ></i> -->
+                                    <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="Exportexcelschool()"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header" let-distname>
+                        <tr class="text-center">
+                            <th class="sno-header-layouts">S.NO</th>
+                            <th *ngFor="let cols2 of distname" [pSortableColumn]="cols2.field" [style.width]="cols2.widthstyle">
+                                {{cols2.header}}
+                                <p-sortIcon [field]="cols2.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+                        <tr class="text-center" *ngIf="!noDataFound2">
+                            <td class="sno-header-layouts"> {{i+1}} </td>
+                            <td style="width: 13em;" class="text-center"><a href="javascript:void(0)" (click)="getSelected_udise(distwise.udise_code, distwise.school_name)">{{distwise.udise_code}}</a></td>
+                            <td class="text-left"> {{ distwise.school_name}} </td>
+                            <td class="text-left"> {{ distwise.cate_type}} </td>
+                            <td> {{ distwise.CWSN_Student_in_school}} </td>
+                            <td> {{ distwise.CWSN_CP}} </td>
+                            <td> {{ distwise.School}} </td>
+                            <td> {{ distwise.SRP_Center}} </td>
+                            <td> {{ distwise.Home_Based}} </td>
+                            <td> {{ distwise.NID}} </td>
+                            <td> {{ distwise.UDID}} </td>
+                            <td> {{ distwise.Account_Number}} </td>
+                    </ng-template>
+                    <ng-template pTemplate="footer">
+                        <tr class="text-center" *ngIf="!noDataFound2">
+                            <!-- <td></td> -->
+                            <td colspan="4" class="text-center">Total</td>
+                            <td class="ui-resizable-column">{{grandtotal_CWSN_Student_in_school}}</td>
+                            <td class="ui-resizable-column">{{grandtotal_CWSN_CP}}</td>
+                            <td class="ui-resizable-column">{{grandtotal_School}}</td>
+                            <td class="ui-resizable-column">{{grandtotal_SRP_Center}}</td>
+                            <td class="ui-resizable-column">{{grandtotal_Home_Based}}</td>
+                            <td class="ui-resizable-column">{{grandtotal_NID}}</td>
+                            <td class="ui-resizable-column">{{grandtotal_UDID}}</td>
+                            <td class="ui-resizable-column">{{grandtotal_Account_Number}}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr class="text-left" *ngIf="noDataFound2">
+                            <td colspan="24"> No Data Found </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+    </div>
+
+    <div class="container-fluid" *ngIf="pageStage === 4">
+            <div>
+                <p-table #dt [columns]="cols3" [value]="statelogincwsn_stud" [lazy]="false" [globalFilterFields]="['unique_id_no','name','da_name','disable_percentage','nid','udid','Supported_in','EMIS_location']" [resizableColumns]="true">
+                    <ng-template let-childrens pTemplate="caption">
+                        <div class="row  header flex-row-center-start flex-gap-bottom">
+                            <div class="col-lg-3">
+                                <!-- <p-dropdown [options]="schooltypedropvalue" (onChange)="SchSchoolTypeOption($event)"></p-dropdown> -->
+                            </div>
+                            <!-- <div class="col-lg-1">
+                                <button type="submit" class="btn btn-success" (click)="SearchData()">Submit</button>
+                            </div> -->
+                        </div>
+                        <div class="row  header flex-row-center">
+                            <div class="col-lg-3 p-1">
+                                <!-- <p-multiSelect [options]="dataHeader2" [(ngModel)]="selectedColumns" optionLabel="header"
+                                            selectedItemsLabel="{0} columns selected" [style]="{minWidth: '225px'}" defaultLabel="Choose Columns"></p-multiSelect> -->
+                           </div>
+                            <div class="col-lg-5">
+                               
+                            </div>
+                        
+                            <div class="col-sm-3 p-1">
+                                <div class="text-right">
+                                    <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                                </div>
+                            </div>
+                            <div class="col-sm-1 p-1 flex-row-center-end">
+                                <div class="text-right">
+                                    <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true" disabled ></i> -->
+                                    <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="Exportexcelstudent()"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header" let-distname>
+                        <tr class="text-center">
+                            <th class="sno-header-layouts">S.NO</th>
+                            <th *ngFor="let cols3 of distname" [pSortableColumn]="cols3.field" [style.width]="cols3.widthstyle">
+                                {{cols3.header}}
+                                <p-sortIcon [field]="cols3.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+                        <tr class="text-center" *ngIf="!noDataFound3">
+                            <td class="sno-header-layouts"> {{i+1}} </td>
+                            <td class="text-center"> {{ distwise.unique_id_no}} </td>
+                            <td class="text-left"> {{ distwise.name}} </td>
+                            <td class="text-left" *ngIf="distwise.class_studying_id === '1'"> I </td>
+                            <td class="text-left"*ngIf="distwise.class_studying_id === '2'"> II </td>
+                            <td class="text-left" *ngIf="distwise.class_studying_id === '3'">III </td>
+                            <td class="text-left" *ngIf="distwise.class_studying_id === '4'"> IV</td>
+                            <td class="text-left" *ngIf="distwise.class_studying_id === '5'"> V </td>
+                            <td class="text-left" *ngIf="distwise.class_studying_id === '6'"> VI </td>
+                            <td class="text-left" *ngIf="distwise.class_studying_id === '7'"> VII </td>
+                            <td  class="text-left" *ngIf="distwise.class_studying_id === '8'"> VIII </td>
+                            <td class="text-left" *ngIf="distwise.class_studying_id === '9'"> IX </td>
+                            <td class="text-left" *ngIf="distwise.class_studying_id === '10'"> X </td>
+                            <td  class="text-left" *ngIf="distwise.class_studying_id === '11'"> XI </td>     
+                            <td class="text-left" *ngIf="distwise.class_studying_id === '12'"> XII </td>  
+                            <td  class="text-left" *ngIf="distwise.class_studying_id === '13'"> LKG </td>  
+                            <td class="text-left" *ngIf="distwise.class_studying_id === '14'"> UKG </td>  
+                            <td class="text-left" *ngIf="distwise.class_studying_id === '15'"> PRE. KG </td>  
+                            <td class="text-left"> {{ distwise.da_name}} </td>
+                            <td> {{ distwise.disable_percentage}} </td>
+                            <td class="text-left"> {{ distwise.nid}} </td>
+                            <td> {{ distwise.udid}} </td>
+                            <td class="text-left"> {{ distwise.Supported_in}} </td>
+                            <td class="text-left"> {{ distwise.EMIS_location}} </td>
+                            <td style="width: 13em;" class="text-center"><a href="javascript:void(0)"><button type="submit" class="btn btn-primary" (click)="handleClick(distwise.id,distwise.name,distwise.da_code)">Edit</button></a></td>
+                    </ng-template>
+                    <ng-template pTemplate="footer">
+                        <tr class="text-left" *ngIf="noDataFound3">
+                            <td colspan="24"> No Data Found </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+    </div>
+</div>
+
+<!-- <p-dialog
+[header]="selected_stud_name" 
+[(visible)]="showDialogBox" 
+style="background-color: cadetblue !important;" 
+[modal]="true" 
+[minY]="70" 
+width="788" 
+styleClass="myClass"
+[responsive]="false"
+[maximizable]="true" > -->
+
+
+<p-dialog [header]="selected_stud_name"
+ [(visible)]="showDialogBox" 
+ [modal]="true"
+ [maximizable]="true"
+ [baseZIndex]="10000"
+ [closable]="false" 
+ [style]="{maxWidth: '1200px', minWidth: '200px'}" 
+ [contentStyle]="{'overflow-y': 'auto', 'overflow-x': 'hidden','max-height': '69vh','min-height':'270px'}"  
+ [draggable]="false" [resizable]="false">
+    <div>
+        <p-card>
+            <form [formGroup]="cwsn_form">
+                <div class="row p-2">
+                    <div class="col-sm-4">
+                        <div class="col-sm-6 pt-3 float-left">
+                            <label><h6>Disability Type</h6></label>
+                        </div>
+                        <div class="col-sm-6 float-right">
+                            <p-dropdown [options]="disabledropvalueoptions" (onChange)="disble_typ($event)" formControlName="disable_type" placeholder="Disability Type" styleClass="dropdwnvalues"></p-dropdown>
+                            <p-message severity="error" text="This Field is required" *ngIf="cwsn_form.controls.disable_type.errors && (submitted || cwsn_form.controls.disable_type.dirty || cwsn_form.controls.disable_type.touched)"></p-message>
+                        </div>
+                    </div>
+                    <div class="col-sm-4" *ngIf="visible_mbc || disablty == 7 ">
+                        <div class="col-sm-6 pt-2 float-left">
+                            <label><h6>Medical Board Certificate </h6></label>
+                        </div>
+                        <div class="col-sm-6 pt-3 float-right">
+                            <div class="row">
+                                <div class="col-sm-6 font-weight-bold">
+                                    <p-radioButton name="med_board_certi_yn" value="1" formControlName="med_board_certi_yn"  label="Yes"></p-radioButton>
+                                </div>
+                                <div class="col-sm-6 font-weight-bold">
+                                    <p-radioButton name="med_board_certi_yn" value="2" formControlName="med_board_certi_yn"  label="No"></p-radioButton>
+                                </div>
+                            </div>
+                            <p-message severity="error" text="This Field is required" *ngIf="cwsn_form.controls.med_board_certi_yn.errors && (submitted || cwsn_form.controls.med_board_certi_yn.dirty || cwsn_form.controls.med_board_certi_yn.touched)"></p-message>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="col-sm-6 pt-3 float-left">
+                            <label><h6>Identified as cwsn on</h6></label>
+                        </div>
+                        <div class="col-sm-6 float-right">
+                            <input class="form-control" type="date" formControlName="identified_date" placeholder="Date" min={{fromdate}} max={{todate}} dateformat="yyyy/dd/mm">
+                        </div>
+                    </div>
+                </div>
+              
+                <div class="row p-2">
+                    <div class="col-sm-4">
+                        <div class="col-sm-6 pt-2 float-left">
+                            <label><h6>Wheather Child has National ID card</h6></label>
+                        </div>
+                        <div class="col-sm-6 pt-3 float-right">
+                            <div class="row">
+                                <div class="col-sm-6 font-weight-bold">
+                                    <p-radioButton name="nid_yn" value="1" formControlName="nid_yn" (click)="Choose_nec_id(cwsn_form.value.nid_yn)" label="Yes"></p-radioButton>
+                                </div>
+                                <div class="col-sm-6 font-weight-bold">
+                                    <p-radioButton name="nid_yn" value="2" formControlName="nid_yn" (click)="Choose_nec_id(cwsn_form.value.nid_yn)" label="No"></p-radioButton>
+                                </div>
+                            </div>
+                            <p-message severity="error" text="This Field is required" *ngIf="cwsn_form.controls.nid_yn.errors && (submitted || cwsn_form.controls.nid_yn.dirty || cwsn_form.controls.nid_yn.touched)"></p-message>
+                        </div>
+                    </div>
+                    <div class="col-sm-4" *ngIf="national_id_yn">
+                        <div class="col-sm-6 pt-3 float-left">
+                            <label><h6>National Id Card NO</h6></label>
+                        </div>
+                        <div class="col-sm-6 float-right">
+                            <input pInputText type="text" class="form-control" formControlName="nid" placeholder="ID Number" />
+                            <p-message severity="error" text="This Field is required" *ngIf="cwsn_form.controls.nid.errors && (submitted || cwsn_form.controls.nid.dirty || cwsn_form.controls.nid.touched)"></p-message>
+                        </div>
+                    </div>
+                    <div class="col-sm-4" *ngIf="national_id_yn">
+                        <div class="col-sm-6 pt-3 float-left">
+                            <label><h6>Disability Percentage</h6></label>
+                        </div>
+                        <div class="col-sm-6 float-right">
+                            <!-- (keyup)="dis_percnt($event.target.value)"  -->
+                            <input pInputText type="text" class="form-control" (change)="dis_percnt()" formControlName="disable_percentage" placeholder="Percentage" maxlength="3" />
+                            <p-message severity="error" text="This Field is required" *ngIf="cwsn_form.controls.disable_percentage.errors && (submitted || cwsn_form.controls.disable_percentage.dirty || cwsn_form.controls.disable_percentage.touched)"></p-message>
+                            <p-message severity="error" text="Enter Less Then 101 And Greater Than 39" *ngIf="percent && !submitted"></p-message>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row p-2">
+                    <div class="col-sm-4">
+                        <div class="col-sm-6 pt-3 float-left">
+                            <label><h6>Wheather the child has recived UDID</h6></label>
+                        </div>
+                        <div class="col-sm-6 float-right">
+                            <div class="row pt-2">
+                                <div class="col-sm-6 font-weight-bold">
+                                    <p-radioButton name="udid_yn" value="1" formControlName="udid_yn" (click)="Choose_rec_udid(cwsn_form.value.udid_yn)" label="Yes" inputId="opt1"></p-radioButton>
+                                </div>
+                                <div class="col-sm-6 font-weight-bold">
+                                    <p-radioButton name="udid_yn" value="2" formControlName="udid_yn" (click)="Choose_rec_udid(cwsn_form.value.udid_yn)" label="No" inputId="hideDivNGO"></p-radioButton>
+                                </div>
+                            </div>
+                            <p-message severity="error" text="This Field is required" *ngIf="cwsn_form.controls.udid_yn.errors && (submitted || cwsn_form.controls.udid_yn.dirty || cwsn_form.controls.udid_yn.touched)"></p-message>
+                        </div>
+                    </div>
+                    <div class="col-sm-4" *ngIf="udid_id_yn">
+                        <div class="col-sm-6 pt-3 float-left">
+                            <label><h6>Enter UDID NO</h6></label>
+                        </div>
+                        <div class="col-sm-6 float-right">
+                            <input pInputText type="text" class="form-control" formControlName="udid" placeholder="UDID Number" />
+                            <p-message severity="error" text="This Field is required" *ngIf="cwsn_form.controls.udid.errors && (submitted || cwsn_form.controls.udid.dirty || cwsn_form.controls.udid.touched)"></p-message>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+
+                    </div>
+                </div>
+
+                <div class="row p-2">
+                    <div class="col-sm-4">
+                        <div class="col-sm-6 pt-3 float-left">
+                            <label><h6>Student Supported In</h6></label>
+                        </div>
+                        <div class="col-sm-6 float-right">
+                            <p-dropdown [options]="student_loca" formControlName="support_in" placeholder="Supported In" styleClass="dropdwnvalues"></p-dropdown>
+                            <!-- <p-dropdown [options]="student_loca" formControlName="stud_location" placeholder="Location" (onChange)="Staten($event)" styleClass="dropdwnvalues" ></p-dropdown> -->
+                            <p-message severity="error" text="This Field is required" *ngIf="cwsn_form.controls.support_in.errors && (submitted || cwsn_form.controls.support_in.dirty || cwsn_form.controls.support_in.touched)"></p-message>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="col-sm-6 pt-3 float-left">
+                            <label><h6>Training Type</h6></label>
+                        </div>
+                        <div class="col-sm-6 float-right">
+                            <p-dropdown [options]="training_type" formControlName="training_type" placeholder="Training Type" styleClass="dropdwnvalues"></p-dropdown>
+                            <p-message severity="error" text="This Field is required" *ngIf="cwsn_form.controls.training_type.errors && (submitted || cwsn_form.controls.training_type.dirty || cwsn_form.controls.training_type.touched)"></p-message>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="col-sm-6 pt-3 float-left">
+                            <label><h6>Account Avaliable</h6></label>
+                        </div>
+                        <div class="col-sm-6 float-right">
+                            <div class="row pt-2">
+                                <div class="col-sm-6 font-weight-bold">
+                                    <p-radioButton name="account_yn" value="1" formControlName="account_yn" (click)="Choose_ac_avali(cwsn_form.value.account_yn)" label="Yes" inputId="opt1"></p-radioButton>
+                                </div>
+                                <div class="col-sm-6 font-weight-bold">
+                                    <p-radioButton name="account_yn" value="2" formControlName="account_yn" (click)="Choose_ac_avali(cwsn_form.value.account_yn)" label="No" inputId="hideDivNGO"></p-radioButton>
+                                </div>
+                                <p-message severity="error" text="This Field is required" *ngIf="cwsn_form.controls.account_yn.errors && (submitted || cwsn_form.controls.account_yn.dirty || cwsn_form.controls.account_yn.touched)"></p-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row p-2" *ngIf="acc_no_yn">
+                    <div class="col-sm-4">
+                        <div class="col-sm-6 pt-3 float-left">
+                            <label><h6>Account Number</h6></label>
+                        </div>
+                        <div class="col-sm-6 float-right">
+                            <input pInputText type="text" class="form-control" formControlName="account_no" placeholder="Account Number" maxlength="18" />
+                            <p-message severity="error" text="This Field is required" *ngIf="cwsn_form.controls.account_no.errors && (submitted || cwsn_form.controls.account_no.dirty || cwsn_form.controls.account_no.touched)"></p-message>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="col-sm-6 pt-3 float-left">
+                            <label><h6>Enter IFSC Code Of Branch</h6></label>
+                        </div>
+                        <div class="col-sm-6 float-right">
+                            <input pInputText type="text" class="form-control" (keyup)="ifsc_cde($event.target.value)" formControlName="ifs_code" placeholder="IFSC Code" />
+                            <p-message severity="error" text="This Field is required" *ngIf="cwsn_form.controls.ifs_code.errors && (submitted || cwsn_form.controls.ifs_code.dirty || cwsn_form.controls.ifs_code.touched)"></p-message>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="col-sm-6 float-left">
+                            <input pInputText type="text" formControlName="bank_name" placeholder="Bank Name" class="form-control" readonly />
+                        </div>
+                        <div class="col-sm-6 float-right">
+                            <input pInputText type="text" formControlName="branch" placeholder="Branch Name" class="form-control" readonly />
+                            <input pInputText type="hidden" formControlName="bank_id" placeholder="Branch Id" class="form-control" readonly />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row p-2">
+                    <div class="col-sm-4">
+                        <!-- <div class="col-sm-6 pt-3 float-left">
+                            <label><h6>Mode On Transfer</h6></label>
+                        </div>
+                        <div class="col-sm-6 float-right">
+                            <p-dropdown [options]="mode_on_transfer" placeholder="Transfer" formControlName="mode_of_transfer" styleClass="dropdwnvalues"></p-dropdown>
+                            <p-message severity="error" text="This Field is required" *ngIf="cwsn_form.controls.mode_of_transfer.errors && (submitted || cwsn_form.controls.mode_of_transfer.dirty || cwsn_form.controls.mode_of_transfer.touched)"></p-message>
+                        </div> -->
+                        <div class="col-sm-6 pt-3 float-left">
+                            <label><h6>Is Mainstreamed To School ?</h6></label>
+                        </div>
+                        <div class="col-sm-6 float-right">
+                            <div class="row pt-2">
+                                <div class="col-sm-6 font-weight-bold">
+                                    <p-radioButton value="1" name="mainstream_yn" formControlName="mainstream_yn" (click)="Choose_mainstreamed(cwsn_form.value.mainstream_yn)" label="Yes" inputId="opt1"></p-radioButton>
+                                </div>
+                                <div class="col-sm-6 font-weight-bold">
+                                    <p-radioButton value="2"  name="mainstream_yn" formControlName="mainstream_yn" (click)="Choose_mainstreamed(cwsn_form.value.mainstream_yn)" label="No" inputId="hideDivNGO"></p-radioButton>
+                                </div>
+                                <p-message severity="error" text="This Field is required" *ngIf="cwsn_form.controls.mainstream_yn.errors && (submitted || cwsn_form.controls.mainstream_yn.dirty || cwsn_form.controls.mainstream_yn.touched)"></p-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4" *ngIf="main_stream_y">
+                        <div class="col-sm-6 pt-3 float-left">
+                            <label><h6>Mainstreamed To School On</h6></label>
+                        </div>
+                        <div class="col-sm-6 pt-3 float-right">
+                            <input class="form-control" type="date" formControlName="mainstream_date" min={{fromdate}} max={{todate}} placeholder="Date" dateformat="yyyy/dd/mm">
+                            <p-message severity="error" text="This Field is required" *ngIf="cwsn_form.controls.mainstream_date.errors && (submitted || cwsn_form.controls.mainstream_date.dirty || cwsn_form.controls.mainstream_date.touched)"></p-message>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+
+                    </div>
+                </div>
+
+                <div class="text-right">
+                    <button type="submit" class="btn btn-success m-2" (click)="save()">Save</button>
+                    <button type="submit" class="btn btn-light btn-border m-2" (click)="close_dialog()">Cancel</button>
+                </div>
+            </form>
+        </p-card>
+    </div>
+</p-dialog
+>

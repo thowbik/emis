@@ -1,0 +1,190 @@
+<div class="m-4" *ngIf="upload_module">
+    <p-card>
+        <div class="text-left m-3">
+            <h5>Uploaded Content</h5>
+        </div>
+        <form  [formGroup]="upload_content">
+        <div class="row p-3">
+            <div class="col-sm-6">
+              <div class="row">
+                  <div class="col-sm-6 pt-2">
+                      <h5>Select Class</h5>
+                  </div>
+                  <div class="col-sm-6">
+                    <p-dropdown [options]="selectClass" size="15" formControlName="class" placeholder="Select Class" (onChange)="onselectclass($event)" styleClass="dropdwnvalues" ></p-dropdown>
+                    <p-message severity="error"  text="This Field is required" *ngIf="upload_content.controls.class.errors && (submitted || upload_content.controls.class.dirty || upload_content.controls.class.touched)"></p-message>
+                </div>
+              </div>
+          </div>
+          <div class="col-sm-6">
+              <div class="row">
+                  <div class="col-sm-6 pt-2">
+                      <h5>Select Medium</h5>
+                  </div>
+                  <div class="col-sm-6">
+                    <p-dropdown [options]="Medium" size="15" formControlName="medium" placeholder="Select Medium" styleClass="dropdwnvalues" ></p-dropdown>
+                    <p-message severity="error"  text="This Field is required" *ngIf="upload_content.controls.medium.errors && (submitted || upload_content.controls.medium.dirty || upload_content.controls.medium.touched)"></p-message>
+                </div>
+            </div>
+          </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6 pt-2">
+                    <h5>Select Subject</h5>
+                </div>
+                <div class="col-sm-6">
+                    <p-dropdown [options]="subjectOptions" size="15"  (onChange)="onselectsubject($event)" formControlName="subject" placeholder="Select Subject" styleClass="dropdwnvalues" ></p-dropdown>
+                    <p-message severity="error"   text="This Field is required" *ngIf="upload_content.controls.subject.errors && (submitted || upload_content.controls.subject.dirty || upload_content.controls.subject.touched)"></p-message>
+                </div>
+              </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="row">
+              <div class="col-sm-6 pt-2">
+                  <h5>Select Chapter</h5>
+              </div>
+              <div class="col-sm-6">
+                <p-dropdown [options]="chaptrOptions" size="15"   formControlName="chapter" placeholder="Select Chapter" styleClass="dropdwnvalues" ></p-dropdown>
+                <p-message severity="error"  text="This Field is required" *ngIf="upload_content.controls.chapter.errors && (submitted || upload_content.controls.chapter.dirty || upload_content.controls.chapter.touched)"></p-message>
+            </div>
+        </div>
+      </div>
+   
+    </div>
+    <div class="row p-3">
+        <div class="col-sm-6">
+            <div class="row">
+                <!-- <div class="p-1">
+                  (will be displaed in Website)
+                </div> -->
+                <div class="col-sm-6 pt-2">
+                    <div><h5>Type File</h5></div>
+                </div>
+                <div class="col-sm-6">
+                    <input class="form-control" type="text" formControlName="filetype" placeholder="Type File">
+                    <p-message severity="error"  text="This Field is required" *ngIf="upload_content.controls.filetype.errors && (submitted || upload_content.controls.filetype.dirty || upload_content.controls.filetype.touched)"></p-message>
+                </div>
+              </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6 pt-2">
+                    <h5>Select File Type</h5>
+                </div>
+                <div class="col-sm-6">
+                    <p-dropdown [options]="filetype" size="15"  formControlName="Sfiletype" (onChange)="onselcecttype($event)" placeholder="Select File Type" styleClass="dropdwnvalues" ></p-dropdown>
+                    <p-message severity="error"  text="This Field is required" *ngIf="upload_content.controls.Sfiletype.errors && (submitted || upload_content.controls.Sfiletype.dirty || upload_content.controls.Sfiletype.touched)"></p-message>
+                </div>
+            </div>
+      </div>
+    </div>
+    <div class="row p-3" *ngIf="videofiles">
+        <div class="col-sm-4 text-center border">
+            <div class="pt-2">
+                <div class="upload-btn-wrapper">
+                    <button class="btn"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Upload</button>
+                    <input type="file"  accept="{{video_types}}" formControlName="videofile" (change)="onselcectedfile($event)">
+                </div>
+            </div>
+            <div class="pb-2">
+                <p-message severity="error"  text="This Field is required" *ngIf="upload_content.controls.videofile.errors && (submitted || upload_content.controls.videofile.dirty || upload_content.controls.videofile.touched)"></p-message>
+            </div>
+        </div>
+        <div class="col-sm-8 border">
+            <div class="pt-3 text-center">
+             <h5>File Name Should Not  Contain In Any Blank Space. It Should Have Extension</h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="row p-3"  *ngIf="videourls">
+        <div class="col-sm-4 text-center border">
+            <div class="pt-4">
+                <h5> Video URL</h5>
+            </div>
+        </div>
+        <div class="col-sm-8 border">
+            <div class="p-3 text-center">
+                <input class="form-control" formControlName="videourl"  size="15" type="text" placeholder="Video URL">
+                <p-message severity="error"  text="This Field is required" *ngIf="upload_content.controls.videourl.errors && (submitted || upload_content.controls.videourl.dirty || upload_content.controls.videourl.touched)"></p-message>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row p-3"  *ngIf="docfiles">
+        <div class="col-sm-4 text-center border">
+            <div class="pt-2">
+                <div class="upload-btn-wrapper">
+                    <button class="btn"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Upload</button>
+                    <input type="file" accept=".doc, .docx, .ppt, .pptx, .pps" formControlName="docfile"  (change)="onselcectedfile($event)">
+                </div>        
+            </div>
+            <div class="pb-2">
+                <p-message severity="error"  text="This Field is required" *ngIf="upload_content.controls.docfile.errors && (submitted || upload_content.controls.docfile.dirty || upload_content.controls.docfile.touched)"></p-message>
+            </div>
+        </div>
+        <div class="col-sm-8 border">
+            <div class="pt-3 text-center">
+                <h5>File To Be Uploaded. File Formate Allowed - .doc, docx, .ppt, .pptx, .pps</h5>
+            </div>
+        </div>
+    </div>
+</form>
+    <div class=" text-right">
+        <button type="submit" (click)="submit()"  class="btn btn-success m-2">Submit</button> 
+    </div> 
+    </p-card>
+</div>
+<div class="m-2" *ngIf="approved_content_report">
+    <div class="m-4">
+        <p-table #dt [columns]="dataHeader"  [paginator]="true" [rows]="10"  [value]="result_approved_data">
+            <ng-template let-childrens pTemplate="caption">
+                <div class="row">
+                    <div class="col-md-9 text-left">
+                        <h5>Approved Upload Conent</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="row mb-3" class="text-right">
+                            <!-- <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search Filter"> -->
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-childrens>
+                <tr class="text-center">
+                    <th class="sno-header-css">S.No</th>
+                    <th *ngFor="let col of childrens" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                        {{col.header}}
+                        <!-- <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon> -->
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-datacorrection let-rowData let-i="rowIndex">
+                <tr *ngIf="!noDataFound" class="text-left">
+                    <td class="text-center"> {{i+1}} </td>
+                    <td class="text-center">{{datacorrection.class}}</td>
+                    <td class="text-left">{{datacorrection.subject}}</td>
+                    <td class="text-left">{{datacorrection.chapter}}</td>
+                    <td class="text-center">{{datacorrection.label}}</td>
+                    <td class="text-justify">{{datacorrection.content_name}}</td>
+                    <!-- <td class="text-center">{{datacorrection.Approved}}</td> -->
+                    <td class="text-center" *ngIf="datacorrection.Approved === '0' "><a href="javascript:void(0)" (click)="onSelectedId(datacorrection.Approved,datacorrection.id)" class="badge badge-warning">Pending</a></td>
+                    <td class="text-center" *ngIf="datacorrection.Approved === '1' "><a href="javascript:void(0)" (click)="onSelectedId(datacorrection.Approved,datacorrection.id)" class="badge badge-success">Approved</a></td>
+                    <td class="text-center" *ngIf="datacorrection.Approved === '2' "><a href="javascript:void(0)" (click)="onSelectedId(datacorrection.Approved,datacorrection.id)" class="badge badge-danger">Rejected</a></td>
+                    <!-- <a href="#" class="badge badge-success">Success</a> -->
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer" let-columns>
+                    <tr class="text-center" *ngIf="noDataFound">
+                    <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                        <!-- <td colspan="3"> -->
+                            <strong>No Data Found</strong>
+                        <!-- </td> -->
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

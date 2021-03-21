@@ -1,0 +1,608 @@
+<!-- PTMGR Nutritious Meal Programme Beneficiaries (Mid Day Meal) -->
+<div class="main-body-content" *ngIf="pageId == '1'">
+    <div class="outer-layout">
+        <div class="breadcrumbs c-black">
+            <h6 class="url">
+                <span class="flex-gap-right" (click)="onBack()">Registers</span> <i
+                    class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+                <span class="flex-gap-right">PTMGR Nutritious Meal Programme Beneficiaries (Mid Day Meal)</span>
+            </h6>
+        </div>
+    </div>
+    <p-table #dt [columns]="sampleSelectedColumn1" [value]="ptmgrData" [paginator]="true"
+        [rows]="10" [autoLayout]="true" [paginator]="true" [resizableColumns]="true" [rows]="10">
+        <ng-template let-childrens pTemplate="caption">
+            <div class="row header flex-row-center">
+                <div class="col-lg-3 p-1">
+
+                    <p-multiSelect [options]="cols1" [(ngModel)]="sampleSelectedColumn1" optionLabel="header"
+                        selectedItemsLabel="{0} columns selected" [style]="{minWidth: '225px'}"
+                        defaultLabel="Choose Columns"></p-multiSelect>
+                </div>
+                <div class="col-lg-5">
+
+                </div>
+                <div class="col-sm-3 p-1">
+                    <div class="text-right">
+                        <input class="form-control" type="text"
+                            (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Filter">
+                    </div>
+                </div>
+                <div class="col-sm-1 p-1 flex-row-center-end">
+                    <div class="text-right">
+                        <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"
+                            (click)="exportPdf(ptmgrData,sampleSelectedColumn1)"></i>
+                        <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                            (click)="exportExcel(ptmgrData)"></i>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th style="width: 5em;text-align: center;">#</th>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">{{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data let-i="rowIndex" let-columns="columns">
+            <tr [pSelectableRow]="data">
+                <td>{{i+1}}</td>
+                <td>{{data.unique_id_no}}</td>
+                <td style="width: 20em">{{data.name}}</td>
+                <td>{{data.gender === "1" ? 'Male' : 'Female'}}</td>
+                <td>{{data.community_name}}</td>
+                <td>{{data.class_studying_id}}</td>
+                <td>{{data.class_section}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <tr class="text-left" *ngIf="noDataFound">
+                <td colspan="7" style="text-align: center;"> No Data Found </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+
+<!-- Cost Free Textbooks Distribution Details -->
+<div class="main-body-content" *ngIf="pageId == '2'">
+    <div class="outer-layout">
+        <div class="breadcrumbs c-black">
+            <h6 class="url">
+                <span class="flex-gap-right" (click)="onBack()">Registers</span> <i
+                    class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+                <span class="flex-gap-right">Cost Free Textbooks Distribution Details</span>
+            </h6>
+        </div>
+    </div>
+    <p-table #dt1 [columns]="sampleSelectedColumn2" [value]="data" [paginator]="true" [rows]="10"
+        [autoLayout]="true" [paginator]="true" [resizableColumns]="true" [rows]="10">
+        <ng-template let-childrens pTemplate="caption">
+            <div class="row header flex-row-center">
+                <div class="col-lg-3 p-1">
+                    <p-multiSelect [options]="cols2" [(ngModel)]="sampleSelectedColumn2" optionLabel="header"
+                        selectedItemsLabel="{0} columns selected" [style]="{minWidth: '225px'}"
+                        defaultLabel="Choose Columns"></p-multiSelect>
+                </div>
+                <div class="col-lg-5">
+
+                </div>
+                <div class="col-sm-3 p-1">
+                    <div class="text-right">
+                        <input class="form-control" type="text"
+                            (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Filter">
+                    </div>
+                </div>
+                <div class="col-sm-1 p-1 flex-row-center-end">
+                    <div class="text-right">
+                        <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"
+                            (click)="exportPdf(data,sampleSelectedColumn2)"></i>
+                        <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                            (click)="exportExcel(data)"></i>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr class="table-header">
+                <th style="width: 5em;text-align: center;">#</th>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">{{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data let-i="rowIndex" let-columns="columns">
+            <tr [pSelectableRow]="data">
+                <td class="sno-header-layout">{{i+1}}</td>
+                <td *ngFor="let col of columns">
+                    {{data[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <tr class="text-left" *ngIf="noDataFound">
+                <td colspan="7" style="text-align: center;"> No Data Found </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+
+<!-- Cost Free Notebooks Distribution Details -->
+<div class="main-body-content" *ngIf="pageId == '3'">
+    <div class="outer-layout">
+        <div class="breadcrumbs c-black">
+            <h6 class="url">
+                <span class="flex-gap-right" (click)="onBack()">Registers</span> <i
+                    class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+                <span class="flex-gap-right">Cost Free Notebooks Distribution Details</span>
+            </h6>
+        </div>
+    </div>
+    <p-table #dt2 [columns]="sampleSelectedColumn3" [value]="notebookData" [paginator]="true"
+        [rows]="10" [autoLayout]="true" [paginator]="true" [resizableColumns]="true" [rows]="10">
+        <ng-template let-childrens pTemplate="caption">
+            <div class="row header flex-row-center">
+                <div class="col-lg-3 p-1">
+                    <p-multiSelect [options]="cols3" [(ngModel)]="sampleSelectedColumn3" optionLabel="header"
+                        selectedItemsLabel="{0} columns selected" [style]="{minWidth: '225px'}"
+                        defaultLabel="Choose Columns"></p-multiSelect>
+                </div>
+                <div class="col-lg-5">
+
+                </div>
+                <div class="col-sm-3 p-1">
+                    <div class="text-right">
+                        <input class="form-control" type="text"
+                            (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Filter">
+                    </div>
+                </div>
+                <div class="col-sm-1 p-1 flex-row-center-end">
+                    <div class="text-right">
+                        <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"
+                            (click)="exportPdf(notebookData,sampleSelectedColumn3)"></i>
+                        <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                            (click)="exportExcel(notebookData)"></i>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr class="table-header">
+                <th style="width: 5em;text-align: center;">#</th>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">{{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data let-i="rowIndex" let-columns="columns">
+            <tr [pSelectableRow]="data">
+                <td class="sno-header-layout">{{i+1}}</td>
+                <td *ngFor="let col of columns">
+                    {{data[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <tr class="text-left" *ngIf="noDataFound">
+                <td colspan="9" style="text-align: center;"> No Data Found </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+
+<!-- Cost Free Bags Distribution Details -->
+<div class="main-body-content" *ngIf="pageId == '4'">
+    <div class="outer-layout">
+        <div class="breadcrumbs c-black">
+            <h6 class="url">
+                <span class="flex-gap-right" (click)="onBack()">Registers</span> <i
+                    class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+                <span class="flex-gap-right">Cost Free Bags Distribution Details</span>
+            </h6>
+        </div>
+    </div>
+    <p-table #dt3 [columns]="sampleSelectedColumn4" [value]="bagData" [paginator]="true" [rows]="10"
+        [autoLayout]="true" [paginator]="true" [resizableColumns]="true" [rows]="10">
+        <ng-template let-childrens pTemplate="caption">
+            <div class="row header flex-row-center">
+                <div class="col-lg-3 p-1">
+                    <p-multiSelect [options]="cols4" [(ngModel)]="sampleSelectedColumn4" optionLabel="header"
+                        selectedItemsLabel="{0} columns selected" [style]="{minWidth: '225px'}"
+                        defaultLabel="Choose Columns"></p-multiSelect>
+                </div>
+                <div class="col-lg-5">
+                </div>
+                <div class="col-sm-3 p-1">
+                    <div class="text-right">
+                        <input class="form-control" type="text"
+                            (input)="dt3.filterGlobal($event.target.value, 'contains')" placeholder="Filter">
+                    </div>
+                </div>
+                <div class="col-sm-1 p-1 flex-row-center-end">
+                    <div class="text-right">
+                        <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"
+                            (click)="exportPdf(bagData,sampleSelectedColumn4)"></i>
+                        <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                            (click)="exportExcel(bagData)"></i>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr class="table-header">
+                <th style="width: 5em;text-align: center;">#</th>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">{{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data let-i="rowIndex" let-columns="columns">
+            <tr [pSelectableRow]="data">
+                <td class="sno-header-layout">{{i+1}}</td>
+                <td>{{data.unique_id_no}}</td>
+                <td style="width: 20em">{{data.name}}</td>
+                <td>{{data.gender === "1" ? 'Male' : 'Female'}}</td>
+                <td>{{data.class_studying_id}}</td>
+                <td>{{data.class_section}}</td>
+                <td>{{data.MEDINSTR_DESC}}</td>
+                <td>{{data.scheme_category}}</td>
+                <td>{{data.distribution_date}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <tr class="text-left" *ngIf="noDataFound">
+                <td colspan="9" style="text-align: center;"> No Data Found </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+
+<!-- Cost Free Uniforms Distribution Details -->
+<div class="main-body-content" *ngIf="pageId == '5'">
+    <div class="outer-layout">
+        <div class="breadcrumbs c-black">
+            <h6 class="url">
+                <span class="flex-gap-right" (click)="onBack()">Registers</span> <i
+                    class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+                <span class="flex-gap-right">Cost Free Uniforms Distribution Details</span>
+            </h6>
+        </div>
+    </div>
+    <p-table #dt4 [columns]="sampleSelectedColumn5" [value]="uniformData" [paginator]="true"
+        [rows]="10" [autoLayout]="true" [paginator]="true" [resizableColumns]="true" [rows]="10">
+        <ng-template let-childrens pTemplate="caption">
+            <div class="row header flex-row-center">
+                <div class="col-lg-3 p-1">
+                    <p-multiSelect [options]="cols5" [(ngModel)]="sampleSelectedColumn5" optionLabel="header"
+                        selectedItemsLabel="{0} columns selected" [style]="{minWidth: '225px'}"
+                        defaultLabel="Choose Columns"></p-multiSelect>
+                </div>
+                <div class="col-lg-5">
+                </div>
+                <div class="col-sm-3 p-1">
+                    <div class="text-right">
+                        <input class="form-control" type="text"
+                            (input)="dt4.filterGlobal($event.target.value, 'contains')" placeholder="Filter">
+                    </div>
+                </div>
+                <div class="col-sm-1 p-1 flex-row-center-end">
+                    <div class="text-right">
+                        <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"
+                            (click)="exportPdf(uniformData,sampleSelectedColumn5)"></i>
+                        <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                            (click)="exportExcel(uniformData)"></i>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr class="table-header">
+                <th style="width: 5em;text-align: center;">#</th>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">{{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data let-i="rowIndex" let-columns="columns">
+            <tr [pSelectableRow]="data">
+                <td class="sno-header-layout">{{i+1}}</td>
+                <td *ngFor="let col of columns">
+                    {{data[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <tr class="text-left" *ngIf="noDataFound">
+                <td colspan="10" style="text-align: center;"> No Data Found </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+
+<!-- Cost Free Footwear Distribution Details -->
+<div class="main-body-content" *ngIf="pageId == '6'">
+    <div class="outer-layout">
+        <div class="breadcrumbs c-black">
+            <h6 class="url">
+                <span class="flex-gap-right" (click)="onBack()">Registers</span> <i
+                    class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+                <span class="flex-gap-right">Cost Free Footwear Distribution Details</span>
+            </h6>
+        </div>
+    </div>
+    <p-table #dt5 [columns]="sampleSelectedColumn6" [value]="footwearData" [paginator]="true"
+        [rows]="10" [autoLayout]="true" [paginator]="true" [resizableColumns]="true" [rows]="10">
+        <ng-template let-childrens pTemplate="caption">
+            <div class="row header flex-row-center">
+                <div class="col-lg-3 p-1">
+                    <p-multiSelect [options]="cols6" [(ngModel)]="sampleSelectedColumn6" optionLabel="header"
+                        selectedItemsLabel="{0} columns selected" [style]="{minWidth: '225px'}"
+                        defaultLabel="Choose Columns"></p-multiSelect>
+                </div>
+                <div class="col-lg-5">
+                </div>
+                <div class="col-sm-3 p-1">
+                    <div class="text-right">
+                        <input class="form-control" type="text"
+                            (input)="dt5.filterGlobal($event.target.value, 'contains')" placeholder="Filter">
+                    </div>
+                </div>
+                <div class="col-sm-1 p-1 flex-row-center-end">
+                    <div class="text-right">
+                        <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"
+                            (click)="exportPdf(footwearData,sampleSelectedColumn6)"></i>
+                        <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                            (click)="exportExcel(footwearData)"></i>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr class="table-header">
+                <th style="width: 5em;text-align: center;">#</th>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">{{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data let-i="rowIndex" let-columns="columns">
+            <tr [pSelectableRow]="data">
+                <td class="sno-header-layout">{{i+1}}</td>
+                <td>{{data.unique_id_no}}</td>
+                <td style="width: 20em">{{data.name}}</td>
+                <td>{{data.gender === "1" ? 'Male' : 'Female'}}</td>
+                <td>{{data.class_studying_id}}</td>
+                <td>{{data.class_section}}</td>
+                <td>{{data.MEDINSTR_DESC}}</td>
+                <td>{{data.scheme_category}}</td>
+                <td>{{data.distribution_date}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <tr class="text-left" *ngIf="noDataFound">
+                <td colspan="9" style="text-align: center;"> No Data Found </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+
+<!-- Cost Free Bus Pass Distribution Details -->
+<!-- Cost Free Colour Pencil Distribution Details -->
+<!-- Cost Free Geometry Box Distribution Details -->
+<!-- Cost Free Atlas Distribution Details -->
+<!-- Cost Free Laptops Distribution 11-Std Details -->
+<div class="main-body-content" *ngIf="pageId == '7'|| pageId == '8' || pageId == '9' || pageId == '10' || pageId == '11'" >
+    <div class="outer-layout">
+        <div class="breadcrumbs c-black">
+            <h6 class="url">
+                <span class="flex-gap-right" (click)="onBack()">Registers</span> <i
+                    class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+                <span class="flex-gap-right"  *ngIf="pageId == '7'">Cost Free Bus Pass Distribution Details</span>
+                <span class="flex-gap-right"  *ngIf="pageId == '8'">Cost Free Colour Pencil Distribution Details</span>
+                <span class="flex-gap-right"  *ngIf="pageId == '9'">Cost Free Geometry Box Distribution Details</span>
+                <span class="flex-gap-right"  *ngIf="pageId == '10'">Cost Free Atlas Distribution Details</span>
+                <span class="flex-gap-right"  *ngIf="pageId == '11'">Cost Free Laptops Distribution 11-Std Details</span>
+            </h6>
+        </div>
+    </div>
+    <p-table #dt6 [columns]="sampleSelectedColumn7" [value]="commonData" [paginator]="true"
+        [rows]="10" [autoLayout]="true" [paginator]="true" [resizableColumns]="true" [rows]="10">
+        <ng-template let-childrens pTemplate="caption">
+            <div class="row header flex-row-center">
+                <div class="col-lg-3 p-1">
+                    <p-multiSelect [options]="cols7" [(ngModel)]="sampleSelectedColumn7" optionLabel="header"
+                        selectedItemsLabel="{0} columns selected" [style]="{minWidth: '225px'}"
+                        defaultLabel="Choose Columns"></p-multiSelect>
+                </div>
+                <div class="col-lg-5">
+                </div>
+                <div class="col-sm-3 p-1">
+                    <div class="text-right">
+                        <input class="form-control" type="text"
+                            (input)="dt6.filterGlobal($event.target.value, 'contains')" placeholder="Filter">
+                    </div>
+                </div>
+                <div class="col-sm-1 p-1 flex-row-center-end">
+                    <div class="text-right">
+                        <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"
+                            (click)="exportPdf(commonData,sampleSelectedColumn7)"></i>
+                        <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                            (click)="exportExcel(commonData)"></i>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr class="table-header">
+                <th style="width: 5em;text-align: center;">#</th>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">{{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data let-i="rowIndex" let-columns="columns">
+            <tr [pSelectableRow]="data">
+                <td class="sno-header-layout">{{i+1}}</td>
+                <td>{{data.unique_id_no}}</td>
+                <td style="width: 20em">{{data.name}}</td>
+                <td>{{data.gender === "1" ? 'Male' : 'Female'}}</td>
+                <td>{{data.class_studying_id}}</td>
+                <td>{{data.class_section}}</td>
+                <td>{{data.MEDINSTR_DESC}}</td>
+                <td>{{data.distribution_date}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <tr class="text-left" *ngIf="noDataFound">
+                <td colspan="8" style="text-align: center;"> No Data Found </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+
+<!-- Cost Free Laptops Distribution 12-Std Details -->
+<!-- Cost Free Laptops Distribution Previous Year 12-Std Details -->
+<div class="main-body-content" *ngIf="pageId == '12' || pageId == '13'">
+    <div class="outer-layout">
+        <div class="breadcrumbs c-black">
+            <h6 class="url">
+                <span class="flex-gap-right" (click)="onBack()">Registers</span> <i
+                    class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+                <span class="flex-gap-right" *ngIf="pageId == '12'">Cost Free Laptops Distribution 12-Std Details</span>
+                <span class="flex-gap-right" *ngIf="pageId == '13'">Cost Free Laptops Distribution Previous Year 12-Std Details</span>
+            </h6>
+        </div>
+    </div>
+    <p-table #dt7 [columns]="sampleSelectedColumn8" [value]="lap12Data" [paginator]="true"
+        [rows]="10" [autoLayout]="true" [resizableColumns]="true">
+        <ng-template let-childrens pTemplate="caption">
+            <div class="row header flex-row-center">
+                <div class="col-lg-3 p-1">
+                    <p-multiSelect [options]="cols8" [(ngModel)]="sampleSelectedColumn8" optionLabel="header"
+                        selectedItemsLabel="{0} columns selected" [style]="{minWidth: '225px'}"
+                        defaultLabel="Choose Columns"></p-multiSelect>
+                </div>
+                <div class="col-lg-5">
+                </div>
+                <div class="col-sm-3 p-1">
+                    <div class="text-right">
+                        <input class="form-control" type="text"
+                            (input)="dt7.filterGlobal($event.target.value, 'contains')" placeholder="Filter">
+                    </div>
+                </div>
+                <div class="col-sm-1 p-1 flex-row-center-end">
+                    <div class="text-right">
+                        <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"
+                            (click)="exportPdf(lap12Data,sampleSelectedColumn8)"></i>
+                        <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                            (click)="exportExcel(lap12Data)"></i>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr class="table-header">
+                <th style="width: 5em;text-align: center;">#</th>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">{{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data let-i="rowIndex" let-columns="columns">
+            <tr [pSelectableRow]="data">
+                <td class="sno-header-layout">{{i+1}}</td>
+                <td>{{data.unique_id_no}}</td>
+                <td style="width: 20em">{{data.name}}</td>
+                <td>{{data.gender === "1" ? 'Male' : 'Female'}}</td>
+                <td>{{data.class_studying_id}}</td>
+                <td>{{data.class_section}}</td>
+                <td>{{data.unique_supply}}</td>
+                <td>{{data.distribution_date}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <tr class="text-left" *ngIf="noDataFound">
+                <td colspan="10" style="text-align: center;"> No Data Found </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+
+
+<!-- CWSN-Student Benefits Register -->
+<div class="main-body-content" *ngIf="pageId == '14'">
+    <div class="outer-layout">
+        <div class="breadcrumbs c-black">
+            <h6 class="url">
+                <span class="flex-gap-right" (click)="onBack()">Registers</span> <i
+                    class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+                <span class="flex-gap-right">CWSN-Student Benefits Register</span>
+            </h6>
+        </div>
+    </div>
+    <p-table #dt8 [columns]="sampleSelectedColumn9" [value]="cwsnBenefitData" [paginator]="true"
+        [rows]="10" [autoLayout]="true" [paginator]="true" [resizableColumns]="true" [rows]="10">
+        <ng-template let-childrens pTemplate="caption">
+            <div class="row header flex-row-center">
+                <div class="col-lg-3 p-1">
+                    <p-multiSelect [options]="cols9" [(ngModel)]="sampleSelectedColumn9" optionLabel="header"
+                        selectedItemsLabel="{0} columns selected" [style]="{minWidth: '225px'}"
+                        defaultLabel="Choose Columns"></p-multiSelect>
+                </div>
+                <div class="col-lg-5">
+                </div>
+                <div class="col-sm-3 p-1">
+                    <div class="text-right">
+                        <input class="form-control" type="text"
+                            (input)="dt8.filterGlobal($event.target.value, 'contains')" placeholder="Filter">
+                    </div>
+                </div>
+                <div class="col-sm-1 p-1 flex-row-center-end">
+                    <div class="text-right">
+                        <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"
+                            (click)="exportPdf(cwsnBenefitData,sampleSelectedColumn9)"></i>
+                        <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                            (click)="exportExcel(cwsnBenefitData)"></i>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr class="table-header">
+                <th style="width: 5em;text-align: center;">#</th>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">{{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data let-i="rowIndex" let-columns="columns">
+            <tr [pSelectableRow]="data">
+                <td class="sno-header-layout">{{i+1}}</td>
+                <td>{{data.unique_id_no}}</td>
+                <td style="width: 20em">{{data.name}}</td>
+                <td>{{data.gender === "1" ? 'Male' : 'Female'}}</td>
+                <td>{{data.class_studying_id}}</td>
+                <td>{{data.class_section}}</td>
+                <td>{{data.da_name}}</td>
+                <td>{{data.national_id}}</td>
+                <td>{{data.bf}}</td>
+                <td>{{data.provided_by}}</td>
+                <td>{{data.acad_year}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <tr class="text-left" *ngIf="noDataFound">
+                <td colspan="10" style="text-align: center;"> No Data Found </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

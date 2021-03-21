@@ -1,0 +1,195 @@
+<div class="outer-layout" style="padding-top:5px;">
+  <div class="breadcrumbs c-black">
+    <h6 classs="url"><span class="flex-gap-right">Academic Reports</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right">Indicators Rank Sheet</span></h6>
+  </div>
+</div>
+<p-card>
+  <p-tabView>
+    <div class="row">
+    <div class="heading col-sm-7 col-md-7">
+      <h5>RankSheet - State</h5>
+    </div>
+    </div>
+    <div class="row" style="padding-bottom:5px;">
+      <div class="col-sm-8"></div>
+    <div class="col-sm-3 col-md-3 p-1">
+      <div class="text-right">
+           <input type="text" pInputText size="30" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+      </div>              
+   </div>
+   <div class="col-sm-1 col-md-1 text-right" style="padding-top: 12px;margin-left:-15px;">
+    <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+    (click)="exportExcel()"></i>
+   </div>
+    </div>
+      <form novalidate name="form">
+        <div class="flexGapTop">
+          <p-table #dt
+                   [value]="rankSheet"
+                   [styleClass]="'base-table'"
+                   [paginator]="false"
+                   [scrollable]="true"
+                   scrollHeight="500px"
+                   scrollWidth="500px" 
+                   [lazy]="false"
+                   [globalFilterFields]="['district_name','distrank','overscore','pass_score_stud_tam','pass_score_stud_eng','pass_score_stud_mat','pass_score_stud_sci','pass_score_stud_soc',
+                   'maxm_score_stud_tam','maxm_score_stud_eng','maxm_score_stud_mat','maxm_score_stud_sci','maxm_score_stud_soc',
+                   'avgp_score_stud_tam','avgp_score_stud_eng','avgp_score_stud_mat','avgp_score_stud_sci','avgp_score_stud_soc',
+                   'dist_score_stud_tam','dist_score_stud_eng','dist_score_stud_mat','dist_score_stud_sci','dist_score_stud_soc',
+                   'cent_score_stud_tam','cent_score_stud_eng','cent_score_stud_mat','cent_score_stud_sci','cent_score_stud_soc',
+                   'incl_score_stud_tam','incl_score_stud_eng','incl_score_stud_mat','incl_score_stud_sci','incl_score_stud_soc',
+                   'bunc_score_stud_tam','bunc_score_stud_eng','bunc_score_stud_mat','bunc_score_stud_sci','bunc_score_stud_soc',
+                   'blow_score_stud_tam','blow_score_stud_eng','blow_score_stud_mat','blow_score_stud_sci','blow_score_stud_soc',
+                   'dsta_score_stud_tam','dsta_score_stud_eng','dsta_score_stud_mat','dsta_score_stud_sci','dsta_score_stud_soc'
+                   ]">
+            <ng-template pTemplate="header">
+              <tr class="center">
+                <th rowspan="3" style="width:4em;">S.No</th>
+                <th rowspan="3" style="width: 12em">District Name</th>
+                <th rowspan="3" style="width: 12em">Rank</th>
+                <th rowspan="3" style="width: 12em">Overall Score</th>
+                <th colspan="30" style="width: 200em">Positive Indicators</th>
+                <th colspan="15" style="width: 100em">Negative Indicators</th>
+              </tr>
+              <tr class="center">
+                <th colspan="5">Passed Students</th>
+                <th colspan="5">Maximum Marks Obtained</th>
+                <th colspan="5">Average of Passed</th>
+                <th colspan="5">Distinction</th>
+                <th colspan="5">Centum</th>
+                <th colspan="5">Inclusiveness</th>
+                <th colspan="5">Bunch(35-40%)</th>
+                <th colspan="5">Below 20%</th>
+                <th colspan="5">District Average</th>
+              </tr>
+              <tr class="center">
+                <th>Tamil</th>
+                <th>English</th>
+                <th>Maths</th>
+                <th>Science</th>
+                <th>social</th>
+  
+                <th>Tamil</th>
+                <th>English</th>
+                <th>Maths</th>
+                <th>Science</th>
+                <th>social</th>
+  
+                <th>Tamil</th>
+                <th>English</th>
+                <th>Maths</th>
+                <th>Science</th>
+                <th>social</th>
+  
+                <th>Tamil</th>
+                <th>English</th>
+                <th>Maths</th>
+                <th>Science</th>
+                <th>social</th>
+  
+                <th>Tamil</th>
+                <th>English</th>
+                <th>Maths</th>
+                <th>Science</th>
+                <th>social</th>
+  
+                <th>Tamil</th>
+                <th>English</th>
+                <th>Maths</th>
+                <th>Science</th>
+                <th>social</th>
+  
+                <th>Tamil</th>
+                <th>English</th>
+                <th>Maths</th>
+                <th>Science</th>
+                <th>social</th>
+  
+                <th>Tamil</th>
+                <th>English</th>
+                <th>Maths</th>
+                <th>Science</th>
+                <th>social</th>
+  
+                <th>Tamil</th>
+                <th>English</th>
+                <th>Maths</th>
+                <th>Science</th>
+                <th>social</th>
+              </tr>
+            </ng-template>
+  
+            <ng-template pTemplate="body" let-distname let-rowData let-columns="columns" let-i="rowIndex" >
+              <tr [pSelectableRow]="rowData" class="text-center">
+                <td style="width:4em;">{{i+1}}</td>
+                <td class="width-169 text-left">{{ distname.district_name}} </td>
+                <td class="width-169"> {{ distname.distrank}} </td>
+                <td class="width-169"> {{ distname.overscore}} </td>
+  
+                <td> {{ distname.pass_score_stud_tam}} </td>
+                <td> {{ distname.pass_score_stud_eng}} </td>
+                <td> {{ distname.pass_score_stud_mat}} </td>
+                <td> {{ distname.pass_score_stud_sci}} </td>
+                <td> {{ distname.pass_score_stud_soc}} </td>
+  
+                <td> {{ distname.maxm_score_stud_tam}} </td>
+                <td> {{ distname.maxm_score_stud_eng}} </td>
+                <td> {{ distname.maxm_score_stud_mat}} </td>
+                <td> {{ distname.maxm_score_stud_sci}} </td>
+                <td> {{ distname.maxm_score_stud_soc}} </td>
+  
+  
+                <td> {{ distname.avgp_score_stud_tam}} </td>
+                <td> {{ distname.avgp_score_stud_eng}} </td>
+                <td> {{ distname.avgp_score_stud_mat}} </td>
+                <td> {{ distname.avgp_score_stud_sci}} </td>
+                <td> {{ distname.avgp_score_stud_soc}} </td>
+  
+                <td> {{ distname.dist_score_stud_tam}} </td>
+                <td> {{ distname.dist_score_stud_eng}} </td>
+                <td> {{ distname.dist_score_stud_mat}} </td>
+                <td> {{ distname.dist_score_stud_sci}} </td>
+                <td> {{ distname.dist_score_stud_soc}} </td>
+  
+                <td> {{ distname.cent_score_stud_tam}} </td>
+                <td> {{ distname.cent_score_stud_eng}} </td>
+                <td> {{ distname.cent_score_stud_mat}} </td>
+                <td> {{ distname.cent_score_stud_sci}} </td>
+                <td> {{ distname.cent_score_stud_soc}} </td>
+  
+                <td> {{ distname.incl_score_stud_tam}} </td>
+                <td> {{ distname.incl_score_stud_eng}} </td>
+                <td> {{ distname.incl_score_stud_mat}} </td>
+                <td> {{ distname.incl_score_stud_sci}} </td>
+                <td> {{ distname.incl_score_stud_soc}} </td>
+  
+                <td> {{ distname.bunc_score_stud_tam}} </td>
+                <td> {{ distname.bunc_score_stud_eng}} </td>
+                <td> {{ distname.bunc_score_stud_mat}} </td>
+                <td> {{ distname.bunc_score_stud_sci}} </td>
+                <td> {{ distname.bunc_score_stud_soc}} </td>
+  
+                <td> {{ distname.blow_score_stud_tam}} </td>
+                <td> {{ distname.blow_score_stud_eng}} </td>
+                <td> {{ distname.blow_score_stud_mat}} </td>
+                <td> {{ distname.blow_score_stud_sci}} </td>
+                <td> {{ distname.blow_score_stud_soc}} </td>
+  
+                <td> {{ distname.dsta_score_stud_tam}} </td>
+                <td> {{ distname.dsta_score_stud_eng}} </td>
+                <td> {{ distname.dsta_score_stud_mat}} </td>
+                <td> {{ distname.dsta_score_stud_sci}} </td>
+                <td> {{ distname.dsta_score_stud_soc}} </td>
+  
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </form>
+  </p-tabView>
+  
+  
+  
+  
+  
+</p-card>

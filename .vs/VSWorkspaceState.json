@@ -1,0 +1,17 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\pages",
+    "\\src\\app\\pages\\full-layout-page",
+    "\\src\\app\\pages\\full-layout-page\\schools",
+    "\\src\\app\\pages\\full-layout-page\\schools\\school-need-csr",
+    "\\src\\app\\pages\\full-layout-page\\students",
+    "\\src\\app\\pages\\full-layout-page\\teachers",
+    "\\src\\app\\pages\\full-layout-page\\teachers\\stafflogindetail",
+    "\\src\\environments"
+  ],
+  "SelectedNode": "\\src\\app\\pages\\full-layout-page\\schools\\school-need-csr\\school-need-csr.component.ts",
+  "PreviewInSolutionExplorer": false
+}

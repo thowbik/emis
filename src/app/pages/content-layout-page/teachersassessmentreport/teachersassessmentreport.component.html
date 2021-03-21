@@ -1,0 +1,107 @@
+<div class="overflow">    
+    <div class="row" style="margin-top: 20px;">
+     <div class="col-md-6">
+
+     </div>
+
+        <div class="col-md-6" style="padding-right: 30px">
+           <div class="float-right  mb-2 mt-2">
+        <button pButton style="float: right;" id="printPageButton" type="button" label="DownloadPDF" (click)=exportPdf()></button>
+        <button id="printPageButton" pButton type="button" label="Go back" class="ui-button-danger"
+            [routerLink]="['/dashboard']"></button>
+        </div>
+        </div>
+    </div>
+   
+    <br>
+    <div class="result">
+        <p-card >
+            <form  [formGroup]="form">
+         <div  style="background-color: #2d7464;">
+            <div class="row">
+                <div class="col-md-12 mt-2" style="text-align: center;">
+                 <p>  <strong  style="color: black;"> Initial Learning Level Assessment Result - Teacher result </strong> </p>
+                </div>
+            </div>
+            <div class="row mt-3 mb-3">
+                <div class="col-md-4" style="padding-left: 20px;">
+                    <label class="font-weight-bold" style="color: black;font-size: 14px;">Class<span class="text-danger"> *
+                    </span></label>
+                    <p-dropdown [options]="classList"   formControlName="classId" scrollHeight="105px" (onChange)="onChangeClass($event.value.value)"  placeholder="Select a class" optionLabel="label" ></p-dropdown>  
+                 <p-message severity="error" text="Class is required"
+                    *ngIf="form.controls.classId.errors  && (submitted || form.controls.classId.dirty || form.controls.classId.touched)">
+                </p-message>
+                </div>
+                <div class="col-md-4" >   
+                    <label class="font-weight-bold" style="color: black;font-size: 14px;">Medium<span class="text-danger"> *
+                    </span></label> 
+                    <p-dropdown [options]="mediumList"  panelStyleClass="highlight-yellow"  formControlName="mediumId" scrollHeight="105px" (onChange)="onChangeMedium($event.value.label)" placeholder="Select a Medium" optionLabel="label" ></p-dropdown> 
+                    <p-message severity="error" text="Medium is required"
+                    *ngIf="form.controls.mediumId.errors  && (submitted || form.controls.mediumId.dirty || form.controls.mediumId.touched)">
+                </p-message> 
+                </div> 
+                <div class="col-md-4"   [hidden]="classbasegroup" style="padding-right: 20px;">
+                    <label class="font-weight-bold" style="color: black;font-size: 14px;">Group<span class="text-danger"> *
+                    </span></label>  
+                    <p-dropdown [options]="mediumbasegroup"  formControlName="groupId" scrollHeight="105px"  placeholder="Select a Group" optionLabel="label" ></p-dropdown>
+                <p-message severity="error" text="Group is required"
+                    *ngIf="form.controls.groupId.errors  && (submitted || form.controls.groupId.dirty || form.controls.groupId.touched)">
+                </p-message>
+               
+                </div>
+            </div>
+            <div class="row mt-5 mb-3">  
+                <div class="col-md-6">
+
+                </div>              
+               <div class="col-md-6">
+                <button pButton style="float: right;margin-bottom: 10px;margin-right: 10px;" type="button" label="Submit"  (click)=save()></button>
+               </div>
+            </div>
+         </div> 
+        </form>
+         <div>
+            <p-card  [hidden]="table">
+                <p-table  #dt [columns]="dataHeader" [resizableColumns]="true"
+                (sortFunction)="customSort($event)" [customSort]="true" [responsive]="true" [value]="result" >
+               <ng-template pTemplate="header" let-columns>
+                   <tr>
+                       <th style="width: 1em;text-align: center;" pSortableColumn="lo_desc">s.no</th>
+                       <th style="width: 15em;text-align: center;">Learning Outcome<p-sortIcon field="lo_desc" ariaLabel="Activate to sort"
+                        ariaLabelDesc="Activate to sort in descending order"
+                        ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon></th>
+                       <th style="width: 4em;text-align: center;">Subject<p-dropdown  [options]="subjects" placeholder="Select to filter" [(ngModel)]="selectedOption" appendTo="body" (onChange)="onChangeSubject($event.value)" optionLabel="subject"></p-dropdown></th>
+                       <th style="width: 6em;" pSortableColumn="correct_answer_percentage">Percentage Of Students Answered Correctly<p-sortIcon field="correct_answer_percentage" ariaLabel="Activate to sort"
+                        ariaLabelDesc="Activate to sort in descending order"
+                        ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon></th>
+                       <th style="width: 6em;" pSortableColumn="wrong_answer_percentage">Percentage Of Students Answered Incorrectly<p-sortIcon field="wrong_answer_percentage" ariaLabel="Activate to sort"
+                        ariaLabelDesc="Activate to sort in descending order"
+                        ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon></th>
+                       <!-- <th *ngFor="let col of columns" [pSortableColumn]="col.field" [style.width]="col.widthstyle"[style.text-align]="col.textalign">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+                            ariaLabelDesc="Activate to sort in descending order"
+                            ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                    </th> -->
+                   </tr>
+               </ng-template>
+               <ng-template pTemplate="body" let-result let-i="rowIndex">
+                   <tr>
+                       <td style="width: 1em;text-align: center">{{i+1}}</td>
+                       <td style="width:10em;" >{{result.lo_desc}} </td>  
+                       <td style="width:10em;" >{{result.subject}} </td>                  
+                       <td style="width:10em;text-align: center"> {{result.correct_answer_percentage | number : '1.1-1'}}</td>                   
+                       <td style="width:10em;text-align: center"> {{result.wrong_answer_percentage |number : '1.1-1' }}</td>
+                   </tr>
+               </ng-template>            
+                </p-table>
+            </p-card> 
+         
+            <p-card [hidden]="nodata">
+               <p style="text-align: center;"> <strong>No records found</strong></p>
+            </p-card>
+         </div>
+
+        </p-card>
+    </div>
+    </div>

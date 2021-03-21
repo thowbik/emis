@@ -1,0 +1,329 @@
+<div class="main-body-content">
+    <p-card>
+        <h5>New School Applications</h5>
+        <p-tabView>
+            <p-tabPanel header="Nursery & Primary Schools">
+                <div class="grid">
+                    <ng-container *ngFor="let row of saless">
+                        <div class="row">
+                            <div class="col-sm text-center header-clr">
+                              Stage
+                            </div>
+                            <div class="col-sm text-center header-clr">
+                              Status
+                            </div>
+                            <div class="col-sm text-center header-clr">
+                                Count
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm td-white-clr br-top-btm-unset">
+                                New	
+                            </div>
+                            <div class="col-sm td-white-clr br-top-btm-unset">
+                                New Application received
+                            </div>
+                            <div class="col-sm td-white-clr text-center br-top-btm-unset">
+                                {{row.New_Applications}}
+                            </div>
+                        </div>
+                        <div class="row bck-clr-tbl">
+                            <div class="col-sm td-white-clr">
+                                Inprogress
+                            </div>
+                            <div class="col-sm td-white-clr">
+                                Pending with BEO
+                            </div>
+                            <div class="col-sm td-white-clr text-center">
+                                {{row.BEO_pending}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm td-white-clr br-top-btm-unset">
+                                
+                            </div>
+                            <div class="col-sm td-white-clr br-top-btm-unset">
+                                Pending with DEO
+                            </div>
+                            <div class="col-sm td-white-clr text-center br-top-btm-unset">
+                                {{row.DEO_pending}}
+                            </div>
+                        </div>
+                        <div class="row bck-clr-tbl">
+                            <div class="col-sm td-white-clr">
+                                
+                            </div>
+                            <div class="col-sm td-white-clr">
+                                Pending with CEO
+                            </div>
+                            <div class="col-sm td-white-clr text-center">
+                                {{row.CEO_pending}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm td-white-clr br-top-btm-unset">
+                                
+                            </div>
+                            <div class="col-sm td-white-clr br-top-btm-unset">
+                                Pending with Director
+                            </div>
+                            <div class="col-sm td-white-clr text-center br-top-btm-unset">
+                                {{row.Dir_pending}}
+                            </div>
+                        </div>
+                        <div class="row bck-clr-tbl">
+                            <div class="col-sm td-white-clr">
+                                Completed
+                            </div>
+                            <div class="col-sm td-white-clr">
+                                Total Apporved till date
+                            </div>
+                            <div class="col-sm td-white-clr text-center">
+                                {{row.Approved}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm td-white-clr br-top-btm-unset">
+                                
+                            </div>
+                            <div class="col-sm td-white-clr br-top-btm-unset">
+                                Total Rejected till date
+                            </div>
+                            <div class="col-sm td-white-clr text-center br-top-btm-unset">
+                                {{row.Rejected}}
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="Matriculation Schools">
+                <div class="grid">
+                    <ng-container *ngFor="let row of saless">
+                        <div class="row">
+                            <div class="col-sm text-center header-clr">
+                              Stage
+                            </div>
+                            <div class="col-sm text-center header-clr">
+                              Status
+                            </div>
+                            <div class="col-sm text-center header-clr">
+                                Count
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm td-white-clr br-top-btm-unset">
+                                New	
+                            </div>
+                            <div class="col-sm td-white-clr br-top-btm-unset">
+                                New Application received
+                            </div>
+                            <div class="col-sm td-white-clr text-center br-top-btm-unset">
+                                {{row.New_Applications}}
+                            </div>
+                        </div>
+                        <div class="row bck-clr-tbl">
+                            <div class="col-sm td-white-clr">
+                                Inprogress
+                            </div>
+                            <div class="col-sm td-white-clr">
+                                Pending with BEO
+                            </div>
+                            <div class="col-sm td-white-clr text-center">
+                                {{row.BEO_pending}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm td-white-clr br-top-btm-unset">
+                                
+                            </div>
+                            <div class="col-sm td-white-clr br-top-btm-unset">
+                                Pending with DEO
+                            </div>
+                            <div class="col-sm td-white-clr text-center br-top-btm-unset">
+                                {{row.DEO_pending}}
+                            </div>
+                        </div>
+                        <div class="row bck-clr-tbl">
+                            <div class="col-sm td-white-clr">
+                                
+                            </div>
+                            <div class="col-sm td-white-clr">
+                                Pending with CEO
+                            </div>
+                            <div class="col-sm td-white-clr text-center">
+                                {{row.CEO_pending}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm td-white-clr br-top-btm-unset">
+                                
+                            </div>
+                            <div class="col-sm td-white-clr br-top-btm-unset">
+                                Pending with Director
+                            </div>
+                            <div class="col-sm td-white-clr text-center br-top-btm-unset">
+                                {{row.Dir_pending}}
+                            </div>
+                        </div>
+                        <div class="row bck-clr-tbl">
+                            <div class="col-sm td-white-clr">
+                                Completed
+                            </div>
+                            <div class="col-sm td-white-clr">
+                                Total Apporved till date
+                            </div>
+                            <div class="col-sm td-white-clr text-center">
+                                {{row.Approved}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm td-white-clr br-top-btm-unset">
+                                
+                            </div>
+                            <div class="col-sm td-white-clr br-top-btm-unset">
+                                Total Rejected till date
+                            </div>
+                            <div class="col-sm td-white-clr text-center br-top-btm-unset">
+                                {{row.Rejected}}
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="Play Schools">
+                <div class="grid">
+                    <ng-container *ngFor="let row of saless">
+                        <div class="row">
+                            <div class="col-sm text-center header-clr">
+                              Stage
+                            </div>
+                            <div class="col-sm text-center header-clr">
+                              Status
+                            </div>
+                            <div class="col-sm text-center header-clr">
+                                Count
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm td-white-clr br-top-btm-unset">
+                                New	
+                            </div>
+                            <div class="col-sm td-white-clr br-top-btm-unset">
+                                New Application received
+                            </div>
+                            <div class="col-sm td-white-clr text-center br-top-btm-unset">
+                                {{row.New_Applications}}
+                            </div>
+                        </div>
+                        <div class="row bck-clr-tbl">
+                            <div class="col-sm td-white-clr">
+                                Inprogress
+                            </div>
+                            <div class="col-sm td-white-clr">
+                                Pending with BEO
+                            </div>
+                            <div class="col-sm td-white-clr text-center">
+                                {{row.BEO_pending}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm td-white-clr br-top-btm-unset">
+                                
+                            </div>
+                            <div class="col-sm td-white-clr br-top-btm-unset">
+                                Pending with DEO
+                            </div>
+                            <div class="col-sm td-white-clr text-center br-top-btm-unset">
+                                {{row.DEO_pending}}
+                            </div>
+                        </div>
+                        <div class="row bck-clr-tbl">
+                            <div class="col-sm td-white-clr">
+                                Completed
+                            </div>
+                            <div class="col-sm td-white-clr">
+                                Total Apporved till date
+                            </div>
+                            <div class="col-sm td-white-clr text-center">
+                                {{row.Approved}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm td-white-clr br-top-btm-unset">
+                                
+                            </div>
+                            <div class="col-sm td-white-clr br-top-btm-unset">
+                                Total Rejected till date
+                            </div>
+                            <div class="col-sm td-white-clr text-center br-top-btm-unset">
+                                {{row.Rejected}}
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </p-tabPanel>
+        </p-tabView>
+    </p-card>
+
+    <p-card>
+        <h5>NOC Applications for CBSE</h5>
+        <p-tabView>
+            <p-tabPanel header="Nursery & Primary Schools">
+                <p-table [columns]="colsschl" [value]=" " [paginator]="true" [rows]="10" [resizableColumns]="true">
+                    <ng-template pTemplate="header" let-columns>
+                        <tr class="table-header">
+                            <th class="sno-header-layout">#</th>
+                            <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
+                                {{col.header}}
+                                <p-sortIcon [field]="col.field"></p-sortIcon>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-schoolteachers let-rowData let-columns="columns" let-i="rowIndex">
+                        <tr>
+                        <td class="sno-header-layout"> {{i+1}} </td>
+                        <td> {{teacher_name}} </td>
+                        <td> {{schoolteachers}} </td>
+                        <td> {{desgination}} </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr>
+                            <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                                <strong>No records found</strong>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-tabPanel>
+            <p-tabPanel header="Matriculation Schools">
+                <p-table [columns]="colsschl" [value]=" " [paginator]="true" [rows]="10" [resizableColumns]="true">
+                    <ng-template pTemplate="header" let-columns>
+                        <tr class="table-header">
+                            <th class="sno-header-layout">#</th>
+                            <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
+                                {{col.header}}
+                                <p-sortIcon [field]="col.field"></p-sortIcon>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-schoolteachers let-rowData let-columns="columns" let-i="rowIndex">
+                        <tr>
+                        <td class="sno-header-layout"> {{i+1}} </td>
+                        <td> {{teacher_name}} </td>
+                        <td> {{schoolteachers}} </td>
+                        <td> {{desgination}} </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr>
+                            <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                                <strong>No records found</strong>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-tabPanel>
+        </p-tabView>
+    </p-card>
+</div>

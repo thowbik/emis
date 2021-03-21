@@ -1,0 +1,83 @@
+<div class="main-body-content p-3">
+   <!-- => Form1 Start -->
+   <div class="container-fluid" *ngIf = "pageType == 1">
+      <div class="outer-layout" style="padding-top:5px;">
+         <div class="breadcrumbs c-black">
+            <h6 class="url"><span class="flex-gap-right">Schools</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i> <span class="flex-gap-right">KGBV & ARS</span><i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i><span class="flex-gap-right">Management Maintenance</span></h6>
+         </div>
+      </div>
+      <p-card>
+         <form [formGroup]="form1">
+            <div class="row header">
+                Management Maintenance
+            </div>
+            <!-- =>Row1 -->
+            <div class="form-group row">
+               <div class="col-lg-4 labelalign">
+                  <label>Select maintenance Type <span class="manditory">*</span></label>
+                  <p-dropdown [options]="maintenancetype" formControlName="MantnceType" placeholder="Select maintenance Type" styleClass="dropdwnvalues"></p-dropdown>
+                  <!-- <p-dropdown [options]="Get_all_maintanace_value" formControlName="MantnceType" placeholder="Select maintenance Type" styleClass="dropdwnvalues"></p-dropdown> -->
+                  <small class="form-text text-danger" *ngIf="!form1.get('MantnceType').valid && (submit1 || form1.get('MantnceType').dirty || form1.get('MantnceType').touched)">
+                  maintenance Type Field is required</small>
+               </div>
+               <div class="col-lg-4 labelalign">
+                  <label>Description of Work <span class="manditory">*</span></label>
+                  <div>
+                     <textarea name="problems" rows="2" cols="25" formControlName="Prblms"></textarea>
+                  </div>
+                  <small class="form-text text-danger" *ngIf="!form1.get('Prblms').valid && (submit1 || form1.get('Prblms').dirty || form1.get('Prblms').touched)">
+                     Description of Work Field is required</small>
+               </div>
+             
+            </div>
+            <div class="form-group row">
+               <div class="col-lg-4 labelalign">
+                  <label>Request Amount <span class="manditory">*</span></label>
+                  <input type="text" pInputText class="form-control" pKeyFilter="int" formControlName="ReqAmt" placeholder="Enter the Requested Amount"> 
+                  <small class="form-text text-danger" *ngIf="!form1.get('ReqAmt').valid && (submit1 || form1.get('ReqAmt').dirty || form1.get('ReqAmt').touched)">
+                  Request Amount Field is required</small>
+               </div>
+               <div class="col-lg-4 labelalign">
+                  <label class="col-md-12 p-0">Photo<span class="manditory">*</span></label>
+                  <input #file type='file'(change)="onSelectFile($event,'issuephto')"> 
+                  <div *ngIf="IssuePhtos" >
+                     <div class="col-md-12 p-0">
+                        <button type="submit" class="btn btn-info mt-2 mb-2" (click)="getUploadedFle()" >View Uploaded Photo</button>
+                     </div>
+                     <img src="{{image}}" class="uploaded-img" width="100" height="100"  *ngIf="photoBtn1" >
+                  </div>
+                  <small class="form-text text-danger" *ngIf="!form1.get('IssuePhto').valid && (submit1 || form1.get('IssuePhto').dirty || form1.get('IssuePhto').touched)">
+                     Photo Field is required</small>
+               </div>
+            
+            </div>
+            <div class="form-group row">
+               <div class="col-lg-4 labelalign">
+                  <label>Amount Required <span class="manditory">*</span></label>
+                  <input #file type='file' (change)="onSelectFile($event,'quotePhtos')"> 
+                  <div *ngIf="QuotePhotos">
+                     <div class="col-md-12 p-0">
+                        <button type="submit" class="btn btn-info mt-2 mb-2" (click)="getUploadedFles()" >View Uploaded Photo</button>
+                     </div>
+                     <img src="{{image1}}" class="uploaded-img" width="100" height="100" *ngIf="photoBtn2">
+                  </div>
+                  <small class="form-text text-danger" *ngIf="!form1.get('QuotePhto').valid && (submit1 || form1.get('QuotePhto').dirty || form1.get('QuotePhto').touched)">
+                     Amount  Required Field is required</small>
+               </div>
+               <div class="col-lg-4 labelalign">
+                  <label>Remarks <span class="manditory">*</span></label>
+                  <input type="text" pInputText class="form-control" formControlName="Remrks" placeholder="Enter the Remarks" > 
+                  <small class="form-text text-danger" *ngIf="!form1.get('Remrks').valid && (submit1 || form1.get('Remrks').dirty || form1.get('Remrks').touched)">
+                  Remarks Field is required</small>
+               </div>
+              
+            </div>
+         </form>
+         <div class="text-right mt-3">
+            <button type="submit" class="btn btn-success" (click)="OnSaveForm1()">{{id == 0 ? "Save" : "Update"}}</button>
+            <button type="submit " class="btn btn-light btn-border" (click)="onCancel()">Cancel</button>
+         </div>
+      </p-card>
+   </div>
+   <!-- => Form1 End -->
+</div>

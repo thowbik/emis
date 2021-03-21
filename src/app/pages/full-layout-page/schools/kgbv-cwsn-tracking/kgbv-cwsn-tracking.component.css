@@ -1,0 +1,19 @@
+.sno-header-layous{
+    width: 5em;
+}
+.btn-success {
+    background-color:green;
+    color: white;
+}
+.btn-success:hover {
+    background-color:green !important;
+    color: white;
+}
+.btn-danger {
+    background-color:red !important;
+    color: white;
+}
+.btn-danger:hover {
+    background-color:red !important;
+    color: white;
+}

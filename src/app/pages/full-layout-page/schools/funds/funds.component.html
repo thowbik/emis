@@ -1,0 +1,1626 @@
+<div class="mt-3 pr-2 mr-3">
+    <p-card >
+<div class="p-3">
+    <h3 class="title_text">SCHOOL DETAILS - PART II</h3>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="backclr-grn font-16">
+          INCENTIVES & FACILITIES PROVIDED TO CHILDREN
+        </div>
+        <form [formGroup]="userform" >
+            <div class="row form-group ">
+                <div class="col-sm-2">
+                        <label>Type of Facility</label>
+                </div>
+                <div class="col-sm-2 font-weight-bold text-center">
+                    Pre-Primary
+                </div>
+                <div class="col-sm-2 font-weight-bold text-center">
+                   Primary
+                </div>
+                <div class="col-sm-2 font-weight-bold text-center">
+                   Upper Primary
+                 </div>
+                 <div class="col-sm-2 font-weight-bold text-center">
+                   Secondary
+                  </div>
+                <div class="col-sm-2 font-weight-bold text-center">
+                    Higher Secondary
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2">
+                    Gender
+                </div>
+                <div class="col-sm-2">
+                    <div class="row">
+                        <div class="col-sm-6 text-center font-weight-bold">
+                            Boys
+                        </div>
+                        <div class="col-sm-6 text-center font-weight-bold">
+                            Girls
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="row">
+                        <div class="col-sm-6 text-center font-weight-bold">
+                            Boys
+                        </div>
+                        <div class="col-sm-6 text-center font-weight-bold">
+                            Girls
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="row">
+                        <div class="col-sm-6 text-center font-weight-bold">
+                            Boys
+                        </div>
+                        <div class="col-sm-6 text-center font-weight-bold">
+                            Girls
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-sm-2">
+                    <div class="row">
+                        <div class="col-sm-6 text-center font-weight-bold">
+                            Boys
+                        </div>
+                        <div class="col-sm-6 text-center font-weight-bold">
+                            Girls
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-sm-2">
+                    <div class="row">
+                        <div class="col-sm-6 text-center font-weight-bold">
+                            Boys
+                        </div>
+                        <div class="col-sm-6 text-center font-weight-bold">
+                            Girls
+                        </div>
+                    </div>
+                </div> 
+              </div>
+           <hr/>
+          <div class="row p-2">
+            <div class="col-sm-2 pt-2">
+                Braile books
+            </div>
+              <!--newly added -->
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                         <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="brlbks_prebys"  maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.brlbks_prebys.errors && (submitted || userform.controls.brlbks_prebys.dirty || userform.controls.brlbks_prebys.touched)"></p-message>
+                        </div>  
+                    </div>
+                    <div class="col-sm-6">
+                         <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="brlbks_pregls"   maxlength="3"/>
+                    <div class="ui-grid-col-12">
+                        <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.brlbks_pregls.errors && (submitted || userform.controls.brlbks_pregls.dirty || userform.controls.brlbks_pregls.touched)"></p-message>
+                    </div>                   
+                 </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                         <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="brlbks_elebys"  maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.brlbks_elebys.errors && (submitted || userform.controls.brlbks_elebys.dirty || userform.controls.brlbks_elebys.touched)"></p-message>
+                        </div>  
+                    </div>
+                    <div class="col-sm-6">
+                         <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="brlbks_elegls"   maxlength="3"/>
+                    <div class="ui-grid-col-12">
+                        <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.brlbks_elegls.errors && (submitted || userform.controls.brlbks_elegls.dirty || userform.controls.brlbks_elegls.touched)"></p-message>
+                    </div>                   
+                 </div>
+                </div>
+            </div>
+            <!--newly added -->
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                         <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="brlbks_uppbys"  maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.brlbks_uppbys.errors && (submitted || userform.controls.brlbks_uppbys.dirty || userform.controls.brlbks_uppbys.touched)"></p-message>
+                        </div>  
+                    </div>
+                    <div class="col-sm-6">
+                         <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="brlbks_uppgls"   maxlength="3"/>
+                    <div class="ui-grid-col-12">
+                        <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.brlbks_uppgls.errors && (submitted || userform.controls.brlbks_uppgls.dirty || userform.controls.brlbks_uppgls.touched)"></p-message>
+                    </div>                   
+                 </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text"  pKeyFilter="pnum" class="form-control" formControlName="brailbks_secbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.brailbks_secbys.errors && (submitted || userform.controls.brailbks_secbys.dirty || userform.controls.brailbks_secbys.touched)"></p-message>
+                        </div>  
+                    </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text"  pKeyFilter="pnum" class="form-control" formControlName="brlbks_secgls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.brlbks_secgls.errors && (submitted || userform.controls.brlbks_secgls.dirty || userform.controls.brlbks_secgls.touched)"></p-message>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text"  pKeyFilter="pnum" class="form-control" formControlName="brailbks_hsecbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.brailbks_hsecbys.errors && (submitted || userform.controls.brailbks_hsecbys.dirty || userform.controls.brailbks_hsecbys.touched)"></p-message>
+                        </div>  
+                    </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum"  class="form-control" formControlName="brlbks_hsegls"   maxlength="3"/> 
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.brlbks_hsegls.errors && (submitted || userform.controls.brlbks_hsegls.dirty || userform.controls.brlbks_hsegls.touched)"></p-message>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="row p-2">
+            <div class="col-sm-2 pt-2">
+                Braile kit
+            </div>
+            <!--newly added-->
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text"  pKeyFilter="pnum" class="form-control" formControlName="brlkit_prebys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.brlkit_prebys.errors && (submitted || userform.controls.brlkit_prebys.dirty || userform.controls.brlkit_prebys.touched)"></p-message>
+                        </div>  
+                    </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum"  class="form-control" formControlName="brlkit_pregls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.brlkit_pregls.errors && (submitted || userform.controls.brlkit_pregls.dirty || userform.controls.brlkit_pregls.touched)"></p-message>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text"  pKeyFilter="pnum" class="form-control" formControlName="brlkit_elebys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.brlkit_elebys.errors && (submitted || userform.controls.brlkit_elebys.dirty || userform.controls.brlkit_elebys.touched)"></p-message>
+                        </div>  
+                    </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum"  class="form-control" formControlName="brlkit_elegls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.brlkit_elegls.errors && (submitted || userform.controls.brlkit_elegls.dirty || userform.controls.brlkit_elegls.touched)"></p-message>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+              <!--newly added-->
+              <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text"  pKeyFilter="pnum" class="form-control" formControlName="brlkit_uppbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.brlkit_uppbys.errors && (submitted || userform.controls.brlkit_uppbys.dirty || userform.controls.brlkit_uppbys.touched)"></p-message>
+                        </div>  
+                    </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum"  class="form-control" formControlName="brlkit_uppgls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.brlkit_uppgls.errors && (submitted || userform.controls.brlkit_uppgls.dirty || userform.controls.brlkit_uppgls.touched)"></p-message>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text"pKeyFilter="pnum"  class="form-control" formControlName="brailkit_secbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.brailkit_secbys.errors && (submitted || userform.controls.brailkit_secbys.dirty || userform.controls.brailkit_secbys.touched)"></p-message>
+                        </div>  
+                    </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text"  pKeyFilter="pnum"class="form-control" formControlName="brlkit_secgls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.brlkit_secgls.errors && (submitted || userform.controls.brlkit_secgls.dirty || userform.controls.brlkit_secgls.touched)"></p-message>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text"  pKeyFilter="pnum"class="form-control" formControlName="brailkit_hsecbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.brailkit_hsecbys.errors && (submitted || userform.controls.brailkit_hsecbys.dirty || userform.controls.brailkit_hsecbys.touched)"></p-message>
+                        </div>  
+                    </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text"  pKeyFilter="pnum"class="form-control" formControlName="brlkit_hsegls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.brlkit_hsegls.errors && (submitted || userform.controls.brlkit_hsegls.dirty || userform.controls.brlkit_hsegls.touched)"></p-message>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="row p-2">
+            <div class="col-sm-2 pt-2">
+                Low Vision Kit
+            </div>
+             <!--newly added-->
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text"  pKeyFilter="pnum"class="form-control" formControlName="lvnkit_prebys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.lvnkit_prebys.errors && (submitted || userform.controls.lvnkit_prebys.dirty || userform.controls.lvnkit_prebys.touched)"></p-message>
+                        </div> 
+                    </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text"  pKeyFilter="pnum"class="form-control" formControlName="lvnkit_pregls"   maxlength="3"/> 
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.lvnkit_pregls.errors && (submitted || userform.controls.lvnkit_pregls.dirty || userform.controls.lvnkit_pregls.touched)"></p-message>
+                        </div>                     </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text"  pKeyFilter="pnum"class="form-control" formControlName="lvnkit_elebys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.lvnkit_elebys.errors && (submitted || userform.controls.lvnkit_elebys.dirty || userform.controls.lvnkit_elebys.touched)"></p-message>
+                        </div> 
+                    </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text"  pKeyFilter="pnum"class="form-control" formControlName="lvnkit_elegls"   maxlength="3"/> 
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.lvnkit_elegls.errors && (submitted || userform.controls.lvnkit_elegls.dirty || userform.controls.lvnkit_elegls.touched)"></p-message>
+                        </div>                     </div>
+                </div>
+            </div>
+                         <!--newly added-->
+                         <div class="col-sm-2">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <input pInputText type="text"  pKeyFilter="pnum"class="form-control" formControlName="lvnkit_uppbys"   maxlength="3"/>
+                                    <div class="ui-grid-col-12">
+                                        <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.lvnkit_uppbys.errors && (submitted || userform.controls.lvnkit_uppbys.dirty || userform.controls.lvnkit_uppbys.touched)"></p-message>
+                                    </div> 
+                                </div>
+                                <div class="col-sm-6">
+                                    <input pInputText type="text"  pKeyFilter="pnum"class="form-control" formControlName="lvnkit_uppgls"   maxlength="3"/> 
+                                    <div class="ui-grid-col-12">
+                                        <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.lvnkit_uppgls.errors && (submitted || userform.controls.lvnkit_uppgls.dirty || userform.controls.lvnkit_uppgls.touched)"></p-message>
+                                    </div>                     </div>
+                            </div>
+                        </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="lvnkit_secbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.lvnkit_secbys.errors && (submitted || userform.controls.lvnkit_secbys.dirty || userform.controls.lvnkit_secbys.touched)"></p-message>
+                        </div>                     </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="lvnkit_secgls"  maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.lvnkit_secgls.errors && (submitted || userform.controls.lvnkit_secgls.dirty || userform.controls.lvnkit_secgls.touched)"></p-message>
+                        </div>                     </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="lvnkit_hsecbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.lvnkit_hsecbys.errors && (submitted || userform.controls.lvnkit_hsecbys.dirty || userform.controls.lvnkit_hsecbys.touched)"></p-message>
+                        </div>                     </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="lvnkit_hsegls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.lvnkit_hsegls.errors && (submitted || userform.controls.lvnkit_hsegls.dirty || userform.controls.lvnkit_hsegls.touched)"></p-message>
+                        </div>                     </div>
+                </div>
+            </div>
+          </div>
+          <div class="row p-2">
+            <div class="col-sm-2 pt-2">
+                Hearing Aid
+            </div>
+            <!--newly added-->
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="hearaid_prebys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.hearaid_prebys.errors && (submitted || userform.controls.hearaid_prebys.dirty || userform.controls.hearaid_prebys.touched)"></p-message>
+                        </div>                      </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="hearaid_pregls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.hearaid_pregls.errors && (submitted || userform.controls.hearaid_pregls.dirty || userform.controls.hearaid_pregls.touched)"></p-message>
+                        </div>                      </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="hearaid_elebys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.hearaid_elebys.errors && (submitted || userform.controls.hearaid_elebys.dirty || userform.controls.hearaid_elebys.touched)"></p-message>
+                        </div>                      </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="hearaid_elegls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.hearaid_elegls.errors && (submitted || userform.controls.hearaid_elegls.dirty || userform.controls.hearaid_elegls.touched)"></p-message>
+                        </div>                      </div>
+                </div>
+            </div>
+               <!--newly added-->
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="hearaid_uppbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.hearaid_uppbys.errors && (submitted || userform.controls.hearaid_uppbys.dirty || userform.controls.hearaid_uppbys.touched)"></p-message>
+                        </div>                      </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="hearaid_uppgls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.hearaid_uppgls.errors && (submitted || userform.controls.hearaid_uppgls.dirty || userform.controls.hearaid_uppgls.touched)"></p-message>
+                        </div>                      </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="hearaid_secbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.hearaid_secbys.errors && (submitted || userform.controls.hearaid_secbys.dirty || userform.controls.hearaid_secbys.touched)"></p-message>
+                        </div>                      </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="hearaid_secgls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.hearaid_secgls.errors && (submitted || userform.controls.hearaid_secgls.dirty || userform.controls.hearaid_secgls.touched)"></p-message>
+                        </div>                      </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="hearaid_hsecbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.hearaid_hsecbys.errors && (submitted || userform.controls.hearaid_hsecbys.dirty || userform.controls.hearaid_hsecbys.touched)"></p-message>
+                        </div>                      </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="hearaid_hsegls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.hearaid_hsegls.errors && (submitted || userform.controls.hearaid_hsegls.dirty || userform.controls.hearaid_hsegls.touched)"></p-message>
+                        </div>                      </div>
+                </div>
+            </div>
+          </div>
+          <div class="row p-2">
+            <div class="col-sm-2 pt-2">
+                Braces
+            </div>
+            <!--newly added-->
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="braces_prebys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.braces_prebys.errors && (submitted || userform.controls.braces_prebys.dirty || userform.controls.braces_prebys.touched)"></p-message>
+                        </div>                     </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="braces_pregls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.braces_pregls.errors && (submitted || userform.controls.braces_pregls.dirty || userform.controls.braces_pregls.touched)"></p-message>
+                        </div>                     </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="braces_elebys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.braces_elebys.errors && (submitted || userform.controls.braces_elebys.dirty || userform.controls.braces_elebys.touched)"></p-message>
+                        </div>                     </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="braces_elegls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.braces_elegls.errors && (submitted || userform.controls.braces_elegls.dirty || userform.controls.braces_elegls.touched)"></p-message>
+                        </div>                     </div>
+                </div>
+            </div>
+            <!--newly added-->
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="braces_uppbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.braces_uppbys.errors && (submitted || userform.controls.braces_uppbys.dirty || userform.controls.braces_uppbys.touched)"></p-message>
+                        </div>                     </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="braces_uppgls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.braces_uppgls.errors && (submitted || userform.controls.braces_uppgls.dirty || userform.controls.braces_uppgls.touched)"></p-message>
+                        </div>                     </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text"  pKeyFilter="pnum"class="form-control" formControlName="braces_secbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.braces_secbys.errors && (submitted || userform.controls.braces_secbys.dirty || userform.controls.braces_secbys.touched)"></p-message>
+                        </div>                     </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="braces_secgls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.braces_secgls.errors && (submitted || userform.controls.braces_secgls.dirty || userform.controls.braces_secgls.touched)"></p-message>
+                        </div>                     </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="braces_hsecbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.braces_hsecbys.errors && (submitted || userform.controls.braces_hsecbys.dirty || userform.controls.braces_hsecbys.touched)"></p-message>
+                        </div>                     </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text"  pKeyFilter="pnum" class="form-control" formControlName="braces_hsegls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.braces_hsegls.errors && (submitted || userform.controls.braces_hsegls.dirty || userform.controls.braces_hsegls.touched)"></p-message>
+                        </div>                     </div>
+                </div>
+            </div>
+          </div>
+          <div class="row p-2">
+            <div class="col-sm-2 pt-2">
+                Wheel Chair
+            </div>
+            <!--newly added-->
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="whlchr_prebys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.whlchr_prebys.errors && (submitted || userform.controls.whlchr_prebys.dirty || userform.controls.whlchr_prebys.touched)"></p-message>
+                        </div>                       </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text"  pKeyFilter="pnum"class="form-control" formControlName="whlchr_pregls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.whlchr_pregls.errors && (submitted || userform.controls.whlchr_pregls.dirty || userform.controls.whlchr_pregls.touched)"></p-message>
+                        </div>                       </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="whlchr_elebys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.whlchr_elebys.errors && (submitted || userform.controls.whlchr_elebys.dirty || userform.controls.whlchr_elebys.touched)"></p-message>
+                        </div>                       </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text"  pKeyFilter="pnum"class="form-control" formControlName="whlchr_elegls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.whlchr_elegls.errors && (submitted || userform.controls.whlchr_elegls.dirty || userform.controls.whlchr_elegls.touched)"></p-message>
+                        </div>                       </div>
+                </div>
+            </div>
+            <!--newly added-->
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="whlchr_uppbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.whlchr_uppbys.errors && (submitted || userform.controls.whlchr_uppbys.dirty || userform.controls.whlchr_uppbys.touched)"></p-message>
+                        </div>                       </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text"  pKeyFilter="pnum"class="form-control" formControlName="whlchr_uppgls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.whlchr_uppgls.errors && (submitted || userform.controls.whlchr_uppgls.dirty || userform.controls.whlchr_uppgls.touched)"></p-message>
+                        </div>                       </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="whlchr_secbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.whlchr_secbys.errors && (submitted || userform.controls.whlchr_secbys.dirty || userform.controls.whlchr_secbys.touched)"></p-message>
+                        </div>                       </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text"pKeyFilter="pnum"  class="form-control" formControlName="whlchr_secgls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.whlchr_secgls.errors && (submitted || userform.controls.whlchr_secgls.dirty || userform.controls.whlchr_secgls.touched)"></p-message>
+                        </div>                       </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text"pKeyFilter="pnum"  class="form-control" formControlName="whlchr_hsecbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.whlchr_hsecbys.errors && (submitted || userform.controls.whlchr_hsecbys.dirty || userform.controls.whlchr_hsecbys.touched)"></p-message>
+                        </div>                       </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="whlchr_hsegls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.whlchr_hsegls.errors && (submitted || userform.controls.whlchr_hsegls.dirty || userform.controls.whlchr_hsegls.touched)"></p-message>
+                        </div>                       </div>
+                </div>
+            </div>
+          </div>
+          <div class="row p-2">
+            <div class="col-sm-2 pt-2">
+                 Cructches
+            </div>
+            <!--newly added-->
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text"  pKeyFilter="pnum" class="form-control" formControlName="crthes_prebys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.crthes_prebys.errors && (submitted || userform.controls.crthes_prebys.dirty || userform.controls.crthes_prebys.touched)"></p-message>
+                        </div>                      </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="crthes_pregls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.crthes_pregls.errors && (submitted || userform.controls.crthes_pregls.dirty || userform.controls.crthes_pregls.touched)"></p-message>
+                        </div>                      </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text"  pKeyFilter="pnum" class="form-control" formControlName="crthes_elebys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.crthes_elebys.errors && (submitted || userform.controls.crthes_elebys.dirty || userform.controls.crthes_elebys.touched)"></p-message>
+                        </div>                      </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="crthes_elegls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.crthes_elegls.errors && (submitted || userform.controls.crthes_elegls.dirty || userform.controls.crthes_elegls.touched)"></p-message>
+                        </div>                      </div>
+                </div>
+            </div>
+            <!--newly added-->
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text"  pKeyFilter="pnum" class="form-control" formControlName="crthes_uppbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.crthes_uppbys.errors && (submitted || userform.controls.crthes_uppbys.dirty || userform.controls.crthes_uppbys.touched)"></p-message>
+                        </div>                      </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="crthes_uppgls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.crthes_uppgls.errors && (submitted || userform.controls.crthes_uppgls.dirty || userform.controls.crthes_uppgls.touched)"></p-message>
+                        </div>                      </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="crthes_secbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.crthes_secbys.errors && (submitted || userform.controls.crthes_secbys.dirty || userform.controls.crthes_secbys.touched)"></p-message>
+                        </div>                      </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="crthes_secgls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.crthes_secgls.errors && (submitted || userform.controls.crthes_secgls.dirty || userform.controls.crthes_secgls.touched)"></p-message>
+                        </div>                      </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="crthes_hsecbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.crthes_hsecbys.errors && (submitted || userform.controls.crthes_hsecbys.dirty || userform.controls.crthes_hsecbys.touched)"></p-message>
+                        </div>                      </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="crthes_hsegls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.crthes_hsegls.errors && (submitted || userform.controls.crthes_hsegls.dirty || userform.controls.crthes_hsegls.touched)"></p-message>
+                        </div>                      </div>
+                </div>
+            </div>
+          </div>
+          <div class="row p-2">
+            <div class="col-sm-2 pt-2">
+                Tri-Cycle
+            </div>
+            <!--newly added-->
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="tricyle_prebys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.tricyle_prebys.errors && (submitted || userform.controls.tricyle_prebys.dirty || userform.controls.tricyle_prebys.touched)"></p-message>
+                        </div>                           </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="tricyle_pregls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.tricyle_pregls.errors && (submitted || userform.controls.tricyle_pregls.dirty || userform.controls.tricyle_pregls.touched)"></p-message>
+                        </div>                           </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="tricyle_elebys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.tricyle_elebys.errors && (submitted || userform.controls.tricyle_elebys.dirty || userform.controls.tricyle_elebys.touched)"></p-message>
+                        </div>                           </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="tricyle_elegls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.tricyle_elegls.errors && (submitted || userform.controls.tricyle_elegls.dirty || userform.controls.tricyle_elegls.touched)"></p-message>
+                        </div>                           </div>
+                </div>
+            </div>
+            <!--newly added-->
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="tricyle_uppbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.tricyle_uppbys.errors && (submitted || userform.controls.tricyle_uppbys.dirty || userform.controls.tricyle_uppbys.touched)"></p-message>
+                        </div>                           </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="tricyle_uppgls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.tricyle_uppgls.errors && (submitted || userform.controls.tricyle_uppgls.dirty || userform.controls.tricyle_uppgls.touched)"></p-message>
+                        </div>                           </div>
+                </div>
+            </div>
+           
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="tricyle_secbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.tricyle_secbys.errors && (submitted || userform.controls.tricyle_secbys.dirty || userform.controls.tricyle_secbys.touched)"></p-message>
+                        </div>                           </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="tricyle_secgls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.tricyle_secgls.errors && (submitted || userform.controls.tricyle_secgls.dirty || userform.controls.tricyle_secgls.touched)"></p-message>
+                        </div>                           </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="tricyle_hsecbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.tricyle_hsecbys.errors && (submitted || userform.controls.tricyle_hsecbys.dirty || userform.controls.tricyle_hsecbys.touched)"></p-message>
+                        </div>                           </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="tricyle_hsegls"    maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.tricyle_hsegls.errors && (submitted || userform.controls.tricyle_hsegls.dirty || userform.controls.tricyle_hsegls.touched)"></p-message>
+                        </div>                         </div>
+                </div>
+            </div>
+          </div>
+          <div class="row p-2">
+            <div class="col-sm-2 pt-2">
+                Caliber
+            </div>
+            <!--newly added-->
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="caliper_prebys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.caliper_prebys.errors && (submitted || userform.controls.caliper_prebys.dirty || userform.controls.caliper_prebys.touched)"></p-message>
+                        </div>                    </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text"  pKeyFilter="pnum"class="form-control" formControlName="caliper_pregls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.caliper_pregls.errors && (submitted || userform.controls.caliper_pregls.dirty || userform.controls.caliper_pregls.touched)"></p-message>
+                        </div>                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="caliper_elebys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.caliper_elebys.errors && (submitted || userform.controls.caliper_elebys.dirty || userform.controls.caliper_elebys.touched)"></p-message>
+                        </div>                    </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text"  pKeyFilter="pnum"class="form-control" formControlName="caliper_elegls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.caliper_elegls.errors && (submitted || userform.controls.caliper_elegls.dirty || userform.controls.caliper_elegls.touched)"></p-message>
+                        </div>                    </div>
+                </div>
+            </div>
+            <!--newly added-->
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="caliper_uppbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.caliper_uppbys.errors && (submitted || userform.controls.caliper_uppbys.dirty || userform.controls.caliper_uppbys.touched)"></p-message>
+                        </div>                    </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text"  pKeyFilter="pnum"class="form-control" formControlName="caliper_uppgls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.caliper_uppgls.errors && (submitted || userform.controls.caliper_uppgls.dirty || userform.controls.caliper_uppgls.touched)"></p-message>
+                        </div>                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="caliper_secbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.caliper_secbys.errors && (submitted || userform.controls.caliper_secbys.dirty || userform.controls.caliper_secbys.touched)"></p-message>
+                        </div>                    </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="caliper_secgls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.caliper_secgls.errors && (submitted || userform.controls.caliper_secgls.dirty || userform.controls.caliper_secgls.touched)"></p-message>
+                        </div>                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="caliper_hsecbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.caliper_hsecbys.errors && (submitted || userform.controls.caliper_hsecbys.dirty || userform.controls.caliper_hsecbys.touched)"></p-message>
+                        </div>                    </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="caliper_hsegls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.caliper_hsegls.errors && (submitted || userform.controls.caliper_hsegls.dirty || userform.controls.caliper_hsegls.touched)"></p-message>
+                        </div>                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="row p-2">
+            <div class="col-sm-2 pt-2">
+                Escort
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text"pKeyFilter="pnum"  class="form-control" formControlName="escort_prebys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.escort_prebys.errors && (submitted || userform.controls.escort_prebys.dirty || userform.controls.escort_prebys.touched)"></p-message>
+                        </div>                        </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="escort_pregls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.escort_pregls.errors && (submitted || userform.controls.escort_pregls.dirty || userform.controls.escort_pregls.touched)"></p-message>
+                        </div>                       </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text"pKeyFilter="pnum"  class="form-control" formControlName="escort_elebys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.escort_elebys.errors && (submitted || userform.controls.escort_elebys.dirty || userform.controls.escort_elebys.touched)"></p-message>
+                        </div>                        </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="escort_elegls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.escort_elegls.errors && (submitted || userform.controls.escort_elegls.dirty || userform.controls.escort_elegls.touched)"></p-message>
+                        </div>                       </div>
+                </div>
+            </div>
+            <!--newly added-->
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text"pKeyFilter="pnum"  class="form-control" formControlName="escort_uppbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.escort_uppbys.errors && (submitted || userform.controls.escort_uppbys.dirty || userform.controls.escort_uppbys.touched)"></p-message>
+                        </div>                        </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="escort_uppgls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.escort_uppgls.errors && (submitted || userform.controls.escort_uppgls.dirty || userform.controls.escort_uppgls.touched)"></p-message>
+                        </div>                       </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="escort_secbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.escort_secbys.errors && (submitted || userform.controls.escort_secbys.dirty || userform.controls.escort_secbys.touched)"></p-message>
+                        </div>                         </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="escort_secgls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.escort_secgls.errors && (submitted || userform.controls.escort_secgls.dirty || userform.controls.escort_secgls.touched)"></p-message>
+                        </div>                         </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="escort_hsecbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.escort_hsecbys.errors && (submitted || userform.controls.escort_hsecbys.dirty || userform.controls.escort_hsecbys.touched)"></p-message>
+                        </div>                         </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="escort_hsegls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.escort_hsegls.errors && (submitted || userform.controls.escort_hsegls.dirty || userform.controls.escort_hsegls.touched)"></p-message>
+                        </div>                         </div>
+                </div>
+            </div>
+          </div>
+          <div class="row p-2">
+            <div class="col-sm-2 pt-2">
+                Stipend
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="stipend_prebys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.stipend_prebys.errors && (submitted || userform.controls.stipend_prebys.dirty || userform.controls.stipend_prebys.touched)"></p-message>
+                        </div>                       </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="stipend_pregls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.stipend_pregls.errors && (submitted || userform.controls.stipend_pregls.dirty || userform.controls.stipend_pregls.touched)"></p-message>
+                        </div>                       </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="stipend_elebys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.stipend_elebys.errors && (submitted || userform.controls.stipend_elebys.dirty || userform.controls.stipend_elebys.touched)"></p-message>
+                        </div>                       </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="stipend_elegls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.stipend_elegls.errors && (submitted || userform.controls.stipend_elegls.dirty || userform.controls.stipend_elegls.touched)"></p-message>
+                        </div>                       </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="stipend_uppbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.stipend_uppbys.errors && (submitted || userform.controls.stipend_uppbys.dirty || userform.controls.stipend_uppbys.touched)"></p-message>
+                        </div>                       </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="stipend_uppgls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.stipend_uppgls.errors && (submitted || userform.controls.stipend_uppgls.dirty || userform.controls.stipend_uppgls.touched)"></p-message>
+                        </div>                       </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="stipend_secbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.stipend_secbys.errors && (submitted || userform.controls.stipend_secbys.dirty || userform.controls.stipend_secbys.touched)"></p-message>
+                        </div>                       </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="stipend_secgls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.stipend_secgls.errors && (submitted || userform.controls.stipend_secgls.dirty || userform.controls.stipend_secgls.touched)"></p-message>
+                        </div>                       </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="stipend_hsecbys"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.stipend_hsecbys.errors && (submitted || userform.controls.stipend_hsecbys.dirty || userform.controls.stipend_hsecbys.touched)"></p-message>
+                        </div>                       </div>
+                    <div class="col-sm-6">
+                        <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="stipend_hsegls"   maxlength="3"/>
+                        <div class="ui-grid-col-12">
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.stipend_hsegls.errors && (submitted || userform.controls.stipend_hsegls.dirty || userform.controls.stipend_hsegls.touched)"></p-message>
+                        </div>                       </div>
+                </div>
+            </div>
+          </div><hr/>
+<!-- <div  *ngIf="userLoginId"> -->
+    <!-- <div>
+         <div class="pt-2">
+          <div class="backclr-grn font-16">
+            RECEIPTS AND EXPENDITURE GRANTS RECIVED BY THE SCHOOL
+          </div>
+          <div class="font_sizes_colors">
+            School Funds recived excluding MDM for Elementary School/Sections(Govt and Aided Schools)
+           </div>
+          <div class="row p-3">
+            <div class="col-sm-6">
+                School Grant
+            </div>
+            <div class="col-sm-3 font-weight-bold text-center">
+                Receipt(in Rs.)
+            </div>
+            <div class="col-sm-3 font-weight-bold text-center">
+                Expenditure(in Rs.)
+            </div>
+         </div>
+         <div class="row p-3">
+            <div class="col-sm-6">
+                School Development Grant(Under SSA)
+            </div>
+            <div class="col-sm-3 font-weight-bold">
+                <input pInputText type="text"  pKeyFilter="pnum" class="form-control" (change)="development_receipt($event.target.value)" formControlName="ssadevep_recept"  maxlength="6"/>
+                <div class="ui-grid-col-12">
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssadevep_recept.errors && (submitted || userform.controls.ssadevep_recept.dirty || userform.controls.ssadevep_recept.touched)"></p-message>
+                </div>     
+            </div>
+            <div class="col-sm-3 font-weight-bold">
+                <input pInputText type="text" pKeyFilter="pnum" class="form-control"  (change)="development_expenditure($event.target.value)"  formControlName="ssadevep_expdtre" placeholder="Required"  maxlength="6"/>
+                <div class="ui-grid-col-12">
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssadevep_expdtre.errors && (submitted || userform.controls.ssadevep_expdtre.dirty || userform.controls.ssadevep_expdtre.touched)"></p-message>
+                </div>         
+                <p-message severity="error"   *ngIf="development_ssa" text="Number Should Not More Than Total Number Of Receipt"></p-message>
+            </div>
+         </div>
+         <div class="row p-3">
+            <div class="col-sm-6">
+                School Maintanance Grant(Under SSA)
+            </div>
+            <div class="col-sm-3 font-weight-bold">
+                <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="ssamntn_recept" (change)="Maintanance_receipt($event.target.value)" placeholder="Required" maxlength="6"/>
+                <div class="ui-grid-col-12">
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssamntn_recept.errors && (submitted || userform.controls.ssamntn_recept.dirty || userform.controls.ssamntn_recept.touched)"></p-message>
+                </div>            </div>
+            <div class="col-sm-3 font-weight-bold">
+                <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="ssamntn_expdtre" (change)="Maintanance_expenditure($event.target.value)" placeholder="Required" maxlength="6"/>
+                <div class="ui-grid-col-12">
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssamntn_expdtre.errors && (submitted || userform.controls.ssamntn_expdtre.dirty || userform.controls.ssamntn_expdtre.touched)"></p-message>
+                </div>     
+                <p-message severity="error"   *ngIf="Maintanance_ssa" text="Number Should Not More Than Total Number Of Receipt"></p-message>
+            </div>
+         </div>
+         <div class="row p-3">
+            <div class="col-sm-6">
+                TLM/Teachers granr(Under SSA)
+            </div>
+            <div class="col-sm-3 font-weight-bold">
+                <input pInputText type="text"  pKeyFilter="pnum"class="form-control" (change)="TLM_receipt($event.target.value)" formControlName="ssatlm_recept" placeholder="Required" maxlength="6"/>
+                <div class="ui-grid-col-12">
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssatlm_recept.errors && (submitted || userform.controls.ssatlm_recept.dirty || userform.controls.ssatlm_recept.touched)"></p-message>
+                </div>            </div>
+            <div class="col-sm-3 font-weight-bold">
+                <input pInputText type="text"  pKeyFilter="pnum"class="form-control" (change)="TLM_expenditure($event.target.value)" formControlName="ssatlm_expdtre" placeholder="Required" maxlength="6"/>
+                <div class="ui-grid-col-12">
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssatlm_expdtre.errors && (submitted || userform.controls.ssatlm_expdtre.dirty || userform.controls.ssatlm_expdtre.touched)"></p-message>
+                </div>  
+                 <p-message severity="error"   *ngIf="teachers_ssa" text="Number Should Not More Than Total Number Of Receipt"></p-message>
+            </div>
+         </div>
+
+
+         <hr/>
+         </div>
+
+        <div  class="pt-2">
+         <div class="font_sizes_colors">
+            Grants recived by school & expenditure (Secondary & Higher secondary Schools/Sections)(Govt Aided Schools)
+           </div>
+           <hr/>
+           <div class="row p-3">
+            <div class="col-sm-6">
+            Details Of School Level Grants
+            </div>
+            <div class="col-sm-3 font-weight-bold text-center">
+                Receipt(in Rs.)
+            </div>
+            <div class="col-sm-3 font-weight-bold text-center">
+                Expenditure(in Rs.)
+            </div>
+         </div>
+         <div class="row p-3">
+            <div class="col-sm-6">
+                Civil Works
+            </div>
+            <div class="col-sm-3 font-weight-bold">
+                <input pInputText type="text" pKeyFilter="pnum" class="form-control" (change)="Civil_Works_recept($event.target.value)"  formControlName="ssacivil_recept" placeholder="Required" maxlength="6"/>
+                <div class="ui-grid-col-12">
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssacivil_recept.errors && (submitted || userform.controls.ssacivil_recept.dirty || userform.controls.ssacivil_recept.touched)"></p-message>
+                </div>             </div>
+            <div class="col-sm-3 font-weight-bold">
+                <input pInputText type="text" pKeyFilter="pnum" class="form-control" (change)="Civil_Works_expenture($event.target.value)"  formControlName="ssacivil_expdtre" placeholder="Required" maxlength="6"/>
+                <div class="ui-grid-col-12">
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssacivil_expdtre.errors && (submitted || userform.controls.ssacivil_expdtre.dirty || userform.controls.ssacivil_expdtre.touched)"></p-message>
+                </div>          
+                <p-message severity="error"   *ngIf="Civil_Works" text="Number Should Not More Than Total Number Of Receipt"></p-message>
+            </div>
+         </div>
+         <div class="row p-3">
+            <div class="col-sm-6">
+                Annual School Grant(recurring)
+            </div>
+            <div class="col-sm-3 font-weight-bold">
+                <input pInputText type="text" pKeyFilter="pnum" class="form-control"  (change)="Annual_recept($event.target.value)"  formControlName="ssaannual_recept" placeholder="Required" maxlength="6"/>
+                <div class="ui-grid-col-12">
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssaannual_recept.errors && (submitted || userform.controls.ssaannual_recept.dirty || userform.controls.ssaannual_recept.touched)"></p-message>
+                </div>         </div>
+            <div class="col-sm-3 font-weight-bold">
+                <input pInputText type="text" pKeyFilter="pnum" class="form-control"  (change)="Annual_expenture($event.target.value)"  formControlName="ssaannual_expdtre" placeholder="Required" maxlength="6"/>
+                <div class="ui-grid-col-12">
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssaannual_expdtre.errors && (submitted || userform.controls.ssaannual_expdtre.dirty || userform.controls.ssaannual_expdtre.touched)"></p-message>
+                </div>         
+                <p-message severity="error"   *ngIf="Annual" text="Number Should Not More Than Total Number Of Receipt"></p-message>
+            </div>
+         </div>
+         <div class="row p-3">
+            <div class="col-sm-6">
+                Minor Repair/Maintanance
+            </div>
+            <div class="col-sm-3 font-weight-bold">
+                <input pInputText type="text" pKeyFilter="pnum" class="form-control" (change)="Minor_Repair_recept($event.target.value)" formControlName="ssamnr_recept" placeholder="Required" maxlength="6"/>
+                <div class="ui-grid-col-12">
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssamnr_recept.errors && (submitted || userform.controls.ssamnr_recept.dirty || userform.controls.ssamnr_recept.touched)"></p-message>
+                </div>             </div>
+            <div class="col-sm-3 font-weight-bold">
+                <input pInputText type="text"  class="form-control" (change)="Minor_Repair_expenture($event.target.value)" formControlName="ssamnr_expdtre" placeholder="Required" maxlength="6"/>
+                <div class="ui-grid-col-12">
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssamnr_expdtre.errors && (submitted || userform.controls.ssamnr_expdtre.dirty || userform.controls.ssamnr_expdtre.touched)"></p-message>
+                </div>      
+                <p-message severity="error"   *ngIf="Minor_Repair" text="Number Should Not More Than Total Number Of Receipt"></p-message>
+            </div>
+         </div>
+         <div class="row p-3">
+            <div class="col-sm-6">
+                Repair and Replacement Of Laboratry equipments, Purchase of laboratry Consuamble Sand articles etc.
+            </div>
+            <div class="col-sm-3 font-weight-bold">
+                <input pInputText type="text" pKeyFilter="pnum" class="form-control" (change)="Repair_recept($event.target.value)" formControlName="ssarpr_recept" placeholder="Required" maxlength="6"/>
+                <div class="ui-grid-col-12">
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssarpr_recept.errors && (submitted || userform.controls.ssarpr_recept.dirty || userform.controls.ssarpr_recept.touched)"></p-message>
+                </div>             </div>
+            <div class="col-sm-3 font-weight-bold">
+                <input pInputText type="text" pKeyFilter="pnum" class="form-control" (change)="Repair_expenture($event.target.value)" formControlName="ssarpr_expdtre" placeholder="Required" maxlength="6"/>
+                <div class="ui-grid-col-12">
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssarpr_expdtre.errors && (submitted || userform.controls.ssarpr_expdtre.dirty || userform.controls.ssarpr_expdtre.touched)"></p-message>
+                </div>           
+                <p-message severity="error"   *ngIf="Repair" text="Number Should Not More Than Total Number Of Receipt"></p-message>
+            </div>
+         </div>
+         <div class="row p-3">
+            <div class="col-sm-6">
+                Purchase Of Books, Periodicals, Newspaper, etc..
+            </div>
+            <div class="col-sm-3 font-weight-bold">
+                <input pInputText type="text" pKeyFilter="pnum" class="form-control" (change)="Periodicals_recept($event.target.value)" formControlName="ssapur_recept" placeholder="Required" maxlength="6"/>
+                <div class="ui-grid-col-12">
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssapur_recept.errors && (submitted || userform.controls.ssapur_recept.dirty || userform.controls.ssapur_recept.touched)"></p-message>
+                </div>             </div>
+            <div class="col-sm-3 font-weight-bold">
+                <input pInputText type="text" pKeyFilter="pnum" class="form-control" (change)="Periodicals_expenture($event.target.value)" formControlName="ssapur_expdtre" placeholder="Required" maxlength="6"/>
+                <div class="ui-grid-col-12">
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssapur_expdtre.errors && (submitted || userform.controls.ssapur_expdtre.dirty || userform.controls.ssapur_expdtre.touched)"></p-message>
+                </div>          
+                <p-message severity="error"   *ngIf="Periodicals" text="Number Should Not More Than Total Number Of Receipt"></p-message>
+            </div>
+         </div>
+         <div class="row p-3">
+            <div class="col-sm-6">
+                Grant For Meeting Water, telephone and electric charges.
+            </div>
+            <div class="col-sm-3 font-weight-bold">
+                <input pInputText type="text" pKeyFilter="pnum" class="form-control" (change)="telephone_recept($event.target.value)" formControlName="ssametwtr_recept" placeholder="Required" maxlength="6"/>
+                <div class="ui-grid-col-12">
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssametwtr_recept.errors && (submitted || userform.controls.ssametwtr_recept.dirty || userform.controls.ssametwtr_recept.touched)"></p-message>
+                </div>              </div>
+            <div class="col-sm-3 font-weight-bold">
+                <input pInputText type="text" pKeyFilter="pnum" class="form-control" (change)="telephone_expenture($event.target.value)" formControlName="ssametwtr_expdtre" placeholder="Required" maxlength="6"/>
+                <div class="ui-grid-col-12">
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssametwtr_expdtre.errors && (submitted || userform.controls.ssametwtr_expdtre.dirty || userform.controls.ssametwtr_expdtre.touched)"></p-message>
+                </div>            
+                <p-message severity="error"   *ngIf="telephone" text="Number Should Not More Than Total Number Of Receipt"></p-message>
+            </div>
+         </div>
+         <div class="row p-3">
+            <div class="col-sm-6">
+                Others
+            </div>
+            <div class="col-sm-3 font-weight-bold">
+                <input pInputText type="text" pKeyFilter="pnum" class="form-control" (change)="others_recept($event.target.value)" formControlName="ssaoth_recept" placeholder="Required" maxlength="6"/>
+                <div class="ui-grid-col-12">
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssaoth_recept.errors && (submitted || userform.controls.ssaoth_recept.dirty || userform.controls.ssaoth_recept.touched)"></p-message>
+                </div>     
+             </div>
+            <div class="col-sm-3 font-weight-bold">
+                <input pInputText type="text" pKeyFilter="pnum" class="form-control"  (change)="others_expenture($event.target.value)" formControlName="ssaoth_expdtre" placeholder="Required" maxlength="6"/>
+                <div class="ui-grid-col-12">
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssaoth_expdtre.errors && (submitted || userform.controls.ssaoth_expdtre.dirty || userform.controls.ssaoth_expdtre.touched)"></p-message>
+                </div>     
+                <p-message severity="error"   *ngIf="otherss" text="Number Should Not More Than Total Number Of Receipt"></p-message>
+             </div>  
+         </div>
+         <div class="row p-3">
+            <div class="col-sm-6">
+                Total(Grant at the school level)
+            </div>
+            <div class="col-sm-3 font-weight-bold">
+                <input pInputText type="text" pKeyFilter="pnum" class="form-control" (change)="Total_recept($event.target.value)" formControlName="ssatot_recept" placeholder="Required" maxlength="6"/>
+                <div class="ui-grid-col-12">
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssatot_recept.errors && (submitted || userform.controls.ssatot_recept.dirty || userform.controls.ssatot_recept.touched)"></p-message>
+                </div>              </div>
+            <div class="col-sm-3 font-weight-bold">
+                <input pInputText type="text" pKeyFilter="pnum" class="form-control" (change)="Total_expent($event.target.value)" formControlName="ssatot_expdtre" placeholder="Required" maxlength="6"/>
+                <div class="ui-grid-col-12">
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssatot_expdtre.errors && (submitted || userform.controls.ssatot_expdtre.dirty || userform.controls.ssatot_expdtre.touched)"></p-message>
+                </div>             
+                <p-message severity="error"   *ngIf="Total" text="Number Should Not More Than Total Number Of Receipt"></p-message>
+            </div>
+         </div>
+
+        <hr/>
+        </div>
+    </div> -->
+
+    <div>
+            <div class="font_sizes_colors">
+                <!-- 8.1 -->
+                Grants recived by school & expenditure (Govt. Schools & Aided)
+            </div>
+            <hr/>
+            <div class="row p-3">
+                <div class="col-sm-6">
+                Grants Under samagra Shiksha
+                </div>
+                <div class="col-sm-3 font-weight-bold text-center">
+                    Receipt(in Rs.)
+                </div>
+                <div class="col-sm-3 font-weight-bold text-center">
+                    Expenditure(in Rs.)
+                </div>
+            </div> 
+            <div class="row p-3">
+                <div class="col-sm-6">
+                    Composite Schools Grants
+                </div>
+                <div class="col-sm-3 font-weight-bold">
+                    <input pInputText type="text" pKeyFilter="pnum" class="form-control" (change)="schGrantsCheck()" formControlName="ssacmpste_recept" placeholder="Required"  maxlength="7"/>
+                    <div class="ui-grid-col-12">
+                        <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssacmpste_recept.errors && (submitted || userform.controls.ssacmpste_recept.dirty || userform.controls.ssacmpste_recept.touched)"></p-message>
+                    </div>                      </div>
+                <div class="col-sm-3 font-weight-bold">
+                    <input pInputText type="text"pKeyFilter="pnum"  class="form-control"(change)="schGrantsCheck()" formControlName="ssacmpste_expdtre" placeholder="Required"  maxlength="7"/>
+                    <div class="ui-grid-col-12">
+                        <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssacmpste_recept.value < userform.controls.ssacmpste_expdtre.errors && (submitted || userform.controls.ssacmpste_expdtre.dirty || userform.controls.ssacmpste_expdtre.touched)"></p-message>    
+                    </div>     
+                    <p-message severity="error"   *ngIf="!isValidComposite" text="Number Should Not More Than Total Number Of Receipt"></p-message>
+                </div>
+            </div>
+            <div class="row p-3">
+                <div class="col-sm-6">
+                    Library Grant
+                </div>
+                <div class="col-sm-3 font-weight-bold">
+                    <input pInputText type="text"pKeyFilter="pnum"  class="form-control"  (change)="libGrantsCheck()"  formControlName="ssalibg_recept" placeholder="Required"  maxlength="7"/>
+                    <div class="ui-grid-col-12">
+                        <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssalibg_recept.errors && (submitted || userform.controls.ssalibg_recept.dirty || userform.controls.ssalibg_recept.touched)"></p-message>
+                    </div>                  </div>
+                <div class="col-sm-3 font-weight-bold">
+                    <input pInputText type="text" pKeyFilter="pnum" class="form-control" (change)="libGrantsCheck()" formControlName="ssalibg_expdtre" placeholder="Required"  maxlength="7"/>
+                    <div class="ui-grid-col-12">
+                        <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssalibg_expdtre.errors && (submitted || userform.controls.ssalibg_expdtre.dirty || userform.controls.ssalibg_expdtre.touched)"></p-message>
+                       
+                    </div>      
+                    <p-message severity="error"   *ngIf="!isValidLibrary" text="Number Should Not More Than Total Number Of Receipt"></p-message>
+                </div>
+            </div> 
+            <div class="row p-3">
+                <div class="col-sm-6">
+                    Grant sports and physical education
+                </div>
+                <div class="col-sm-3 font-weight-bold">
+                    <input pInputText type="text"pKeyFilter="pnum"  class="form-control"   (change)="sportsGrantsCheck()" formControlName="ssaped_recept" placeholder="Required"  maxlength="7"/>
+                    <div class="ui-grid-col-12">
+                        <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssaped_recept.errors && (submitted || userform.controls.ssaped_recept.dirty || userform.controls.ssaped_recept.touched)"></p-message>
+                    </div>                  </div>
+                <div class="col-sm-3 font-weight-bold">
+                    <input pInputText type="text" pKeyFilter="pnum" class="form-control"  (change)="sportsGrantsCheck()" formControlName="ssaped_expdtre" placeholder="Required"  maxlength="7"/>
+                    <div class="ui-grid-col-12">
+                        <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssaped_expdtre.errors && (submitted || userform.controls.ssaped_expdtre.dirty || userform.controls.ssaped_expdtre.touched)"></p-message>
+                        
+                    </div>                
+                    <p-message severity="error"   *ngIf="!isValidSports" text="Number Should Not More Than Total Number Of Receipt"></p-message>
+
+                </div>   
+             </div>
+            <div class="row p-3">
+                <div class="col-sm-6">
+                    Grant for media Community mobilization
+                </div>
+                <div class="col-sm-3 font-weight-bold">
+                    <input pInputText type="text" pKeyFilter="pnum" class="form-control" (change)="mediaGrantsCheck()" formControlName="ssamedia_recept" placeholder="Required"  maxlength="7"/>
+                    <div class="ui-grid-col-12">
+                        <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssamedia_recept.errors && (submitted || userform.controls.ssamedia_recept.dirty || userform.controls.ssamedia_recept.touched)"></p-message>
+                    </div>                   </div>
+                <div class="col-sm-3 font-weight-bold">
+                    <input pInputText type="text"  pKeyFilter="pnum"class="form-control"(change)="mediaGrantsCheck()"  formControlName="ssamedia_expdtre" placeholder="Required"  maxlength="7"/>
+                    <div class="ui-grid-col-12">
+                        <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssamedia_expdtre.errors && (submitted || userform.controls.ssamedia_expdtre.dirty || userform.controls.ssamedia_expdtre.touched)"></p-message>
+                       
+
+                    </div>    
+                         
+                    <p-message severity="error"   *ngIf="!isValidMedia" text="Number Should Not More Than Total Number Of Receipt"></p-message>
+
+                </div>   
+            </div>
+            <div class="row p-3">
+                <div class="col-sm-6">
+                    Grant for training of SMC/SMDC
+                </div>
+                <div class="col-sm-3 font-weight-bold">
+                    <input pInputText type="text" pKeyFilter="pnum" class="form-control" (change)="smcGrantsCheck()" formControlName="ssatrngsmcdc_recept" placeholder="Required"  maxlength="7"/>
+                    <div class="ui-grid-col-12">
+                        <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssatrngsmcdc_recept.errors && (submitted || userform.controls.ssatrngsmcdc_recept.dirty || userform.controls.ssatrngsmcdc_recept.touched)"></p-message>
+                    </div>                    </div>
+                <div class="col-sm-3 font-weight-bold">
+                    <input pInputText type="text" pKeyFilter="pnum" class="form-control" (change)="smcGrantsCheck()" formControlName="ssatrngsmcdc_expdtre" placeholder="Required"  maxlength="7"/>
+                    <div class="ui-grid-col-12">
+                        <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssatrngsmcdc_expdtre.errors && (submitted || userform.controls.ssatrngsmcdc_expdtre.dirty || userform.controls.ssatrngsmcdc_expdtre.touched)"></p-message>
+                      
+
+                    </div>         
+                    <p-message severity="error"   *ngIf="!isValidSmc" text="Number Should Not More Than Total Number Of Receipt"></p-message>
+
+                 </div>
+            </div>
+
+
+      
+
+
+
+            <div class="row p-3">
+                <div class="col-sm-6">
+                    Grant for support at preschool Level(Only for primary School/Section )
+                </div>
+                <div class="col-sm-3 font-weight-bold">
+                    <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="ssapreschl_recept" (change)="preschoolGrantsCheck()" placeholder="Required"  maxlength="7"/>
+                    <div class="ui-grid-col-12">
+                        <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssapreschl_recept.errors && (submitted || userform.controls.ssapreschl_recept.dirty || userform.controls.ssapreschl_recept.touched)"></p-message>
+                    </div>                   </div>
+                <div class="col-sm-3 font-weight-bold">
+                    <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="ssapreschl_expdtre" (change)="preschoolGrantsCheck()" placeholder="Required"  maxlength="7"/>
+                    <div class="ui-grid-col-12">
+                        <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssapreschl_expdtre.errors && (submitted || userform.controls.ssapreschl_expdtre.dirty || userform.controls.ssapreschl_expdtre.touched)"></p-message>
+                        
+
+                    
+                    </div>            
+                    <p-message severity="error"   *ngIf="!isValidPreschool" text="Number Should Not More Than Total Number Of Receipt"></p-message>
+
+                </div>
+            </div>    
+            
+            <div class="row p-3">
+                <div class="col-sm-6">
+                    Grant for Major Repairs
+                </div>
+                <div class="col-sm-3 font-weight-bold">
+                    <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="ssagrntmjrrpr_recept" (change)="majorRepairsGrantsCheck()" placeholder="Required"  maxlength="7"/>
+                    <div class="ui-grid-col-12">
+                        <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssagrntmjrrpr_recept.errors && (submitted || userform.controls.ssagrntmjrrpr_recept.dirty || userform.controls.ssagrntmjrrpr_recept.touched)"></p-message>
+                    </div>                   </div>
+                <div class="col-sm-3 font-weight-bold">
+                    <input pInputText type="text" pKeyFilter="pnum" class="form-control" formControlName="ssagrntmjrrpr_expdtre" (change)="majorRepairsGrantsCheck()" placeholder="Required"  maxlength="7"/>
+                    <div class="ui-grid-col-12">
+                        <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ssagrntmjrrpr_expdtre.errors && (submitted || userform.controls.ssagrntmjrrpr_expdtre.dirty || userform.controls.ssagrntmjrrpr_expdtre.touched)"></p-message>
+                        
+
+                    </div>            
+                    <p-message severity="error"   *ngIf="!isValidMajorRepair" text="Number Should Not More Than Total Number Of Receipt"></p-message>
+
+                </div>
+            </div>  
+        <hr/>
+    </div>
+<!-- </div> -->
+
+
+         <div class="font_sizes_colors row">
+            <div class="col-sm-7"> 
+                <!-- 8.2 -->
+            Financial Assistance Recived by School from NGO/PSU 
+            </div>
+            <div class="col-sm-5"> 
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label  >Name</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <label  >Amount (in Rs.)</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr/>
+         <div class="row p-3">
+             <div class="col-sm-4">
+                <!-- <div class="col-sm-4"> -->
+                    NON - Govt. Organization (NGO)           
+                <!-- </div> -->
+            </div>
+         <div class="col-sm-8">
+            <div class="row">
+                <div class="col-sm-2 font-weight-bold">
+                    <p-radioButton  name="ngo_fince" formControlName="ngo_fince" value="1" label="Yes"  (click)="ChooseNGO(userform.value.ngo_fince)" inputId="opt1" ></p-radioButton>
+                </div>
+                <div class="col-sm-2 font-weight-bold">
+                    <p-radioButton name="ngo_fince" formControlName="ngo_fince" value="2" label="No" (click)="ChooseNGO(userform.value.ngo_fince)" inputId="opt1"  ></p-radioButton>
+                </div>
+                <div class="col-sm-8">
+                    <div class="row" *ngIf="userform.value.ngo_fince == '1'">
+                        <div class="col-sm-6 font-weight-bold text-center">
+                            <input id="input" type="text" class="col-sm-12" name="ngo_name"  formControlName="ngo_name" class="form-control" pInputText >
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ngo_name.errors && (submitted || userform.controls.ngo_name.dirty || userform.controls.ngo_name.touched)"></p-message>
+                        </div>
+                        <div class="col-sm-6 font-weight-bold text-center">
+                            <input id="input" type="text"  class="col-sm-12" name="ngo_amt"    formControlName="ngo_amt" class="form-control" pInputText maxlength="6" >
+                            <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ngo_amt.errors && (submitted || userform.controls.ngo_amt.dirty || userform.controls.ngo_amt.touched)"></p-message>
+                        </div>
+                    </div>
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.ngo_fince.errors && (submitted || userform.controls.ngo_fince.dirty || userform.controls.ngo_fince.touched)"></p-message>
+                </div>
+            </div>
+         </div>
+    </div>
+
+
+
+
+         <div class="row p-3"><div class="col-sm-4">
+            <!-- <div class="col-sm-4"> -->
+                Public Sector Undertaken(PSU)
+            <!-- </div> -->
+         </div>
+         <div class="col-sm-8">
+            <div class="row">
+                <div class="col-sm-2 font-weight-bold">
+                    <p-radioButton name="psu_fince"   value="1"  formControlName="psu_fince" (click)="ChoosePSU(userform.value.psu_fince)" label="Yes"  inputId="opt1"  ></p-radioButton>
+                </div>
+                <div class="col-sm-2 font-weight-bold">
+                    <p-radioButton name="psu_fince" formControlName="psu_fince" value="2"(click)="ChoosePSU(userform.value.psu_fince)" label="No" inputId="hideDivNGO"  ></p-radioButton>
+                </div>
+                <div class="col-sm-8">
+
+                <div class="row" *ngIf="userform.value.psu_fince == '1'">
+                 <div class="col-sm-6 font-weight-bold text-center">
+                     <input id="input" type="text" size="10" formControlName="psu_name" class="form-control" pInputText >
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.psu_name.errors && (submitted || userform.controls.psu_name.dirty || userform.controls.psu_name.touched)"></p-message>
+                </div>
+                <div class="col-sm-6 font-weight-bold text-center">
+                     <input id="input" type="text" size="10" class="form-control"   pInputText  formControlName="psu_amt" maxlength="6" >
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.psu_amt.errors && (submitted || userform.controls.psu_amt.dirty || userform.controls.psu_amt.touched)"></p-message>
+                </div>
+                 </div>  
+                 <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.psu_fince.errors && (submitted || userform.controls.psu_fince.dirty || userform.controls.psu_fince.touched)"></p-message>
+                 </div>
+                </div>
+         </div>
+        </div>
+
+
+
+
+
+         <div class="row p-3"><div class="col-sm-4">
+            <!-- <div class="col-sm-4"> -->
+                Community
+            <!-- </div> -->
+         </div>
+         <div class="col-sm-8">
+            <div class="row">
+                <div class="col-sm-2 font-weight-bold">
+                    <p-radioButton name="Community" value="1" label="Yes" name="Community" inputId="opt1" (click)="Choosecommunity(userform.value.comu_fince)" formControlName="comu_fince" ></p-radioButton>
+                </div>
+                <div class="col-sm-2 font-weight-bold">
+                    <p-radioButton name="Community" value="2" label="No" name="Community" inputId="opt1"  (click)="Choosecommunity(userform.value.comu_fince)" formControlName="comu_fince" ></p-radioButton>
+                </div>
+                <div class="col-sm-8">
+                <div class="row"*ngIf="userform.value.comu_fince == '1'">
+                 <div class="col-sm-6 font-weight-bold text-center">
+                    <!-- <label>Name</label> -->
+                    <input id="input" type="text" size="10"  class="form-control" pInputText formControlName="comu_name">
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.comu_name.errors && (submitted || userform.controls.comu_name.dirty || userform.controls.comu_name.touched)"></p-message>
+
+                </div>
+                <div class="col-sm-6 font-weight-bold text-center">
+                    <!-- <label>Amount (in Rs.)</label> -->
+                    <input id="input" type="text" size="10"  class="form-control" pInputText formControlName="comu_amt" maxlength="6" >
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.comu_amt.errors && (submitted || userform.controls.comu_amt.dirty || userform.controls.comu_amt.touched)"></p-message>
+                </div>
+               </div>
+               <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.comu_fince.errors && (submitted || userform.controls.comu_fince.dirty || userform.controls.comu_fince.touched)"></p-message>
+            </div>
+            </div>
+         </div>
+        </div>
+         <div class="row p-3"><div class="col-sm-4">
+            <!-- <div class="col-sm-4"> -->
+                Others
+            <!-- </div> -->
+         </div>
+         <div class="col-sm-8">
+            <div class="row">
+                <div class="col-sm-2 font-weight-bold">
+                    <p-radioButton name="Others" value="1" label="Yes" name="Others"  inputId="opt1" (click)="Chooseother(userform.value.othr_fince)" formControlName="othr_fince" ></p-radioButton>
+                </div>
+                <div class="col-sm-2 font-weight-bold">
+                    <p-radioButton name="Others" value="2" label="No" name="Others" inputId="opt1" (click)="Chooseother(userform.value.othr_fince)" formControlName="othr_fince" ></p-radioButton>
+                </div>
+                <div class="col-sm-8">
+                  <div  class="row" *ngIf="userform.value.othr_fince == '1'">
+                   
+                 <div class="col-sm-6 font-weight-bold text-center">
+                    <!-- <label>Name</label> -->
+                    <input id="input" type="text" size="10"  class="form-control" pInputText formControlName="othr_name">
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.othr_name.errors && (submitted || userform.controls.othr_name.dirty || userform.controls.othr_name.touched)"></p-message>
+
+                </div> 
+                <div class="col-sm-6 font-weight-bold text-center">
+                    <!-- <label>Amount (in Rs.)</label> -->
+                    <input id="input" type="text" size="10"  class="form-control" pInputText formControlName="othr_amt" maxlength="6" >
+                    <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.othr_amt.errors && (submitted || userform.controls.othr_amt.dirty || userform.controls.othr_amt.touched)"></p-message>
+                </div>
+           </div>
+           <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.othr_fince.errors && (submitted || userform.controls.othr_fince.dirty || userform.controls.othr_fince.touched)"></p-message>
+        </div> 
+        </div>
+         </div>
+        </div>
+        <hr/>
+         <div class="font_sizes_colors">
+            Wheather school is maintainimg inventory register for the following :
+        </div>
+        <hr/>
+        <div class="row p-3">
+            <div class="col-sm-6">
+                Computer
+            </div>
+            <div class="col-sm-2 font-weight-bold">
+                <p-radioButton  name="main_com" value="1" formControlName="main_com"  label="Yes" inputId="opt1"></p-radioButton>
+            </div>
+            <div class="col-sm-2 font-weight-bold">
+                <p-radioButton  name="main_com" value="2" formControlName="main_com"  label="No"  inputId="opt1"></p-radioButton>
+            </div>
+              <div class="col-sm-2 font-weight-bold">
+                <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.main_com.errors && (submitted || userform.controls.main_com.dirty || userform.controls.main_com.touched)"></p-message>
+            </div>
+         </div>
+
+         <div class="row p-3">
+            <div class="col-sm-6">
+                Sports Equipments
+            </div>
+            <div class="col-sm-2 font-weight-bold">
+                <p-radioButton name="sprts_equip" formControlName="sprts_equip" value="2"  value="1" label="Yes"  inputId="opt1"></p-radioButton>
+
+            </div>
+            <div class="col-sm-2 font-weight-bold">
+                <p-radioButton name="sprts_equip" formControlName="sprts_equip" value="2" label="No"  inputId="opt1"></p-radioButton>
+            </div>
+            <div class="col-sm-2 font-weight-bold">
+                <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.sprts_equip.errors && (submitted || userform.controls.sprts_equip.dirty || userform.controls.sprts_equip.touched)"></p-message>
+            </div>
+         </div>
+         <div class="row p-3">  
+            <div class="col-sm-6">
+                Library books
+            </div>
+            <div class="col-sm-2 font-weight-bold">
+                <p-radioButton name="lib_boks" formControlName="lib_boks"value="1" label="Yes" inputId="opt14"></p-radioButton>
+             </div>
+            <div class="col-sm-2 font-weight-bold">
+                <p-radioButton name="lib_boks" formControlName="lib_boks"value="2" label="No" inputId="opt13"></p-radioButton>
+            </div>
+            <div class="col-sm-2 font-weight-bold">
+                <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.lib_boks.errors && (submitted || userform.controls.lib_boks.dirty || userform.controls.lib_boks.touched)"></p-message>
+            </div>
+         </div>
+
+        
+         <hr/>
+         <div class="font_sizes_colors">
+            PGI Indicators
+        </div>
+        <hr/>
+        <div class="row p-3">
+            <div class="col-sm-6">
+                Has Evalution Been Completed
+            </div>
+            <div class="col-sm-2 font-weight-bold">
+                 <p-radioButton name="schlevl_cmp"   formControlName="schlevl_cmp" value="1" label="Yes"   inputId="opt1"></p-radioButton>
+              </div>
+            <div class="col-sm-2 font-weight-bold">
+                <p-radioButton name="schlevl_cmp" formControlName="schlevl_cmp" value="2" label="No"  inputId="opt12"></p-radioButton>
+            </div>
+            <div class="col-sm-2 font-weight-bold">
+                <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.schlevl_cmp.errors && (submitted || userform.controls.schlevl_cmp.dirty || userform.controls.schlevl_cmp.touched)"></p-message>
+            </div>
+         </div>
+         <div class="row p-3">
+            <div class="col-sm-6">
+               Has School Made Improvements Plans On The Basics Of Evaluation ?
+            </div>
+            <div class="col-sm-2 font-weight-bold">
+                 <p-radioButton name="schl_imp" formControlName="schl_imp" value="1" label="Yes"   inputId="opt1"></p-radioButton>
+             </div>
+            <div class="col-sm-2 font-weight-bold">
+                <p-radioButton name="schl_imp" formControlName="schl_imp" value="2" label="No"   inputId="opt1"></p-radioButton>
+            </div>
+            <div class="col-sm-2 font-weight-bold">
+                <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.schl_imp.errors && (submitted || userform.controls.schl_imp.dirty || userform.controls.schl_imp.touched)"></p-message>
+            </div>
+         </div>
+         <div class="row p-3">
+            <div class="col-sm-6">
+                 Is The School Registred Under PFMS ?
+            </div>
+            <div class="col-sm-2 font-weight-bold">
+                 <p-radioButton name="schlreg_pfms" formControlName="schlreg_pfms"  value="1" label="Yes"  inputId="opt1"></p-radioButton>
+             </div>
+            <div class="col-sm-2 font-weight-bold">
+                 <p-radioButton name="schlreg_pfms" formControlName="schlreg_pfms"  value="2" label="No"  inputId="opt1"></p-radioButton>
+             </div>
+             <div class="col-sm-2 font-weight-bold">
+                <p-message severity="error"  text="This Field is required" *ngIf="userform.controls.schlreg_pfms.errors && (submitted || userform.controls.schlreg_pfms.dirty || userform.controls.schlreg_pfms.touched)"></p-message>
+            </div>
+         </div>
+
+
+
+
+          <div class="text-center mt-3">
+            <button type="submit" class="btn btn-success" (click)="save()" >Save</button>
+          
+            <button type="submit" class="btn btn-light btn-border" >Cancel</button>
+          </div>
+          <!-- <div class="text-center mt-3">
+            <button type="submit" class="btn btn-success" (click)="save()" [disabled]="this.schoolfundsDetailsDiable.part_7 == 2">Save</button>
+            <button type="submit" class="btn btn-success" (click)="onFinalSubmit()" style="margin-left:15px;" [disabled]="schoolfundsDetailsDiable.part_7 == 2">Final Submit</button>
+            <button type="submit" class="btn btn-light btn-border" [disabled]="schoolfundsDetailsDiable.part_7 == 2">Cancel</button>
+          </div> -->
+          <p-confirmDialog header="Confirmation" [style]="{width: '50vw'}"></p-confirmDialog>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  </p-card>
+  </div>
+  

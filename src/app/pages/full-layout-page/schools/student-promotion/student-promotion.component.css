@@ -1,0 +1,48 @@
+.body .ui-picklist .ui-picklist-caption 
+{
+    margin-top: 10px;
+}
+.row.col-sm-12.col-md-12.float-center
+{
+    padding-left: 70%;
+    margin-top: 2%;
+}
+
+.col-sm-1.col-md-1 {
+    padding-right: 0px;
+    margin-right: 42px;
+}
+.ui-picklist.ui-picklist-responsive .ui-picklist-buttons {
+    width: 5%;
+}
+.medium {
+    margin-right : -2px;
+}
+
+.buttom-bottom {
+    position: absolute;
+    margin-top: 650px;
+    margin-left: 500px;
+}
+
+.marg-right-0 {
+    margin-right: 0 !important;
+}
+
+.fnt-size {
+    color: #333 !important;
+    background-color: #ffffff !important;
+    margin-left: 12px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    
+}
+
+.group-clss {
+    background-color: unset;
+    border: unset;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

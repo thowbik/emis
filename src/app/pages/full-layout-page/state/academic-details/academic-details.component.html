@@ -1,0 +1,115 @@
+<div class="outer-layout" style="padding-top:10px;">
+  <div class="breadcrumbs c-black">
+    <h6 classs="url"><span class="flex-gap-right">School</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right">School Profile</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right" (click)='goBack()'>School Academic Details</span><span *ngIf="districtName"><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i>{{districtName}}</span>
+    </h6>
+ </div>
+</div>
+<div class="container-fluid" *ngIf="pageStage === 1">
+  <div class="main-body-content m-2">  
+    <p-table #dt  [columns]="dataHeader" [value]="academicData" [resizableColumns]="true" [lazy]="false"
+    [globalFilterFields]="['district_name','stu_councel']" >
+        <ng-template let-academic pTemplate="caption">
+          <div class="row p-1">
+            <div class="col-sm-12 col-md-12">
+                <div class="text-lg-left mt-3">
+                  <h5>School Academic Details - District Wise</h5>
+                </div>
+            </div>
+            </div>
+            <div class="row">
+            <div class="col-md-9"></div>
+            <div class="col-sm-3 p-1">
+                <div class="text-right">
+                     <input type="text" pInputText size="30" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'equals')" style="width:auto">
+                </div>              
+             </div>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-academic>
+          <tr class="text-center">
+            <th style="width:4em;">S.No</th>
+            <th *ngFor="let col of academic" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+              {{col.header}}
+              <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-academic let-rowData let-columns="columns" let-i="rowIndex" >
+          <tr class="text-center" *ngIf="!noDataFound">
+            <td style="width:4em;"> {{i+1}} </td>
+            <td class="text-left"><a href="javascript:void(0)" (click)="getEachAcademicDetails(academic.district_id,academic.district_name)"> {{ academic.district_name}} </a></td>
+            <td> {{ academic.stu_councel}} </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <tr class="text-center" *ngIf="noDataFound" >
+            <td colspan="3"> No Data Found </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div> 
+  </div> 
+  
+  <!-- Stage 2 -->
+
+  <div class="container-fluid" *ngIf="pageStage === 2">
+    <div class="main-body-content m-2">  
+      <p-table #db  [columns]="dataHeader2" [value]="academicDataDisct" [resizableColumns]="true" [paginator]="true" [rows]="10" [lazy]="false"
+      [globalFilterFields]="['block_name','udise_code','school_name','category','low_class','high_class','sch_typ','minority_sch','anganwadi']">
+          <ng-template let-academic pTemplate="caption">
+            <div class="row p-1">
+              <div class="col-sm-12 col-md-12">
+                  <div class="text-lg-left mt-3">
+                    <h5>School Academic Details - Block Wise</h5>
+                  </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-8 col-md-8">
+
+              </div>
+              <div class="col-sm-3 col-md-3 p-1">
+                  <div class="text-right">
+                       <input type="text" pInputText size="30" placeholder="Search" (input)="db.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                  </div>              
+               </div>
+               <div class="col-md-1 flex-row-center-end">
+                <div class="text-right" style="margin-left:-20px;">
+                    <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportSchlExcel()"></i>
+                </div>
+            </div>    
+
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-academic>
+            <tr class="text-center">
+              <th style="width:5em;">S.No</th>
+              <th *ngFor="let col of academic" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-academic let-rowData let-columns="columns" let-i="rowIndex" >
+            <tr class="text-center" *ngIf="!noDataFound">
+              <td style="width:4em;"> {{i+1}} </td>
+              <td class="text-left">{{ academic.block_name}}</td>
+              <td> {{ academic.udise_code}} </td>
+              <td class="text-left"> {{ academic.school_name}} </td>
+              <td class="text-left"> {{ academic.category}} </td>
+              <td> {{ academic.low_class === '13' ? 'Pre-KG' : academic.low_class }} </td>
+              <td> {{ academic.high_class}} </td>
+              <td> {{ academic.sch_typ}} </td>
+              <td> {{ academic.minority_sch  === '1' ? 'Yes' : 'No'}} </td>
+              <td> {{ academic.anganwadi  === '1' ? 'Yes' : 'No'}} </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <tr class="text-left" *ngIf="noDataFound" >
+              <td colspan="10"> No Data Found </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div> 
+    </div>  
+

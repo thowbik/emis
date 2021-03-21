@@ -1,0 +1,65 @@
+<!--left menu section with logo-->
+<!-- <link href="../../../../assets/css/demo1/style.bundle.css" rel="stylesheet" type="text/css" />
+<script src="../../../../assets/js/demo1/scripts.bundle.js" type="text/javascript"></script> -->
+<!-- <app-leftmenu></app-leftmenu> -->
+
+<!-- <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt-content" [ngClass]="{'expandRightSide': !isOpen}">
+    
+    <app-header></app-header>
+    <router-outlet></router-outlet>
+</div> -->
+<!--left menu section with logo-->
+<!-- <link href="../../../../assets/css/demo1/style.bundle.css" rel="stylesheet" type="text/css" />
+<script src="../../../../assets/js/demo1/scripts.bundle.js" type="text/javascript"></script> -->
+<!-- <app-leftmenu></app-leftmenu> -->
+
+<!-- <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt-content" [ngClass]="{'expandRightSide': !isOpen}">
+    
+    <app-header></app-header>
+    <router-outlet></router-outlet>
+</div> -->
+<div>
+    <div class="layout-wrapper" (click)="onLayoutClick()" [ngClass]="{'menu-layout-static': !isOverlay(),'menu-layout-overlay': isOverlay(),
+                                                                        'layout-menu-overlay-active': overlayMenuActive,
+                                                                        'menu-layout-horizontal': isHorizontal(),
+                                                                        'menu-layout-slim': isSlim(),
+                                                                        'layout-menu-static-inactive': staticMenuDesktopInactive,
+                                                                        'layout-menu-static-active': staticMenuMobileActive}">
+                    <!-- <app-leftmenu></app-leftmenu> -->
+      <app-header></app-header>
+    <div >
+        <div class="layout-menu-container" [ngClass]="{'layout-menu-dark':darkMenu}" (click)="onMenuClick($event)">
+            <p-scrollPanel #layoutMenuScroller [style]="{height: '100%' }">
+                <!-- <span style="font-size:50px;background-color: red;">abc</span> -->
+                <div class="menu-scroll-content">
+                    <!-- <app-inline-profile *ngIf="profileMode=='inline'&&!isHorizontal()"></app-inline-profile>  -->
+                    <app-menu [reset]="resetMenu"></app-menu> 
+                </div>
+            </p-scrollPanel>
+        </div>
+        <div class="layout-main">
+            <router-outlet></router-outlet>
+        </div>
+        <div class="layout-mask"></div>
+    </div>
+    <!-- <div *ngIf="emisUserType == 14">
+        <router-outlet></router-outlet>
+    </div> -->
+    <!-- <app-footer></app-footer> -->
+    </div>
+</div>
+<!-- <div *ngIf="emisUserType == 22">
+    <div class="layout-wrapper" (click)="onLayoutClick()">
+      <app-header></app-header>
+    <div>
+        <div class="layout-main">
+            <router-outlet></router-outlet>
+        </div>
+        <div class="layout-mask"></div>
+    </div>
+    </div>
+</div> -->
+
+
+
+

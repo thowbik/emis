@@ -1,0 +1,201 @@
+<div class="outer-layout" style="padding-top:5px;">
+  <div class="breadcrumbs c-black">
+    <h6 classs="url"><span class="flex-gap-right">Timetable</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right">Master Timetable</span></h6>
+  </div>
+</div>
+
+<div class="main-body-content">
+<div class="page-container">
+  <div class="flex-layout-gap">
+    <div class="row"> 
+      <div class="col-md-8">
+   
+        <h3 style="color:green"><strong>Master Timetable </strong></h3>
+   </div>
+   <div class="col-md-4">  
+     <h5 style="color:#39ac39"><strong>School Teachers</strong></h5>
+    <span>
+     <h5 style="color:#ff8000"><strong>Deputation Teachers</strong></h5>
+   </span>
+     <h5 style="color:#9999ff"><strong>Volunteer Teachers</strong></h5>
+     </div>
+   </div>  
+<br>
+<form [formGroup]="classsection">
+    <div class="row">
+      <div class="col-md-3">
+    <div class="form-group row">
+     <!--<label class="col-md-6 col-form-label" for="select2">Select Class</label>-->
+      <div class="col-md-9">
+         <select id="select2" formControlName="class" class="form-control " (change)="onSelection($event.target.value)">
+            <option value="">Select Class</option>  
+          <option *ngFor="let classes of classlist"  [value]="classes.value" >
+                  {{ classes.roman }}
+                  </option>
+        </select>  
+      </div>
+    </div>
+    </div>
+    <div class="col-md-3">
+    <div class="form-group row">
+      <!--<label class="col-md-6 col-form-label" for="select2">Select Section</label>-->
+      <div class="col-md-9">
+        <select id="select2" formControlName="section" class="form-control">
+          <!-- <option value="0">Please select</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option> -->
+          <option value="">Select Section</option>
+          <option *ngFor="let subCategory of assigned_section?.split(', ')"  [value]="subCategory" >
+              {{ subCategory }}
+              </option>
+        </select>
+      </div>
+    </div>
+    </div> 
+    <div class="col-md-2">
+    <button type="button" style="background-color: #065040" class="btn btn-success" (click)="getSection()">Submit</button>
+    </div>
+    </div>
+    </form>
+<br>
+
+<form [formGroup]="timeTable">
+  <table border="1" bordercolor="green" style="border-width:3px"> 
+    <thead>
+        <tr>
+          
+            <th  style="width:10%; background-color: #63978b;color: white;text-align: center;" class="product-name">Day</th>
+           
+            <th   style="width:10%; padding-right: 52px; background-color: #63978b;color: white;text-align: center;" *ngFor="let item of items;">Period {{item}}</th>
+           
+        </tr>
+        </thead>
+        </table>
+    <div formArrayName="timeTableDays" *ngFor="let student of timeTable.get('timeTableDays')['controls'];let i=index">
+      <div [formGroup]="student">
+<table border="1" bordercolor="green" style="border-width:3px">
+    
+    <tbody>
+     
+      <tr>
+        <td style="width:10% ;background-color: #63978b"><b class="form-control form-control-sm"><strong>{{getWeekDay(i,1)}}</strong></b></td>
+        <td class="form-control-sm" [style.background-color]="student.get('p1').value =='999-0' || student.get('p1').value =='null-'||student.get('p1').value =='0-null' || student.get('p1').value =='0-999' ? '#fd397a' :'#065040'">  <select formControlName="p1" label="p1" name="p1" class="form-control ">
+         
+          <option style="font-size: 14px; background-color:#FF0000;  color:white" value="999-0" >Not - Assigned</option>      
+          <option style="font-size: 14px; background-color:#39ac39; color:white" *ngFor="let teacherdata of teacherlist" [value]="teacherdata.id+'-'+teacherdata.u_id">
+            {{ teacherdata.subjects }}- {{ teacherdata.teacher_name }}
+            </option>
+            <option style="font-size: 14px; background-color:#ff8000 ;  color:white" *ngFor="let dteacherdata of deputationteachers"  [value]="dteacherdata.id+'-'+dteacherdata.teacher_code" >
+              {{ dteacherdata.subjects }}- {{ dteacherdata.teacher_name }}
+              </option>  
+            <option style="font-size: 14px; background-color:#9999ff;  color:white" *ngFor="let vteacherdata of volunteerteachers"  [value]="vteacherdata.id+'-'+vteacherdata.teacher_id" >
+              {{ vteacherdata.subjects }}- {{ vteacherdata.teacher_name }}
+              </option>      
+      </select></td>
+        <td class="form-control-md" [style.background-color]="student.get('p2').value =='999-0' || student.get('p2').value =='null-' ||student.get('p2').value =='0-null' ||  student.get('p2').value =='0-999' ? '#fd397a' :'#065040'"> <select formControlName="p2" label="p2" name="p2" class="form-control ">
+            <option  style="font-size: 14px; background-color:#FF0000;  color:white" value="999-0">Not - Assigned</option>   
+            <option style="font-size: 14px; background-color:#39ac39; color:white" *ngFor="let teacherdata of teacherlist" [value]="teacherdata.id+'-'+teacherdata.u_id">
+              {{ teacherdata.subjects }}- {{ teacherdata.teacher_name }}
+              </option>
+              <option style="font-size: 14px; background-color:#ff8000 ;  color:white" *ngFor="let dteacherdata of deputationteachers"  [value]="dteacherdata.id+'-'+dteacherdata.teacher_code" >
+                {{ dteacherdata.subjects }}- {{ dteacherdata.teacher_name }}
+                </option>  
+              <option style="font-size: 14px; background-color:#9999ff;  color:white" *ngFor="let vteacherdata of volunteerteachers"  [value]="vteacherdata.id+'-'+vteacherdata.teacher_id" >
+                {{ vteacherdata.subjects }}- {{ vteacherdata.teacher_name }}
+                </option>    
+      </select></td>
+        <td class="form-control-md" [style.background-color]="student.get('p3').value =='999-0' || student.get('p3').value =='null-'||student.get('p3').value =='0-null' || student.get('p3').value =='0-999' ? '#fd397a' :'#065040'"> <select formControlName="p3" label="p3" name="p3" class="form-control ">
+            <option  style="font-size: 14px; background-color:#FF0000;  color:white" value="999-0">Not - Assigned</option>   
+            <option style="font-size: 14px; background-color:#39ac39; color:white" *ngFor="let teacherdata of teacherlist" [value]="teacherdata.id+'-'+teacherdata.u_id">
+              {{ teacherdata.subjects }}- {{ teacherdata.teacher_name }}
+              </option>
+              <option style="font-size: 14px; background-color:#ff8000 ;  color:white" *ngFor="let dteacherdata of deputationteachers"  [value]="dteacherdata.id+'-'+dteacherdata.teacher_code" >
+                {{ dteacherdata.subjects }}- {{ dteacherdata.teacher_name }}
+                </option>  
+              <option style="font-size: 14px; background-color:#9999ff;  color:white" *ngFor="let vteacherdata of volunteerteachers"  [value]="vteacherdata.id+'-'+vteacherdata.teacher_id" >
+                {{ vteacherdata.subjects }}- {{ vteacherdata.teacher_name }}
+                </option>    
+      </select></td>
+        <td class="form-control-md" [style.background-color]="student.get('p4').value =='999-0' || student.get('p4').value =='null-'||student.get('p4').value =='0-null' || student.get('p4').value =='0-999' ? '#fd397a' :'#065040'"> <select formControlName="p4" label="p4" name="p4" class="form-control ">
+            <option style="font-size: 14px; background-color:#FF0000;  color:white" value="999-0">Not - Assigned</option>   
+            <option style="font-size: 14px; background-color:#39ac39; color:white" *ngFor="let teacherdata of teacherlist" [value]="teacherdata.id+'-'+teacherdata.u_id">
+              {{ teacherdata.subjects }}- {{ teacherdata.teacher_name }}
+              </option>
+              <option style="font-size: 14px; background-color:#ff8000 ;  color:white" *ngFor="let dteacherdata of deputationteachers"  [value]="dteacherdata.id+'-'+dteacherdata.teacher_code" >
+                {{ dteacherdata.subjects }}- {{ dteacherdata.teacher_name }}
+                </option>  
+              <option style="font-size: 14px; background-color:#9999ff;  color:white" *ngFor="let vteacherdata of volunteerteachers"  [value]="vteacherdata.id+'-'+vteacherdata.teacher_id" >
+                {{ vteacherdata.subjects }}- {{ vteacherdata.teacher_name }}
+                </option>    
+      </select></td>
+        <td class="form-control-md" [style.background-color]="student.get('p5').value =='999-0' || student.get('p5').value =='null-' ||student.get('p5').value =='0-null' || student.get('p5').value =='0-999' ? '#fd397a' :'#065040'"><select formControlName="p5" label="p5" name="p5" class="form-control ">
+            <option style="font-size: 14px; background-color:#FF0000;  color:white" value="999-0">Not - Assigned</option>     
+            <option style="font-size: 14px; background-color:#39ac39; color:white" *ngFor="let teacherdata of teacherlist" [value]="teacherdata.id+'-'+teacherdata.u_id">
+              {{ teacherdata.subjects }}- {{ teacherdata.teacher_name }}
+              </option>
+              <option style="font-size: 14px; background-color:#ff8000 ;  color:white" *ngFor="let dteacherdata of deputationteachers"  [value]="dteacherdata.id+'-'+dteacherdata.teacher_code" >
+                {{ dteacherdata.subjects }}- {{ dteacherdata.teacher_name }}
+                </option>  
+              <option style="font-size: 14px; background-color:#9999ff;  color:white" *ngFor="let vteacherdata of volunteerteachers"  [value]="vteacherdata.id+'-'+vteacherdata.teacher_id" >
+                {{ vteacherdata.subjects }}- {{ vteacherdata.teacher_name }}
+                </option>    
+      </select></td>
+        <td class="form-control-md" [style.background-color]="student.get('p6').value =='999-0' || student.get('p6').value =='null-' ||student.get('p6').value =='0-null' || student.get('p6').value =='0-999' ? '#fd397a' :'#065040'" ><select formControlName="p6" label="p6" name="p6" class="form-control ">
+            <option style="font-size: 14px; background-color:#FF0000;  color:white" value="999-0">Not - Assigned</option>    
+            <option style="font-size: 14px; background-color:#39ac39; color:white" *ngFor="let teacherdata of teacherlist" [value]="teacherdata.id+'-'+teacherdata.u_id">
+              {{ teacherdata.subjects }}- {{ teacherdata.teacher_name }}
+              </option>
+              <option style="font-size: 14px; background-color:#ff8000 ;  color:white" *ngFor="let dteacherdata of deputationteachers"  [value]="dteacherdata.id+'-'+dteacherdata.teacher_code" >
+                {{ dteacherdata.subjects }}- {{ dteacherdata.teacher_name }}
+                </option>  
+              <option style="font-size: 14px; background-color:#9999ff;  color:white" *ngFor="let vteacherdata of volunteerteachers"  [value]="vteacherdata.id+'-'+vteacherdata.teacher_id" >
+                {{ vteacherdata.subjects }}- {{ vteacherdata.teacher_name }}
+                </option>    
+      </select></td>
+        <td class="form-control-md" [style.background-color]="student.get('p7').value =='999-0' || student.get('p7').value =='null-' ||student.get('p7').value =='0-null' || student.get('p7').value =='0-999' ? '#fd397a' :'#065040'"> <select formControlName="p7" label="p7" name="p7" class="form-control ">
+            <option style="font-size: 14px; background-color:#FF0000;  color:white" value="999-0">Not - Assigned</option>   
+            <option style="font-size: 14px; background-color:#39ac39; color:white" *ngFor="let teacherdata of teacherlist" [value]="teacherdata.id+'-'+teacherdata.u_id">
+              {{ teacherdata.subjects }}- {{ teacherdata.teacher_name }}
+              </option>
+              <option style="font-size: 14px; background-color:#ff8000 ;  color:white" *ngFor="let dteacherdata of deputationteachers"  [value]="dteacherdata.id+'-'+dteacherdata.teacher_code" >
+                {{ dteacherdata.subjects }}- {{ dteacherdata.teacher_name }}
+                </option>  
+              <option style="font-size: 14px; background-color:#9999ff;  color:white" *ngFor="let vteacherdata of volunteerteachers"  [value]="vteacherdata.id+'-'+vteacherdata.teacher_id" >
+                {{ vteacherdata.subjects }}- {{ vteacherdata.teacher_name }}
+                </option>    
+      </select></td>
+        <td class="form-control-md" [style.background-color]="student.get('p8').value =='999-0' || student.get('p8').value =='null-' ||student.get('p8').value =='0-null' || student.get('p8').value =='0-999' ? '#fd397a' :'#065040'"><select formControlName="p8" label="p8" name="p8" class="form-control ">
+           
+          <option style="font-size: 14px; background-color:#FF0000;  color:white" value="999-0">Not - Assigned</option>  
+          <option style="font-size: 14px; background-color:#39ac39; color:white" *ngFor="let teacherdata of teacherlist" [value]="teacherdata.id+'-'+teacherdata.u_id">
+            {{ teacherdata.subjects }}- {{ teacherdata.teacher_name }}
+            </option>
+            <option style="font-size: 14px; background-color:#ff8000 ;  color:white" *ngFor="let dteacherdata of deputationteachers"  [value]="dteacherdata.id+'-'+dteacherdata.teacher_code" >
+              {{ dteacherdata.subjects }}- {{ dteacherdata.teacher_name }}
+              </option>  
+            <option style="font-size: 14px; background-color:#9999ff;  color:white" *ngFor="let vteacherdata of volunteerteachers"  [value]="vteacherdata.id+'-'+vteacherdata.teacher_id" >
+              {{ vteacherdata.subjects }}- {{ vteacherdata.teacher_name }}
+              </option>    
+      </select></td>
+        
+      </tr>
+    </tbody>
+   
+  <!-- </ion-item> -->
+  </table>
+</div>
+</div>
+<div>
+    <input type="hidden" formControlName="hideclass"/>
+    <input type="hidden" formControlName="hidesection"/>
+    <input type="hidden" formControlName="hidemaster"/>
+  </div>
+</form>
+<div class="modal-footer">
+           
+    <button type="button"  style="background-color: #065040" class="btn btn-success"  (click)="savemastertimetable()">Save changes</button>
+  </div>
+</div>
+</div>
+</div>

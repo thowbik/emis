@@ -1,0 +1,12 @@
+small{
+    font-style: italic;
+    color: red;
+}
+.mandatory{
+    color: red;
+}
+/* p-dialog .ui-dialog-content .ui-widget-content {
+    overflow-y: auto; 
+    overflow-x: hidden;
+    height: 425.5px !important;
+} */

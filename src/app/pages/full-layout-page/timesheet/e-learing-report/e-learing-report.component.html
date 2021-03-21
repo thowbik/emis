@@ -1,0 +1,50 @@
+<div class="m-3">
+	<div class="m-4">
+		<p-table #dt [columns]="dataHeader1"  [value]="result_Elearn_data">
+			<ng-template let-childrens pTemplate="caption">
+				<div class="row">
+					<div class="col-md-8 text-left">
+						<h5>E-Learn Content Report</h5>
+					</div>
+					<div class="col-md-3">
+						<input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search Filter">
+						</div>
+						<div class="col-md-1">
+							<div class="row mt-5" class="text-right">
+								<i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel()"></i>
+							</div>
+						</div>
+					</div>
+				</ng-template>
+				<ng-template pTemplate="header" let-childrens>
+					<tr class="text-center">
+						<th class="sno-header-css">S.No</th>
+						<th *ngFor="let col of childrens" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                        {{col.header}}
+                        
+							<!-- <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon> -->
+						</th>
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="body" let-datacorrection let-rowData let-i="rowIndex">
+					<tr *ngIf="!noDataFound1" class="text-left">
+						<td class="text-center"> {{i+1}} </td>
+						<td class="text-center">{{datacorrection.class}}</td>
+						<td class="text-left">{{datacorrection.subject}}</td>
+						<td class="text-left">{{datacorrection.medium}}</td>
+						<td class="text-center">{{datacorrection.Videos}}</td>
+						<td class="text-center">{{datacorrection.Links}}</td>
+						<td class="text-center">{{datacorrection.Documents}}</td>
+						<td class="text-center">{{datacorrection.Total}}</td>
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="emptymessage" let-columns>
+					<tr>
+						<td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+							<strong>No Records Found</strong>
+						</td>
+					</tr>
+				</ng-template>
+			</p-table>
+		</div>
+	</div>

@@ -1,0 +1,896 @@
+<div style="padding-top:2%;padding-bottom:2%" class="doNotPrint">
+    <button type="button" id="btnprint" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF" (click)="onPdf()"
+        class="ui-button-success"
+        style="float:right;background-color: red;margin-right: 2%;font-weight: bold;border: 1px solid red;"></button>
+</div>
+<div id="printableArea" #printableArea>
+    <div class="card ui-card-body my-3 box-shwd">
+        <!-- <form [formGroup]="form" novalidate> -->
+            <div class="row" style="padding:2%">
+
+                <div class="col-sm-12" style="padding-top:2%">
+                    <div class="border-line">
+                        <div style="padding:2%">
+
+                            <!-- <div class="row head-style">
+                                <label style=" border-bottom: 1px solid Black;">CERTIFICATE OF RECOGNITION</label>
+                            </div> -->
+                            <div class="head-style">
+                                <label style=" border-bottom: 1px solid Black;">CERTIFICATE OF RECOGNITION</label>
+                            </div>
+
+                            <div class="row head-substyle" style="padding-bottom: 8px;">
+                                <label>See sub-rule (4) of rule 12</label>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 left-aln">
+                                    <label>Gram:</label>
+                                </div>
+                                <div class="col-md-6 right-aln">
+                                    <label>Phone : <span style="color:black">044- 28278796</span></label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 left-aln">
+                                    <label>e-mail: <span style="color:black">dirsedu@nic.in</span> </label>
+                                </div>
+                                <div class="col-md-6 right-aln">
+                                    <label>Fax : <span style="color:black">044- 28278796</span></label>
+                                </div>
+                            </div>
+
+                            <div class="row head-style">
+                                <label>OFFICE OF THE DIRECTOR OF SCHOOL EDUCATION</label>
+                            </div>
+
+                            <div class="row head-substyle">
+                                <label>(Competent authority)</label>
+                            </div>
+
+                            <div class="row head-substyle" style="padding-bottom:5px">
+                                <label>College Road, Chennai-600 006, Tamil Nadu.</label>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 left-aln">
+                                    <label>R.C.No:</label>
+                                </div>
+                                <div class="col-md-6 right-aln">
+                                    <label>Dated : <span style="color:black">{{data.order_date}}</span></label>
+                                </div>
+                            </div>
+
+                            <div class="row to-aln">
+                                <label>To</label>
+                            </div>
+
+                            <div class="row to-txt-aln" style="padding-bottom:2px">
+                                <label>The Correspondent,</label><br>
+                            </div>
+                            <div class="row to-txt-aln" style="padding-bottom:2px">
+                                <label>{{data.school_name}},</label>
+                            </div>
+                            <div class="row to-txt-aln" style="padding-bottom:6px">
+                                <label>{{data.address}}</label>
+                            </div>
+
+                            <div class="row to-aln" style="padding-bottom:6px">
+                                <label>Sir/Madam,</label>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px" >
+                                <div  fxFlex="4" class="sub-aln11">
+                                    <label>Sub:</label>
+                                </div>
+                               
+                                <div fxFlex="95" class="sub-aln1head">
+                                   <label>Tamil Nadu Recognized Private School
+                                        (Regulation)
+                                        Act 1973 and Rules 1974</label>
+                                </div>
+                            </div>
+                          
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                    <label>Ref:</label>
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">1.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                   <label>Tamil Nadu Recognized Private School
+                                        (Regulation)
+                                        Act 1973 and Rules 1974</label>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">2.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>Right of Children to Free and Compulsory
+                                        Education Act- 2009 (Act -35/2009).</label>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">3.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>Tamil Nadu Right of Children to Free and
+                                        Compulsory Education Rules - 2011 and amended as per GO(MS) No.144/SE (GE) Dept
+                                        dated 18.09.2014.</label>
+                                </div>
+                            </div>
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">4.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>Tamil Nadu Tamil Learning Act(13/2006)2006
+                                        and
+                                        amendment made as per GO(MS) No.145/SE (GE) Dept. dated: 18.9.2014.</label>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">5.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>The Tamil Nadu Schools ( Regulation of
+                                        Collection
+                                        of Fee)
+                                        Act (22 /2009) 2009 and Rules 2009.</label>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">6.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>From the Chief Educational Officer, letter
+                                        No.
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="95" class="sub-aln1" style="color:#075c49;font-weight: 500;">
+                                    <label>With reference to your application dated: <span
+                                        style="color:red">{{this.appdate}}</span>
+                                    and subsequent School Inspection in this regard, I hereby convey the grant of
+                                    Recognition to them
+                                    for Classes Std from {{data.order_from_class}} to {{data.order_to_class}} for the period Upto from {{data.order_valid_from_date}} to {{data.order_valid_upto_date}}</label>
+                                </div>
+                            </div>
+
+
+                            <div class="row head-style" style="padding-top:20px;">
+                                <label>The Recognition Code Number allotted to your school is {{data.order_recog_number}}</label>
+                            </div>
+
+                            
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="95" class="sub-aln1" style="color:#075c49;font-weight: 500;">
+                                    <label>The above recognition is subject to the following conditions:</label>
+                                </div>
+                            </div>
+
+
+
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">1.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>The temporary recognition accorded to the school is valid and is to be
+                                        renewed at
+                                        an interval of every three years.</label>
+                                </div>
+                            </div>
+
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">2.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>The grant of recognition is available initially for classes and to be
+                                        extended
+                                        for Secondary / Senior Secondary Classes subsequently in due course of time.
+                                    </label>
+                                </div>
+                            </div>
+
+                     
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">3.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>The School shall abide by the provisions of the Right of Children to Free and
+                                        Compulsory Education Act, 2009 and the Tamil Nadu Right of Children to Free and
+                                        Compulsory Education Rules, 2011.</label>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">4.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>The School shall admit in pre-school / class I to the extent of 25% of the
+                                        strength in each class, children belonging to Weaker Section and Disadvantaged
+                                        Group
+                                        in the neighborhood and provide free and compulsory elementary education till
+                                        its
+                                        completion.</label>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">5.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>The School shall maintain a separate bank account for the purpose of
+                                        reimbursement.</label>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">6.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>The School shall not collect any capitation fee and subject the child or his
+                                        or
+                                        her parent or guardian to any screening procedure.</label>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">7.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>The School shall not deny admission to any child, -</label>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    
+                                </div>
+                                <div  fxFlex="4" class="sub-aln2">
+                                    <span>(a)</span>
+                                </div>
+                                <div fxFlex="86" class="to-sub-aln1">
+                                    <label>The School shall not deny admission to any child, -</label>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    
+                                </div>
+                                <div  fxFlex="4" class="sub-aln2">
+                                    <span>(b)</span>
+                                </div>
+                                <div fxFlex="86" class="to-sub-aln1">
+                                    <label>on the ground of religion, caste or race, place of birth or any of
+                                        them.</label>
+                                </div>
+                            </div>
+                           
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">8.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>The School shall ensure that,-</label>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    
+                                </div>
+                                <div  fxFlex="4" class="sub-aln2">
+                                    <span>(i)</span>
+                                </div>
+                                <div fxFlex="86" class="to-sub-aln1">
+                                    <label>no child admitted shall be held back in any class or expelled from School
+                                        till
+                                        the
+                                        completion of elementary education in a school;</label>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    
+                                </div>
+                                <div  fxFlex="4" class="sub-aln2">
+                                    <span>(ii)</span>
+                                </div>
+                                <div fxFlex="86" class="to-sub-aln1">
+                                    <label>no child shall be subjected to physical punishment or mental
+                                        harassment.</label>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    
+                                </div>
+                                <div  fxFlex="4" class="sub-aln2">
+                                    <span>(iii)</span>
+                                </div>
+                                <div fxFlex="86" class="to-sub-aln1">
+                                    <label>no child is required to pass any board examination till the completion of
+                                        elementary
+                                        education;</label>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    
+                                </div>
+                                <div  fxFlex="4" class="sub-aln2">
+                                    <span>(iv)</span>
+                                </div>
+                                <div fxFlex="86" class="to-sub-aln1">
+                                    <label>every child completing elementary education shall be awarded a certificate as
+                                        laid
+                                        down under rule 21.</label>
+                                </div>
+                            </div>
+                            
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    
+                                </div>
+                                <div  fxFlex="4" class="sub-aln2">
+                                    <span>(v)</span>
+                                </div>
+                                <div fxFlex="86" class="to-sub-aln1">
+                                    <label>inclusion of students with disabilities / special needs as per provision of
+                                        the
+                                        Act.</label>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    
+                                </div>
+                                <div  fxFlex="4" class="sub-aln2">
+                                    <span>(vi)</span>
+                                </div>
+                                <div fxFlex="86" class="to-sub-aln1">
+                                    <label>the teachers are recruited with minimum qualifications as laid under section
+                                        23(1) of
+                                        the Act:</label>
+                                </div>
+                            </div>
+                           
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    
+                                </div>
+                                <div  fxFlex="4" class="sub-aln2">
+                                
+                                </div>
+                                <div fxFlex="86" class="to-sub-aln1">
+                                    <label>Provided that the teachers who, at the commencement of this Act do not
+                                        possess
+                                        minimum qualifications shall acquire such minimum qualifications within a period
+                                        of
+                                        5
+                                        years;</label>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    
+                                </div>
+                                <div  fxFlex="4" class="sub-aln2">
+                                    <span>(vii)</span>
+                                </div>
+                                <div fxFlex="86" class="to-sub-aln1">
+                                    <label>the teacher performs his duties specified under sub-section (1) of section 24
+                                        of
+                                        the
+                                        Act; and</label>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    
+                                </div>
+                                <div  fxFlex="4" class="sub-aln2">
+                                    <span>(viii)</span>
+                                </div>
+                                <div fxFlex="86" class="to-sub-aln1">
+                                    <label>the teacher shall not engage himself for private teaching activities.</label>
+                                </div>
+                            </div>
+                           
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">9.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>The School shall follow the syllabus on the basis of curriculum laid down by
+                                        appropriate authority.</label>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">10.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>The School shall maintain the standards and norms as specified in section 19
+                                        of the Act.</label>
+                                </div>
+                            </div>
+
+                         
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">11.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>No unrecognized classes shall run within the premises of the school or
+                                        outside in the name of School.</label>
+                                </div>
+                            </div>
+
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">12.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>The school building plan must have been approved by the current rules or
+                                        G.Os.
+                                        The
+                                        School building or other structures and the grounds are used only for the
+                                        purposes
+                                        of
+                                        education and skill development. Construction work within the compound should
+                                        not be
+                                        carried out in school working hours and safety measures in all respects are the
+                                        whole
+                                        responsibility of the managements.</label>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">13.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>The School is run by a society registered under the Tamil Nadu Societies
+                                        Registration
+                                        Act, 1975 (Tamil Nadu Act 27 of 1975), or a public trust constituted under any
+                                        law
+                                        for
+                                        the time being in force; </label>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">14.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>The School is not run for profit to any individual, group or association of
+                                        individuals or any other persons;</label>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">15.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>The accounts should be audited and certified by a Chartered Accountant and
+                                        proper
+                                        accounts statements should be prepared. A copy each of the Statements of
+                                        Accounts
+                                        should
+                                        be sent every year to the competent authority granting recognition.</label>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">16.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>The recognition Code Number shall be quoted for any correspondence with the
+                                        competent
+                                        authority.</label>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">17.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>The School shall furnish such reports and information as may be required by
+                                        the
+                                        competent authority from time to time and shall comply with such instructions of
+                                        the
+                                        State Government or the competent authority as may be issued to secure the
+                                        continued
+                                        fulfillment of the condition of recognition or the removal of deficiencies in
+                                        working of
+                                        the School;</label>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px" >
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">18.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1" >
+                                    <label>Tamil shall be taught as a subject from in Standards I to X in all schools
+                                        notified under sub clause (iv) of clause (e) of section 2 of the Tamil Nadu
+                                        Tamil Learning Act, 2006 (Tamil Nadu Act 13 of 2006) in a phased manner
+                                        Commencing from the academic year 2015-2016 for standard I, from the
+                                        Academic year 2016-2017 for standard I and II and shall be extended up to
+                                        Standard X in a like manner as ordered in a reference (5) cited as
+                                        Follows:</label>
+                                </div>
+                            </div>
+
+
+                            <div class="row sub-alntable" >
+                                <div class="col-md-6 table-line">
+                                    <label>From the Academic Year</label>
+                                </div>
+                                <div class="col-md-6 table-line">
+                                    <label>For Standards</label>
+                                </div>
+                            </div>
+
+                            <div class="row sub-alntable">
+                                <div class="col-md-6 table-line">
+                                    <label style="color:black">2015-2016</label>
+                                </div>
+                                <div class="col-md-6 table-line">
+                                    <label style="color:black">I</label>
+                                </div>
+                            </div>
+
+                            <div class="row sub-alntable">
+                                <div class="col-md-6 table-line">
+                                    <label style="color:black">2016-2017</label>
+                                </div>
+                                <div class="col-md-6 table-line">
+                                    <label style="color:black">I & II</label>
+                                </div>
+                            </div>
+
+
+                            <div class="row sub-alntable">
+                                <div class="col-md-6 table-line">
+                                    <label style="color:black">2017-2018</label>
+                                </div>
+                                <div class="col-md-6 table-line">
+                                    <label style="color:black">I, II & III</label>
+                                </div>
+                            </div>
+
+
+                            <div class="row sub-alntable">
+                                <div class="col-md-6 table-line">
+                                    <label style="color:black">2018-2019</label>
+                                </div>
+                                <div class="col-md-6 table-line">
+                                    <label style="color:black">I,II,III & IV</label>
+                                </div>
+                            </div>
+
+
+                            <div class="row sub-alntable">
+                                <div class="col-md-6 table-line">
+                                    <label style="color:black">2019-2020</label>
+                                </div>
+                                <div class="col-md-6 table-line">
+                                    <label style="color:black">I to V</label>
+                                </div>
+                            </div>
+
+
+                            <div class="row sub-alntable">
+                                <div class="col-md-6 table-line">
+                                    <label style="color:black">2020-2021</label>
+                                </div>
+                                <div class="col-md-6 table-line">
+                                    <label style="color:black">I to VI</label>
+                                </div>
+                            </div>
+
+
+                            <div class="row sub-alntable">
+                                <div class="col-md-6 table-line">
+                                    <label style="color:black">2021-2022</label>
+                                </div>
+                                <div class="col-md-6 table-line">
+                                    <label style="color:black">I to VII </label>
+                                </div>
+                            </div>
+
+
+                            <div class="row sub-alntable">
+                                <div class="col-md-6 table-line">
+                                    <label style="color:black">2022-2023</label>
+                                </div>
+                                <div class="col-md-6 table-line">
+                                    <label style="color:black">I to VIII</label>
+                                </div>
+                            </div>
+
+
+                            <div class="row sub-alntable">
+                                <div class="col-md-6 table-line">
+                                    <label style="color:black">2023-2024</label>
+                                </div>
+                                <div class="col-md-6 table-line">
+                                    <label  style="color:black">I toIX </label>
+                                </div>
+                            </div>
+
+
+                            <div class="row sub-alntable" style="padding-bottom:10px">
+                                <div class="col-md-6 table-all-line">
+                                    <label style="color:black">2024-2025 </label>
+                                </div>
+                                <div class="col-md-6 table-all-line">
+                                    <label style="color:black">I to X</label>
+                                </div>
+                            </div>
+
+
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">19.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>The school shall abide by the provisions of the Tamil Nadu Recognized Private
+                                        Schools
+                                        (Regulation) Act 1973 and Tamil Nadu Recognized Private Schools (Regulation)
+                                        Rules
+                                        1974.</label>
+                                </div>
+                            </div>
+
+
+                            
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">20.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>The certificates of recognition issued by the department shall be subject to
+                                        the
+                                        fulfillment of deficiencies if any pointed out by the department at any
+                                        stage/time.</label>
+                                </div>
+                            </div>
+
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">21.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>The management shall rectify the deficiencies pointed out in infrastructure
+                                        or
+                                        administration by the authorities.</label>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">22.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>The Management shall apply for renewal of recognition three months before the
+                                        expiry
+                                        of this order to this Directorate through the Chief Educational Officer of the
+                                        district
+                                        concerned.</label>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">23.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>The management shall follow the directions issued by the
+                                        Government/Department
+                                        from
+                                        time to time keeping in view of the safety and security of the children and the
+                                        overall
+                                        administration of the School.</label>
+                                </div>
+                            </div>
+
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">24.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>The recognition shall be withdrawn if any contravention of the provisions of
+                                        the
+                                        Act,
+                                        Rules or the conditions of recognition are found and proved.</label>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" style=" padding-left:6%;padding-bottom:6px">
+                                <div  fxFlex="4" class="sub-aln11">
+                                </div>
+                                <div  fxFlex="6" class="sub-aln1">
+                                    <span class="span-txt">25.</span>
+                                </div>
+                                <div fxFlex="90" class="to-sub-aln1">
+                                    <label>The School Management Shall have to full responsibility if any court case
+                                        arise
+                                        this
+                                        regard. This order may be used only for the purpose of seeking affiliation to
+                                        <span style="font-weight: bold;">Central Board of Secondary Education </span>as
+                                        requested
+                                        by the management and the management is not entitled to seek affiliation to any
+                                        other
+                                        Board. </label>
+                                </div>
+                            </div>
+
+                            <div class="row head-style">
+                                <label>DIRECTOR OF SCHOOL EDUCATION</label>
+                            </div>
+
+                            <div class="row sub-txtaln" style=" padding-left:16%;">
+                                <div class="col-md-1" style="border-top:1px solid black;border-left:1px solid black;">
+                                    <label>Copy To:</label>
+                                </div>
+                                <div class="col-md-11"
+                                    style="border-top:1px solid black;border-left:1px solid black;border-right: 1px solid black;">
+                                    <label>Central Board of Secondary Education,<br>Shikshakendra,<br>No.2, Community
+                                        Centre,<br>Preet
+                                        Vihar,<br> New Delhi-110 019.
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row sub-txtaln" style=" padding-left:16%;">
+                                <div class="col-md-1"
+                                    style="border-top:1px solid black;border-left:1px solid black;border-bottom: 1px solid black;">
+                                    <label></label>
+                                </div>
+                                <div class="col-md-11" style="border:1px solid black;">
+                                    <label>The Chief Educational Officer,
+                                        {{data.district_name}} District.
+                                    </label>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        <!-- </form> -->
+    </div>
+</div>

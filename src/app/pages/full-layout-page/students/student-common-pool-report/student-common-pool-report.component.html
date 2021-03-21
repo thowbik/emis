@@ -1,0 +1,210 @@
+<div class="main-body-content p-3">  
+  <div class="outer-layout">
+    <div class="breadcrumbs c-black">
+       <h6 class="url">
+          <span class="flex-gap-right">Students</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+          <span class="flex-gap-right">Students Common Pool Report </span>
+       </h6>
+    </div>
+ </div>
+<span *ngIf="loggedInType && tabViewTable">  
+  <p-tabView>
+    <p-tabPanel header="School Type">
+          <p-table #dt  [columns]="schoolTypeDataHeader" [value]="schoolTypeDetails" [resizableColumns]="true" 
+          [paginator]="paginator" [rows]="rows" [globalFilterFields]="['block_name','fullyaided','government','PartiallyAided','unaided','CentralGovt']">
+              <ng-template pTemplate="caption"> 
+                <div class="row p-1">
+                  <div class="col-sm-9 ">
+                      <div class="text-lg-left mt-3 ">
+                        <h5>{{pageTitle1}}</h5>
+                        <!-- <a href="javascript:void(0)" *ngIf="schoolTypeRpt !== 1" (click)="nxt_st('',1)"> < </a> -->
+                      </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <input class="form-control" type="text"
+                                (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                    <!-- <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Filter" /> -->
+                  </div>
+                  <!-- <div class="col-sm-3 p-1">
+                      <div class="text-right">
+                           <input type="text" pInputText size="30" placeholder="Students in Common Pool Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                      </div>              
+                   </div> -->
+                </div>
+              </ng-template>
+              <ng-template pTemplate="header" let-columns>
+                <tr class="text-center">
+                  <th class="sno-header-layout">#</th>
+                  <th *ngFor="let col of columns" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                <tr class="text-center">
+                  <td class="sno-header-layout"> {{i+1}} </td>
+                  <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field">
+                    <span *ngSwitchCase="'dynCol'"> 
+                        <span *ngIf="schoolTypeRpt !== 3 ; else elseBlock"><a href="javascript:void(0)" (click)="nxt_st(rowData,schoolTypeRpt)"> {{rowData[col.field]}} </a></span>
+                        <ng-template #elseBlock>{{rowData[col.field]}}</ng-template>
+                    </span>
+                    <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+                  </td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="footer">
+                <tr class="text-center">
+                    <td [attr.colspan]="(schoolTypeRpt !== 3) ? 2 : 3">Total</td>
+                    <td class="ui-resizable-column">{{grandtotal_gov}}</td>
+                    <td class="ui-resizable-column">{{grandtotal_fa}}</td>
+                    <td class="ui-resizable-column">{{grandtotal_pa}}</td>
+                    <td class="ui-resizable-column">{{grandtotal_ua}}</td>
+                    <td class="ui-resizable-column">{{grandtotal_cg}}</td>
+                    <td class="ui-resizable-column">{{grandtotal}}</td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                  <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                     <strong>No records found</strong>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+    </p-tabPanel>
+    <p-tabPanel header="Transfer Reason" [disabled]="transferReasonTab">
+        <p-table #dt1  [columns]="transferReasonDataHeader" [value]="transferReasonDetails" [resizableColumns]="true" 
+        [paginator]="paginator2" [rows]="rows2">
+            <ng-template pTemplate="caption">
+              <div class="row p-1">
+                <div class="col-sm-9">
+                    <div class="text-lg-left mt-3">
+                      <h5>{{pageTitle2}}</h5>
+                      <!-- <a href="javascript:void(0)" *ngIf="TransferReasonRpt !== 1" (click)="nxt_tr('',1)"> < </a> -->
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                  <!-- <input class="form-control" type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Filter" /> -->
+                </div>
+                <!-- <div class="col-sm-6 p-1">
+                    <div class="text-right">
+                         <input type="text" pInputText size="30" placeholder="Students in Common Pool Filter (Transfer Reason)" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>              
+                 </div> -->
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+              <tr class="text-center">
+                <th class="sno-header-layout">#</th>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                  {{col.header}}
+                  <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+              <tr class="text-center">
+                <td class="sno-header-layout"> {{i+1}} </td>
+                <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field">
+                  <span *ngSwitchCase="'dynCol'"> 
+                      <span *ngIf="TransferReasonRpt !== 3 ; else elseBlock"><a href="javascript:void(0)" (click)="nxt_tr(rowData,TransferReasonRpt)"> {{rowData[col.field]}} </a></span>
+                      <ng-template #elseBlock>{{rowData[col.field]}}</ng-template>
+                  </span>
+                  <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+              <tr class="text-center">
+                  <td [attr.colspan]="(TransferReasonRpt !== 3) ? 2 : 3">Total</td>
+                  <td class="ui-resizable-column">{{grandtotal_la}}</td>
+                  <td class="ui-resizable-column">{{grandtotal_tp}}</td>
+                  <td class="ui-resizable-column">{{grandtotal_tc}}</td>
+                  <td class="ui-resizable-column">{{grandtotal_do}}</td>
+                  <td class="ui-resizable-column">{{grandtotal_tr}}</td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+              <tr>
+                <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                   <strong>No records found</strong>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+    </p-tabPanel>
+  </p-tabView>  
+</span>
+<span *ngIf="loggedInType && singleViewTable">
+  <p-table #dtt  [columns]="editableTRDataHeader" [value]="editableTRDetails" 
+          [paginator]="true" [rows]="10" dataKey="id" editMode="row" [resizableColumns]="true" [globalFilterFields]="['unique_id_no','NAME','class_studying','gender','father_name','phone_number','udise_code','Reason','remarks']">
+              <ng-template pTemplate="caption">
+                <div class="row p-1">
+                  <div class="col-sm-8">
+                      <!-- <div class="text-lg-left mt-3"> -->
+                        <!-- <h5>Students in Common Pool</h5> -->
+                        <!-- <a href="javascript:void(0)" *ngIf="schoolTypeRpt !== 1" (click)="nxt_st('',1)"> < </a> -->
+                      <!-- </div> -->
+                  </div>
+                  <div class="col-sm-3">
+                      <div class="text-right">
+                        <input class="form-control" type="text" (input)="dtt.filterGlobal($event.target.value, 'contains')" placeholder="Search" />
+                      </div>              
+                   </div>
+                   <div class="col-sm-1 p-2 text-right">
+                    <i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="exportExcel()"></i>
+                 </div>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="header" let-columns>
+                <tr class="text-center">
+                  <th class="sno-header-layout">#</th>
+                  <th *ngFor="let col of columns" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                  </th>
+                  <th class="sno-header-layout action" style="width:20em;">Action</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex" let-editing="editing">
+              <!-- <ng-template pTemplate="body" let-rowData let-editing="editing" let-i="rowIndex"> -->
+                <tr [pEditableRow]="rowData" class="text-center">
+                  <td class="sno-header-layout"> {{i+1}} </td>
+                  <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field">
+                    <span *ngSwitchCase="'Reason'"> 
+                      <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-dropdown appendTo="body" [options]="reasonList" [(ngModel)]="rowData[col.field]" [style]="{'width':'100%'}"></p-dropdown>
+                        </ng-template>
+                        <ng-template pTemplate="output">{{rowData.Reason}}</ng-template>
+                      </p-cellEditor>
+                    </span>
+                    <span *ngSwitchCase="'remarks'"> 
+                      <p-cellEditor>
+                        <ng-template pTemplate="input">
+                          <p-dropdown appendTo="body" [options]="remarkList" [(ngModel)]="rowData[col.field]" [style]="{'width':'100%'}"></p-dropdown>
+                        </ng-template>
+                        <ng-template pTemplate="output">{{rowData.remarks}}</ng-template>
+                      </p-cellEditor>
+                    </span>
+                  <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+                  </td>
+                  <td style="text-align:center">
+                    <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" class="ui-button-info" (click)="onRowEditInit(rowData)"></button>
+                    <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" class="ui-button-success" style="margin-bottom: .5em" (click)="onRowEditSave(rowData,i)"></button>
+                    <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" class="ui-button-danger" (click)="onRowEditCancel(rowData, i)"></button>
+                  </td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                  <td [attr.colspan]="(columns.length)+2" style="text-align: center;">
+                     <strong>No records found</strong>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+</span>  
+</div>
+<img *ngIf="!loggedInType" [src]="deinedurl" alt="Access Deined" accept="image/*" class="accessdenied">

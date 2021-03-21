@@ -1,0 +1,139 @@
+<div class="main-body-content">
+    <div class="outer-Layout" style="padding: 20px 0px;" *ngIf="page ==='1'">
+        <div class="breadcrumbs c-black">
+            <h6 class="url">
+                <span class="flex-gap-right">Schools</span> <i class="fa fa-angle-right flex-gap-right"
+                    aria-hidden="true"></i>
+                <span class="flex-gap-right">Students-PendingRequest</span></h6>
+        </div>
+    </div>
+
+    <div class="outer-Layout" style="padding: 20px 0px;" *ngIf="page ==='2'">
+        <div class="breadcrumbs c-black">
+            <h6 class="url">
+                <span class="flex-gap-right">Schools</span> <i class="fa fa-angle-right flex-gap-right"
+                    aria-hidden="true"></i>
+                <span class="flex-gap-right">Students-RaiseRequest</span></h6>
+        </div>
+    </div>
+<!-- Pending Request -->
+    <div class="container-fluid" *ngIf="page === '1'">
+        <p-table #dt [columns]="dataHeader" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]" [autoLayout]="true"
+            [globalFilterFields]="['UniqueId','AdmsnNo','Name','DOB','ClsStdyg','Sec','SchlNam']">
+            <ng-template pTemplate="caption">
+                <div class="row">
+                    <div class="col-sm-8"></div>
+                    <div class="col-sm-3">
+                        <input class="form-control" type="text"
+                            (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                    </div>
+                    <div class="col-sm-1" style="padding-top: 15px;">
+                        <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                            (click)="exportRequestExcel()"></i>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr class="text-center">
+                    <th style="width:3em;"> S.No</th>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+                            ariaLabelDesc="Activate to sort in descending order"ariaLabelAsc="Activate to sort in ascending order">
+                        </p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-request let-i="rowIndex">
+                <tr class="text-center">
+                    <td style="width:3em;">{{i+1}}</td>
+                    <td style="color:#337ab7;cursor: pointer;" (click)="getPopop(request.UniqueId)">{{request.UniqueId}}</td>
+                    <td>{{request.AdmsnNo}}</td>
+                    <td class="text-left">{{request.Name}}</td>
+                    <td>{{request.DOB}}</td>
+                    <td>{{request.ClsStdyg}} - {{request.Sec}}</td>
+                    <td class="text-left">{{request.SchlNam}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr class="text-left" *ngIf="noData">
+                   <td colspan="7" style="text-align: center;"> No Data Found </td>
+                </tr>
+             </ng-template>
+             <ng-template pTemplate="emptymessage">
+                <tr class="text-left" *ngIf="!noData">
+                   <td colspan="7" style="text-align: center;"> No Records Found </td>
+                </tr>
+             </ng-template>
+        </p-table>
+    </div>
+    <!-- Raise Request-->
+    <div class="container-fluid" *ngIf="page ==='2'">
+        <p-table #db [columns]="dataHeader1" [value]="data1" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]" [autoLayout]="true" 
+            [globalFilterFields]="['StudentId','Name','ClsStdyg','SchlNam']">
+            <ng-template pTemplate="caption">
+                <div class="row">
+                    <div class="col-sm-8"></div>
+                    <div class="col-sm-3">
+                        <input class="form-control" type="text"(input)="db.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                    </div>
+                    <div class="col-sm-1" style="padding-top: 15px;">
+                        <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"(click)="exportRaiseExcel()"></i>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr class="text-center">
+                    <th style="width:3em;">S.No</th>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+                            ariaLabelDesc="Activate to sort in descending order"
+                            ariaLabelAsc="Activate to sort in ascending order">
+                        </p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-request let-i="rowIndex">
+                <tr class="text-center">
+                    <td style="width:3em;">{{i+1}}</td>
+                  <td>{{request.StudentId}}</td>
+                  <td class="text-left">{{request.Name}}</td>
+                  <td>{{request.ClsStdyg}}-{{request.Sec}}</td>
+                  <td class="text-left">{{request.SchlNam}}</td>
+                  <!-- <td>{{request}}</td> -->
+                </tr>
+
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr class="text-left" *ngIf="noData">
+                   <td colspan="6" style="text-align: center;"> No Data Found </td>
+                </tr>
+             </ng-template>
+             <ng-template pTemplate="emptymessage">
+                <tr class="text-left" *ngIf="!noData">
+                   <td colspan="6" style="text-align: center;"> No Records Found </td>
+                </tr>
+             </ng-template>
+
+        </p-table>
+    </div>
+</div>
+<!-- <p-confirmDialog [(visible)]="showDialogBox" [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog> -->
+
+<p-dialog header="Confirmation" [(visible)]="showDialogBox" [style]="{width: '35vw',top: '180px !important'}" 
+[modal]="true" [maximizable]="true" [baseZIndex]="10000">
+    <div class="text-center" style="font-family: ui-sans-serif;">
+   <h3>Are you sure?
+   </h3>
+   <br>
+   <h4>Do you want to Transfer to Common Pool?</h4>
+   </div>
+   <p-footer>
+    <div class="text-center">
+        <button type="submit" class="btn btn-info" name="Save" (click)="onClickYes()">Yes</button>
+        <button type="submit" class="btn btn-light" (click)="onClickNo()">No</button>
+    </div>
+</p-footer>
+</p-dialog>
+

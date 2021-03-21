@@ -1,0 +1,81 @@
+<div class="main-body-content">
+	<div class="outer-layout">
+		<div class="breadcrumbs c-black">
+			<h6 class="url">
+                <span class="flex-gap-right">Number Of Teacher</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+                <span class="flex-gap-right">By Acdamic Qualification
+                </span>
+            </h6>
+		</div>
+	</div>
+	<p-table #dt [columns]="dataHeader" [value]="acdamicqualification">
+		<ng-template let-childrens pTemplate="caption">
+			<div class="row mt-2">
+				<div class="col-md-3 text-left">
+					<p-dropdown [options]="appoinment" (onChange)="nature_of_post($event)"></p-dropdown>
+				</div>
+				<div class="col-md-3 ">
+					<p-dropdown [options]="school_type" (onChange)="school_type_val($event)"></p-dropdown>
+				</div>
+				<div class="col-md-1 ">
+					<button type="submit" class="btn btn-success" (click)="SearchData()">Submit</button>
+				</div>
+				<!-- <div class="col-md-2 excel">
+                    <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" class="ui-button-success"></button>
+                </div> --></div>
+			<div class="row header">
+				<div class="col-md-9 text-left">
+					<!-- <h5>Teacher Academic Qualification report </h5> -->
+				</div>
+				<div class="col-md-3">
+					<input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Teacher Filter">
+				</div>
+			</div>
+		</ng-template>
+		<ng-template pTemplate="header" let-childrens>
+			<tr class="text-center">
+				<th class="sno-header-layout">S.No</th>
+				<th *ngFor="let col of childrens" [pSortableColumn]="col.field" [style.width]="col.widthstyle">{{col.header}}
+					<p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+				</th>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="body" let-verificationmonitoring let-rowData let-editing="editing" let-i="rowIndex">
+			<tr *ngIf="!noDataFound" class="text-left">
+				<td class="sno-header-layout text-center">{{i+1}}</td>
+				<td>{{verificationmonitoring.category}}</td>
+				<td class="text-center">{{verificationmonitoring.Below_secondary}}</td>
+				<td class="text-center">{{verificationmonitoring.Secondary}}</td>
+				<td class="text-center">{{verificationmonitoring.Higher_secondary}}</td>
+				<td class="text-center">{{verificationmonitoring.Graduate}}</td>
+				<td class="text-center">{{verificationmonitoring.Post_graduate}}</td>
+				<td class="text-center">{{verificationmonitoring.MPhil}}</td>
+				<td class="text-center">{{verificationmonitoring.PhD}}</td>
+				<td class="text-center">{{verificationmonitoring.PostDoctoral}}</td>
+				<td class="text-center"><b>{{verificationmonitoring.Total}}</b>
+				</td>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="footer" *ngIf="noDataFound">
+			<tr class="text-center">
+				<td></td>
+				<td class="text-left">Total</td>
+				<td class="ui-resizable-column">{{grandtotal_bs}}</td>
+				<td class="ui-resizable-column">{{grandtotal_se}}</td>
+				<td class="ui-resizable-column">{{grandtotal_hs}}</td>
+				<td class="ui-resizable-column">{{grandtotal_gt}}</td>
+				<td class="ui-resizable-column">{{grandtotal_pg}}</td>
+				<td class="ui-resizable-column">{{grandtotal_mp}}</td>
+				<td class="ui-resizable-column">{{grandtotal_phd}}</td>
+				<td class="ui-resizable-column">{{grandtotal_pt}}</td>
+				<td class="ui-resizable-column">{{grandtotal_tot}}</td>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="emptymessage" let-columns>
+			<tr>
+				<td [attr.colspan]="(columns.length)+1" style="text-align: center;"> <strong>No records found</strong>
+				</td>
+			</tr>
+		</ng-template>
+	</p-table>
+</div>

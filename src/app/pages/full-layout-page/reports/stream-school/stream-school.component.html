@@ -1,0 +1,25 @@
+<div class="m-4">
+  <p-card class="mx-2">
+    <p><b>Note : </b> Reports Updated once a day at 7 PM</p>
+  </p-card>
+  <p-card >
+    <div>
+      <p-table #dt  [columns]="cols" [value]="">
+        <ng-template pTemplate="header" let-distname>
+          <tr class="text-center">
+            <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle" >
+              {{col.header}}
+              <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-distname let-rowData let-columns="columns" let-i="rowIndex" >
+          <tr [pSelectableRow]="rowData" class="text-center">
+            <td>{{ distname.district_name}} </td>
+            <td> {{ distname.block_name}} </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </p-card>
+</div>

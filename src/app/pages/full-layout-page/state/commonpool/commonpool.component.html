@@ -1,0 +1,68 @@
+<div class="container-fluid" *ngIf="pageStage === 1">
+  <p-tabView>
+    <p-tabPanel header="School Type">
+      <p-table  [columns]="cols" [value]="commonDistList" [resizableColumns]="true" >
+        <ng-template pTemplate="caption">
+          <div class="row">
+            <div style="text-align:left" class="col-md-12 text-center my-2">
+              Students in Common Pool-District wise
+            </div>
+          </div>
+
+        </ng-template>
+        <ng-template pTemplate="header" let-distname>
+          <tr class="text-center">
+            <th class="sno-header-layout">#</th>
+            <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+              {{col.header}}
+              <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-distname let-rowData let-columns="columns" let-i="rowIndex" >
+          <tr [pSelectableRow]="rowData" class="text-center">
+            <td class="sno-header-layout"> {{i+1}} </td>
+            <td class="text-left clr-blue"> <a class="nav-link" routerLinkActive="active" (click)="editForm(distname.block_id, distname.district_id, distname.block_name )">{{ distname.district_name}} </a> </td>
+            <td> {{ distname.government}} </td>
+            <td> {{ distname.fullyaided}} </td>
+            <td> {{ distname.PartiallyAided}} </td>
+            <td> {{ distname.unaided}} </td>
+            <td> {{ distname.CentralGovt}} </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-tabPanel>
+    <p-tabPanel header="Transfer Reason">
+      <p-table  [columns]="col" [value]="commonDistListTransfer" [resizableColumns]="true" >
+        <ng-template pTemplate="caption">
+          <div class="row">
+            <div style="text-align:left" class="col-md-12 text-center my-2">
+              Students in Common Pool-District wise (Transfer Reason)
+            </div>
+          </div>
+
+        </ng-template>
+        <ng-template pTemplate="header" let-distname>
+          <tr class="text-center">
+            <th class="sno-header-layout">#</th>
+            <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+              {{col.header}}
+              <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-distname let-rowData let-columns="columns" let-i="rowIndex" >
+          <tr [pSelectableRow]="rowData" class="text-center">
+            <td class="sno-header-layout"> {{i+1}} </td>
+            <td class="text-left clr-blue" (click)="onSelectedId(distname)"> {{ distname.district_name}} </td>
+            <td> {{ distname.Long_Absent}} </td>
+            <td> {{ distname.Transfered_by_Parents}} </td>
+            <td> {{ distname.Terminal_Class}} </td>
+            <td> {{ distname.Dropped_Out}} </td>
+            <td>  </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-tabPanel>
+  </p-tabView>
+</div>

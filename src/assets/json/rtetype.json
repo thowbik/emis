@@ -1,0 +1,43 @@
+{"rteType":[
+    {
+        "id": "1",
+        "label": "Weaker Section - WS"
+    },
+    {
+        "id": "2",
+        "label": "Disadvantaged Group - BC"
+    },
+    {
+        "id": "3",
+        "label": "Disadvantaged Group - MBC"
+    },
+    {
+        "id": "4",
+        "label": "Disadvantaged Group - SC"
+    },
+    {
+        "id": "5",
+        "label": "Disadvantaged Group - ST"
+    },
+    {
+        "id": "6",
+        "label": "Disadvantaged Group - SCA"
+    },
+    {
+        "id": "7",
+        "label": "Disadvantaged Group - DNC"
+    },
+    {
+        "id": "8",
+        "label": "Disadvantaged Group - Special - Orphan"
+    },
+    {
+        "id": "9",
+        "label": "Disadvantaged Group - Special - Differently Abled"
+    },
+    {
+        "id": "10",
+        "label": "Disadvantaged Group - Special - Child of Scavenger"
+    }
+    
+    ]}

@@ -1,0 +1,156 @@
+<div class="outer-layout" style="padding-top:5px;">
+    <div class="breadcrumbs c-black">
+    <h6 class="url"><span class="flex-gap-right">Schemes</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i> <span class="flex-gap-right">KGBV & CWSN</span><i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i><span class="flex-gap-right">Students Mapping</span></h6>
+    </div>
+</div>
+<div class="main-body-content p-3">
+    <div *ngIf="list_page">
+     <p-card>
+         <!-- mangid =32 =1
+         !32 =2 -->
+    <div class="row">
+        <div class="col-sm-9 mt-3">
+            <div class="breadcrumbs c-black">
+                <h5 class="url"><span class="flex-gap-right font-weight-bold"  (click)="goBack()">School Mapping</span></h5>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Filter">
+        </div>
+        <div class = "col-sm-1" style="padding-top:10px;padding-left: 60px;">
+            <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel()"></i>
+        </div>
+    </div><hr/>
+    <div>
+        <p-table #dt [columns]="header" [value]="students_list_api" [globalFilterFields]="['student_name','class_studying','section']"  [paginator]="true" [rows]="10" [resizableColumns]="true">
+            <ng-template pTemplate="header" let-distname>
+                <tr class="text-center">
+                    <th class="sno-header-layous">S.NO</th>
+                    <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-stud_list let-columns="columns" let-i="rowIndex">
+                <tr class="text-center" *ngIf="!noDataFound">
+                    <td class="sno-header-layous"> {{i+1}} </td>
+                    
+                    <td class="text-left"> {{stud_list.student_id}}</td>
+                    <td class="text-left font-weight-bold"> {{stud_list.student_name}}</td>
+                    <td class="text-center"> {{ stud_list.class_studying}} </td>
+                    <td class="text-center"> {{ stud_list.section}} </td>
+                    <td class="text-center">
+                        <button pButton pRipple type="button" icon="pi pi-eye" label="View" (click)="getSelectedStudentDetails(stud_list.student_id,stud_list.student_name)" class="p-button-rounded p-button-text"></button>
+                    </td>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr class="text-center" *ngIf="noDataFound">
+                    <td colspan="6"> No Data Found </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</p-card>
+</div>
+   <div *ngIf="mapping_page">
+        <!-- <p-toolbar class="p-2"> -->
+            <div class="breadcrumbs c-black p-3">
+                <h6 class="url"><span class="flex-gap-right" (click)="Home_page()">School Mapping</span> <span *ngIf="select_name" class="font-weight-bold"><i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>{{select_name}}</span></h6>
+            </div>
+        <!-- </p-toolbar> -->
+        <p-card>
+       <!-- <div class="row">
+        <div class="col-sm-7">
+            <label  class="font-weight-bold">Student Details</label>
+        </div>
+        <div class="col-sm-5">
+          <div class="row">
+            <div class="col-sm-2"> </div>
+            <div class="col-sm-4 border-left border-right text-center">
+                <label  class="font-weight-bold ">{{ select_id }}</label>
+            </div>
+            <div class="col-sm-6 border-right text-center">
+                <label  class="font-weight-bold">{{ select_name}}</label>
+            </div>
+          </div>
+        </div>
+     </div><hr/> -->
+    <form [formGroup]="form">
+        <input pInputText type="text" hidden  formControlName="IndexID" disabled class="form-control" placeholder="IndexID ID"/>
+        <input pInputText type="text"  hidden formControlName="StudentID" disabled class="form-control" placeholder="Student ID"/>
+    <div class="form-group row p-2">
+        <div class="col-sm-4">
+            <label  class="font-weight-bold">Where Will Student Collect Benefit ?<span class="text-danger"> *</span></label>
+              <div class="col-sm-10"> 
+                <p-dropdown [options]="benefit_school_options"  formControlName="benefit_school" (onChange)="same_other($event)" placeholder="Select"></p-dropdown>
+                <small class="form-text text-danger"
+                *ngIf="!form.get('benefit_school').valid && (submitted || form.get('benefit_school').dirty || form.get('benefit_school').touched)">
+                Field is required</small>
+              </div>
+        </div>
+        <div class="col-sm-4">
+            <label class="font-weight-bold">District<span class="text-danger"> *</span></label>
+            <div class="col-sm-10">
+              <p-dropdown [options]="allDistrictropvalueoptions" [disabled]="!sam_other" formControlName="district_id" (onChange)="district_onchg_id($event)" placeholder="Select"></p-dropdown>
+              <small class="form-text text-danger"
+                *ngIf="!form.get('district_id').valid && (submitted  || form.get('district_id').dirty || form.get('district_id').touched)">
+                 District is required</small>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <label  class="font-weight-bold">Collection School<span class="text-danger"> *</span></label>
+            <div class="col-sm-10">
+                <p-dropdown [options]="school_value_options" [disabled]="!school_c" filter=true formControlName="CollectSchool" (onChange)="school_onchg_id($event)" placeholder="Select"></p-dropdown>
+                <small class="form-text text-danger"
+                *ngIf="!form.get('CollectSchool').valid && (submitted || form.get('CollectSchool').dirty || form.get('CollectSchool').touched)">
+                Collection School is required</small>
+            </div>
+        </div>
+     
+    </div><hr/>
+
+    <div class="form-group row p-2">
+        <div class="col-sm-4">
+            <label  class="font-weight-bold">Benefit Type<span class="text-danger"> *</span></label>
+              <div>
+                <p-multiSelect [options]="benefit_value_options"  class="col-sm-12" formControlName="benefit_type" defaultLabel=" Please Select Benefit " placeholder="Select"></p-multiSelect>
+                <small class="form-text text-danger"
+                *ngIf="!form.get('benefit_type').valid && (submitted || form.get('benefit_type').dirty || form.get('benefit_type').touched)">
+                Benefit Type is required</small>
+              </div>
+        </div>
+    </div>
+    <div class="text-center mt-3">
+        <button type="submit" class="btn btn-success m-2" (click)="save_data()">Save</button>
+        <button type="submit" class="btn btn-secondary btn-border m-2" (click)="cancle()" >Cancel</button>
+    </div>
+    </form>
+    <!-- <div class="p-2">
+        <p-table #dt [columns]="detail_header" [value]="students_detai_beni_api" [resizableColumns]="true">
+            <ng-template pTemplate="header" let-distname>
+                <tr class="text-center">
+                    <th class="sno-header-layous">S.NO</th>
+                    <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-stud_list let-columns="columns" let-i="rowIndex">
+                <tr class="text-center" *ngIf="!noDataFound_detail">
+                    <td class="sno-header-layous"> {{i+1}} </td>
+                    <td class="text-center"> {{ stud_list.student_id}} </td>
+                    <td class="text-center"> {{ stud_list.student_name}} </td>
+                    <td class="text-center"> {{ stud_list.school_id}} </td>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr class="text-center" *ngIf="noDataFound_detail">
+                    <td colspan="24"> No Data Found </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div><hr/> -->
+  </p-card>
+   </div>
+</div>  

@@ -1,0 +1,58 @@
+<div class="main-body-content" style="padding-left:1%;padding-right:1%;">
+<p-tabView>
+    <p-tabPanel header="Kaivalya Education Foundation" [selected]="true">
+          
+      
+                    <div class="page-container">
+                        
+                      <div class="main-body-content">
+                            <div class="container">
+                                <div class="row">
+                               
+             <div *ngFor="let Company1 of KEF" class="col-sm-4">
+                
+        <video width="320" height="240" controls>
+            <source src="{{Company1.src}}" type="video/mp4">
+           
+          Your browser does not support the video tag.
+          </video>
+         <br>
+                        </div>
+
+                    </div>
+            
+                 </div>
+             </div>
+         </div>
+        
+        
+    </p-tabPanel>
+    <p-tabPanel header="India Education Collective">
+            
+      
+                    <div class="page-container">
+                        
+                      <div class="main-body-content">
+                            <div class="container">
+                                <div class="row">
+                               
+             <div *ngFor="let Company2 of IEC" class="col-sm-4">
+                
+        <video width="320" height="240" controls>
+            <source src="{{Company2.src}}" type="video/mp4">
+           
+          Your browser does not support the video tag.
+          </video>
+         <br>
+                        </div>
+
+                    </div>
+            
+                 </div>
+             </div>
+         </div>
+       
+    </p-tabPanel>
+
+</p-tabView>
+</div>

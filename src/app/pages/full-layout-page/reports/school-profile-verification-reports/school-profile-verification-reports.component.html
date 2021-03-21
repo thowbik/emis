@@ -1,0 +1,259 @@
+<div class="main-body-content p-3">
+	<div class="outer-layout">
+		<div class="breadcrumbs c-black">
+			<h6 class="url">
+           <span class="flex-gap-right">UDISE+ Reports</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+           <span class="flex-gap-right">Declaration Form </span>
+        </h6>
+		</div>
+	</div>
+	<div class="m-4" *ngIf="statelogin">
+		<p-card>
+			<div>
+				<p-table #dt [columns]="col" [value]="verificationschoollistapi" [lazy]="false" [globalFilterFields]="['block_name','school_name','udise_code','category']" [paginator]="true" [rows]="10" [resizableColumns]="true">
+					<ng-template pTemplate="caption">
+						<div class="container-fluid header_fonts">
+							<!-- <div class="row"  *ngIf="crclogin">
+                  <div class="text-lg-left mt-3"><div>
+                    <h5>SchoolWise - Profile Completion Status</h5></div>
+                  </div>
+                  </div>
+                  <div class="row"   *ngIf="!crclogin">
+                  <div class="text-lg-left mt-3"><div>
+                    <h5>SchoolWise - Profile Completion Status</h5></div>
+                  </div>
+                  </div> -->
+							<div class="row ">
+								<!-- <div class="col-sm-6 ">
+                     <div class="row"  *ngIf="crclogin">
+                       <div class="text-lg-left mt-3"><div>
+                         <h5>SchoolWise - Profile Completion Status</h5></div>
+                       </div>
+                       <div>
+                         <button class="btn btn-success m-2"><i class="fa fa-home font-siz" href="javascript:void(0)" [routerLink]="['/teachers-dashboard']"aria-hidden="true"></i></button>
+                       </div>
+                     </div>
+                     <div class="text-lg-left mt-3" *ngIf="!crclogin"><div>
+                       <h5>SchoolWise - Profile Completion Status</h5></div>
+                     </div>
+                     </div> -->
+								<div class="col-sm-12 p-1" *ngIf="crclogin">
+									<!-- <form [formGroup]="schoolverificationdetail"> -->
+									<div class="row">
+										<div class="col-sm-4 float-right">
+											<p-dropdown [options]="Blockdropvalueoptions" formControlName="crcblockselect" placeholder="Select Block" (onChange)="BlockOption($event)" styleClass="dropdwnvalues"></p-dropdown>
+											<!-- <p-message severity="error"  text="This Field is required" *ngIf="schoolverificationdetail.controls.crcblockselect.errors && (schoolverificationdetail.controls.crcblockselect.dirty || schoolverificationdetail.controls.crcblockselect.touched)"></p-message> -->
+										</div>
+										<div class="col-sm-4">
+											<p-dropdown [options]="schooltypedropvalue" formControlName="crcschtypeselect" placeholder="Select School Type" (onChange)="crcSchoolTypeOption($event)" styleClass="dropdwnvalues"></p-dropdown>
+											<!-- <p-message severity="error"  text="This Field is required" *ngIf="schoolverificationdetail.controls.crcschtypeselect.errors && (schoolverificationdetail.controls.crcschtypeselect.dirty || schoolverificationdetail.controls.crcschtypeselect.touched)"></p-message> -->
+										</div>
+										<!-- <div class="col-sm-4">
+                           <input class="form-control" type="text"  (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                           </div> --></div>
+									<!-- </form> -->
+								</div>
+								<div class="col-sm-12 p-1" *ngIf="!crclogin">
+									<div class="row">
+										<div class="col-sm-3 float-right">
+											<p-dropdown [options]="schooltypedropvalue" placeholder="Select School Type" (onChange)="StateSchoolTypeOption($event)" styleClass="dropdwnvalues"></p-dropdown>
+										</div>
+										<!-- <div class="col-sm-6">
+                           <input class="form-control" type="text"  (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                           </div> --></div>
+								</div>
+							</div>
+						</div>
+						<div class="row p-1">
+							<div class="col-sm-6"></div>
+							<div class="col-sm-6 p-1 float-right">
+								<input class="form-control col-sm-6 float-right" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+							</div>
+						</div>
+					</ng-template>
+					<ng-template pTemplate="header" let-distname>
+						<tr class="text-center">
+							<th class="sno-header-layout sno">S.No</th>
+							<th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">{{col.header}}
+								<p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+							</th>
+						</tr>
+					</ng-template>
+					<ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+						<tr class="text-center" *ngIf="!noDataFound">
+							<td class="sno-header-layout">{{i+1}}</td>
+							<td class="text-left">{{ distwise.block_name}}</td>
+							<td style="width: 13em;" class="text-center"><a href="javascript:void(0)" (click)="getSelectedSchoolDetails(distwise.school_id)">{{distwise.udise_code}}</a>
+							</td>
+							<td class="text-left">{{ distwise.school_name}}</td>
+							<td class="text-left">{{ distwise.category}}</td>
+							<td *ngIf="distwise.dcf_certify_by_school_auth_date === null">Not Submitted</td>
+							<td *ngIf="distwise.dcf_certify_by_school_auth_date !== null">Submitted</td>
+							<td style="width: 13em;" class="text-center">
+								<a href="javascript:void(0)">
+									<button type="submit" class="btn btn-primary" (click)="handleClick(distwise.school_id)">Download</button>
+								</a>
+							</td>
+							<td *ngIf="userTypeID == 14 && distwise.dcf_certify_by_crc_auth_name !== null">Verified</td>
+							<td *ngIf="userTypeID == 14 &&  distwise.dcf_certify_by_crc_auth_name === null">Not Verified</td>
+							<td *ngIf="userTypeID == 6  && distwise.dcf_certify_by_block_auth_name !== null">Verified</td>
+							<td *ngIf="userTypeID == 6  &&  distwise.dcf_certify_by_block_auth_name === null">Not Verified</td>
+							<td *ngIf="userTypeID == 10 && distwise.dcf_certify_by_block_auth_name !== null">Verified</td>
+							<td *ngIf="userTypeID == 10 &&  distwise.dcf_certify_by_block_auth_name === null">Not Verified</td>
+							<td *ngIf="userTypeID == 9  && distwise.dcf_certify_by_ceo_auth_name !== null">Verified</td>
+							<td *ngIf="userTypeID == 9  &&  distwise.dcf_certify_by_ceo_auth_name === null">Not Verified</td>
+							<td *ngIf="userTypeID == 3  && distwise.dcf_certify_by_ceo_auth_name !== null">Verified</td>
+							<td *ngIf="userTypeID == 3  &&  distwise.dcf_certify_by_ceo_auth_name === null">Not Verified</td>
+							<td *ngIf="userTypeID == 14">{{distwise.dcf_certify_by_crc_auth_date}}</td>
+							<td *ngIf="userTypeID == 6">{{distwise.dcf_certify_by_block_auth_date}}</td>
+							<td *ngIf="userTypeID == 10">{{distwise.dcf_certify_by_block_auth_date}}</td>
+							<td *ngIf="userTypeID == 9 || userTypeID == 3 ">{{distwise.dcf_certify_by_ceo_auth_date}}</td>
+					</ng-template>
+					<ng-template pTemplate="footer">
+						<tr class="text-left" *ngIf="noDataFound">
+							<td colspan="24">No Data Found</td>
+						</tr>
+					</ng-template>
+				</p-table>
+			</div>
+		</p-card>
+		<div *ngIf="crclogin">
+			<p-card class="p-3">
+				<div class="text-center"> <a href={{brtelink}} target="_blank" class="font_size_16">Click here to view Checklist for BRTEs for verifying school data</a>
+				</div>
+			</p-card>
+		</div>
+	</div>
+	<p-dialog [header]="" [(visible)]="showDialogBox" style="background-color: cadetblue !important;" [modal]="true" [responsive]="true" [style]="{width: '950px', minWidth: '200px'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+		<div>
+			<p-card>
+				<div class="col-sm-12">
+					<form [formGroup]="schoolverificationdetail">
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="row p-2">
+									<div class="col-sm-4">
+										<label for="">Name</label>
+									</div>
+									<div class="col-sm-8">
+										<input pInputText type="text" class="form-control" formControlName="name" placeholder="Name" />
+										<p-message severity="error" text="This Field is required" *ngIf="schoolverificationdetail.controls.name.errors && (submitted || schoolverificationdetail.controls.name.dirty || schoolverificationdetail.controls.name.touched)"></p-message>
+									</div>
+								</div>
+								<div class="row p-2" *ngIf="userTypeID != 6 && userTypeID != 9  && userTypeID != 3 && userTypeID != 10">
+									<div class="col-sm-4">
+										<label for="">Place</label>
+									</div>
+									<div class="col-sm-8">
+										<input pInputText type="text" class="form-control" formControlName="place" placeholder="Place" />
+										<p-message severity="error" text="This Field is required" *ngIf="schoolverificationdetail.controls.place.errors && (submitted || schoolverificationdetail.controls.place.dirty || schoolverificationdetail.controls.place.touched)"></p-message>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="row p-2">
+									<div class="col-sm-4">
+										<label for="">Designation</label>
+									</div>
+									<div class="col-sm-8">
+										<input pInputText type="text" class="form-control" formControlName="desig" placeholder="Designation" />
+										<p-message severity="error" text="This Field is required" *ngIf="schoolverificationdetail.controls.desig.errors && (submitted || schoolverificationdetail.controls.desig.dirty || schoolverificationdetail.controls.desig.touched)"></p-message>
+									</div>
+								</div>
+								<div class="row p-2">
+									<div class="col-sm-4">
+										<label for="">Date</label>
+									</div>
+									<div class="col-sm-8">
+										<div class="width_234">
+											<input class="form-control" type="date" formControlName="date" placeholder="Date" dateformat="yyyy/dd/mm">
+											<p-message severity="error" text="This Field is required" *ngIf="schoolverificationdetail.controls.date.errors && (submitted || schoolverificationdetail.controls.date.dirty || schoolverificationdetail.controls.date.touched)"></p-message>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="font-weight-bold p-2">"I hereby declare that the information entered by the school in this data Capture Format (DCF) is true and correct to the best of my knowledge. I hereby certify that the data submitted is complete and correct to the best of my knowledge."</div>
+						<div class="text-center mt-3" *ngIf="crclogin">
+							<button type="submit" class="btn btn-success m-2" (click)="crc_save()">Save</button>
+							<button type="submit" class="btn btn-light btn-border m-2" (click)="close_dialog()">Cancel</button>
+						</div>
+						<div class="text-center mt-3" *ngIf="ceologin">
+							<button type="submit" class="btn btn-success m-2" (click)="ceo_save()">Save</button>
+							<button type="submit" class="btn btn-light btn-border m-2" (click)="close_dialog()">Cancel</button>
+						</div>
+						<div class="text-center mt-3" *ngIf="userTypeID == 10 || userTypeID == 6">
+							<button type="submit" class="btn btn-success m-2" (click)="beo_save()">Save</button>
+							<button type="submit" class="btn btn-light btn-border m-2" (click)="close_dialog()">Cancel</button>
+						</div>
+					</form>
+				</div>
+			</p-card>
+		</div>
+	</p-dialog>
+	<div class="m-4" *ngIf="schoollogin">
+		<p-card>
+			<form [formGroup]="schoolverificationdetail">
+				<div class="colsm-12 ">
+					<div class="row text-center">
+						<label class="col-sm-4 pt-3 text-right">School Name</label>
+						<div class="col-sm-8">
+							<input pInputText type="text" class="form-control col-sm-6" [readonly]=true formControlName="school-name" placeholder="School Name" />
+						</div>
+					</div>
+				</div>
+				<div class="text-center font-weight-bold pt-3">Declaration By School in Charge (Principal/Vice-Principal/Head Teacher/Senior Most Teacher)
+					<div>Academic Year:2019-2020</div>
+				</div>
+				<div class="text-justify	pt-3 col-sm-12">I hereby declare that the information entered in this data Capture Format (DCF) is true and correct to the best of my knowledge. I undertake to inform any changes therein, immediately.</div>
+				<div class="row pt-4">
+					<div class="col-sm-6">
+						<div class="row p-2">
+							<div class="col-sm-4">
+								<label for="">Place</label>
+							</div>
+							<div class="col-sm-8">
+								<input pInputText type="text" class="form-control" formControlName="dcf_certify_by_school_auth_place" placeholder="Place" />
+							</div>
+						</div>
+						<div class="row p-2">
+							<div class="col-sm-4">
+								<label for="">Date</label>
+							</div>
+							<div class="col-sm-8">
+								<input class="form-control" type="date" formControlName="dcf_certify_by_school_auth_date" min={{fromdate}} placeholder="Date" dateformat="yyyy/dd/mm">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="row p-2">
+							<div class="col-sm-4">
+								<label for="">Name</label>
+							</div>
+							<div class="col-sm-8">
+								<input pInputText type="text" class="form-control" formControlName="dcf_certify_by_school_auth_name" placeholder="Name" />
+							</div>
+						</div>
+						<div class="row p-2">
+							<div class="col-sm-4">
+								<label for="">Designation</label>
+							</div>
+							<div class="col-sm-8">
+								<p-dropdown [options]="design_options" formControlName="dcf_certify_by_school_auth_desig" placeholder="Select Designation" styleClass="dropdwnvalues"></p-dropdown>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div>
+					<div class="text-right mt-3">
+						<button type="submit" class="btn btn-success m-2" (click)="sch_save()">Save</button>
+					</div>
+				</div>
+			</form>
+		</p-card>
+		<p-card class="p-3">
+			<div class="text-center"> <a href={{hmlink}} target="_blank" class="font_size_16">Click here to view Checklist for Schools to verify the updated data</a>
+			</div>
+		</p-card>
+	</div>
+</div>   

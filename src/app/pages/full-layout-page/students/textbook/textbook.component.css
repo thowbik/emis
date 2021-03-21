@@ -1,0 +1,13 @@
+.portlet.light {
+    padding: 12px 20px 15px;
+    background-color: #fff;
+}
+.portlet {
+    box-shadow: 0 2px 3px 2px rgba(0, 0, 0, .03);
+}
+.portlet {
+    margin-top: 0;
+    margin-bottom: 25px;
+    padding: 0;
+    border-radius: 2px;
+}

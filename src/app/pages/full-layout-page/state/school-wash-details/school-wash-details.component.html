@@ -1,0 +1,166 @@
+<div class="outer-layout" style="padding-top:10px;">
+  <div class="breadcrumbs c-black">
+    <h6 classs="url"><span class="flex-gap-right">Schools</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right">School Profile</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right">School-Wash Details</span><span *ngIf="districtName"><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right" (click)='goBack()'>{{districtName}}</span></span>
+      <span *ngIf="BlockName"><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right" (click)='goBack1()'>{{BlockName}}</span></span>
+    </h6> 
+ </div>
+</div>
+<div class="container-fluid" *ngIf="pageStage === 1">
+  <div class="main-body-content m-2">  
+    <p-table #dt  [columns]="dataHeader" [value]="SchoolWashDataDisct" [resizableColumns]="true" >
+        <ng-template let-wash pTemplate="caption">
+          <div class="row p-1">
+            <div class="col-sm-6">
+                <div class="text-lg-left mt-3">
+                  <h5>School WASH Details - District Wise</h5>
+                </div>
+            </div>
+            <div class="col-sm-6 p-1">
+                <div class="text-right">
+                     <input type="text" pInputText size="30" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                </div>              
+             </div>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-wash>
+          <tr class="text-center">
+            <th class="sno-header-layout">S.No</th>
+            <th *ngFor="let col of wash" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+              {{col.header}}
+              <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-wash let-rowData let-columns="columns" let-i="rowIndex" >
+          <tr class="text-center" *ngIf="!noDataFound">
+            <td *ngIf="wash.district_name != 'Total'" class="sno-header-layout"> {{i+1}} </td><td *ngIf="wash.district_name == 'Total'"></td>
+            <td *ngIf="wash.district_name != 'Total'" class="text-left"><a href="javascript:void(0)" (click)="getEachSchoolWashData(wash.district_id,wash.district_name)"> {{ wash.district_name}} </a></td>
+            <td *ngIf="wash.district_name == 'Total'" class="text-left"><b>Total</b></td>
+            <td> {{ wash.totalschools}} </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <tr class="text-center" *ngIf="noDataFound" >
+            <td colspan="3"> No Data Found </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div> 
+  </div>   
+  
+  <!-- Stage 2 -->
+
+  <div class="container-fluid" *ngIf="pageStage === 2">
+    <div class="main-body-content m-2">  
+      <p-table #dt  [columns]="dataHeader2" [value]="schoolWashDataBlock" [resizableColumns]="true" >
+          <ng-template let-wash pTemplate="caption">
+            <div class="row p-1">
+              <div class="col-sm-8 col-md-8">
+                  <div class="text-lg-left mt-3">
+                    <h5>School WASH Details - Block Wise</h5>
+                  </div>
+              </div>
+              <div class="col-sm-3 col-md-3 p-1">
+                  <div class="text-right">
+                       <input type="text" pInputText size="30" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                  </div>              
+               </div>
+               <div class="col-md-1 flex-row-center-end">
+                <div class="text-right" style="margin-left:-20px;">
+                    <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel()"></i>
+                </div>
+            </div>  
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-wash>
+            <tr class="text-center">
+              <th class="sno-header-layout">S.No</th>
+              <th *ngFor="let col of wash" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-wash let-rowData let-columns="columns" let-i="rowIndex" >
+            <tr class="text-center" *ngIf="!noDataFound2">
+              <td *ngIf="wash.block_name != 'Total'" class="sno-header-layout"> {{i+1}} </td><td *ngIf="wash.block_name == 'Total'"></td>
+              <td *ngIf="wash.block_name != 'Total'" class="text-left"><a href="javascript:void(0)" (click)="getSchoolWiseWashData(wash.block_id,wash.block_name)"> {{ wash.block_name | uppercase }} </a></td>
+              <td *ngIf="wash.block_name == 'Total'" class="text-left"><b>Total</b></td>
+              <td> {{ wash.totalschools}} </td>
+            </tr>
+
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <tr class="text-center" *ngIf="noDataFound2" >
+              <td colspan="3"> No Data Found </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div> 
+    </div>   
+    
+
+  <div class="container-fluid" *ngIf="pageStage === 3">
+    <div class="main-body-content m-2">  
+      <p-table #dt  [columns]="dataHeader3" [value]="schoolWashDataSchool" [resizableColumns]="true" [paginator]="true" [rows]="10">
+          <ng-template let-wash pTemplate="caption">
+            <div class="row p-1">
+              <div class="col-sm-8">
+                  <div class="text-lg-left mt-3">
+                    <h5>School WASH Details - School Wise</h5>
+                  </div>
+              </div>
+              <div class="col-sm-3 p-1">
+                  <div class="text-right">
+                       <input type="text" pInputText size="30" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                  </div>              
+               </div>
+               <div class="col-md-1 flex-row-center-end">
+                <div class="text-right" style="margin-left:-20px;">
+                    <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportSchlExcel()"></i>
+            </div>  
+            </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-wash>
+            <tr class="text-center">
+              <th style="width:5em;">S.No</th>
+              <th *ngFor="let col of wash" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-wash let-rowData let-columns="columns" let-i="rowIndex" >
+            <tr class="text-center">
+              <td style="width:5em;"> {{i+1}} </td>
+              <td class="text-left"> {{ wash.block_name | uppercase}} </td>
+              <td> {{ wash.udise_code}} </td>
+              <td class="text-left"> {{ wash.school_name}} </td>
+              <td> {{ wash.total_b}} </td>
+              <td> {{ wash.toil_bys_inuse}} </td>
+              <td> {{ wash.toil_notuse_bys}} </td>
+              <td> {{ wash.total_g}} </td>
+              <td> {{ wash.toil_inuse_grls}} </td>
+              <td> {{ wash.toil_notuse_grls}} </td>
+              <td> {{ wash.tot_handwash_bys}} </td>
+              <td> {{ wash.tot_handwash_grls}} </td>
+              <td class="text-left"> {{ wash.drnkwater}} </td>
+              <td class="text-left"> {{ wash.drinkingsource}} </td>
+              <td class="text-left"> {{ wash.incinerator}} </td>
+              <td> {{ wash.inci_auto_avail_no}} </td>
+              <td> {{ wash.inci_man_avail_no}} </td>
+              <td> {{ wash.inci_auto_func_no}} </td>
+              <td> {{ wash.inci_man_func_no}} </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <tr class="text-left" *ngIf="noDataFound3" >
+              <td colspan="18"> No Data Found </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div> 
+    </div>      
+
+  

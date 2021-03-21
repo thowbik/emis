@@ -1,0 +1,190 @@
+<div class="pr-2 mr-3">
+  <p-card class="mx-2">
+    <p><b>Note : </b> Reports Updated once a day at 7 PM</p>
+  </p-card>
+  <p-card class="mt-3 pt-3">
+    <!-- Start  -->
+    <div class="m-2 p-2">
+      <div class="row  m-2 pt-1">
+        <div class="col-md-12 mt-1">
+          <p class="label_text"><b>6.1</b> Annual Examination Result in Previous Year for Grade V</p>
+        </div>
+      </div>
+      <div class="row m-2">
+        <div class="col-md-12">
+          <p-table #dt
+                   [value]="ExamresultGradeFive"
+                   [styleClass]="'base-table'"
+                   [paginator]="false"
+                   [scrollable]="true"
+                   scrollHeight="500px"
+                   scrollWidth="500px" >
+            <ng-template pTemplate="header">
+              <tr class="center">
+                <th colspan="1" style="width: 260px;"></th>
+                <th colspan="2" style="">General</th>
+                <th colspan="2" style="">SC</th>
+                <th colspan="2" style="">ST</th>
+                <th colspan="2" style="">OBC</th>
+                <th colspan="2" style="">TOTAL</th>
+              </tr>
+              <tr class="center">
+                <th>Examination Result</th>
+                <th>Boys</th>
+                <th>Girls</th>
+                <th>Boys</th>
+                <th>Girls</th>
+                <th>Boys</th>
+                <th>Girls</th>
+                <th>Boys</th>
+                <th>Girls</th>
+                <th>Boys</th>
+                <th>Girls</th>
+              </tr>
+            </ng-template>
+              <ng-template pTemplate="body" let-distname let-rowData let-columns="columns" let-i="rowIndex" *ngIf="!noDataFound">
+              <tr>
+                <td style="width: 260px;">Number of Students Appeared</td>
+                <td>{{distname.gen_app_b}}</td>
+                <td>{{distname.gen_app_g}}</td>
+                <td>{{distname.sc_app_b}}</td>
+                <td>{{distname.sc_app_g}}</td>
+                <td>{{distname.st_app_b}}</td>
+                <td>{{distname.st_app_g}}</td>
+                <td>{{distname.obc_app_b}}</td>
+                <td>{{distname.obc_app_g}}</td>
+                <td>{{(distname.gen_app_b)*1 + (distname.sc_app_b)*1 + (distname.st_app_b)*1 + (distname.obc_app_b)*1}}</td>
+                <td>{{(distname.gen_app_g)*1 + (distname.sc_app_g)*1 + (distname.st_app_g)*1 + (distname.obc_app_g)*1}}</td>
+              </tr>
+              <tr>
+                <td style="width: 260px;">Number of Students Passed/Qualified</td>
+                <td>{{distname.gen_pass_b}}</td>
+                <td>{{distname.gen_pass_g}}</td>
+                <td>{{distname.sc_pass_b}}</td>
+                <td>{{distname.sc_pass_g}}</td>
+                <td>{{distname.st_pass_b}}</td>
+                <td>{{distname.st_pass_g}}</td>
+                <td>{{distname.obc_pass_b}}</td>
+                <td>{{distname.obc_pass_g}}</td>
+                <td>{{(distname.gen_pass_b)*1 + (distname.sc_pass_b)*1 + (distname.st_pass_b)*1 + (distname.obc_pass_b)*1}}</td>
+                <td>{{(distname.gen_pass_g)*1 + (distname.sc_pass_g)*1 + (distname.st_pass_g)*1 + (distname.obc_pass_g)*1}}</td>
+              </tr>
+              <tr>
+                <td style="width: 260px;">Number of Students Passed with Marks>=60%</td>
+                <td>{{distname.gen_60p_b}}</td>
+                <td>{{distname.gen_60p_g}}</td>
+                <td>{{distname.sc_60p_b}}</td>
+                <td>{{distname.sc_60p_g}}</td>
+                <td>{{distname.st_60p_b}}</td>
+                <td>{{distname.st_60p_g}}</td>
+                <td>{{distname.obc_60p_b}}</td>
+                <td>{{distname.obc_60p_g}}</td>
+                <td>{{(distname.gen_60p_b)*1 + (distname.sc_60p_b)*1 + (distname.st_60p_b)*1 + (distname.obc_60p_b)*1}}</td>
+                <td>{{(distname.gen_60p_g)*1 + (distname.sc_60p_g)*1 + (distname.st_60p_g)*1 + (distname.obc_60p_g)*1}}</td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+              <tr class="text-center" *ngIf="noDataFound">
+                 <td colspan="25">No Data Found</td>
+              </tr>
+        </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+  </p-card>
+</div>
+
+<div class="parent_class pr-2 mr-3">
+  <p-card class="mt-3 pt-3">
+    <!-- Start  -->
+    <div class="m-2 p-2">
+      <div class="row  m-2 pt-1">
+        <div class="col-md-12 mt-1">
+          <p class="label_text"><b>6.2</b> Annual Examination Result in Previous Year for Grade VIII</p>
+        </div>
+      </div>
+      <div class="row m-2">
+        <div class="col-md-12">
+          <p-table #dt
+                   [value]="ExamresultGradeEight"
+                   [styleClass]="'base-table'"
+                   [paginator]="false"
+                   [scrollable]="true"
+                   scrollHeight="500px"
+                   scrollWidth="500px" >
+            <ng-template pTemplate="header">
+              <tr class="center">
+                <th colspan="1" style="width: 260px;"></th>
+                <th colspan="2" style="">General</th>
+                <th colspan="2" style="">SC</th>
+                <th colspan="2" style="">ST</th>
+                <th colspan="2" style="">OBC</th>
+                <th colspan="2" style="">TOTAL</th>
+              </tr>
+              <tr class="center">
+                <th>Examination Result</th>
+                <th>Boys</th>
+                <th>Girls</th>
+                <th>Boys</th>
+                <th>Girls</th>
+                <th>Boys</th>
+                <th>Girls</th>
+                <th>Boys</th>
+                <th>Girls</th>
+                <th>Boys</th>
+                <th>Girls</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-distname let-rowData let-columns="columns" let-i="rowIndex" *ngIf="!noDataFound1">
+              <tr>
+                <td style="width: 260px;">Number of Students Appeared</td>
+                <td>{{distname.gen_app_b}}</td>
+                <td>{{distname.gen_app_g}}</td>
+                <td>{{distname.sc_app_b}}</td>
+                <td>{{distname.sc_app_g}}</td>
+                <td>{{distname.st_app_b}}</td>
+                <td>{{distname.st_app_g}}</td>
+                <td>{{distname.obc_app_b}}</td>
+                <td>{{distname.obc_app_g}}</td>
+                <td>{{(distname.gen_app_b)*1 + (distname.sc_app_b)*1 + (distname.st_app_b)*1 + (distname.obc_app_b)*1}}</td>
+                <td>{{(distname.gen_app_g)*1 + (distname.sc_app_g)*1 + (distname.st_app_g)*1 + (distname.obc_app_g)*1}}</td>
+              </tr>
+              <tr>
+                <td style="width: 260px;">Number of Students Passed/Qualified</td>
+                <td>{{distname.gen_pass_b}}</td>
+                <td>{{distname.gen_pass_g}}</td>
+                <td>{{distname.sc_pass_b}}</td>
+                <td>{{distname.sc_pass_g}}</td>
+                <td>{{distname.st_pass_b}}</td>
+                <td>{{distname.st_pass_g}}</td>
+                <td>{{distname.obc_pass_b}}</td>
+                <td>{{distname.obc_pass_g}}</td>
+                <td>{{(distname.gen_pass_b)*1 + (distname.sc_pass_b)*1 + (distname.st_pass_b)*1 + (distname.obc_pass_b)*1}}</td>
+                <td>{{(distname.gen_pass_g)*1 + (distname.sc_pass_g)*1 + (distname.st_pass_g)*1 + (distname.obc_pass_g)*1}}</td>
+              </tr>
+              <tr>
+                <td style="width: 260px;">Number of Students Passed with Marks>=60%</td>
+                <td>{{distname.gen_60p_b}}</td>
+                <td>{{distname.gen_60p_g}}</td>
+                <td>{{distname.sc_60p_b}}</td>
+                <td>{{distname.sc_60p_g}}</td>
+                <td>{{distname.st_60p_b}}</td>
+                <td>{{distname.st_60p_g}}</td>
+                <td>{{distname.obc_60p_b}}</td>
+                <td>{{distname.obc_60p_g}}</td>
+                <td>{{(distname.gen_60p_b)*1 + (distname.sc_60p_b)*1 + (distname.st_60p_b)*1 + (distname.obc_60p_b)*1}}</td>
+                <td>{{(distname.gen_60p_g)*1 + (distname.sc_60p_g)*1 + (distname.st_60p_g)*1 + (distname.obc_60p_g)*1}}</td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+              <tr class="text-center" *ngIf="noDataFound1">
+                 <td colspan="25">No Data Found</td>
+              </tr>
+        </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+  </p-card>
+</div>

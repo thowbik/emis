@@ -1,0 +1,26 @@
+button.btn.btn-success {
+    background-color: #075c49;
+    border: 1px solid #075c49;
+}
+
+button.btn.btn-success:hover {
+    color: #075c49;
+    background-color: white;
+}
+
+.submit {
+    padding-left: 433px;
+}
+
+.dropdown {
+    padding-right: 303px;
+}
+
+.excel {
+    padding-left: 864px;
+    margin-top: 5px;
+}
+
+.background {
+    background-color: white;
+}

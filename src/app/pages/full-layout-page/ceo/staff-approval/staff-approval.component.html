@@ -1,0 +1,75 @@
+<div class="main-body-content p-3">
+    <div class="outer-layout">
+       <div class="breadcrumbs c-black">
+          <h6 class="url">
+             <span class="flex-gap-right">Staff</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+             <span class="flex-gap-right">Staff  Approval </span>
+          </h6>
+       </div>
+    </div>
+    <p-card>
+       <div class="row p-2">
+          <div class="col-sm-8">
+          </div>
+          <div class="col-sm-3">
+             <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Filter" />
+          </div>
+          <!-- <div class="col-sm-1 p-2 text-right">
+             <i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="exportExcel()"></i>
+          </div> -->
+       </div>
+       <p-table #dt [columns]="staff" [value]="StaffList" editMode="row" [rows]="10" dataKey="stud_id" [paginator]="true" [resizableColumns]="true" [lazy]="false" [globalFilterFields]="['stud_name','class','sec','schl_name','udise_code','aadhaar_uid_number','phone_number','admison_status','remrks']">
+       <ng-template pTemplate="header" let-distname>
+          <tr class="text-center">
+             <th class="sno-header-layout">#</th>
+             <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+             {{col.header}}
+             <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"> </p-sortIcon>
+             </th>
+          </tr>
+       </ng-template>
+       <ng-template pTemplate="header" let-distname>
+          <tr class="text-center">
+             <th class="sno-header-layout">#</th>
+             <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+             {{col.header}}
+             <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"> </p-sortIcon>
+             </th>
+          </tr>
+       </ng-template>
+       <ng-template pTemplate="body" let-StaffList let-editing="editing" let-ri="rowIndex">
+          <tr [pEditableRow]="StaffList">
+             <td class="sno-header-layous">{{ri+1}}</td>
+             <td class="text-left">{{StaffList.stud_name}}</td>
+             <td class="text-center">{{StaffList.class}}</td>
+             <td class="text-left">{{StaffList.sec}}</td>
+             <td class="text-left">{{StaffList.schl_name}}</td>
+             <td class="text-center">{{StaffList.udise_code}}</td>
+             <td class="text-center">{{StaffList.aadhaar_uid_number}}</td>
+             <td class="text-center">{{StaffList.phone_number}}</td>
+             <td class="text-left">{{StaffList.admison_status == "0" ? "Approved" : StaffList.admison_status == "3" ? "Admitted" : "Rejected"}}</td>
+             <td>
+                <p-cellEditor>
+                   <ng-template pTemplate="input">
+                      <input pInputText type="text" [(ngModel)]="StaffList.remrks" />
+                   </ng-template>
+                   <ng-template pTemplate="output"> {{StaffList.remrks}} </ng-template>
+                </p-cellEditor>
+             </td>
+             <td style="text-align: center;">
+                <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" class="ui-button-info" (click)="onRowEditInit(StaffList)"></button>
+                <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" class="ui-button-success" label="Approve" style="margin-right: 0.5em;" (click)="onRowEdit_Save(StaffList)"></button>
+                <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" class="ui-button-danger" label="Reject" (click)="onRowEditCancel(StaffList, ri)"></button>
+             </td>
+          </tr>
+       </ng-template>
+       <ng-template pTemplate="emptymessage" let-columns>
+          <tr>
+             <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                <strong>No Records Found </strong>
+             </td>
+          </tr>
+       </ng-template>
+       </p-table>
+    </p-card>
+ </div>

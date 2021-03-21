@@ -1,0 +1,543 @@
+<div class="card ui-card-body my-3 box-shwd">
+    <div class="row">
+       <div class="col-sm-12">
+          <div class="container-fluid header_fonts">
+             <div class="row p-1">
+                <div class="col-sm-12">
+                   <div class="text-lg-left mt-3">
+                      <h5>Result of the Grade XII board / University Examination (Regular students)</h5>
+                   </div>
+                </div>
+             </div>
+          </div>
+          <form  [formGroup]="userform">
+             <p-table [columns]="schuniv" [scrollable]="true" [value]="schunivby">
+             <ng-template pTemplate="colgroup">
+                <colgroup>
+                   <col [style.width]="'130px'">
+                   <col [style.width]="'90px'">
+                   <col [style.width]="'90px'">
+                   <col [style.width]="'90px'">
+                   <col [style.width]="'90px'">
+                   <col [style.width]="'90px'">
+                   <col [style.width]="'90px'">
+                   <col [style.width]="'90px'">
+                   <col [style.width]="'90px'">
+                   <col [style.width]="'90px'">
+                   <col [style.width]="'90px'">
+                </colgroup>
+             </ng-template>
+             <ng-template pTemplate="header" let-columns>
+                <tr style="text-align: center;">
+                   <th colspan="11">Number of Students Appeared</th>
+                </tr>
+                <tr style="text-align: center;">
+                   <th></th>
+                   <th colspan="2">General</th>
+                   <th colspan="2">SC</th>
+                   <th colspan="2">ST</th>
+                   <th colspan="2">OBC</th>
+                   <th colspan="2">Total</th>
+                </tr>
+                <tr style="text-align: center;">
+                   <th>Stream</th>
+                   <th  *ngFor="let cnt of schuniv" [pSortableColumn]="cnt.field" pResizableColumn style="text-align: center;"> 
+                   {{cnt.header}}
+                   </th> 
+                </tr>
+             </ng-template>
+             <ng-template pTemplate="body"  let-i="rowIndex">
+                <tr>
+                   <td><strong>Arts</strong></td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="arts_gen_b"  class="form-control" maxlength="2" (keyup)="appeared_students(1)" >
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.arts_gen_b.errors && (submitted || userform.controls.arts_gen_b.dirty || userform.controls.arts_gen_b.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="arts_gen_g"  class="form-control" maxlength="2"  (keyup)="appeared_students(2)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.arts_gen_g.errors && (submitted || userform.controls.arts_gen_g.dirty || userform.controls.arts_gen_g.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="arts_sc_b"  class="form-control" maxlength="2" (keyup)="appeared_students(3)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.arts_sc_b.errors && (submitted || userform.controls.arts_sc_b.dirty || userform.controls.arts_sc_b.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="arts_sc_g"  class="form-control" maxlength="2" (keyup)="appeared_students(4)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.arts_sc_g.errors && (submitted || userform.controls.arts_sc_g.dirty || userform.controls.arts_sc_g.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="arts_st_b"  class="form-control" maxlength="2" (keyup)="appeared_students(5)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.arts_st_b.errors && (submitted || userform.controls.arts_st_b.dirty || userform.controls.arts_st_b.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="arts_st_g"  class="form-control" maxlength="2" (keyup)="appeared_students(6)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.arts_st_g.errors && (submitted || userform.controls.arts_st_g.dirty || userform.controls.arts_st_g.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="arts_obc_b"  class="form-control" maxlength="2"  (keyup)="appeared_students(7)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.arts_obc_b.errors && (submitted || userform.controls.arts_obc_b.dirty || userform.controls.arts_obc_b.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="arts_obc_g"  class="form-control" maxlength="2" (keyup)="appeared_students(8)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.arts_obc_g.errors && (submitted || userform.controls.arts_obc_g.dirty || userform.controls.arts_obc_g.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="arts_tot_b"  class="form-control" maxlength="2" readonly style="background-color: lightgray;">
+                      <!-- <p-message severity="error"  text="Field is required" *ngIf="userform.controls.arts_tot_b.errors && (submitted || userform.controls.arts_tot_b.dirty || userform.controls.arts_tot_b.touched)"></p-message> -->
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="arts_tot_g"  class="form-control" maxlength="2" readonly style="background-color: lightgray;">
+                      <!-- <p-message severity="error"  text="Field is required" *ngIf="userform.controls.arts_tot_g.errors && (submitted || userform.controls.arts_tot_g.dirty || userform.controls.arts_tot_g.touched)"></p-message> -->
+                   </td>
+                </tr>
+                <tr>
+                   <td><strong>Science</strong></td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="science_gen_b"  class="form-control" maxlength="2"  (keyup)="appeared_students(9)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.science_gen_b.errors && (submitted || userform.controls.science_gen_b.dirty || userform.controls.science_gen_b.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="science_gen_g"  class="form-control" maxlength="2"   (keyup)="appeared_students(10)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.science_gen_g.errors && (submitted || userform.controls.science_gen_g.dirty || userform.controls.science_gen_g.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="science_sc_b"  class="form-control" maxlength="2"  (keyup)="appeared_students(11)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.science_sc_b.errors && (submitted || userform.controls.science_sc_b.dirty || userform.controls.science_sc_b.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="science_sc_g"  class="form-control" maxlength="2"  (keyup)="appeared_students(12)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.science_sc_g.errors && (submitted || userform.controls.science_sc_g.dirty || userform.controls.science_sc_g.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="science_st_b"  class="form-control" maxlength="2"  (keyup)="appeared_students(13)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.science_st_b.errors && (submitted || userform.controls.science_st_b.dirty || userform.controls.science_st_b.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="science_st_g"  class="form-control" maxlength="2"  (keyup)="appeared_students(14)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.science_st_g.errors && (submitted || userform.controls.science_st_g.dirty || userform.controls.science_st_g.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="science_obc_b"  class="form-control" maxlength="2"  (keyup)="appeared_students(15)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.science_obc_b.errors && (submitted || userform.controls.science_obc_b.dirty || userform.controls.science_obc_b.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="science_obc_g"  class="form-control" maxlength="2"  (keyup)="appeared_students(16)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.science_obc_g.errors && (submitted || userform.controls.science_obc_g.dirty || userform.controls.science_obc_g.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="science_tot_b"  class="form-control" maxlength="2" readonly style="background-color: lightgray;">
+                      <!-- <p-message severity="error"  text="Field is required" *ngIf="userform.controls.science_tot_b.errors && (submitted || userform.controls.science_tot_b.dirty || userform.controls.science_tot_b.touched)"></p-message> -->
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="science_tot_g"  class="form-control" maxlength="2" readonly style="background-color: lightgray;">
+                      <!-- <p-message severity="error"  text="Field is required" *ngIf="userform.controls.science_tot_g.errors && (submitted || userform.controls.science_tot_g.dirty || userform.controls.science_tot_g.touched)"></p-message> -->
+                   </td>
+                </tr>
+                <tr>
+                   <td><strong>Commerce</strong></td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="commerce_gen_b"  class="form-control" maxlength="2"  (keyup)="appeared_students(17)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.commerce_gen_b.errors && (submitted || userform.controls.commerce_gen_b.dirty || userform.controls.commerce_gen_b.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="commerce_gen_g"  class="form-control" maxlength="2"   (keyup)="appeared_students(18)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.commerce_gen_g.errors && (submitted || userform.controls.commerce_gen_g.dirty || userform.controls.commerce_gen_g.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="commerce_sc_b"  class="form-control" maxlength="2"  (keyup)="appeared_students(19)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.commerce_sc_b.errors && (submitted || userform.controls.commerce_sc_b.dirty || userform.controls.commerce_sc_b.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="commerce_sc_g"  class="form-control" maxlength="2"  (keyup)="appeared_students(20)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.commerce_sc_g.errors && (submitted || userform.controls.commerce_sc_g.dirty || userform.controls.commerce_sc_g.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="commerce_st_b"  class="form-control" maxlength="2"  (keyup)="appeared_students(21)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.commerce_st_b.errors && (submitted || userform.controls.commerce_st_b.dirty || userform.controls.commerce_st_b.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="commerce_st_g"  class="form-control" maxlength="2"  (keyup)="appeared_students(22)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.commerce_st_g.errors && (submitted || userform.controls.commerce_st_g.dirty || userform.controls.commerce_st_g.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="commerce_obc_b"  class="form-control" maxlength="2"  (keyup)="appeared_students(23)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.commerce_obc_b.errors && (submitted || userform.controls.commerce_obc_b.dirty || userform.controls.commerce_obc_b.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="commerce_obc_g"  class="form-control" maxlength="2"  (keyup)="appeared_students(24)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.commerce_obc_g.errors && (submitted || userform.controls.commerce_obc_g.dirty || userform.controls.commerce_obc_g.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="commerce_tot_b"  class="form-control" maxlength="2" readonly style="background-color: lightgray;">
+                      <!-- <p-message severity="error"  text="Field is required" *ngIf="userform.controls.commerce_tot_b.errors && (submitted || userform.controls.commerce_tot_b.dirty || userform.controls.commerce_tot_b.touched)"></p-message> -->
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="commerce_tot_g"  class="form-control" maxlength="2" readonly style="background-color: lightgray;">
+                      <!-- <p-message severity="error"  text="Field is required" *ngIf="userform.controls.commerce_tot_g.errors && (submitted || userform.controls.commerce_tot_g.dirty || userform.controls.commerce_tot_g.touched)"></p-message> -->
+                   </td>
+                </tr>
+                <tr>
+                   <td><strong>Vocational</strong></td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="vocational_gen_b"  class="form-control" maxlength="2"  (keyup)="appeared_students(25)" >
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.vocational_gen_b.errors && (submitted || userform.controls.vocational_gen_b.dirty || userform.controls.vocational_gen_b.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="vocational_gen_g"  class="form-control" maxlength="2"  (keyup)="appeared_students(26)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.vocational_gen_g.errors && (submitted || userform.controls.vocational_gen_g.dirty || userform.controls.vocational_gen_g.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="vocational_sc_b"  class="form-control" maxlength="2"  (keyup)="appeared_students(27)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.vocational_sc_b.errors && (submitted || userform.controls.vocational_sc_b.dirty || userform.controls.vocational_sc_b.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="vocational_sc_g"  class="form-control" maxlength="2" (keyup)="appeared_students(28)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.vocational_sc_g.errors && (submitted || userform.controls.vocational_sc_g.dirty || userform.controls.vocational_sc_g.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="vocational_st_b"  class="form-control" maxlength="2" (keyup)="appeared_students(29)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.vocational_st_b.errors && (submitted || userform.controls.vocational_st_b.dirty || userform.controls.vocational_st_b.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="vocational_st_g"  class="form-control" maxlength="2" (keyup)="appeared_students(30)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.vocational_st_g.errors && (submitted || userform.controls.vocational_st_g.dirty || userform.controls.vocational_st_g.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="vocational_obc_b"  class="form-control" maxlength="2" (keyup)="appeared_students(31)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.vocational_obc_b.errors && (submitted || userform.controls.vocational_obc_b.dirty || userform.controls.vocational_obc_b.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="vocational_obc_g"  class="form-control" maxlength="2" (keyup)="appeared_students(32)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.vocational_obc_g.errors && (submitted || userform.controls.vocational_obc_g.dirty || userform.controls.vocational_obc_g.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="vocational_tot_b"  class="form-control" maxlength="2" readonly style="background-color: lightgray;">
+                      <!-- <p-message severity="error"  text="Field is required" *ngIf="userform.controls.vocational_tot_b.errors && (submitted || userform.controls.vocational_tot_b.dirty || userform.controls.vocational_tot_b.touched)"></p-message> -->
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="vocational_tot_g"  class="form-control" maxlength="2" readonly style="background-color: lightgray;">
+                      <!-- <p-message severity="error"  text="Field is required" *ngIf="userform.controls.vocational_tot_g.errors && (submitted || userform.controls.vocational_tot_g.dirty || userform.controls.vocational_tot_g.touched)"></p-message> -->
+                   </td>
+                </tr>
+                <tr>
+                   <td><strong>Other&nbsp;streams</strong></td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="stream_gen_b"  class="form-control" maxlength="2" (keyup)="appeared_students(33)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.stream_gen_b.errors && (submitted || userform.controls.stream_gen_b.dirty || userform.controls.stream_gen_b.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="stream_gen_g"  class="form-control" maxlength="2"  (keyup)="appeared_students(34)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.stream_gen_g.errors && (submitted || userform.controls.stream_gen_g.dirty || userform.controls.stream_gen_g.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="stream_sc_b"  class="form-control" maxlength="2" (keyup)="appeared_students(35)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.stream_sc_b.errors && (submitted || userform.controls.stream_sc_b.dirty || userform.controls.stream_sc_b.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="stream_sc_g"  class="form-control" maxlength="2" (keyup)="appeared_students(36)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.stream_sc_g.errors && (submitted || userform.controls.stream_sc_g.dirty || userform.controls.stream_sc_g.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="stream_st_b"  class="form-control" maxlength="2" (keyup)="appeared_students(37)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.stream_st_b.errors && (submitted || userform.controls.stream_st_b.dirty || userform.controls.stream_st_b.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="stream_st_g"  class="form-control" maxlength="2" (keyup)="appeared_students(38)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.stream_st_g.errors && (submitted || userform.controls.stream_st_g.dirty || userform.controls.stream_st_g.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="stream_obc_b"  class="form-control" maxlength="2" (keyup)="appeared_students(39)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.stream_obc_b.errors && (submitted || userform.controls.stream_obc_b.dirty || userform.controls.stream_obc_b.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="stream_obc_g"  class="form-control" maxlength="2" (keyup)="appeared_students(40)">
+                      <p-message severity="error"  text="Field is required" *ngIf="userform.controls.stream_obc_g.errors && (submitted || userform.controls.stream_obc_g.dirty || userform.controls.stream_obc_g.touched)"></p-message>
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="stream_tot_b"  class="form-control" maxlength="2" readonly style="background-color: lightgray;">
+                      <!-- <p-message severity="error"  text="Field is required" *ngIf="userform.controls.stream_tot_b.errors && (submitted || userform.controls.stream_tot_b.dirty || userform.controls.stream_tot_b.touched)"></p-message> -->
+                   </td>
+                   <td>
+                      <input type="text" pInputText pKeyFilter="num"  formControlName="stream_tot_g"  class="form-control" maxlength="2" readonly style="background-color: lightgray;">
+                      <!-- <p-message severity="error"  text="Field is required" *ngIf="userform.controls.stream_tot_g.errors && (submitted || userform.controls.stream_tot_g.dirty || userform.controls.stream_tot_g.touched)"></p-message> -->
+                   </td>
+                </tr>
+                <tr>
+                   <td><strong>Total</strong></td>
+                   <td><input type="text" pInputText pKeyFilter="num"  formControlName="total_gen_b"  class="form-control" maxlength="2"  readonly style="background-color: lightgray;"></td>
+                   <td><input type="text" pInputText pKeyFilter="num"  formControlName="total_gen_g"  class="form-control" maxlength="2"  readonly style="background-color: lightgray;"></td>
+                   <td><input type="text" pInputText pKeyFilter="num"  formControlName="total_sc_b"  class="form-control" maxlength="2"  readonly style="background-color: lightgray;"></td>
+                   <td><input type="text" pInputText pKeyFilter="num"  formControlName="total_sc_g"  class="form-control" maxlength="2" readonly style="background-color: lightgray;"></td>
+                   <td><input type="text" pInputText pKeyFilter="num"  formControlName="total_st_b"  class="form-control" maxlength="2" readonly style="background-color: lightgray;"></td>
+                   <td><input type="text" pInputText pKeyFilter="num"  formControlName="total_st_g"  class="form-control" maxlength="2" readonly style="background-color: lightgray;"></td>
+                   <td><input type="text" pInputText pKeyFilter="num"  formControlName="total_obc_b"  class="form-control" maxlength="2" readonly style="background-color: lightgray;"></td>
+                   <td><input type="text" pInputText pKeyFilter="num"  formControlName="total_obc_g"  class="form-control" maxlength="2" readonly style="background-color: lightgray;"></td>
+                   <td><input type="text" pInputText pKeyFilter="num"  formControlName="total_tot_b"  class="form-control" maxlength="2" readonly style="background-color: lightgray;"></td>
+                   <td><input type="text" pInputText pKeyFilter="num"  formControlName="total_tot_g"  class="form-control" maxlength="2" readonly style="background-color: lightgray;"></td>
+                </tr>
+             </ng-template>
+             </p-table>
+             <br>
+             <p-table [columns]="schuniv" [scrollable]="true" [value]="schunivby">
+             <ng-template pTemplate="colgroup">
+                <colgroup>
+                   <col [style.width]="'130px'">
+                   <col [style.width]="'90px'">
+                   <col [style.width]="'90px'">
+                   <col [style.width]="'90px'">
+                   <col [style.width]="'90px'">
+                   <col [style.width]="'90px'">
+                   <col [style.width]="'90px'">
+                   <col [style.width]="'90px'">
+                   <col [style.width]="'90px'">
+                   <col [style.width]="'90px'">
+                   <col [style.width]="'90px'">
+                </colgroup>
+             </ng-template>
+             <ng-template pTemplate="header" let-columns>
+                <tr style="text-align: center;">
+                   <th colspan="11">Number of Students Passed/Qualified</th>
+                </tr>
+                <tr style="text-align: center;">
+                   <th></th>
+                   <th colspan="2">General</th>
+                   <th colspan="2">SC</th>
+                   <th colspan="2">ST</th>
+                   <th colspan="2">OBC</th>
+                   <th colspan="2">Total</th>
+                </tr>
+                <tr style="text-align: center;">
+                   <th>Stream</th>
+                   <th  *ngFor="let cnt of schuniv" [pSortableColumn]="cnt.field" pResizableColumn style="text-align: center;"> 
+                   {{cnt.header}}
+                   </th> 
+                </tr>
+             </ng-template>
+             <ng-template pTemplate="body"  let-i="rowIndex">
+                <tr>
+                   <td><strong>Arts</strong></td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_arts_gen_b"  class="form-control" maxlength="2"  (keyup)="qualified_boys(1)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_arts_gen_b.errors && (submitted || userform.controls.passed_arts_gen_b.dirty || userform.controls.passed_arts_gen_b.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_arts_gen_g"  class="form-control" maxlength="2" (keyup)="qualified_boys(2)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_arts_gen_g.errors && (submitted || userform.controls.passed_arts_gen_g.dirty || userform.controls.passed_arts_gen_g.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_arts_sc_b"  class="form-control" maxlength="2"  (keyup)="qualified_boys(3)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_arts_sc_b.errors && (submitted || userform.controls.passed_arts_sc_b.dirty || userform.controls.passed_arts_sc_b.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_arts_sc_g"  class="form-control" maxlength="2"  (keyup)="qualified_boys(4)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_arts_sc_g.errors && (submitted || userform.controls.passed_arts_sc_g.dirty || userform.controls.passed_arts_sc_g.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_arts_st_b"  class="form-control" maxlength="2"  (keyup)="qualified_boys(5)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_arts_st_b.errors && (submitted || userform.controls.passed_arts_st_b.dirty || userform.controls.passed_arts_st_b.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_arts_st_g"  class="form-control" maxlength="2"  (keyup)="qualified_boys(6)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_arts_st_g.errors && (submitted || userform.controls.passed_arts_st_g.dirty || userform.controls.passed_arts_st_g.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_arts_obc_b"  class="form-control" maxlength="2"  (keyup)="qualified_boys(7)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_arts_obc_b.errors && (submitted || userform.controls.passed_arts_obc_b.dirty || userform.controls.passed_arts_obc_b.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_arts_obc_g"  class="form-control" maxlength="2"  (keyup)="qualified_boys(8)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_arts_obc_g.errors && (submitted || userform.controls.passed_arts_obc_g.dirty || userform.controls.passed_arts_obc_g.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_arts_tot_b"  class="form-control"readonly style="background-color: lightgray;" >
+                       <!-- <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_arts_tot_b.errors && (submitted || userform.controls.passed_arts_tot_b.dirty || userform.controls.passed_arts_tot_b.touched)"></p-message> -->
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_arts_tot_g"  class="form-control" readonly style="background-color: lightgray;">
+                       <!-- <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_arts_tot_g.errors && (submitted || userform.controls.passed_arts_tot_g.dirty || userform.controls.passed_arts_tot_g.touched)"></p-message> -->
+                    </td>
+                </tr>
+                <tr>
+                   <td><strong>Science</strong></td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_science_gen_b"  class="form-control" maxlength="2"  (keyup)="qualified_boys(9)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_science_gen_b.errors && (submitted || userform.controls.passed_science_gen_b.dirty || userform.controls.passed_science_gen_b.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_science_gen_g"  class="form-control" maxlength="2"  (keyup)="qualified_boys(10)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_science_gen_g.errors && (submitted || userform.controls.passed_science_gen_g.dirty || userform.controls.passed_science_gen_g.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_science_sc_b"  class="form-control" maxlength="2"  (keyup)="qualified_boys(11)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_science_sc_b.errors && (submitted || userform.controls.passed_science_sc_b.dirty || userform.controls.passed_science_sc_b.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_science_sc_g"  class="form-control" maxlength="2"  (keyup)="qualified_boys(12)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_science_sc_g.errors && (submitted || userform.controls.passed_science_sc_g.dirty || userform.controls.passed_science_sc_g.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_science_st_b"  class="form-control" maxlength="2"  (keyup)="qualified_boys(13)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_science_st_b.errors && (submitted || userform.controls.passed_science_st_b.dirty || userform.controls.passed_science_st_b.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_science_st_g"  class="form-control" maxlength="2" (keyup)="qualified_boys(14)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_science_st_g.errors && (submitted || userform.controls.passed_science_st_g.dirty || userform.controls.passed_science_st_g.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_science_obc_b"  class="form-control" maxlength="2" (keyup)="qualified_boys(15)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_science_obc_b.errors && (submitted || userform.controls.passed_science_obc_b.dirty || userform.controls.passed_science_obc_b.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_science_obc_g"  class="form-control" maxlength="2" (keyup)="qualified_boys(16)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_science_obc_g.errors && (submitted || userform.controls.passed_science_obc_g.dirty || userform.controls.passed_science_obc_g.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_science_tot_b"  class="form-control" readonly style="background-color: lightgray;">
+                       <!-- <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_science_tot_b.errors && (submitted || userform.controls.passed_science_tot_b.dirty || userform.controls.passed_science_tot_b.touched)"></p-message> -->
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_science_tot_g"  class="form-control" readonly style="background-color: lightgray;">
+                       <!-- <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_science_tot_g.errors && (submitted || userform.controls.passed_science_tot_g.dirty || userform.controls.passed_science_tot_g.touched)"></p-message> -->
+                    </td>
+                </tr>
+                <tr>
+                   <td><strong>Commerce</strong></td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_commerce_gen_b"  class="form-control" maxlength="2"  (keyup)="qualified_boys(17)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_commerce_gen_b.errors && (submitted || userform.controls.passed_commerce_gen_b.dirty || userform.controls.passed_commerce_gen_b.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_commerce_gen_g"  class="form-control" maxlength="2" (keyup)="qualified_boys(18)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_commerce_gen_g.errors && (submitted || userform.controls.passed_commerce_gen_g.dirty || userform.controls.passed_commerce_gen_g.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_commerce_sc_b"  class="form-control" maxlength="2" (keyup)="qualified_boys(19)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_commerce_sc_b.errors && (submitted || userform.controls.passed_commerce_sc_b.dirty || userform.controls.passed_commerce_sc_b.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_commerce_sc_g"  class="form-control" maxlength="2" (keyup)="qualified_boys(20)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_commerce_sc_g.errors && (submitted || userform.controls.passed_commerce_sc_g.dirty || userform.controls.passed_commerce_sc_g.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_commerce_st_b"  class="form-control" maxlength="2" (keyup)="qualified_boys(21)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_commerce_st_b.errors && (submitted || userform.controls.passed_commerce_st_b.dirty || userform.controls.passed_commerce_st_b.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_commerce_st_g"  class="form-control" maxlength="2" (keyup)="qualified_boys(22)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_commerce_st_g.errors && (submitted || userform.controls.passed_commerce_st_g.dirty || userform.controls.passed_commerce_st_g.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_commerce_obc_b"  class="form-control" maxlength="2" (keyup)="qualified_boys(23)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_commerce_obc_b.errors && (submitted || userform.controls.passed_commerce_obc_b.dirty || userform.controls.passed_commerce_obc_b.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_commerce_obc_g"  class="form-control" maxlength="2" (keyup)="qualified_boys(24)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_commerce_obc_g.errors && (submitted || userform.controls.passed_commerce_obc_g.dirty || userform.controls.passed_commerce_obc_g.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_commerce_tot_b"  class="form-control" readonly style="background-color: lightgray;">
+                       <!-- <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_commerce_tot_b.errors && (submitted || userform.controls.passed_commerce_tot_b.dirty || userform.controls.passed_commerce_tot_b.touched)"></p-message> -->
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_commerce_tot_g"  class="form-control" readonly style="background-color: lightgray;">
+                       <!-- <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_commerce_tot_g.errors && (submitted || userform.controls.passed_commerce_tot_g.dirty || userform.controls.passed_commerce_tot_g.touched)"></p-message> -->
+                    </td>
+                </tr>
+                <tr>
+                   <td><strong>Vocational</strong></td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_vocational_gen_b"  class="form-control" maxlength="2" (keyup)="qualified_boys(25)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_vocational_gen_b.errors && (submitted || userform.controls.passed_vocational_gen_b.dirty || userform.controls.passed_vocational_gen_b.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_vocational_gen_g"  class="form-control" maxlength="2" (keyup)="qualified_boys(26)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_vocational_gen_g.errors && (submitted || userform.controls.passed_vocational_gen_g.dirty || userform.controls.passed_vocational_gen_g.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_vocational_sc_b"  class="form-control" maxlength="2" (keyup)="qualified_boys(27)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_vocational_sc_b.errors && (submitted || userform.controls.passed_vocational_sc_b.dirty || userform.controls.passed_vocational_sc_b.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_vocational_sc_g"  class="form-control" maxlength="2" (keyup)="qualified_boys(28)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_vocational_sc_g.errors && (submitted || userform.controls.passed_vocational_sc_g.dirty || userform.controls.passed_vocational_sc_g.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_vocational_st_b"  class="form-control" maxlength="2" (keyup)="qualified_boys(29)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_vocational_st_b.errors && (submitted || userform.controls.passed_vocational_st_b.dirty || userform.controls.passed_vocational_st_b.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_vocational_st_g"  class="form-control" maxlength="2" (keyup)="qualified_boys(30)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_vocational_st_g.errors && (submitted || userform.controls.passed_vocational_st_g.dirty || userform.controls.passed_vocational_st_g.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_vocational_obc_b"  class="form-control" maxlength="2" (keyup)="qualified_boys(31)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_vocational_obc_b.errors && (submitted || userform.controls.passed_vocational_obc_b.dirty || userform.controls.passed_vocational_obc_b.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_vocational_obc_g"  class="form-control" maxlength="2" (keyup)="qualified_boys(32)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_vocational_obc_g.errors && (submitted || userform.controls.passed_vocational_obc_g.dirty || userform.controls.passed_vocational_obc_g.touched)"></p-message>
+                    </td>
+                   <td><input type="text" pInputText pKeyFilter="num"  formControlName="passed_vocational_tot_b"  class="form-control" readonly style="background-color: lightgray;"></td>
+                   <td><input type="text" pInputText pKeyFilter="num"  formControlName="passed_vocational_tot_g"  class="form-control" readonly style="background-color: lightgray;"></td>
+                </tr>
+                <tr>
+                   <td><strong>Other&nbsp;streams</strong></td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_stream_gen_b"  class="form-control" maxlength="2" (keyup)="qualified_boys(33)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_stream_gen_b.errors && (submitted || userform.controls.passed_stream_gen_b.dirty || userform.controls.passed_stream_gen_b.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_stream_gen_g"  class="form-control" maxlength="2" (keyup)="qualified_boys(34)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_stream_gen_g.errors && (submitted || userform.controls.passed_stream_gen_g.dirty || userform.controls.passed_stream_gen_g.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_stream_sc_b"  class="form-control" maxlength="2" (keyup)="qualified_boys(35)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_stream_sc_b.errors && (submitted || userform.controls.passed_stream_sc_b.dirty || userform.controls.passed_stream_sc_b.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_stream_sc_g"  class="form-control" maxlength="2" (keyup)="qualified_boys(36)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_stream_sc_g.errors && (submitted || userform.controls.passed_stream_sc_g.dirty || userform.controls.passed_stream_sc_g.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_stream_st_b"  class="form-control" maxlength="2" (keyup)="qualified_boys(37)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_stream_st_b.errors && (submitted || userform.controls.passed_stream_st_b.dirty || userform.controls.passed_stream_st_b.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_stream_st_g"  class="form-control" maxlength="2" (keyup)="qualified_boys(38)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_stream_st_g.errors && (submitted || userform.controls.passed_stream_st_g.dirty || userform.controls.passed_stream_st_g.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_stream_obc_b"  class="form-control" maxlength="2" (keyup)="qualified_boys(39)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_stream_obc_b.errors && (submitted || userform.controls.passed_stream_obc_b.dirty || userform.controls.passed_stream_obc_b.touched)"></p-message>
+                    </td>
+                   <td>
+                       <input type="text" pInputText pKeyFilter="num"  formControlName="passed_stream_obc_g"  class="form-control" maxlength="2" (keyup)="qualified_boys(40)">
+                       <p-message severity="error"  text="Field is required" *ngIf="userform.controls.passed_stream_obc_g.errors && (submitted || userform.controls.passed_stream_obc_g.dirty || userform.controls.passed_stream_obc_g.touched)"></p-message>
+                    </td>
+                   <td><input type="text" pInputText pKeyFilter="num"  formControlName="passed_stream_tot_b"  class="form-control" readonly style="background-color: lightgray;"></td>
+                   <td><input type="text" pInputText pKeyFilter="num"  formControlName="passed_stream_tot_g"  class="form-control" readonly style="background-color: lightgray;"></td>
+                </tr>
+                <tr>
+                   <td><strong>Total</strong></td>
+                   <td><input type="text" pInputText pKeyFilter="num"  formControlName="passed_total_gen_b"  class="form-control" maxlength="2" readonly style="background-color: lightgray;"></td>
+                   <td><input type="text" pInputText pKeyFilter="num"  formControlName="passed_total_gen_g"  class="form-control" maxlength="2" readonly style="background-color: lightgray;"></td>
+                   <td><input type="text" pInputText pKeyFilter="num"  formControlName="passed_total_sc_b"  class="form-control" maxlength="2" readonly style="background-color: lightgray;"></td>
+                   <td><input type="text" pInputText pKeyFilter="num"  formControlName="passed_total_sc_g"  class="form-control" maxlength="2" readonly style="background-color: lightgray;"></td>
+                   <td><input type="text" pInputText pKeyFilter="num"  formControlName="passed_total_st_b"  class="form-control" maxlength="2" readonly style="background-color: lightgray;"></td>
+                   <td><input type="text" pInputText pKeyFilter="num"  formControlName="passed_total_st_g"  class="form-control" maxlength="2" readonly style="background-color: lightgray;"></td>
+                   <td><input type="text" pInputText pKeyFilter="num"  formControlName="passed_total_obc_b"  class="form-control" maxlength="2" readonly style="background-color: lightgray;"></td>
+                   <td><input type="text" pInputText pKeyFilter="num"  formControlName="passed_total_obc_g"  class="form-control" maxlength="2" readonly style="background-color: lightgray;"></td>
+                   <td><input type="text" pInputText pKeyFilter="num"  formControlName="passed_total_tot_b"  class="form-control" maxlength="2" readonly style="background-color: lightgray;"></td>
+                   <td><input type="text" pInputText pKeyFilter="num"  formControlName="passed_total_tot_g"  class="form-control" maxlength="2" readonly style="background-color: lightgray;"></td>
+                </tr>
+             </ng-template>
+             </p-table>
+             <br>
+             <div class="text-right">
+                <button type="submit" class="btn btn-success">Submit</button>
+                <button type="submit" class="btn btn-light" >Cancel</button>
+             </div>
+          </form>
+       </div>
+    </div>
+ </div>

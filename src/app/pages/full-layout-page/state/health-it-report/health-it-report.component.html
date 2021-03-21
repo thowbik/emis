@@ -1,0 +1,254 @@
+    <div class="main-body-content">
+      <div class="outer-layout">
+          <div class="breadcrumbs c-black">
+          <h6 class="url"><span class="flex-gap-right">Monitoring Report</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i> 
+              <span  class="flex-gap-right" (click)="goBack()">Health and IT Report</span>
+              
+              <span *ngIf="districtName"><i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>{{districtName}}</span>
+            </h6>
+          </div>
+      </div>
+    <div class="">
+        <div class="container-fluid" *ngIf="pageStage === 1">
+            <p-tabView>
+                <p-tabPanel header="Health Report">
+                    <p-table #dt1 [columns]="dataHeader1" [value]="getpositivecases"  [resizableColumns]="true" (sortFunction)="customSort($event)" [customSort]="true"
+                    [globalFilterFields]="['DistNam','TotStrength','TotMarked']">
+                        <ng-template let-childrens pTemplate="caption">
+                            <div class="row header flex-row-center">
+                                <div class="col-sm-8"></div>
+                                <div class="col-sm-3 p-1">
+                                    <div class="text-right">
+                                        <input class="form-control" type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')"
+                                        placeholder="Search">
+                                    </div>
+                                </div>
+                                <div class="col-sm-1 p-1 flex-row-center-end">
+                                    <div class="text-right">
+                                        <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"  (click)="exportPdf(getpositivecases,dataHeader1)"></i>
+                                        <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel(getpositivecases)"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                      
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: 50px; text-align: center;"># </th>
+                                <th style="text-align: center;" pSortableColumn="DistNam">Districts <p-sortIcon field="DistNam"></p-sortIcon></th>
+                                <th style="text-align: center;" pSortableColumn="TotStrength">Total Strength <p-sortIcon field="TotStrength"></p-sortIcon></th>
+                                <th style="text-align: center;" pSortableColumn="TotMarked">Updated<p-sortIcon field="TotMarked"></p-sortIcon></th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-blk let-columns="columns" let-i="rowIndex">
+                            <tr>
+                                <td class="sno-header-layout text-center">{{i+1}}</td>
+                                <td style="text-align: center;"><a class="link-url" href="javascript:void(0)" (click)="covidUnmarkedReportcounts(blk.DistID,blk.DistNam)">{{blk.DistNam}}</a></td>
+                                <td style="text-align: center;">{{blk.TotStrength}}</td>
+                                <td style="text-align: center;">{{blk.TotMarked}}</td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="footer">
+                            <tr class="text-center" *ngIf="!noDataFound">
+                                <td colspan="2" class="text-center">Total</td>
+                                <td class="ui-resizable-column">{{total_count}}</td>
+                                <td class="ui-resizable-column">{{totally_marked}}</td>
+                            </tr>
+                            <tr class="text-left" *ngIf="noDataFound">
+                                <td colspan="6" style="text-align: center;"> No Data Found </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage" let-columns>
+                            <tr>
+                                <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                                    <strong>No records found</strong>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-tabPanel>
+                <p-tabPanel header="Positve Cases" >
+                    <p-table #dt2 [columns]="dataHeader2" [value]="getpositivecasesSummary" [resizableColumns]="true" (sortFunction)="customSort($event)" [customSort]="true"
+                    [globalFilterFields]="['district_name','affected_count']" >
+                        <ng-template let-childrens pTemplate="caption">
+                            <div class="row header flex-row-center">
+                                <div class="col-sm-8"></div>
+                                <div class="col-sm-3 p-1">
+                                    <div class="text-right">
+                                        <input class="form-control" type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Health Profile Filter">
+                                    </div>
+                                </div>
+                                <div class="col-sm-1 p-1 flex-row-center-end">
+                                    <div class="text-right">
+                                        <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"  (click)="exportPdf(getpositivecasesSummary,dataHeader2)"></i>
+                                        <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel(getpositivecasesSummary)"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: 50px; text-align: center;"># </th>
+                                <th style="text-align: center;" pSortableColumn="district_name">Districts <p-sortIcon field="district_name"></p-sortIcon></th>
+                                <th style="text-align: center;" pSortableColumn="affected_count">No. of Positve Cases <p-sortIcon field="affected_count"></p-sortIcon></th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-blk let-columns="columns" let-i="rowIndex">
+                            <tr>
+                                <td class="sno-header-layout text-center">{{i+1}}</td>
+                                <td style="text-align: center;">{{blk.district_name}}</td>
+                                <td style="text-align: center;"><a class="link-url" href="javascript:void(0)" (click)="covidUnmarkedSummaryReportcounts(blk.district_id,blk.district_name)">{{blk.affected_count}}</a></td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="footer">
+                            <tr class="text-center" *ngIf="!noDataFound">
+                                <td colspan="2" class="text-center">Total</td>
+                                <td class="ui-resizable-column">{{total_counts}}</td>
+                            </tr>
+                            <tr class="text-left" *ngIf="noDataFound">
+                                <td colspan="6" style="text-align: center;"> No Data Found </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage" let-columns>
+                            <tr>
+                                <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                                    <strong>No records found</strong>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-tabPanel>
+            </p-tabView>
+        </div>
+</div>
+
+
+
+  <!-- Stage 2 -->
+
+
+  <div class="container-fluid" *ngIf="pageStage === 2">
+  
+    <p-tabView > 
+        <p-tabPanel header="Health Report"  *ngIf="ShowAbos">
+            <p-table #dt5 [columns]="selectedColumns" [value]="getpositivecasesdetails" [paginator]="true" [rows]="10" [resizableColumns]="true" (sortFunction)="customSort($event)" [customSort]="true">
+                <ng-template let-childrens pTemplate="caption">
+                    <div class="row  header flex-row-center">
+                       
+                        <div class="col-sm-8"></div>
+                        <div class="col-sm-3 p-1">
+                            <div class="text-right">
+                                <input class="form-control" type="text" (input)="dt5.filterGlobal($event.target.value, 'contains')" placeholder="Health Profile Filter">
+                            </div>
+                        </div>
+                        <div class="col-sm-1 p-1 flex-row-center-end">
+                            <div class="text-right">
+                                <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true" (click)="exportPdf(getpositivecasesdetails,selectedColumns)"></i>
+                                <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel(getpositivecasesdetails)"></i>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-Datas>
+                    <tr class="text-center">
+                        <th class="sno-header-layout">#</th>
+                        <th *ngFor="let teachData of selectedColumns" [pSortableColumn]="teachData.field" [style.width]="teachData.widthstyle">
+                            {{teachData.header}} 
+                            <p-sortIcon [field]="teachData.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-blk let-columns="columns" let-i="rowIndex">
+                    <tr>
+                        <td class="sno-header-layout text-center">{{i+1}}</td>
+                        <td style="text-align: center;">{{blk.UDISE}}</td>
+                        <td style="text-align: center;">{{blk.SchlNam}}</td>
+                        <td style="text-align: center;">{{blk.TotStrength}}</td>
+                        <td style="text-align: center;">{{blk.TotMarked}}</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-resource let-columns="columns" let-i="rowIndex">
+                    <tr>
+                        <td class="sno-header-layout">{{i+1}}</td>
+                        <td *ngFor="let col of columns"  [class]="col.class">
+                            {{resource[col.field]}}
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr class="text-left" *ngIf="noDataFound2">
+                        <td colspan="7" style="text-align: center;"> No Data Found </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                            <strong>No records found</strong>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-tabPanel>
+        <p-tabPanel header="Positve Cases" *ngIf="positive">
+            <p-table #dt6 [columns]="selectedColumns2" [value]="getpositivecasesdetailsSummary" [paginator]="true" [rows]="10" [resizableColumns]="true"  (sortFunction)="customSort($event)" [customSort]="true">
+                <ng-template let-childrens pTemplate="caption">
+                    <div class="row  header flex-row-center">
+                       
+                        <div class="col-sm-8"></div>
+                        <div class="col-sm-3 p-1">
+                            <div class="text-right">
+                                <input class="form-control" type="text" (input)="dt6.filterGlobal($event.target.value, 'contains')" placeholder="Health Profile Filter">
+                            </div>
+                        </div>
+                        <div class="col-sm-1 p-1 flex-row-center-end">
+                            <div class="text-right">
+                                <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true" (click)="exportPdf(getpositivecasesdetailsSummary,selectedColumns2)"></i>
+                                <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel(getpositivecasesdetailsSummary)"></i>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-Datas>
+                    <tr class="text-center">
+                        <th class="sno-header-layout">#</th>
+                        <th *ngFor="let teachData of selectedColumns2" [pSortableColumn]="teachData.field" [style.width]="teachData.widthstyle">
+                            {{teachData.header}} 
+                            <p-sortIcon [field]="teachData.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-blk let-columns="columns" let-i="rowIndex">
+                    <tr>
+                        <td class="sno-header-layout text-center">{{i+1}}</td>
+                        <td style="text-align: center;">{{blk.udise_code}}</td>
+                        <td style="text-align: center;">{{blk.stud_name}}</td>
+                        <td style="text-align: center;">{{blk.class_studying_id}}</td>
+                        <td style="text-align: center;">{{blk.school_name}}</td>
+                        <td style="text-align: center;">{{blk.relationship}}</td>
+                        <td style="text-align: center;">{{blk.covid_affected}}</td>
+                        <td style="text-align: center;">{{blk.covid_status}}</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-resource let-columns="columns" let-i="rowIndex">
+                    <tr>
+                        <td class="sno-header-layout">{{i+1}}</td>
+                        <td *ngFor="let col of columns"  [class]="col.class">
+                            {{resource[col.field]}}
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr class="text-left" *ngIf="noDataFound2">
+                        <td colspan="7" style="text-align: center;"> No Data Found </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                            <strong>No records found</strong>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-tabPanel>
+    </p-tabView>

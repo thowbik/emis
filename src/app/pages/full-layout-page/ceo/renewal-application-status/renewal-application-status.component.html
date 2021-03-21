@@ -1,0 +1,14 @@
+<div class="main-body-content mt-4 mx-2">
+    <div class="backclr-grn mb-0 font-16">
+        <strong>Renewal/Recognition</strong>
+    </div>
+    <div *ngFor="let item of data; index as i;">
+        <p-card>
+            <label class="flex-row"><span style="margin-right :5%;">{{item.user_type}}</span> : 
+                <span class="url flex-gap-left" >
+                    <a href="javascript:void(0)" (click)="goToRenewalList(item.user_type)"> {{item.total}}</a>
+                </span>
+            </label> 
+        </p-card>
+    </div>
+</div>

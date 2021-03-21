@@ -1,0 +1,80 @@
+.modal .kt-user-card-v2__pic img{
+    border-radius:0;
+    max-width:13px;
+    padding:0;
+    border:0;
+}
+.modal .kt-user-card-v2__pic {
+    background: #E5E5E5;
+    border-radius: 50%;
+    padding: 6px 9px;
+    margin-right: 10px;
+}
+.modal-dialog{
+    border:3px solid #D6D6D6;
+    border-radius: 6px;
+}
+/* News Popup Carousel */
+.news-carousel-panel .carousel-inner + .control {
+    position: relative;
+}
+.carousel-pagination .control {
+    color:#333;
+}
+.carousel-pagination{
+    justify-content: flex-end;
+}
+.carousel-pagination li {
+    text-align: center;
+    padding: 5px 10px;
+    margin-left: 6px;
+    background: #E2E2E2;
+}
+.carousel-pagination li a{
+    display: block;
+    position: relative;
+}
+.carousel-pagination li:hover, .carousel-pagination li:focus{
+    background: #F8F8F9;
+}
+.carousel-pagination li:first-child{
+    background: transparent;
+    border-color: transparent;
+}
+.carousel-pagination li:first-child p{
+    margin:0;
+}
+
+
+.profile-body-pane .kt-portlet.kt-portlet--height-fluid{
+    height:auto !important;
+}
+.position-right-filter {
+    text-align: right;
+    position: absolute;
+    right: 0;
+    top: 100%;
+}
+.page-title-section{
+    position: relative;
+}
+.position-right-filter > div > div {
+    display: inline-block;
+    vertical-align: middle;
+}
+.upload-btn{
+    padding:5px 10px;
+}
+.position-right-filter > div > div label{
+    margin:0;
+}
+.dashboard-profile .kt-notification .kt-notification__item .kt-notification__item-icon svg{
+    width:30px;
+    height:30px;
+}
+@media (max-width: 1024px){
+    .position-right-filter {
+       bottom:10px;
+        top: auto;
+    }
+} 

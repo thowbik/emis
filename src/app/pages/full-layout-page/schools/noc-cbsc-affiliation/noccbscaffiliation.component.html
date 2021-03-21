@@ -1,0 +1,1039 @@
+<div class="container-fluid body">
+    <p-card>
+        <p-tabView>
+            <p-tabPanel header="Submitted School Documents">
+                <h3 class="heading"> NOC for CBSE Affiliation</h3>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="backclr-grn  font-16">
+                            <strong>Name & Address
+                      </strong>
+                        </div>
+                        <form [formGroup]="userform">
+                            <div class="form-group row">
+                                <div class="col-lg-4">
+                                    <label>Name of the Management Trust / Society</label>
+                                    <input type="text" pInputText class="form-control" formControlName="mgmt_name" placeholder="Enter the Management Name">
+                                    <small class="form-text text-danger" *ngIf="!userform.get('mgmt_name').valid && (submitted || userform.get('mgmt_name').dirty || userform.get('mgmt_name').touched)">
+                            Management name Field is required</small>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Address</label>
+                                    <input type="text" pInputText class="form-control" formControlName="mgmt_address" placeholder="Enter the address">
+                                    <small class="form-text text-danger" *ngIf="!userform.get('mgmt_address').valid && (submitted || userform.get('mgmt_address').dirty || userform.get('mgmt_address').touched)">
+                            Address Field is required</small>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>Pincode</label><span class="required"></span>
+                                    <input type="text" pKeyFilter="pnum" class="form-control" formControlName="mgmt_pincode" placeholder="Enter the Pincode" maxlength="6">
+                                    <small class="form-text text-danger" *ngIf="!userform.get('mgmt_pincode').valid && (submitted || userform.get('mgmt_pincode').dirty || userform.get('mgmt_pincode').touched)">
+                            Pincode Field is required</small>
+                                    <small class="form-text text-danger" *ngIf="userform.get('mgmt_pincode').hasError('pattern')">
+                            It is not a valid Pincode</small>
+                                </div>
+                            </div>
+                            <div class="backclr-grn  font-16">
+                                <strong>Registration Details</strong>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-sm-3 text-align">
+                                    <label><span class="num-align"></span>Is the trust registered?<span class="manditory"></span></label>
+                                </div>
+                                <td>
+                                    <p-radioButton name="mgmt_register_yn" value="1" formControlName="mgmt_register_yn" label="YES" (click)="chooseIsthetrustregister(userform.value.mgmt_register_yn)"></p-radioButton>
+                                    <p-radioButton name="mgmt_register_yn" value="2" class="radio" formControlName="mgmt_register_yn" label="NO" (click)="chooseIsthetrustregister(userform.value.mgmt_register_yn)"></p-radioButton>
+                                </td>
+                                <small class="form-text text-danger" *ngIf="userform.controls.mgmt_register_yn.errors && (submitted || userform.controls.mgmt_register_yn.dirty || userform.controls.mgmt_register_yn.touched)">
+                         Is the trust registered Field is required</small>
+                            </div>
+                            <hr/>
+                            <div *ngIf="userform.value.mgmt_register_yn == '1'">
+                                <div class="form-group row">
+                                    <div class="col-lg-3 ">
+                                        <label>Date of Registration</label>
+                                        <!-- <p-calendar formControlName="mgmt_register_date" [style]="{'width':'95%'}" [inputStyle]="{'width':'99%','padding': '10px'}" placeholder="Date of Registration" dateFormat="yy/dd/mm" [maxDate]="maxDate" [readonlyInput]="true"></p-calendar> -->
+                                        <input class="form-control date" type="date" placeholder="Date" dateformat="yyyy/dd/mm" formControlName="mgmt_register_date" max="{{todayDate}}">
+                                        <!-- <input class="form-control" type="date" placeholder="Date" min={{todate}} max={{todate}} dateformat="yyyy/dd/mm" formControlName="mgmt_register_date"> -->
+                                        <small class="form-text text-danger" *ngIf="!userform.get('mgmt_register_date').valid && (submitted || userform.get('mgmt_register_date').dirty || userform.get('mgmt_register_date').touched)">
+                               Date of Registration Field is required</small>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>Place of Registration</label>
+                                        <input type="text" pInputText class="form-control" formControlName="mgmt_register_place" placeholder="Enter the place of Registration">
+                                        <small class="form-text text-danger" *ngIf="!userform.get('mgmt_register_place').valid && (submitted || userform.get('mgmt_register_place').dirty || userform.get('mgmt_register_place').touched)">
+                               Place of RegistrationField is required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backclr-grn  font-16">
+                                <strong>Name of other institutions to which the Management of Trust running</strong>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-4">
+                                    <label>Name of Institution</label>
+                                    <input type="text" pInputText class="form-control" formControlName="other_inst_name1" placeholder="Enter the Name of Institution">
+                                    <!-- <p-message severity="error" text="Name of Institution Field is required" *ngIf="userform.controls.other_inst_name1.errors && (submitted || userform.controls.other_inst_name1.dirty || userform.controls.other_inst_name1.touched)"></p-message> -->
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Place</label>
+                                    <input type="text" pInputText class="form-control" formControlName="other_inst_place1" placeholder="Enter the Place">
+                                    <!-- <p-message severity="error" text="Place Field is required" *ngIf="userform.controls.other_inst_place1.errors && (submitted || userform.controls.other_inst_place1.dirty || userform.controls.other_inst_place1.touched)"></p-message> -->
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-4">
+                                    <label>Name of Institution</label>
+                                    <input type="text" pInputText class="form-control" formControlName="other_inst_name2" placeholder="Enter the Name of Institution">
+                                    <!-- <p-message severity="error" text="Name of Institution Field is required" *ngIf="userform.controls.other_inst_name2.errors && (submitted || userform.controls.other_inst_name2.dirty || userform.controls.other_inst_name2.touched)"></p-message> -->
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Place</label>
+                                    <input type="text" pInputText class="form-control" formControlName="other_inst_place2" placeholder="Enter the Place">
+                                    <!-- <p-message severity="error" text="Place Field is required" *ngIf="userform.controls.other_inst_place2.errors && (submitted || userform.controls.other_inst_place2.dirty || userform.controls.other_inst_place2.touched)"></p-message> -->
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-4">
+                                    <label>Name of Institution</label>
+                                    <input type="text" pInputText class="form-control" formControlName="other_inst_name3" placeholder="Enter the Name of Institution">
+                                    <!-- <p-message severity="error" text="Name of Institution Field is required" *ngIf="userform.controls.other_inst_name3.errors && (submitted || userform.controls.other_inst_name3.dirty || userform.controls.other_inst_name3.touched)"></p-message> -->
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Place</label>
+                                    <input type="text" pInputText class="form-control" formControlName="other_inst_place3" placeholder="Enter the Place">
+                                    <!-- <p-message severity="error" text="Place Field is required" *ngIf="userform.controls.other_inst_place3.errors && (submitted || userform.controls.other_inst_place3.dirty || userform.controls.other_inst_place3.touched)"></p-message> -->
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-4">
+                                    <label>Name of Institution</label>
+                                    <input type="text" pInputText class="form-control" formControlName="other_inst_name4" placeholder="Enter the Name of Institution">
+                                    <!-- <p-message severity="error" text="Name of Institution Field is required" *ngIf="userform.controls.other_inst_name4.errors && (submitted || userform.controls.other_inst_name4.dirty || userform.controls.other_inst_name4.touched)"></p-message> -->
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Place</label>
+                                    <input type="text" pInputText class="form-control" formControlName="other_inst_place4" placeholder="Enter the Place">
+                                    <!-- <p-message severity="error" text="Place Field is required" *ngIf="userform.controls.other_inst_place4.errors && (submitted || userform.controls.other_inst_place4.dirty || userform.controls.other_inst_place4.touched)"></p-message> -->
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-4">
+                                    <label>Name of Institution</label>
+                                    <input type="text" pInputText class="form-control" formControlName="other_inst_name5" placeholder="Enter the Name of Institution">
+                                    <!-- <p-message severity="error" text="Name of Institution Field is required" *ngIf="userform.controls.other_inst_name5.errors && (submitted || userform.controls.other_inst_name5.dirty || userform.controls.other_inst_name5.touched)"></p-message> -->
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Place</label>
+                                    <input type="text" pInputText class="form-control" formControlName="other_inst_place5" placeholder="Enter the Place">
+                                    <!-- <p-message severity="error" text="Place Field is required" *ngIf="userform.controls.other_inst_place5.errors && (submitted || userform.controls.other_inst_place5.dirty || userform.controls.other_inst_place5.touched)"></p-message> -->
+                                </div>
+                            </div>
+                            <div class="backclr-grn  font-16">
+                                <strong>Minority Status</strong>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-sm-4 text-align">
+                                    <label><span class="num-align"></span>Does the institution have minority status?<span class="manditory"></span></label>
+                                </div>
+                                <td>
+                                    <p-radioButton name="minority_yn" formControlName="minority_yn" value="1" label="YES" inputId="opt1" (click)="chooseMinority(userform.value.minority_yn)"></p-radioButton>
+                                    <p-radioButton name="minority_yn" class="radio" formControlName="minority_yn" value="2" label="NO" inputId="opt1" (click)="chooseMinority(userform.value.minority_yn)"></p-radioButton>
+                                </td>
+                                <small class="form-text text-danger" *ngIf="userform.controls.minority_yn.errors && (submitted || userform.controls.minority_yn.dirty || userform.controls.minority_yn.touched)">
+                         Does the institution have minority status Field is required</small>
+                            </div>
+                            <hr/>
+                            <div *ngIf="userform.value.minority_status">
+                                <div formArrayName="minority_status">
+                                    <div *ngFor="let item of userform.get('minority_status')['controls']; let i = index;" [formGroupName]="i">
+                                        <div class="form-group row">
+                                            <div class="col-lg-5">
+                                                <label>Upload Minority certificate</label>
+                                                <div>
+                                                    <input type='file' (change)="onSelectFile($event,'minority',i)">
+                                                    <p><b class="Note">Note:</b>(Only PDF files with a maximum size of 2MB)</p>
+                                                    <small class="form-text text-danger" *ngIf="item.controls.doc_name.errors && (submitted || item.controls.doc_name.dirty || item.controls.doc_name.touched)"></small>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <label>Issuing Authority</label>
+                                                <input pInputText type="text" class="form-control" formControlName="doc_inspect_issue_authority" placeholder="Enter the Issuing Authority">
+                                                <small class="form-text text-danger" *ngIf="item.controls.doc_inspect_issue_authority.errors && (submitted || item.controls.doc_inspect_issue_authority.dirty || item.controls.doc_inspect_issue_authority.touched)">
+                                  Issuing Authority Field is required</small>
+                                                <!-- <p-message severity="error" text="Place Field is required" *ngIf="userform.controls.doc_inspect_issue_authority.errors && (submitted || userform.controls.doc_inspect_issue_authority.dirty || userform.controls.doc_inspect_issue_authority.touched)"></p-message> -->
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-5">
+                                                <label>File Number</label>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <label>File Date</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-lg-3">
+                                                <input pInputText pKeyFilter="alphanum" type="text" class="form-control" formControlName="doc_file_num" placeholder="Enter the File Number" maxlength="20">
+                                                <small class="form-text text-danger" *ngIf="item.controls.doc_file_num.errors && (submitted || item.controls.doc_file_num.dirty || item.controls.doc_file_num.touched)">
+                                  File Number Field is required</small>
+                                            </div>
+                                            <div class="col-lg-3 alignment">
+                                                <input class="form-control date" type="date" placeholder="Date" dateformat="yyyy/dd/mm" formControlName="doc_file_date" max="{{todayDate}}">
+                                                <!-- <input class="form-control" type="date" placeholder="Date" dateformat="yyyy/dd/mm" formControlName="doc_file_date" max="{{todayDate}}"> -->
+                                                <small class="form-text text-danger" *ngIf="item.controls.doc_file_date.errors && (submitted || item.controls.doc_file_date.dirty || item.controls.doc_file_date.touched)">
+                                  File Date Field is required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backclr-grn  font-16">
+                                <strong>Other Supporting Documents</strong>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-sm-4 text-align">
+                                    <label><span class="num-align"></span>Is the school situated in a hilly area?<span class="manditory"></span></label>
+                                </div>
+                                <td>
+                                    <p-radioButton name="hilly_yn" formControlName="hilly_yn" value="1" label="YES" inputId="opt1"></p-radioButton>
+                                    <p-radioButton name="hilly_yn" class="radio" formControlName="hilly_yn" value="2" label="NO" inputId="opt1"></p-radioButton>
+                                </td>
+                                <small class="form-text text-danger" *ngIf="userform.controls.hilly_yn.errors && (submitted || userform.controls.hilly_yn.dirty || userform.controls.hilly_yn.touched)">
+                Issuing Authority Field is required</small>
+                            </div>
+                            <hr/>
+                            <div *ngIf="userform.value.hilly_yn == '1'">
+                                <div class="form-group row">
+                                    <div class="col-lg-12">
+                                        <label>Upload Permission Certificate from concerned authority</label>
+                                        <div>
+                                            <input #file type='file' (change)="onSelectFile($event,'uploadPermission',0)">
+                                            <p><b class="Note">Note:</b>(Only PDF files with a maximum size of 2MB)</p>
+                                            <small class="form-text text-danger" *ngIf="!userform.get('upload_permission').valid && (submitted || userform.get('upload_permission').dirty || userform.get('upload_permission').touched)">
+                Management name Field is required</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-12">
+                                    <label>Upload School Photographs as a Single Document</label>
+                                    <div>
+                                        <input #file type='file' (change)="onSelectFile($event,'schoolPhotograph',0)">
+                                        <p><b class="Note">Note:</b>(Front View of Building, Library, Classroom, Playground, Toilets, Office Room)</p>
+                                        school_photo
+                                        <small class="form-text text-danger" *ngIf="!userform.get('school_photo').valid && (submitted || userform.get('school_photo').dirty || userform.get('school_photo').touched)">
+                Upload School Photographs as a Single Document File is required</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="backclr-grn  font-16">
+                                    <strong>Land Details</strong>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <label>Survey Number</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>Area of land in acres</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>Area of land in Square feet</label>
+                                    </div>
+                                    <!-- <div class="col-lg-3">
+                   <label>Area of land in Squrefit</label>
+                   </div> -->
+                                    <div class="col-lg-3 text-right">
+                                        <button pButton type="button" icon="pi pi-plus" class="flex-gap-left flex-gap-right" iconPos="left" (click)="addLandSurvey()"></button>
+                                        <button pButton type="button" icon="pi pi-minus" iconPos="left" (click)="removeLandSurvey()"></button>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div formArrayName="Landdetails">
+                                    <div class="form-group row" style="padding-bottom:10px" *ngFor="let item of userform.get('Landdetails')['controls']; let i = index;" [formGroupName]="i">
+                                        <div class="col-lg-3">
+                                            <input type="text" pKeyFilter="alphanum" pInputText class="form-control" formControlName="survey_number" placeholder="Enter the Survey Number" maxlength="10">
+                                            <small class="form-text text-danger" *ngIf="item.controls.survey_number.errors && (submitted ||schoollandinvalid || item.controls.survey_number.dirty || item.controls.survey_number.touched)">
+                Survey Number Field is required</small>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <!-- <input type="text" pKeyFilter="pnum" pInputText class="form-control" formControlName="area" placeholder="Enter the Area of land in acres" maxlength="5" (change)="convertSqureFeet($event.target.value)"> -->
+                                            <input type="text" pKeyFilter="pnum" pInputText class="form-control" formControlName="area" placeholder="Enter the Area of land in acres" (change)="convertSqureFeet(item.value.area,i,'Land')" maxlength="5">
+                                            <small class="form-text text-danger" *ngIf="item.controls.area.errors && (submitted ||schoollandinvalid || item.controls.area.dirty || item.controls.area.touched)">
+                Area of land is acres Field is required</small>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <!-- <input type="text" pKeyFilter="pnum" pInputText class="form-control" formControlName="area" placeholder="Enter the Area of land in acres" maxlength="5" (change)="convertSqureFeet($event.target.value)"> -->
+                                            <input type="text" pKeyFilter="pnum" pInputText class="form-control" formControlName="sqfeet" maxlength="5" disabled="true">
+                                        </div>
+                                        <!-- Squrefit -->
+                                        <!-- <div class="col-lg-3">
+                   <input type="text" pKeyFilter="pnum" placeholder="Sq.Ft." class="form-control" formControlName="area" name="area" readonly/>
+                   </div> -->
+                                    </div>
+                                </div>
+                                <!-- hideandshow -->
+                                <div class="row form-group">
+                                    <div class="col-sm-5 text-align">
+                                        <label><span class="num-align"></span>Is the land registered in the name of the School?<span class="manditory"></span></label>
+                                    </div>
+                                    <td>
+                                        <p-radioButton name="land_registered" formControlName="land_registered" value="1" label="YES"></p-radioButton>
+                                        <p-radioButton name="land_registered" class="radio" formControlName="land_registered" value="2" label="NO"></p-radioButton>
+                                    </td>
+                                    <small class="form-text text-danger" *ngIf="!userform.get('land_registered').valid && (submitted || userform.get('land_registered').dirty || userform.get('land_registered').touched)">
+                Is the land registered in the name of the School Field is required</small>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <label>Nature of Ownership</label>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <label>Sale Deed Document/Lease Document Number</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-lg-3">
+                                        <p-dropdown [options]="languagedropvalue" formControlName="ownership_type" placeholder="Select Ownership" styleClass="dropdwnvalues"></p-dropdown>
+                                        <small class="form-text text-danger" *ngIf="!userform.get('ownership_type').valid && (submitted || userform.get('ownership_type').dirty || userform.get('ownership_type').touched)">
+                Nature of Ownership Field is required</small>
+                                    </div>
+                                    <div class="col-lg-3 saledeed">
+                                        <input type="text" pKeyFilter="pnum" pInputText class="form-control" formControlName="doc_details" placeholder="Sale Deed Document Number">
+                                        <small class="form-text text-danger" *ngIf="!userform.get('doc_details').valid && (submitted || userform.get('doc_details').dirty || userform.get('doc_details').touched)">
+                Sale Deed Document Number Field is required</small>
+                                    </div>
+                                </div>
+                                <div *ngIf="userform.value.ownership_type == '2'">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <label>Numbers of Years of lease</label>
+
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <label>Lease valid upto</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-3">
+                                            <input type="text" pKeyFilter="pnum" pInputText class="form-control" formControlName="lease_yrs" placeholder=" Number of year of lease">
+                                            <small class="form-text text-danger" *ngIf="!userform.get('lease_yrs').valid && (submitted || userform.get('lease_yrs').dirty || userform.get('lease_yrs').touched)">
+                Numbers of Years of lease Field is required</small>
+                                        </div>
+                                        <div class="col-lg-3 saledeed">
+                                            <input class="form-control date" type="date" placeholder="Date" dateformat="yyyy/dd/mm" formControlName="doc_valid_upto_date">
+                                            <small class="form-text text-danger" *ngIf="!userform.get('doc_valid_upto_date').valid && (submitted || userform.get('doc_valid_upto_date').dirty || userform.get('doc_valid_upto_date').touched)">
+                Lease valid upto Field is required</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <label>Sale Deed / Lease Document Date
+                </label>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <label>Sub Registrar Office Location</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-lg-3">
+                                        <input class="form-control date" type="date" placeholder="Date" dateformat="yyyy/dd/mm" formControlName="doc_file_date" max="{{todayDate}}">
+                                        <small class="form-text text-danger" *ngIf="!userform.get('doc_file_date').valid && (submitted || userform.get('doc_file_date').dirty || userform.get('doc_file_date').touched)">
+                Document date Field is required</small>
+                                    </div>
+                                    <div class="col-lg-3 register ">
+                                        <input type="text" pInputText class="form-control" formControlName="doc_issue_place" placeholder="Sub Registrar Office Location">
+                                        <small class="form-text text-danger" *ngIf="!userform.get('doc_issue_place').valid && (submitted || userform.get('doc_issue_place').dirty || userform.get('doc_issue_place').touched)">
+                Sub Registrar Office Location Field is required</small>
+                                    </div>
+                                </div>
+                                <!-- Building Documents -->
+                                <div class="backclr-grn  font-16">
+                                    <strong>Building Documents</strong>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <label>Plan Number</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>Valid upto</label>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label>Building Plan</label>
+                                    </div>
+                                    <div class="col-lg-2 text-right">
+                                        <button pButton type="button" icon="pi pi-plus" class="flex-gap-left flex-gap-right" iconPos="left" (click)="addvalidupto()"></button>
+                                        <button pButton type="button" icon="pi pi-minus" iconPos="left" (click)="removevalidupto()"></button>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div formArrayName="validupto">
+                                    <div class="form-group row" style="padding-bottom:10px" *ngFor="let item of userform.get('validupto')['controls']; let i = index;" [formGroupName]="i">
+                                        <div class="col-lg-3">
+                                            <input type="text" pKeyFilter="alphanum" pInputText class="form-control" formControlName="doc_details" placeholder="Enter the Plan Number">
+                                            <small class="form-text text-danger" *ngIf="item.controls.doc_details.errors && (submitted ||invalidValidUpto || item.controls.doc_details.dirty || item.controls.doc_details.touched)">
+                Plan number Field is required</small>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div>
+                                                <!-- <p-calendar formControlName="doc_valid_upto_date" [style]="{'width':'95%'}" [inputStyle]="{'width':'99%','padding': '10px'}" placeholder="Valid upto" dateFormat="yy/dd/mm" [minDate]="maxDate" [readonlyInput]="true"></p-calendar> -->
+                                                <input class="form-control date" formControlName="doc_valid_upto_date" type="date" placeholder="Date" dateformat="yyyy/dd/mm" min="{{todayDate}}">
+                                                <small class="form-text text-danger" *ngIf="item.controls.doc_valid_upto_date.errors && (submitted ||invalidValidUpto || item.controls.doc_valid_upto_date.dirty || item.controls.doc_valid_upto_date.touched)">
+                Date Field Field is required</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div>
+                                                <input #file type='file' (change)="onSelectFile($event,'buildingPlan',i)">
+                                                <p><b class="Note">Note:</b>(Only PDF files with a maximum size of 2MB)</p>
+                                                <small class="form-text text-danger" *ngIf="item.controls.doc_name.errors && (submitted ||invalidValidUpto || item.controls.doc_name.dirty || item.controls.doc_name.touched)">
+                Building Plan File is required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backclr-grn  font-16">
+                                <strong>Building Stability Certificate
+ </strong>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <label>Survey Number</label>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>Valid upto</label>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Building Stability Certificate</label>
+                                </div>
+                                <div class="col-lg-2 text-right">
+                                    <button pButton type="button" icon="pi pi-plus" class="flex-gap-left flex-gap-right" iconPos="left" (click)="addbuilding()"></button>
+                                    <button pButton type="button" icon="pi pi-minus" iconPos="left" (click)="removebuilding()"></button>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div formArrayName="building">
+                                <div class="form-group row" style="padding-bottom:10px" *ngFor="let item of userform.get('building')['controls']; let i = index;" [formGroupName]="i">
+                                    <div class="col-lg-3">
+                                        <input type="text" pKeyFilter="alphanum" pInputText class="form-control" formControlName="doc_details" placeholder="Enter the Survey Number" maxlength="10">
+                                        <small class="form-text text-danger" *ngIf="item.controls.doc_details.errors && (submitted ||invalidAddbuilding || item.controls.doc_details.dirty || item.controls.doc_details.touched)">
+ Survey Number Field is required</small>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <!-- <p-calendar formControlName="doc_file_date" [style]="{'width':'95%'}" [inputStyle]="{'width':'99%','padding': '10px'}" placeholder="Valid upto" dateFormat="yy/dd/mm" [minDate]="maxDate" [readonlyInput]="true"></p-calendar> -->
+                                        <input class="form-control date" type="date" placeholder="Date" min="{{todayDate}}" dateformat="yyyy/dd/mm" formControlName="doc_valid_upto_date">
+                                        <small class="form-text text-danger" *ngIf="item.controls.doc_valid_upto_date.errors && (submitted ||invalidAddbuilding || item.controls.doc_valid_upto_date.dirty || item.controls.doc_valid_upto_date.touched)">
+ Valid Upto Field is required</small>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div>
+                                            <input #file type='file' (change)="onSelectFile($event,'buildingStability',i)">
+                                            <p><b class="Note">Note:</b>(Only PDF files with a maximum size of 2MB)</p>
+                                            <small class="form-text text-danger" *ngIf="item.controls.doc_name.errors && (submitted ||invalidAddbuilding || item.controls.doc_name.dirty || item.controls.doc_name.touched)">
+ Building Stability Certificate File is required</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <label>Total Building Value</label>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label>Number of students that can be accomodated </label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-3">
+                                    <input type="text" pKeyFilter="pnum" pInputText class="form-control" formControlName="bldg_value" placeholder="Enter the Building Value" maxlength="15">
+                                    <small class="form-text text-danger" *ngIf="!userform.get('bldg_value').valid && (submitted || userform.get('bldg_value').dirty || userform.get('bldg_value').touched)">
+ Total Building Value is required</small>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div>
+                                        <input type="text" pKeyFilter="pnum" pInputText class="form-control" formControlName="students_accomodate_strength1" placeholder="Enter Number of students " maxlength="4">
+                                        <small class="form-text text-danger" *ngIf="!userform.get('students_accomodate_strength1').valid && (submitted || userform.get('students_accomodate_strength1').dirty || userform.get('students_accomodate_strength1').touched)">
+ Number of students that can be accomodated</small> </div>
+                                </div>
+                            </div>
+                            <div class="backclr-grn  font-16">
+                                <strong>Details of Authority issuing Building Stability Certificate
+ </strong>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <label>Engineer Class</label>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label>Issuing Authority </label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-3">
+                                    <p-dropdown [options]="Engineerdropvalue" formControlName="docs_engg_class" placeholder="Engineer Class" styleClass="dropdwnvalues"></p-dropdown>
+                                    <small class="form-text text-danger" *ngIf="!userform.get('docs_engg_class').valid && (submitted || userform.get('docs_engg_class').dirty || userform.get('docs_engg_class').touched)">
+ Engineer class Field is required</small>
+                                </div>
+                                <div class="col-lg-3 saledeed">
+                                    <input type="text" pInputText class="form-control" formControlName="doa_bsc_doc_inspect_issue_authority" placeholder="Enter the Issuing Authority">
+                                    <small class="form-text text-danger" *ngIf="!userform.get('doa_bsc_doc_inspect_issue_authority').valid && (submitted || userform.get('doa_bsc_doc_inspect_issue_authority').dirty || userform.get('doa_bsc_doc_inspect_issue_authority').touched)">
+ Issuing Authority Field is required</small> </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <label>File number of Issuing Authority</label>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>File Date</label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-3">
+                                    <input type="text" pKeyFilter="alphanum" pInputText class="form-control" formControlName="doa_bsc_doc_file_num" placeholder="Enter the File number">
+                                    <small class="form-text text-danger" *ngIf="!userform.get('doa_bsc_doc_file_num').valid && (submitted || userform.get('doa_bsc_doc_file_num').dirty || userform.get('doa_bsc_doc_file_num').touched)">
+ File number Field is required</small>
+                                </div>
+                                <div class="col-lg-3 register">
+                                    <input class="form-control date" type="date" placeholder="Date" dateformat="yyyy/dd/mm" formControlName="doa_bsc_doc_file_date" max="{{todayDate}}">
+                                    <small class="form-text text-danger" *ngIf="!userform.get('doa_bsc_doc_file_date').valid && (submitted || userform.get('doa_bsc_doc_file_date').dirty || userform.get('doa_bsc_doc_file_date').touched)">
+ Date Field is required</small>
+                                </div>
+                            </div>
+                            <div class="backclr-grn  font-16">
+                                <strong>Building License</strong>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <label>Survey Number</label>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>Valid upto</label>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Building License Certificate</label>
+                                </div>
+                                <div class="col-lg-2 text-right">
+                                    <button pButton type="button" icon="pi pi-plus" class="flex-gap-left flex-gap-right" iconPos="left" (click)="addstudents()"></button>
+                                    <button pButton type="button" icon="pi pi-minus" iconPos="left" (click)="removestudents()"></button>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div formArrayName="students">
+                                <div class="form-group row" style="padding-bottom:10px" *ngFor="let item of userform.get('students')['controls']; let i = index;" [formGroupName]="i">
+                                    <div class="col-lg-3">
+                                        <input type="text" pKeyFilter="alphanum" pInputText class="form-control" formControlName="doc_survey_no" placeholder="Enter Survey  number" maxlength="10">
+                                        <small class="form-text text-danger" *ngIf="item.controls.doc_survey_no.errors && (submitted ||studentsInvalid || item.controls.doc_survey_no.dirty || item.controls.doc_survey_no.touched)">
+ Survey Number Field is required</small>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <!-- <p-calendar formControlName="doc_valid_upto_date" [style]="{'width':'95%'}" [inputStyle]="{'width':'99%','padding': '10px'}" placeholder="Valid upto" dateFormat="yy/dd/mm" [minDate]="maxDate" [readonlyInput]="true"></p-calendar> -->
+                                        <input class="form-control date" type="date" placeholder="Date" min="{{todayDate}}" dateformat="yyyy/dd/mm" formControlName="doc_valid_upto_date">
+                                        <small class="form-text text-danger" *ngIf="item.controls.doc_valid_upto_date.errors && (submitted ||studentsInvalid || item.controls.doc_valid_upto_date.dirty || item.controls.doc_valid_upto_date.touched)">
+ Valid Upto Field is required</small>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div>
+                                            <input #file type='file' (change)="onSelectFile($event,'buildingLicense',i)">
+                                            <p><b class="Note">Note:</b>(Only PDF files with a maximum size of 2MB)</p>
+                                            <small class="form-text text-danger" *ngIf="item.controls.doc_name.errors && (submitted ||studentsInvalid || item.controls.doc_name.dirty || item.controls.doc_name.touched)">
+ Building License Certificate is required</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <label>Issuing Authority</label>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label>Number of students that can be accommodated</label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-3">
+                                    <input type="text" pInputText class="form-control" formControlName="doc_inspect_issue_authority" placeholder="Enter Issuing Authority">
+                                    <small class="form-text text-danger" *ngIf="!userform.get('doc_inspect_issue_authority').valid && (submitted || userform.get('doc_inspect_issue_authority').dirty || userform.get('doc_inspect_issue_authority').touched)">
+                                        Issuing Authority Field is required</small>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div>
+                                        <input type="text" pKeyFilter="pnum" pInputText class="form-control" formControlName="students_accomodate_strength2" placeholder="Enter Number of students" maxlength="4">
+                                        <small class="form-text text-danger" *ngIf="!userform.get('students_accomodate_strength2').valid && (submitted || userform.get('students_accomodate_strength2').dirty || userform.get('students_accomodate_strength2').touched)">
+ Number of students that can be accommodated Field is required</small> </div>
+                                </div>
+                            </div>
+                            <div class="backclr-grn  font-16">
+                                <strong>Sanitary Certificate
+ </strong>
+                            </div>
+                            <div formArrayName="sanitary_certificate">
+                                <div *ngFor="let item of userform.get('sanitary_certificate')['controls']; let i = index;" [formGroupName]="i">
+                                    <div class="form-group row">
+                                        <div class="col-lg-5">
+                                            <label>Sanitary Certificate</label>
+                                            <div>
+                                                <input #file type='file' (change)="onSelectFile($event,'sanitaryCertificate',i)">
+                                                <p><b class="Note">Note:</b>(Only PDF files with a maximum size of 2MB)</p>
+                                                <small class="form-text text-danger" *ngIf="item.controls.doc_name.errors && (submitted ||studentsInvalid || item.controls.doc_name.dirty || item.controls.doc_name.touched)">
+ Sanitary Certificate File is required</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <label>Inspecting authority</label>
+                                            <div>
+                                                <input type="text" pInputText class="form-control" formControlName="doc_inspect_issue_authority" placeholder="Enter Inspecting authority">
+                                                <small class="form-text text-danger" *ngIf="item.controls.doc_inspect_issue_authority.errors && (submitted ||studentsInvalid || item.controls.doc_inspect_issue_authority.dirty || item.controls.doc_inspect_issue_authority.touched)">
+                                                    Inspecting authority is required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-5">
+                                            <label>Inspection date</label>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <label>File number</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-3">
+                                            <input class="form-control date" type="date" placeholder="Date" dateformat="yyyy/dd/mm" formControlName="doc_inspect_date" max="{{todayDate}}">
+                                            <small class="form-text text-danger" *ngIf="item.controls.doc_inspect_date.errors && (submitted || item.controls.doc_inspect_date.dirty || item.controls.doc_inspect_date.touched)">
+ Inspection date Field is required</small>
+                                        </div>
+                                        <div class="col-lg-3 sanitary">
+                                            <div>
+                                                <input type="text" pKeyFilter="alphanum" pInputText class="form-control" formControlName="doc_file_num" placeholder="Enter File  number" maxlength="20">
+                                                <small class="form-text text-danger" *ngIf="item.controls.doc_file_num.errors && (submitted || item.controls.doc_file_num.dirty || item.controls.doc_file_num.touched)">
+ File number is required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-5">
+                                            <label>File Date</label>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <label>Certificate Valid upto</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-3">
+                                            <input class="form-control date" type="date" placeholder="Date" dateformat="yyyy/dd/mm" formControlName="doc_file_date" max="{{todayDate}}">
+                                            <small class="form-text text-danger" *ngIf="item.controls.doc_file_date.errors && (submitted || item.controls.doc_file_date.dirty || item.controls.doc_file_date.touched)">
+ File Date is required</small>
+                                        </div>
+                                        <div class="col-lg-3 sanitary">
+                                            <!-- <p-calendar formControlName="doc_valid_upto_date" [style]="{'width':'95%'}" [inputStyle]="{'width':'99%','padding': '10px'}" placeholder="Certificate Valid upto" dateFormat="yy/dd/mm" [minDate]="maxDate" [readonlyInput]="true"></p-calendar> -->
+                                            <input class="form-control date" type="date" placeholder="Date" dateformat="yyyy/dd/mm" min="{{todayDate}}" formControlName="doc_valid_upto_date">
+                                            <small class="form-text text-danger" *ngIf="item.controls.doc_valid_upto_date.errors && (submitted || item.controls.doc_valid_upto_date.dirty || item.controls.doc_valid_upto_date.touched)">
+ Certificate Valid upto is required</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backclr-grn  font-16">
+                                <strong>Fire Safety Certificate
+ </strong>
+                            </div>
+                            <div formArrayName="fire_safety">
+                                <div *ngFor="let item of userform.get('fire_safety')['controls']; let i = index;" [formGroupName]="i">
+                                    <div class="form-group row">
+                                        <div class="col-lg-5">
+                                            <label>Fire Safety Certificate</label>
+                                            <div>
+                                                <input #file type='file' (change)="onSelectFile($event,'fireSafety',i)">
+                                                <p><b class="Note">Note:</b>(Only PDF files with a maximum size of 2MB)</p>
+                                                <small class="form-text text-danger" *ngIf="item.controls.doc_name.errors && (submitted || item.controls.doc_name.dirty || item.controls.doc_name.touched)">
+ Fire Safety Certificate File is required</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <label>Inspecting authority</label>
+                                            <div>
+                                                <input type="text" pInputText class="form-control" formControlName="doc_inspect_issue_authority" placeholder="Enter Inspecting authority">
+                                                <small class="form-text text-danger" *ngIf="item.controls.doc_inspect_issue_authority.errors && (submitted || item.controls.doc_inspect_issue_authority.dirty || item.controls.doc_inspect_issue_authority.touched)">
+ Inspecting authority is required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-5">
+                                            <label>Inspection date</label>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <label>File number</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-3">
+                                            <input class="form-control date" type="date" placeholder="Date" dateformat="yyyy/dd/mm" formControlName="doc_inspect_date" max="{{todayDate}}">
+                                            <small class="form-text text-danger" *ngIf="item.controls.doc_inspect_date.errors && (submitted || item.controls.doc_inspect_date.dirty || item.controls.doc_inspect_date.touched)">
+ Inspection date Field is required</small>
+                                        </div>
+                                        <div class="col-lg-3 sanitary">
+                                            <div>
+                                                <input type="text" pKeyFilter="alphanum" pInputText class="form-control" formControlName="doc_file_num" placeholder="Enter File  number" maxlength="20">
+                                                <small class="form-text text-danger" *ngIf="item.controls.doc_file_num.errors && (submitted || item.controls.doc_file_num.dirty || item.controls.doc_file_num.touched)">
+ File number is required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-5">
+                                            <label>File Date</label>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <label>Certificate Valid upto</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-3">
+                                            <input class="form-control date" type="date" placeholder="Date" dateformat="yyyy/dd/mm" formControlName="doc_file_date" max="{{todayDate}}">
+                                            <small class="form-text text-danger" *ngIf="item.controls.doc_file_date.errors && (submitted || item.controls.doc_file_date.dirty || item.controls.doc_file_date.touched)">
+ File Date is required</small>
+                                        </div>
+                                        <div class="col-lg-3 sanitary">
+                                            <!-- <p-calendar formControlName="doc_valid_upto_date" [style]="{'width':'95%'}" [inputStyle]="{'width':'99%','padding': '10px'}" placeholder="Certificate Valid upto" dateFormat="yy/dd/mm" [minDate]="maxDate" [readonlyInput]="true"></p-calendar> -->
+                                            <input class="form-control date" type="date" placeholder="Date" dateformat="yyyy/dd/mm" min="{{todayDate}}" formControlName=doc_valid_upto_date>
+                                            <small class="form-text text-danger" *ngIf="item.controls.doc_valid_upto_date.errors && (submitted || item.controls.doc_valid_upto_date.dirty || item.controls.doc_valid_upto_date.touched)">
+ Certificate Valid upto is required</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="backclr-grn  font-16">
+                                <strong>School Application Fee Details</strong>
+                            </div>
+                            <div class="form-group row p-2">
+                                <div class="col-sm-3">
+                                    <label class="lable_font_weight">IFSC Code<span class="manditory"> *</span></label>
+                                    <input type="text" (keyup)="ifsc_cde($event.target.value)" class="form-control text-uppercase col-sm-8" formControlName="challan_ifsc" placeholder="IFSC Code" maxlength="11">
+                                    <small class="form-text text-danger"
+                                        *ngIf="!userform.get('challan_ifsc').valid && (submitted || userform.get('challan_ifsc').dirty || userform.get('challan_ifsc').touched)">
+                                        IFSC Code is required
+                                    </small>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="lable_font_weight">Bank Name<span class="manditory"> *</span></label>
+                                    <input type="text" formControlName="sch_app_fee_bank_bank" class="form-control col-sm-8" placeholder="Bank Name" disabled>
+                                </div>
+                              
+                                <div class="col-sm-3">
+                                    <label class="lable_font_weight">Branch Name<span class="manditory"> *</span></label>
+                                    <div>
+                                        <input type="text" formControlName="sch_app_fee_bank_branch" class="form-control col-sm-8" placeholder="Branch Name" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="lable_font_weight">Amount paid<span class="manditory"> *</span></label>
+                                    <input type="text" pKeyFilter="pnum" pInputText class="form-control  col-sm-6" formControlName="challan_amount" placeholder="Amount" maxlength="6">
+                                    <small class="form-text text-danger"
+                                        *ngIf="!userform.get('challan_amount').valid && (submitted || userform.get('challan_amount').dirty || userform.get('challan_amount').touched)">
+                                        Amount Paid is required
+                                   </small>
+                                </div>
+                            </div>
+                            <div class="form-group row p-2">
+                               
+                                <div class="col-sm-3">
+                                    <label class="lable_font_weight">Challan No<span class="manditory"> *</span></label>
+                                    <input type="text"  pInputText class="form-control col-sm-8" formControlName="challan_number" placeholder="Challan No." maxlength="10">
+                                    <small class="form-text text-danger"
+                                        *ngIf="!userform.get('challan_number').valid && (submitted || userform.get('challan_number').dirty || userform.get('challan_number').touched)">
+                                        Challan No. is required
+                                    </small>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="lable_font_weight">Challan Date<span class="manditory"> *</span></label>
+                                    <div>
+                                        <input class="form-control col-sm-8" type="date" placeholder="Date" dateformat="yyyy/dd/mm" min="{{todayDate}}" formControlName="challan_date">
+                                        <small class="form-text text-danger"
+                                            *ngIf="!userform.get('challan_date').valid && (submitted || userform.get('challan_date').dirty || userform.get('challan_date').touched)">
+                                            Challan Date is required
+                                         </small>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-lg-10">
+                                        <label class="lable_font_weight">Upload Challan<span class="manditory"> *</span></label>
+                                        <div>
+                                            <input #file type='file' (change)="onSelectFile($event,'Challlen_File',0)">
+                                            <p><b class="Note">Note:</b>(Only PDF files with a maximum size of 2MB)</p>
+                                            <small class="form-text text-danger" *ngIf="!userform.get('challlen_upload').valid && (submitted || userform.get('challlen_upload').dirty || userform.get('challlen_upload').touched)">
+                                                Challan Copy is required</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-sm-4">
+                                    <label class="lable_font_weight">Upload Challan<span class="manditory"> *</span></label>
+                                    <div class="row">
+                                        <div class="col-sm-5 text-left">
+                                            <div class="upload-btn-wrapper" id="challen">
+                                                <button class="btn"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Upload</button>
+                                                <input type="file" id="file" (change)="onSelectFile($event,'Challlen_File',0)">    
+                                            </div> 
+                                            <small class="form-text text-danger" *ngIf="!userform.get('challlen_upload').valid && (submitted || userform.get('challlen_upload').dirty || userform.get('challlen_upload').touched)">
+                                               Challan is required
+                                            </small>
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <p><b class="Note">Note:</b>(Only PDF files with a maximum size of 2MB)</p>
+                                        </div>
+                                      </div>
+                                </div> -->
+                                <div class="col-sm-2">
+                                </div>
+                            </div><hr/> 
+
+
+
+
+                            <div class="backclr-grn  font-16">
+                                <strong>Declaration</strong>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-sm-6 text-align">
+                                    <label><span class="num-align"></span>Whether closure order for existing school has been obtained by concerned Director of Department in order to obtain NOC for CBSE / ICSE<span class="manditory"></span></label>
+                                </div>
+                                <td>
+                                    <p-radioButton name="closure_order_yn" formControlName="closure_order_yn" value="1" label="YES" inputId="opt1"></p-radioButton>
+                                    <p-radioButton name="closure_order_yn" class="radio" formControlName="closure_order_yn" value="2" label="NO" inputId="opt1"></p-radioButton>
+                                </td>
+                                <small class="form-text text-danger" *ngIf="userform.controls.closure_order_yn.errors && (submitted || userform.controls.closure_order_yn.dirty || userform.controls.closure_order_yn.touched)">
+ Whether closure order for existing school has been obtained by concerned Director of Department in order to obtain NOC for CBSE / ICSE Field id required</small>
+                            </div>
+                            <div *ngIf="userform.value.closure_order_yn == '1'">
+                                <div class="row form-group">
+                                    <div class="col-lg-10">
+                                        <label>Upload Closure order</label>
+                                        <div>
+                                            <input #file type='file' (change)="onSelectFile($event,'closureOrder',0)">
+                                            <p><b class="Note">Note:</b>(Only PDF files with a maximum size of 2MB)</p>
+                                            <small class="form-text text-danger" *ngIf="!userform.get('upload_closure').valid && (submitted || userform.get('upload_closure').dirty || userform.get('upload_closure').touched)">
+ Upload Closure order File is required</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <!-- <button type="submit" class="btn btn-success save">Save & Submit Later</button> -->
+                    <button *ngIf="userform.value.closure_order_yn != 2" type="submit " class="btn btn-success flex-gap-right" (click)="onSave('save') ">Save</button>
+                    <!-- <button *ngIf="userform.value.closure_order_yn != 2" type="submit " class="btn btn-success " (click)="onSave('submit') ">Submit</button> -->
+                    <!-- <button type="submit " class="btn btn-light btn-border">Cancel</button> -->
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="Checklist Verification">
+                <h3 class="headingceo"> NOC for CBSE Affiliation</h3>
+                <div class="container-fluid body">
+                    <form [formGroup]="schoolceoform">
+                        <div class="backclr-grn  font-16">
+                            <strong>Facilities</strong>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6 text-align">
+                                <label><span class="num-align"></span>Does the school have enough library facility?<span class="manditory"></span></label>
+                            </div>
+                            <td>
+                                <p-radioButton name="library_yn" formControlName="library_yn" value="1" label="Yes" inputId="opt1"></p-radioButton>
+                                <p-radioButton name="library_yn" class="radio" formControlName="library_yn" value="2" label="NO" inputId="opt1"></p-radioButton>
+                            </td>
+                            <small class="form-text text-danger" *ngIf="!schoolceoform.get('library_yn').valid && (submitted2 || schoolceoform.get('library_yn').dirty || schoolceoform.get('library_yn').touched)">
+ Does the school have enough library facility Field is required</small>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6 text-align">
+                                <label><span class="num-align"></span>Does the school library have at least 1500 books(2500 in case of ICSE schools)<span class="manditory"> </span></label>
+                            </div>
+                            <td>
+                                <p-radioButton name="books_yn" formControlName="books_yn" value="1" label="Yes" inputId="opt1"></p-radioButton>
+                                <p-radioButton name="books_yn" class="radio" formControlName="books_yn" value="2" label="NO" inputId="opt1"></p-radioButton>
+                                <small class="form-text text-danger" *ngIf="!schoolceoform.get('books_yn').valid && (submitted2 || schoolceoform.get('books_yn').dirty || schoolceoform.get('books_yn').touched)">
+ Does the school library have at least 1500 books Field is required</small>
+                            </td>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6 text-align">
+                                <label><span class="num-align"></span>Is sufficient lab facility available in the school?<span class="manditory"></span></label>
+                            </div>
+                            <td>
+                                <p-radioButton name="labs_yn" formControlName="labs_yn" value="1" label="Yes" inputId="opt1"></p-radioButton>
+                                <p-radioButton name="labs_yn" class="radio" formControlName="labs_yn" value="2" label="NO" inputId="opt1"></p-radioButton>
+                            </td>
+                            <small class="form-text text-danger" *ngIf="!schoolceoform.get('labs_yn').valid && (submitted2 || schoolceoform.get('labs_yn').dirty || schoolceoform.get('labs_yn').touched)">
+ Does the school library have at least 1500 books Field is required</small>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6 text-align">
+                                <label><span class="num-align"></span>Any other schools functioning within the same campus?<span class="manditory"> </span></label>
+                            </div>
+                            <td>
+                                <p-radioButton name="sch_same_campus_yn" formControlName="sch_same_campus_yn" value="1" label="Yes" (click)="chooseIstheschoolcamppus(schoolceoform.value.sch_same_campus_yn)"></p-radioButton>
+                                <p-radioButton name="sch_same_campus_yn" class="radio" formControlName="sch_same_campus_yn" value="2" label="NO" (click)="chooseIstheschoolcamppus(schoolceoform.value.sch_same_campus_yn)"></p-radioButton>
+                            </td>
+                            <small class="form-text text-danger" *ngIf="!schoolceoform.get('sch_same_campus_yn').valid && (submitted2 || schoolceoform.get('sch_same_campus_yn').dirty || schoolceoform.get('sch_same_campus_yn').touched)">
+ Any other schools functioning within the same campus Field is required</small>
+                        </div>
+                        <div *ngIf="schoolceoform.value.sch_same_campus_yn == '1'">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <label>Survey Number of the school in the same campus</label>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>Area of land in acres</label>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label>Area of land in Square feet</label>
+                                </div>
+                                <div class="col-lg-3 text-right">
+                                    <button pButton type="button" icon="pi pi-plus" class="flex-gap-left flex-gap-right" iconPos="left" (click)="addLandSurveyceo()"></button>
+                                    <button pButton type="button" icon="pi pi-minus" iconPos="left" (click)="removeLandSurveyceo()"></button>
+                                </div>
+                            </div>
+                            <div formArrayName="Campus">
+                                <div class="form-group row" style="padding-bottom:10px" *ngFor="let item of schoolceoform.get('Campus')['controls']; let i = index;" [formGroupName]="i">
+                                    <div class="col-lg-3">
+                                        <input type="text" pKeyFilter="alphanum" pInputText class="form-control" formControlName="survey_number" placeholder="Enter the Survey Number" maxlength="10">
+                                        <small class="form-text text-danger" *ngIf="item.controls.survey_number.errors && (submitted2 ||surveylandinvalid || item.controls.survey_number.dirty || item.controls.survey_number.touched)">
+ Survey Number Field is required</small>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input type="text" pKeyFilter="pnum" pInputText class="form-control" formControlName="area" (change)="convertSqureFeet(item.value.area,i,'Campus')" placeholder="Enter the Area of land in acres" maxlength="5">
+                                        <small class="form-text text-danger" *ngIf="item.controls.area.errors && (submitted2 ||surveylandinvalid || item.controls.area.dirty || item.controls.area.touched)">
+ Area of land in acres Field is required</small>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <!-- <input type="text" pKeyFilter="pnum" pInputText class="form-control" formControlName="area" placeholder="Enter the Area of land in acres" maxlength="5" (change)="convertSqureFeet($event.target.value)"> -->
+                                        <input type="text" pKeyFilter="pnum" pInputText class="form-control" formControlName="sqfeet" maxlength="5" disabled="true">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" row">
+                            <div class="col-lg-5">
+                                <label>Number of classrooms in the school</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-3">
+                                <input pInputText type="text" class="form-control" formControlName="classrooms" placeholder="Number of classrooms" maxlength="5">
+                                <small class="form-text text-danger" *ngIf="!schoolceoform.get('classrooms').valid && (submitted2 || schoolceoform.get('classrooms').dirty || schoolceoform.get('classrooms').touched)">
+ Number of classrooms in the school Field is required</small>
+                            </div>
+                        </div>
+                        <div class="backclr-grn  font-16">
+                            <strong>Location & Nearby Schools</strong>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6 text-align">
+                                <label><span class="num-align"></span>Are there any English Medium schools in the 5km radius of this school?<span class="manditory"> </span></label>
+                            </div>
+                            <td>
+                                <p-radioButton name="em_sch_yn" formControlName="em_sch_yn" value="1" label="Yes" inputId="opt1" (click)="isNearBySchool(schoolceoform.value.em_sch_yn)"></p-radioButton>
+                                <p-radioButton name="em_sch_yn" class="radio" formControlName="em_sch_yn" value="2" label="NO" (click)="isNearBySchool(schoolceoform.value.em_sch_yn)" inputId="opt1"></p-radioButton>
+                            </td>
+                            <small class="form-text text-danger" *ngIf="!schoolceoform.get('em_sch_yn').valid && (submitted2 || schoolceoform.get('em_sch_yn').dirty || schoolceoform.get('em_sch_yn').touched)">
+ Are there any English Medium schools in the 5km radius of this school Field is required</small>
+                        </div>
+                        <div *ngIf="schoolceoform.value.em_sch_yn == '1'">
+                            <div class="form-group row">
+                                <div class="col-lg-4">
+                                    <label>UDISE Code</label>
+                                    <input type="text" pKeyFilter="pnum" class="form-control" (keyup)="getSchoolName(schoolceoform.value.sch1_udise,'1')" formControlName="sch1_udise" placeholder="Enter UDISE code" maxlength="11">
+                                    <small class="form-text text-danger" *ngIf="schoolceoform.controls.sch1_udise.errors && (submitted2 || schoolceoform.controls.sch1_udise.dirty || schoolceoform.controls.sch1_udise.touched)">
+ UDISE Code Field is required</small> </div>
+                                <div class="col-lg-5">
+                                    <label>School Name</label>
+                                    <input type="text" pInputText class="form-control" formControlName="sch1_name" placeholder="School Name" disabled="true">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-4">
+                                    <label>UDISE Code</label>
+                                    <input type="text" pKeyFilter="pnum" class="form-control" formControlName="sch2_udise" (keyup)="getSchoolName(schoolceoform.value.sch2_udise,'2')" placeholder="Enter UDISE code" maxlength="11">
+                                    <small class="form-text text-danger" *ngIf="schoolceoform.controls.sch2_udise.errors && (submitted2 || schoolceoform.controls.sch2_udise.dirty || schoolceoform.controls.sch2_udise.touched)">
+ UDISE Code Field is required</small>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label>School Name</label>
+                                    <input type="text" pInputText class="form-control" formControlName="sch2_name" placeholder="School Name" disabled="true">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-4">
+                                    <label>UDISE Code</label>
+                                    <input type="text" pKeyFilter="pnum" class="form-control" formControlName="sch3_udise" (keyup)="getSchoolName(schoolceoform.value.sch3_udise,'3')" placeholder="Enter UDISE code" maxlength="11">
+                                    <small class="form-text text-danger" *ngIf="schoolceoform.controls.sch3_udise.errors && (submitted2 || schoolceoform.controls.sch3_udise.dirty || schoolceoform.controls.sch3_udise.touched)">
+ UDISE Code Field is required</small>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label>School Name</label>
+                                    <input type="text" pInputText class="form-control" formControlName="sch3_name" placeholder="School Name" disabled="true">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-4">
+                                    <label>UDISE Code</label>
+                                    <input type="text" pKeyFilter="pnum" class="form-control" formControlName="sch4_udise" (keyup)="getSchoolName(schoolceoform.value.sch4_school_id,'4')" placeholder="Enter UDISE code" maxlength="11">
+                                    <small class="form-text text-danger" *ngIf="schoolceoform.controls.sch4_udise.errors && (submitted2 || schoolceoform.controls.sch4_udise.dirty || schoolceoform.controls.sch4_udise.touched)">
+ UDISE Code Field is required</small>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label>School Name</label>
+                                    <input type="text" pInputText class="form-control" formControlName="sch4_name" placeholder="School Name" disabled="true">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-4">
+                                    <label>UDISE Code</label>
+                                    <input type="text" pKeyFilter="pnum" class="form-control" formControlName="sch5_udise" (keyup)="getSchoolName(schoolceoform.value.sch5_school_id,'5')" placeholder="Enter UDISE code" maxlength="11">
+                                    <small class="form-text text-danger" *ngIf="schoolceoform.controls.sch5_udise.errors && (submitted2 || schoolceoform.controls.sch5_udise.dirty || schoolceoform.controls.sch5_udise.touched)">
+ UDISE Code Field is required</small>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label>School Name</label>
+                                    <input type="text" pInputText class="form-control" formControlName="sch5_name" placeholder="School Name" disabled="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6 text-align">
+                                <label><span class="num-align"></span>NOC received from any of the nearby  Schools?<span class="manditory"> </span></label>
+                            </div>
+                            <td>
+                                <p-radioButton name="sch1_noc_yn" formControlName="sch1_noc_yn" value="1" label="Yes" inputId="opt1"></p-radioButton>
+                                <p-radioButton name="sch1_noc_yn" class="radio" formControlName="sch1_noc_yn" value="2" label="NO" inputId="opt1"></p-radioButton>
+                            </td>
+                            <small class="form-text text-danger" *ngIf="!schoolceoform.get('sch1_noc_yn').valid && (submitted2 || schoolceoform.get('sch1_noc_yn').dirty || schoolceoform.get('sch1_noc_yn').touched)">
+ NOC received from any of the nearby English Medium Schools Field is required</small>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-6 text-align">
+                                <label><span class="num-align"></span>Will any other school be affected due to opening of this school?<span class="manditory"> </span></label>
+                            </div>
+                            <td>
+                                <p-radioButton name="other_sch_affect_yn" formControlName="other_sch_affect_yn" value="1" label="Yes" inputId="opt1"></p-radioButton>
+                                <p-radioButton name="other_sch_affect_yn" class="radio" formControlName="other_sch_affect_yn" value="2" label="NO" inputId="opt1"></p-radioButton>
+                            </td>
+                            <small class="form-text text-danger" *ngIf="!schoolceoform.get('other_sch_affect_yn').valid && (submitted2 || schoolceoform.get('other_sch_affect_yn').dirty || schoolceoform.get('other_sch_affect_yn').touched)">
+ Will any other school be affected due to opening of this school Field is required</small>
+                        </div>
+                        <div class="text-center mt-3">
+                            <button type="submit" class="btn btn-success save" (click)="onSaveschool('save')">Save & Submit Later</button>
+                            <button type="submit" class="btn btn-success preview" (click)="onSavepreview() ">Preview Application</button>
+                            <button type=" submit " class="btn btn-success submit" (click)="onSaveschool('submit')">Submit</button>
+                            <!-- <button type="submit " class="btn btn-light btn-border ">Cancel</button> -->
+                        </div>
+                    </form>
+                </div>
+            </p-tabPanel>
+        </p-tabView>
+    </p-card>
+</div>

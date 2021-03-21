@@ -1,0 +1,337 @@
+<div class="main-body-content">
+
+  <div class="outer-layout">
+    <div class="breadcrumbs c-black" *ngIf="page === '1' && !districtid">
+      <h6 class="url">
+        <span class="flex-gap-right">Students</span> 
+        <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+        <span class="flex-gap-right">CWSN</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+        <span class="flex-gap-right" (click)="goBack()">CWSN Reports</span>
+        <span class="flex-gap-right" *ngIf="districtName " (click)="goBackBlock()"><i
+            class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>{{districtName}}</span>
+
+        <span *ngIf="blkname"><i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>{{blkname}}</span>
+      </h6>
+    </div>
+    <div class="breadcrumbs c-black" *ngIf="page === '1' && districtid">
+      <h6 class="url">
+        <span class="flex-gap-right">Students</span> 
+        <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+        <span class="flex-gap-right">CWSN</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+            <span class="flex-gap-right" (click)="goBackBlock()">CWSN Reports</span>
+        <span *ngIf="blkname"><i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>{{blkname}}</span>
+      </h6>
+    </div>
+  </div>
+
+
+  <!-- Leval 1 -->
+  <div class="container-fluid" *ngIf="pageStage === 1">
+    <p-table #dt [columns]="dataHeader" [value]="childrenDetails" [resizableColumns]="true">
+      <ng-template let-childrens pTemplate="caption">
+        <div class="row header flex-row-center">
+          <div class="col-sm-8">
+
+          </div>
+          <div class="col-sm-3 p-1">
+            <div class="text-right">
+              <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                placeholder="Search">
+            </div>
+          </div>
+          <div class="col-sm-1 p-1 flex-row-center-end">
+            <div class="text-right">
+              <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"
+                (click)="exportPdf(verifymonitorstate,dataHeader)"></i>
+              <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                (click)="exportExcel(verifymonitorstate)"></i> -->
+            </div>
+          </div>
+        </div>
+
+      </ng-template>
+      <ng-template pTemplate="header" let-childrens>
+        <tr class="text-center">
+          <th style="width:5em">S.No</th>
+          <th *ngFor="let col of childrens" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+            {{col.header}}
+            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+              ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order">
+            </p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-childrens let-rowData let-columns="columns" let-i="rowIndex">
+        <tr class="text-center" *ngIf="!noDataFound">
+          <td style="width:5em"> {{i+1}} </td>
+          <td class="text-left"><a href="javascript:void(0)" (click)="selectedCWSN(childrens.district_name)">
+              {{ childrens.district_name}} </a></td>
+          <td> {{ childrens.VIB}} </td>
+          <td> {{ childrens.VILV}} </td>
+          <td> {{ childrens.HI}} </td>
+          <td> {{ childrens.SI}} </td>
+          <td> {{ childrens.LI}} </td>
+          <td> {{ childrens.MR}} </td>
+          <td> {{ childrens.LD}} </td>
+          <td> {{ childrens.CP}} </td>
+          <td> {{ childrens.Aut}} </td>
+          <td> {{ childrens.MD}} </td>
+          <td> {{ childrens.Mus_dyp}} </td>
+          <td> {{ childrens.LC}} </td>
+          <td> {{ childrens.Dwar}} </td>
+          <td> {{ childrens.IntDis}} </td>
+          <td> {{ childrens.CNC}} </td>
+          <td> {{ childrens.MS}} </td>
+          <td> {{ childrens.Tha}} </td>
+          <td> {{ childrens.Hemo}} </td>
+          <td> {{ childrens.SCD}} </td>
+          <td> {{ childrens.AAV}} </td>
+          <td> {{ childrens.PD}} </td>
+          <td class="ui-resizable-column text-center"> {{ childrens.total}}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <tr>
+          <td colspan="2">Total</td>
+          <td class="ui-resizable-column text-center">{{VIB}}</td>
+          <td class="ui-resizable-column text-center">{{VILV}}</td>
+          <td class="ui-resizable-column text-center">{{HI}}</td>
+          <td class="ui-resizable-column text-center">{{SI}}</td>
+          <td class="ui-resizable-column text-center">{{LI}}</td>
+          <td class="ui-resizable-column text-center">{{MR}}</td>
+          <td class="ui-resizable-column text-center">{{LD}}</td>
+          <td class="ui-resizable-column text-center">{{CP}}</td>
+          <td class="ui-resizable-column text-center">{{Aut}}</td>
+          <td class="ui-resizable-column text-center">{{MD}}</td>
+          <td class="ui-resizable-column text-center">{{Mus_dyp}}</td>
+          <td class="ui-resizable-column text-center">{{LC}}</td>
+          <td class="ui-resizable-column text-center">{{Dwar}}</td>
+          <td class="ui-resizable-column text-center">{{IntDis}}</td>
+          <td class="ui-resizable-column text-center">{{CNC}}</td>
+          <td class="ui-resizable-column text-center">{{MS}}</td>
+          <td class="ui-resizable-column text-center">{{Tha}}</td>
+          <td class="ui-resizable-column text-center">{{Hemo}}</td>
+          <td class="ui-resizable-column text-center">{{SCD}}</td>
+          <td class="ui-resizable-column text-center">{{AAV}}</td>
+          <td class="ui-resizable-column text-center">{{PD}}</td>
+          <td class="ui-resizable-column text-center">{{total}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <div class="card">
+      VI(LV):Visual Impairment (Low-vision) VIB : Visual Impairment (Blindness) HI : Hearing Impairment SI: Speech
+      Impairment LI : Locomotor Impairment/Handicap MR : Mental Retardation SLD : Severe Learning disability/Dyslexia CP
+      : Cerebral Palsy Aut : Autism MD : Multiple disability Mus_dyp : Muscular dystrophy LC : Leprosy Cured Dwar :
+      Dwarfism ID : Intellectual Disability CNC : Chronic Neurological conditions MS : Multiple Sclerosis Tha :
+      Thalassemia Hemo : Hemophilia SCD : Sickle cell disease AAV : Acid Attack victims PD : Parkinsons disease
+    </div>
+  </div>
+
+
+  <!-- Leval 2 -->
+  <div class="container-fluid" *ngIf="pageStage === 2">
+    <p-table #dt [columns]="dataHeader2" [value]="CWSNlistDetail" [resizableColumns]="true">
+      <ng-template let-childrens pTemplate="caption">
+        <div class="row header flex-row-center">
+          <div class="col-sm-8">
+
+          </div>
+          <div class="col-sm-3 p-1">
+            <div class="text-right">
+              <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                placeholder="Search">
+            </div>
+          </div>
+          <div class="col-sm-1 p-2 text-right">
+            <i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="exportExcelBlock()"></i>
+         </div>
+        </div>
+
+      </ng-template>
+      <ng-template pTemplate="header" let-childrens>
+        <tr class="text-center">
+          <th style="width:5em">S.NO</th>
+          <th *ngFor="let col of childrens" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+            {{col.header}}
+            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+              ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order">
+            </p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <!-- <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex"> -->
+      <ng-template pTemplate="body" let-childrens let-rowData let-columns="columns" let-i="rowIndex">
+        <tr class="text-center" *ngIf="!noDataFound2">
+          <td style="width:5em"> {{i+1}} </td>
+          <td class="text-left"><a href="javascript:void(0)" (click)="selectedCWSNBlock(childrens.block_name)">
+              {{ childrens.block_name}} </a></td>
+          <td> {{ childrens.VIB}} </td>
+          <td> {{ childrens.VILV}} </td>
+          <td> {{ childrens.HI}} </td>
+          <td> {{ childrens.SI}} </td>
+          <td> {{ childrens.LI}} </td>
+          <td> {{ childrens.MR}} </td>
+          <td> {{ childrens.LD}} </td>
+          <td> {{ childrens.CP}} </td>
+          <td> {{ childrens.Aut}} </td>
+          <td> {{ childrens.MD}} </td>
+          <td> {{ childrens.Mus_dyp}} </td>
+          <td> {{ childrens.LC}} </td>
+          <td> {{ childrens.Dwar}} </td>
+          <td> {{ childrens.ID}} </td>
+          <td> {{ childrens.CNC}} </td>
+          <td> {{ childrens.MS}} </td>
+          <td> {{ childrens.Tha}} </td>
+          <td> {{ childrens.Hemo}} </td>
+          <td> {{ childrens.SCD}} </td>
+          <td> {{ childrens.AAV}} </td>
+          <td> {{ childrens.PD}} </td>
+          <td class="ui-resizable-column text-center">
+            {{ childrens.total}}
+          </td>
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <tr>
+          <td></td>
+          <td>Total</td>
+          <td class="ui-resizable-column text-center">{{VIB}}</td>
+          <td class="ui-resizable-column text-center">{{VILV}}</td>
+          <td class="ui-resizable-column text-center">{{HI}}</td>
+          <td class="ui-resizable-column text-center">{{SI}}</td>
+          <td class="ui-resizable-column text-center">{{LI}}</td>
+          <td class="ui-resizable-column text-center">{{MR}}</td>
+          <td class="ui-resizable-column text-center">{{LD}}</td>
+          <td class="ui-resizable-column text-center">{{CP}}</td>
+          <td class="ui-resizable-column text-center">{{Aut}}</td>
+          <td class="ui-resizable-column text-center">{{MD}}</td>
+          <td class="ui-resizable-column text-center">{{Mus_dyp}}</td>
+          <td class="ui-resizable-column text-center">{{LC}}</td>
+          <td class="ui-resizable-column text-center">{{Dwar}}</td>
+          <td class="ui-resizable-column text-center">{{ID}}</td>
+          <td class="ui-resizable-column text-center">{{CNC}}</td>
+          <td class="ui-resizable-column text-center">{{MS}}</td>
+          <td class="ui-resizable-column text-center">{{Tha}}</td>
+          <td class="ui-resizable-column text-center">{{Hemo}}</td>
+          <td class="ui-resizable-column text-center">{{SCD}}</td>
+          <td class="ui-resizable-column text-center">{{AAV}}</td>
+          <td class="ui-resizable-column text-center">{{PD}}</td>
+          <td class="ui-resizable-column text-center">{{total}}</td>
+        </tr>
+      </ng-template>
+
+    </p-table>
+    <p-card>
+      VI(LV):Visual Impairment (Low-vision) VIB : Visual Impairment (Blindness) HI : Hearing Impairment SI: Speech
+      Impairment LI : Locomotor Impairment/Handicap MR : Mental Retardation SLD : Severe Learning disability/Dyslexia CP
+      : Cerebral Palsy Aut : Autism MD : Multiple disability Mus_dyp : Muscular dystrophy LC : Leprosy Cured Dwar :
+      Dwarfism ID : Intellectual Disability CNC : Chronic Neurological conditions MS : Multiple Sclerosis Tha :
+      Thalassemia Hemo : Hemophilia SCD : Sickle cell disease AAV : Acid Attack victims PD : Parkinsons disease
+    </p-card>
+  </div>
+
+
+  <!-- page 3 -->
+  <div class="container-fluid" *ngIf="pageStage === 3">
+    <p-table #dt [columns]="dataHeader3" [value]="CWSNlistDetailSchool" [resizableColumns]="true">
+      <ng-template let-childrens pTemplate="caption">
+        <div class="row header flex-row-center">
+          <div class="col-sm-8">
+
+          </div>
+          <div class="col-sm-3 p-1">
+            <div class="text-right">
+              <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                placeholder="Search">
+            </div>
+          </div>
+          <div class="col-sm-1 p-2 text-right">
+            <i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="exportExcelSchool()"></i>
+         </div>
+        </div>
+
+      </ng-template>
+      <ng-template pTemplate="header" let-childrens>
+        <tr class="text-center">
+          <th style="width:5em">S.NO</th>
+          <th *ngFor="let col of childrens" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+            {{col.header}}
+            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+              ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order">
+            </p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <!-- <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex"> -->
+      <ng-template pTemplate="body" let-childrens let-rowData let-columns="columns" let-i="rowIndex">
+        <tr class="text-center" *ngIf="!noDataFound3">
+          <td style="width:5em"> {{i+1}} </td>
+          <td> {{ childrens.udise_code}} </td>
+          <td class="text-left"> {{ childrens.school_name}}</td>
+          <td class="text-left"> {{ childrens.school_type}} </td>
+          <td> {{ childrens.VIB}} </td>
+          <td> {{ childrens.VILV}} </td>
+          <td> {{ childrens.HI}} </td>
+          <td> {{ childrens.SI}} </td>
+          <td> {{ childrens.LI}} </td>
+          <td> {{ childrens.MR}} </td>
+          <td> {{ childrens.LD}} </td>
+          <td> {{ childrens.CP}} </td>
+          <td> {{ childrens.Aut}} </td>
+          <td> {{ childrens.MD}} </td>
+          <td> {{ childrens.Mus_dyp}} </td>
+          <td> {{ childrens.LC}} </td>
+          <td> {{ childrens.Dwar}} </td>
+          <td> {{ childrens.ID}} </td>
+          <td> {{ childrens.CNC}} </td>
+          <td> {{ childrens.MS}} </td>
+          <td> {{ childrens.Tha}} </td>
+          <td> {{ childrens.Hemo}} </td>
+          <td> {{ childrens.SCD}} </td>
+          <td> {{ childrens.AAV}} </td>
+          <td> {{ childrens.PD}} </td>
+          <td class="ui-resizable-column text-center">
+            {{childrens.total}}
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <tr>
+          <td></td>
+          <td>Total</td>
+          <td></td>
+          <td></td>
+          <td class="ui-resizable-column text-center">{{VIB}}</td>
+          <td class="ui-resizable-column text-center">{{VILV}}</td>
+          <td class="ui-resizable-column text-center">{{HI}}</td>
+          <td class="ui-resizable-column text-center">{{SI}}</td>
+          <td class="ui-resizable-column text-center">{{LI}}</td>
+          <td class="ui-resizable-column text-center">{{MR}}</td>
+          <td class="ui-resizable-column text-center">{{LD}}</td>
+          <td class="ui-resizable-column text-center">{{CP}}</td>
+          <td class="ui-resizable-column text-center">{{Aut}}</td>
+          <td class="ui-resizable-column text-center">{{MD}}</td>
+          <td class="ui-resizable-column text-center">{{Mus_dyp}}</td>
+          <td class="ui-resizable-column text-center">{{LC}}</td>
+          <td class="ui-resizable-column text-center">{{Dwar}}</td>
+          <td class="ui-resizable-column text-center">{{ID}}</td>
+          <td class="ui-resizable-column text-center">{{CNC}}</td>
+          <td class="ui-resizable-column text-center">{{MS}}</td>
+          <td class="ui-resizable-column text-center">{{Tha}}</td>
+          <td class="ui-resizable-column text-center">{{Hemo}}</td>
+          <td class="ui-resizable-column text-center">{{SCD}}</td>
+          <td class="ui-resizable-column text-center">{{AAV}}</td>
+          <td class="ui-resizable-column text-center">{{PD}}</td>
+          <td class="ui-resizable-column text-center">{{total}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <p-card>
+      VI(LV):Visual Impairment (Low-vision) VIB : Visual Impairment (Blindness) HI : Hearing Impairment SI: Speech
+      Impairment LI : Locomotor Impairment/Handicap MR : Mental Retardation SLD : Severe Learning disability/Dyslexia CP
+      : Cerebral Palsy Aut : Autism MD : Multiple disability Mus_dyp : Muscular dystrophy LC : Leprosy Cured Dwar :
+      Dwarfism ID : Intellectual Disability CNC : Chronic Neurological conditions MS : Multiple Sclerosis Tha :
+      Thalassemia Hemo : Hemophilia SCD : Sickle cell disease AAV : Acid Attack victims PD : Parkinsons disease
+    </p-card>
+  </div>
+
+</div>

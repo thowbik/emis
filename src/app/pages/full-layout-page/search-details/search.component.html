@@ -1,0 +1,283 @@
+<div class="main-body-content">
+  <div class="page-container">
+      <div class="std-adm center h-100">
+            <div class="ui-g-12">
+                <h5>{{pageTitle}}</h5>
+                <form name="form" [formGroup]="form">
+                    <div class="form-group">
+                            <div *ngFor="let item of searchList">
+                                <div [ngClass]="{'ui-g-2 ui-lg-2 ui-md-3 ui-sm-4':type !== 1, 'ui-g-6 ui-lg-6 ui-md-6 ui-sm-6': type === 1}"> 
+                                    <p-radioButton name="group1" value="{{item.value}}" label="{{item.name}}" formControlName="db_col" inputId="opt1" (click)="radioSelect(item.name,item.value)"></p-radioButton>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="form-group">
+                      <div *ngIf="type == 2 || type == 3">
+                        <div class="ui-g-12" *ngIf="!isSelectedDatePicker && !isSelectedDesignation && !isSelectedUdise">
+                            <input type="text" pInputText formControlName="search_data" placeholder="{{placeholder}}" pKeyFilter="pnum" maxlength="{{maxLength}}">
+                        </div>
+                        <div class="ui-g-12" *ngIf="isSelectedDatePicker">
+                            <input type="date" pInputText formControlName="search_data"  placeholder="dob" [max]="dobMaxDate">
+                        </div>
+                        <div class="ui-g-12" *ngIf="isSelectedDesignation">
+                          <input type="text" pInputText formControlName="search_data" placeholder="{{placeholder}}" pKeyFilter="pnum" maxlength="{{maxLength}}">
+                                 
+                        </div>
+                        <div class="ui-g-12" *ngIf="isSelectedUdise">
+                          <input type="text" pInputText formControlName="search_data" placeholder="{{placeholder}}" pKeyFilter="pnum" maxlength="{{maxLength}}">&nbsp;&nbsp;&nbsp;
+                          <p-dropdown  [options]="classList" (onChange)="selectClass($event)" optionLabel="name" optionValue="value"></p-dropdown>
+                        </div>
+                      </div>
+                      <div *ngIf="type == 1">
+                        <div class="ui-g-12" *ngIf="isSelectedSchoolUdise">
+                          <input type="text" pInputText formControlName="search_data" placeholder="{{placeholder}}" pKeyFilter="pnum" maxlength="{{maxLength}}">
+                        </div>
+                        <div class="ui-g-12" *ngIf="isSelectedDistrict || isSelectedBlock || isSelectedSchool">  
+                          <p-dropdown *ngIf="isSelectedDistrict" [options]="distList" (onChange)="getschool($event,'distschool')"></p-dropdown>&nbsp;&nbsp;&nbsp;
+                          <p-dropdown *ngIf="isSelectedBlock" [options]="blockList" (onChange)="getschool($event,'blockschool')"></p-dropdown>&nbsp;&nbsp;&nbsp;
+                          <p-dropdown *ngIf="isSelectedSchool"[options]="schoolList" formControlName="search_data"></p-dropdown>   
+                        </div>
+                      </div>
+                        
+                    </div>
+                </form>
+            </div>
+         
+<br><br><br><br><br><br>
+            <div class="kt-section__content p-t-30">
+              <div *ngFor="let item of buttonList" style="display: inline-block;">
+                <button pButton type="button" label="{{item.label}}"  class="{{item.class}}" (click)="search(item.flag)"></button>
+               <br> <br> <br>
+              </div>
+              <br> <br> <br>
+          </div>
+            <br/><br/>
+            <div *ngIf="searchMessage" class="textalign"><br/><br/><strong>{{searchMessage}}</strong></div>        
+        
+            <div *ngIf="type == 3 || type == 2" class="ui-g-12">
+                    <p-table *ngIf="searchedStaffDetails.length>0" #dt  [columns]="tableHeader"   selectionMode="single" 
+                      [(selection)]="selectedStudent" 
+                      (onRowSelect)="onRowSelect($event)"
+                       [value]="searchedStaffDetails" 
+                       [resizableColumns]="true" 
+                       [paginator]="true" 
+                       [rows]="10">
+                        <ng-template pTemplate="caption">
+                          <div class="row p-1">
+                            <div class="col-sm-6">
+                                <div class="text-lg-left mt-3">
+                                  <h5>{{tableTitle}}</h5>
+                                  <!-- <a href="javascript:void(0)" *ngIf="schoolTypeRpt !== 1" (click)="nxt_st('',1)"> < </a> -->
+                                </div>
+                            </div>
+                            <div class="col-sm-6 p-1">
+                                <div class="text-right">
+                                     <input type="text" pInputText size="30" placeholder="Search Details" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                                </div>              
+                             </div>
+                          </div>
+                        </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                          <tr class="text-center">
+                            <th class="sno-header-layout">S.No</th>
+                            <th *ngFor="let col of columns" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                              {{col.header}}
+                              <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                            </th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                         
+                          <tr class="text-center" [pSelectableRow]="rowData">
+                            <td class="sno-header-layout"> {{i+1}} </td>
+                            <td *ngFor="let col of columns" class="ui-resizable-column">
+                              <span>{{rowData[col.field]}}</span>
+                            </td>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage" let-columns>
+                          <tr>
+                            <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                               <strong>No records found</strong>
+                            </td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+            </div>
+        </div>
+        <p-dialog [header]="dialogTitle" [(visible)]="displayTransferDialog" [modal]="true" [responsive]="true" 
+          [draggable]="false"  
+                     [blockScroll]="true" 
+                     [maximizable]="false" 
+                     [contentStyle]="{'max-width':'1000px','max-height': '450px','overflow-y': 'auto'}">
+
+        <form id="transfer_form">
+            <div class="ui-g-12">
+                    <label>Do You Want To Admit {{teacherName}} To This School <span class="mandatory"> ? </span></label>
+                    <!-- <p-dropdown [options]="reasonList" placeholder="Choose a Reason" class="flex-dropdown"
+                        formControlName="transfer_reason"></p-dropdown> -->
+                      
+            </div>
+            <!-- <div class="ui-g-12">
+                <button pButton type="Submit" icon="fa fa-check" label="Save" class="ui-button-success ui-button-rounded"></button>
+            </div> -->
+            <div class="ui-g-12">
+                <div class="ui-helper-clearfix" style="text-align: center">
+                    <button pButton type="button" icon="fa fa-check" label="Yes" class="ui-button-success ui-button-rounded" (click)="OnUpdate_teacherTransfer()"></button>           
+                </div>
+               
+            </div>
+            <div class="ui-g-12"> <br> </div>
+        </form>
+</p-dialog>
+<!-- {{searchedSchoolDetails}} -->
+            <div *ngIf="(type == 1 && searchedSchoolDetails.length > 0)" class="ui-g-12">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:0px;">
+                <div style="height: auto;">    
+                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center !important;">   
+                          <h3><i class="fa fa-bank"></i>{{searchedSchoolDetails[0].school_name}}</h3> 
+                      </div>
+                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                          <font style="color:#9b9b9b;"><i class="fa fa-map-marker"></i> Category : <span style="color:#111;">{{searchedSchoolDetails[0].category_name}}</span></font> 
+                        </div>  
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                          <font style="color:#9b9b9b;"><i class="fa fa-calendar"></i> Management : <span style="color:#111;" >{{searchedSchoolDetails[0].manage_name}}</span></font>  
+                        </div> 
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                          <font style="color:#9b9b9b;"><i class="fa fa-briefcase"></i> District : <span style="color:#111;" >{{searchedSchoolDetails[0].district_name}}</span></font>
+                        </div> 
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                          <font style="color:#9b9b9b;"><i class="fa fa-briefcase"></i> Directorate : <span style="color:#111;">{{searchedSchoolDetails[0].department}}</span></font> 
+                        </div> 
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                          <font style="color:#9b9b9b;"><i class="fa fa-briefcase"></i> Block : <span style="color:#111;">{{searchedSchoolDetails[0].block_name}}</span></font> 
+                        </div> 
+                      </div> 
+
+                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+                        <h5 style="background-color:#abe7ed;padding: 10px;">School Management Details</h5>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                              <font style="color:#9b9b9b;"> Name of the School in English : <span style="color:#111;">{{searchedSchoolDetails[0].school_name}}</span></font> 
+                            </div> 
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                              <font style="color:#9b9b9b;"> Short Name of the School in English : <span style="color:#111;">{{searchedSchoolDetails[0].sch_shortname}}</span></font> 
+                            </div> 
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                              <font style="color:#9b9b9b;"> School Management Category : <span style="color:#111;">{{searchedSchoolDetails[0].category_name}}</span></font> 
+                            </div> 
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                              <font style="color:#9b9b9b;"> School Management : <span style="color:#111;">{{searchedSchoolDetails[0].management}}</span></font> 
+                            </div> 
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                              <font style="color:#9b9b9b;"> School Department : <span style="color:#111;">{{searchedSchoolDetails[0].department}}</span></font> 
+                            </div> 
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                              <font style="color:#9b9b9b;"> School Category : <span style="color:#111;">{{searchedSchoolDetails[0].category_name}}</span></font> 
+                            </div> 
+                            
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                              <font style="color:#9b9b9b;"> School Type  : <span style="color:#111;" [ngSwitch]="searchedSchoolDetails[0].school_type_id"> 
+                                <span *ngSwitchCase="1">Co-Ed</span>
+                                <span *ngSwitchCase="2">Girls</span>
+                                <span *ngSwitchCase="3">Boys</span>
+                                <span *ngSwitchDefault>--</span></span></font> 
+                            </div> 
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                              <font style="color:#9b9b9b;">Minority School : <span style="color:#111;">{{searchedSchoolDetails.minority_sch != 0 ? 'Yes':'No'}}</span></font> 
+                            </div> 
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                              <font style="color:#9b9b9b;"> RTE School : <span style="color:#111;">{{searchedSchoolDetails[0].rte}}</span></font> 
+                            </div> 
+
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                              <font style="color:#9b9b9b;"> Lowest Class : <span style="color:#111;">{{searchedSchoolDetails[0].low_class}}</span></font> 
+                            </div> 
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                              <font style="color:#9b9b9b;"> Highest Class : <span style="color:#111;">{{searchedSchoolDetails[0].high_class}}</span></font> 
+                            </div> 
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                              <font style="color:#9b9b9b;">Year Of Last Renewal : <span style="color:#111;">{{searchedSchoolDetails[0].certifi_no}}</span></font> 
+                            </div> 
+
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                              <font style="color:#9b9b9b;"> Renewal Certificate Number / File Number : <span style="color:#111;" >{{searchedSchoolDetails[0].category_name}}</span></font> 
+                            </div> 
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                              <font style="color:#9b9b9b;"> Latitude : <span style="color:#111;">{{searchedSchoolDetails[0].latitude}}</span></font> 
+                            </div> 
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                              <font style="color:#9b9b9b;"> Longitude : <span style="color:#111;">{{searchedSchoolDetails[0].longitude}}</span></font> 
+                            </div> 
+
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                              <font style="color:#9b9b9b;"> Education District Name : <span style="color:#111;">{{searchedSchoolDetails[0].edu_dist_name}}</span></font> 
+                            </div> 
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                              <font style="color:#9b9b9b;">Block Name : <span style="color:#111;">{{searchedSchoolDetails[0].block_name}}</span></font> 
+                            </div> 
+                      </div>
+
+                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+                                <h5 style="background-color:#abe7ed;padding: 10px;">School Details</h5>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                                <font style="color:#9b9b9b;"> School Situated IN : 
+                                <span style="color:#111;" [ngSwitch]="searchedSchoolDetails[0].hill_frst"> 
+                                  <span *ngSwitchCase="0">Not Applicable</span>
+                                  <span *ngSwitchCase="1">Forest/Hill area</span>
+                                  <span *ngSwitchCase="2">Near Forest/Hill area</span>
+                                  <span *ngSwitchCase="3">Near the High ways</span>
+                                  <span *ngSwitchCase="4">Near Coastal Area</span>
+                                  <span *ngSwitchDefault>--</span></span></font> 
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                                <font style="color:#9b9b9b;"> Email Address  : <span style="color:#111;">{{searchedSchoolDetails[0].sch_email}}</span></font> 
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                                <font style="color:#9b9b9b;"> Residential School : <span style="color:#111;">{{searchedSchoolDetails[0].resid_schl == 1 ? 'Yes' : 'No' }}</span></font> 
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                                <font style="color:#9b9b9b;"> Type of Residential School  : <span style="color:#111;">{{searchedSchoolDetails[0].RESITYPE_DESC}}</span></font> 
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                                <font style="color:#9b9b9b;"> Anganwadi is Attached To School  : <span style="color:#111;"> {{searchedSchoolDetails[0].anganwadi==1?'Yes':'No'}}</span></font> 
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                                <font style="color:#9b9b9b;"> Anganwadi Number : <span style="color:#111;">{{searchedSchoolDetails[0].anganwadi_center}}</span></font> 
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                                <font style="color:#9b9b9b;"> Total Number of Workers : <span style="color:#111;">{{searchedSchoolDetails[0].angan_wrks}}</span></font> 
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                                <font style="color:#9b9b9b;"> Total Number of Children : <span style="color:#111;">{{searchedSchoolDetails[0].angan_childs}}</span></font> 
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                                <font style="color:#9b9b9b;"> Shift School : <span style="color:#111;">{{searchedSchoolDetails[0].shftd_schl==1?'Yes':'No'}}</span></font> 
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                                <font style="color:#9b9b9b;"> School for CWSN : <span style="color:#111;">{{searchedSchoolDetails[0].cwsn_scl==1?'Yes':'No'}}</span></font> 
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                                <font style="color:#9b9b9b;"> Address 1 : <span style="color:#111;">{{searchedSchoolDetails[0].address}}</span></font> 
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                                <font style="color:#9b9b9b;"> Address 2 : <span style="color:#111;" id="emis_add2"> -- </span></font> 
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                                <font style="color:#9b9b9b;"> Mobile Number : <span style="color:#111;">{{searchedSchoolDetails[0].corr_mobile}}</span> </font> 
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                                <font style="color:#9b9b9b;"> Landline Number : <span style="color:#111;">{{searchedSchoolDetails[0].corr_landlline}}</span></font> 
+                                </div>
+                             </div>
+
+                </div>
+              </div>
+            </div>      
+     </div>
+</div>
+
+<!--
+                text_data('emis_add2',''}} -->

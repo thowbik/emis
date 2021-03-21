@@ -1,0 +1,188 @@
+<div class="main-body-content dashboard-panel mt-1">
+<div class="dashboard">
+    <div class="ui-g overview-boxes">
+<!--        <div class="ui-g-12 ui-md-6 ui-lg-3"  [routerLink]="['/class/Districtwise/count']">-->
+        <div class="ui-g-12 ui-md-6 ui-lg-4"  [routerLink]="['/state/enrolment-details']">
+            <div class="ui-g overview-box overview-box-1">
+            <div class="ui-g-12 ui-md-6 ui-lg-8">
+
+
+
+                <div class="overview-box-title">
+                    <i class="fa fa-inbox"></i>
+                    <span>Total Students</span>
+                </div>
+                <div class="overview-box-count">{{totalStudents| number:''}}</div>
+
+        </div>
+        <div class="ui-12-8 ui-md-6 ui-lg-4">
+<!-- <img src="../../../../assets/img/chart.png" style="width: 100%;"> -->
+        </div>
+            </div>
+        </div>
+
+        <div class="ui-g-12 ui-md-6 ui-lg-4" [routerLink]="['/State/emis_teacher_details']">
+            <div class="ui-g overview-box overview-box-2">
+                <div class="ui-g-12 ui-md-6 ui-lg-8">
+                <div class="overview-box-title">
+                    <i class="fa fa-map-pin"></i>
+                    <span>Total Teaching Staff</span>
+                </div>
+                <div class="overview-box-count">{{totalTeachers| number:''}}</div>
+            </div>
+            <div class="ui-12-8 ui-md-6 ui-lg-4">
+                <!-- <img src="../../../../assets/img/chart.png" style="width: 100%;"> -->
+                        </div>
+        </div>
+        </div>
+        <!-- <div class="ui-g-12 ui-md-6 ui-lg-4" [routerLink]="['/school-count']"> -->
+            <div class="ui-g-12 ui-md-6 ui-lg-4" [routerLink]="['/school-summary']">
+            <div class="ui-g overview-box overview-box-3">
+                <div class="ui-g-12 ui-md-6 ui-lg-8">
+                <div class="overview-box-title">
+                    <i class="fa fa-folder"></i>
+                    <span>Total Schools</span>
+                </div>
+                <div class="overview-box-count">{{totalSchools| number:''}}</div>
+                </div>
+                <div class="ui-12-8 ui-md-6 ui-lg-4">
+                    <!-- <img src="../../../../assets/img/chart.png" style="width: 100%;"> -->
+                            </div>
+            </div>
+        </div>
+<!--        <div class="ui-g-12 ui-md-6 ui-lg-3" [routerLink]="['/State/emis_teacher_details']">-->
+<!--            <div class="ui-g overview-box overview-box-4">-->
+<!--                <div class="overview-box-title">-->
+<!--                    <i class="fa fa-user"></i>-->
+<!--                    <span>Total Non Teaching Staff</span>-->
+<!--                </div>-->
+<!--                <div class="overview-box-count">{{totalNonteaching| number:''}}</div>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+    <!-- chart Layout-->
+    <div class="ui-g overview-boxes">
+                <div class="ui-g-12 ui-md-6 ui-lg-4">
+                    <div class="ui-g overview-box overview-box-white">
+                        <div class="chartcontainer">
+                            <canvas id="myChart" style="width: 320px; height: 250px">
+
+                            </canvas>
+                          </div>
+                    </div>
+                </div>
+                <div class="ui-g-12 ui-md-6 ui-lg-4">
+                    <div class="ui-g overview-box overview-box-white">
+                        <div class="chartcontainer">
+                            <canvas id="myChart1" width="320px" height="250px" style="border:1px">
+
+                            </canvas>
+                          </div>
+                    </div>
+                </div>
+                    <div class="ui-g-12 ui-md-6 ui-lg-4">
+                        <div class="ui-g overview-box overview-box-white">
+                            <div class="chartcontainer">
+                                <canvas id="myChart2" style="width: 320px; height: 250px">
+
+                                </canvas>
+                              </div>
+                        </div>
+                </div>
+
+            </div>
+  <!-- chart Layout-->
+        </div>
+        
+   <div class="dashboard">
+       
+    <div class="ui-g overview-boxes">
+        <div class="ui-g-12 ui-md-12 ui-lg-12">
+            <div class="ui-g overview-box overview-box-white">
+                <div class="chartcontainer">
+                    <canvas id="myChart3" style="width: 1000px; height: 300px">
+
+                    </canvas>
+                  </div>
+            </div>
+        </div>
+</div>
+   </div>
+<div class="dashboard">
+  <div class="ui-g overview-boxes">
+      <div class="ui-g-12 ui-md-12 ui-lg-6">
+          <div class="ui-g overview-box overview-box-white">
+              <div class="chartcontainer">
+                  <canvas id="myChart4" style="width: 500px; height: 300px">
+
+                  </canvas>
+                </div>
+          </div>
+        </div>
+          <div class="ui-g-12 ui-md-12 ui-lg-6">
+            <div class="ui-g overview-box overview-box-white">
+                <div class="chartcontainer">
+                    <canvas id="myChart6" style="width: 500px; height: 300px">
+    
+                    </canvas>
+                  </div>
+            </div>
+        </div>
+  </div>
+</div>
+<div class="dashboard">
+  <div class="ui-g overview-boxes">
+    <div class="ui-g-12 ui-md-12 ui-lg-12">
+      <div class="ui-g overview-box overview-box-white">
+          <div class="chartcontainer">
+              <canvas id="myChart5" style="width: 950px; height: 300px">
+
+              </canvas>
+            </div>
+      </div>
+      <div class="ui-g-12 ui-md-12 ui-lg-12">
+        <div class="ui-g overview-box overview-box-white">
+            <div class="chartcontainer">
+                <canvas id="myChart7" style="width: 500px; height: 300px">
+
+                </canvas>
+              </div>
+        </div>
+    </div>
+
+  </div>
+  </div>
+</div>
+<!-- <p-tabView>
+    <p-tabPanel header="Header 1">
+     
+                        <div class="chartcontainer">
+                            <canvas id="myChart8" style="width: 320px; height: 250px">
+
+                            </canvas>
+                          </div>
+                  
+    </p-tabPanel>
+    <p-tabPanel header="Header 2">
+        Content 2
+    </p-tabPanel>
+    <p-tabPanel header="Header 3">
+        Content 3
+    </p-tabPanel>
+</p-tabView> -->
+    <!-- <div class="ui-g overview-boxes">
+        <div class="ui-g-12 ui-md-12 ui-lg-12">
+            <div class="ui-g overview-box overview-box-white">
+                <div class="chartcontainer">
+                    <canvas id="myChart3" style="width: 1000px; height: 320px">
+
+                    </canvas>
+                  </div>
+            </div>
+        </div>
+
+
+
+    </div> -->
+</div>
+

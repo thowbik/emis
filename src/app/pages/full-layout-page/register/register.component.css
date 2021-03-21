@@ -1,0 +1,21 @@
+.nav-link {
+    cursor: pointer;
+    color:rgb(194, 15, 98); 
+}
+.w3-panel {
+    padding: 20px !important;
+}
+.header-color {
+    color:rgb(136, 54, 16);
+    /* color:green; */
+}
+.card-aln {
+margin-top:10px;
+margin-left: 10px;
+}
+.ion-clr {
+    color:orange;
+} 
+.subheader-clr {
+    color:rgb(194, 15, 98);
+}

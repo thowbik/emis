@@ -1,0 +1,13 @@
+
+<div class="breadcrumb-layout">
+    <p-card>
+        <div class="kt-subheader__breadcrumbs flex">
+            <h6 *ngIf=" breadcrumbs[0].parentLabel" class="kt-subheader__breadcrumbs-link  url-link" (click)="goBack($event,breadcrumbs[0])">{{ breadcrumbs[0].parentLabel }}</h6>
+            <span *ngIf=" breadcrumbs[0].parentLabel" class="kt-subheader__breadcrumbs-separator"><i class="flaticon2-right-arrow"></i></span>
+            <h6 class="kt-subheader__breadcrumbs-link">{{ breadcrumbs[0].label }}</h6>
+            <!-- <span class="kt-subheader__breadcrumbs-separator"><i class="flaticon2-right-arrow"></i></span> -->
+        </div>
+    </p-card>
+</div>
+
+

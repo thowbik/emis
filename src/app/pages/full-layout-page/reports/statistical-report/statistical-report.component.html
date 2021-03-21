@@ -1,0 +1,140 @@
+<div class="m-4">
+	<div class="outer-layout">
+		<div class="breadcrumbs c-black">
+			<h6 class="url">
+                <span class="flex-gap-right">Statistical Report</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+                <span class="flex-gap-right">By School Type 
+                </span>
+            </h6>
+		</div>
+	</div>
+	<p-card>
+		<div>
+			<div class="text-lg-left my-3">
+				<h5>Number of Schools by School Type & School Category</h5>
+			</div>
+			<p-table #dt [columns]="cols" [value]="statisticalschool" [rows]="10" [resizableColumns]="true">
+				<ng-template pTemplate="header" let-distname>
+					<tr>
+						<th class="sno-header-layout">#</th>
+						<th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">{{col.header}}
+							<p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+						</th>
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+					<tr class="text-center">
+						<td class="sno-header-layout">{{i+1}}</td>
+						<td class="text-left">{{ distwise.school_type}}</td>
+						<td>{{ distwise.Pre_Primary_School}}</td>
+						<td>{{ distwise.Primary_School}}</td>
+						<td>{{ distwise.Middle_School}}</td>
+						<td>{{ distwise.High_School}}</td>
+						<td>{{ distwise.Hr_Sec_School}}</td>
+						<td>{{ distwise.Special_School}}</td>
+						<td class="font-weight-bold">{{ distwise.Total}}</td>
+				</ng-template>
+				<ng-template pTemplate="footer">
+					<tr class="text-center" *ngIf="nodateFound">
+						<td colspan="6">No Data Found</td>
+					</tr>
+				</ng-template>
+			</p-table>
+		</div>
+		<div>
+			<div class="text-lg-left my-3">
+				<h5>Number of Teachers by School Type & School Category</h5>
+			</div>
+			<p-table #dt [columns]="cols1" [value]="statisticalteacher" [rows]="10" [resizableColumns]="true">
+				<ng-template pTemplate="header" let-distname>
+					<tr>
+						<th class="sno-header-layout">#</th>
+						<th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">{{col.header}}
+							<p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+						</th>
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+					<tr class="text-center">
+						<td class="sno-header-layout">{{i+1}}</td>
+						<td class="text-left">{{ distwise.school_type}}</td>
+						<td>{{ distwise.Pre_Primary_School}}</td>
+						<td>{{ distwise.Primary_School}}</td>
+						<td>{{ distwise.Middle_School}}</td>
+						<td>{{ distwise.High_School}}</td>
+						<td>{{ distwise.Hr_Sec_School}}</td>
+						<td>{{ distwise.Special_School}}</td>
+						<td class="font-weight-bold">{{ distwise.Total}}</td>
+				</ng-template>
+				<ng-template pTemplate="footer">
+					<tr class="text-center" *ngIf="nodateFound">
+						<td colspan="6">No Data Found</td>
+					</tr>
+				</ng-template>
+			</p-table>
+		</div>
+		<div>
+			<div class="text-lg-left my-3">
+				<h5>Number of Students by School Type & School Category</h5>
+			</div>
+			<p-table #dt [columns]="cols2" [value]="statisticalStudent" [rows]="10" [resizableColumns]="true">
+				<ng-template pTemplate="header" let-distname>
+					<tr>
+						<th class="sno-header-layout">#</th>
+						<th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">{{col.header}}
+							<p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+						</th>
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+					<tr class="text-center">
+						<td class="sno-header-layout">{{i+1}}</td>
+						<td class="text-left">{{ distwise.school_type}}</td>
+						<td>{{ distwise.Pre_Primary_School}}</td>
+						<td>{{ distwise.Primary_School}}</td>
+						<td>{{ distwise.Middle_School}}</td>
+						<td>{{ distwise.High_School}}</td>
+						<td>{{ distwise.Hr_Sec_School}}</td>
+						<td>{{ distwise.Special_School}}</td>
+						<td class="font-weight-bold">{{ distwise.Total}}</td>
+				</ng-template>
+				<ng-template pTemplate="footer">
+					<tr class="text-center" *ngIf="nodateFound">
+						<td colspan="6">No Data Found</td>
+					</tr>
+				</ng-template>
+			</p-table>
+		</div>
+		<div>
+			<div class="text-lg-left my-3">
+				<h5>Number of Students by School Type & Class</h5>
+			</div>
+			<p-table #dt [columns]="cols3" [value]="statistical" [rows]="10" [resizableColumns]="true">
+				<ng-template pTemplate="header" let-distname>
+					<tr>
+						<th class="sno-header-layout">#</th>
+						<th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">{{col.header}}
+							<p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+						</th>
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+					<tr class="text-center">
+						<td class="sno-header-layout">{{i+1}}</td>
+						<td class="text-left">{{ distwise.school_type}}</td>
+						<td>{{ distwise.KG_Students}}</td>
+						<td>{{ distwise.I_V_Students}}</td>
+						<td>{{ distwise.VI_VII_Students}}</td>
+						<td>{{ distwise.IX_X_Students}}</td>
+						<td>{{ distwise.XI_XII_Students}}</td>
+						<td class="font-weight-bold">{{ distwise.Total}}</td>
+				</ng-template>
+				<ng-template pTemplate="footer">
+					<tr class="text-center" *ngIf="nodateFound">
+						<td colspan="6">No Data Found</td>
+					</tr>
+				</ng-template>
+			</p-table>
+		</div>
+	</p-card>
+</div>

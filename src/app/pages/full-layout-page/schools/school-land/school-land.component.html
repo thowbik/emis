@@ -1,0 +1,1695 @@
+<div class="mt-3 pr-2 mr-3 card ui-card-body my-3 box-shwd">
+    <!-- <p-card > -->
+        <form [formGroup]="form">
+        <div class="container-fluid">
+              <div class="row p-1">
+                <div class="col-sm-6">
+                    <div class="text-lg-left mt-3">
+                      <h4 class="text-uppercase">School Details - part V</h4>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-1">
+                    <div class="text-right">
+                         <!-- <input type="button" value="View/Edit" class="btn btn-info bg_info text-uppercase" /> -->
+                    </div>              
+                 </div>
+              </div>
+
+              <!-- Start-->
+              <div class="row pt-2 m-1">
+                  <div class="school_land_title">
+                      
+                      <h5 class="text-uppercase m-0 pt-1 pb-1">School land details</h5>
+                  </div>
+              </div>
+              <div class="m-3 p-3">
+              <div class="row form-group "> 
+                  <div class="col-md-4 ">
+                      <label>Total land availability (including Building area and Playground)<span class="manditory"> *</span></label>
+                  </div>
+                  <div class="col-md-8">
+                      <div class="row">
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Square Feet</label>
+                                <input type="text" pKeyFilter="pnum" placeholder="Sq.Ft." class="form-control" formControlName="land_avail_sqft" (change)="convertAcre($event.target.value)" name="land_avail_sqft" readonly/>
+                                <!-- <p-message severity="error"  text="Field is required" *ngIf="form.controls.land_avail_sqft.errors && (submitted || form.controls.land_avail_sqft.dirty || form.controls.land_avail_sqft.touched)"></p-message> -->
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Acre<span class="manditory"> *</span></label>
+                              <input type="text" pKeyFilter="pnum" placeholder="Acre" class="form-control" formControlName="tot_area_1" (change) ="convertSqureFeet($event.target.value)" name="tot_area_1" maxlength="4" />
+                              <p-message severity="error"  text="Field is required" *ngIf="form.controls.tot_area_1.errors && (submitted || form.controls.tot_area_1.dirty || form.controls.tot_area_1.touched)"></p-message>
+                              <span class="sub-msg"><p style="font-style: italic;margin-right: 5px;color: red;">Note:</p></span>
+                              <span class="sub-msg">   1. &nbsp;Max 4 digit including decimal</span>
+                            <span class="sub-msg">2.  &nbsp;If area is 0.9 acres, enter 0.9</span>  
+  <span class="sub-msg">3. &nbsp; If area is 9.358 acres, enter 9.36</span>
+  <span class="sub-msg">4. &nbsp;If area is 10.35 acres, enter 10.4</span>
+  <span class="sub-msg">5. &nbsp;If area is 100.3 acres, enter 100</span>
+                               
+                            </div> 
+                        </div>
+                       
+                      </div> 
+                  </div>
+              </div> 
+              <div class="row  m-2 pt-1"> 
+                <div class="col-md-6 mt-1">
+                    <p class="label_text">Whether the School has a Playground facility?<span class="manditory"> *</span></p>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                 <p-radioButton name="play_facility" label="Yes" value="1" formControlName="play_facility" (click)="choosePlayGroundFacl(form.value.play_facility)"></p-radioButton> 
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group ">
+                                 <p-radioButton name="play_facility" formControlName="play_facility" label="No"  value="2" (click)="choosePlayGroundFacl(form.value.play_facility)"></p-radioButton>
+                                 <p-message severity="error"  text="Field is required" *ngIf="form.controls.play_facility.errors && (submitted || form.controls.play_facility.dirty || form.controls.play_facility.touched)"></p-message>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+            </div> 
+
+            <div class="row  m-2 pt-1" *ngIf="form.value.play_facility == '1'"> 
+                <div class="col-md-4 mt-3">
+                 
+                    <p class="label_text">Area of the Playground(in sq.ft)<span class="manditory"> *</span></p>
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Square Feet</label>
+                              <input type="text" name="
+                              " pKeyFilter="pnum" formControlName="play_area_sqft" placeholder="Sq.Ft." class="form-control"  (change)="convertAcrePlayground($event.target.value)"  readonly/>
+                              <!-- <p-message severity="error"  text="Field is required" *ngIf="form.controls.play_area_sqft.errors && (submitted || form.controls.play_area_sqft.dirty || form.controls.play_area_sqft.touched)"></p-message> -->
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Acre<span class="manditory"> *</span></label>
+                          <div class="form-group"> <input type="text" pKeyFilter="pnum" name="area_cent_1" placeholder="Acre" class="form-control" formControlName="area_cent_1" (change) ="convertSqureFeetPlayground($event.target.value)" maxlength="4"/>
+                            <p-message severity="error"  text="Field is required" *ngIf="form.controls.area_cent_1.errors && (submitted || form.controls.area_cent_1.dirty || form.controls.area_cent_1.touched)"></p-message>
+                            <span class="sub-msg"><p style="font-style: italic;margin-right: 5px;color: red;">Note:</p></span>
+                            <span class="sub-msg">   1. &nbsp;Max 4 digit including decimal</span>
+                          <span class="sub-msg">2.  &nbsp;If area is 0.9 acres, enter 0.9</span>  
+<span class="sub-msg">3. &nbsp; If area is 9.358 acres, enter 9.36</span>
+<span class="sub-msg">4. &nbsp;If area is 10.35 acres, enter 10.4</span>
+<span class="sub-msg">5. &nbsp;If area is 100.3 acres, enter 100</span>
+                        
+                          </div>
+                      </div>
+                    </div>
+                </div>
+            </div> 
+
+            <div class="row  m-2 pt-1"> 
+                <div class="col-md-6 mt-1">
+                    <p class="label_text">Whether land is available for expansion of School facilities?<span class="manditory"> *</span></p>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                 <p-radioButton name="land_exp_scl" label="Yes" value="1" formControlName="land_exp_scl" (click)="showlandFacility(form.value.land_exp_scl)"></p-radioButton> 
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group ">
+                                 <p-radioButton name="land_exp_scl" label="No" value="2" formControlName="land_exp_scl" (click)="showlandFacility(form.value.land_exp_scl)"></p-radioButton>
+                                 <p-message severity="error"  text="Field is required" *ngIf="form.controls.land_exp_scl.errors && (submitted || form.controls.land_exp_scl.dirty || form.controls.land_exp_scl.touched)"></p-message>
+
+                          </div>
+                      </div>
+                    </div>
+                </div>
+            </div> 
+
+            <div class="row  m-2 pt-1" *ngIf="form.value.land_exp_scl == '1'"> 
+                <div class="col-md-6 mt-3">
+                    <p class="label_text">If yes, area of land available (in Sq.ft)</p>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" pKeyFilter="pnum" placeholder="Sq.Ft." class="form-control"  formControlName="play_land_area" name="play_land_area" maxlength="6"/>
+                        <p-message severity="error"  text="Field is required" *ngIf="form.controls.play_land_area.errors && (submitted || form.controls.play_land_area.dirty || form.controls.play_land_area.touched)"></p-message>
+                    </div>
+                </div>
+            </div> 
+
+             
+            <div class="row  m-2 pt-1"> 
+                <div class="col-md-6 mt-3">
+                    <p class="label_text">Land Ownership<span class="manditory"> *</span></p>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <p-dropdown [options]="lanOwnership" formControlName="land_ownersip" name="land_ownersip" styleClass="select_dropdown" placeholder="Choose"  (onChange)="landOwnershipDetails($event.value)"></p-dropdown>
+                                <p-message severity="error"  text="Field is required" *ngIf="form.controls.land_ownersip.errors && (submitted || form.controls.land_ownersip.dirty || form.controls.land_ownersip.touched)"></p-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <!-- <div class="row  m-2 pt-1" *ngIf="form.value.land_ownersip == '2' "> 
+                <div class="col-md-6 mt-3">
+                    <p class="label_text">Amount of Rent per year (in Rs.)</p>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="text" pKeyFilter="pnum" placeholder="Sq.Ft." formControlName="land_rent_amt" class="form-control" maxlength="7"/>
+                                <p-message severity="error"  text="Field is required" *ngIf="form.controls.land_rent_amt.errors && (submitted || form.controls.land_rent_amt.dirty || form.controls.land_rent_amt.touched)"></p-message>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="row  m-2 pt-1" *ngIf="form.value.land_ownersip == '2' "> 
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6 mt-3">
+                            <p class="label_text">Period of  Rent / Lease (in years)</p>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                       
+                                        <input type="text" pKeyFilter="pnum"  formControlName="land_lease_perid"  class="form-control" maxlength="2"/>
+                                        <p-message severity="error"  text="Field is required" *ngIf="form.controls.land_lease_perid.errors && (submitted || form.controls.land_lease_perid.dirty || form.controls.land_lease_perid.touched)"></p-message>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6 mt-3">
+                            <p class="label_text">Valid upto</p>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        
+                                        <p-calendar dateFormat="dd/mm/yy" formControlName="valid_upto" [yearNavigator]="true"></p-calendar>
+                                        <!-- <p-calendar formControlName="valid_upto"  [yearNavigator]="true"></p-calendar> -->
+                                        <!-- <input type="text" pKeyFilter="pnum" placeholder="Sq.Ft." class="form-control"  formControlName="valid_upto"/> -->
+                                        <p-message severity="error"  text="Field is required" *ngIf="form.controls.valid_upto.errors && (submitted || form.controls.valid_upto.dirty || form.controls.valid_upto.touched)"></p-message>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <!-- End-->
+
+            <!-- Start -->
+              <div class="row pt-2 m-1">
+                  <div class="school_land_title">
+                      <h5 class="text-uppercase m-0 pt-1 pb-1">School Building and Boundary wall details</h5>
+                  </div>
+              </div>
+
+              <div class="m-3 p-3">
+              <div class="row  m-2 pt-1"> 
+                <div class="col-md-6 mt-3">
+                    <p class="label_text">Type of Boundary Wall<span class="manditory"> *</span></p>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <p-dropdown [options]="boundryWallType" formControlName="cmpwall_type" styleClass="select_dropdown"  placeholder="Choose"></p-dropdown>
+                                <p-message severity="error"  text="Field is required" *ngIf="form.controls.cmpwall_type.errors && (submitted || form.controls.cmpwall_type.dirty || form.controls.cmpwall_type.touched)"></p-message>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="row  m-2 pt-1"> 
+                <div class="col-md-6 mt-3">
+                    <p class="label_text">Perimeter of Boundary (in meters)<span class="manditory"> *</span></p>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="text" pKeyFilter="pnum" formControlName="cmpwall_perimtr" class="form-control" maxlength="4">
+                                <p-message severity="error"  text="Field is required" *ngIf="form.controls.cmpwall_perimtr.errors && (submitted || form.controls.cmpwall_perimtr.dirty || form.controls.cmpwall_perimtr.touched)"></p-message>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="row  m-2 pt-1"> 
+                <div class="col-md-6 mt-3">
+                    <p class="label_text">Length of the Boundary wall constructed (in meters)<span class="manditory"> *</span></p>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="text" pKeyFilter="pnum" class="form-control" formControlName="cmpwall_length" (change)="checkBoundryWall(form.value.cmpwall_length)" maxlength="4">
+                                <p-message severity="error"  text="Field is required" *ngIf="form.controls.cmpwall_length.errors && (submitted || form.controls.cmpwall_length.dirty || form.controls.cmpwall_length.touched)"></p-message>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="row  m-2 pt-1"> 
+                <div class="col-md-6 mt-3">
+                    <p class="label_text">Total no of Buildings / Blocks<span class="manditory"> *</span></p>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="text" pKeyFilter="pnum" class="form-control" formControlName="build_block_no" (keyup)="totalBuildingBlocks($event.target.value)" maxlength="2">
+                                <p-message severity="error"  text="Field is required" *ngIf="form.controls.build_block_no.errors && (submitted || form.controls.build_block_no.dirty || form.controls.build_block_no.touched)"></p-message>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         
+            
+            <div formArrayName="buildingBlocks"  class="flex-gap-bottom" *ngFor="let buildings of form.get('buildingBlocks')['controls']; let i = index">
+                <div class="row pt-2 m-1">
+                    <div class="school_land_title">
+                        <h5 class="text-uppercase m-0 pt-1 pb-1">Block {{i+1}}</h5>
+                    </div>
+                </div>
+                <div  [formGroupName]="i">
+                    <div class="col-lg-12 row flex-gap-bottom">
+                  
+                            <div class="col-lg-3 flex-column">
+                                <p class="label_text">Construction Type<span class="manditory"> *</span></p>
+                                <p-dropdown [options]="constructionType" styleClass="select_dropdown" formControlName="construct_type"  placeholder="Choose"></p-dropdown>
+                                <p-message severity="error"  text="Field is required" *ngIf="buildings.controls.construct_type.errors && (submitted || buildings.controls.construct_type.dirty || buildings.controls.construct_type.touched)"></p-message>
+                            </div>  
+                              <div class="col-lg-3 flex-column" style="display: flex;">
+                                <p class="label_text">Floors (Inc. Ground Floor)<span class="manditory"> *</span></p>
+                                <input type="text" pKeyFilter="pnum" maxlength = "2" formControlName="total_flrs" pInputText  class="form-control" maxlength="2">
+                                <p-message severity="error"  text="Field is required" *ngIf="buildings.controls.total_flrs.errors && (submitted || buildings.controls.total_flrs.dirty || buildings.controls.total_flrs.touched)"></p-message>
+                                <!-- <p-message severity="error"  text="Field is required" *ngIf="form.controls.build_block_no.errors && (submitted || form.controls.build_block_no.dirty || form.controls.build_block_no.touched)"></p-message> -->
+                            </div>  
+                         
+                          
+                            <div class="col-lg-2 flex-column" style="display: flex;">
+                              
+                                <p class="label_text">Office<span class="manditory"> *</span></p>
+                                <input type="text" pKeyFilter="pnum" maxlength = "2" formControlName="off_room" pInputText  class="form-control" maxlength="2"> 
+                              <p-message severity="error"  text="Field is required" *ngIf="buildings.controls.off_room.errors && (submitted || buildings.controls.off_room.dirty || buildings.controls.off_room.touched)"></p-message>
+
+                            </div> 
+                            <div class="col-lg-2 flex-column" style="display: flex;">
+                                <p class="label_text">Lab<span class="manditory"> *</span></p>
+                                <input type="text" pKeyFilter="pnum" maxlength = "2" formControlName="lab_room" pInputText  class="form-control" maxlength="2">
+                                <p-message severity="error"  text="Field is required" *ngIf="buildings.controls.lab_room.errors && (submitted || buildings.controls.off_room.dirty || buildings.controls.off_room.touched)"></p-message>
+    
+                            </div>
+                            <div class="col-lg-2 flex-column" style="display: flex;">
+                                <p class="label_text">Library<span class="manditory"> *</span></p>
+                                <input type="text" pKeyFilter="pnum" maxlength = "2" formControlName="library_room" pInputText  class="form-control" maxlength="2">
+                                <p-message severity="error"  text="Field is required" *ngIf="buildings.controls.library_room.errors && (submitted || buildings.controls.library_room.dirty || buildings.controls.library_room.touched)"></p-message>
+
+                            </div>  
+
+                    </div>
+                    <div class="col-lg-12 row flex-gap-bottom">
+                       
+                          
+                            <div class="col-lg-2 flex-column" style="display: flex;">
+                                <p class="label_text">Computer<span class="manditory"> *</span></p>
+                                <input type="text" pKeyFilter="pnum" maxlength = "2" formControlName="comp_room" pInputText  class="form-control" maxlength="2">
+                                <p-message severity="error"  text="Field is required" *ngIf="buildings.controls.comp_room.errors && (submitted || buildings.controls.comp_room.dirty || buildings.controls.comp_room.touched)"></p-message>
+
+                            </div>
+                            <div class="col-lg-2 flex-column" style="display: flex;">
+                                <p class="label_text">Arts/Craft<span class="manditory"> *</span></p>
+                                <input type="text" pKeyFilter="pnum" maxlength = "2" formControlName="art_room" pInputText  class="form-control" maxlength="2">
+                                <p-message severity="error"  text="Field is required" *ngIf="buildings.controls.art_room.errors && (submitted || buildings.controls.art_room.dirty || buildings.controls.art_room.touched)"></p-message>
+
+                            </div>
+                            <div class="col-lg-2 flex-column" style="display: flex;">
+                                <p class="label_text">Staff<span class="manditory"> *</span></p>
+                                <input type="text" pKeyFilter="pnum" maxlength = "2" formControlName="staff_room" pInputText  class="form-control" maxlength="2">
+                                <p-message severity="error"  text="Field is required" *ngIf="buildings.controls.staff_room.errors && (submitted || buildings.controls.staff_room.dirty || buildings.controls.staff_room.touched)"></p-message>
+
+                            </div>
+                            <div class="col-lg-3 flex-column" style="display: flex;">
+                                <p class="label_text">HM/AHM/Vice Principal<span class="manditory"> *</span></p>
+                                <input type="text" pKeyFilter="pnum" maxlength = "2" formControlName="hm_room" pInputText  class="form-control" maxlength="2">
+                                <p-message severity="error"  text="Field is required" *ngIf="buildings.controls.hm_room.errors && (submitted || buildings.controls.hm_room.dirty || buildings.controls.hm_room.touched)"></p-message>
+
+                            </div>
+                            <div class="col-lg-3 flex-column" style="display: flex;">
+                                <p class="label_text">Separate room for Girls<span class="manditory"> *</span></p>
+                                <input type="text" pKeyFilter="pnum" maxlength = "2" formControlName="girl_room" pInputText  class="form-control" maxlength="2">
+                                                            <p-message severity="error"  text="Field is required" *ngIf="buildings.controls.girl_room.errors && (submitted || buildings.controls.girl_room.dirty || buildings.controls.girl_room.touched)"></p-message>
+    
+                            </div>
+                          
+                        
+                    </div>
+                   
+                  
+                    <div class="col-lg-12 row flex-gap-bottom">
+                      
+                        <div class="col-lg-2 flex-column" style="display: flex;">
+                            <p class="label_text">Class room used for Instructional Purpose<span class="manditory"> *</span></p>
+                            <input type="text" pKeyFilter="pnum" maxlength = "2" formControlName="tot_classrm_use" pInputText (change)="calcTotal(i)" class="form-control" maxlength="2">
+                            <p-message severity="error"  text="Field is required" *ngIf="buildings.controls.tot_classrm_use.errors && (submitted || buildings.controls.tot_classrm_use.dirty || buildings.controls.tot_classrm_use.touched)"></p-message>
+
+                        </div> 
+                        <div class="col-lg-2 flex-column" style="display: flex;">
+                            <p class="label_text">Class room  not  for Instructional Purpose<span class="manditory"> *</span></p>
+                            <input type="text" pKeyFilter="pnum" maxlength = "2" (change)="calcTotal(i)" formControlName="tot_classrm_nouse" pInputText  class="form-control" maxlength="2">
+                            <p-message severity="error"  text="Field is required" *ngIf="buildings.controls.tot_classrm_nouse.errors && (submitted || buildings.controls.tot_classrm_nouse.dirty || buildings.controls.tot_classrm_nouse.touched)"></p-message>
+
+                        </div> 
+                        <div class="col-lg-2">
+                            <p class="label_text">Class room in Good condition<span class="manditory"> *</span></p>
+                            <input type="text" pKeyFilter="pnum" maxlength = "2" formControlName="good_condition" (change)="calcTotal(i)" pInputText  class="form-control" maxlength="2">
+                         
+                            <p-message severity="error"  text="Field is required" *ngIf="buildings.controls.good_condition.errors && (submitted || buildings.controls.good_condition.dirty || buildings.controls.good_condition.touched)"></p-message>
+                        
+                          </div>  
+                          <div class="col-lg-2">
+                            <p class="label_text">Class room needing Minor Repair<span class="manditory"> *</span></p>
+                            <input type="text" pKeyFilter="pnum" maxlength = "2" formControlName="need_minorrep" (change)="calcTotal(i)"pInputText  class="form-control" maxlength="2">
+                            <p-message severity="error"  text="Field is required" *ngIf="buildings.controls.need_minorrep.errors && (submitted || buildings.controls.need_minorrep.dirty || buildings.controls.need_minorrep.touched)"></p-message>
+
+                          </div> 
+                          <div class="col-lg-2">
+                            <p class="label_text">Class room needing Major Repair<span class="manditory"> *</span></p>
+                            <input type="text" pKeyFilter="pnum" maxlength = "2" formControlName="need_majorrep" (change)="calcTotal(i)" pInputText  class="form-control" maxlength="2">
+                            <p-message severity="error"  text="Field is required" *ngIf="buildings.controls.need_majorrep.errors && (submitted || buildings.controls.need_majorrep.dirty || buildings.controls.need_majorrep.touched)"></p-message>
+
+                        
+                          </div> 
+                          <div class="col-lg-2">
+                            <p class="label_text">Total Class rooms<span class="manditory"> *</span></p>
+                            <input type="text" pKeyFilter="pnum" maxlength = "2" formControlName="total_room" pInputText  class="form-control" readonly>
+                            
+                        
+                          </div> 
+                    </div>
+                    <div class="col-lg-12">
+                      
+                        <p-message severity="error"  text="Total does not match" *ngIf="!buildings.value.isValidTotal"></p-message> 
+                        <span class="sub-msg"><p style="font-style: italic;margin-right: 5px;color: red;">Note:</p>
+                            <p style="color: black;"> Sum of Class room in Good condition, Class room needing Minor Repair and  Class room needing Major Repair  should be equal to Sum of Class room used for Instructional Purpose and  Class room not for Instructional Purpose</p>
+                        </span>
+                    </div>
+               
+                </div>
+             
+         
+              </div>
+            <!-- <div class="row  m-2 pt-1" *ngFor="let totalBuildings of totalNoOfBuilding"> 
+                <div class="col-md-6 mt-3">
+                    <p class="label_text">Total no of Buildings / Blocks<span class="manditory"> *</span></p>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control" formControlName="build_block_no"  (keyup)="totalBuildingBlocks($event.target.value)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <!-- End-->
+
+         <!-- Start -->
+         <div class="row pt-2 m-1">
+             <div class="school_land_title">
+                 <h5 class="text-uppercase m-0 pt-1 pb-1">Classroom details</h5>
+             </div>
+         </div>
+
+         <div class="m-3 p-3">
+         <div class="row  m-2 pt-1"> 
+           <div class="col-md-6 mt-3">
+               <p class="label_text">Classroom under construction<span class="manditory"> *</span></p>
+           </div>
+           <div class="col-md-6">
+               <div class="row">
+                   <div class="col-md-12">
+                       <div class="form-group">
+                        <input type="text" pKeyFilter="pnum" formControlName="classrm_undr_constr" class="form-control" maxlength="3">
+                        <p-message severity="error"  text="Field is required" *ngIf="form.controls.classrm_undr_constr.errors && (submitted || form.controls.classrm_undr_constr.dirty || form.controls.classrm_undr_constr.touched)"></p-message>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div> 
+       <div class="row  m-2 pt-1"> 
+        <div class="col-md-6 mt-3">
+            <p class="label_text">Total Classrooms in dilapidated condition<span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                     <input type="text" pKeyFilter="pnum" formControlName="clsrms_dptd" class="form-control" maxlength="3">
+                     <p-message severity="error"  text="Field is required" *ngIf="form.controls.clsrms_dptd.errors && (submitted || form.controls.clsrms_dptd.dirty || form.controls.clsrms_dptd.touched)"></p-message>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+       <div class="row  m-2 pt-1"> 
+        <div class="col-md-6 mt-1">
+            <p class="label_text">Do all the Classroom have desk / table for students?<span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group ">
+                         <p-radioButton formControlName="classrm_desk_studs" name="classrm_desk_studs" value="1"></p-radioButton> Yes
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group ">
+                         <p-radioButton formControlName="classrm_desk_studs"  name="classrm_desk_studs" value="2" ></p-radioButton> No
+                         <p-message severity="error"  text="Field is required" *ngIf="form.controls.classrm_desk_studs.errors && (submitted || form.controls.classrm_desk_studs.dirty || form.controls.classrm_desk_studs.touched)"></p-message>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+       <div class="row  m-2 pt-1"> 
+           <div class="col-md-12">
+               <p class="label_text">Out of total Total Classrooms used for instructional purpose, the details by stage/level<span class="manditory"> *</span></p>
+           </div>
+       </div> 
+
+       <div class="row">
+        <div class="flex-column">
+            <div formArrayName="classRoomEntry"  class="flex-gap-bottom" *ngFor="let classRoom of form.get('classRoomEntry')['controls']; let i = index">
+                <div  [formGroupName]="i">
+                    <div class="col-lg-12 row">
+                        <div class="col-lg-6">
+                            <p-dropdown [options]="schoolTypes" formControlName="school_type" (onChange)="chooseClass($event,i)"   placeholder="Choose"></p-dropdown>
+                            <p-message severity="error"  text="Field is required" *ngIf="classRoom.controls.school_type.errors &&  (submitted || classRoomError || classRoom.controls.school_type.dirty || classRoom.controls.school_type.touched)"></p-message>
+                        </div>  
+                        <div class="col-md-6">
+                            <input type="text" pKeyFilter="pnum" maxlength = "2" formControlName="num_rooms" pInputText  class="form-control" maxlength="3">
+                            <p-message severity="error"  text="Field is required" *ngIf="classRoom.controls.num_rooms.errors && (submitted || classRoomError || classRoom.controls.num_rooms.dirty || classRoom.controls.num_rooms.touched)"></p-message>
+                        </div>  
+                    </div>
+                </div>
+              </div>
+              <div class="row m-3">
+                <button pButton type="button" icon="pi pi-plus" (click)="addClassRoomEntry()" class="flex-gap-left flex-gap-right" iconPos="left"></button>
+                <button pButton type="button" icon="pi pi-minus" (click)="removeClassRoomEntry()" iconPos="left"></button>
+              </div>
+              <div class="row m-3">
+              <span class="sub-msg"><p style="font-style: italic;margin-right: 5px;color: red;">Note:</p>
+                <p style="color: black;">Sum of Classrooms used for Instructional Purpose  by Each Stage/Level  Should be Equal to Sum of Class Room used for Instructional Purpose by Block wise</p>
+            </span>
+              </div>
+           </div>
+       </div>
+
+       <div class="row  m-2 pt-1"> 
+        <div class="col-md-6 mt-1">
+            <p class="label_text">Whether there is a ramp for differently abled children to access classroom?<span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group ">
+                         <p-radioButton formControlName="ramp_disable_child" name="ramp_disable_child" value="1" (click)="chooseRamp(form.value.ramp_disable_child)"></p-radioButton> Yes
+                        
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group ">
+                         <p-radioButton formControlName="ramp_disable_child" name="ramp_disable_child" value="2" (click)="chooseRamp(form.value.ramp_disable_child)"></p-radioButton> No
+                         <p-message severity="error"  text="Field is required" *ngIf="form.controls.ramp_disable_child.errors && (submitted || form.controls.ramp_disable_child.dirty || form.controls.ramp_disable_child.touched)"></p-message>
+
+                  </div>
+              </div>
+            </div>
+        </div>
+      
+    </div>
+    <div class="row  m-2 pt-1" *ngIf="form.value.ramp_disable_child == '1'"> 
+        <div class="col-md-6 mt-1">
+            <p class="label_text">Whether ramp for disabled children to access school building exists ?<span class="manditory"> *</span></p>
+        </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group ">
+                     <p-radioButton  name="ramp_building_yn" formControlName="ramp_building_yn" value="1" (click)="rampBuildingExists(form.value.ramp_building_yn)"></p-radioButton> Yes
+                </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group ">
+                     <p-radioButton  name="ramp_building_yn" formControlName="ramp_building_yn" value="2" (click)="rampBuildingExists(form.value.ramp_building_yn)"></p-radioButton> No
+                     <p-message severity="error"  text="Field is required" *ngIf="form.controls.ramp_building_yn.errors && (submitted || form.controls.ramp_building_yn.dirty || form.controls.ramp_building_yn.touched)"></p-message>
+
+              </div>
+          </div>
+        </div>
+    </div>
+   </div>
+   <div class="row  m-2 pt-1" *ngIf="form.value.ramp_building_yn == '1'"> 
+    <div class="col-md-6 mt-1">
+        <p class="label_text">If yes,Whether Hand-rails for ramp is available ?<span class="manditory"> *</span></p>
+    </div>
+<div class="col-md-6">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group ">
+                 <p-radioButton  name="ramp_handrail" formControlName="ramp_handrail" value="1"></p-radioButton> Yes
+                
+            </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group ">
+                 <p-radioButton  name="ramp_handrail" formControlName="ramp_handrail" value="2"></p-radioButton> No
+                 <p-message severity="error"  text="Field is required" *ngIf="form.controls.ramp_handrail.errors && (submitted || form.controls.ramp_handrail.dirty || form.controls.ramp_handrail.touched)"></p-message>
+
+          </div>
+      </div>
+    </div>
+</div>
+</div>
+         </div>
+         
+   <!-- End-->
+
+   <!-- Start -->
+   
+   <div class="row pt-2 m-1">
+       <div class="school_land_title">
+           <h5 class="text-uppercase m-0 pt-1 pb-1">Others room details</h5>
+       </div>
+   </div> 
+
+   <div class="m-3 p-3">
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-6 mt-1">
+            <p class="label_text">Staff quarters (including Residential Quarters for Head Master / Principal and Others)<span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group ">
+                         <p-radioButton formControlName="staffquarter" name="staffquarter" value="1"></p-radioButton> Yes
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group ">
+                         <p-radioButton formControlName="staffquarter" name="staffquarter" value="2" ></p-radioButton> No
+                         <p-message severity="error"  text="Field is required" *ngIf="form.controls.staffquarter.errors && (submitted || form.controls.staffquarter.dirty || form.controls.staffquarter.touched)"></p-message>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-6 mt-1">
+            <p class="label_text">Does the school have a full-time librarion?<span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group ">
+                         <p-radioButton name="ramp_access" formControlName="fulltime_lib" value="1"></p-radioButton> Yes
+                        
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group ">
+                         <p-radioButton name="ramp_access" formControlName="fulltime_lib" value="2" ></p-radioButton> No
+                         <p-message severity="error"  text="Field is required" *ngIf="form.controls.fulltime_lib.errors && (submitted || form.controls.fulltime_lib.dirty || form.controls.fulltime_lib.touched)"></p-message>
+
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-6 mt-1">
+            <p class="label_text">Does the School subscribe to newspapers/magazines?<span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group ">
+                         <p-radioButton name="news_subscribe" formControlName="news_subscribe" value="1"></p-radioButton> Yes
+                        
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group ">
+                         <p-radioButton name="news_subscribe" formControlName="news_subscribe" value="2" ></p-radioButton> No
+                         <p-message severity="error"  text="Field is required" *ngIf="form.controls.news_subscribe.errors && (submitted || form.controls.news_subscribe.dirty || form.controls.news_subscribe.touched)"></p-message>
+
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-4 mt-3">
+            <p class="label_text">Whether the School has Library facility/Book Bank/Reading Corner?<span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-4 mt-3">
+            <p class="label_text">Total number of books<span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-4 mt-3" >
+            <p class="label_text">Total number of books from NCERT<span class="manditory"> *</span></p>
+        </div>
+        <!-- <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <p-dropdown [options]="classroomLevel" styleClass="select_dropdown"  placeholder="Choose" optionLabel="options" [showClear]="true"></p-dropdown>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div> 
+    <div class="flex-column  m-2 pt-1"> 
+        <div formArrayName="libraryEntry"  class="flex-gap-bottom" *ngFor="let libraryData of form.get('libraryEntry')['controls']; let i = index">
+            <div  [formGroupName]="i" class="row">
+                <div class="col-md-4 mt-3">
+                    <p-dropdown [options]="libraries" formControlName="library_type" (onChange)="chooseLibrary(libraryData.value.library_type,i)"   styleClass="select_dropdown"  placeholder="Choose"></p-dropdown>
+                    <p-message severity="error"  text="Field is required" *ngIf="libraryData.controls.num_books.errors && (submitted || libraryError || libraryData.controls.num_books.dirty || libraryData.controls.num_books.touched)"></p-message>
+                </div>
+                <div class="col-md-4 mt-3">
+                    <input type="text" class="form-control" pKeyFilter="pnum" formControlName="num_books" maxlength="5">
+                    <p-message severity="error"  text="Field is required" *ngIf="libraryData.controls.num_books.errors && (submitted || libraryError ||  libraryData.controls.num_books.dirty || libraryData.controls.num_books.touched)"></p-message>
+                </div>
+                <div class="col-md-4 mt-3" *ngIf="libraryData.value.library_type == 1 || libraryData.value.library_type == 2">
+                    <input type="text" class="form-control" pKeyFilter="pnum" formControlName="ncert_books" maxlength="4">
+                    <p-message severity="error"  text="Field is required" *ngIf="libraryData.controls.ncert_books.errors && (submitted || libraryError ||  libraryData.controls.ncert_books.dirty || libraryData.controls.ncert_books.touched)"></p-message>
+                </div>
+            </div>
+          </div>
+          <div class="row m-3">
+            <button pButton type="button" icon="pi pi-plus" (click)="addLibraryEntry()" class="flex-gap-left flex-gap-right" iconPos="left"></button>
+            <button pButton type="button" icon="pi pi-minus" (click)="removeLibraryEntry()" iconPos="left"></button>
+          </div>
+    </div>
+</div>
+<!-- End-->
+
+<!-- Start -->
+
+<div class="row pt-2 m-1">
+    <div class="school_land_title">
+        <h5 class="text-uppercase m-0 pt-1 pb-1">Schools Toilets for staff details</h5>
+    </div>
+</div>
+
+<div class="m-3 p-3">
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-6 mt-3">
+            <p class="label_text">Details of Toilets and Urinals for Staff<span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row text-center">
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <b>Gents</b>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <b>Ladies</b>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-6 mt-3">
+            <p class="label_text">Total number of Toilets available<span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <input type="text" pKeyFilter="pnum" formControlName="toil_gents_tot" class="form-control" maxlength="3"/>
+                      <p-message severity="error"  text="Field is required" *ngIf="form.controls.toil_gents_tot.errors && (submitted || form.controls.toil_gents_tot.dirty || form.controls.toil_gents_tot.touched)"></p-message>
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" pKeyFilter="pnum" formControlName="toil_ladies_tot" class="form-control"  maxlength="3"/>
+                    <p-message severity="error"  text="Field is required" *ngIf="form.controls.toil_ladies_tot.errors && (submitted || form.controls.toil_ladies_tot.dirty || form.controls.toil_ladies_tot.touched)"></p-message>
+
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-6 mt-3">
+            <p class="label_text">Total number of Urinals available<span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <input type="text" pKeyFilter="pnum" formControlName="urinal_gents_tot" class="form-control" maxlength="3"/>
+                      <p-message severity="error"  text="Field is required" *ngIf="form.controls.urinal_gents_tot.errors && (submitted || form.controls.urinal_gents_tot.dirty || form.controls.urinal_gents_tot.touched)"></p-message>
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" pKeyFilter="pnum" formControlName="urinals_tot_ladies" class="form-control" maxlength="3"/>
+                    <p-message severity="error"  text="Field is required" *ngIf="form.controls.urinals_tot_ladies.errors && (submitted || form.controls.urinals_tot_ladies.dirty || form.controls.urinals_tot_ladies.touched)"></p-message>
+
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End-->
+
+<!-- Start -->
+
+<div class="row pt-2 m-1">
+    <div class="school_land_title">
+        <h5 class="text-uppercase m-0 pt-1 pb-1">Schools Toilets for Students details</h5>
+    </div>
+</div>
+
+<div class="m-3 p-3">
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-4  mt-3">
+            <p class="label_text">Details of Toilets and Urinals for Students<span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-8">
+            <div class="row ">
+                <div class="col-md-6">
+                    <div class="form-group" style="text-align:center">
+                      <b>Boys Only <span class="manditory"> *</span></b>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group"  style="text-align:center">
+                    <b>Girls Only <span class="manditory"> *</span></b>
+                  </div>
+              </div>
+            </div>
+            <div class="row small_font">
+                <div class="col-md-6">
+                    <div class="row ">
+                        <div class="col-md-3"><b>In use</b></div>
+                        <div class="col-md-3"><b>Not in use</b></div>
+                        <div class="col-md-6"><b>Reason for Not in use</b></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row ">
+                        <div class="col-md-3"><b>In use</b></div>
+                        <div class="col-md-3"><b>Not in use</b></div>
+                        <div class="col-md-6"><b>Reason for Not in use</b></div>
+                    </div>
+              </div> 
+            </div>
+        </div>
+    </div>
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-4 mt-3">
+            <p class="label_text">Total number of Toilets available (Definition of function toilet: water available in the toilet, minimal odour, unbroken seat, regularity cleaned with working drainage system, accessible to users, closable door)<span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-8" style="padding-top: 5%;">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-3 m-0 p-1">
+                            <div class="form-group">
+                                <input type="text" pKeyFilter="pnum" formControlName="toil_bys_inuse" class="form-control" maxlength="3"/>
+                                <p-message severity="error"  text="Field is required" *ngIf="form.controls.toil_bys_inuse.errors && (submitted || form.controls.toil_bys_inuse.dirty || form.controls.toil_bys_inuse.touched)"></p-message>
+
+                              </div>
+                        </div>
+                        <div class="col-md-3 m-0 p-1">
+                            <div class="form-group">
+                                <input type="text" pKeyFilter="pnum" formControlName="toil_notuse_bys" class="form-control" maxlength="3"/>
+                                <p-message severity="error"  text="Field is required" *ngIf="form.controls.toil_notuse_bys.errors && (submitted || form.controls.toil_notuse_bys.dirty || form.controls.toil_notuse_bys.touched)"></p-message>
+
+                              </div>
+                        </div>
+                        <div class="col-md-6 m-0 p-1">
+                            <div class="form-group">
+                                <p-dropdown [options]="reasons" formControlName="toil_nonfunc_bys" styleClass="select_dropdown select_dropdown_small"  placeholder="Choose"></p-dropdown>
+                                <p-message severity="error"  text="Field is required" *ngIf="form.controls.toil_nonfunc_bys.errors && (submitted || form.controls.toil_nonfunc_bys.dirty || form.controls.toil_nonfunc_bys.touched)"></p-message>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-3 m-0 p-1">
+                            <div class="form-group">
+                                <input type="text" pKeyFilter="pnum" formControlName="toil_inuse_grls" class="form-control" maxlength="3"/>
+                                <p-message severity="error"  text="Field is required" *ngIf="form.controls.toil_inuse_grls.errors && (submitted || form.controls.toil_inuse_grls.dirty || form.controls.toil_inuse_grls.touched)"></p-message>
+
+                              </div>
+                        </div>
+                        <div class="col-md-3 m-0 p-1">
+                            <div class="form-group">
+                                <input type="text" pKeyFilter="pnum" formControlName="toil_notuse_grls" class="form-control" maxlength="3"/>
+                                <p-message severity="error"  text="Field is required" *ngIf="form.controls.toil_notuse_grls.errors && (submitted || form.controls.toil_notuse_grls.dirty || form.controls.toil_notuse_grls.touched)"></p-message>
+
+                              </div>
+                        </div>
+                        <div class="col-md-6 m-0 p-1">
+                            <div class="form-group">
+                                <p-dropdown [options]="reasons" formControlName="toil_reasn_grls" styleClass="select_dropdown select_dropdown_small"  placeholder="Choose"></p-dropdown>
+                                <p-message severity="error"  text="Field is required" *ngIf="form.controls.toil_reasn_grls.errors && (submitted || form.controls.toil_reasn_grls.dirty || form.controls.toil_reasn_grls.touched)"></p-message>
+
+                              </div>
+                        </div>
+                    </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-4 mt-3">
+            <p class="label_text">Number of CWSN friendly function toilets<span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-3 m-0 p-1">
+                            <div class="form-group">
+                                <input type="text" pKeyFilter="pnum" formControlName="cwsntoil_inuse_bys" class="form-control" maxlength="3"/>
+                                <p-message severity="error"  text="Field is required" *ngIf="form.controls.cwsntoil_inuse_bys.errors && (submitted || form.controls.cwsntoil_inuse_bys.dirty || form.controls.cwsntoil_inuse_bys.touched)"></p-message>
+
+                              </div>
+                        </div>
+                        <div class="col-md-3 m-0 p-1">
+                            <div class="form-group">
+                                <input type="text" pKeyFilter="pnum" formControlName="cwsntoil_notuse_bys" class="form-control" maxlength="3"/>
+                                <p-message severity="error"  text="Field is required" *ngIf="form.controls.cwsntoil_notuse_bys.errors && (submitted || form.controls.cwsntoil_notuse_bys.dirty || form.controls.cwsntoil_notuse_bys.touched)"></p-message>
+
+                              </div>
+                        </div>
+                        <div class="col-md-6 m-0 p-1">
+                            <div class="form-group">
+                                <p-dropdown [options]="reasons" formControlName="cwsntoil_reasn_bys" styleClass="select_dropdown select_dropdown_small"  placeholder="Choose"></p-dropdown>
+                                <p-message severity="error"  text="Field is required" *ngIf="form.controls.cwsntoil_reasn_bys.errors && (submitted || form.controls.cwsntoil_reasn_bys.dirty || form.controls.cwsntoil_reasn_bys.touched)"></p-message>
+
+                              </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-3 m-0 p-1">
+                            <div class="form-group">
+                                <input type="text" pKeyFilter="pnum" formControlName="cwsntoil_inuse_grls" class="form-control" maxlength="3"/>
+                                <p-message severity="error"  text="Field is required" *ngIf="form.controls.cwsntoil_inuse_grls.errors && (submitted || form.controls.cwsntoil_inuse_grls.dirty || form.controls.cwsntoil_inuse_grls.touched)"></p-message>
+
+                              </div>
+                        </div>
+                        <div class="col-md-3 m-0 p-1">
+                            <div class="form-group">
+                                <input type="text" pKeyFilter="pnum" formControlName="cwsntoil_notuse_grls" class="form-control" maxlength="3"/>
+                                <p-message severity="error"  text="Field is required" *ngIf="form.controls.cwsntoil_notuse_grls.errors && (submitted || form.controls.cwsntoil_notuse_grls.dirty || form.controls.cwsntoil_notuse_grls.touched)"></p-message>
+
+                              </div>
+                        </div>
+                        <div class="col-md-6 m-0 p-1">
+                            <div class="form-group">
+                                <p-dropdown [options]="reasons" formControlName="cwsntoil_reasn_grls" styleClass="select_dropdown select_dropdown_small"  placeholder="Choose"></p-dropdown>
+                                <p-message severity="error"  text="Field is required" *ngIf="form.controls.cwsntoil_reasn_grls.errors && (submitted || form.controls.cwsntoil_reasn_grls.dirty || form.controls.cwsntoil_reasn_grls.touched)"></p-message>
+
+                              </div>
+                        </div>
+                    </div>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-4 mt-3">
+            <p class="label_text">Total number of Urinal available<span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-3 m-0 p-1">
+                            <div class="form-group">
+                                <input type="text" pKeyFilter="pnum" formControlName="urinls_inuse_bys" class="form-control" maxlength="3"/>
+                                <p-message severity="error"  text="Field is required" *ngIf="form.controls.urinls_inuse_bys.errors && (submitted || form.controls.urinls_inuse_bys.dirty || form.controls.urinls_inuse_bys.touched)"></p-message>
+
+                              </div>
+                        </div>
+                        <div class="col-md-3 m-0 p-1">
+                            <div class="form-group">
+                                <input type="text" pKeyFilter="pnum" formControlName="urinls_notuse_bys"  class="form-control" maxlength="3"/>
+                                <p-message severity="error"  text="Field is required" *ngIf="form.controls.urinls_notuse_bys.errors && (submitted || form.controls.urinls_notuse_bys.dirty || form.controls.urinls_notuse_bys.touched)"></p-message>
+
+                              </div>
+                        </div>
+                        <div class="col-md-6 m-0 p-1">
+                            <div class="form-group">
+                                <p-dropdown [options]="reasons" formControlName="urinls_reasn_bys"  styleClass="select_dropdown select_dropdown_small"  placeholder="Choose"></p-dropdown>
+                                <p-message severity="error"  text="Field is required" *ngIf="form.controls.urinls_reasn_bys.errors && (submitted || form.controls.urinls_reasn_bys.dirty || form.controls.urinls_reasn_bys.touched)"></p-message>
+
+                              </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-3 m-0 p-1">
+                            <div class="form-group">
+                                <input type="text" pKeyFilter="pnum" formControlName="urinls_inuse_grls" class="form-control" maxlength="3"/>
+                                <p-message severity="error"  text="Field is required" *ngIf="form.controls.urinls_inuse_grls.errors && (submitted || form.controls.urinls_inuse_grls.dirty || form.controls.urinls_inuse_grls.touched)"></p-message>
+                              </div>
+                        </div>
+                        <div class="col-md-3 m-0 p-1">
+                            <div class="form-group">
+                                <input type="text" pKeyFilter="pnum" formControlName="urinls_notuse_grls" class="form-control" maxlength="3"/>
+                                <p-message severity="error"  text="Field is required" *ngIf="form.controls.urinls_notuse_grls.errors && (submitted || form.controls.urinls_notuse_grls.dirty || form.controls.urinls_notuse_grls.touched)"></p-message>
+
+                              </div>
+                        </div>
+                        <div class="col-md-6 m-0 p-1">
+                            <div class="form-group">
+                                <p-dropdown [options]="reasons" formControlName="urinls_reasn_grls" styleClass="select_dropdown select_dropdown_small"  placeholder="Choose"></p-dropdown>
+                                <p-message severity="error"  text="Field is required" *ngIf="form.controls.urinls_reasn_grls.errors && (submitted || form.controls.urinls_reasn_grls.dirty || form.controls.urinls_reasn_grls.touched)"></p-message>
+
+                              </div>
+                        </div>
+                    </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-4 mt-3">
+            <p class="label_text">How many of the above Toilets have running water facility for flushing and cleaning?<span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <input type="text" pKeyFilter="pnum" formControlName="toil_waterfac_bys" class="form-control" maxlength="3"/>
+                      <p-message severity="error"  text="Field is required" *ngIf="form.controls.toil_waterfac_bys.errors && (submitted || form.controls.toil_waterfac_bys.dirty || form.controls.toil_waterfac_bys.touched)"></p-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" pKeyFilter="pnum" formControlName="toil_waterfac_grls"  class="form-control" maxlength="3"/>
+                    <p-message severity="error"  text="Field is required" *ngIf="form.controls.toil_waterfac_grls.errors && (submitted || form.controls.toil_waterfac_grls.dirty || form.controls.toil_waterfac_grls.touched)"></p-message>
+
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-4 mt-3">
+            <p class="label_text">How many urinals have water facility?<span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <input type="text" pKeyFilter="pnum" formControlName="urinls_waterfac_bys" class="form-control" maxlength="3"/>
+                      <p-message severity="error"  text="Field is required" *ngIf="form.controls.urinls_waterfac_bys.errors && (submitted || form.controls.urinls_waterfac_bys.dirty || form.controls.urinls_waterfac_bys.touched)"></p-message>
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" pKeyFilter="pnum" formControlName="urinls_waterfac_grls" class="form-control" maxlength="3"/>
+                    <p-message severity="error"  text="Field is required" *ngIf="form.controls.urinls_waterfac_grls.errors && (submitted || form.controls.urinls_waterfac_grls.dirty || form.controls.urinls_waterfac_grls.touched)"></p-message>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-6 mt-1">
+            <p class="label_text">Is a Sanitary Worker engaged to clean the Toilets?<span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group ">
+                         <p-radioButton name="toil_sanit_wrks" formControlName="toil_sanit_wrks" value="1"></p-radioButton> Yes
+                        
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group ">
+                         <p-radioButton   name="toil_sanit_wrks" value="2" formControlName="toil_sanit_wrks"></p-radioButton> No
+                         <p-message severity="error"  text="Field is required" *ngIf="form.controls.toil_sanit_wrks.errors && (submitted || form.controls.toil_sanit_wrks.dirty || form.controls.toil_sanit_wrks.touched)"></p-message>
+
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div> 
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-6 mt-1">
+            <p class="label_text">Is the Land available for construction of additional Toilets if required?<span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group ">
+                         <p-radioButton   name="toil_land_avail" formControlName="toil_land_avail" value="1" (click)="additionalToiletLand(form.value.toil_land_avail)" ></p-radioButton> Yes
+                        
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group ">
+                         <p-radioButton   name="toil_land_avail" formControlName="toil_land_avail" value="2" (click)="additionalToiletLand(form.value.toil_land_avail)" ></p-radioButton> No
+                         <p-message severity="error"  text="Field is required" *ngIf="form.controls.toil_land_avail.errors && (submitted || form.controls.toil_land_avail.dirty || form.controls.toil_land_avail.touched)"></p-message>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="row  m-2 pt-1" *ngIf="form.value.toil_land_avail == '1'"> 
+        <div class="col-md-6 mt-3">
+            <p class="label_text">Sq.ft<span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <input type="text" name="toil_land_avail_sqft" pKeyFilter="pnum" formControlName="toil_land_avail_sqft" placeholder="Sq.Ft." class="form-control"  maxlength="7"/>
+                      <p-message severity="error"  text="Field is required" *ngIf="form.controls.toil_land_avail_sqft.errors && (submitted || form.controls.toil_land_avail_sqft.dirty || form.controls.toil_land_avail_sqft.touched)"></p-message>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-6 mt-1">
+            <p class="label_text">Whether the School has been provided with Napkin Vending Machine?<span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group "> 
+                         <p-radioButton name="napkin_incin" formControlName="napkin_incin" value="1" (click)="napkinVendingMachine(form.value.napkin_incin)"></p-radioButton> Yes
+                        
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group ">
+                         <p-radioButton  name="napkin_incin" formControlName="napkin_incin" value="2" (click)="napkinVendingMachine(form.value.napkin_incin)"></p-radioButton> No
+                         <p-message severity="error"  text="Field is required" *ngIf="form.controls.napkin_incin.errors && (submitted || form.controls.napkin_incin.dirty || form.controls.napkin_incin.touched)"></p-message>
+
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="row  m-2 pt-1" *ngIf="form.value.napkin_incin == '1'"> 
+        <div class="col-md-6 mt-3">
+            <p class="label_text">Avaliablity<span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <input type="text" name="napkin_avail_no" pKeyFilter="pnum" formControlName="napkin_avail_no"  class="form-control" maxlength="1"/>
+                      <p-message severity="error"  text="Field is required" *ngIf="form.controls.napkin_avail_no.errors && (submitted || form.controls.napkin_avail_no.dirty || form.controls.napkin_avail_no.touched)"></p-message>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <div class="row  m-2 pt-1" *ngIf="form.value.napkin_incin == '1'"> 
+        <div class="col-md-6 mt-3">
+            <p class="label_text">Functional<span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <input type="text" name="napkin_func_no" pKeyFilter="pnum" formControlName="napkin_func_no" class="form-control" maxlength="1"/>
+                      <p-message severity="error"  text="Field is required" *ngIf="form.controls.napkin_func_no.errors && (submitted || form.controls.napkin_func_no.dirty || form.controls.napkin_func_no.touched)"></p-message>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-6 mt-1">
+            <p class="label_text">Whether the School has been provided with incinerator? <span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group ">
+                         <p-radioButton name="incinerator" name="incinerator" formControlName="incinerator" value="1"  (click)="incinerator(form.value.incinerator)"></p-radioButton> Yes 
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group ">
+                         <p-radioButton name="incinerator" name="incinerator" formControlName="incinerator" value="2"  (click)="incinerator(form.value.incinerator)"></p-radioButton> No
+                         <p-message severity="error"  text="Field is required" *ngIf="form.controls.incinerator.errors && (submitted || form.controls.incinerator.dirty || form.controls.incinerator.touched)"></p-message>
+
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div> 
+    <div class="row  m-2 pt-1" *ngIf="form.value.incinerator == '1'"> 
+        <div class="col-md-12">
+            <div class="row text-center">
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <b>	Manual (Choolas)<span class="manditory"> *</span></b>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <b>Automatic (Electrical) <span class="manditory"> *</span></b>
+                  </div>
+              </div>
+            </div>
+            <div class="row ">
+                <div class="col-md-6">
+                    <div class="row text-center">
+                        <div class="col-md-6"><b>Functional</b></div>
+                        <div class="col-md-6"><b>Non Functional</b></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row text-center">
+                        <div class="col-md-6"><b>Functional</b></div>
+                        <div class="col-md-6"><b>Non Functional</b></div>
+                    </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row  m-2 pt-1" *ngIf="form.value.incinerator == '1'"> 
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6 m-0 p-1">
+                            <div class="form-group">
+                                <input type="text" pKeyFilter="pnum" formControlName="inci_auto_avail_no" class="form-control" maxlength="1"/>
+                                <p-message severity="error"  text="Field is required" *ngIf="form.controls.inci_auto_avail_no.errors && (submitted || form.controls.inci_auto_avail_no.dirty || form.controls.inci_auto_avail_no.touched)"></p-message>
+                              </div>
+                        </div>
+                        <div class="col-md-6 m-0 p-1">
+                            <div class="form-group">
+                                <input type="text" pKeyFilter="pnum" formControlName="inci_auto_func_no" class="form-control" maxlength="1"/>
+                                <p-message severity="error"  text="Field is required" *ngIf="form.controls.inci_auto_func_no.errors && (submitted || form.controls.inci_auto_func_no.dirty || form.controls.inci_auto_func_no.touched)"></p-message>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6 m-0 p-1">
+                            <div class="form-group">
+                                <input type="text" pKeyFilter="pnum" formControlName="inci_man_avail_no" class="form-control" maxlength="1"/>
+                                <p-message severity="error"  text="Field is required" *ngIf="form.controls.inci_man_avail_no.errors && (submitted || form.controls.inci_man_avail_no.dirty || form.controls.inci_man_avail_no.touched)"></p-message>
+                              </div>
+                        </div>
+                        <div class="col-md-6 m-0 p-1">
+                            <div class="form-group">
+                                <input type="text" pKeyFilter="pnum" formControlName="inci_man_func_no" class="form-control" maxlength="1"/>
+                                <p-message severity="error"  text="Field is required" *ngIf="form.controls.inci_man_func_no.errors && (submitted || form.controls.inci_man_func_no.dirty || form.controls.inci_man_func_no.touched)"></p-message>
+
+                              </div>
+                        </div>
+                    </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-6 mt-1">
+            <p class="label_text">Is hand washing facility with soap available near toilets/urinals block?<span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group ">
+                         <p-radioButton  name="toil_handwash_soap" formControlName="toil_handwash_soap" value="1"></p-radioButton> Yes
+                        
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group ">
+                         <p-radioButton   name="toil_handwash_soap" formControlName="toil_handwash_soap" value="2" ></p-radioButton> No
+                         <p-message severity="error"  text="Field is required" *ngIf="form.controls.toil_handwash_soap.errors && (submitted || form.controls.toil_handwash_soap.dirty || form.controls.toil_handwash_soap.touched)"></p-message>
+
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div> 
+</div>
+<!-- End-->
+
+<!-- Start -->
+
+<div class="row pt-2 m-1">
+    <div class="school_land_title">
+        <h5 class="text-uppercase m-0 pt-1 pb-1">School drinking water and hand wash facility details</h5>
+    </div>
+</div>
+<div class="m-3 p-3">
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-6 mt-3">
+            <p class="label_text">Handwash Station<span class="manditory"> *</span></p>
+        </div>
+        <div class="row  m-2 pt-1"> 
+            <div class="col-md-6 mt-1">
+                <p class="label_text">Whether handwashing facility with soap available for washing hands before and after meal ? <span class="manditory"> *</span></p>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                             <p-radioButton name="handwash_meal_yn" formControlName="handwash_meal_yn"  label="Yes" value="1"></p-radioButton> 
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group ">
+                             <p-radioButton name="handwash_meal_yn" formControlName="handwash_meal_yn" value="2" ></p-radioButton> No
+                             <p-message severity="error"  text="Field is required" *ngIf="form.controls.handwash_meal_yn.errors && (submitted || form.controls.handwash_meal_yn.dirty || form.controls.handwash_meal_yn.touched)"></p-message>
+    
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div> 
+        <div class="col-md-12 row">
+            <div class="col-md-6">
+            </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                      <b>Available <span class="manditory"> *</span></b>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <b>Functional <span class="manditory"> *</span></b>
+                  </div>
+              </div>
+          
+        </div>
+    </div>
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-6 mt-3">
+            <p class="label_text">Total no of Handwash Tap in use<span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <input type="text" pKeyFilter="pnum" formControlName="tot_handwash_bys"  class="form-control" maxlength="3"/>
+                      <p-message severity="error"  text="Field is required" *ngIf="form.controls.tot_handwash_bys.errors && (submitted || form.controls.tot_handwash_bys.dirty || form.controls.tot_handwash_bys.touched)"></p-message>
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" pKeyFilter="pnum" formControlName="tot_handwash_grls" class="form-control" maxlength="3"/>
+                    <p-message severity="error"  text="Field is required" *ngIf="form.controls.tot_handwash_grls.errors && (submitted || form.controls.tot_handwash_grls.dirty || form.controls.tot_handwash_grls.touched)"></p-message>
+
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-6 mt-1">
+            <p class="label_text">Whether Drinking water is available in School premises? <span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group ">
+                         <p-radioButton name="drnkwater_avail" formControlName="drnkwater_avail" (click)="drinkingWaterAvail(form.value.drnkwater_avail)" label="Yes" value="1"></p-radioButton> 
+                        
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group ">
+                         <p-radioButton name="drnkwater_avail" formControlName="drnkwater_avail" value="2" ></p-radioButton> No
+                         <p-message severity="error"  text="Field is required" *ngIf="form.controls.drnkwater_avail.errors && (submitted || form.controls.drnkwater_avail.dirty || form.controls.drnkwater_avail.touched)"></p-message>
+
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div> 
+    <div class="row  m-2 pt-1" *ngIf="form.value.drnkwater_avail == '1'"> 
+        <div class="col-md-6 mt-3">
+            <p class="label_text">If Yes, source of drinking water<span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <p-dropdown [options]="drinkingwater" formControlName="drnkwater_source" name="drnkwater_source" styleClass="select_dropdown" placeholder="Choose"></p-dropdown>
+                        <p-message severity="error"  text="Field is required" *ngIf="form.controls.drnkwater_source.errors && (submitted || form.controls.drnkwater_source.dirty || form.controls.drnkwater_source.touched)"></p-message>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+     <div class="row  m-2 pt-1" *ngIf="form.value.drnkwater_avail == '1'"> 
+        <div class="col-md-6 mt-3">
+            <p class="label_text">Whether water quality is tested from water testing lab?<span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group ">
+                         <p-radioButton name="water_test" formControlName="water_test" value="1"></p-radioButton> Yes
+                        
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group ">
+                         <p-radioButton name="water_test" formControlName="water_test" value="2" ></p-radioButton> No
+                         <p-message severity="error"  text="Field is required" *ngIf="form.controls.water_test.errors && (submitted || form.controls.water_test.dirty || form.controls.water_test.touched)"></p-message>
+
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div> 
+
+
+
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-6 mt-1">
+            <p class="label_text">Whether the School is provided with Overhead tank? <span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group ">
+                         <p-radioButton name="overheadtank_avail" formControlName="overheadtank_avail" value="1"></p-radioButton> Yes
+                        
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group ">
+                         <p-radioButton name="overheadtank_avail" formControlName="overheadtank_avail" value="2" ></p-radioButton> No
+                         <p-message severity="error"  text="Field is required" *ngIf="form.controls.overheadtank_avail.errors && (submitted || form.controls.overheadtank_avail.dirty || form.controls.overheadtank_avail.touched)"></p-message>
+
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div> 
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-6 mt-1">
+            <p class="label_text">Whether water purifier is available in the school <span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group ">
+                         <p-radioButton name="waterpuri_avail" formControlName="waterpuri_avail" value="1"></p-radioButton> Yes
+                        
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group ">
+                         <p-radioButton name="waterpuri_avail" formControlName="waterpuri_avail" value="2" ></p-radioButton> No
+                         <p-message severity="error"  text="Field is required" *ngIf="form.controls.waterpuri_avail.errors && (submitted || form.controls.waterpuri_avail.dirty || form.controls.waterpuri_avail.touched)"></p-message>
+
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div> 
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-6 mt-1">
+            <p class="label_text">Does the School have provision for Rain Water Harvesting? <span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group ">
+                         <p-radioButton name="schl_rainwtr_hrv" formControlName="schl_rainwtr_hrv" value="1"></p-radioButton> Yes
+                        
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group ">
+                         <p-radioButton name="schl_rainwtr_hrv" formControlName="schl_rainwtr_hrv" value="2" ></p-radioButton> No
+                         <p-message severity="error"  text="Field is required" *ngIf="form.controls.schl_rainwtr_hrv.errors && (submitted || form.controls.schl_rainwtr_hrv.dirty || form.controls.schl_rainwtr_hrv.touched)"></p-message>
+
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div> 
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-6 mt-1">
+            <p class="label_text">Whether solar panel is available in school? <span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group ">
+                         <p-radioButton name="solar_panel" formControlName="solar_panel" value="1"></p-radioButton> Yes
+                        
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group ">
+                         <p-radioButton  name="solar_panel" formControlName="solar_panel" value="2" ></p-radioButton> No
+                         <p-message severity="error"  text="Field is required" *ngIf="form.controls.solar_panel.errors && (submitted || form.controls.solar_panel.dirty || form.controls.solar_panel.touched)"></p-message>
+
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div> 
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-6 mt-1">
+            <p class="label_text">Whether kitchen Garden is available in school? <span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group ">
+                         <p-radioButton name="kitchen_garden" formControlName="kitchen_garden" value="1"></p-radioButton> Yes
+                        
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group ">
+                         <p-radioButton name="kitchen_garden" formControlName="kitchen_garden" value="2" ></p-radioButton> No
+                         <p-message severity="error"  text="Field is required" *ngIf="form.controls.kitchen_garden.errors && (submitted || form.controls.kitchen_garden.dirty || form.controls.kitchen_garden.touched)"></p-message>
+
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-6 mt-1">
+            <p class="label_text">Whether electricity connection is available in the school? <span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group ">
+                         <p-radioButton name="electricity" formControlName="electricity" value="1"></p-radioButton> Yes
+                        
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group ">
+                           <p-radioButton name="electricity" formControlName="electricity" value="2" ></p-radioButton> No
+                      
+  
+                    </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group ">
+                         <p-radioButton name="electricity" formControlName="electricity" value="3" ></p-radioButton> Not Functional
+                         <p-message severity="error"  text="Field is required" *ngIf="form.controls.electricity.errors && (submitted || form.controls.electricity.dirty || form.controls.electricity.touched)"></p-message>
+
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-6 mt-1">
+            <p class="label_text">Does the school have dustbins for collection of waste? <span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <b>Yes </b>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group text-center">
+                        <b>No</b> 
+                  </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group text-center">
+                      <b>Yes but some</b>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div> 
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-6 mt-1">
+            <p class="label_text">Each Class Room <span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                         <p-radioButton name="class_dustbin" formControlName="class_dustbin" value="1"></p-radioButton> 
+                    </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group text-center">
+                         <p-radioButton name="class_dustbin" formControlName="class_dustbin" value="2" ></p-radioButton>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group text-center">
+                       <p-radioButton name="class_dustbin" value="3" formControlName="class_dustbin" ></p-radioButton>
+                       <p-message severity="error"  text="Field is required" *ngIf="form.controls.class_dustbin.errors && (submitted || form.controls.class_dustbin.dirty || form.controls.class_dustbin.touched)"></p-message>
+
+                </div>
+            </div>
+            </div>
+        </div>
+    </div> 
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-6 mt-1">
+            <p class="label_text">Toilets <span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-4"> 
+                    <div class="form-group">
+                         <p-radioButton name="waste_toilets" formControlName="waste_toilets" value="1"></p-radioButton> 
+                    </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group text-center">
+                         <p-radioButton name="waste_toilets" formControlName="waste_toilets" value="2" ></p-radioButton>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group text-center">
+                       <p-radioButton name="waste_toilets" formControlName="waste_toilets" value="3" ></p-radioButton>
+                       <p-message severity="error"  text="Field is required" *ngIf="form.controls.waste_toilets.errors && (submitted || form.controls.waste_toilets.dirty || form.controls.waste_toilets.touched)"></p-message>
+
+                </div>
+            </div>
+            </div>
+        </div>
+    </div> 
+    <div class="row  m-2 pt-1"> 
+        <div class="col-md-6 mt-1">
+            <p class="label_text">Kitchen <span class="manditory"> *</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                         <p-radioButton name="waste_kitchen" formControlName="waste_kitchen" value="1"></p-radioButton> 
+                    </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group text-center">
+                         <p-radioButton name="waste_kitchen" formControlName="waste_kitchen" value="2" ></p-radioButton>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group text-center">
+                       <p-radioButton name="waste_kitchen" formControlName="waste_kitchen" value="3" ></p-radioButton>
+                       <p-message severity="error"  text="Field is required" *ngIf="form.controls.waste_kitchen.errors && (submitted || form.controls.waste_kitchen.dirty || form.controls.waste_kitchen.touched)"></p-message>
+
+                </div>
+            </div>
+            </div>
+        </div>
+    </div> 
+</div>
+
+<!-- End -->
+
+<div class="row m-3 p-3">
+    <div class="col-md-4"></div>
+    <div class="text-center m-3">
+        <button type="submit" class="btn btn-success"(click)="save()" >Save</button>
+       
+        <button type="submit" class="btn btn-light btn-border"  (click)="cancel()" >Cancel</button>
+     </div>
+     <!-- <div class="text-center m-3">
+        <button type="submit" class="btn btn-success"(click)="save()" [disabled]="schoolLandDetails.part_5 == 2">Save</button>
+        <button type="submit" class="btn btn-success" (click)="onFinalSubmit()" style="margin-left:15px;" [disabled]="schoolLandDetails.part_5 == 2">Final Submit</button>
+        <button type="submit" class="btn btn-light btn-border"  (click)="cancel()" [disabled]="schoolLandDetails.part_5 == 2">Cancel</button>
+     </div> -->
+     <p-confirmDialog header="Confirmation" [style]="{width: '50vw'}"></p-confirmDialog>
+    <div class="col-md-4"></div>
+</div>
+        </div>
+    </form>
+    <!-- </p-card> -->
+</div>

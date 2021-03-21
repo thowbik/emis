@@ -1,0 +1,135 @@
+<div class="m-5" *ngIf="pageStage == 1">
+    <p-card>
+        <div class="container-fluid header_fonts">
+            <div class="row p-1">
+                <div class="col-sm-6 ">
+                    <div class="text-lg-left mt-3">
+                        <div>
+                            <h5>Teacher Assignment</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-1">
+                    <div class="row">
+                        <div class="col-sm-6 pb-3 float-right">
+                            <!-- <p-dropdown [options]="schooltypedropvalue" placeholder="Select School Type" (onChange)="StateSchoolTypeOption($event)" styleClass="dropdwnvalues"></p-dropdown> -->
+                        </div>
+                        <div class="col-sm-6">
+                            <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="text-right py-2">
+                 <!-- <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" class="ui-button-success"></button> -->
+              </div>
+        </div>
+        <div>
+            <p-table #dt [columns]="cols" [value]="statelogincwsn_report" [resizableColumns]="true">
+                <ng-template pTemplate="header" let-distname>
+                    <tr class="text-center">
+                        <th class="sno-header-layout">S.NO</th>
+                        <th *ngFor="let cols of distname" [pSortableColumn]="cols.field" [style.width]="cols.widthstyle">
+                            {{cols.header}}
+                            <p-sortIcon [field]="cols.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+                    <tr class="text-center" *ngIf="!noDataFound">
+                        <td class="sno-header-layout"> {{i+1}} </td>
+                        <!-- <td class="text-left"> {{ distwise.school_name}} </td> -->
+                        <td style="width: 13em;" class="text-left"><a href="javascript:void(0)" (click)="getSelecteddistrictid(distwise.district_id)">{{distwise.district_name}}</a></td>
+                        <td> {{ distwise.Class_10_Stud}} </td>
+                        <td> {{ distwise.Class_11_Stud}} </td>
+                        <td> {{ distwise.Containment}} </td>
+                        <td> {{ distwise.Transport_Reqd}} </td>
+                        <td> {{ distwise.Students_assigned_Teachers}} </td>
+                </ng-template>
+                <!-- <ng-template pTemplate="footer">
+                    <tr class="text-center" *ngIf="!noDataFound">
+                        <td colspan="2" class="text-center">Total</td>
+                        <td class="ui-resizable-column">{{grandtotal_CWSN_Student_in_school}}</td>
+                        <td class="ui-resizable-column">{{grandtotal_CWSN_CP}}</td>
+                        <td class="ui-resizable-column">{{grandtotal_School}}</td>
+                        <td class="ui-resizable-column">{{grandtotal_SRP_Center}}</td>
+                        <td class="ui-resizable-column">{{grandtotal_Home_Based}}</td>
+                    </tr>
+                </ng-template> -->
+                <ng-template pTemplate="emptymessage">
+                    <tr class="text-left" *ngIf="noDataFound">
+                        <td colspan="7"> No Data Found </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </p-card>
+</div>
+
+<div class="m-5" *ngIf="pageStage == 2">
+    <p-card>
+        <div class="container-fluid header_fonts">
+            <div class="row p-1">
+                <div class="col-sm-6 ">
+                    <div class="text-lg-left mt-3">
+                        <div>
+                            <h5>Teacher Assignment</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-1">
+                    <div class="row">
+                        <div class="col-sm-6 pb-3 float-right">
+                            <!-- <p-dropdown [options]="schooltypedropvalue" placeholder="Select School Type" (onChange)="StateSchoolTypeOption($event)" styleClass="dropdwnvalues"></p-dropdown> -->
+                        </div>
+                        <div class="col-sm-6">
+                            <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="text-right py-2">
+                 <!-- <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" class="ui-button-success"></button> -->
+              </div>
+        </div>
+        <div>
+            <p-table #dt [columns]="cols1" [value]="statelogincwsn_Sch_report" [resizableColumns]="true">
+                <ng-template pTemplate="header" let-distname>
+                    <tr class="text-center">
+                        <th class="sno-header-layout">S.NO</th>
+                        <th *ngFor="let cols1 of distname" [pSortableColumn]="cols1.field" [style.width]="cols1.widthstyle">
+                            {{cols1.header}}
+                            <p-sortIcon [field]="cols1.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+                    <tr class="text-center" *ngIf="!noDataFound1">
+                        <td class="sno-header-layout"> {{i+1}} </td>
+                        <td class="text-left"> {{ distwise.school_name}} </td>
+                        <!-- <td style="width: 13em;" class="text-left"><a href="javascript:void(0)" (click)="getSelecteddistrictid(distwise.district_id)">{{distwise.district_name}}</a></td> -->
+                        <td> {{ distwise.Class_10_Stud}} </td>
+                        <td> {{ distwise.Class_11_Stud}} </td>
+                        <td> {{ distwise.Containment}} </td>
+                        <td> {{ distwise.Transport_Reqd}} </td>
+                        <td> {{ distwise.Students_assigned_Teachers}} </td>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr class="text-center" *ngIf="!noDataFound1">
+                        <td colspan="2" class="text-center">Total</td>
+                        <td class="ui-resizable-column">{{grandtotal_Class_10_Stud}}</td>
+                        <td class="ui-resizable-column">{{grandtotal_Class_11_Stud}}</td>
+                        <td class="ui-resizable-column">{{grandtotal_Containment}}</td>
+                        <td class="ui-resizable-column">{{grandtotal_Transport_Reqd}}</td>
+                        <td class="ui-resizable-column">{{grandtotal_Students_assigned_Teachers}}</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr class="text-left" *ngIf="noDataFound1">
+                        <td colspan="7"> No Data Found </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </p-card>
+</div>

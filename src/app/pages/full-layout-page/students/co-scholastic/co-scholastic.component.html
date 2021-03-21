@@ -1,0 +1,69 @@
+<p-card>
+
+
+    <div class="row">
+
+
+        <div class="col-lg-3 col-md-3 flex-gap">
+            <p-dropdown [options]="cities" ></p-dropdown>
+        </div>
+        <div class="col-lg-3 col-md-3 flex-gap">
+            <p-dropdown [options]="cities"></p-dropdown>
+        </div>
+
+        <div class="col-lg-3 col-md-3">
+            <button pButton type="button" label="Click" (click)="submit($event)"></button>
+        </div>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 flexGapTop">
+        <p-table #dt [columns]="selectedColumns" [value]="dataList" [style]="{'width':'250px !important'}"
+            [autoLayout]="true" [paginator]="true" [resizableColumns]="true" [rows]="10" [scrollable]="true"
+            scrollHeight="500px" scrollWidth="100px">
+            <ng-template pTemplate="header">
+                <tr>
+                    <!-- <th rowspan="5">S.no</th> -->
+                    <th colspan="8" style="text-align : right !important;">Grades</th>
+
+
+                </tr>
+                <!-- <tr>
+                    <th colspan="2">Sales</th>
+                    <th colspan="2">Profits</th>
+                </tr>-->
+                <tr>
+                    <!-- <th style="width: 3em">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th> -->
+
+                    <th>S.NO</th>
+                    <th>Assessed ?</th>
+                    <th>Student Name</th>
+                    <th>Physical Education</th>
+                    <th>Life Skill</th>
+                    <th>Attitudes & Values</th>
+                    <th>Health & Yoga</th>
+                    <th>Co-Curricular</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                <tr>
+                    <!-- <td style="width: 3em">
+                        <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                    </td> -->
+                    <td>{{i+1}}</td>
+                    <td>{{rowData.assessed}}</td>
+                    <td>{{rowData.student_name}}</td>
+                    <td>{{rowData.physical_education}}</td>
+                    <td>{{rowData.life_Skill}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <!-- <td *ngFor="let col of columns" class="ui-resizable-column">
+                    {{rowData[col.field]}}
+                </td> -->
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</p-card>

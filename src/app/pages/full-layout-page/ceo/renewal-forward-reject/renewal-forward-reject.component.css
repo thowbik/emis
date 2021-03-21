@@ -1,0 +1,23 @@
+.flex-col-start {
+    align-items: start;
+    display: flex;
+    place-content: start;
+    flex-direction: column;
+}
+.date {
+    width: 74%;
+}
+
+.btn-clr {
+    background-color: #075c49;
+    border: #075c49;
+    margin: 5px;
+}
+
+.text {
+    background-color: unset;
+    opacity: 1;
+    border: unset;
+    font-weight: 600;
+    padding-bottom: 25px;
+}

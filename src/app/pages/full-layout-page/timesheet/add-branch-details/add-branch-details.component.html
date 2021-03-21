@@ -1,0 +1,52 @@
+<p-card>
+    <div class="text-lg-left p-2"><div>
+        <h5>Add Branch Details</h5></div>
+      </div>
+    <div class="col-sm-12">
+        <form [formGroup]="bankdetails">
+        <div class="row p-3">
+            <div class="col-sm-4" *ngIf="districtDrop">
+                <p-dropdown  [options]="Distdropvalueoptions" formControlName="district" (onChange)="selecteddistrict($event)" placeholder="Select District" styleClass="dropdwnvalues" ></p-dropdown>
+                <p-message severity="error"  text="This Field is required" *ngIf="bankdetails.controls.district.errors && (submitted || bankdetails.controls.district.dirty || bankdetails.controls.district.touched)"></p-message>
+            </div>
+            <div class="col-sm-4">
+                <p-dropdown [options]="Bankdidropvalueoptions" formControlName="bank_id" placeholder="Select Bank" styleClass="dropdwnvalues" ></p-dropdown>
+                <p-message severity="error"  text="This Field is required" *ngIf="bankdetails.controls.bank_id.errors && (submitted || bankdetails.controls.bank_id.dirty || bankdetails.controls.bank_id.touched)"></p-message>
+            </div>
+            <div class="col-sm-4">
+                <input pInputText type="text" class="form-control" formControlName="branch_name" style="text-transform: uppercase" placeholder="Branch Name"/>
+                <p-message severity="error"  text="This Field is required" *ngIf="bankdetails.controls.branch_name.errors && (submitted || bankdetails.controls.branch_name.dirty || bankdetails.controls.branch_name.touched)"></p-message>
+            </div>
+        </div>
+        <div class="row p-3">
+            <div class="col-sm-4">
+                <input pInputText type="text" class="form-control"  formControlName="bank_address" style="text-transform: uppercase" placeholder="Branch Address"/>
+                <p-message severity="error"  text="This Field is required" *ngIf="bankdetails.controls.bank_address.errors && (submitted || bankdetails.controls.bank_address.dirty || bankdetails.controls.bank_address.touched)"></p-message>
+
+            </div>
+            <div class="col-sm-4">
+                <input pInputText type="text-area" class="form-control" formControlName="ifsc" style="text-transform: uppercase" placeholder="IFS Code" maxlength="11">
+                <p-message severity="error"  text="This Field is required" *ngIf="bankdetails.controls.ifsc.errors && (submitted || bankdetails.controls.ifsc.dirty || bankdetails.controls.ifsc.touched)"></p-message>
+
+            </div>
+            <div class="col-sm-4">
+                <input pInputText type="text" class="form-control"  formControlName="micr" style="text-transform: uppercase" placeholder="MICR Code" maxlength="9"/>
+                <p-message severity="error"  text="This Field is required" *ngIf="bankdetails.controls.micr.errors && (submitted || bankdetails.controls.micr.dirty || bankdetails.controls.micr.touched)"></p-message>
+            </div>
+        </div>
+        <div class="row p-3">
+            <div class="col-sm-6">
+                <input pInputText type="text" class="form-control" formControlName="city" style="text-transform: uppercase" placeholder="City"/>
+                <p-message severity="error"  text="This Field is required" *ngIf="bankdetails.controls.city.errors && (submitted || bankdetails.controls.city.dirty || bankdetails.controls.city.touched)"></p-message>
+
+            </div>
+            <div class="col-sm-6">
+                <input pInputText type="text-area" class="form-control" formControlName="contact_no" placeholder="Contact Number" maxlength="10"/>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <button type="submit" class="btn btn-success m-2" (click)="bank_save()" >Save</button>
+        </div>
+        </form>
+    </div>
+</p-card>

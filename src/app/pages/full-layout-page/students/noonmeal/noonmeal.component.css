@@ -1,0 +1,13 @@
+.element {
+    border: none !important;
+    outline: none !important;
+    width: 75% !important;
+}
+
+.ui-accordion-content-wrapper-overflown {
+    overflow: hidden;
+}
+.buttoncss {
+    margin: 20px 0;
+    height: 13px;
+}

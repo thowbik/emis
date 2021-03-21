@@ -1,0 +1,707 @@
+<div class="breadcrumbs c-black p-4">
+  <h6 class="url">
+          <span class="flex-gap-right">Staff Fixation</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+          <span class="flex-gap-right">Staff Fixation DSE
+          </span>
+      </h6>
+</div>
+<div *ngIf="sesnId" class="container-fluid">
+    <div class="main-body-content m-2">
+      <p-table #dt  [columns]="dataHeader"  [value]="staffList" [resizableColumns]="true" [paginator]="true" [rows]="10">
+          <ng-template pTemplate="caption">
+            <div class="row p-1">
+              <div class="col-sm-9">
+                    <!-- <h5>Staff Fixation (DSE) </h5> -->
+              </div>
+              <div class="col-sm-3 p-1">
+                  <div class="text-right">
+                    <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search Filter">
+                  </div>
+               </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr class="text-center">
+              <th class="sno-header-layout">#</th>
+              <th *ngFor="let col of dataHeader" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+            <tr>
+                <td>{{i+1}}</td>
+                <td><a class="link-url" href="javascript:void(0)" (click)="onDialog(rowData)">{{rowData.udise_code}}</a></td>
+                <td style="text-align: center;">{{rowData.school_name}}</td>
+                <td style="text-align: center;">{{rowData.block_name}}</td>
+                <td style="text-align: center;">{{rowData.category }}</td>
+                <td style="text-align: center;">{{rowData.school_category_type }}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+          <tr>
+            <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                <strong>No records found</strong>
+            </td>
+          </tr>
+          <!-- <tr>
+            <td>1</td>
+            <td><a class="link-url" href="javascript:void(0)" (click)="onDialog(1)">332201</a></td>
+            <td style="text-align: center;">Govt Public School</td>
+            <td style="text-align: center;">Trichy</td>
+            <td style="text-align: center;">High School</td>
+            <td style="text-align: center;">Biys School</td>
+        </tr> -->
+        </ng-template>
+        </p-table>
+      </div>
+</div>
+<img *ngIf="!sesnId" [src]="deinedurl" alt="Access Deined" accept="image/*" class="accessdenied">
+<p-dialog [header]="dialogTitle" [(visible)]="displayDialog"
+              [modal]="true" 
+              [responsive]="true" 
+              [contentStyle]="{'max-width':'1000px','max-height': '500px','overflow-y': 'auto'}"
+              [blockScroll]="true"
+              [draggable]="false"
+              >
+<!-- <p-dialog   
+[modal]="true" [draggable]="false"  [responsive]="true" [blockScroll]="true" [maximizable]="false" [contentStyle]="{'max-width':'1000px','max-height': '10px','overflow-y': 'auto'}"> -->
+  <form id="stffix" [formGroup]="staffFixationDSEForm">
+    <fieldset [disabled]="true">
+    <p-fieldset legend="Medium Wise" [toggleable]="true">
+      <h6>English</h6><hr/>
+      <div class="ui-g-12">
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+            <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="class_1_5_em">
+            <!-- (blur)="emValidation($event.target.value,0,1)" -->
+            <label for="float-input"> Class I to V</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="class_6_em" (blur)="medValidation($event.target.value,1,1,em_temparr,['class_6_8_em_total','class_9_10_em_total','class_6_10_em_total'])">
+          <label for="float-input"> Class VI</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="class_7_em" (blur)="medValidation($event.target.value,2,1,em_temparr,['class_6_8_em_total','class_9_10_em_total','class_6_10_em_total'])">
+          <label for="float-input"> Class VII</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="class_8_em" (blur)="medValidation($event.target.value,3,1,em_temparr,['class_6_8_em_total','class_9_10_em_total','class_6_10_em_total'])">
+          <label for="float-input">  Class VIII</label>
+          </span> 
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="class_9_em" (blur)="medValidation($event.target.value,4,1,em_temparr,['class_6_8_em_total','class_9_10_em_total','class_6_10_em_total'])">
+          <label for="float-input"> Class IX</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="class_10_em" (blur)="medValidation($event.target.value,5,1,em_temparr,['class_6_8_em_total','class_9_10_em_total','class_6_10_em_total'])">
+          <label for="float-input"> Class X</label>
+          </span>
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-6"></div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="class_6_8_em_total" (blur)="medValidation($event.target.value,0,2,em_temparr,['class_6_8_em_total','class_9_10_em_total','class_6_10_em_total'])">
+          <label for="float-input"> Total VI to VIII</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="class_9_10_em_total" (blur)="medValidation($event.target.value,0,3,em_temparr,['class_6_8_em_total','class_9_10_em_total','class_6_10_em_total'])">
+          <label for="float-input"> Total IX and X</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="class_6_10_em_total" readonly>
+          <label for="float-input"> Total VI to X</label>
+          </span>
+        </div>
+      </div>
+      <h6>Tamil</h6><hr/>
+      <div class="ui-g-12">
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+         <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="class_1_5_tm">
+         <label for="float-input"> Class I to V</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+         <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="class_6_tm" (blur)="medValidation($event.target.value,1,1,tm_temparr,['class_6_8_tm_total','class_9_10_tm_total','class_6_10_tm_total'])">
+         <label for="float-input"> Class VI</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+         <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="class_7_tm" (blur)="medValidation($event.target.value,2,1,tm_temparr,['class_6_8_tm_total','class_9_10_tm_total','class_6_10_tm_total'])">
+         <label for="float-input"> Class VII</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+         <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="class_8_tm" (blur)="medValidation($event.target.value,3,1,tm_temparr,['class_6_8_tm_total','class_9_10_tm_total','class_6_10_tm_total'])">
+         <label for="float-input"> Class VIII</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+         <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="class_9_tm" (blur)="medValidation($event.target.value,4,1,tm_temparr,['class_6_8_tm_total','class_9_10_tm_total','class_6_10_tm_total'])">
+         <label for="float-input"> Class IX</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+         <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="class_10_tm" (blur)="medValidation($event.target.value,5,1,tm_temparr,['class_6_8_tm_total','class_9_10_tm_total','class_6_10_tm_total'])">
+         <label for="float-input"> Class X</label>
+          </span>
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-6"></div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+         <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="class_6_8_tm_total" (blur)="medValidation($event.target.value,0,2,tm_temparr,['class_6_8_tm_total','class_9_10_tm_total','class_6_10_tm_total'])">
+         <label for="float-input"> Total VI to VIII</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+         <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="class_9_10_tm_total" (blur)="medValidation($event.target.value,0,3,tm_temparr,['class_6_8_tm_total','class_9_10_tm_total','class_6_10_tm_total'])">
+         <label for="float-input"> Total IX and X</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+         <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="class_6_10_tm_total" readonly>
+         <label for="float-input"> Total VI to X</label>
+          </span>
+        </div>
+      </div>
+    </p-fieldset><br/>
+    <p-fieldset legend="Others Details" [toggleable]="true">
+      <h6>Eligible Sections</h6><hr/>
+      <div class="ui-g-12">
+        <div class="ui-g-3">
+          <span class="ui-float-label">
+         <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="section_1_5">
+         <label for="float-input"> Class I to V</label>
+          </span>
+        </div>
+        <div class="ui-g-3">
+          <span class="ui-float-label">
+         <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="section_6_8" (blur)="esValidation()">
+         <label for="float-input"> Class VI to VIII</label>
+          </span>
+        </div>
+        <div class="ui-g-3">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="section_9_10" (blur)="esValidation()">
+          <label for="float-input"> Class IX to X</label>
+          </span>
+        </div>
+        <div class="ui-g-3">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="section_6_10" readonly>
+          <label for="float-input"> Class VI to X</label>
+          </span>
+        </div>
+      </div>
+      <h6>Post Fixed as per Time Table</h6><hr/>
+      <div class="ui-g-12">
+        <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="posts_by_tt">
+          <label for="float-input"> Class VI to X</label>
+        </span>
+      </div>
+    </p-fieldset><br/>
+    </fieldset>
+    <p-fieldset  legend="Posting Wise" [toggleable]="true">
+      <div>
+        <fieldset [disabled]="true">
+      <h6>Eligible Posts</h6><hr/>
+      <div class="ui-g-12">
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="elig_sg" (blur)="postValidation($event.target.value,0,1,elig_sg_temparr,['elig_bt_total','elig_total'])">
+          <label for="float-input"> SGT</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="elig_bt_tam" (blur)="postValidation($event.target.value,1,1,elig_sg_temparr,['elig_bt_total','elig_total'])">
+          <label for="float-input"> BT Tamil</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="elig_bt_eng" (blur)="postValidation($event.target.value,2,1,elig_sg_temparr,['elig_bt_total','elig_total'])">
+          <label for="float-input"> BT English</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="elig_bt_mat" (blur)="postValidation($event.target.value,3,1,elig_sg_temparr,['elig_bt_total','elig_total'])">
+          <label for="float-input"> BT Mathematics</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="elig_bt_sci" (blur)="postValidation($event.target.value,4,1,elig_sg_temparr,['elig_bt_total','elig_total'])">
+          <label for="float-input"> BT Science</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="elig_bt_ss" (blur)="postValidation($event.target.value,5,1,elig_sg_temparr,['elig_bt_total','elig_total'])">
+          <label for="float-input"> BT Soical Science</label>
+          </span>
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-8"></div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="elig_bt_total" (blur)="postValidation($event.target.value,0,2,elig_sg_temparr,['elig_bt_total','elig_total'])">
+          <label for="float-input"> BT Total</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="elig_total" readonly>
+          <label for="float-input"> Total</label>
+          </span>
+        </div>
+      </div>
+      <span *ngIf="is_hrsec_school"><h6>PG handling class 9,10 (periods) </h6><hr/></span>
+      <div class="ui-g-12" *ngIf="is_hrsec_school">
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="pg_period_sg" (blur)="postValidation($event.target.value,0,1,pg_period_sg_temparr,['pg_period_bt_total','pg_period_total'])">
+          <label for="float-input"> SGT</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="pg_period_bt_tam" (blur)="postValidation($event.target.value,1,1,pg_period_sg_temparr,['pg_period_bt_total','pg_period_total'])">
+          <label for="float-input"> BT Tamil</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="pg_period_bt_eng" (blur)="postValidation($event.target.value,2,1,pg_period_sg_temparr,['pg_period_bt_total','pg_period_total'])">
+          <label for="float-input"> BT English</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="pg_period_bt_mat" (blur)="postValidation($event.target.value,3,1,pg_period_sg_temparr,['pg_period_bt_total','pg_period_total'])">
+          <label for="float-input"> BT Mathematics</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="pg_period_bt_sci" (blur)="postValidation($event.target.value,4,1,pg_period_sg_temparr,['pg_period_bt_total','pg_period_total'])">
+          <label for="float-input"> BT Science</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="pg_period_bt_ss" (blur)="postValidation($event.target.value,5,1,pg_period_sg_temparr,['pg_period_bt_total','pg_period_total'])">
+          <label for="float-input"> BT Social Science</label>
+          </span>
+        </div>
+      </div>
+      <div class="ui-g-12" *ngIf="is_hrsec_school">
+       <div class="ui-g-8"></div>
+       <div class="ui-g-2">
+        <span class="ui-float-label">
+        <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="pg_period_bt_total" (blur)="postValidation($event.target.value,0,2,pg_period_sg_temparr,['pg_period_bt_total','pg_period_total'])">
+        <label for="float-input"> BT Total</label>
+          </span>
+       </div>
+       <div class="ui-g-2">
+        <span class="ui-float-label">
+        <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="pg_period_total" readonly>
+        <label for="float-input"> Total</label>
+          </span>
+       </div>
+      </div>
+      <span *ngIf="is_hrsec_school"><h6>Net Requirement </h6><hr/></span>
+      <div class="ui-g-12" *ngIf="is_hrsec_school">
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="net_sg" (blur)="postValidation($event.target.value,0,1,net_sg_temparr,['net_bt_total','net_total'])">
+          <label for="float-input"> SGT</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="net_bt_tam" (blur)="postValidation($event.target.value,1,1,net_sg_temparr,['net_bt_total','net_total'])">
+          <label for="float-input"> BT Tamil</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="net_bt_eng" (blur)="postValidation($event.target.value,2,1,net_sg_temparr,['net_bt_total','net_total'])">
+          <label for="float-input"> BT English</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="net_bt_mat" (blur)="postValidation($event.target.value,3,1,net_sg_temparr,['net_bt_total','net_total'])">
+          <label for="float-input"> BT Mathematics</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="net_bt_sci" (blur)="postValidation($event.target.value,4,1,net_sg_temparr,['net_bt_total','net_total'])">
+          <label for="float-input"> BT Science</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="net_bt_ss" (blur)="postValidation($event.target.value,5,1,net_sg_temparr,['net_bt_total','net_total'])">
+          <label for="float-input"> BT Socialscience</label>
+          </span>
+        </div>
+      </div>
+      <div class="ui-g-12" *ngIf="is_hrsec_school">
+        <div class="ui-g-8"></div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="net_bt_total" (blur)="postValidation($event.target.value,0,2,net_sg_temparr,['net_bt_total','net_total'])">
+          <label for="float-input"> BT Total</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+           <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="net_total" readonly>
+           <label for="float-input"> Total</label>
+          </span>
+        </div>
+      </div>
+      <h6>Sactioned Posts</h6><hr/>
+      <div class="ui-g-12">
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+         <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="sanc_sg" (blur)="postValidation($event.target.value,0,1,sanc_sg_temparr,['sanc_bt_total','sanc_total'])">
+         <label for="float-input"> SGT</label>
+          </span>
+        </div>
+        <div class="ui-g-2"> 
+          <span class="ui-float-label">
+         <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="sanc_bt_tam" (blur)="postValidation($event.target.value,1,1,sanc_sg_temparr,['sanc_bt_total','sanc_total'])"> 
+         <label for="float-input"> BT Tamil</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+         <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="sanc_bt_eng" (blur)="postValidation($event.target.value,2,1,sanc_sg_temparr,['sanc_bt_total','sanc_total'])">
+         <label for="float-input"> BT English</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+         <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="sanc_bt_mat" (blur)="postValidation($event.target.value,3,1,sanc_sg_temparr,['sanc_bt_total','sanc_total'])">
+         <label for="float-input"> BT Mathematics</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+         <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="sanc_bt_sci" (blur)="postValidation($event.target.value,4,1,sanc_sg_temparr,['sanc_bt_total','sanc_total'])">
+         <label for="float-input"> BT Science</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+         <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="sanc_bt_ss" (blur)="postValidation($event.target.value,5,1,sanc_sg_temparr,['sanc_bt_total','sanc_total'])">
+         <label for="float-input"> BT Social Science</label>
+          </span>
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-8"></div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="sanc_bt_total" (blur)="postValidation($event.target.value,0,2,sanc_sg_temparr,['sanc_bt_total','sanc_total'])">
+          <label for="float-input"> BT Total</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="sanc_total" readonly>
+          <label for="float-input"> Total</label>
+          </span>
+        </div>
+      </div>
+      <h6>Surplus Posts</h6><hr/>
+      <div class="ui-g-12">
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="surplus_sg" (blur)="postValidation($event.target.value,0,1,surplus_sg_temparr,['surplus_bt_total','surplus_total'])">
+          <label for="float-input"> SGT</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="surplus_bt_tam" (blur)="postValidation($event.target.value,1,1,surplus_sg_temparr,['surplus_bt_total','surplus_total'])">
+          <label for="float-input"> BT Tamil</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="surplus_bt_eng" (blur)="postValidation($event.target.value,2,1,surplus_sg_temparr,['surplus_bt_total','surplus_total'])">
+          <label for="float-input"> BT English</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="surplus_bt_mat" (blur)="postValidation($event.target.value,3,1,surplus_sg_temparr,['surplus_bt_total','surplus_total'])">
+          <label for="float-input"> BT Mathematics</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="surplus_bt_sci" (blur)="postValidation($event.target.value,4,1,surplus_sg_temparr,['surplus_bt_total','surplus_total'])">
+          <label for="float-input"> BT Science</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="surplus_bt_ss" (blur)="postValidation($event.target.value,5,1,surplus_sg_temparr,['surplus_bt_total','surplus_total'])">
+          <label for="float-input"> BT Social Science</label>
+          </span>
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-8"></div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="surplus_bt_total" (blur)="postValidation($event.target.value,0,2,surplus_sg_temparr,['surplus_bt_total','surplus_total'])">
+          <label for="float-input"> BT Total</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="surplus_total" readonly>
+          <label for="float-input"> Total</label>
+          </span>
+        </div>
+      </div>
+      <h6>Needed Posts</h6><hr/>
+      <div class="ui-g-12">
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+         <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="need_sg" (blur)="postValidation($event.target.value,0,1,need_sg_temparr,['need_bt_total','need_total'])">
+         <label for="float-input"> SGT</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="need_bt_tam" (blur)="postValidation($event.target.value,1,1,need_sg_temparr,['need_bt_total','need_total'])">
+          <label for="float-input"> BT Tamil</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="need_bt_eng" (blur)="postValidation($event.target.value,2,1,need_sg_temparr,['need_bt_total','need_total'])">
+          <label for="float-input"> BT English</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="need_bt_mat" (blur)="postValidation($event.target.value,3,1,need_sg_temparr,['need_bt_total','need_total'])">
+          <label for="float-input"> BT Mathematics</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="need_bt_sci" (blur)="postValidation($event.target.value,4,1,need_sg_temparr,['need_bt_total','need_total'])">
+          <label for="float-input"> BT Science</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="need_bt_ss" (blur)="postValidation($event.target.value,5,1,need_sg_temparr,['need_bt_total','need_total'])">
+          <label for="float-input"> BT Social Science</label>
+          </span>
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-8"></div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="need_bt_total" (blur)="postValidation($event.target.value,0,2,need_sg_temparr,['need_bt_total','need_total'])">
+          <label for="float-input"> BT Total</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="need_total" readonly>
+          <label for="float-input"> Total</label>
+          </span>
+       </div>
+      </div>
+      <!-- <h6>Teachers in Position</h6><hr/>
+      <div class="ui-g-12">
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="in_position_sg"
+          (blur)="postValidation($event.target.value,0,1,in_position_sg_temparr,['in_position_bt_total','in_position_total'])">
+          <label for="float-input"> SGT</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="in_position_bt_tam"
+          (blur)="postValidation($event.target.value,1,1,in_position_sg_temparr,['in_position_bt_total','in_position_total'])">
+          <label for="float-input"> BT Tamil</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="in_position_bt_eng"
+          (blur)="postValidation($event.target.value,2,1,in_position_sg_temparr,['in_position_bt_total','in_position_total'])">
+          <label for="float-input"> BT English</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="in_position_bt_mat"
+          (blur)="postValidation($event.target.value,3,1,in_position_sg_temparr,['in_position_bt_total','in_position_total'])">
+          <label for="float-input"> BT Mathematics</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="in_position_bt_sci"
+          (blur)="postValidation($event.target.value,4,1,in_position_sg_temparr,['in_position_bt_total','in_position_total'])">
+          <label for="float-input"> BT Science</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="in_position_bt_ss"
+          (blur)="postValidation($event.target.value,5,1,in_position_sg_temparr,['in_position_bt_total','in_position_total'])">
+          <label for="float-input"> BT Social Science</label>
+          </span>
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-8"></div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="in_position_bt_total"
+          (blur)="postValidation($event.target.value,0,2,in_position_sg_temparr,['in_position_bt_total','in_position_total'])">
+          <label for="float-input"> Bt Total</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="in_position_total" readonly>
+          <label for="float-input"> Total</label>
+          </span>
+        </div>
+      </div>-->
+    </fieldset>
+    </div>
+     
+      <h6>Vacant Posts</h6><hr/>
+      <fieldset [disabled]="true">
+      <div class="ui-g-12">
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="vacant_sg"
+          (blur)="postValidation($event.target.value,0,1,vacant_sg_temparr,['vacant_bt_total','vacant_total'])">
+          <label for="float-input"> SGT</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="vacant_bt_tam"
+          (blur)="postValidation($event.target.value,1,1,vacant_sg_temparr,['vacant_bt_total','vacant_total'])">
+          <label for="float-input"> BT Tamil</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="vacant_bt_eng"
+          (blur)="postValidation($event.target.value,2,1,vacant_sg_temparr,['vacant_bt_total','vacant_total'])">
+          <label for="float-input"> BT English</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="vacant_bt_mat"
+          (blur)="postValidation($event.target.value,3,1,vacant_sg_temparr,['vacant_bt_total','vacant_total'])">
+          <label for="float-input"> BT Mathematics</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="vacant_bt_sci"
+          (blur)="postValidation($event.target.value,4,1,vacant_sg_temparr,['vacant_bt_total','vacant_total'])">
+          <label for="float-input"> BT Science</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="vacant_bt_ss"
+          (blur)="postValidation($event.target.value,5,1,vacant_sg_temparr,['vacant_bt_total','vacant_total'])">
+          <label for="float-input"> BT Soical science</label>
+          </span>
+        </div>
+      </div>
+      </fieldset>
+      <div class="ui-g-12">
+        <div class="ui-g-6"></div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="vac_4" [disabled]="false">
+          <label for="float-input"> PG Chemistry</label>
+          </span>
+          <div
+          *ngIf="staffFixationDSEForm.controls.vac_4.errors && (submitted || staffFixationDSEForm.controls.vac_4.dirty || staffFixationDSEForm.controls.vac_4.touched)">
+          <p-message severity="error"
+            text="PG Chemistry is required"
+            *ngIf="staffFixationDSEForm.controls.vac_4.errors?.required">
+          </p-message>
+          <!-- <p-message severity="error" text="Invalid Student Name in Tamil" *ngIf="studentRegistrationForm.controls.name_tamil.errors?.pattern"></p-message> -->
+        </div>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="vacant_bt_total"
+          (blur)="postValidation($event.target.value,0,2,vacant_sg_temparr,['vacant_bt_total','vacant_total'])" disabled="true">
+          <label for="float-input"> BT Total</label>
+          </span>
+        </div>
+        <div class="ui-g-2">
+          <span class="ui-float-label">
+          <input  pInputText type="text" (keypress)="numberOnly($event)" maxlength="3" class="width-100"  class="form-control" formControlName="vacant_total" disabled="true" readonly>
+          <label for="float-input"> Total</label>
+          </span>
+        </div>
+      </div>
+    </p-fieldset> 
+  </form>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+        <button pButton type="button" icon="fa fa-check" label="Save" class="ui-button-success ui-button-rounded" (click)="onSubmit(staffFixationDSEForm.value)"></button>
+    </div>
+  </p-footer>
+</p-dialog>

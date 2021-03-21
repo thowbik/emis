@@ -1,0 +1,212 @@
+<div class="main-body-content p-3">
+    <div class="outer-layout">
+       <div class="breadcrumbs c-black">
+          <h6 class="url">
+             <span class="flex-gap-right">UDISE+ Reports</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+             <span class="flex-gap-right">Validation Summary</span>
+          </h6>
+       </div>
+    </div>
+    <!-- <div class="row p-2"> 
+       <div class="font-weight-bold col-sm-6"></div>
+       <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF" (click)="exportPdf()" class="ui-button-warning"></button>
+       <div class="col-sm-6 text-right"><i class=" fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"  (click)="exportPdf()"></i></div>
+       </div>  -->
+    <div class="row">
+       <div class="m-2">
+          <p-table #dt [columns]="dataHeader1" [value]="UdiseVerification_1" [resizableColumns]="true" >
+          <ng-template let-childrens pTemplate="caption">
+             <div class="row header flex-row-center">
+                <div class="col-sm-8">
+                </div>
+                <div class="col-sm-3 p-1">
+                   <div class="text-right">
+                      <!-- <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Verification Filter"> -->
+                   </div>
+                </div>
+                <div class="col-sm-1 p-1 flex-row-center-end">
+                   <div class="text-right">
+                      <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"  (click)="exportPdf()"></i>
+                      <i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="exportPdf()" ></i>
+                   </div>
+                </div>
+             </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-distname>
+             <tr class="text-center">
+                <th *ngFor="let dataHeader1 of distname" [style.width]="dataHeader1.widthstyle">{{dataHeader1.header}}</th>
+             </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+             <tr class="text-center" *ngIf="!noDataFound1">
+                <td class="text-left"> {{ distwise.Schools}} </td>
+                <td class="text-center"> {{ distwise.Govt}} </td>
+                <td class="text-center"> {{ distwise.Aided}} </td>
+                <td class="text-center"> {{ distwise.Unaided}} </td>
+                <td class="text-center"> {{ distwise.Central}} </td>
+                <td class="text-center"> {{ distwise.Others}} </td>
+                <td class="text-center font-weight-bold"> {{ distwise.Total}} </td>
+          </ng-template>
+          <ng-template pTemplate="footer">
+          <tr class="text-center" *ngIf="noDataFound1" >
+          <td colspan="7"> No Data Found </td>
+          </tr>
+          </ng-template>
+          </p-table>
+       </div>
+    </div>
+    <div class="row">
+       <div class="m-2">
+          <p-table #dt [columns]="dataHeader2" [value]="UdiseVerification_2" [resizableColumns]="true" >
+          <ng-template pTemplate="header" let-distname>
+             <tr class="text-center">
+                <th *ngFor="let dataHeader2 of distname" [style.width]="dataHeader2.widthstyle">{{dataHeader2.header}}</th>
+             </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+             <tr class="text-center" *ngIf="!noDataFound2">
+                <td class="text-left"> {{ distwise.Staff}} </td>
+                <td class="text-center"> {{ distwise.Regular}} </td>
+                <td class="text-center"> {{ distwise.Contract}} </td>
+                <td class="text-center"> {{ distwise.Part_Time}} </td>
+                <td class="text-center font-weight-bold"> {{ distwise.Teaching}} </td>
+                <td class="text-center"> {{ distwise.Non_Teaching}} </td>
+          </ng-template>
+          <ng-template pTemplate="footer">
+          <tr class="text-center" *ngIf="noDataFound2" >
+          <td colspan="6"> No Data Found </td>
+          </tr>
+          </ng-template>
+          </p-table>
+       </div>
+    </div>
+    <div class="row">
+       <div class="m-2">
+          <p-table #dt [columns]="dataHeader3" [value]="UdiseVerification_3" [resizableColumns]="true" >
+          <ng-template pTemplate="header" let-distname>
+             <tr class="text-center">
+                <th *ngFor="let dataHeader3 of distname" [style.width]="dataHeader3.widthstyle">{{dataHeader3.header}}</th>
+             </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+             <tr class="text-center" *ngIf="!noDataFound3">
+                <td class="text-left"> {{ distwise.Students}} </td>
+                <td class="text-center"> {{ distwise.Boys}} </td>
+                <td class="text-center"> {{ distwise.Girls}} </td>
+                <td class="text-center"> {{ distwise.Transgender}} </td>
+                <td class="text-center"> {{ distwise.CWSN}} </td>
+                <td class="text-center font-weight-bold"> {{ distwise.Total}} </td>
+          </ng-template>
+          <ng-template pTemplate="footer">
+          <tr class="text-center" *ngIf="noDataFound3" >
+          <td colspan="6"> No Data Found </td>
+          </tr>
+          </ng-template>
+          </p-table>
+       </div>
+    </div>
+    <div class="row">
+       <div class="m-2">
+          <p-table #dt [columns]="dataHeader4" [value]="UdiseVerification_4" [resizableColumns]="true" >
+          <ng-template pTemplate="header" let-distname>
+             <tr class="text-center">
+                <th *ngFor="let dataHeader4 of distname" [style.width]="dataHeader4.widthstyle">{{dataHeader4.header}}</th>
+             </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+             <tr class="text-center" *ngIf="!noDataFound4">
+                <td class="text-left"> {{ distwise.Students}} </td>
+                <td class="text-center"> {{ distwise.General}} </td>
+                <td class="text-center"> {{ distwise.OBC}} </td>
+                <td class="text-center"> {{ distwise.SC}} </td>
+                <td class="text-center"> {{ distwise.ST}} </td>
+                <td class="text-center"> {{ distwise.Others}} </td>
+                <td class="text-center font-weight-bold"> {{ distwise.Total}} </td>
+          </ng-template>
+          <ng-template pTemplate="footer">
+          <tr class="text-center" *ngIf="noDataFound4" >
+          <td colspan="6"> No Data Found </td>
+          </tr>
+          </ng-template>
+          </p-table>
+       </div>
+    </div>
+    <div class="row">
+       <div class="m-2">
+          <p-table #dt [columns]="dataHeader5" [value]="UdiseVerification_5" [resizableColumns]="true" >
+          <ng-template pTemplate="header" let-distname>
+             <tr class="text-center">
+                <th *ngFor="let dataHeader5 of distname" [style.width]="dataHeader5.widthstyle">{{dataHeader5.header}}</th>
+             </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+             <tr class="text-center" *ngIf="!noDataFound5">
+                <td class="text-left"> {{ distwise.School_Type}} </td>
+                <td class="text-center"> {{ distwise.Govt}} </td>
+                <td class="text-center"> {{ distwise.Aided}} </td>
+                <td class="text-center"> {{ distwise.Unaided}} </td>
+                <td class="text-center"> {{ distwise.Central}} </td>
+                <td class="text-center"> {{ distwise.Others}} </td>
+                <td class="text-center font-weight-bold"> {{ distwise.Total}} </td>
+          </ng-template>
+          <ng-template pTemplate="footer">
+          <tr class="text-center" *ngIf="noDataFound5" >
+          <td colspan="7"> No Data Found </td>
+          </tr>
+          </ng-template>
+          </p-table>
+       </div>
+    </div>
+    <div class="row">
+       <div class="m-2">
+          <p-table #dt [columns]="dataHeader6" [value]="UdiseVerification_6" [resizableColumns]="true" >
+          <ng-template pTemplate="header" let-distname>
+             <tr class="text-center">
+                <th *ngFor="let dataHeader6 of distname" [style.width]="dataHeader6.widthstyle">{{dataHeader6.header}}</th>
+             </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+             <tr class="text-center" *ngIf="!noDataFound6">
+                <td class="text-left">   {{ distwise.Labs_in_Higher_Secondary_Schools}} </td>
+                <td class="text-center"> {{ distwise.Govt}} </td>
+                <td class="text-center"> {{ distwise.Aided}} </td>
+                <td class="text-center"> {{ distwise.Unaided}} </td>
+                <td class="text-center"> {{ distwise.Central}} </td>
+                <td class="text-center"> {{ distwise.Others}} </td>
+                <td class="text-center font-weight-bold"> {{ distwise.Total}} </td>
+          </ng-template>
+          <ng-template pTemplate="footer">
+          <tr class="text-center" *ngIf="noDataFound6" >
+          <td colspan="7"> No Data Found </td>
+          </tr>
+          </ng-template>
+          </p-table>
+       </div>
+    </div>
+    <div class="row">
+       <div class="m-2">
+          <p-table #dt [columns]="dataHeader7" [value]="UdiseVerification_7" [resizableColumns]="true" >
+          <ng-template pTemplate="header" let-distname>
+             <tr class="text-center">
+                <th *ngFor="let dataHeader7 of distname" [style.width]="dataHeader7.widthstyle">{{dataHeader7.header}}</th>
+             </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+             <tr class="text-center" *ngIf="!noDataFound7">
+                <td class="text-left">   {{ distwise.Verification_Parameters}} </td>
+                <td class="text-center"> {{ distwise.Govt}} </td>
+                <td class="text-center"> {{ distwise.Aided}} </td>
+                <td class="text-center"> {{ distwise.Unaided}} </td>
+                <td class="text-center"> {{ distwise.Central}} </td>
+                <td class="text-center"> {{ distwise.Others}} </td>
+                <td class="text-center font-weight-bold"> {{ distwise.Total}} </td>
+          </ng-template>
+          <ng-template pTemplate="footer">
+          <tr class="text-center" *ngIf="noDataFound7" >
+          <td colspan="7"> No Data Found </td>
+          </tr>
+          </ng-template>
+          </p-table>
+       </div>
+    </div>
+ </div>

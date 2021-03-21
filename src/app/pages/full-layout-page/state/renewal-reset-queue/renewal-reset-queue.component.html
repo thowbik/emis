@@ -1,0 +1,43 @@
+<div class="container-fluid">
+    <div class="main-body-content m-2">  
+      <p-table #dt  [columns]="dataHeader" [value]="RenewalData" [resizableColumns]="true" >
+          <ng-template let-Renewal pTemplate="caption">
+            <div class="row p-1">
+              <div class="col-sm-6">
+                  <div class="text-lg-left mt-3">
+                    <h5>Renewal Reset Queue List</h5>
+                  </div>
+              </div>
+              <div class="col-sm-6 p-1">
+                  <div class="text-right">
+                       <input type="text" pInputText size="30" placeholder="Renewal Reset Queue Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                  </div>              
+               </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-Renewal>
+            <tr class="text-center">
+              <th class="sno-header-layout">S.No</th>
+              <th *ngFor="let col of Renewal" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-Renewal let-rowData let-columns="columns" let-i="rowIndex" >
+            <tr class="text-left">
+              <td class="sno-header-layout text-center"> {{i+1}} </td>
+              <td>test</td>
+              <td>test</td>
+              <td>test</td>
+              <td>test</td>
+              <td>test</td>
+              <td>test</td>
+              <td>test</td>
+              <td>test</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      
+      </div> 
+    </div>      

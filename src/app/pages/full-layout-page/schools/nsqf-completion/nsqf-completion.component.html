@@ -1,0 +1,97 @@
+<div class="main-body-content">
+    <div class="outer-layout flex-gap-top">
+<form [formGroup]="form">
+    <div class="row form-group col-lg-12">  
+        <div class="col-lg-4"> 
+          <label class="label">Job Role</label>  
+        </div>
+        <div class="col-lg-1"> 
+            <label class="label">  Class</label>
+        </div>
+        <div class="col-lg-1"> 
+            <label class="label">Feb</label> 
+         </div>
+         <div class="col-lg-1"> 
+          <label class="label">Mar</label>
+         </div>
+         <div class="col-lg-1"> 
+            <label class="label">  April</label>
+         </div>
+         <div class="col-lg-1"> 
+            <label class="label"> Theory hours </label>
+         </div>
+         <div class="col-lg-1"> 
+            <label class="label">    Theory % Completed </label>
+         </div>
+         <div class="col-lg-1"> 
+            <label class="label">   Practical hours</label>
+         </div>
+      
+         <div class="col-lg-1"> 
+            <label class="label">  Practical % Completed </label>
+         </div>
+    </div>
+    <div formArrayName="nqsfcompletion" *ngFor="let data of form.get('nqsfcompletion')['controls']; let i = index" class="flex-gap-bottom">
+      <div [formGroupName]="i">
+          <div class="col-lg-12 row">
+
+
+              <div class="col-lg-4">
+                <input type="text" pKeyFilter="pnum" maxlength="3" pInputText formControlName="JobRole" class="form-control">
+                  <!-- <p-dropdown [options]="schoolTypes" formControlName="JobRole" styleClass="select_dropdown" placeholder="Choose"></p-dropdown> -->
+                  <p-message severity="error" text="Field is required" *ngIf="data.controls.JobRole.errors && (submitted || data.controls.JobRole.dirty || data.controls.JobRole.touched)"></p-message>
+              </div>
+
+              <div class="col-md-1">
+                <input type="text" pKeyFilter="pnum" maxlength="3" pInputText formControlName="Class" class="form-control">
+                <p-message severity="error" text="Field is required" *ngIf="data.controls.Class.errors && (submitted || data.controls.Class.dirty || data.controls.Class.touched)"></p-message>
+            </div>
+              <div class="col-md-1">
+                  <input type="text" pKeyFilter="pnum" maxlength="3" pInputText formControlName="FEBWrkDays" class="form-control">
+                  <p-message severity="error" text="Field is required" *ngIf="data.controls.FEBWrkDays.errors && (submitted || data.controls.FEBWrkDays.dirty || data.controls.FEBWrkDays.touched)"></p-message>
+              </div>
+              <div class="col-md-1">
+                <input type="text" pKeyFilter="pnum" maxlength="3" pInputText formControlName="MARWrkDays" class="form-control">
+                <p-message severity="error" text="Field is required" *ngIf="data.controls.MARWrkDays.errors && (submitted || data.controls.MARWrkDays.dirty || data.controls.MARWrkDays.touched)"></p-message>
+            </div>
+            <div class="col-md-1">
+                <input type="text" pKeyFilter="pnum" maxlength="3" pInputText formControlName="APRWrkDays" class="form-control">
+                <p-message severity="error" text="Field is required" *ngIf="data.controls.APRWrkDays.errors && (submitted || data.controls.APRWrkDays.dirty || data.controls.APRWrkDays.touched)"></p-message>
+            </div>
+            <div class="col-md-1">
+                <input type="text" pKeyFilter="pnum" maxlength="3" pInputText formControlName="TheoryHrs" class="form-control">
+                <p-message severity="error" text="Field is required" *ngIf="data.controls.TheoryHrs.errors && (submitted || data.controls.TheoryHrs.dirty || data.controls.TheoryHrs.touched)"></p-message>
+            </div>
+            <div class="col-md-1">
+                <input type="text" pKeyFilter="pnum" maxlength="3" pInputText formControlName="TheoryPC" class="form-control">
+                <p-message severity="error" text="Field is required" *ngIf="data.controls.TheoryPC.errors && (submitted || data.controls.TheoryPC.dirty || data.controls.TheoryPC.touched)"></p-message>
+            </div>
+            <div class="col-md-1">
+                <input type="text" pKeyFilter="pnum" maxlength="3" pInputText formControlName="PractclHrs" class="form-control">
+                <p-message severity="error" text="Field is required" *ngIf="data.controls.PractclHrs.errors && (submitted || data.controls.PractclHrs.dirty || data.controls.PractclHrs.touched)"></p-message>
+            </div>
+            <div class="col-md-1">
+                <input type="text" pKeyFilter="pnum" maxlength="3" pInputText formControlName="PractclPC" class="form-control">
+                <p-message severity="error" text="Field is required" *ngIf="data.controls.PractclPC.errors && (submitted || data.controls.PractclPC.dirty || data.controls.PractclPC.touched)"></p-message>
+            </div>
+        
+
+
+
+       
+          </div>
+          <!-- <div class="col-lg-12 row">
+      <p-message severity="error"  text="Field is required" *ngIf="libraryData.controls.num_books.errors && (submitted || libraryError || libraryData.controls.num_books.dirty || libraryData.controls.num_books.touched)"></p-message>
+  </div> -->
+
+      </div>
+
+  </div>
+  <div class="form-group form-group-button row">
+  <div class="col-lg-2 submit">
+    <button type="submit" class="btn btn-success" (click)="save()">Save</button>
+  </div>
+  </div>
+  </form>
+    </div>
+</div>

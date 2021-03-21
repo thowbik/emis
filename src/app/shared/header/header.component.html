@@ -1,0 +1,163 @@
+<!-- <div class="content-header"> -->
+    <!-- <div class="notification-block">
+        <p>
+            <span><b>4</b> Notifications</span>
+            <i class="flaticon-bell">
+                <span class="kt-badge kt-badge--danger"></span>
+            </i>
+        </p>
+    </div> -->
+
+   
+<!-- Page Section / Container -->
+
+
+<!-- <div class="page-title-section"> -->
+    <!--Page title section-->
+    <!-- <div>
+        <button pButton type="button" label="Click" (click)="toggleSidebar()"></button>
+        <i class="pi pi-check" style="font-size: 3em"></i>
+        <span>abc</span>
+    </div> -->
+    <!-- <h3></h3> -->
+    <!--breadcrumb section-->
+    <!-- <app-breadcrumb></app-breadcrumb> -->
+<!-- </div> -->
+
+<div class="topbar clearfix" *ngIf="emisUserType == 1">
+    <div class="topbar-left kt-aside__brand-logo">
+        <img alt="Logo" src="assets/media/logos/emis_logo.png"/>
+    </div>
+    <div class="topbar-right">
+        <a id="menu-button" class="url"
+           [ngClass]="{'menu-button-rotate': app.rotateMenuButton}">
+            <i class="fa fa-angle-left" (click)="toggleMenu($event)" ></i>
+       </a>
+        <!-- <a id="topbar-menu-button" href="#" (click)="app.onTopbarMenuButtonClick($event)">
+            <i class="topbar-icon fa fa-angle-down url drop-c-b flex-gap-right"></i>
+        </a> -->
+  
+       
+        <div class="profile-band">
+            <div class="profile-band-block">
+                <div class="profile-img">
+                    <img src="assets/img/school-campus.svg" alt="Profile Image" />
+                </div>
+                <p>
+                    <span>{{instDistrict}}</span>
+                    <span>{{userName}}</span>
+                </p>
+                
+            </div>
+            <div class="profile-band-block">
+                <div class="profile-img pro-sec">
+                    <img src="assets/img/user.png" class="img-fluid" alt="Profile Image" />
+                </div>
+                <p>
+                    <span>{{schoolName}}</span>
+                    <span>{{userType}}</span>
+                </p>
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                    <div class="dropdown-menu school-dropdown" aria-labelledby="dropdownMenuButton">
+                        <div class="kt-notification kt-scroll" data-scroll="true" data-height="210" data-mobile-height="200">
+                            <a href="/reset-password" class="kt-notification__item" (click)="resetPassword()">
+                                <div class="kt-notification__item-icon">
+                                    <i class="fa fa-key" aria-hidden="true"></i>
+                                </div>
+                                <div class="kt-notification__item-details">
+                                    <div class="kt-notification__item-title">
+                                        Reset Password
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="#" class="kt-notification__item" (click)="onLogout()">
+                                <div class="kt-notification__item-icon">
+                                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                </div>
+                                <div class="kt-notification__item-details">
+                                    <div class="kt-notification__item-title">
+                                        Logout
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="topbar clearfix" *ngIf="emisUserType != 1">
+     
+
+    <div class="topbar-left kt-aside__brand-logo">
+        <img alt="Logo" src="assets/media/logos/emis_logo.png"/>
+    </div>
+     
+       
+    <div class="topbar-right">
+        <div>
+        <a id="menu-button" class="url"
+           [ngClass]="{'menu-button-rotate': app.rotateMenuButton}">
+            <i class="fa fa-angle-left" (click)="toggleMenu()"></i>
+       </a>
+        <!-- <a id="topbar-menu-button" href="#" (click)="app.onTopbarMenuButtonClick($event)">
+            <i class="fa fa-bars"></i>
+        </a> -->
+    </div>
+        <div class="profile-band topbar-items fadeInDown" style="display: flex;
+        flex-direction: row;
+        align-items: center;place-content: center;">
+            <div class="profile-band">
+                <div class="profile-band-block">
+                    <div class="profile-img pro-sec">
+                        <img src="assets/img/user.png" class="img-fluid" alt="Profile Image" />
+                    </div>
+                    <p>
+                        <span>{{userName}}</span>
+                    </p>
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu state-dropdown" aria-labelledby="dropdownMenuButton">
+                            <div class="kt-notification kt-scroll" data-scroll="true" data-height="210" data-mobile-height="200">
+                                <a href="/reset-password" class="kt-notification__item" (click)="resetPassword()">
+                                    <div class="kt-notification__item-icon">
+                                        <i class="fa fa-key" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="kt-notification__item-details">
+                                        <div class="kt-notification__item-title">
+                                            Reset Password
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#" class="kt-notification__item" (click)="onLogout()">
+                                    <div class="kt-notification__item-icon">
+                                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="kt-notification__item-details">
+                                        <div class="kt-notification__item-title">
+                                            Logout
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <p-menu #menu [popup]="true" [model]="items"></p-menu>
+           <!-- <i class="fa fa-angle-down url" style="font-size:24px;padding-right: 15px;
+           padding-left: 9px;" (click)="menu.toggle($event)"></i> -->
+        </div> 
+    </div>
+     
+
+</div>
+
+
+
+
+

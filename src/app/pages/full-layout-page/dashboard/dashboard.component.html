@@ -1,0 +1,1209 @@
+<div class="main-body-content dashboard-panel">
+    <div class="row m-0">
+        <!-- <div class="col-lg-3 col-md-6">
+			<div class="kt-portlet kt-iconbox">
+				<div class="kt-portlet__body ">
+					<div class="kt-iconbox__body">
+						<p-card (click)="showDialog()">
+							<div class="kt_icon_block">
+								<div class="kt-iconbox__icon" (click)="showDialog()">
+									<div class="profile-img"><img src="assets/img/student-with-graduation-cap.svg" alt="Profile Image" class="img-fluid" (click)="showDialog()"> </div>
+								</div>
+								<div class="kt-iconbox__desc">
+									<div class="kt-iconbox__content">
+										<p data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Students">Total Students</p>
+									</div>
+									<h3 class="kt-iconbox__title" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="13,121,158">{{overAllStudentsTotal}}</h3> </div>
+							</div>
+						</p-card>
+						<div class="kt_icon_content_block">
+							<p-card>
+								<p><span>Boys</span> <b>{{overAllStudentsTotalBoys}}</b></p>
+							</p-card>
+						
+							<p-card>
+								<p><span>Girls</span> <b>{{overAllStudentsTotalGirls}}</b></p>
+							</p-card>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+        </div> -->
+
+        <div class="col-lg-3 col-md-6">
+            <div class="kt-portlet kt-iconbox">
+                <div class="kt-portlet__body ">
+                    <div class="kt-iconbox__body">
+                        <p-card (click)="showDialog()">
+                            <div class="kt_icon_block">
+                                <div class="kt-iconbox__icon" (click)="showDialog()">
+                                    <div class="profile-img"><img src="assets/img/student-with-graduation-cap.svg"
+                                            alt="Profile Image" class="img-fluid" (click)="showDialog()"> </div>
+
+                                </div>
+                                <div class="kt-iconbox__desc">
+                                    <div class="kt-iconbox__content lablehead">
+                                        <p data-toggle="tooltip" data-placement="bottom" title=""
+                                            data-original-title="Students">Total Students</p>
+                                    </div>
+                                    <h3 class="kt-iconbox__title" data-toggle="tooltip" data-placement="bottom" title=""
+                                        data-original-title="13,121,158">{{overAllStudentsTotal}}</h3>
+                                </div>
+                            </div>
+                        </p-card>
+                        <div class="kt_icon_content_block">
+                            <p-card>
+                                <p><span class="flex-width">Boys</span> <b>{{overAllStudentsTotalBoys}}</b></p>
+                            </p-card>
+                            <p-card>
+                                <p><span class="flex-width">Girls</span> <b>{{overAllStudentsTotalGirls}}</b></p>
+                            </p-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-3 col-md-6">
+            <div class="kt-portlet kt-iconbox">
+                <div class="kt-portlet__body">
+                    <div class="kt-iconbox__body ">
+                        <p-card (click)="showDialog1()">
+                            <div class="kt_icon_block">
+                                <div class="kt-iconbox__icon" (click)="showDialog1()">
+                                    <div class="profile-img"> <img src="assets/img/student-with-graduation-cap.svg"
+                                            alt="Profile Image" class="img-fluid" (click)="showDialog1()"> </div>
+                                </div>
+                                <div class="kt-iconbox__desc">
+                                    <div class="kt-iconbox__content">
+                                        <p data-toggle="tooltip" data-placement="bottom" title=""
+                                            data-original-title="Total Students">Total Staff</p>
+                                    </div>
+                                    <h3 class="kt-iconbox__title" data-toggle="tooltip" data-placement="bottom" title=""
+                                        data-original-title="13,121,158">{{overAllStaffTotal}}</h3>
+                                </div>
+                            </div>
+                        </p-card>
+                        <div class="kt_icon_content_block">
+                            <p-card>
+                                <p><span class="flex-width">Male</span> <b>{{overAllStaffTotalGents}}</b></p>
+                            </p-card>
+                            <p-card>
+                                <p><span class="flex-width">Female</span> <b>{{overAllStaffTotalLadies}}</b></p>
+                            </p-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="kt-portlet kt-iconbox aadhar-layout">
+                <div class="kt-portlet__body">
+                    <div class="kt-iconbox__body">
+                        <!-- <p-card>
+                  <div class="kt_icon_block">
+                      <div class="kt-iconbox__icon">
+                          <div class="profile-img">
+                              <img src="assets/img/student-with-graduation-cap.svg" alt="Profile Image"
+                                  class="img-fluid">
+                          </div>
+                      </div>
+                      <div class="kt-iconbox__desc">
+                          <div class="kt-iconbox__content">
+                              <p data-toggle="tooltip" data-placement="bottom" title=""
+                                  data-original-title="Total Students">Total Staff</p>
+                          </div>
+                          <h3 class="kt-iconbox__title" data-toggle="tooltip" data-placement="bottom"
+                              title="" data-original-title="13,121,158">{{overAllStaffTotal}}</h3>
+                      </div>
+                  </div>
+                  </p-card> -->
+                        <div class="kt_icon_content_block">
+                            <p-card>
+                                <p class="url-link url" (click)="goToInvalidAadhar()"><span class="flex-width">Invalid
+                                        Aadhar</span> <b>{{inValidAadharCount}}</b> </p>
+                            </p-card>
+                            <p-card>
+                                <p class="url-link url" (click)="goToInvalidPhone()"><span class="flex-width">Invalid
+                                        Phone no.</span> <b>{{inValidPhoneCount ? inValidPhoneCount : '0'}}</b> </p>
+                            </p-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="kt-portlet kt-iconbox">
+                <div class="kt-portlet__body ">
+                    <div class="kt-iconbox__body">
+                        <p-card>
+                            <div class="kt_icon_block">
+                                <div class="kt-iconbox__icon">
+                                    <div class="profile-img "> <img src="assets/img/student-with-graduation-cap.svg"
+                                            alt="Profile Image" class="img-fluid"> </div>
+                                </div>
+                                <div class="kt-iconbox__desc">
+                                    <div class="kt-iconbox__content " style="margin-right: -31px !important;">
+                                        <p data-toggle="tooltip" data-placement="bottom" title=""
+                                            data-original-title="Total Students">New Admission</p>
+                                    </div>
+                                    <h3 *ngIf="tranferstudentdata" class="kt-iconbox__title" data-toggle="tooltip"
+                                        data-placement="bottom" title="" data-original-title="13,121,158">
+                                        {{Studenttranferlength+Studenttranferfresslength}}</h3>
+                                    <h3 *ngIf="!tranferstudentdata" class="kt-iconbox__title" data-toggle="tooltip"
+                                        data-placement="bottom" title="" data-original-title="13,121,158">
+                                        {{Studenttranferlength+Studenttranferfresslength}}</h3>
+                                </div>
+                            </div>
+                        </p-card>
+                        <div class="kt_icon_content_block">
+                            <p-card>
+                                <p class="url-link url" (click)="goTotranferdetails()"><span
+                                        class="flex-width">Transfer</span> <b>{{Studenttranferlength}}</b></p>
+                            </p-card>
+                            <p-card>
+                                <p class="url-link url" (click)="goTotranferfreshdetails()"><span
+                                        class="flex-width">Fresh</span> <b>{{Studenttranferfresslength}}</b></p>
+                            </p-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><br><br>
+
+    <div class="row m-0" style="padding: 10px;
+    font-weight: 700;font-size:15px" *ngIf="cateId == 3 || cateId == 5 || cateId == 6 || cateId == 7 || cateId == 8 || cateId == 9 || cateId == 10">
+        School Reopening - Consent Formats
+    </div>
+    
+    <div class="row m-0" *ngIf="cateId == 3 || cateId == 5 || cateId == 6 || cateId == 7 || cateId == 8 || cateId == 9 || cateId == 10">
+        <!-- Downloads Files -->
+        <div class="col-lg-3 col-md-6">
+            <div class="kt-portlet kt-iconbox aadhar-layout">
+                <div class="kt-portlet__body">
+                    <div class="kt-iconbox__body">
+                        <div class="kt_icon_content_block">
+                            <p-card>
+                                <p class="url-link url"><span class="flex-width-download">
+                                    1. Parent Consent form (Tamil)</span> <a href="{{download1}}" target="_blank">- Download</a> 
+                                    <!-- 1. Parent Consent form (Tamil)</span> <a (click)="downloadVideo('selected_book_80%_I-V-STD.pdf')">- Download</a>  -->
+                                 </p>
+                            </p-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="kt-portlet kt-iconbox aadhar-layout">
+                <div class="kt-portlet__body">
+                    <div class="kt-iconbox__body">
+                        <div class="kt_icon_content_block">
+                            <p-card>
+                                <p class="url-link url" ><span class="flex-width-download">
+                                    2. School Consent form (English)</span><a href="{{download2}}" target="_blank">- Download</a></p>
+                            </p-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="kt-portlet kt-iconbox aadhar-layout">
+                <div class="kt-portlet__body">
+                    <div class="kt-iconbox__body">
+                        <div class="kt_icon_content_block">
+                            <p-card >
+                                <p class="url-link url"><span class="flex-width-download">
+                                    3. School Consent form (Tamil)</span><a href="{{download3}}" target="_blank">- Download</a></p>
+                                    
+                            </p-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="kt-portlet kt-iconbox aadhar-layout">
+                <div class="kt-portlet__body">
+                    <div class="kt-iconbox__body">
+                        <div class="kt_icon_content_block">
+                            <p-card>
+                                <p class="url-link url"><span class="flex-width-download">
+                                    4. Health Profile of Students(English)</span><a href="{{download4}}" target="_blank">- Download</a></p>
+                            </p-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="row m-0" style="padding: 10px;
+    font-weight: 700;font-size:15px" *ngIf="schoolTypeId == 1 || schoolTypeId == 2 || schoolTypeId == 4">
+        Library Book List For 20 Percentage
+    </div>
+    <div class="row m-0" *ngIf="schoolTypeId == 1 || schoolTypeId == 2 || schoolTypeId == 4">
+        <!-- Downloads Files -->
+        <div class="col-lg-3 col-md-6">
+            <div class="kt-portlet kt-iconbox aadhar-layout1">
+                <div class="kt-portlet__body">
+                    <div class="kt-iconbox__body">
+                        <div class="kt_icon_content_block">
+                            <p-card>
+                                <p class="url-link url "><span class="flex-width-download">
+                                    <!-- 1. Book List (I-V)</span> <a href="{{download1}}" target="_blank">- Download</a>   -->
+                                    1. Book List (I-V)</span> <a style="color:#007ad9" (click)="downloadVideo('Selected_books-20%-I-V.pdf')">- Download</a> 
+                                 </p>
+                            </p-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="kt-portlet kt-iconbox aadhar-layout1">
+                <div class="kt-portlet__body">
+                    <div class="kt-iconbox__body">
+                        <div class="kt_icon_content_block">
+                            <p-card>
+                                <p class="url-link url" ><span class="flex-width-download">
+                                    2. Book List (IX-XII)</span> <a style="color:#007ad9" (click)="downloadVideo('Selected_books_20%-IX-XII.pdf')">- Download</a> 
+                                    </p>
+                            </p-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="row m-0" style="padding: 10px;
+    font-weight: 700;font-size:15px" *ngIf="schoolTypeId == 1 || schoolTypeId == 2 || schoolTypeId == 4">
+        Library Book List For 80 Percentage
+    </div>
+    <div class="row m-0" *ngIf="schoolTypeId == 1 || schoolTypeId == 2 || schoolTypeId == 4">
+        <!-- Downloads Files -->
+        <div class="col-lg-3 col-md-6">
+            <div class="kt-portlet kt-iconbox aadhar-layout1">
+                <div class="kt-portlet__body">
+                    <div class="kt-iconbox__body">
+                        <div class="kt_icon_content_block">
+                            <p-card>
+                                <p class="url-link url"><span class="flex-width-download">
+                                    <!-- 1. Book List (I-V)</span> <a href="{{download1}}" target="_blank">- Download</a>   -->
+                                    1. Book List (I-V)</span> <a style="color:#007ad9" (click)="downloadVideo('selected_book_80%_I-V-STD.pdf')">- Download</a> 
+                                 </p>
+                            </p-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="kt-portlet kt-iconbox aadhar-layout1">
+                <div class="kt-portlet__body">
+                    <div class="kt-iconbox__body">
+                        <div class="kt_icon_content_block">
+                            <p-card>
+                                <p class="url-link url" ><span class="flex-width-download">
+                                    2. Book List(VI-VIII)</span> <a style="color:#007ad9" (click)="downloadVideo('Selected_books_80%-VI-VIII.pdf')">- Download</a> 
+                                    </p>
+                            </p-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="kt-portlet kt-iconbox aadhar-layout1">
+                <div class="kt-portlet__body">
+                    <div class="kt-iconbox__body">
+                        <div class="kt_icon_content_block">
+                            <p-card >
+                                <p class="url-link url"><span class="flex-width-download">
+                                    3. Book List (IX-XII)</span> <a style="color:#007ad9" (click)="downloadVideo('Selected books-80%-IX-XII.pdf')">- Download</a> 
+                                </p>
+                                    
+                            </p-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+    <div class="row m-0">
+        <div class="col-lg-12 pl-0">
+            <div class="row mb-2">
+                <div class="col-lg-9 col-sm-6 col-md-8 col-12">
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-6 col-md-4 col-12 h-90"> </div>
+                        <div class="col-lg-4 col-sm-6 col-md-4 col-12 h-90">
+                            <!-- <p-card>
+                         <div class="kt-portlet kt-iconbox">
+                             <div class="kt-portlet__body h-90">
+                                 <div class="kt-iconbox__body">
+                         
+                                         <div class="kt_icon_block">
+                                             <div class="kt-iconbox__icon">
+                                                 <div class="profile-img">
+                                                     <img src="assets/img/student-with-graduation-cap.svg" alt="Profile Image"
+                                                         class="img-fluid">
+                                                 </div>
+                                             </div>
+                                             <div class="kt-iconbox__desc">
+                                                 <div class="kt-iconbox__content">
+                                                     <p data-toggle="tooltip" data-placement="bottom" title=""
+                                                         data-original-title="Students">Pending Student Request</p>
+                                                 </div>
+                                                 <h3 class="kt-iconbox__title" data-toggle="tooltip" data-placement="bottom"
+                                                     title="" data-original-title="13,121,158">{{pendingRequest}}</h3>
+                                             </div>
+                                         </div>
+                         
+                         
+                         
+                                 </div>
+                             </div>
+                         </div>
+                         </p-card> -->
+                        </div>
+                        <!-- <div class="col-lg-4 col-sm-6 col-md-4 col-12 h-90">
+                      <p-card>
+                          <div class="kt-portlet kt-iconbox kt-bottom">
+                              <div class="kt-portlet__body">
+                                  <div class="kt-iconbox__body">
+                                      <div class="kt_icon_block kt-menu-list">
+                      
+                                          <div class="kt-iconbox__icon kt-btm-block">
+                                              <div class="profile-img">
+                                                  <img src="assets/img/calendar.svg" alt="Profile Image" class="img-fluid">
+                                              </div>
+                                          </div> -->
+                        <!-- <div class="kt-iconbox__desc"> -->
+                        <!-- <div class="kt-iconbox__content"> -->
+                        <!-- <p>Time Table</p> -->
+                        <!-- </div> -->
+                        <!-- <p class="link-url" (click)="goToMaster()">Master TimeTable</p> -->
+                        <!-- <p class="link-url" (click)="goToWeekly()">Weekly TimeTable</p> -->
+                        <!-- <p class="link-url" (click)="goToToday()">Today's TimeTable</p> -->
+                        <!-- <p class="kt-iconbox__title" data-toggle="tooltip" data-placement="bottom"
+                      title="" data-original-title="13,121,158">Weekly TimeTable</p>
+                      <p class="kt-iconbox__title" data-toggle="tooltip" data-placement="bottom"
+                      title="" data-original-title="13,121,158">Today TimeTable</p> -->
+                        <!-- </div> -->
+                        <!-- </div> -->
+                        <!-- </p-card> -->
+                        <!-- </div> -->
+                        <!-- </div> -->
+                        <!-- </div> -->
+                        <!-- </p-card> -->
+                        <!-- </div> -->
+                    </div>
+                </div>
+            </div>
+            <!-- table -->
+            <!-- 
+             <div class="row">
+                 <div class="col-lg-6 has-chart">
+                     <p-card>
+                         <h5>Student Attendance</h5>
+                         <p-tabView>
+                             <p-tabPanel header="Day">
+                                 <p-table class="prime-table" [value]="studentAttendanceDayList"
+                                             [style]="{'width':'250px !important'}" [autoLayout]="true"
+                                             [resizableColumns]="true" [scrollable]="true" scrollHeight="500px"
+                                             scrollWidth="100px">
+                                             <ng-template pTemplate="header">
+                                                 <tr class="align">
+                                                     <th>Student</th>
+                                                     <th>Boys</th>
+                                                     <th>Girls</th>
+                                                     <th>Overall</th>
+             
+                                                 </tr>
+                                             </ng-template>
+                                             <ng-template pTemplate="body" let-data>
+             
+                                                 <tr class="align">
+                                                     <td>Present</td>
+                                                     <td>{{data.malepre}} %</td>
+                                                     <td>{{data.femalepre}} %</td>
+                                                     <td>{{data.overallpre}} %</td>
+             
+                                                 </tr> -->
+            <!-- <tr>
+             <td>Absent</td>
+             <td>{{data.maleab}} %</td>
+             <td>{{data.femaleab}} %</td>
+             <td>{{data.overallab}} %</td>
+             
+             </tr> -->
+            <!-- 
+             </ng-template>
+             </p-table>
+             <div class="row">
+             <div class="col-lg-6">
+             <p-table [value]="studaytop">
+             <ng-template pTemplate="header">
+                 <tr>
+                     <th colspan="2" class="align">Top 5</th>
+             
+                 </tr>
+             </ng-template>
+             <ng-template pTemplate="body" let-studay>
+                 <tr class="align">
+                     <td style="color:green">{{studay.st_class}}   {{studay.st_section}}</td>
+                     <td style="color:green">{{studay.clspre}} %</td>
+                 </tr>
+              </ng-template>
+             </p-table>
+             </div>
+             <div class="col-lg-6">
+             <p-table [value]="studaybot">
+             <ng-template pTemplate="header">
+                 <tr>
+             
+                     <th colspan="2" class="align">Bottom 5</th>
+                 </tr>
+             </ng-template>
+             <ng-template pTemplate="body" let-studay>
+                 <tr class="align">
+                     <td style="color:red">{{studay.st_class}}   {{studay.st_section}}</td>
+                     <td style="color:red">{{studay.clspre}} %</td>
+                 </tr>
+              </ng-template>
+             </p-table>
+             </div>
+             </div>
+             </p-tabPanel>
+             <p-tabPanel header="Week">
+             <p-table class="prime-table" [value]="studentAttendanceWeekList"
+             [style]="{'width':'250px !important'}" [autoLayout]="true"
+             [resizableColumns]="true" [scrollable]="true" scrollHeight="500px"
+             scrollWidth="100px">
+             <ng-template pTemplate="header">
+             <tr class="align">
+             <th>Student</th>
+             <th>Boys</th>
+             <th>Girls</th>
+             <th>Overall</th>
+             
+             </tr>
+             </ng-template>
+             <ng-template pTemplate="body" let-data>
+             
+             <tr class="align">
+             <td>Present</td>
+             <td>{{data.malepre}} %</td>
+             <td>{{data.femalepre}} %</td>
+             <td>{{data.overallpre}} %</td>
+             
+             </tr> -->
+            <!-- <tr>
+             <td>Absent</td>
+             <td>{{data.maleab}} %</td>
+             <td>{{data.femaleab}} %</td>
+             <td>{{data.overallab}} %</td>
+             
+             </tr> -->
+            <!-- 
+             </ng-template>
+             </p-table>
+             <div class="row">
+             <div class="col-lg-6">
+             <p-table [value]="stuweektop">
+             <ng-template pTemplate="header">
+                 <tr>
+                     <th colspan="2" class="align">Top 5</th>
+             
+                 </tr>
+             </ng-template>
+             <ng-template pTemplate="body" let-stuweek>
+                 <tr class="align">
+                     <td style="color:green">{{stuweek.st_class}}   {{stuweek.st_section}}</td>
+                     <td style="color:green">{{stuweek.clspre}} %</td>
+             
+                 </tr>
+              </ng-template>
+             </p-table>
+             </div>
+             <div class="col-lg-6">
+             <p-table [value]="stuweekbot">
+                 <ng-template pTemplate="header">
+                     <tr>
+             
+                         <th colspan="2" class="align">Bottom 5</th>
+                     </tr>
+                 </ng-template>
+                 <ng-template pTemplate="body" let-stuweek>
+                     <tr class="align">
+             
+                         <td style="color:red">{{stuweek.st_class}}   {{stuweek.st_section}}</td>
+                         <td style="color:red">{{stuweek.clspre}} %</td>
+                     </tr>
+                  </ng-template>
+             </p-table>
+             </div>
+             </div>
+             </p-tabPanel>
+             <p-tabPanel header="Month">
+             <p-table class="prime-table" [value]="studentAttendanceMonthList"
+                         [style]="{'width':'250px !important'}" [autoLayout]="true"
+                         [resizableColumns]="true" [scrollable]="true" scrollHeight="500px"
+                         scrollWidth="100px">
+                         <ng-template pTemplate="header">
+                             <tr class="align">
+                                 <th>Student</th>
+                                 <th>Boys</th>
+                                 <th>Girls</th>
+                                 <th>Overall</th>
+             
+                             </tr>
+                         </ng-template>
+                         <ng-template pTemplate="body" let-data>
+             
+                             <tr class="align">
+                                 <td>Present</td>
+                                 <td>{{data.malepre}} %</td>
+                                 <td>{{data.femalepre}} %</td>
+                                 <td>{{data.overallpre}} %</td>
+             
+                             </tr> -->
+            <!-- <tr>
+             <td>Absent</td>
+             <td>{{data.maleab}} %</td>
+             <td>{{data.femaleab}} %</td>
+             <td>{{data.overallab}} %</td>
+             
+             </tr> -->
+            <!-- </ng-template>
+             </p-table>
+             <div class="row">
+                 <div class="col-lg-6">
+             <p-table [value]="stumonthtop">
+                 <ng-template pTemplate="header">
+                     <tr>
+                         <th colspan="2" class="align">Top 5</th>
+             
+                     </tr>
+                 </ng-template>
+                 <ng-template pTemplate="body" let-stumonth>
+                     <tr class="align">
+                         <td style="color:green">{{stumonth.st_class}}   {{stumonth.st_section}}</td>
+                         <td style="color:green">{{stumonth.clspre}} %</td>
+             
+                     </tr>
+                  </ng-template>
+             </p-table>
+             </div>
+             <div class="col-lg-6">
+                 <p-table [value]="stumonthbot">
+                     <ng-template pTemplate="header">
+                         <tr>
+             
+                             <th colspan="2" class="align">Bottom 5</th>
+                         </tr>
+                     </ng-template>
+                     <ng-template pTemplate="body" let-stumonth>
+                         <tr class="align">
+             
+                             <td style="color:red">{{stumonth.st_class}}   {{stumonth.st_section}}</td>
+                             <td style="color:red">{{stumonth.clspre}} %</td>
+                         </tr>
+                      </ng-template>
+                 </p-table>
+             </div>
+             </div>
+             </p-tabPanel>
+             <p-tabPanel header="Quarterly">
+             <p-table class="prime-table" [value]="studentAttendanceQuaterlyList"
+             [style]="{'width':'250px !important'}" [autoLayout]="true"
+             [resizableColumns]="true" [scrollable]="true" scrollHeight="500px"
+             scrollWidth="100px">
+             <ng-template pTemplate="header">
+             <tr class="align">
+             <th>Student</th>
+             <th>Boys</th>
+             <th>Girls</th>
+             <th>Overall</th>
+             
+             </tr>
+             </ng-template>
+             <ng-template pTemplate="body" let-data>
+             
+             <tr class="align">
+             <td>Present</td>
+             <td>{{data.malepre}} %</td>
+             <td>{{data.femalepre}} %</td>
+             <td>{{data.overallpre}} %</td>
+             
+             </tr> -->
+            <!-- <tr>
+             <td>Absent</td>
+             <td>{{data.maleab}} %</td>
+             <td>{{data.femaleab}} %</td>
+             <td>{{data.overallab}} %</td>
+             
+             </tr> -->
+            <!-- 
+             </ng-template>
+             </p-table>
+             <div class="row">
+             <div class="col-lg-6">
+             <p-table [value]="stuquattop">
+             <ng-template pTemplate="header">
+                 <tr>
+                     <th colspan="2" class="align">Top 5</th>
+             
+                 </tr>
+             </ng-template>
+             <ng-template pTemplate="body" let-stuquat>
+                 <tr class="align">
+                     <td style="color:green">{{stuquat.st_class}}   {{stuquat.st_section}}</td>
+                     <td style="color:green">{{stuquat.clspre}} %</td>
+             
+                 </tr>
+              </ng-template>
+             </p-table>
+             </div>
+             <div class="col-lg-6">
+             <p-table [value]="stuquatbot">
+                 <ng-template pTemplate="header">
+                     <tr>
+             
+                         <th colspan="2" class="align">Bottom 5</th>
+                     </tr>
+                 </ng-template>
+                 <ng-template pTemplate="body" let-stuquat>
+                     <tr class="align">
+             
+                         <td style="color:red">{{stuquat.st_class}}   {{stuquat.st_section}}</td>
+                         <td style="color:red">{{stuquat.clspre}} %</td>
+                     </tr>
+                  </ng-template>
+             </p-table>
+             </div>
+             </div>
+             </p-tabPanel>
+             </p-tabView>
+             </p-card>
+             <div class="has-chart">
+             <p-card>
+             <h5>Facilities</h5>
+             <p-tabView>
+             <p-tabPanel header="Functional">
+             
+                 <p-table class="prime-table" [value]="funcFacilitiesList"
+                     [style]="{'width':'250px !important'}" [autoLayout]="true"
+                     [resizableColumns]="true" [scrollable]="true" scrollHeight="500px"
+                     scrollWidth="100px" [paginator]="false" [rows]="4">
+                     <ng-template pTemplate="header">
+                         <tr>
+                             <th>Facilities List</th>
+                             <th>Values</th>
+                         </tr>
+                     </ng-template>
+                     <ng-template pTemplate="body" let-data>
+             
+                         <tr>
+                             <td>Drinking Water</td>
+                             <td>{{data.drinkingwater}}</td>
+                         </tr>
+                         <tr>
+                             <td>Gents Toilet</td>
+                             <td>{{data.staffgentstoil}}</td>
+                         </tr>
+                         <tr>
+                             <td>Ladies Toilet</td>
+                             <td>{{data.staffladiestoil}}</td>
+                         </tr>
+                         <tr>
+                             <td>Gents Urinal</td>
+                             <td>{{data.staffgentsurinal}}</td>
+                         </tr>
+                         <tr>
+                             <td>Ladies Urinal</td>
+                             <td>{{data.staffladiesurinal}}</td>
+                         </tr>
+                         <tr>
+                             <td>Toilet Used by Boys</td>
+                             <td>{{data.usetoilboys}}</td>
+                         </tr>
+                         <tr>
+                             <td>Toilet Used by Girls</td>
+                             <td>{{data.usetoilgirls}}</td>
+                         </tr> -->
+            <!-- <tr>
+             <td>Toilet Not Used by Boys</td>
+             <td>{{data.toilnotuseboys}}</td>
+             </tr>
+             <tr>
+             <td>Toilet Not Used by Girls</td>
+             <td>{{data.toilnotusegirls}}</td>
+             </tr> -->
+            <!-- <tr>
+             <td>Urinals Used by Boys</td>
+             <td>{{data.urinalinuseboys}}</td>
+             </tr>
+             <tr>
+             <td>Urinals Used by Girls</td>
+             <td>{{data.urinalinusegirls}}</td>
+             </tr> -->
+            <!-- <tr>
+             <td>Urinals Not Used by Boys</td>
+             <td>{{data.urinalnotinuseboys}}</td>
+             </tr>
+             <tr>
+             <td>Urinals Not Used by Girls</td>
+             <td>{{data.urinalnotinusegirls}}</td>
+             </tr> -->
+            <!-- <tr>
+             <td>Incinerator</td>
+             <td>{{data.incinerator}}</td>
+             </tr>
+             
+             
+             </ng-template>
+             </p-table>
+             </p-tabPanel>
+             
+             <p-tabPanel header="Non-Functional">
+             <p-table class="prime-table" [value]="nonfuncFacilitiesList"
+             [style]="{'width':'250px !important'}" [autoLayout]="true" [paginator]="false"
+             [resizableColumns]="true" [rows]="4" [scrollable]="true" scrollHeight="600px"
+             scrollWidth="100px">
+             <ng-template pTemplate="header">
+             <tr>
+             <th>Facilities List</th>
+             <th>Values</th>
+             </tr>
+             </ng-template>
+             <ng-template pTemplate="body" let-data>
+             
+             <tr>
+             <td>Drinking Water</td>
+             <td>{{data.drinkingwater}}</td>
+             </tr>
+             <tr>
+             <td>Toilet Not Used by Boys</td>
+             <td>{{data.toilnotuseboys}}</td>
+             </tr>
+             <tr>
+             <td>Toilet Not Used by Girls</td>
+             <td>{{data.toilnotusegirls}}</td>
+             </tr>
+             <tr>
+             <td>Urinals Not Used by Boys</td>
+             <td>{{data.urinalnotinuseboys}}</td>
+             </tr>
+             <tr>
+             <td>Urinals Not Used by Girls</td>
+             <td>{{data.urinalnotinusegirls}}</td>
+             </tr>
+             <tr>
+             <td>Incinerator</td>
+             <td>{{data.incinerator}}</td>
+             </tr>
+             
+             
+             </ng-template>
+             </p-table>
+             </p-tabPanel>
+             </p-tabView>
+             </p-card>
+             </div>
+             </div>
+             <div class=" col-lg-6 has-chart">
+             <p-card>
+             <h5>Staff Attendance</h5>
+             <p-tabView>
+             <p-tabPanel header="Day">
+             <p-table class="prime-table" [value]="staffAttendanceDayList" [style]="{'width':'250px !important'}" [autoLayout]="true"
+             [resizableColumns]="true" [scrollable]="true" scrollHeight="500px"
+             scrollWidth="100px">
+             <ng-template pTemplate="header">
+             <tr class="align">
+             <th *ngFor="let col of staff">{{col.header}}</th>
+             </tr>
+             </ng-template>
+             <ng-template pTemplate="body" let-staffList>
+             <tr class="align">
+             <td *ngFor="let col of staff">{{staffList[col.field]}} %</td>
+             
+             </tr>
+             </ng-template>
+             </p-table>
+             <div class="row">
+             <div class="col-lg-6">
+             <p-table [value]="stafdaytop">
+             <ng-template pTemplate="header">
+             <tr>
+                 <th colspan="2" class="align">Top 5</th>
+             </tr>
+             </ng-template>
+             <ng-template pTemplate="body" let-stafday>
+             <tr>
+              <td style="color:green">{{stafday.teacher_name}}</td>
+              <td style="color:green" class="align">{{stafday.pper}} %</td>
+             
+             </tr>
+             </ng-template>
+             </p-table>
+             </div>
+             <div class="col-lg-6">
+             <p-table [value]="stafdaybot">
+             <ng-template pTemplate="header">
+             <tr>
+             
+                 <th colspan="2" class="align">Bottom 5</th>
+             </tr>
+             </ng-template>
+             <ng-template pTemplate="body" let-stafday>
+             <tr >
+              <td style="color:red">{{stafday.teacher_name}}</td>
+              <td style="color:red" class="align">{{stafday.pper}} %</td>
+             
+             </tr>
+             </ng-template>
+             </p-table>
+             </div>
+             </div> -->
+            <!-- <p-table [value]="stafdaytop">
+             <ng-template pTemplate="header">
+                 <tr>
+                     <th colspan="2" class="align">Top 5</th>
+                     <th colspan="2" class="align">Bottom 5</th>
+                 </tr>
+             </ng-template>
+             <ng-template pTemplate="body" let-stafday let-i="rowIndex">
+                 <tr>
+                  <td style="color:green">{{stafday.teacher_name}}</td>
+                  <td style="color:green">{{stafday.pper}}</td>
+                  <td style="color:red" >{{stafday.teacher_name}}</td>
+                  <td style="color:red">{{stafday.abcnt}} %</td>
+                 </tr>
+              </ng-template>
+             </p-table> -->
+            <!-- </p-tabPanel>
+             <p-tabPanel header="Week">
+                 <p-table
+                     class="prime-table" [value]="staffAttendanceWeekList"
+                             [style]="{'width':'250px !important'}" [autoLayout]="true"
+                             [resizableColumns]="true" [scrollable]="true" scrollHeight="500px"
+                             scrollWidth="100px">
+                     <ng-template pTemplate="header">
+                         <tr class="align">
+                             <th *ngFor="let col of staff1">{{col.header}}</th>
+                         </tr>
+                     </ng-template>
+                     <ng-template pTemplate="body" let-staffWeekList>
+                         <tr class="align">
+                             <td *ngFor="let col of staff1">{{staffWeekList[col.field]}} %</td>
+             
+                         </tr>
+                     </ng-template>
+                 </p-table>
+                 <div class="row">
+                     <div class="col-lg-6">
+                 <p-table [value]="stafweektop">
+                     <ng-template pTemplate="header">
+                         <tr>
+                             <th colspan="2" class="align">Top 5</th>
+                         </tr>
+                     </ng-template>
+                     <ng-template pTemplate="body" let-stafweek>
+                         <tr>
+                             <td style="color:green">{{stafweek.teacher_name}}</td>
+                             <td style="color:green" class="align">{{stafweek.teach_weekly_pre}}</td>
+                         </tr>
+                      </ng-template>
+                 </p-table>
+                 </div>
+                 <div class="col-lg-6">
+                     <p-table [value]="stafweekbot">
+                         <ng-template pTemplate="header">
+                             <tr>
+                                 <th colspan="2" class="align">Bottom 5</th>
+                             </tr>
+                         </ng-template>
+                         <ng-template pTemplate="body" let-stafweek>
+                             <tr >
+                                 <td style="color:red">{{stafweek.teacher_name}}</td>
+                                 <td style="color:red" class="align">{{stafweek.teach_weekly_pre}} %</td>
+                             </tr>
+                          </ng-template>
+                     </p-table>
+                     </div>
+                     </div>
+             </p-tabPanel>
+             <p-tabPanel header="Month">
+                     <p-table
+                     class="prime-table" [value]="staffAttendanceMonthList"
+                             [style]="{'width':'250px !important'}" [autoLayout]="true"
+                             [resizableColumns]="true" [scrollable]="true" scrollHeight="500px"
+                             scrollWidth="100px">
+                     <ng-template pTemplate="header">
+                         <tr class="align">
+                             <th *ngFor="let col of staff2">{{col.header}}</th>
+                         </tr>
+                     </ng-template>
+                     <ng-template pTemplate="body" let-staffList>
+                         <tr class="align">
+                             <td *ngFor="let col of staff2">{{staffList[col.field]}} %</td>
+             
+                         </tr>
+                     </ng-template>
+                 </p-table>
+                 <div class="row">
+                     <div class="col-lg-6">
+                 <p-table [value]="stafmonthtop">
+                     <ng-template pTemplate="header">
+                         <tr>
+                             <th colspan="2" class="align">Top 5</th>
+                         </tr>
+                     </ng-template>
+                     <ng-template pTemplate="body" let-stafmonth>
+                         <tr >
+                             <td style="color:green">{{stafmonth.teacher_name}}</td>
+                             <td style="color:green" class="align">{{stafmonth.teach_monthly_pre}}</td>
+                         </tr>
+                      </ng-template>
+                 </p-table>
+                 </div>
+                 <div class="col-lg-6">
+                     <p-table [value]="stafmonthbot">
+                         <ng-template pTemplate="header">
+                             <tr>
+                                 <th colspan="2" class="align">Bottom 5</th>
+                             </tr>
+                         </ng-template>
+                         <ng-template pTemplate="body" let-stafmonth>
+                             <tr >
+                                 <td style="color:red">{{stafmonth.teacher_name}}</td>
+                                 <td style="color:red" class="align">{{stafmonth.teach_monthly_pre}} %</td>
+                             </tr>
+                          </ng-template>
+                     </p-table>
+                 </div>
+             </div>
+             </p-tabPanel>
+             <p-tabPanel header="Quarterly">
+                     <p-table
+                     class="prime-table" [value]="staffAttendanceQuaterlyList"
+                             [style]="{'width':'250px !important'}" [autoLayout]="true"
+                             [resizableColumns]="true" [scrollable]="true" scrollHeight="500px"
+                             scrollWidth="100px">
+                     <ng-template pTemplate="header">
+                         <tr class="align">
+                             <th *ngFor="let col of staff3">{{col.header}}</th>
+                         </tr>
+                     </ng-template>
+                     <ng-template pTemplate="body" let-staffList>
+                         <tr class="align">
+                             <td *ngFor="let col of staff3">{{staffList[col.field]}} %</td>
+             
+                         </tr>
+                     </ng-template>
+                 </p-table>
+                 <div class="row">
+                     <div class="col-lg-6">
+                 <p-table [value]="stafquattop">
+                     <ng-template pTemplate="header">
+                         <tr>
+                             <th colspan="2" class="align">Top 5</th>
+             
+                         </tr>
+                     </ng-template>
+                     <ng-template pTemplate="body" let-stuquat>
+                         <tr>
+                             <td style="color:green">{{stuquat.teacher_name}}</td>
+                             <td style="color:green" class="align">{{stuquat.teach_yearly_pre}}</td>
+             
+                         </tr>
+                      </ng-template>
+                 </p-table>
+                 </div>
+                 <div class="col-lg-6">
+                     <p-table [value]="stafquatbot">
+                         <ng-template pTemplate="header">
+                             <tr >
+             
+                                 <th colspan="2" class="align">Bottom 5</th>
+                             </tr>
+                         </ng-template>
+                         <ng-template pTemplate="body" let-stuquat>
+                             <tr >
+             
+                                 <td style="color:red">{{stuquat.teacher_name}}</td>
+                                 <td style="color:red" class="align">{{stuquat.teach_yearly_pre}} %</td>
+                             </tr>
+                          </ng-template>
+                     </p-table>
+                     </div>
+                 </div>
+             </p-tabPanel>
+             </p-tabView>
+             </p-card>
+             </div>
+             </div>
+             
+             </div> -->
+            <!-- <div class="col-lg-3 pr-0">
+             <div class="table-content rht-crd">
+                 <div class="news-list-block">
+                     <div class="list-title">
+                         <div class="profile-img">
+                             <img src="assets/img/newspaper.svg" alt="Profile Image">
+                         </div>
+                         <span>News</span>
+                         <span data-toggle="modal" href="#news">See all</span>
+                     </div>
+                     <ul class="nws-txt">
+                         <li>
+                             <i class="flaticon2-right-arrow"></i>
+                             <span>பள்ளி சுயவிவர (School Profile) படிவம் </span>
+                         </li>
+                         <li>
+                             <i class="flaticon2-right-arrow"></i>
+                             <span> பள்ளியில் பணிபுரியும் ஆசிரியர்கள் மற்றும் அலுவலக பணியாளர்கள் சுயவிவர ( Teaching &amp;
+                                 Non Teaching Staff Details) படிவம்</span>
+                         </li>
+             
+                     </ul>
+                 </div>
+                 <div class="news-list-block">
+                     <div class="list-title">
+                         <div class="profile-img">
+                             <img src="assets/img/recent-link.svg" alt="Profile Image">
+                         </div>
+                         <span>Recent Links</span>
+             
+                     </div>
+                     <ul class="nws-txt">
+                         <li>
+                             <i class="flaticon2-right-arrow"></i>
+                             <span>Students in Common Pool </span>
+                         </li>
+                         <li>
+                             <i class="flaticon2-right-arrow"></i>
+                             <span>Student Migration Report</span>
+                         </li>
+                         <li>
+                             <i class="flaticon2-right-arrow"></i>
+                             <span>Non-meal Student Report</span>
+                         </li>
+                         <li>
+                             <i class="flaticon2-right-arrow"></i>
+                             <span>CWSN-Student Report</span>
+                         </li>
+                         <li>
+                             <i class="flaticon2-right-arrow"></i>
+                             <span>RTE-Student Report</span>
+                         </li>
+                     </ul>
+                 </div>
+             
+             </div>
+             </div> -->
+            <p-dialog [(visible)]="display" [contentStyle]="{'max-width':'500px'}">
+                <p-header class="dialog-align"> Student Details </p-header>
+                <p-card>
+                    <!-- <h5>Student Details</h5> -->
+                    <p-table #dt [columns]="selectedColumns" class="prime-table" [value]="studentCount"
+                        [style]="{'width':'250px !important'}" [autoLayout]="true" [paginator]="true"
+                        [resizableColumns]="true" [rows]="5" [scrollable]="true" scrollHeight="500px"
+                        scrollWidth="100px">
+                        <ng-template pTemplate="header" let-columns>
+                            <tr class="table-header align">
+                                <th style="width: 3em">#</th>
+                                <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                            <tr class="align">
+                                <td style="width: 3em">{{i+1}}</td>
+                                <td *ngFor="let col of columns" class="ui-resizable-column"> {{rowData[col.field]}}
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-card>
+            </p-dialog>
+            <p-dialog [(visible)]="display1" [contentStyle]="{'max-width':'600px'}">
+                <p-header class="dialog-align"> Staff Details </p-header>
+                <p-card>
+                    <!-- <h5>Staff Details</h5> -->
+                    <p-table #dt [columns]="staffDataHeader" class="prime-table" [value]="staffCount"
+                        [style]="{'width':'250px !important'}" [autoLayout]="true" [paginator]="true"
+                        [resizableColumns]="true" [rows]="4" [scrollable]="true" scrollHeight="500px"
+                        scrollWidth="100px">
+                        <ng-template pTemplate="header" let-columns>
+                            <tr class="table-header align">
+                                <th style="width: 3em">#</th>
+                                <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                            <tr class="align">
+                                <td style="width: 3em">{{i+1}}</td>
+                                <td *ngFor="let col of columns" class="ui-resizable-column"> {{rowData[col.field]}}
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-card>
+            </p-dialog>
+            <!-- Newadmissiondialog -->
+            <!-- <p-dialog [(visible)]="display1" [contentStyle]="{'max-width':'600px'}">
+                <p-header class="dialog-align">
+                    Student Details
+                </p-header>
+                <p-card> -->
+            <!-- <h5>Staff Details</h5> -->
+            <!-- <p-table #dt [columns]="NewStudentDataHeader" class="prime-table" [value]="staffCount" [style]="{'width':'250px !important'}" [autoLayout]="true" [paginator]="true" [resizableColumns]="true" [rows]="4" [scrollable]="true" scrollHeight="500px" scrollWidth="100px">
+                        <ng-template pTemplate="header" let-columns>
+                            <tr class="table-header align">
+                                <th style="width: 3em">#</th>
+                                <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                            <tr class="align">
+                                <td style="width: 3em">{{i+1}}</td>
+                                <td *ngFor="let col of columns" class="ui-resizable-column">
+                                    {{rowData[col.field]}}
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-card>
+                
+            </p-dialog> -->
+            <!-- count -->
+            <!-- <p-table [value]="Studenttranferlength"> </p-table>
+			<p-table [value]="Studenttranferfresslength"> </p-table> -->
+            <!-- NewAdmission Fourthsection -->
+            <!-- <div class="col-lg-3 col-sm-6 col-md-4 col-12 h-90 newadmission"> </div> -->
+        </div>
+    </div>

@@ -1,0 +1,77 @@
+<div class="main-body-content p-3">
+    <div class="outer-layout">
+       <div class="breadcrumbs c-black">
+          <h6 class="url">
+             <span class="flex-gap-right">Students</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+             <span class="flex-gap-right">Student Admission Approval </span>
+          </h6>
+       </div>
+    </div>
+    <p-card>
+       <div class="row p-2">
+          <div class="col-sm-8">
+             <!-- <h5 class="heading">Student Admission Approval</h5> -->
+          </div>
+          <div class="col-sm-3">
+             <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search" />
+          </div>
+          <div class="col-sm-1 p-2 text-right">
+             <i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="exportExcel()"></i>
+          </div>
+       </div>
+       <!-- <hr /> -->
+       <p-table #dt [columns]="student" [value]="StudentList" editMode="row" [rows]="10" dataKey="stud_id" [paginator]="true" [resizableColumns]="true" [lazy]="false" [globalFilterFields]="['stud_name','class','sec','schl_name','udise_code','aadhaar_uid_number','phone_number','admison_status','remrks']">
+       <ng-template pTemplate="header" let-distname>
+          <tr class="text-center">
+             <th class="sno-header-layout">#</th>
+             <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+             {{col.header}}
+             <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"> </p-sortIcon>
+             </th>
+          </tr>
+       </ng-template>
+       <ng-template pTemplate="header" let-distname>
+          <tr class="text-center">
+             <th class="sno-header-layout">#</th>
+             <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+             {{col.header}}
+             <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"> </p-sortIcon>
+             </th>
+          </tr>
+       </ng-template>
+       <ng-template pTemplate="body" let-StudentList let-editing="editing" let-ri="rowIndex">
+          <tr [pEditableRow]="StudentList">
+             <td class="sno-header-layous">{{ri+1}}</td>
+             <td class="text-left">{{StudentList.stud_name}}</td>
+             <td class="text-center">{{StudentList.class}}</td>
+             <td class="text-left">{{StudentList.sec}}</td>
+             <td class="text-left">{{StudentList.schl_name}}</td>
+             <td class="text-center">{{StudentList.udise_code}}</td>
+             <td class="text-center">{{StudentList.aadhaar_uid_number}}</td>
+             <td class="text-center">{{StudentList.phone_number}}</td>
+             <td class="text-left">{{StudentList.admison_status == "0" ? "Approved" : StudentList.admison_status == "3" ? "Admitted" : "Rejected"}}</td>
+             <td>
+                <p-cellEditor>
+                   <ng-template pTemplate="input">
+                      <input pInputText type="text" [(ngModel)]="StudentList.remrks" />
+                   </ng-template>
+                   <ng-template pTemplate="output"> {{StudentList.remrks}} </ng-template>
+                </p-cellEditor>
+             </td>
+             <td style="text-align: center;">
+                <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" class="ui-button-info" (click)="onRowEditInit(StudentList)"></button>
+                <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" class="ui-button-success" label="Approve" style="margin-right: 0.5em;" (click)="onRowEdit_Save(StudentList)"></button>
+                <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" class="ui-button-danger" label="Reject" (click)="onRowEditCancel(StudentList, ri)"></button>
+             </td>
+          </tr>
+       </ng-template>
+       <ng-template pTemplate="emptymessage" let-columns>
+          <tr>
+             <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                <strong>No Records Found </strong>
+             </td>
+          </tr>
+       </ng-template>
+       </p-table>
+    </p-card>
+ </div>

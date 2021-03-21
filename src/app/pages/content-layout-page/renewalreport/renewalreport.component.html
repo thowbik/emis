@@ -1,0 +1,127 @@
+<div class="card mb-0 txt-size">
+    <div class="border">
+        <div class=" hdr-clr">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="border-line">
+                        <div class="font-16 m-3 text-center">
+                            <h3><strong>RENEWAL OF CERTIFICATE OF RECOGNITION</strong></h3>
+                            <h4 *ngIf="this.dataDEO == true">District Educational Officer</h4>
+                            <h4 *ngIf="this.dataDEO == false">Chief Educational Officer</h4>
+                            <h4>{{ pdfdata.district_name }}</h4><br>
+                            <h4>R.C.No.: {{ pdfdata.order_rc_num }}/Dt.{{ pdfdata.order_date | date:'dd-MM-yyyy'}} </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-0 ui-card-body bng-clr box-shwd">
+            <div class="col-md-12 mt-3">
+                <ul>
+                    <li>Sub. : Renewal of Certificate of Recognition - Reg.</li>
+                    <li><span style="float:left;">Ref : </span><br />
+                        <ol style="float:left;">
+                            <li>Application from the Secretary / Correspondent 
+                                <strong><u>{{ pdfdata.school_name }} and {{ pdfdata.udise_code }}</u></strong> 
+                                for Recognition dated 
+                                <strong><u>{{ pdfdata.app_submit_date | date:'dd-MM-yyyy'}}</u></strong>.
+                            </li>
+                            <li><u *ngIf="this.dataBEO == true">Block Educational Officer,{{ pdfdata2[0].doc_file_num }},{{ pdfdata2[0].doc_file_date }},{{ pdfdata.block_name }}</u>
+                                <u *ngIf="this.dataBEO == false">District Educational Officer,{{ pdfdata2[0].doc_file_num }},{{ pdfdata2[0].doc_file_date }},{{ pdfdata.block_name }},{{ pdfdata.district_name }}</u>
+                            </li>
+                        </ol>
+                    </li>
+                </ul>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <p style="text-indent:2em;">The application for the Certificate of Recognition cited above, has been considered by the Competent Authority. The School has already been given Certificate of Recognition under Tamil Nadu Right of Children to Free and Compulsory Education Rules 2011 for classes <strong><u>{{ pdfdata.order_from_class }} to {{ pdfdata.order_to_class }}</u></strong>.</p>
+                    <p style="text-indent:2em;">Now the application has been received for renewal of certificate of recognition for classes <strong>
+                        <u>{{ pdfdata.order_from_class }} to {{ pdfdata.order_to_class }}</u></strong>.</p>
+                    <p style="text-indent:2em;">After perusing the applications, documents and visit reports, the Competent Authority is satisfied that the Educational Agency has fulfilled the conditions prescribed for the Renewal of Recognition.</p>
+                    <p style="text-indent:2em;">Therefore, the competent Authority hereby renews the certificates of recognition to the above said school for the classes <strong><u>{{ pdfdata.order_from_class }} to {{ pdfdata.order_to_class }}</u></strong> with effect from <strong><u>{{ pdfdata.order_valid_from_date | date:'dd-MM-yyyy' }}</u></strong> to <strong><u>{{ pdfdata.order_valid_from_date | date:'dd-MM-yyyy' }}</u></strong>.</p>
+                    <p style="text-indent:2em;">The above renewal is subject to the following conditions.</p>
+                </div>
+                <ol>
+                    <li>The Educational Agency shall always keep the structural stability certificate, sanitary certificate, building license and fire and rescue safety certificate current and valid.</li>
+                    <li>The Educational Agency shall abide by the provisions contained in the Tamil Nadu 
+                        <u *ngIf="this.dataDEE == true">(Matriculation Schools Regulation Rules, 1978 and other Government orders)</u>
+                        <u *ngIf="this.dataDEE == false">(Recognised Private Schools (Regulation) Act, 1973 and Rules 1974 framed)</u> thereunder.</li>
+                    <li>The Educational Agency shall abide by the instructions issued by the officials from time to time.</li>
+                    <li>The Educational Agency / School shall abide by the provisions contained in the
+                        <ol type="i">
+                            <li>Tamil Nadu Tamil Learning Act, 2006.</li>
+                            <li>Tamil Nadu schools (Regulation of collection of fees) Act, 2009 and rules made thereunder.</li>
+                            <li>Tamil Nadu Right of Children to Free and Compulsory Education Act 2009 and Tamilnadu Rules 2011 and rules made thereunder.</li>
+                        </ol>
+                    </li>
+                    <li>The school shall admit at the entry level to the extent of 25% of the strength in each class, children belonging to weaker section and disadvantaged group in the neighborhood and provide free and compulsory elementary education till its completion.</li>
+                    <li>The school shall maintain a separate bank account for the purpose of reimbursement.</li>
+                    <li>The school shall not collect any capitation fee and subject the child or his or her parent or guardian to any screening procedure.</li>
+                    <li>The school shall not deny admission to any child
+                        <ol type="i">
+                            <li>for lack of age proof if such admission is sought subsequent to the extended period prescribed for admission.</li>
+                            <li>on the ground of religion, caste or race, place of birth or any of them.</li>
+                        </ol>
+                    </li>
+                    <li>The school shall ensure that
+                        <ol type="i">
+                            <li>no child admitted shall be held back in any class or expelled from school till the completion of elementary education in a school.</li>
+                            <li>no child shall be subjected to physical punishment or mental harassment.</li>
+                            <li>no child is required to pass any board examination till the completion of elementary education.</li>
+                            <li>every child completing elementary education shall be awarded a certificate as laid down under rule 21 of the Tamil Nadu Right of Children to Free and Compulsory Education Act 2009.</li>
+                            <li>inclusion of student with disabilities/ special needs as per provision of the Act.</li><br />
+                            <li>the teachers are recruited with minimum qualifications as laid under section 23(1) of the of the Tamil Nadu Right of Children to Free and Compulsory Education Act 2009:
+                                <p style="text-indent:2em;">Provided that the teachers who, at the commencement of this Act do not possess minimum qualification shall acquire such minimum qualifications within a period of 5 years;</p>
+                            </li>
+                            <li>the teacher performs his duties specified under sub-section (1) of section 24 of the of the Tamil Nadu Right of Children to Free and Compulsory Education Act 2009; and</li>
+                            <li>the teacher shall not engage himself for private teaching activities.</li>
+                        </ol>
+                    </li>
+                    <li>The school shall follow the syllabus on the basis of curriculum laid down by appropriate authority.</li>
+                    <li>The school shall maintain the standards and norms as specified in section 19 of the Act.</li>
+                    <li>No unrecognized classes shall run within the premises of the school or outside in the name of the school.</li>
+                    <li>The school building or other structures and the grounds are used only for the purpose of education and skill development.</li>
+                    <li>The school is run by a society registered under the Tamil Nadu Societies Registration Act, 1975 ( Tamil Nadu Act 27 of 1975), or public trust constituted under any law for the time being in force.</li>
+                    <li>The school is not run for profit to any individual, group or association of individuals or any other persons.</li>
+                    <li>The accounts should be audited and certified by a Chartered Accountant and proper accounts statements should be prepared. A copy each of the Statements of Accounts should be sent every year to the competent authority granting recognition.</li>
+                    <li>The school shall furnish such reports and information as may be required by the competent authority from time to time and shall comply with such instructions of the State Government or the competent authority as may be issued to secure the continued fulfillment of the condition of recognition or the removal of deficiencies in working of the school.</li>
+                    <li>If it is found out at any point of time that the Educational Agency has violated any of the conditions prescribed for recognition, the recognition granted is liable to be withdrawn.</li>
+                    <li><u>{{ pdfdata3.remarks }}</u></li>
+                </ol>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <p>The receipt of these proceedings should be acknowledged.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8" style="float:left;width:300px;">
+                    <div>
+                        <p>To<br /></p>
+                        <p class="ml-5"> The Secretary / Correspondent,<br />
+                        <strong><u>{{ pdfdata.school_name }}</u></strong>,<br />
+                        <strong>UDISE : <u>{{ pdfdata.udise_code }}</u>,</strong><br />
+                        <u>{{ pdfdata.address }}, {{ pdfdata.pincode }}</u>,<br />
+                        </p>
+                    </div>
+                    <div>
+                        Copy to:<ol style="margin-top:0;">
+                        
+                            <li>
+                                <u *ngIf="this.dataBEO == true">Block Educational Officer,{{ pdfdata2[0].doc_file_num }},{{ pdfdata2[0].doc_file_date }},{{ pdfdata.block_name }}</u>
+                                <u *ngIf="this.dataBEO == false">District Educational Officer,{{ pdfdata2[0].doc_file_num }},{{ pdfdata2[0].doc_file_date }},{{ pdfdata.block_name }},{{ pdfdata.district_name }}</u>
+                            
+                        </ol>
+                    </div>
+                </div>
+                <div class="float-right text-right col-md-4">
+                    <p style="line-height:0.2em;"><strong>
+                        <u *ngIf="this.dataDEO == true">District Educational Officer</u><br>
+                        <u *ngIf="this.dataDEO == false">Chief Educational Officer</u><br></strong></p>
+                    <p><u>{{ pdfdata.district_name }}</u></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

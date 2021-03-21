@@ -1,0 +1,175 @@
+<div class="container-fluid" *ngIf="pageStage === 1">
+    <div class="main-body-content m-2">  
+      <p-table #dt  [columns]="dataHeader" [value]="approved_data" [paginator]="true" [rows]="20" [resizableColumns]="true" >
+          <ng-template let-childrens pTemplate="caption">
+            <div class="row p-1">
+              <div class="col-sm-6">
+                  <div class="text-lg-left mt-3">
+                    <h5>District - Wise Renewal Summary</h5>
+                  </div>
+              </div>
+              <div class="col-sm-6 p-1">
+                  <div class="text-right">
+                       <!-- <input type="text" pInputText size="30" placeholder="Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto"> -->
+                  </div>              
+               </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-childrens>
+            <tr class="text-center">
+              <th class="sno-header-layout">S.No</th>
+              <th *ngFor="let col of childrens" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-childrens let-rowData let-columns="columns" let-i="rowIndex" >
+            <tr class="text-center" *ngIf="!noDataFound">
+              <td class="sno-header-layout"> {{i+1}} </td>
+              <td class="text-left"><a href="javascript:void(0)" (click)="onSelectedId(childrens.district_id)">{{ childrens.district_name}}</a></td>
+              <!-- <td> {{ childrens.district_name}} </td> -->
+              <td> {{ childrens.catcount}} </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <tr class="text-left" *ngIf="noDataFound" >
+              <td colspan="3"> No Data Found </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      
+      </div> 
+    </div>      
+
+    <div class="container-fluid" *ngIf="pageStage === 2">
+        <div class="main-body-content m-2">  
+          <p-table #dt  [columns]="dataHeader1" [value]="district_wise_data" [paginator]="true" [rows]="20" [resizableColumns]="true" >
+              <ng-template let-childrens pTemplate="caption">
+                <div class="row p-1">
+                  <div class="col-sm-6">
+                      <div class="text-lg-left mt-3">
+                        <h5>Educational District - Wise Renewal Summary</h5>
+                      </div>
+                  </div>
+                  <div class="col-sm-6 p-1">
+                      <div class="text-right">
+                           <!-- <input type="text" pInputText size="30" placeholder="Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto"> -->
+                      </div>              
+                   </div>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="header" let-childrens>
+                <tr class="text-center">
+                  <th class="sno-header-layout">S.No</th>
+                  <th *ngFor="let col of childrens" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-childrens let-rowData let-columns="columns" let-i="rowIndex" >
+                <tr class="text-center" *ngIf="!noDataFound">
+                  <td class="sno-header-layout"> {{i+1}} </td>
+                  <td class="text-left"><a href="javascript:void(0)" (click)="onSelectedEduId(childrens.edu_dist_id)">{{ childrens.edu_dist_name}}</a></td>
+                  <!-- <td> {{ childrens.district_name}} </td> -->
+                  <td> {{ childrens.pendingdays}} </td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="footer">
+                <tr class="text-left" *ngIf="noDataFound1" >
+                  <td colspan="3"> No Data Found </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          
+          </div> 
+        </div>      
+      
+        <div class="container-fluid" *ngIf="pageStage === 3">
+            <div class="main-body-content m-2">  
+              <p-table #dt  [columns]="dataHeader2" [value]="block_wise_data" [paginator]="true" [rows]="20" [resizableColumns]="true" >
+                  <ng-template let-childrens pTemplate="caption">
+                    <div class="row p-1">
+                      <div class="col-sm-6">
+                          <div class="text-lg-left mt-3">
+                            <h5>Block - Wise Renewal Summary</h5>
+                          </div>
+                      </div>
+                      <div class="col-sm-6 p-1">
+                          <div class="text-right">
+                               <!-- <input type="text" pInputText size="30" placeholder="Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto"> -->
+                          </div>              
+                       </div>
+                    </div>
+                  </ng-template>
+                  <ng-template pTemplate="header" let-childrens>
+                    <tr class="text-center">
+                      <th class="sno-header-layout">S.No</th>
+                      <th *ngFor="let col of childrens" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                      </th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-childrens let-rowData let-columns="columns" let-i="rowIndex" >
+                    <tr class="text-center" *ngIf="!noDataFound">
+                      <td class="sno-header-layout"> {{i+1}} </td>
+                      <td class="text-left"><a href="javascript:void(0)" (click)="onSelectedSchoolId(childrens.block_id)">{{ childrens.block_name}}</a></td>
+                      <!-- <td> {{ childrens.district_name}} </td> -->
+                      <td> {{ childrens.pendingdays}} </td>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="footer">
+                    <tr class="text-left" *ngIf="noDataFound2" >
+                      <td colspan="3"> No Data Found </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              
+              </div> 
+            </div>      
+
+              
+        <div class="container-fluid" *ngIf="pageStage === 4">
+            <div class="main-body-content m-2">  
+              <p-table #dt  [columns]="dataHeader3" [value]="schol_wise_data" [paginator]="true" [rows]="20" [resizableColumns]="true" >
+                  <ng-template let-childrens pTemplate="caption">
+                    <div class="row p-1">
+                      <div class="col-sm-6">
+                          <div class="text-lg-left mt-3">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+                            <h5>School - Wise Renewal Summary</h5>
+                          </div>
+                      </div>
+                      <div class="col-sm-6 p-1">
+                          <div class="text-right">
+                               <!-- <input type="text" pInputText size="30" placeholder="Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto"> -->
+                          </div>              
+                       </div>
+                    </div>
+                  </ng-template>
+                  <ng-template pTemplate="header" let-childrens>
+                    <tr class="text-center">
+                      <th class="sno-header-layout">S.No</th>
+                      <th *ngFor="let col of childrens" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                      </th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-childrens let-rowData let-columns="columns" let-i="rowIndex" >
+                    <tr class="text-center" *ngIf="!noDataFound">
+                      <td class="sno-header-layout"> {{i+1}} </td>
+                      <!-- <td class="text-left"><a href="javascript:void(0)" (click)="onSelectedSchoolId(childrens.block_id)">{{ childrens.school_name}}</a></td> -->
+                      <td class="text-left"> {{ childrens.school_name}} </td>
+                      <td> {{ childrens.catcount}} </td>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="footer">
+                    <tr class="text-left" *ngIf="noDataFound3" >
+                      <td colspan="3"> No Data Found </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div> 
+            </div>      

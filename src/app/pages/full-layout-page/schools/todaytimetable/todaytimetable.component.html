@@ -1,0 +1,253 @@
+<div class="outer-layout" style="padding-top:5px;">
+  <div class="breadcrumbs c-black">
+    <h6 classs="url"><span class="flex-gap-right">Timetable</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right">Today Timetable</span></h6>
+  </div>
+</div>
+<div class="main-body-content">
+  <div class="page-container">
+    <div class="flex-layout-gap">
+ <div class="row"> 
+   <div class="col-md-4">
+
+<h3 style="color:green"><strong>Today Timetable</strong></h3>
+</div>
+<div class="col-md-4 offset-md-4">  
+  <h5 style="color:#39ac39"><strong>School Teachers</strong></h5>
+ <span>
+  <h5 style="color:#ff8000"><strong>Deputation Teachers</strong></h5>
+</span>
+  <h5 style="color:#9999ff"><strong>Volunteer Teachers</strong></h5>
+  </div>
+</div>  
+<br>
+<div *ngIf="!holidayflag"> 
+    <form [formGroup]="todaytimeTable">
+      <table border="1" bordercolor="green" style="border-width:3px"> 
+        <thead>
+            <tr>
+              
+                <th  style="width:9%; background-color: #63978b;color: white;text-align: center;" class="product-name">Day</th>
+               
+                <th   style="width:10%; padding-right: 52px; background-color: #63978b;color: white;text-align: center;" *ngFor="let item of items;">Period {{item}}</th>
+               
+            </tr>
+            </thead>
+            </table>
+      <div formArrayName="timeTableDays" *ngFor="let student of todaytimeTable.get('timeTableDays').controls;let i=index">
+        <div [formGroup]="student">
+        
+            <!-- <ion-item> -->
+            <!-- {{student.get('p1').value}}-->
+              <table border="1" bordercolor="green" style="border-width:3px">
+                <!--<thead>
+                    <tr style="background-color: #065040;color:white">
+                        <th style="text-align:center;">Class</th> 
+                        <th style="text-align:center;">Period 1</th>
+                        <th style="text-align:center;">Period 2</th>
+                        <th style="text-align:center;">Period 3</th>
+                        <th style="text-align:center;">Period 4</th>
+                        <th style="text-align:center;">Period 5</th>
+                        <th style="text-align:center;">Period 6</th>
+                        <th style="text-align:center;">Period 7</th>
+                        <th style="text-align:center;">Period 8</th>
+                      
+                    </tr>
+                </thead>-->
+                <tbody>
+                  <tr>
+                    <td style="background-color: green; width:10%;"><input formControlName="class" label="class" readonly name="class" class="form-control form-control-lg" style="background-color:  #065040; color:white" />
+                    </td>
+                    <!-- <div *ngIf="loginForm.get('email').hasError('required')> -->
+                      <!-- [ngStyle]="{'background-image': 'url(' + value ? image : otherImage + ')'}" -->
+                    <td [style.background-color]="student.get('attstatus1').value == null ? '' :'#fd397a'" > 
+                       <select formControlName="p1" label="p1" name="p1" class="form-control " >
+                        <option style="font-size: 14px; background-color:red; color:white" value="0-999">Not - Assigned</option>      
+                        <option style="font-size: 14px; background-color:#39ac39; color:white" *ngFor="let teacherdata of teacherlist" [value]="teacherdata.id+'-'+teacherdata.u_id">
+                            {{ teacherdata.subjects }}- {{ teacherdata.teacher_name }}
+                            </option>
+                            <option style="font-size: 14px;  background-color:#ff8000;  color:white" *ngFor="let dteacherdata of deputationteachers"  [value]="dteacherdata.id+'-'+dteacherdata.teacher_code" >
+                              {{ dteacherdata.subjects }}- {{ dteacherdata.teacher_name }}
+                              </option>  
+                            <option style="font-size: 14px; background-color:#9999ff;  color:white" *ngFor="let vteacherdata of volunteerteachers"  [value]="vteacherdata.id+'-'+vteacherdata.teacher_id" >
+                              {{ vteacherdata.subjects }}- {{ vteacherdata.teacher_name }}
+                              </option>     
+                  </select></td>
+                    <td [style.background-color]="student.get('attstatus2').value == null ? '' :'#fd397a'">
+                      <select formControlName="p2"  class="form-control " >
+                        <option style="font-size: 14px; background-color:red; color:white" value="0-999">Not - Assigned</option>      
+                        <option style="font-size: 14px; background-color:#39ac39; color:white" *ngFor="let teacherdata of teacherlist" [value]="teacherdata.id+'-'+teacherdata.u_id">
+                            {{ teacherdata.subjects }}- {{ teacherdata.teacher_name }}
+                            </option>
+                            <option style="font-size: 14px;  background-color:#ff8000 ;  color:white" *ngFor="let dteacherdata of deputationteachers"  [value]="dteacherdata.id+'-'+dteacherdata.teacher_code" >
+                              {{ dteacherdata.subjects }}- {{ dteacherdata.teacher_name }}
+                              </option>  
+                            <option style="font-size: 14px; background-color:#9999ff;  color:white" *ngFor="let vteacherdata of volunteerteachers"  [value]="vteacherdata.id+'-'+vteacherdata.teacher_id" >
+                              {{ vteacherdata.subjects }}- {{ vteacherdata.teacher_name }}
+                              </option>     
+                  </select></td>
+                    <td [style.background-color]="student.get('attstatus3').value == null ? '' :'#fd397a'"> <select formControlName="p3" label="p3" name="p3" class="form-control ">
+                      <option style="font-size: 14px; background-color:red; color:white" value="0-999">Not - Assigned</option>      
+                      <option style="font-size: 14px; background-color:#39ac39; color:white" *ngFor="let teacherdata of teacherlist" [value]="teacherdata.id+'-'+teacherdata.u_id">
+                          {{ teacherdata.subjects }}- {{ teacherdata.teacher_name }}
+                          </option>
+                          <option style="font-size: 14px;  background-color:#ff8000;  color:white" *ngFor="let dteacherdata of deputationteachers"  [value]="dteacherdata.id+'-'+dteacherdata.teacher_code" >
+                            {{ dteacherdata.subjects }}- {{ dteacherdata.teacher_name }}
+                            </option>  
+                          <option style="font-size: 14px; background-color:#9999ff;  color:white" *ngFor="let vteacherdata of volunteerteachers"  [value]="vteacherdata.id+'-'+vteacherdata.teacher_id" >
+                            {{ vteacherdata.subjects }}- {{ vteacherdata.teacher_name }}
+                            </option>     
+                  </select></td>
+                    <td [style.background-color]="student.get('attstatus4').value == null ? '' :'#fd397a'"> <select formControlName="p4" label="p4" name="p4" class="form-control ">
+                      <option style="font-size: 14px; background-color:red; color:white" value="0-999">Not - Assigned</option>      
+                      <option style="font-size: 14px; background-color:#39ac39; color:white" *ngFor="let teacherdata of teacherlist" [value]="teacherdata.id+'-'+teacherdata.u_id">
+                          {{ teacherdata.subjects }}- {{ teacherdata.teacher_name }}
+                          </option>
+                          <option style="font-size: 14px;  background-color:#ff8000 ;  color:white" *ngFor="let dteacherdata of deputationteachers"  [value]="dteacherdata.id+'-'+dteacherdata.teacher_code" >
+                            {{ dteacherdata.subjects }}- {{ dteacherdata.teacher_name }}
+                            </option>  
+                          <option style="font-size: 14px; background-color:#9999ff;  color:white" *ngFor="let vteacherdata of volunteerteachers"  [value]="vteacherdata.id+'-'+vteacherdata.teacher_id" >
+                            {{ vteacherdata.subjects }}- {{ vteacherdata.teacher_name }}
+                            </option>     
+                  </select></td>
+                    <td [style.background-color]="student.get('attstatus5').value == null ? '' :'#fd397a'"><select formControlName="p5" label="p5" name="p5" class="form-control ">
+                      <option style="font-size: 14px; background-color:red; color:white" value="0-999">Not - Assigned</option>      
+                      <option style="font-size: 14px; background-color:#39ac39; color:white" *ngFor="let teacherdata of teacherlist" [value]="teacherdata.id+'-'+teacherdata.u_id">
+                          {{ teacherdata.subjects }}- {{ teacherdata.teacher_name }}
+                          </option>
+                          <option style="font-size: 14px;  background-color:#ff8000;  color:white" *ngFor="let dteacherdata of deputationteachers"  [value]="dteacherdata.id+'-'+dteacherdata.teacher_code" >
+                            {{ dteacherdata.subjects }}- {{ dteacherdata.teacher_name }}
+                            </option>  
+                          <option style="font-size: 14px; background-color:#9999ff;  color:white" *ngFor="let vteacherdata of volunteerteachers"  [value]="vteacherdata.id+'-'+vteacherdata.teacher_id" >
+                            {{ vteacherdata.subjects }}- {{ vteacherdata.teacher_name }}
+                            </option>     
+                  </select></td>
+                    <td [style.background-color]="student.get('attstatus6').value == null ? '' :'#fd397a'"><select formControlName="p6" label="p6" name="p6" class="form-control ">
+                      <option style="font-size: 14px; background-color:red; color:white" value="0-999">Not - Assigned</option>      
+                      <option style="font-size: 14px; background-color:#39ac39; color:white" *ngFor="let teacherdata of teacherlist" [value]="teacherdata.id+'-'+teacherdata.u_id">
+                          {{ teacherdata.subjects }}- {{ teacherdata.teacher_name }}
+                          </option>
+                          <option style="font-size: 14px;  background-color:#ff8000;  color:white" *ngFor="let dteacherdata of deputationteachers"  [value]="dteacherdata.id+'-'+dteacherdata.teacher_code" >
+                            {{ dteacherdata.subjects }}- {{ dteacherdata.teacher_name }}
+                            </option>  
+                          <option style="font-size: 14px; background-color:#9999ff;  color:white" *ngFor="let vteacherdata of volunteerteachers"  [value]="vteacherdata.id+'-'+vteacherdata.teacher_id" >
+                            {{ vteacherdata.subjects }}- {{ vteacherdata.teacher_name }}
+                            </option>     
+                  </select></td>
+                    <td [style.background-color]="student.get('attstatus7').value == null ? '' :'#fd397a'"> <select formControlName="p7" label="p7" name="p7" class="form-control ">
+                      <option style="font-size: 14px; background-color:red; color:white" value="0-999">Not - Assigned</option>      
+                      <option style="font-size: 14px; background-color:#39ac39; color:white" *ngFor="let teacherdata of teacherlist" [value]="teacherdata.id+'-'+teacherdata.u_id">
+                          {{ teacherdata.subjects }}- {{ teacherdata.teacher_name }}
+                          </option>
+                          <option style="font-size: 14px;  background-color:#ff8000;  color:white" *ngFor="let dteacherdata of deputationteachers"  [value]="dteacherdata.id+'-'+dteacherdata.teacher_code" >
+                            {{ dteacherdata.subjects }}- {{ dteacherdata.teacher_name }}
+                            </option>  
+                          <option style="font-size: 14px; background-color:#9999ff;  color:white" *ngFor="let vteacherdata of volunteerteachers"  [value]="vteacherdata.id+'-'+vteacherdata.teacher_id" >
+                            {{ vteacherdata.subjects }}- {{ vteacherdata.teacher_name }}
+                            </option>     
+                  </select></td>
+                    <td [style.background-color]="student.get('attstatus8').value == null ? '' :'#fd397a'"><select formControlName="p8" label="p8" name="p8" class="form-control">
+                      <option style="font-size: 14px; background-color:red; color:white" value="0-999">Not - Assigned</option>      
+                      <option style="font-size: 14px; background-color:#39ac39; color:white" *ngFor="let teacherdata of teacherlist" [value]="teacherdata.id+'-'+teacherdata.u_id">
+                          {{ teacherdata.subjects }}- {{ teacherdata.teacher_name }}
+                          </option>
+                          <option style="font-size: 14px;  background-color:#ff8000;  color:white" *ngFor="let dteacherdata of deputationteachers"  [value]="dteacherdata.id+'-'+dteacherdata.teacher_code" >
+                            {{ dteacherdata.subjects }}- {{ dteacherdata.teacher_name }}
+                            </option>  
+                          <option style="font-size: 14px; background-color:#9999ff;  color:white" *ngFor="let vteacherdata of volunteerteachers"  [value]="vteacherdata.id+'-'+vteacherdata.teacher_id" >
+                            {{ vteacherdata.subjects }}- {{ vteacherdata.teacher_name }}
+                            </option>     
+                  </select></td>
+                    
+                  </tr>
+                </tbody>
+              
+              <!-- </ion-item> -->
+              </table>
+              
+            
+          </div>
+        </div>
+      
+    </form>
+  
+  
+  <div class="modal-footer">
+             
+    <button type="button" style="background-color: #065040" class="btn btn-success" (click)="savetodaytimetable(todaytimeTable.value)">Save changes</button>
+  </div>
+  
+  <h3 style="color:green"><strong>Teacher Timetable</strong></h3>
+  <br>  
+  <table  border="1" bordercolor="green" style="border-width:3px; width:100%;">
+    <thead>
+      <tr style="background-color: #065040;color:white">
+        <th style="text-align:center;width:8%;">Teacher Name</th>
+       
+        <th style="text-align:center;">Period 1</th>
+        <th style="text-align:center;">Period 2</th>
+        <th style="text-align:center;">Period 3</th>
+        <th style="text-align:center;">Period 4</th>
+        <th style="text-align:center;">Period 5</th>
+        <th style="text-align:center;">Period 6</th>
+        <th style="text-align:center;">Period 7</th>
+        <th style="text-align:center;">Period 8</th>
+        <th style="text-align:center;">Total Period</th>
+        <th style="text-align:center;">Leave Status</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let teacherclasses of teacherdata | keyvalue">
+           <td style="text-align:center;">  {{teacherclasses.key}}</td>
+          
+            <td style="text-align:center;">
+                <div *ngFor = "let innerItem of teacherclasses.value">
+                  {{ innerItem.status == 1 ? innerItem.classes : ''  }}
+                 
+                </div>
+            </td>
+            <td style="text-align:center;"><div *ngFor = "let innerItem of teacherclasses.value">
+                 {{ innerItem.status == 2 ? innerItem.classes : ''  }}
+                </div></td>                          
+            <td style="text-align:center;"><div *ngFor = "let innerItem of teacherclasses.value">
+              {{ innerItem.status == 3 ? innerItem.classes : ''  }}
+            </div></td>
+            <td style="text-align:center;"><div *ngFor = "let innerItem of teacherclasses.value">
+              {{ innerItem.status == 4 ? innerItem.classes : ''  }}
+            </div></td>  
+            <td style="text-align:center;"><div *ngFor = "let innerItem of teacherclasses.value">
+              {{ innerItem.status == 5 ? innerItem.classes : ''  }}
+            </div></td>
+            <td style="text-align:center;"><div *ngFor = "let innerItem of teacherclasses.value">
+              {{ innerItem.status == 6 ? innerItem.classes : ''  }}
+            </div></td>  
+            <td style="text-align:center;"><div *ngFor = "let innerItem of teacherclasses.value">
+              {{ innerItem.status == 7 ? innerItem.classes : ''  }}
+            </div></td>
+            <td style="text-align:center;"><div *ngFor = "let innerItem of teacherclasses.value">
+              {{ innerItem.status == 8 ? innerItem.classes : ''  }}
+            </div></td>
+            <td style="text-align:center;"><strong>{{teacherclasses.value.length}}</strong></td>
+            <td style="text-align:center;">
+            
+              <div *ngIf="teacherclasses.value[0].attstatus == null;else other_content">
+                        <span class="badge badge-success">Present</span>
+              </div>
+              <ng-template #other_content><span class="badge badge-danger">Absent</span></ng-template>
+   
+            </td> 
+
+
+       </tr>
+    </tbody>
+  </table>
+</div>
+   <div *ngIf="holidayflag">
+    
+   <h1 style="text-align:center;" >Today Holiday</h1>
+   <img class="logo" style="width:100%;" src="../../../../../assets/img/images.jpg">
+  
+    </div> 
+</div>
+  </div>
+</div>

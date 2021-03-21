@@ -1,0 +1,168 @@
+
+<div class="card ui-card-body my-3 box-shwd" style="padding-left: 5%;
+padding-right: 5%;">
+    <h3 class="header-align">1. Project Master Screen</h3>
+    <div class="row">
+      <div class="col-sm-12">
+        <form [formGroup]="form" novalidate >
+
+          <div class="row form-group" style="margin-top:3%;">
+            <div class="col-sm-2 text-weight">
+              <label>Project ID</label>
+            </div>
+            <div class="col-sm-4">
+              <input type="text" pInputText formControlName="project_id" class="form-control" >
+              <p-message severity="error" text="Field is required"
+              *ngIf="form.controls.project_id.errors && (submitted || form.controls.project_id.dirty || form.controls.project_id.touched)">
+            </p-message>
+            </div>
+            <div class="col-sm-2 text-weight">
+                <label>Start Date</label>
+              </div>
+              <div class="col-sm-4">
+                <p-calendar formControlName="start_date" dateFormat="dd-mm-yy" [style]="{minWidth: '100%'}"></p-calendar>
+                <p-message severity="error" text="Field is required"
+                *ngIf="form.controls.start_date.errors && (submitted || form.controls.start_date.dirty || form.controls.start_date.touched)">
+              </p-message>
+              </div>
+          </div>
+  
+          <div class="row form-group">
+            <div class="col-sm-2 text-weight">
+              <label>Application </label>
+            </div>
+            <div class="col-sm-4">
+                <p-dropdown [options]="applicationList" placeholder="Select" class="flex-dropdown"
+              [style]="{minWidth: '100%'}" formControlName="Application_id"></p-dropdown>
+              <p-message severity="error" text="Field is required"
+              *ngIf="form.controls.Application_id.errors && (submitted || form.controls.Application_id.dirty || form.controls.Application_id.touched)">
+            </p-message>
+            </div>
+            <div class="col-sm-2 text-weight">
+                <label>End Date</label>
+              </div>
+              <div class="col-sm-4">
+                <p-calendar formControlName="target_completion" dateFormat="dd-mm-yy" [style]="{minWidth: '100%'}"></p-calendar>
+                <p-message severity="error" text="Field is required"
+                *ngIf="form.controls.target_completion.errors && (submitted || form.controls.target_completion.dirty || form.controls.target_completion.touched)">
+              </p-message>
+              </div>
+          </div>
+
+          <div class="row form-group">
+            <div class="col-sm-2 text-weight">
+              <label>Module Title</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" pInputText formControlName="Module_id" class="form-control" >
+                <p-message severity="error" text="Field is required"
+                *ngIf="form.controls.Module_id.errors && (submitted || form.controls.Module_id.dirty || form.controls.Module_id.touched)">
+              </p-message>
+            </div>
+            <div class="col-sm-2 text-weight">
+                <label>Scope Document Link</label>
+              </div>
+              <div class="col-sm-4">
+                  <input type="text" pInputText formControlName="document_link" class="form-control" >
+                  <p-message severity="error" text="Field is required"
+                  *ngIf="form.controls.document_link.errors && (submitted || form.controls.document_link.dirty || form.controls.document_link.touched)">
+                </p-message>
+              </div>
+          </div>
+          <h3 class="header-align">2. Resource Allotment</h3>
+          <div class="row form-group" style="margin-top:3%;">
+            <div class="col-sm-3 text-weight">
+              <label>Resource Name</label>
+            </div>
+            <div class="col-sm-3 text-weight">
+                <label>Role</label>
+            </div>
+            <div class="col-sm-3 text-weight">
+                <label>Time Commitment</label>
+              </div>
+              <div class="col-md-1">
+                <input type="button" class="btn btn-secondary btn-lg light_btn mx-2" (click)="addMediumInstruction()"
+                  value="+" />
+              </div>
+              <div class="col-md-1">
+                <input type="button" class="btn btn-secondary btn-lg light_btn mx-2" (click)="removeMediumInstruction()"
+                  value="-" />
+              </div>
+          </div>
+
+          <div class="row form-group" >
+            <div class="col-sm-12" formArrayName="project_creation_details">
+              <div class="row  pt-1"
+                *ngFor="let item of form.get('project_creation_details')['controls']; let i = index;"
+                [formGroupName]="i">
+                <div class="col-sm-3" style="padding-bottom:2%">
+                  <p-dropdown [options]="resourcenameList" formControlName="resource_id"
+                    (onChange)="chooseResourcename($event,i)" placeholder="Select"
+                    styleClass="select_dropdown p-1"></p-dropdown>
+                  <p-message severity="error" text="Field is required"
+                    *ngIf="item.controls.resource_id.errors && (submitted || mediumEntryInvalid || item.controls.resource_id.dirty || item.controls.resource_id.touched)">
+                  </p-message>
+  
+                </div>
+                <div class="col-sm-3" style="padding-bottom:2%">
+                    <p-dropdown [options]="roleList" formControlName="role_id"
+                      placeholder="Select"
+                      styleClass="select_dropdown p-1"></p-dropdown>
+                    <p-message severity="error" text="Field is required"
+                      *ngIf="item.controls.role_id.errors && (submitted || mediumEntryInvalid || item.controls.role_id.dirty || item.controls.role_id.touched)">
+                    </p-message>
+    
+                  </div>
+                  <div class="col-sm-3" style="padding-bottom:2%">
+                    <p-dropdown [options]="timecommitmentList" formControlName="time_commit"
+                       placeholder="Select"
+                      styleClass="select_dropdown p-1"></p-dropdown>
+                    <p-message severity="error" text="Field is required"
+                      *ngIf="item.controls.time_commit.errors && (submitted || mediumEntryInvalid || item.controls.time_commit.dirty || item.controls.time_commit.touched)">
+                    </p-message>
+    
+                  </div>
+                
+              </div>
+            </div>
+          </div>
+          <div class="text-center mt-3">
+            <button type="submit" class="btn btn-success" (click)="onSave()">Save</button>   
+            <button type="submit" class="btn btn-light btn-border" (click)="onCancel()">Cancel</button>
+          </div>
+        
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  

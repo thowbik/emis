@@ -1,0 +1,435 @@
+<div class="container-fluid body">
+	<p-card>
+		<form [formGroup]="form">
+			<div class="row p-2">
+				<div class="col-sm-4"></div>
+				<div class="col-sm-4"></div>
+				<div class="col-sm-4">
+					<label>Category <span class="text-danger"> *</span> 
+					</label>
+					<p-dropdown [options]="selectage" placeholder="Select Category" styleClass="dropdwnvalues"></p-dropdown>	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+						Category Field is required</small>
+				</div>
+			</div>
+			<p-accordion>
+				<p-accordionTab header="Personal Information" [selected]="true">
+					<div class="form-group row">
+						<div class="col-sm-4">
+							<label>Name of the Staff <span class="text-danger"> *</span> 
+							</label>
+							<input type="text" pInputText class="form-control" formControlName="techer-Name" placeholder="Enter Name"
+							onkeypress="return  event.charCode >= 97 && event.charCode <= 122 || event.charCode >= 65 && event.charCode <= 90 || event.charCode == 32"> 
+							<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+                          Staff Name Field is required</small>
+						</div>
+						<div class="col-sm-4">
+							<label>Name of the Staff (TamilName) <span class="text-danger"> *</span>
+							</label>
+							<input type="text" pInputText class="form-control" placeholder="Enter Tamil Name"
+							onkeypress="return  event.charCode >= 97 && event.charCode <= 122 || event.charCode >= 65 && event.charCode <= 90 || event.charCode == 32">
+								<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Name of the Staff (TamilName) Field is required</small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-4">
+							<label>Aadhaar Number <span class="text-danger"> *</span> 
+							</label>
+							<input type="text" pInputText class="form-control" placeholder="Enter Aadhaar Number" (keypress)="numberOnly($event)" maxlength="12">	
+							<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Aadhaar Number is required</small>
+						</div>
+						<div class="col-sm-4">
+							<label>Gender <span class="text-danger"> *</span>
+							</label>
+							<p-dropdown placeholder="Select Gender" disabled styleClass="dropdwnvalues"></p-dropdown>
+								<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Gender is required</small>
+							<!-- [options]="selectage" -->
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-4">
+							<label>Blood Group <span class="text-danger"> *</span> 
+							</label>
+							<p-dropdown placeholder="Select Blood Group" disabled styleClass="dropdwnvalues"></p-dropdown>
+								<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Blood Group is required</small>
+						</div>
+						<div class="col-sm-4">
+							<label>Date of Birth <span class="text-danger"> *</span>
+							</label>
+							<input class="form-control date" type="date" placeholder="Date of Birth" dateformat="yyyy/dd/mm">	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Date of Birth is required</small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-4">
+							<label>Social Category <span class="text-danger"> *</span> 
+							</label>
+							<p-dropdown [options]="selectage" placeholder="Select Category" styleClass="dropdwnvalues"></p-dropdown>	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Social Category is required</small>
+						</div>
+						<div class="col-sm-4">
+							<label>Father's Name <span class="text-danger"> *</span>
+							</label>
+							<input type="text" pInputText class="form-control" placeholder="Enter Father Name"
+							onkeypress="return  event.charCode >= 97 && event.charCode <= 122 || event.charCode >= 65 && event.charCode <= 90 || event.charCode == 32">
+								<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Father's Name is required</small>
+						</div>
+						<div class="col-sm-4">
+							<label>Mother's Name <span class="text-danger"> *</span>
+							</label>
+							<input type="text" pInputText class="form-control" placeholder="Enter Mother Name"
+							onkeypress="return  event.charCode >= 97 && event.charCode <= 122 || event.charCode >= 65 && event.charCode <= 90 || event.charCode == 32">
+								<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Mother's Name is required</small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-4">
+							<label>Spouse Name, if applicable. <span class="text-danger"> *</span> 
+							</label>
+							<input type="text" pInputText class="form-control" placeholder="Enter Spouse Name">	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Spouse Name, if applicable is required</small>
+						</div>
+						<div class="col-sm-4">
+							<label>Differently abled type, If any <span class="text-danger"> *</span>
+							</label>
+							<p-dropdown [options]="selectage" placeholder="Select Differently abled type" styleClass="dropdwnvalues"></p-dropdown>	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Differently abled type, If any is required</small>
+						</div>
+					</div>
+				</p-accordionTab>
+			</p-accordion>
+			<!-- Joining Details -->
+			<p-accordion>
+				<p-accordionTab header="Joining Details" [selected]="true">
+					<div class="form-group row">
+						<div class="col-sm-4">
+							<label>Designation of Staff <span class="text-danger"> *</span> 
+							</label>
+							<p-dropdown placeholder="Select Designation of Staff" styleClass="dropdwnvalues"></p-dropdown>	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Designation of Staff is required</small>
+						</div>
+						<div class="col-sm-4">
+							<label>Appointed for the Subject <span class="text-danger"> *</span>
+							</label>
+							<p-dropdown placeholder="Select Appointed for the Subject" styleClass="dropdwnvalues"></p-dropdown>	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Appointed for the Subject is required</small>
+						</div>
+						<div class="col-sm-4">
+							<label>Date of Joining in Service <span class="text-danger"> *</span> 
+							</label>
+							<input class="form-control date" type="date" placeholder="Date of Joining in Service" dateformat="yyyy/dd/mm">	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Date of Joining in Service is required</small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-4">
+							<label>Date of Joining in Present Post <span class="text-danger"> *</span>
+							</label>
+							<input class="form-control date" type="date" placeholder="Date of Joining in Present Post" dateformat="yyyy/dd/mm">	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Date of Joining in Present Post is required</small>
+						</div>
+						<div class="col-sm-4">
+							<label>Date of Joining in Present School <span class="text-danger"> *</span> 
+							</label>
+							<input class="form-control date" type="date" placeholder="Date of Joining in Present School" dateformat="yyyy/dd/mm">	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Date of Joining in Present School is required</small>
+						</div>
+						<div class="col-sm-4">
+							<label>Mode of First Appointment <span class="text-danger"> *</span> 
+							</label>
+							<p-dropdown placeholder="Select Mode of First Appointment" styleClass="dropdwnvalues"></p-dropdown>	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Mode of First Appointment is required</small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-4">
+							<label>Nature of appointment <span class="text-danger"> *</span>
+							</label>
+							<p-dropdown placeholder="Select Nature of appointment" styleClass="dropdwnvalues"></p-dropdown>	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Nature of appointment is required</small>
+						</div>
+					</div>
+				</p-accordionTab>
+			</p-accordion>
+			<!-- Communication Details -->
+			<p-accordion>
+				<p-accordionTab header="Communication Details" [selected]="true">
+					<div class="form-group row">
+						<div class="col-sm-4">
+							<label>Mobile Number <span class="text-danger"> *</span> 
+							</label>
+							<input type="text" pKeyFilter="pnum" pInputText class="form-control" formControlName="phone_number" placeholder="Enter Mobile Number" (keypress)="numberOnly($event)" maxlength="10">	
+							<small class="form-text text-danger" *ngIf="!form.get('phone_number').valid && (submitted || form.get('phone_number').dirty || form.get('phone_number').touched)">
+								Mobile Number is required</small>
+							<small class="form-text text-danger" *ngIf="form.get('phone_number').hasError('pattern')">
+									It is not a Mobile Number</small>
+						</div>
+						<div class="col-sm-4">
+							<label>E-Mail Id <span class="text-danger"> *</span>
+							</label>
+							<input type="text" pInputText class="form-control" placeholder="Enter E-Mail Id">	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								E-Mail Id is required</small>
+						</div>
+						<div class="col-sm-4">
+							<label>Door No. / Building Name <span class="text-danger"> *</span> 
+							</label>
+							<input type="text" pInputText class="form-control" placeholder="Door No. / Building Name">	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Door No. / Building Name is required</small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-4">
+							<label>Street Name / Area Name <span class="text-danger"> *</span>
+							</label>
+							<input type="text" pInputText class="form-control" placeholder="Street Name / Area Name ">	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Street Name / Area Name is required</small>
+						</div>
+						<div class="col-sm-4">
+							<label>City name / Village name <span class="text-danger"> *</span> 
+							</label>
+							<input type="text" pInputText class="form-control" placeholder="City name / Village name">	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								City name / Village name is required</small>
+						</div>
+						<div class="col-sm-4">
+							<label>District <span class="text-danger"> *</span> 
+							</label>
+							<p-dropdown placeholder="Select District" styleClass="dropdwnvalues"></p-dropdown>	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								District is required</small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-4">
+							<label>Postal Index Number (PIN) <span class="text-danger"> *</span> 
+							</label>
+							<input type="text" pInputText class="form-control" (keypress)="numberOnly($event)" maxlength="6" placeholder="Enter Pincode">	
+							<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Postal Index Number  is required</small>
+						</div>
+					</div>
+				</p-accordionTab>
+			</p-accordion>
+			<!-- Academic Qualification -->
+			<p-accordion>
+				<p-accordionTab header="Academic Qualifications" [selected]="true">
+					<div class="form-group row">
+						<div class="col-sm-4">
+							<label>10th Standard passed in Month / Year <span class="text-danger"> *</span> 
+							</label>
+							<input class="form-control date" type="date" placeholder="10th Standard passed in Month / Year" dateformat="yyyy/dd/mm">	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								10th Standard passed in Month  is required</small>
+						</div>
+						<div class="col-sm-4">
+							<label>12th Standard passed in Month / Year <span class="text-danger"> *</span> 
+							</label>
+							<input type="text" pInputText class="form-control" placeholder="12th Standard passed in Month / Year">	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								12th Standard passed in Month  is required</small>
+						</div>
+						<div class="col-sm-4">
+							<label>Academic <span class="text-danger"> *</span> 
+							</label>
+							<p-dropdown placeholder="Select Academic" styleClass="dropdwnvalues"></p-dropdown>	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Academic  is required</small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-4">
+							<label>Professional <span class="text-danger"> *</span>
+							</label>
+							<p-dropdown placeholder="Select Professional" styleClass="dropdwnvalues"></p-dropdown>	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Professional  is required</small>
+						</div>
+						<div class="col-sm-4">
+							<label>UG <span class="text-danger"> *</span> 
+							</label>
+							<p-dropdown placeholder="Select UG" styleClass="dropdwnvalues"></p-dropdown>	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								UG  is required</small>
+						</div>
+						<div class="col-sm-4">
+							<label>PG <span class="text-danger"> *</span> 
+							</label>
+							<p-dropdown placeholder="Select PG" styleClass="dropdwnvalues"></p-dropdown>	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								PG  is required</small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-4">
+							<label>Science Studied upto <span class="text-danger"> *</span> 
+							</label>
+							<p-dropdown placeholder="Select Science Studied upto" styleClass="dropdwnvalues"></p-dropdown>	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Science Studied upto  is required</small>
+						</div>
+						<div class="col-sm-4">
+							<label>Maths Studied upto <span class="text-danger"> *</span> 
+							</label>
+							<p-dropdown placeholder="Select Maths Studied upto" styleClass="dropdwnvalues"></p-dropdown>	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Maths Studied upto  is required</small>
+						</div>
+						<div class="col-sm-4">
+							<label>English studied up to <span class="text-danger"> *</span> 
+							</label>
+							<p-dropdown placeholder="Select English studied up to " styleClass="dropdwnvalues"></p-dropdown>	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								English Studied upto  is required</small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-4">
+							<label>Social Studies Studied upto <span class="text-danger"> *</span> 
+							</label>
+							<p-dropdown placeholder="Select Social Studies Studied upto" styleClass="dropdwnvalues"></p-dropdown>	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Social Studied upto  is required</small>
+						</div>
+						<div class="col-sm-4">
+							<label>Language( as per Schedule VIII) studied up to <span class="text-danger"> *</span> 
+							</label>
+							<p-dropdown placeholder="Select Language( as per Schedule VIII) studied up to" styleClass="dropdwnvalues"></p-dropdown>	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Language( as per Schedule VIII) studied up to   is required</small>
+						</div>
+					</div>
+				</p-accordionTab>
+			</p-accordion>
+			<!-- Main Subjects Taught -->
+			<p-accordion>
+				<p-accordionTab header="Main Subjects Taught" [selected]="true">
+					<div class="form-group row">
+						<div class="col-sm-4">
+							<label>Subject1 <span class="text-danger"> *</span>
+							</label>
+							<p-dropdown placeholder="Select Subject1" styleClass="dropdwnvalues"></p-dropdown>	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Subject1  is required</small>	
+						</div>
+						<div class="col-sm-4">
+							<label>Subject2 <span class="text-danger"> *</span> 
+							</label>
+							<p-dropdown placeholder="Select Subject2" styleClass="dropdwnvalues"></p-dropdown>	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Subject2  is required</small>
+						</div>
+						<div class="col-sm-4">
+							<label>Subject3 <span class="text-danger"> *</span> 
+							</label>
+							<p-dropdown placeholder="Select Subject3" styleClass="dropdwnvalues"></p-dropdown>	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Subject3  is required</small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-4">
+							<label>Subject4 <span class="text-danger"> *</span>
+							</label>
+							<p-dropdown placeholder="Select Subject4" styleClass="dropdwnvalues"></p-dropdown>	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Subject4  is required</small>
+						</div>
+						<div class="col-sm-4">
+							<label>Subject5 <span class="text-danger"> *</span> 
+							</label>
+							<p-dropdown placeholder="Select Subject5" styleClass="dropdwnvalues"></p-dropdown>	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Subject5  is required</small>
+						</div>
+						<div class="col-sm-4">
+							<label>Subject6 <span class="text-danger"> *</span> 
+							</label>
+							<p-dropdown placeholder="Select Subject6" styleClass="dropdwnvalues"></p-dropdown>	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Subject6  is required</small>
+						</div>
+					</div>
+				</p-accordionTab>
+			</p-accordion>
+			<!-- Training Details -->
+			<p-accordion>
+				<p-accordionTab header="Training Details" [selected]="true">
+					<div class="form-group row">
+						<div class="col-sm-4">
+							<label>Training Received <span class="text-danger"> *</span>
+							</label>
+							<p-dropdown placeholder="Select Training Received" styleClass="dropdwnvalues"></p-dropdown>	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Training Received  is required</small>
+						</div>
+						<div class="col-sm-4">
+							<label>Training Need <span class="text-danger"> *</span> 
+							</label>
+							<p-dropdown placeholder="Select Training Need" styleClass="dropdwnvalues"></p-dropdown>	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Training Need  is required</small>
+						</div>
+						<div class="col-sm-4">
+							<label>Tranined In Computers for Teaching <span class="text-danger"> *</span> 
+							</label>
+							<p-dropdown placeholder="Select ranined In Computers for Teaching" styleClass="dropdwnvalues"></p-dropdown>	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Tranined In Computers for Teaching is required</small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-4">
+							<label>Trained to Teach CWSN Students <span class="text-danger"> *</span>
+							</label>
+							<p-dropdown placeholder="Select Trained to Teach CWSN Students" styleClass="dropdwnvalues"></p-dropdown>	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Trained to Teach CWSN Students is required </small>
+						</div>
+						<div class="col-sm-4">
+							<label>Class Taught <span class="text-danger"> *</span> 
+							</label>
+							<p-dropdown placeholder="Select Class Taught" styleClass="dropdwnvalues"></p-dropdown>	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Class Taught is required </small>
+						</div>
+						<div class="col-sm-4">
+							<label>No. of working days spent on non teaching assignments in Last Academic Year <span class="text-danger"> *</span> 
+							</label>
+							<input type="text" pInputText class="form-control" placeholder="Enter No of working days">	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								No of working days is required </small>
+						</div>
+					</div>
+				</p-accordionTab>
+			</p-accordion>
+			<!-- Bank Details -->
+			<p-accordion>
+				<p-accordionTab header="Bank Details" [selected]="true">
+					<div class="form-group row">
+						<div class="col-sm-4">
+							<label>Indian Financial System Code (IFSC) <span class="text-danger"> *</span>
+							</label>
+							<input type="text" pInputText class="form-control"(change)="getbankdetails($event.target.value)" placeholder="Enter IFSC">	
+							<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								IFSC is required </small>
+						</div>
+						<div class="col-sm-4">
+							<label>Branch Name <span class="text-danger"> *</span> 
+							</label>
+							<input type="text" pInputText class="form-control" placeholder="Enter Branch Name">
+						</div>
+						<div class="col-sm-4">
+							<label>Bank Name <span class="text-danger"> *</span> 
+							</label>
+							<input type="text" pInputText class="form-control" placeholder="Enter Bank Name">
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-4">
+							<label>Account Number <span class="text-danger"> *</span>
+							</label>
+							<input type="text" pInputText class="form-control" placeholder="Enter Account Number">	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Account Number is required </small>
+						</div>
+						<div class="col-sm-4">
+							<label>Permanent Account Number (PAN) <span class="text-danger"> *</span> 
+							</label>
+							<input type="text" pInputText class="form-control" placeholder=" Enter Permanent Account Number">	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								Permanent Account Number  is required </small>
+						</div>
+						<div class="col-sm-4">
+							<label>No. of working days spent on non teaching assignments in Last Academic Year <span class="text-danger"> *</span> 
+							</label>
+							<input type="text" pInputText class="form-control" placeholder="Enter Working days">	<small class="form-text text-danger" *ngIf="!form.get('techer-Name').valid && (submitted || form.get('techer-Name').dirty || form.get('techer-Name').touched)">
+								No Of Working Days is required </small>
+						</div>
+					</div>
+				</p-accordionTab>
+			</p-accordion>
+		</form>
+		<div class="text-right mt-3">
+			<button type="submit" class="btn btn-success" (click)="onsave() ">Save</button>
+			<button type="submit" class="btn btn-danger">Close</button>
+		</div>
+	</p-card>
+</div>

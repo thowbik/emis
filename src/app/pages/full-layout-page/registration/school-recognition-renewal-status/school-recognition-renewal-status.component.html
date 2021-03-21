@@ -1,0 +1,717 @@
+<div class="main-body-content p-3" *ngIf="district_list_page" >
+    <p-toolbar>
+        <div class="row">
+            <div class="col-sm-6 pt-2 font-weight-bold">
+                School Recognition Renewal Status
+            </div>
+            <div class="col-sm-6 float-right">
+             <div class="row">
+                <div class="col-sm-6">
+                    <!-- <p-dropdown  [options]="Listtypedropvalue" placeholder="Select sList Type"  styleClass="dropdwnvalues"></p-dropdown> -->
+                </div>
+                <div class="col-sm-6">
+                    <!-- (api requried to change table value) -->
+                    <!-- <p-dropdown  [options]="Listtypedropvalue" disabled="true" placeholder="Select List Type"></p-dropdown> -->
+                    <!-- (onChange)="listtype($event)" -->
+                 </div>
+             </div>
+            </div>
+        </div>
+
+    </p-toolbar>
+    <div class="pt-3">
+    <p-card>
+        <div class="font-weight-bold p-2">
+            District List - RENEWAL 
+        </div>
+        <p-table #dt [columns]="dist_cols" [value]="dist_list" [resizableColumns]="true" [lazy]="false">
+            <ng-template pTemplate="header" let-distname>
+                <tr class="text-center">
+                    <th class="sno-header-layouts">S.NO</th>
+                    <th *ngFor="let dist_cols of distname" [pSortableColumn]="dist_cols.field" [style.width]="dist_cols.widthstyle">
+                        {{dist_cols.header}}
+                        <!-- <p-sortIcon [field]="dist_cols.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon> -->
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+                <tr class="text-center" *ngIf="!noDataFound">
+                    <td class="sno-header-layouts"> {{i+1}} </td>
+                    <td style="width: 13em;" class="text-left font-weight-bold"><a href="javascript:void(0)" (click)="get_dist_id(distwise.id)">{{distwise.district_name}}</a></td>
+                    <td class="text-left"> {{ distwise.email}} </td>
+                    <!-- (click)="getschoolname(distwise.app_id,distwise.school_name) -->
+                </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr class="text-left" *ngIf="noDataFound">
+                    <td colspan="4"> No Data Founds </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-card>
+  </div>
+
+</div>
+<div class="main-body-content p-3" *ngIf="school_list_page" >
+    <p-toolbar>
+        <div class="row" *ngIf="userTypeID == 5">
+            <div class="col-sm-6 pt-2 font-weight-bold">
+                  <i class="fa fa-arrow-left font_siz" (click)="Dist_Home_page()" aria-hidden="true"></i>
+                <span class="col-sm-11 font-weight-bold">
+                    School Recognition Renewal Status
+                </span>
+            </div>
+            <div class="col-sm-6 float-right">
+             <div class="row">
+                <div class="col-sm-6">
+                    <!-- <p-dropdown  [options]="Listtypedropvalue" placeholder="Select sList Type"  styleClass="dropdwnvalues"></p-dropdown> -->
+                </div>
+                <div class="col-sm-6">
+                    <!-- (api requried to change table value) -->
+                    <p-dropdown  [options]="Listtypedropvalue" disabled="true" placeholder="Select List Type"></p-dropdown>
+                    <!-- (onChange)="listtype($event)" -->
+                 </div>
+             </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="userTypeID != 5">
+            <div class="col-sm-6 pt-2 font-weight-bold">
+                <span class="col-sm-11 font-weight-bold">
+                    School Recognition Renewal Status
+                </span>
+            </div>
+            <div class="col-sm-6 float-right">
+             <div class="row">
+                <div class="col-sm-6">
+                    <!-- <p-dropdown  [options]="Listtypedropvalue" placeholder="Select sList Type"  styleClass="dropdwnvalues"></p-dropdown> -->
+                </div>
+                <div class="col-sm-6">
+                    <!-- (api requried to change table value) -->
+                    <p-dropdown  [options]="Listtypedropvalue" disabled="true" placeholder="Select List Type"></p-dropdown>
+                    <!-- (onChange)="listtype($event)" -->
+                 </div>
+             </div>
+            </div>
+        </div>
+
+    </p-toolbar>
+    <div class="pt-3">
+    <p-card>
+        <div class="font-weight-bold p-2">
+            LIST OF APPLIED SCHOOLS - RENEWAL <span class="badge badge-pill badge-primary">0</span>
+        </div>
+        <p-table #dt [columns]="cols" [value]="school_list" [resizableColumns]="true" [lazy]="false">
+            <ng-template pTemplate="header" let-distname>
+                <tr class="text-center">
+                    <!-- <th class="sno-header-layouts">S.NO</th> -->
+                    <th *ngFor="let cols of distname" [pSortableColumn]="cols.field" [style.width]="cols.widthstyle">
+                        {{cols.header}}
+                        <!-- <p-sortIcon [field]="cols.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon> -->
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+                <tr class="text-center" *ngIf="!noDataFound">
+                    <!-- <td class="sno-header-layouts"> {{i+1}} </td> -->
+                    <!-- <td class="text-left"> {{ distwise.district_name}} </td> -->
+                    <!-- (click)="getschoolname(distwise.app_id,distwise.school_name) -->
+                    <td style="width: 13em;" class="text-left font-weight-bold"><a href="javascript:void(0)" (click)="getschoolname(distwise.app_id,distwise.school_name,distwise.status_user)">{{ distwise.school_name}}</a></td>
+                    <!-- <td> {{ distwise.school_name}} </td> -->
+                    <td class="text-center"><a href="javascript:void(0)" aria-disabled="true" class="badge badge-primary">School Profile</a></td> 
+                    <td class="text-center"><a href="javascript:void(0)"  class="badge badge-warning">377 Hard code</a></td>
+                    <td class="text-center"*ngIf="distwise.status_user == 10"><a href="javascript:void(0)"  class="badge badge-info">DEO</a></td>
+                    <td class="text-center"*ngIf="distwise.status_user == 6"><a href="javascript:void(0)"  class="badge badge-info">BEO</a></td>
+                    <td class="text-center"*ngIf="distwise.status_user == 9"><a href="javascript:void(0)"  class="badge badge-info">CEO</a></td>
+                    <td class="text-center"*ngIf="distwise.status_user == 5"><a href="javascript:void(0)"  class="badge badge-info">Director</a></td>
+                    <td class="text-center"*ngIf="distwise.status_user == 12"><a href="javascript:void(0)"  class="badge badge-info">User 12</a></td>
+                    <!-- <td class="text-center"*ngIf="distwise.status == 1"><a href="javascript:void(0)"  class="badge badge-success">Completed</a></td> -->
+                    <!-- <td class="text-center"*ngIf="distwise.status != 1"><a href="javascript:void(0)"  class="badge badge-warning">Pending</a></td> -->
+                </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr class="text-left" *ngIf="noDataFound">
+                    <td colspan="4"> No Data Founds </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-card>
+  </div>
+
+</div>
+
+
+<!-- *ngIf="details_page" -->
+<div class="main-body-content p-3" *ngIf="details_page">
+    <p-toolbar class="p-2">
+        <div class="">
+            <i class="fa fa-arrow-left font_siz" (click)="Home_page()" aria-hidden="true"></i>
+            <span class="col-sm-11 font-weight-bold">
+                    {{headerss}}
+            </span>
+        </div>
+    </p-toolbar>
+
+<div class="mt-3">
+    <p-card>
+    <form [formGroup]="form">
+    <div class="container-fluid m-2">
+        <div class="backclr-grn  font-16">
+            <strong>School Certificate Details</strong>
+        </div>
+        <div class="row lable_font_weight">
+            <div class="col-sm-4">
+                <label>Details of Documents</label>
+            </div>
+            <div class="col-sm-2">
+                <label>School Certificate</label>
+            </div>
+            <div class="col-sm-3">
+                <label>Previous Remarks</label>
+            </div>
+            <div class="col-sm-3">
+                <label>Remarks</label>
+            </div>
+        </div>
+        <hr/>
+        <div formArrayName="school_certi_doc">
+            <div class="form-group row" style="padding-bottom:10px" *ngFor="let item of form.get('school_certi_doc')['controls']; let i = index;" [formGroupName]="i">
+                <div class="col-sm-4">
+                    <div class="flex-col-start">
+                        <label class="label-text"><span class="titile lable_font_weight">Document Number:</span><span> {{item.value.doc_file_num}}</span> </label><br/>
+                        <label class="label-text"><span class="titile lable_font_weight">Survey Number:</span><span> {{item.value.doc_survey_no}}</span> </label><br/>
+                        <label class="label-text"><span class="titile lable_font_weight">Place Of Registration:</span><span>{{item.value.doc_issue_place}}</span> </label>
+                        <label class="label-text"><span class="titile lable_font_weight">Registration At:</span><span>{{item.value.doc_file_date}}</span> </label>
+                    </div>
+
+                </div>
+                <div class="col-sm-2">
+                    <button pButton pRipple type="button" class="btn btn-success" (click)="downloadMyFile(item.value.doc_name_coded)" label="Download" class="p-button-success"></button>
+                </div>
+                <div class="col-sm-3">
+                    <div>
+                        <!-- <p class="label-text" *ngIf="item.value.previous_remarks">{{item.value.previous_remarks}}</p> -->
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div>
+                        <textarea name="w3review" rows="3" formControlName="user_remarks"></textarea>
+                        <!-- <small class="form-text text-danger"
+                            *ngIf="item.controls.user_remarks.errors && (submitted || form.controls.user_remarks.dirty || form.controls.user_remarks.touched)">
+                            Remarks is required
+                        </small> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid m-2">
+        <div class="backclr-grn  font-16">
+            <strong>Building Documents</strong>
+        </div>
+        <div class="row lable_font_weight">
+            <div class="col-sm-4">
+                <label>Details of Documents</label>
+            </div>
+            <div class="col-sm-2">
+                <label>Building Plan</label>
+            </div>
+            <div class="col-sm-3">
+                <label>Previous Remarks</label>
+            </div>
+            <div class="col-sm-3">
+                <label>Remarks</label>
+            </div>
+        </div>
+        <hr/>
+        <div formArrayName="building_document">
+            <div class="form-group row" style="padding-bottom:10px" *ngFor="let item of form.get('building_document')['controls']; let i = index;" [formGroupName]="i">
+                <div class="col-sm-4">
+                    <div class="flex-col-start">
+                        <label class="label-text"><span class="titile lable_font_weight">Plan Number:</span><span> {{item.value.doc_details}}</span> </label><br/>
+                        <label class="label-text"><span class="titile lable_font_weight">Valid upto:</span><span>{{item.value.doc_valid_upto_date}}</span> </label>
+                    </div>
+
+                </div>
+                <div class="col-sm-2">
+                    <button pButton pRipple type="button" class="btn btn-success" (click)="downloadMyFile(item.value.doc_name_coded)" label="Download" class="p-button-success"></button>
+                </div>
+                <div class="col-sm-3">
+                    <div>
+                        <!-- <p class="label-text" *ngIf="item.value.previous_remarks">{{item.value.previous_remarks}}</p> -->
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div>
+                        <textarea name="w3review" rows="3" formControlName="user_remarks"></textarea>
+                        <!-- <small class="form-text text-danger"
+                            *ngIf="item.controls.user_remarks.errors && (submitted || form.controls.user_remarks.dirty || form.controls.user_remarks.touched)">
+                            Remarks is required
+                        </small> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid m-2">
+        <div class="backclr-grn  font-16">
+            <strong>Building Licence</strong>
+        </div>
+        <div class="row lable_font_weight">
+            <div class="col-sm-4">
+                <label>Details of Documents</label>
+            </div>
+            <div class="col-sm-2">
+                <label>Building Licence</label>
+            </div>
+            <div class="col-sm-3">
+                <label>Previous Remarks</label>
+            </div>
+            <div class="col-sm-3">
+                <label>Remarks</label>
+            </div>
+        </div>
+        <hr/>
+        <div formArrayName="building_licence">
+            <div class="form-group row" style="padding-bottom:10px" *ngFor="let item of form.get('building_licence')['controls']; let i = index;" [formGroupName]="i">
+                <div class="col-sm-4">
+                    <div class="flex-col-start">
+                        <label class="label-text"><span class="titile lable_font_weight">Survey Number:</span><span> {{item.value.doc_survey_no}}</span> </label><br/>
+                        <label class="label-text"><span class="titile lable_font_weight">Valid upto:</span><span>{{item.value.doc_valid_upto_date}}</span> </label><br/>
+                        <label class="label-text"><span class="titile lable_font_weight">Issuing Authority:</span><span>{{item.value.doc_inspect_issue_authority}}</span> </label>
+                    </div>
+
+                </div>
+                <div class="col-sm-2">
+                    <button pButton pRipple type="button" class="btn btn-success" (click)="downloadMyFile(item.value.doc_name_coded)" label="Download" class="p-button-success"></button>
+                </div>
+                <div class="col-sm-3">
+                    <div>
+                        <!-- <p class="label-text" *ngIf="item.value.previous_remarks">{{item.value.previous_remarks}}</p> -->
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div>
+                        <textarea name="w3review" rows="3" formControlName="user_remarks"></textarea>
+                        <!-- <small class="form-text text-danger"
+                            *ngIf="item.controls.user_remarks.errors && (submitted || form.controls.user_remarks.dirty || form.controls.user_remarks.touched)">
+                            Remarks is required
+                        </small> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid m-2">
+        <div class="backclr-grn  font-16">
+            <strong>Building Stability Certificate</strong>
+        </div>
+        <div class="row lable_font_weight">
+            <div class="col-sm-4">
+                <label>Details of Documents</label>
+            </div>
+            <div class="col-sm-2">
+                <label>Stability Certificate</label>
+            </div>
+            <div class="col-sm-3">
+                <label>Previous Remarks</label>
+            </div>
+            <div class="col-sm-3">
+                <label>Remarks</label>
+            </div>
+        </div>
+        <hr/>
+        <div formArrayName="building_stab_certi">
+            <div class="form-group row" style="padding-bottom:10px" *ngFor="let item of form.get('building_stab_certi')['controls']; let i = index;" [formGroupName]="i">
+                <div class="col-sm-4">
+                    <div class="flex-col-start">
+                        <label class="label-text"><span class="titile lable_font_weight">Survey Number:</span><span> {{item.value.doc_survey_no}}</span> </label><br/>
+                        <label class="label-text"><span class="titile lable_font_weight">Valid upto:</span><span>{{item.value.doc_valid_upto_date}}</span> </label>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <button pButton pRipple type="button" class="btn btn-success" (click)="downloadMyFile(item.value.doc_name_coded)" label="Download" class="p-button-success"></button>
+                </div>
+                <div class="col-sm-3">
+                    <div>
+                        <!-- <p class="label-text" *ngIf="item.value.previous_remarks">{{item.value.previous_remarks}}</p> -->
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div>
+                        <textarea name="w3review" rows="3" formControlName="user_remarks"></textarea>
+                        <!-- <small class="form-text text-danger"
+                            *ngIf="item.controls.user_remarks.errors && (submitted || form.controls.user_remarks.dirty || form.controls.user_remarks.touched)">
+                            Remarks is required
+                        </small> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid m-2">
+        <div class="backclr-grn  font-16">
+            <strong>Sanitary Certificate</strong>
+        </div>
+        <div class="row lable_font_weight">
+            <div class="col-sm-4">
+                <label>Details of Documents</label>
+            </div>
+            <div class="col-sm-2">
+                <label>Sanitary Certificate</label>
+            </div>
+            <div class="col-sm-3">
+                <label>Previous Remarks</label>
+            </div>
+            <div class="col-sm-3">
+                <label>Remarks</label>
+            </div>
+        </div>
+        <hr/>
+        <div formArrayName="sanitary_certificate">
+            <div class="form-group row" style="padding-bottom:10px" *ngFor="let item of form.get('sanitary_certificate')['controls']; let i = index;" [formGroupName]="i">
+                <div class="col-sm-4">
+                    <div class="flex-col-start">
+                        <label class="label-text"><span class="titile lable_font_weight">File Number:</span><span> {{item.value.doc_file_num}}</span> </label><br/>
+                        <label class="label-text"><span class="titile lable_font_weight">File Date:</span><span> {{item.value.doc_file_date}}</span> </label><br/>
+                        <label class="label-text"><span class="titile lable_font_weight">Inspecting Authority:</span><span> {{item.value.doc_inspect_issue_authority}}</span> </label><br/>
+                        <label class="label-text"><span class="titile lable_font_weight">Inspecting Date:</span><span> {{item.value.doc_inspect_date}}</span> </label><br/>
+                        <label class="label-text"><span class="titile lable_font_weight">Certificate Valid upto:</span><span>{{item.value.doc_valid_upto_date}}</span> </label>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <button pButton pRipple type="button" class="btn btn-success" (click)="downloadMyFile(item.value.doc_name_coded)" label="Download" class="p-button-success"></button>
+                </div>
+                <div class="col-sm-3">
+                    <div>
+                        <!-- <p class="label-text" *ngIf="item.value.previous_remarks">{{item.value.previous_remarks}}</p> -->
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div>
+                        <textarea name="w3review" rows="3" formControlName="user_remarks"></textarea>
+                        <!-- <small class="form-text text-danger"
+                        *ngIf="item.controls.user_remarks.errors && (submitted || form.controls.user_remarks.dirty || form.controls.user_remarks.touched)">
+                        Remarks is required
+                    </small> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid m-2">
+        <div class="backclr-grn  font-16">
+            <strong>Fire Safety Certificate</strong>
+        </div>
+        <div class="row lable_font_weight">
+            <div class="col-sm-4">
+                <label>Details of Documents</label>
+            </div>
+            <div class="col-sm-2">
+                <label>Fire Safety Certificate</label>
+            </div>
+            <div class="col-sm-3">
+                <label>Previous Remarks</label>
+            </div>
+            <div class="col-sm-3">
+                <label>Remarks</label>
+            </div>
+        </div>
+        <hr/>
+        <div formArrayName="fire_safety">
+            <div class="form-group row" style="padding-bottom:10px" *ngFor="let item of form.get('fire_safety')['controls']; let i = index;" [formGroupName]="i">
+                <div class="col-sm-4">
+                    <div class="flex-col-start">
+                        <label class="label-text"><span class="titile lable_font_weight">File Number:</span><span> {{item.value.doc_file_num}}</span> </label><br/>
+                        <label class="label-text"><span class="titile lable_font_weight">File Date:</span><span> {{item.value.doc_file_date}}</span> </label><br/>
+                        <label class="label-text"><span class="titile lable_font_weight">Inspecting Authority:</span><span> {{item.value.doc_inspect_issue_authority}}</span> </label><br/>
+                        <label class="label-text"><span class="titile lable_font_weight">Inspecting Date:</span><span> {{item.value.doc_inspect_date}}</span> </label><br/>
+                        <label class="label-text"><span class="titile lable_font_weight">Certificate Valid upto:</span><span>{{item.value.doc_valid_upto_date}}</span> </label>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <button pButton pRipple type="button" class="btn btn-success" (click)="downloadMyFile(item.value.doc_name_coded)" label="Download" class="p-button-success"></button>
+                </div>
+                <div class="col-sm-3">
+                    <div>
+                        <!-- <p class="label-text" *ngIf="item.value.previous_remarks">{{item.value.previous_remarks}}</p> -->
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div>
+                        <textarea name="w3review" rows="3" formControlName="user_remarks"></textarea>
+                        <!-- <small class="form-text text-danger"
+                            *ngIf="item.controls.user_remarks.errors && (submitted || form.controls.user_remarks.dirty || form.controls.user_remarks.touched)">
+                            Remarks is required
+                        </small> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-right"> 
+        <button type="submit" class="btn btn-success m-2 text-right" (click)="doc_remark_sav()">Doc Remarks</button>
+    </div>
+</form>
+
+ </p-card>
+</div>
+<!-- <div class="mt-2" *ngIf="userTypeID == 9">
+    <p-toolbar>
+            <div class="row ">
+                <div class="col-sm-3 font-weight-bold">
+                    Inspection/Approval/Rejection
+                    <div class="p-2">
+                        DEO - (Recommended/Approved)
+                    </div>
+                </div>
+                <div class="col-sm-3 font-weight-bold">
+                    File  : 
+                    <div class="p-2 ">
+                        <div class="text-left m-2"><a href="www.google.com" target="_blank" class=" col-sm-5 badge badge-pill badge-primary">Doc Name</a></div>
+                    </div>
+                </div>
+                <div class="col-sm-3 font-weight-bold">
+                    File Number : 
+                    <div class="p-2">
+                        <label>RC NO 5448/A4/2019. Dated 10.12.2019 - Dt :13-12-2019 07:05:46</label>
+                    </div>
+                </div>
+                <div class="col-sm-3 font-weight-bold">
+                    Comments / Query : 
+                    <div class="p-2">
+                        <label>commands  </label>
+                    </div>         
+                </div><hr/>
+            </div>
+    </p-toolbar>
+</div>  -->
+<div class="mt-2">
+    <p-toolbar>
+        <form [formGroup]="form">
+                <div formArrayName="inter_inspection">
+                    <div  style="padding-bottom:10px" *ngFor="let item of form.get('inter_inspection')['controls']; let i = index;" [formGroupName]="i">
+            <div class="row ">
+                <div class="col-sm-3 font-weight-bold">
+                   Inpsection Documents / Photographs  :  
+                    <div class="p-2">
+                        <div class="row">
+                            <div class="col-sm-6 text-left">
+                                <div class="upload-btn-wrapper" id="challen">
+                                    <button class="btn"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Upload</button>
+                                    <input type="file" id="file" (change)="onSelectFile($event,'interm_inpsection_file' ,i)" >
+                                    <!-- (change)="onSelectFile($event,'fireSafety',i)"     -->
+                                </div> 
+                                <small class="form-text text-danger"
+                                *ngIf="item.controls.doc_name.errors && (submitted || form.controls.doc_name.dirty || form.controls.doc_name.touched)">
+                                PDF File is required
+                                </small>
+                            </div>
+                            <!-- <div class="col-sm-6">
+                                <p><b class="Note">Note:</b>(Only PDF files with a maximum size of 2MB)</p>
+                            </div> -->
+                          </div>                 
+                    </div>
+                </div>
+                <div class="col-sm-3 font-weight-bold">
+                   File Number : 
+                    <div class="p-2">
+                        <input class="form-control" type="text" formControlName="doc_file_num" placeholder="File Number">
+                        <small class="form-text text-danger"
+                            *ngIf="item.controls.doc_file_num.errors && (submitted || form.controls.doc_file_num.dirty || form.controls.doc_file_num.touched)">
+                            File No. is required
+                        </small>
+                    </div>
+                </div>
+                <div class="col-sm-3 font-weight-bold">
+                    Officer Recommendation : 
+                     <div class="p-2">
+                        <p-dropdown  [options]="recommend" formControlName="recommend" placeholder="Select"></p-dropdown>
+                        <small class="form-text text-danger"
+                            *ngIf="item.controls.recommend.errors && (submitted || form.controls.recommend.dirty || form.controls.recommend.touched)">
+                             Recommend is required
+                        </small>
+                    </div>
+                 </div>
+                <div class="col-sm-3 font-weight-bold">
+                   Remarks : 
+                    <div class="p-2">
+                        <textarea pInputTextarea  type="text" class="form-control" formControlName="remarks" placeholder="Remarks"></textarea>
+                          <small class="form-text text-danger"
+                            *ngIf="item.controls.remarks.errors && (submitted || form.controls.remarks.dirty || form.controls.remarks.touched)">
+                            Remarks is required
+                          </small>
+                    </div>         
+                </div><hr/>
+                <div class="font-weight-bold">
+                    Inspection Date : 
+                    <div class="p-2">
+                        <input class="form-control" type="date" formControlName="inspection_date" placeholder="Date" dateformat="yyyy/dd/mm">
+                        <small class="form-text text-danger"
+                            *ngIf="item.controls.inspection_date.errors && (submitted || form.controls.inspection_date.dirty || form.controls.inspection_date.touched)">
+                            Date is required
+                        </small>
+                    </div>
+                </div>
+            </div></div>
+            </div>   
+            <div *ngIf="final_stage">
+                <div formArrayName="final_condition">
+                    <div  style="padding-bottom:10px" *ngFor="let item of form.get('final_condition')['controls']; let i = index;" [formGroupName]="i">
+                        <div class="row mt-2">
+                <div class="col-sm-4 font-weight-bold">
+                    Condition Documents :  
+                    <div class="p-2">
+                        <div class="row">
+                            <div class="col-sm-6 text-left">
+                                <div class="upload-btn-wrapper" id="challen">
+                                    <button class="btn"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Upload</button>
+                                    <input type="file" id="file"  (change)="onSelectFile($event,'finals_condition' ,i)" >
+                                    <!-- (change)="onSelectFile($event,'fireSafety',i)"     -->
+                                </div> 
+                                <small class="form-text text-danger"
+                                    *ngIf="item.controls.doc_name.errors && (submitted || form.controls.doc_name.dirty || form.controls.doc_name.touched)">
+                                    PDF File is required
+                                </small>
+                            </div>
+                            <!-- <div class="col-sm-6">
+                                <p><b class="Note">Note:</b>(Only PDF files with a maximum size of 2MB)</p>
+                            </div> -->
+                          </div>    
+                    </div>
+                </div>
+                <div class="col-sm-4 font-weight-bold">
+                    <div class="font-weight-bold">
+                        Valid From : 
+                        <div class="p-2">
+                            <input class="form-control" type="date" formControlName="doc_valid_from_date" placeholder="Date" dateformat="yyyy/dd/mm">
+                            <small class="form-text text-danger"
+                                *ngIf="item.controls.doc_valid_from_date.errors && (submitted || form.controls.doc_valid_from_date.dirty || form.controls.doc_valid_from_date.touched)">
+                                Date is required
+                            </small>
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-sm-4 font-weight-bold">
+                    <div class="font-weight-bold">
+                        Valid Upto : 
+                        <div class="p-2">
+                            <input class="form-control" type="date" formControlName="doc_valid_upto_date" placeholder="Date" dateformat="yyyy/dd/mm">
+                            <small class="form-text text-danger"
+                                *ngIf="item.controls.doc_valid_upto_date.errors && (submitted || form.controls.doc_valid_upto_date.dirty || form.controls.doc_valid_upto_date.touched)">
+                                Date is required
+                            </small>
+                        </div>
+                    </div>
+                </div>
+              <hr/>
+             </div>
+             <div class="p-2">
+             <div class="row">
+                <div class="col-sm-4 font-weight-bold">
+                    <div class="font-weight-bold">
+                        From Class : 
+                        <div class="p-2">
+                            <p-dropdown formControlName="from_cls" [options]="class_from_to_dropvalue"  placeholder="Class" styleClass="dropdwnvalues"></p-dropdown>
+                            <small class="form-text text-danger"
+                                *ngIf="item.controls.from_cls.errors && (submitted || form.controls.from_cls.dirty || form.controls.from_cls.touched)">
+                                Date is required
+                             </small>
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-sm-4 font-weight-bold">
+                    <div class="font-weight-bold">
+                        To Class : 
+                        <div class="p-2">
+                            <p-dropdown formControlName="to_cls" [options]="class_from_to_dropvalue"  placeholder="Class" styleClass="dropdwnvalues"></p-dropdown>
+                            <small class="form-text text-danger"
+                                *ngIf="item.controls.to_cls.errors && (submitted || form.controls.to_cls.dirty || form.controls.to_cls.touched)">
+                                 Field is required
+                             </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 font-weight-bold">
+                    <div class="font-weight-bold">
+                        Order Date : 
+                        <div class="p-2">
+                            <input class="form-control" type="date" formControlName="order_date" placeholder="Date" dateformat="yyyy/dd/mm">
+                            <small class="form-text text-danger"
+                                *ngIf="item.controls.order_date.errors && (submitted || form.controls.order_date.dirty || form.controls.order_date.touched)">
+                                Field is required
+                             </small>
+                        </div>
+                    </div>
+                </div>
+             <!-- </div> -->
+             </div></div>
+             <div class="p-2">
+                <div class="row">
+                   <div class="col-sm-4 font-weight-bold">
+                       <div class="font-weight-bold">
+                           Recognition Number : 
+                           <div class="p-2">
+                            <input class="form-control" type="text" formControlName="order_recog_number" placeholder="Rec. No.">
+                            <small class="form-text text-danger"
+                                *ngIf="item.controls.order_recog_number.errors && (submitted || form.controls.order_recog_number.dirty || form.controls.order_recog_number.touched)">
+                                Field is required
+                            </small>
+                        </div>
+                       </div>
+                   </div> 
+                   <div class="col-sm-4 font-weight-bold">
+                       <div class="font-weight-bold">
+                           Rc Number : 
+                           <div class="p-2">
+                            <input class="form-control" type="text" formControlName="order_rc_num" placeholder="Rc. No.">
+                            <small class="form-text text-danger"
+                                *ngIf="item.controls.order_rc_num.errors && (submitted || form.controls.order_rc_num.dirty || form.controls.order_rc_num.touched)">
+                                Field is required
+                             </small>
+                        </div>
+                       </div>
+                   </div>
+                   <div class="col-sm-4 font-weight-bold">
+                       <!-- <div class="font-weight-bold">
+                           Order Date : 
+                           <div class="p-2">
+                               <input class="form-control" type="date" formControlName="order_date" placeholder="Date" dateformat="yyyy/dd/mm">
+                           </div>
+                       </div> -->
+                   </div>
+                </div>
+                </div></div>
+            </div>
+        </div>
+        </form>
+    </p-toolbar>
+</div>
+<p-dialog header="For Your Information" [visible]="display" [closable]="false">
+    <div class="p-5 text-center">
+        <p class="font-weight-bold">
+            Please Wait For Few Seconds File and Data are Being Uploaded
+            <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+        </p>
+    </div>
+</p-dialog>
+<div class="text-right" *ngIf="inter_stage">
+    <div  *ngIf="button_enable">
+        <button type="submit" class="btn btn-success m-2" (click)="save_inspecion_data('3')">Approved / Recommend</button>
+        <button type="submit" class="btn btn-danger m-2" (click)="save_inspecion_data('2')">Reject / Query</button>
+    </div>
+    <div *ngIf="button_disable">
+        <button type="submit" class="btn btn-success m-2"   (click)="save_inspecion_data('3')">Approved / Recommend</button>
+        <button type="submit" class="btn btn-danger m-2"   (click)="save_inspecion_data('2')">Reject / Query</button>
+    </div>
+</div>
+<div *ngIf="final_stage">
+    <div class="text-right" *ngIf="button_enable">
+        <button type="submit" class="btn btn-success m-2" (click)="save_inspecion_data('1')">Final Approved / Recommend</button>
+        <button type="submit" class="btn btn-danger m-2" (click)="save_inspecion_data('2')">Final Reject / Query</button>
+    </div>
+    <div class="text-right" *ngIf="button_disable">
+        <button type="submit" class="btn btn-success m-2" disabled (click)="save_inspecion_data('1')">Final Approved / Recommend</button>
+        <button type="submit" class="btn btn-danger m-2" disabled (click)="save_inspecion_data('2')">Final Reject / Query</button>
+    </div>
+</div>
+</div>

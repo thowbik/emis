@@ -1,0 +1,628 @@
+<div class="row pdf">
+    <div class="col-md-6 text-left">
+        <p class="title">NOC for CBSE Affiliation</p>
+    </div>
+    <div class="col-md-6 text-right">
+        <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true" ></i>
+    </div>
+</div>
+<div id="printableArea">
+    <div class="card ui-card-body my-3 box-shwd">
+        <form [formGroup]="form" novalidate>
+            <div class="row">
+                <div class="col-sm-12 ">
+                    <div class="border-line">
+                        <div class="row">
+                            <h1>Management Details
+                            </h1>
+                        </div>
+                        <div class="backclr-grn  font-16">
+                            <label style="padding-right:15px;">Name & Address
+                      </label>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-6 text-label-color">
+                                <label>Name of the Management Trust / Society</label>
+                            </div>
+                            <div class="col-md-6 text-input-color">
+                                <input type="text" class="form-controls" formControlName="mgmt_name" readonly>
+                            </div>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-6 text-label-color">
+                                <label>Address</label>
+                            </div>
+                            <div class="col-md-6 text-input-color">
+                                <input type="text" class="form-controls" formControlName="mgmt_address" readonly>
+                            </div>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-6 text-label-color">
+                                <label>Pincode</label>
+                            </div>
+                            <br>
+                            <div class="col-md-6 text-input-color">
+                                <input type="text" class="form-controls" formControlName="mgmt_pincode" readonly>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="backclr-grn  font-16">
+                            <label style="padding-right:15px;">Registration details
+                      </label>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-6 text-label-color">
+                                <label>Is the trust registered?
+                         </label>
+                            </div>
+                            <div class="col-md-6 text-input-color">
+                                <input type="text" class="form-controls" formControlName="mgmt_register_yn" readonly>
+                            </div>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color">
+                                        <label>Date of Registration</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="mgmt_register_date" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color-left">
+                                        <label>place of Registration</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="mgmt_register_place" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="backclr-grn  font-16">
+                            <label style="padding-right:15px;">Minority Status
+                      </label>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-6 text-label-color">
+                                <label>Does the institution have minority status?
+                         </label>
+                            </div>
+                            <div class="col-md-6 text-input-color">
+                                <input type="text" class="form-controls" formControlName="minority_yn" readonly>
+                            </div>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color">
+                                        <label>Issuing Authority</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="latitude" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color-left">
+                                        <label>File Number</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="longitude" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-6 text-label-color">
+                                <label>File Date</label>
+                            </div>
+                            <div class="col-md-6 text-input-color">
+                                <input type="text" class="form-controls" formControlName="department" readonly>
+                            </div>
+                        </div>
+                        <div class="backclr-grn  font-16 table">
+                            <label style="padding-right:15px;">Student Strength
+                      </label>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-2 backclr-grn  font-16 text-center">S.No</div>
+                            <div class="col-md-5 backclr-grn  font-16 text-center">Name of Institution</div>
+                            <div class="col-md-5 backclr-grn  font-16 text-center">Place</div>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-2 text-input-color text-center">1</div>
+                            <div class="col-md-5 text-input-color">
+                                <input type="text" class="form-controls" formControlName="other_inst_name1" readonly>
+                            </div>
+                            <div class="col-md-5 text-input-color">
+                                <input type="text" class="form-controls" formControlName="other_inst_place1" readonly>
+                            </div>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-2 text-input-color text-center">2</div>
+                            <div class="col-md-5 text-input-color">
+                                <input type="text" class="form-controls" formControlName="other_inst_name2" readonly>
+                            </div>
+                            <div class="col-md-5 text-input-color">
+                                <input type="text" class="form-controls" formControlName="other_inst_place2" readonly>
+                            </div>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-2 text-input-color text-center">3</div>
+                            <div class="col-md-5 text-input-color">
+                                <input type="text" class="form-controls" formControlName="other_inst_name3" readonly>
+                            </div>
+                            <div class="col-md-5 text-input-color">
+                                <input type="text" class="form-controls" formControlName="other_inst_place3" readonly>
+                            </div>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-2 text-input-color text-center">4</div>
+                            <div class="col-md-5 text-input-color">
+                                <input type="text" class="form-controls" formControlName="other_inst_name4" readonly>
+                            </div>
+                            <div class="col-md-5 text-input-color">
+                                <input type="text" class="form-controls" formControlName="other_inst_place4" readonly>
+                            </div>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-2 text-input-color text-center">5</div>
+                            <div class="col-md-5 text-input-color">
+                                <input type="text" class="form-controls" formControlName="other_inst_name5" readonly>
+                            </div>
+                            <div class="col-md-5 text-input-color">
+                                <input type="text" class="form-controls" formControlName="other_inst_place5" readonly>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="backclr-grn  font-16">
+                            <label style="padding-right:15px;">Other Supporting Documents
+                      </label>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color">
+                                        <label>Is the school situated in a hilly area?</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="hilly_yn" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="backclr-grn  font-16">
+                            <label style="padding-right:15px;">Land Details
+                      </label>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color">
+                                        <label>Survey Number</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="survey_number" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color-left">
+                                        <label>Area of land in acres</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="area" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color">
+                                        <label>Area of land in Square feet</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="sqfeet" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color-left">
+                                        <label>Is the land registered in the name of the School?</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="land_registered" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color">
+                                        <label>Nature of Ownership</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="ownership_type" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color-left">
+                                        <label>Sale Deed / Lease Document Number</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="doc_details" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color">
+                                        <label>Sale Deed / Lease Document Date</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="doc_file_date" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color-left">
+                                        <label>Sub Registrar Office Location</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="doc_issue_place" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="backclr-grn  font-16">
+                            <label style="padding-right:15px;">Building Documents
+                      </label>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color">
+                                        <label>Plan Number</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="doc_details" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color-left">
+                                        <label> Valid upto
+                               </label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="doc_valid_upto_date" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="backclr-grn  font-16">
+                            <label style="padding-right:15px;">Building Stability Certificate
+                      </label>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color">
+                                        <label>Survey Number</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="doc_details" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color-left">
+                                        <label> Valid upto</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="doc_valid_upto_date" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color">
+                                        <label>Total Building Value</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="bldg_value" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color-left">
+                                        <label>Number of students that can be accomodated</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="students_accomodate_strength1" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="backclr-grn  font-16">
+                            <label style="padding-right:15px;">Details of Authority issuing Building Stability Certificate</label>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color">
+                                        <label>Engineer Class</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="docs_engg_class" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color-left">
+                                        <label>Issuing Authority</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="doa_bsc_doc_inspect_issue_authority" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color">
+                                        <label>File number of Issuing Authority</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="doa_bsc_doc_file_num" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color-left">
+                                        <label>File Date</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="doa_bsc_doc_file_date" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="backclr-grn  font-16">
+                            <label style="padding-right:15px;">Building License</label>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color">
+                                        <label>Survey Number</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="doc_survey_no" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color-left">
+                                        <label>Valid upto</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="doc_valid_upto_date" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color">
+                                        <label>Issuing Authority</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="doc_inspect_issue_authority" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color-left">
+                                        <label>Number of students that can be accommodated</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="students_accomodate_strength2" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="backclr-grn  font-16">
+                            <label style="padding-right:15px;">Sanitary Certificate</label>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color">
+                                        <label>Inspecting authority</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="doc_inspect_issue_authority" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color-left">
+                                        <label> Inspection date</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="doc_inspect_date" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color">
+                                        <label>File number</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="doc_file_num" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6 text-label-color-left">
+                                        <label> File Date</label>
+                                    </div>
+                                    <div class="col-md-6 text-input-color">
+                                        <input type="text" class="form-controls" formControlName="doc_file_date" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-6 text-label-color">
+                                <label>Certificate Valid upto</label>
+                            </div>
+                            <div class="col-md-6 text-input-color">
+                                <input type="text" class="form-controls" formControlName="doc_valid_upto_date" readonly>
+                            </div>
+                        </div>
+                        <div class="backclr-grn  font-16">
+                            <label style="padding-right:15px;">Declaration</label>
+                        </div>
+                        <div class="row row-padding">
+                            <div class="col-md-6 text-label-color">
+                                <label>Whether closure order for existing school has been obtained by concerned Director of Department in order to obtain NOC for CBSE / ICSE</label>
+                            </div>
+                            <div class="col-md-6 text-input-color">
+                                <input type="text" class="form-controls" formControlName="closure_order_yn" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <h1>Checklist Verification</h1>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 ">
+                    <div class="border-line">
+                        <div class="backclr-grn  font-16">
+                            <label style="padding-right:15px;">Facilities</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-padding">
+                <div class="col-md-6 text-label-color">
+                    <label>Does the school have enough library facility? *
+                </label>
+                </div>
+                <div class="col-md-6 text-input-color">
+                    <input type="text" class="form-controls" formControlName="library_yn" readonly>
+                </div>
+            </div>
+            <div class="row row-padding">
+                <div class="col-md-6 text-label-color">
+                    <label>Does the school library have at least 1500 books?
+                </label>
+                </div>
+                <div class="col-md-6 text-input-color">
+                    <input type="text" class="form-controls" formControlName="books_yn" readonly>
+                </div>
+            </div>
+            <div class="row row-padding">
+                <div class="col-md-6 text-label-color">
+                    <label>Is sufficient lab facility available in the school?
+                </label>
+                </div>
+                <div class="col-md-6 text-input-color">
+                    <input type="text" class="form-controls" formControlName="labs_yn" readonly>
+                </div>
+            </div>
+            <div class="row row-padding">
+                <div class="col-md-6 text-label-color">
+                    <label>Any other schools functioning within the same campus?
+                </label>
+                </div>
+                <div class="col-md-6 text-input-color">
+                    <input type="text" class="form-controls" formControlName="sch_same_campus_yn" readonly>
+                </div>
+            </div>
+            <div class="row row-padding">
+                <div class="col-md-6 text-label-color">
+                    <label>Number Of Class Room in School?</label>
+                </div>
+                <div class="col-md-6 text-input-color">
+                    <input type="text" class="form-controls" formControlName="classrooms" readonly>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-12 ">
+                    <div class="border-line">
+                        <div class="backclr-grn  font-16">
+                            <label style="padding-right:15px;">Location & Nearby Schools
+                      </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-padding">
+                <div class="col-md-6 text-label-color">
+                    <label>Are there any English Medium schools in the 5km radius of this school?
+                </label>
+                </div>
+                <div class="col-md-6 text-input-color">
+                    <input type="text" class="form-controls" formControlName="em_sch_yn" readonly>
+                </div>
+            </div>
+            <div class="row row-padding">
+                <div class="col-md-6 text-label-color">
+                    <label>NOC received from any of the nearby Schools?</label>
+                </div>
+                <div class="col-md-6 text-input-color">
+                    <input type="text" class="form-controls" formControlName="sch1_noc_yn" readonly>
+                </div>
+            </div>
+            <div class="row row-padding">
+                <div class="col-md-6 text-label-color">
+                    <label>Will any other school be affected due to opening of this school?
+                </label>
+                </div>
+                <div class="col-md-6 text-input-color">
+                    <input type="text" class="form-controls" formControlName="other_sch_affect_yn" readonly>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

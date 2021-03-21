@@ -1,0 +1,385 @@
+<div class="main-body-content p-3">
+    <div class="outer-layout">
+        <div class="breadcrumbs c-black">
+           <h6 class="url">
+              <span class="flex-gap-right">DCF Reports</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+              <span class="flex-gap-right">By Social Category </span>
+           </h6>
+        </div>
+     </div>
+<div class="pr-2 mr-3">
+    <p-card class="mx-2">
+        <p><b>Note : </b> Reports Updated once a day at 7 PM. Any changes made will be reflected in the report the next day.</p>
+    </p-card>
+
+</div>
+
+<div class="main-body-content">
+    <p-card>
+        <p class="label_text"><b>4.2 </b> Enrolment in current academic session (by social category)<span class="manditory"> *</span></p>
+    </p-card>
+    <p-tabView>
+        <p-tabPanel header="Social Category">
+
+            <div class="row m-2">
+                <div class="col-md-12">
+                    <p-table [value]="Socialdata" [autoLayout]="true" [resizableColumns]="true" scrollHeight="500px" scrollWidth="100px">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="text-center " colspan="28">(a) By Social Category</th>
+                            </tr>
+                            <tr class="text-center">
+                                <th rowspan="2">Classes</th>
+                                <th colspan="2">Pre-Primary</th>
+                                <th colspan="2">I</th>
+                                <th colspan="2">II</th>
+                                <th colspan="2">III</th>
+                                <th colspan="2">IV</th>
+                                <th colspan="2">V</th>
+                                <th colspan="2">VI</th>
+                                <th colspan="2">VII</th>
+                                <th colspan="2">VIII</th>
+                                <th colspan="2">IX</th>
+                                <th colspan="2">X</th>
+                                <th colspan="2">XI</th>
+                                <th colspan="2">XII</th>
+                                <th colspan="1">Total</th>
+                            </tr>
+                            <tr class="text-center">
+                                <!-- <th></th> -->
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th></th>
+
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-socialCategory>
+                            <tr class="text-left" *ngIf="!noDataFound">
+                                <td style="width: 10em">{{socialCategory.items}}</td>
+                                <td style="width: 5em">{{socialCategory.cpp_b}}</td>
+                                <td style="width: 5em">{{socialCategory.cpp_g}}</td>
+                                <td style="width: 5em">{{socialCategory.c1_b}}</td>
+                                <td style="width: 5em"> {{socialCategory.c1_g}}</td>
+                                <td style="width: 5em"> {{socialCategory.c2_b}}</td>
+                                <td style="width: 5em"> {{socialCategory.c2_g}}</td>
+                                <td style="width: 5em"> {{socialCategory.c3_b}}</td>
+                                <td style="width: 5em"> {{socialCategory.c3_g}}</td>
+                                <td style="width: 5em"> {{socialCategory.c4_b}}</td>
+                                <td style="width: 5em"> {{socialCategory.c4_g}}</td>
+                                <td style="width: 5em"> {{socialCategory.c5_b}}</td>
+                                <td style="width: 5em"> {{socialCategory.c5_g}}</td>
+                                <td style="width: 5em"> {{socialCategory.c6_b}}</td>
+                                <td style="width: 5em"> {{socialCategory.c6_g}}</td>
+                                <td style="width: 5em">{{socialCategory.c7_b}}</td>
+                                <td style="width: 5em">{{socialCategory.c7_g}}</td>
+                                <td style="width: 5em">{{socialCategory.c8_b}}</td>
+                                <td style="width: 5em">{{socialCategory.c8_g}}</td>
+                                <td style="width: 5em">{{socialCategory.c9_b}}</td>
+                                <td style="width: 5em">{{socialCategory.c9_g}}</td>
+                                <td style="width: 5em">{{socialCategory.c10_b}}</td>
+                                <td style="width: 5em">{{socialCategory.c10_g}}</td>
+                                <td style="width: 5em">{{socialCategory.c11_b}}</td>
+                                <td style="width: 5em">{{socialCategory.c11_g}}</td>
+                                <td style="width: 5em">{{socialCategory.c12_b}}</td>
+                                <td style="width: 5em">{{socialCategory.c12_g}}</td>
+                                <td style="width: 5em"><b>{{socialCategory.item_total}}</b></td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="footer">
+                            <tr class="text-center" *ngIf="noDataFound">
+                                <td colspan="25">No Data Found</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </p-tabPanel>
+
+        <p-tabPanel header="Minority groups List">
+            <div class="row m-2 mt-3 pt-3">
+                <div class="col-md-12">
+                    <p-table [value]="Minoritygroups" [autoLayout]="true" [resizableColumns]="true" scrollHeight="500px" scrollWidth="100px">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th colspan="28" class="text-center">(b) Out of the total enrollment, provide details of enrollment belonging to following Minority groups*</th>
+                            </tr>
+                            <tr class="text-center">
+                                <th rowspan="2">Classes</th>
+                                <th colspan="2">Pre-Primary</th>
+                                <th colspan="2">I</th>
+                                <th colspan="2">II</th>
+                                <th colspan="2">III</th>
+                                <th colspan="2">IV</th>
+                                <th colspan="2">V</th>
+                                <th colspan="2">VI</th>
+                                <th colspan="2">VII</th>
+                                <th colspan="2">VIII</th>
+                                <th colspan="2">IX</th>
+                                <th colspan="2">X</th>
+                                <th colspan="2">XI</th>
+                                <th colspan="2">XII</th>
+                                <th colspan="1">Total</th>
+                            </tr>
+                            <tr class="text-center">
+                                <!-- <th></th> -->
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th></th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-socialCategory>
+                            <tr class="text-left" *ngIf="!noDataFound2">
+                                <td style="width: 10em">{{socialCategory.items}}</td>
+                                <td style="width: 5em">{{socialCategory.cpp_b}}</td>
+                                <td style="width: 5em">{{socialCategory.cpp_g}}</td>
+                                <td style="width: 5em">{{socialCategory.c1_b}}</td>
+                                <td style="width: 5em"> {{socialCategory.c1_g}}</td>
+                                <td style="width: 5em"> {{socialCategory.c2_b}}</td>
+                                <td style="width: 5em"> {{socialCategory.c2_g}}</td>
+                                <td style="width: 5em"> {{socialCategory.c3_b}}</td>
+                                <td style="width: 5em"> {{socialCategory.c3_g}}</td>
+                                <td style="width: 5em"> {{socialCategory.c4_b}}</td>
+                                <td style="width: 5em"> {{socialCategory.c4_g}}</td>
+                                <td style="width: 5em"> {{socialCategory.c5_b}}</td>
+                                <td style="width: 5em"> {{socialCategory.c5_g}}</td>
+                                <td style="width: 5em"> {{socialCategory.c6_b}}</td>
+                                <td style="width: 5em"> {{socialCategory.c6_g}}</td>
+                                <td style="width: 5em">{{socialCategory.c7_b}}</td>
+                                <td style="width: 5em">{{socialCategory.c7_g}}</td>
+                                <td style="width: 5em">{{socialCategory.c8_b}}</td>
+                                <td style="width: 5em">{{socialCategory.c8_g}}</td>
+                                <td style="width: 5em">{{socialCategory.c9_b}}</td>
+                                <td style="width: 5em">{{socialCategory.c9_g}}</td>
+                                <td style="width: 5em">{{socialCategory.c10_b}}</td>
+                                <td style="width: 5em">{{socialCategory.c10_g}}</td>
+                                <td style="width: 5em">{{socialCategory.c11_b}}</td>
+                                <td style="width: 5em">{{socialCategory.c11_g}}</td>
+                                <td style="width: 5em">{{socialCategory.c12_b}}</td>
+                                <td style="width: 5em">{{socialCategory.c12_g}}</td>
+                                <td style="width: 5em"><b>{{socialCategory.item_total}}</b></td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="footer">
+                            <tr class="text-center" *ngIf="noDataFound2">
+                                <td colspan="25">No Data Found</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </p-tabPanel>
+
+        <p-tabPanel header="Number of Students List">
+            <div class="row m-2 mt-3 pt-3">
+                <div class="col-md-12">
+                    <p-table [value]="providenumber" [autoLayout]="true" [resizableColumns]="true" scrollHeight="500px" scrollWidth="100px">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th colspan="28" class="text-center">(c) Out of the total enrolment, provide number of students*</th>
+                            </tr>
+                            <tr class="text-center">
+                                <th rowspan="2">Classes</th>
+                                <th colspan="2">Pre-Primary</th>
+                                <th colspan="2">I</th>
+                                <th colspan="2">II</th>
+                                <th colspan="2">III</th>
+                                <th colspan="2">IV</th>
+                                <th colspan="2">V</th>
+                                <th colspan="2">VI</th>
+                                <th colspan="2">VII</th>
+                                <th colspan="2">VIII</th>
+                                <th colspan="2">IX</th>
+                                <th colspan="2">X</th>
+                                <th colspan="2">XI</th>
+                                <th colspan="2">XII</th>
+                                <th colspan="1">Total</th>
+                            </tr>
+                            <tr class="text-center">
+                                <!-- <th></th> -->
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th>Boys</th>
+                                <th>Girls</th>
+                                <th></th>
+
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-socialCategory>
+                            <tr class="text-left" *ngIf="!noDataFound3">
+                                <td style="width: 10em">{{socialCategory.items}}</td>
+                                <td style="width: 5em">{{socialCategory.cpp_b}}</td>
+                                <td style="width: 5em">{{socialCategory.cpp_g}}</td>
+                                <td style="width: 5em">{{socialCategory.c1_b}}</td>
+                                <td style="width: 5em"> {{socialCategory.c1_g}}</td>
+                                <td style="width: 5em"> {{socialCategory.c2_b}}</td>
+                                <td style="width: 5em"> {{socialCategory.c2_g}}</td>
+                                <td style="width: 5em"> {{socialCategory.c3_b}}</td>
+                                <td style="width: 5em"> {{socialCategory.c3_g}}</td>
+                                <td style="width: 5em"> {{socialCategory.c4_b}}</td>
+                                <td style="width: 5em"> {{socialCategory.c4_g}}</td>
+                                <td style="width: 5em"> {{socialCategory.c5_b}}</td>
+                                <td style="width: 5em"> {{socialCategory.c5_g}}</td>
+                                <td style="width: 5em"> {{socialCategory.c6_b}}</td>
+                                <td style="width: 5em"> {{socialCategory.c6_g}}</td>
+                                <td style="width: 5em">{{socialCategory.c7_b}}</td>
+                                <td style="width: 5em">{{socialCategory.c7_g}}</td>
+                                <td style="width: 5em">{{socialCategory.c8_b}}</td>
+                                <td style="width: 5em">{{socialCategory.c8_g}}</td>
+                                <td style="width: 5em">{{socialCategory.c9_b}}</td>
+                                <td style="width: 5em">{{socialCategory.c9_g}}</td>
+                                <td style="width: 5em">{{socialCategory.c10_b}}</td>
+                                <td style="width: 5em">{{socialCategory.c10_g}}</td>
+                                <td style="width: 5em">{{socialCategory.c11_b}}</td>
+                                <td style="width: 5em">{{socialCategory.c11_g}}</td>
+                                <td style="width: 5em">{{socialCategory.c12_b}}</td>
+                                <td style="width: 5em">{{socialCategory.c12_g}}</td>
+                                <td style="width: 5em"><b>{{socialCategory.item_total}}</b></td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="footer">
+                            <tr class="text-center" *ngIf="noDataFound3">
+                                <td colspan="25">No Data Found</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="Transgender Students List">
+            <div class="row m-2 mt-3 pt-3">
+                <div class="col-md-12">
+                    <p-table [value]="Transgender" [autoLayout]="true" [resizableColumns]="true" [scrollable]="true" scrollHeight="500px" scrollWidth="100px">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th colspan="25" class="text-center">(d) Out of the total enrolment, provide number of Transgender students*</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-socialCategory>
+                            <tr class="text-center font-weight-bold">
+                                <td style="width: 8em"></td>
+                                <td style="width: 5em">I</td>
+                                <td style="width: 5em">II</td>
+                                <td style="width: 5em">III</td>
+                                <td style="width: 5em">IV</td>
+                                <td style="width: 5em">V</td>
+                                <td style="width: 5em">VI</td>
+                                <td style="width: 5em">VII</td>
+                                <td style="width: 5em">VIII</td>
+                                <td style="width: 5em">IX</td>
+                                <td style="width: 5em">X</td>
+                                <td style="width: 5em">XI</td>
+                                <td style="width: 5em">XII</td>
+                            </tr>
+                            <tr *ngIf="!noDataFound4" class="text-left">
+                                <td style="width: 10em">{{socialCategory.items}}</td>
+                                <td style="width: 5em">{{socialCategory.cpp_b}}</td>
+                                <td style="width: 5em">{{socialCategory.cpp_g}}</td>
+                                <td style="width: 5em">{{socialCategory.c1_b}}</td>
+                                <td style="width: 5em"> {{socialCategory.c1_g}}</td>
+                                <td style="width: 5em"> {{socialCategory.c2_b}}</td>
+                                <td style="width: 5em"> {{socialCategory.c2_g}}</td>
+                                <td style="width: 5em"> {{socialCategory.c3_b}}</td>
+                                <td style="width: 5em"> {{socialCategory.c3_g}}</td>
+                                <td style="width: 5em"> {{socialCategory.c4_b}}</td>
+                                <td style="width: 5em"> {{socialCategory.c4_g}}</td>
+                                <td style="width: 5em"> {{socialCategory.c5_b}}</td>
+                                <td style="width: 5em"> {{socialCategory.c5_g}}</td>
+                                <td style="width: 5em"> {{socialCategory.c6_b}}</td>
+                                <td style="width: 5em"> {{socialCategory.c6_g}}</td>
+                                <td style="width: 5em">{{socialCategory.c7_b}}</td>
+                                <td style="width: 5em">{{socialCategory.c7_g}}</td>
+                                <td style="width: 5em">{{socialCategory.c8_b}}</td>
+                                <td style="width: 5em">{{socialCategory.c8_g}}</td>
+                                <td style="width: 5em">{{socialCategory.c9_b}}</td>
+                                <td style="width: 5em">{{socialCategory.c9_g}}</td>
+                                <td style="width: 5em">{{socialCategory.c10_b}}</td>
+                                <td style="width: 5em">{{socialCategory.c10_g}}</td>
+                                <td style="width: 5em">{{socialCategory.c11_b}}</td>
+                                <td style="width: 5em">{{socialCategory.c11_g}}</td>
+                                <td style="width: 5em">{{socialCategory.c12_b}}</td>
+                                <td style="width: 5em">{{socialCategory.c12_g}}</td>
+                                <td style="width: 5em"><b>{{socialCategory.item_total}}</b></td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="footer">
+                            <tr class="text-center" *ngIf="noDataFound4">
+                                <td colspan="25">No Data Found</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </p-tabPanel>
+    </p-tabView>
+</div>
+</div>

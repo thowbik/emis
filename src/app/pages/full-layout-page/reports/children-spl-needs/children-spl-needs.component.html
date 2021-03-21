@@ -1,0 +1,140 @@
+<div class="main-body-content p-3">
+	<div class="outer-layout">
+		<div class="breadcrumbs c-black">
+			<h6 class="url">
+				<span class="flex-gap-right">DCF Reports</span>
+				<i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+				<span class="flex-gap-right">CWSN Enrollment </span>
+			</h6>
+		</div>
+	</div>
+	<p-card>
+		<div class="pr-2 mr-3">
+			<p-card class="mx-2">
+				<p>
+					<b>Note : </b> Reports Updated once a day at 7 PM. Any changes made will be reflected in the report the next day.
+				</p>
+			</p-card>
+			<p-card class="mt-3 pt-3">
+				<!-- Start  -->
+				<div class="m-2 p-2">
+					<div class="row  m-2 pt-1 mb-3">
+						<div class="col-md-12 mt-1">
+							<p class="label_text">
+								<b>4.6 </b> Enrolment by grade for Children with Special Needs
+							</p>
+						</div>
+					</div>
+					<div class="row m-2">
+						<div class="col-md-12">
+							<p-table #dt [value]="EnrollmentChildrenDetails" [autoLayout]="true" [resizableColumns]="true" scrollHeight="500px" scrollWidth="100px">
+								<ng-template pTemplate="header">
+									<tr class="center">
+										<th colspan="1" style="width: 12em">Classes</th>
+										<th colspan="2" style="width: 10em">Pre-Primary</th>
+										<th colspan="2" style="width: 6em">I</th>
+										<th colspan="2" style="width: 6em">II</th>
+										<th colspan="2" style="width: 6em">III</th>
+										<th colspan="2" style="width: 6em">IV</th>
+										<th colspan="2" style="width: 6em">V</th>
+										<th colspan="2" style="width: 6em">VI</th>
+										<th colspan="2" style="width: 6em">VII</th>
+										<th colspan="2" style="width: 6em">VIII</th>
+										<th colspan="2" style="width: 6em">IX</th>
+										<th colspan="2" style="width: 6em">X</th>
+										<th colspan="2" style="width: 6em">XI</th>
+										<th colspan="2" style="width: 6em">XII</th>
+										<th colspan="2" style="width: 6em">Total</th>
+									</tr>
+									<tr class="center">
+										<th>Type of Impairment</th>
+										<th>B</th>
+										<th>G</th>
+										<th>B</th>
+										<th>G</th>
+										<th>B</th>
+										<th>G</th>
+										<th>B</th>
+										<th>G</th>
+										<th>B</th>
+										<th>G</th>
+										<th>B</th>
+										<th>G</th>
+										<th>B</th>
+										<th>G</th>
+										<th>B</th>
+										<th>G</th>
+										<th>B</th>
+										<th>G</th>
+										<th>B</th>
+										<th>G</th>
+										<th>B</th>
+										<th>G</th>
+										<th>B</th>
+										<th>G</th>
+										<th>B</th>
+										<th>G</th>
+										<th></th>
+									</tr>
+								</ng-template>
+								<ng-template pTemplate="body" let-distname let-rowData let-columns="columns" let-i="rowIndex">
+									<tr [pSelectableRow]="rowData" class="text-left">
+										<td class="width-168">{{ distname.da_name}}</td>
+										<td class="width-70"> {{ distname.cpp_b}} </td>
+										<td class="width-70"> {{ distname.cpp_g}} </td>
+										<td class="width-42"> {{ distname.c1_b}} </td>
+										<td class="width-42"> {{ distname.c1_g}} </td>
+										<td class="width-42"> {{ distname.c2_b}} </td>
+										<td class="width-42"> {{ distname.c2_g}} </td>
+										<td class="width-42"> {{ distname.c3_b}} </td>
+										<td class="width-42"> {{ distname.c3_g}} </td>
+										<td class="width-42"> {{ distname.c4_b}} </td>
+										<td class="width-42"> {{ distname.c4_g}} </td>
+										<td class="width-42"> {{ distname.c5_b}} </td>
+										<td class="width-42"> {{ distname.c5_g}} </td>
+										<td class="width-42"> {{ distname.c6_b}} </td>
+										<td class="width-42"> {{ distname.c6_g}} </td>
+										<td class="width-42"> {{ distname.c7_b}} </td>
+										<td class="width-42"> {{ distname.c7_g}} </td>
+										<td class="width-42"> {{ distname.c8_b}} </td>
+										<td class="width-42"> {{ distname.c8_g}} </td>
+										<td class="width-42"> {{ distname.c9_b}} </td>
+										<td class="width-42"> {{ distname.c9_g}} </td>
+										<td class="width-42"> {{ distname.c10_b}} </td>
+										<td class="width-42"> {{ distname.c10_g}} </td>
+										<td class="width-42"> {{ distname.c11_b}} </td>
+										<td class="width-42"> {{ distname.c11_g}} </td>
+										<td class="width-42"> {{ distname.c12_b}} </td>
+										<td class="width-42"> {{ distname.c12_g}} </td>
+										<td>
+											<b>
+				   {{(distname.cpp_b)*1 + (distname.cpp_g)*1 
+				  + (distname.c1_b)*1 + (distname.c1_g)*1 
+				  + (distname.c2_b)*1 + (distname.c2_g)*1 
+				  + (distname.c3_b)*1 +  (distname.c3_g)*1
+				  + (distname.c4_b)*1 +  (distname.c4_g)*1
+				  + (distname.c5_b)*1 + (distname.c5_g)*1
+				  + (distname.c6_b)*1 + (distname.c6_g)*1
+				  + (distname.c7_b)*1 + (distname.c7_g)*1
+				  + (distname.c8_b)*1 + (distname.c8_g)*1
+				  + (distname.c9_b)*1 + (distname.c9_g)*1
+				  + (distname.c10_b)*1 + (distname.c10_g)*1
+				  + (distname.c11_b)*1 + (distname.c11_g)*1
+				  + (distname.c12_b)*1 + (distname.c12_g)*1             
+				}}</b>
+										</td>
+									</tr>
+								</ng-template>
+								<ng-template pTemplate="footer">
+									<tr class="text-center" *ngIf="noDataFound">
+										<td colspan="28">No Data Found</td>
+									</tr>
+								</ng-template>
+							</p-table>
+						</div>
+					</div>
+				</div>
+			</p-card>
+		</div>
+	</p-card>
+	

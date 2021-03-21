@@ -1,0 +1,11 @@
+{"religion":[
+    {"value":7, "label":"Religion not disclosed"},
+    {"value":1, "label":"Hindu"},
+    {"value":2, "label":"Christian"},
+    {"value":3, "label":"Muslim"},
+    {"value":4, "label":"Others"},
+    {"value":5, "label":"Janism"},
+    {"value":6, "label":"Sikh"},
+    {"value":8, "label":"Buddhism"}
+]}
+

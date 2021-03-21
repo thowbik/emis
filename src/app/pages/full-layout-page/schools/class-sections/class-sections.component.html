@@ -1,0 +1,144 @@
+<div class="outer-layout" style="padding-top: 6px;">
+    <div class="breadcrumbs c-black">
+    <h6 class="url"><span class="flex-gap-right">Schools</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i> <span class="flex-gap-right">ClassandSection</span></h6>
+    </div>
+</div>
+
+<div class="main-body-content">
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img">
+
+<p-table [columns]="sampleSelectedColumn" [value]="classList" selectionMode="single" [(selection)]="selectedClassSection" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="15">
+    <ng-template pTemplate="caption">
+    <div class="ui-helper-clearfix" style="text-align: left">
+        <div style="float:left">
+        <p-multiSelect [options]="sampleDataHeader" [(ngModel)]="sampleSelectedColumn" optionLabel="header"
+          selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" defaultLabel="Choose Columns"></p-multiSelect>
+          <br/>
+        <i>Note : Please Select the Row To Update the Details </i></div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-6"  style="text-align: left">
+            <button type="button" pButton icon="fa fa-plus" (click)="addClassSection()" label="Add"></button>
+        </div>
+        <div class="col-md-6"  style="text-align: right">
+            <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel()" ></i> 
+        </div>
+    </div>
+
+    </ng-template> 
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th class="sno-header-layout">#</th>
+            <th style="width: 10em;text-align: center;">Standard</th>
+            <th style="text-align: center;width: 10em">Section</th>
+            <th style="text-align: center;">Group</th>
+            <th style="text-align: center;">Medium of Instruction</th>
+            <th style="text-align: center;">Class Teacher</th>
+            <!-- <p-sortIcon [field]="col.field"></p-sortIcon> -->
+
+            <!-- <th *ngFor="let col of columns" [pSortableColumn]="col.field" style="text-align: center;">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th> -->
+            <th style="text-align: center;">Action</th>
+        </tr>
+        <tr>
+            <th></th>
+            <th *ngFor="let col of columns" [ngSwitch]="col.field" >
+                <input  pInputText type="text" class="textbox-filter" (input)="dt.filter($event.target.value, col.field, 'contains')">        
+            </th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+        <tr [pSelectableRow]="rowData">
+            <td class="sno-header-layout">{{i+1}}</td>
+            <td *ngFor="let col of columns" >
+                <strong>{{rowData[col.field]}}</strong>
+            </td>
+            <td style="text-align: center;">
+                 <!-- class="ui-button-success" -->
+                 <!-- <button type="button" pButton icon="fa fa-close"   label="Delete" style="font-size: 10px;"></button> -->
+                 <button type="button" pButton icon="fa fa-trash" class="ui-button-warning"  (click)="delete(rowData)"></button>
+                </td>
+        </tr>
+    </ng-template>
+    <!-- <ng-template pTemplate="summary" let-rowData>
+        
+    </ng-template>     -->
+</p-table>
+
+<!-- <p-dialog [header]="dialogTitle" [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"  
+    [style]="{width:'45%'}" [minY]="70" 
+    [maximizable]="true" [baseZIndex]="10000"> -->
+    <p-dialog [header]="dialogTitle" [(visible)]="displayDialog"
+          [modal]="true" 
+          [responsive]="true" 
+          [draggable]="false"  
+                     [blockScroll]="true" 
+                     [maximizable]="false" 
+                     [contentStyle]="{'max-width':'1000px','overflow-y': 'auto'}">
+
+    <div class="ui-g ui-fluid" *ngIf="singleClass">
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="stdId">Standard</label>
+            </div>
+            <div class="ui-g-8">  
+                <p-dropdown placeholder="Select Standard" [(ngModel)]="singleClass.stdId" [options]="classes"  class="flex-dropdown"  (ngModelChange)="groupfilter($event)"></p-dropdown>
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="section">Section</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText placeholder=" Section" [(ngModel)]="singleClass.section" class="w-100" id="section"  oninput="this.value = this.value.toUpperCase()" maxlength="3" (keypress)="keyPress($event)">
+            </div>
+        </div>
+        <div class="ui-g-12" *ngIf="schoolTypeId == 2 || schoolTypeId == 4">
+            <div class="ui-g-4">
+                <label for="schooltype">Section Type</label>
+            </div>
+            <div class="ui-g-8">
+                <p-dropdown  [options]="schoolType"  placeholder="Select Section Type" class="flex-dropdown" [(ngModel)]="singleClass.school_type"></p-dropdown>
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="medium_id">Medium</label>
+            </div>
+            <div class="ui-g-8">
+                <p-dropdown  [options]="mediumList"  placeholder="Select Educational Medium" class="flex-dropdown" [(ngModel)]="singleClass.medium_id"></p-dropdown>
+            </div>
+        </div>
+        <div class="ui-g-12" *ngIf="singleClass.stdId == 11 || singleClass.stdId == 12">
+            <div class="ui-g-4">
+                <label for="group">Group</label>
+            </div>
+            <div class="ui-g-8">
+                <p-dropdown  [options]="filteredGroupList"  placeholder="Select Group" class="flex-dropdown" [(ngModel)]="singleClass.group_id"></p-dropdown>
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="teacher_id">Class Teacher</label>
+            </div>
+            <div class="ui-g-8">
+                <p-dropdown  [options]="teacherdata"  placeholder="Select Class Teacher" class="flex-dropdown" [(ngModel)]="singleClass.teacher_id"></p-dropdown>
+            </div>
+        </div>
+       
+    </div>
+    
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="fa fa-check" (click)="save()" label="Save"></button>
+        </div>
+    </p-footer>
+</p-dialog>
+
+</div>
+</div>
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>

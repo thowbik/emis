@@ -1,0 +1,301 @@
+
+@media print{
+    .doNotPrint{display:none !important;}
+  }
+   .box-shwd {
+      box-shadow: 0 2px 6px #7686729e;
+    }
+     
+     .backclr-grn {
+      background-color: #075c49;
+      color: white;
+      padding: 10px;
+      margin-bottom: 0px;
+    } 
+    
+     button.btn.btn-success {
+      background-color: #075c49;
+      border: 1px solid #075c49;
+    }
+    
+    
+     .font-16 {
+      font-size: 16px;
+      font-weight: 500;
+    }
+    
+    .form-controls {
+      /* display: block; */
+      width: 100%;
+      border: 1px solid white;
+      height: calc(1.5em + 1.3rem + 5px);
+      padding: 0.65rem 1rem;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      /* color: #495057; */
+      /* background-color: #fffdcd; */
+      background-color: #fff;
+      /* background-clip: padding-box; */
+      /* border: 1px solid #e2e5ec;
+      border-radius: 4px; */
+     
+  }
+  .form-controlss {
+    /* display: block; */
+    width: 100%;
+    border: 1px solid white;
+    height: calc(1.5em + 1.3rem + 5px);
+    padding: 0.65rem 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    /* color: #495057; */
+    /* background-color: #fffdcd; */
+    background-color: #fff;
+    /* background-clip: padding-box; */
+    /* border: 1px solid #e2e5ec;
+    border-radius: 4px; */
+    text-align:center !important;
+  }
+    
+  /* label {
+      margin-bottom:0px !important;
+      margin-top: 7px;
+      font-weight: 500;
+  } */
+  
+  .row-padding {
+      padding-right: 10px;
+      padding-left: 10px;
+  }
+  .text-label-color-bt {
+    background-color: #dcffcd;
+   
+  }
+  .text-label-color {
+      background-color: #dcffcd;
+      border-bottom: 1px solid black;
+  }
+  
+  .text-label-color-right {
+    background-color: #dcffcd;
+    border-right: 1px solid black;
+  }
+  
+  .text-label-color-left {
+    background-color: #dcffcd;
+      border-bottom: 1px solid black;
+      border-left: 1px solid black;
+  }
+  
+  .text-label-color-block {
+    background-color: #dcffcd;
+    border: 1px solid #dcffcd;
+    color: #646c9a;
+  }
+  
+  
+  text-input-color-right1{
+    color:black;
+    background-color: #fff;
+    padding-right: 0px;padding-left: 0px;
+    /* border-bottom: 1px solid Black;  */
+    border-right: 1px solid Black;
+    display: block;
+    /* background-color: #fffdcd; */
+    
+  }
+  
+  .text-input-color-s {
+    color:black;
+    background-color: #fff;
+    padding-right: 0px;padding-left: 0px;
+    border-bottom: 1px solid Black; 
+    /* border-left: 1px solid Black; */
+    display: block;
+    /* background-color: #fffdcd; */
+  }
+  .text-input-color {
+      color:black;
+      background-color: #fff;
+      padding-right: 0px;padding-left: 0px;
+      border-bottom: 1px solid Black; 
+      border-left: 1px solid Black;
+      display: block;
+      /* background-color: #fffdcd; */
+  }
+  
+  .text-input-color-bottom {
+    color:black;
+    background-color: #fff;
+    padding-right: 0px;padding-left: 0px;
+    border-bottom: 1px solid Black; 
+    /* border-left: 1px solid Black; */
+    display: block;
+    /* background-color: #fffdcd; */
+  }
+  
+  .text-input-color-sample {
+    color:black;
+    background-color: #fff;
+    padding-right: 0px;padding-left: 0px;
+    border-bottom: 1px solid Black; 
+   /* border-left: 1px solid Black; */
+    display: block;
+    /* background-color: #fffdcd; */
+  }
+  
+  .text-input-color-lefts {
+    color:black;
+    background-color: #fff;
+    padding-right: 0px;padding-left: 0px;
+    border-bottom: 1px solid Black; 
+    /* border-left: 1px solid Black; */
+    display: block;
+    /* background-color: #fffdcd; */
+  }
+  
+  
+  
+  .text-input-color-medium {
+    color:black;
+    /* background-color: #fffdcd; */
+    background-color: #fff;
+    padding-right: 0px;padding-left: 0px;
+    border-bottom: 1px solid Black;
+    border-left: 1px solid Black;
+  }
+  .text-input-color-num {
+    color:black;
+    /* background-color: #fffdcd; */
+    background-color: #fff;
+    padding-right: 0px;padding-left: 0px;
+    border-bottom: 1px solid Black;
+    border-right: 1px solid Black;
+    text-align: center !important;
+  }
+  .text-input-colors {
+    color:black;
+    /* background-color: #fffdcd; */
+    background-color: #fff;
+    padding-right: 0px;padding-left: 0px;
+    border-bottom: 1px solid Black;
+    border-right: 1px solid Black;
+  }
+  
+  .border-line {
+    border-right: 1px solid Black;
+    border-left: 1px solid Black;
+    border-bottom: 1px solid Black;
+    border-top: 1px solid Black;
+  }
+  .border-line1 {
+    border-right: 1px solid Black;
+    border-left: 1px solid Black;
+    border-top: 1px solid Black;
+  }
+  
+  .text-input-colors-num {
+    border-right: 1px solid Black;
+    padding-left:0px;
+    padding-right:0px;
+  }
+
+  td {
+    text-align: center;
+   
+  }
+  th {
+    text-align: center;
+    /* background-color: #dcffcd; */
+  }
+
+
+
+
+
+/* Noc css */
+
+.head-style {
+  text-align: center;
+  display:block;
+  font-weight: 600;
+  font-size: 18px;
+  margin-top: 7px;
+  color: #075c49;
+}
+
+.head-substyle {
+  text-align: center;
+  display:block;
+  font-weight: 500;
+  font-size: 15px;
+  padding-top: 0;
+  color: #075c49;
+}
+
+.left-aln {
+  text-align: left;
+    padding-left: 2%;
+    color: #075c49;
+    font-weight: 500;
+    font-size: 15px;
+}
+.right-aln {
+  text-align: right;
+    padding-right: 2%;
+    color: #075c49;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.to-aln {
+  display:block;
+  font-weight: 500;
+  font-size: 15px;
+  padding-top: 0;
+  color: #075c49;
+  padding-left: 2%;
+}
+.to-txt-aln {
+  padding-left:7%;
+  font-weight: 500;
+  font-size: 15px;
+  padding-top: 0;
+  color: black;
+}
+.sub-aln {
+  padding-left:7%;
+  font-weight: 500;
+  font-size: 15px;
+  padding-top: 0;
+  color: #075c49;
+}
+.to-sub-aln {
+  font-weight: 500;
+  font-size: 15px;
+  padding-top: 0;
+  color: black;
+  padding-left: 3%;
+}
+.span-txt {
+  padding-right: 0;
+}
+.sub-txtaln {
+  padding-left:7%;
+  font-weight: 500;
+  font-size: 15px;
+  padding-top: 0;
+  color: black;
+}
+
+.table-line {
+  border-top:1px solid black;
+  border-left:1px solid black;
+  border-right: 1px solid black;
+}
+
+.table-all-line {
+  border:1px solid black;
+}

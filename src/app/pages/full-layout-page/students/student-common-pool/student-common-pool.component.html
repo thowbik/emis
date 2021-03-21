@@ -1,0 +1,86 @@
+<div class="main-body-content">
+    <div class="page-container">
+        <form name="form" [formGroup]="form">
+    <div class="std-adm center">
+        <p >Has the student studied in any other school in tamil nadu ?</p>
+        <div class="kt-section__content">
+            <button pButton type="button" label="No" class="ui-button-secondary flex-gap-right" (click)="goToAdmission()"></button>
+            <button pButton type="button" label="Yes" class="ui-button-info flex-gap-right" (click)="goToCommonPool()"></button>
+        </div>
+        <div *ngIf="canSearch">
+            <div class="form-group radiobutton-layout">
+                    <div class="ui-g" style="margin-bottom:10px;">
+                        <div class="ui-g-12" *ngFor="let item of searchList">
+                            <p-radioButton name="group1" value="{{item.value}}" label="{{item.name}}" formControlName="db_col" inputId="opt1" (click)="radioSelect(item.name,item.value)">
+
+                            </p-radioButton></div>
+                        <!-- <div class="ui-g-12"><p-radioButton name="group1" value="Option 2" label="Adhaar Number" formControlName="db_col"  inputId="opt2"></p-radioButton></div>
+                        <div class="ui-g-12"><p-radioButton name="group1" value="Option 3" label="Phone Number" formControlName="db_col"  inputId="opt3"></p-radioButton></div>
+                        <div class="ui-g-12"><p-radioButton name="group1" value="Option 3" label="UDISE" formControlName="db_col"  inputId="opt3"></p-radioButton></div>
+                        <div class="ui-g-12"><p-radioButton name="group1" value="Option 3" label="DOB" formControlName="db_col"  inputId="opt3"></p-radioButton></div> -->
+                    </div>
+                  
+                    <!-- <p-dropdown [options]="searchList" formControlName="db_col" optionLabel="Please Select"></p-dropdown> -->
+                   
+                </div>
+                <div class="form-group flex-row-center">
+                        <input type="text" class="form-control text-field" formControlName="search_data" placeholder="{{selectedItem}}">
+                        <p-dropdown *ngIf="isSelectedUdise" [options]="classList" (onChange)="selectClass($event)" optionLabel="name" optionValue="value"></p-dropdown>
+                       
+                </div>
+                <div class="form-group">
+                <span class="form-text text-muted">We'll never share your Unique Number with anyone else.</span>
+                </div>
+
+            <div class="kt-section__content p-t-30">
+                <button pButton type="button" label="Search Archive" class="ui-button-secondary flex-gap-right"></button>
+                <button pButton type="button" label="Search" class="ui-button-info flex-gap-right" (click)="search()"></button>
+              
+            </div>
+            <div *ngIf="studentDetail && studentDetail.length > 0" class="layoutGap">
+
+           
+            <p-table #dt [columns]="dataHeader" [value]="studentDetail" [paginator]="true" [resizableColumns]="true" [rows]="10" [scrollable]="true" scrollHeight="500px">
+                    <ng-template pTemplate="caption">
+                            <div style="text-align: right">        
+                                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                <input type="text" pInputText size="50" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                            </div>
+                        </ng-template>
+                    <ng-template pTemplate="header" let-columns>
+                        <tr class="table-header">
+                            <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
+                                {{col.header}}
+                                <p-sortIcon [field]="col.field"></p-sortIcon>
+                            </th>
+                        </tr>
+                        <tr>
+                                <th *ngFor="let col of columns" [ngSwitch]="col.field" >
+                                   
+                                        <input  pInputText type="text" class="textbox-filter" (input)="dt.filter($event.target.value, col.field, 'contains')">
+                                        <!-- <p-multiSelect *ngSwitchCase="'class_studying_id'" [style]="{'width':'100%'}" [options]="classFilter" defaultLabel="All Class" (onChange)="dt.filter($event.value, col.field, 'in')"></p-multiSelect> -->
+                                        <!-- <p-dropdown *ngSwitchCase="'class_section'" [options]="sectionFilter" class="textbox-filter" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown> -->
+                                        <!-- <p-slider  *ngSwitchCase="'dob'" [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="yearFilter" [min]="1970" [max]="2020" (onChange)="onYearChange($event, dt)"></p-slider> -->
+                                        <!-- <div *ngSwitchCase="'dob'">
+                                                Value > {{yearFilter}}
+                                                <i class="fa fa-close" (click)="yearFilter=null;dt.filter(null, col.field, col.filterMatchMode)" style="cursor:pointer" *ngIf="yearFilter"></i>
+                                                <p-slider [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="yearFilter" [min]="1970" [max]="2020" (onChange)="onYearChange($event, dt)"></p-slider>
+                                            </div> -->
+                                </th>
+                            </tr>
+                      
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns">
+                        <tr>
+                            <td *ngFor="let col of columns"  class="ui-resizable-column">
+                                {{rowData[col.field]}}
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table> 
+            </div>
+        </div>
+    </div>
+        </form>
+</div>
+</div>

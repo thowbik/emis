@@ -1,0 +1,1335 @@
+<div class="mt-3 pr-2 mr-3">
+    <p-card>
+        <div class="p-3">
+            <h3 class="title_text">SCHOOL DETAILS - PART VI</h3>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="backclr-grn  font-16">
+                        DETAILS OF EQUIPMENT ( FOR TEACHING AND LEARNING PURPOSE )
+                    </div>
+                    <!-- <form method="post" [formGroup]="schoolDetailForm" (ngSubmit)="onSubmit(schoolDetailForm.value)"> -->
+                    <form method="post" [formGroup]="schoolDetailForm">
+                        <!-- <div class="row form-group">
+                  <div class="col-md-6">
+                     <label><span class="num-align">1. </span>Is ICT Lab is Available in the School ?<span class="manditory"> *</span></label>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="row">
+                          <div class="col-md-6">
+                              <div class="form-group text-center">
+                                   <p-radioButton name="clab" formControlName="clab" value="1" label="YES"></p-radioButton>
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group text-center">
+                                   <p-radioButton name="clab" formControlName="clab" value="2" label="NO"></p-radioButton>
+                            </div>
+                        </div>
+                        <p-message severity="error"  text="Please Enter Year of Establishment of School" *ngIf="schoolDetailForm.controls.clab.errors && (submitted || schoolDetailForm.controls.clab.dirty || schoolDetailForm.controls.clab.touched)"></p-message>
+
+                      </div>
+                  </div>
+              </div>  -->
+
+                        <div class="row form-group">
+                            <div class="col-sm-6 text-align">
+                                <label><span class="num-align">1. </span>Is CAL Lab is Available in the School ?<span class="manditory"> *</span></label>
+                            </div>
+                            <div class="col-sm-2">
+                                <p-radioButton name="CAL" formControlName="cal" value="1" label="YES">
+                                </p-radioButton>
+                            </div>
+                            <div class="col-sm-2">
+                                <p-radioButton name="CAL" formControlName="cal" value="2" label="NO">
+                                </p-radioButton>
+                            </div>
+                            <p-message severity="error" text="Please Enter Year of Establishment of School" *ngIf="schoolDetailForm.controls.cal.errors && (submitted || schoolDetailForm.controls.cal.dirty || schoolDetailForm.controls.cal.touched)"></p-message>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-sm-6 text-align">
+                                <label><span class="num-align">2. </span>Is ICT Lab is Available in the School ?<span class="manditory"> *</span></label>
+                            </div>
+                            <div class="col-sm-2">
+                                <p-radioButton name="majority" formControlName="clab" value="1" label="YES" (click)="ictlab(schoolDetailForm.value.clab)">
+                                </p-radioButton>
+                            </div>
+                            <div class="col-sm-2">
+                                <p-radioButton name="majority" formControlName="clab" value="2" label="NO" (click)="ictlab(schoolDetailForm.value.clab)">
+                                </p-radioButton>
+                            </div>
+                            <p-message severity="error" text="Please Enter Year of Establishment of School" *ngIf="schoolDetailForm.controls.clab.errors && (submitted || schoolDetailForm.controls.clab.dirty || schoolDetailForm.controls.clab.touched)"></p-message>
+                        </div>
+
+                        <div class="" *ngIf="schoolDetailForm.value.clab== '1'">
+                            <div class="row form-group">
+                                <div class="col-sm-6 text-align">
+                                    <label><span class="num-align"> </span>Year of Implementation<span class="manditory"> *</span></label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" formControlName="year_implmnt">
+                                    <p-message severity="error" text="Please Enter the Field" *ngIf="schoolDetailForm.controls.year_implmnt.errors && (submitted || schoolDetailForm.controls.year_implmnt.dirty || schoolDetailForm.controls.year_implmnt.touched)"></p-message>
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <div class="col-sm-6 text-align">
+                                    <label><span class="num-align"></span>Whether the ICT Lab is Functional or not?<span class="manditory"> *</span></label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <p-radioButton name="ict_lab" formControlName="ict_lab" value="1" label="YES">
+                                    </p-radioButton>
+                                </div>
+                                <div class="col-sm-2">
+                                    <p-radioButton name="ict_lab" formControlName="ict_lab" value="2" label="NO">
+                                    </p-radioButton>
+                                </div>
+                                <p-message severity="error" text="Please Enter Year of Establishment of School" *ngIf="schoolDetailForm.controls.ict_lab.errors && (submitted || schoolDetailForm.controls.ict_lab.dirty || schoolDetailForm.controls.ict_lab.touched)"></p-message>
+                            </div>
+
+
+                            <div class="row form-group">
+                                <div class="col-sm-6 text-align">
+                                    <label><span class="num-align"></span>Which Model is Implemented In the School<span class="manditory"> *</span></label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <p-dropdown [options]="optionsICTLab" formControlName="model_ict" placeholder="Select a Affiliation" styleClass="select_dropdown"></p-dropdown>
+                                    <p-message severity="error" text="Please Enter the Field" *ngIf="schoolDetailForm.controls.model_ict.errors && (submitted || schoolDetailForm.controls.model_ict.dirty || schoolDetailForm.controls.model_ict.touched)"></p-message>
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <div class="col-sm-6 text-align">
+                                    <label><span class="num-align"></span>Type of the Ict Instructor In the School<span class="manditory"> *</span></label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <p-dropdown [options]="optionsTypeSchool" formControlName="ict_type" placeholder="Select a Affiliation" styleClass="select_dropdown"></p-dropdown>
+                                    <p-message severity="error" text="Please Enter the Field" *ngIf="schoolDetailForm.controls.ict_type.errors && (submitted || schoolDetailForm.controls.ict_type.dirty || schoolDetailForm.controls.ict_type.touched)"></p-message>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div  *ngIf="schoolDetailForm.value.clab== '1'">
+                  <div class="row m-2 pt-1" >
+                     <div class="col-md-6 mt-3">
+                     <p class="label_text">Year of Implementation<span class="manditory"> *</span></p>
+                     </div>
+                     <div class="col-md-6">
+                     <div class="form-group">
+                        <input type="text" class="form-control" formControlName="year_implmnt">
+                        <p-message severity="error"  text="Please Enter the Field" *ngIf="schoolDetailForm.controls.year_implmnt.errors && (submitted || schoolDetailForm.controls.year_implmnt.dirty || schoolDetailForm.controls.year_implmnt.touched)"></p-message>
+                     </div>
+                     </div>
+                  </div> -->
+                        <!-- <div class="row m-2 pt-1" >
+                     <div class="col-md-6 mt-3">
+                       <p class="label_text">Whethethe ICT Lab is Functional or not?<span class="manditory"> *</span></p>
+                     </div> -->
+                        <!-- <div class="col-md-6">
+                       <div class="form-group">
+                         <p-dropdown [options]="optionsList" formControlName="ict_lab"  placeholder="Select a Affiliation"   styleClass="select_dropdown"></p-dropdown>
+                         <p-message severity="error"  text="Please Enter the Field" *ngIf="schoolDetailForm.controls.ict_lab.errors && (submitted || schoolDetailForm.controls.ict_lab.dirty || schoolDetailForm.controls.ict_lab.touched)"></p-message>
+                       </div>
+                     </div> -->
+                        <!-- <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group text-center">
+                                    Yes <p-radioButton name="ict_lab" formControlName="ict_lab" value="1" ></p-radioButton>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group text-center">
+                                    Num <p-radioButton name="ict_lab" formControlName="ict_lab" value="2"  ></p-radioButton>
+                              </div>
+                          </div>
+                          <p-message severity="error"  text="Please Enter Year of Establishment of School" *ngIf="schoolDetailForm.controls.ict_lab.errors && (submitted || schoolDetailForm.controls.ict_lab.dirty || schoolDetailForm.controls.ict_lab.touched)"></p-message>
+
+                        </div>
+                    </div> -->
+                        <!-- </div>
+                   <div class="row m-2 pt-1" >
+                     <div class="col-md-6 mt-3">
+                       <p class="label_text">Which Model is Implemented In the School<span class="manditory"> *</span></p>
+                     </div>
+                     <div class="col-md-6">
+                       <div class="form-group">
+                         <p-dropdown [options]="optionsICTLab" formControlName="model_ict"  placeholder="Select a Affiliation"   styleClass="select_dropdown"></p-dropdown>
+                         <p-message severity="error"  text="Please Enter the Field" *ngIf="schoolDetailForm.controls.model_ict.errors && (submitted || schoolDetailForm.controls.model_ict.dirty || schoolDetailForm.controls.model_ict.touched)"></p-message>
+                       </div>
+                     </div> -->
+
+                        <!-- </div>
+                   <div class="row m-2 pt-1" >
+                     <div class="col-md-6 mt-3">
+                       <p class="label_text">Type of the Ict Instructor In the School<span class="manditory"> *</span></p>
+                     </div>
+                     <div class="col-md-6">
+                       <div class="form-group">
+                         <p-dropdown [options]="optionsTypeSchool" formControlName="ict_type"  placeholder="Select a Affiliation"   styleClass="select_dropdown"></p-dropdown>
+                         <p-message severity="error"  text="Please Enter the Field" *ngIf="schoolDetailForm.controls.ict_type.errors && (submitted || schoolDetailForm.controls.ict_type.dirty || schoolDetailForm.controls.ict_type.touched)"></p-message>
+
+
+                       </div>
+                     </div>
+                   </div>
+            </div> -->
+
+                        <!-- <div class="row  m-2 pt-1">
+               <div class="col-md-6 mt-1">
+                   <p class="label_text">Does the School have a Internet Facility ?<span class="manditory"> *</span></p>
+               </div>
+               <div class="col-md-6">
+                   <div class="row">
+                       <div class="col-md-6">
+                           <div class="form-group text-center">
+                               Yes <p-radioButton name="intrntfac_avail" formControlName="intrntfac_avail" value="1" (click)="showInternet()"></p-radioButton>
+                           </div>
+                       </div>
+                       <div class="col-md-6">
+                         <div class="form-group text-center">
+                               Num <p-radioButton name="intrntfac_avail" formControlName="intrntfac_avail" value="2" (click)="hideInternet()" ></p-radioButton>
+                         </div> -->
+                        <!-- </div>
+                     <p-message severity="error"  text="Please Enter Year of Establishment of School" *ngIf="schoolDetailForm.controls.intrntfac_avail.errors && (submitted || schoolDetailForm.controls.intrntfac_avail.dirty || schoolDetailForm.controls.intrntfac_avail.touched)"></p-message>
+
+                   </div>
+               </div>
+           </div>  -->
+
+                        <!-- <div class="row  m-2 pt-1" *ngIf="InternetDiv">
+
+            <div class="col-md-2 m-0 p-0">
+               <p class="label_text mb-3">Service Provider<span class="manditory"> *</span></p>
+               <input type="text" class="form-control" formControlName="schlinternet">
+            </div>
+            <div class="col-md-2 m-0 p-0">
+               <p class="label_text mb-3">Data Speed<span class="manditory"> *</span></p>
+               <input type="text" class="form-control" formControlName="schlinternetspd">
+            </div>
+            <div class="col-md-2 m-0 p-0">
+               <p class="label_text mb-3">Range<span class="manditory"> *</span></p>
+               <p-dropdown [options]="optionsList" formControlName="ifrange"  placeholder="Select a Affiliation"   styleClass="select_dropdown"></p-dropdown>
+               <p-message severity="error"  text="This field is required" *ngIf="schoolDetailForm.controls.ifrange.errors && (submitted || schoolDetailForm.controls.ifrange.dirty || schoolDetailForm.controls.ifrange.touched)"> </p-message>
+            </div>
+            <div class="col-md-2 m-0 p-0">
+               <p class="label_text mb-3"> Internet Specility<span class="manditory"> *</span></p>
+               <p-dropdown [options]="optionsList" formControlName="ifprovidedby"  placeholder="Select a Affiliation"   styleClass="select_dropdown"></p-dropdown>
+               <p-message severity="error"  text="This field is required" *ngIf="schoolDetailForm.controls.ifprovidedby.errors && (submitted || schoolDetailForm.controls.ifprovidedby.dirty || schoolDetailForm.controls.ifprovidedby.touched)"> </p-message>
+            </div>
+            <div class="col-md-2 m-0 p-0">
+               <p class="label_text mb-3">  Add(+)<span class="manditory"> *</span></p>
+               <input type="button" class="btn btn-secondary btn-lg light_btn mx-2" (click)="addMediumInstruction()" value="+"/>
+             </div>
+             <div class="col-md-2 m-0 p-0">
+               <p class="label_text mb-3">  Delete(-)<span class="manditory"> *</span></p>
+               <input type="button" class="btn btn-secondary btn-lg light_btn mx-2" (click)="removeMediumInstruction(i)" value="-"/>
+             </div>
+          </div> -->
+
+
+                        <div class="row form-group">
+                            <div class="col-sm-6 text-align">
+                                <label><span class="num-align">3. </span>Does the School have Electricity?<span class="manditory"> *</span></label>
+                            </div>
+                            <div class="col-sm-2">
+                                <p-radioButton name="electricity" formControlName="electricity" value="1" label="YES">
+                                </p-radioButton>
+                            </div>
+                            <div class="col-sm-2">
+                                <p-radioButton name="electricity" formControlName="electricity" value="2" label="NO">
+                                </p-radioButton>
+                            </div>
+                            <div class="col-sm-2">
+                                <p-radioButton name="electricity" formControlName="electricity" value="3" label="NOT FUNCTIONAL">
+                                </p-radioButton>
+                            </div>
+                            <p-message severity="error" text="Please Enter Year of Establishment of School" *ngIf="schoolDetailForm.controls.electricity.errors && (submitted || schoolDetailForm.controls.electricity.dirty || schoolDetailForm.controls.electricity.touched)"></p-message>
+                        </div>
+
+                        <!-- <div class="row  m-2 pt-1">
+            <div class="col-md-6 mt-1">
+                <p class="label_text">Does the School have Electricity?<span class="manditory"> *</span></p>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group text-center">
+                            Yes <p-radioButton name="electricity" formControlName="electricity" value="1"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group text-center">
+                            Num <p-radioButton name="electricity" formControlName="electricity" value="2"  ></p-radioButton>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="form-group text-center">
+                        Not Functional <p-radioButton name="electricity" formControlName="electricity" value="3"  ></p-radioButton>
+                     </div>
+                 </div>
+                  <p-message severity="error"  text="Please Enter Year of Establishment of School" *ngIf="schoolDetailForm.controls.electricity.errors && (submitted || schoolDetailForm.controls.electricity.dirty || schoolDetailForm.controls.electricity.touched)"></p-message>
+
+                </div>
+            </div>
+         </div>  -->
+
+                        <!-- Starts Laptops/notebooks -->
+
+                        <div class="row  m-2 pt-1">
+                            <div class="col-md-12 laptop_notebook_section">
+                                <div class="row  font-weight-bold mb-3 border_bottom">
+                                    <div class="col-md-3 mb-2">
+                                        Items
+                                    </div>
+                                    <div class="col-md-3 mb-2">
+                                        Avaliable
+                                    </div>
+                                    <div class="col-md-3 mb-2">
+                                        Total Num.of Units
+                                    </div>
+                                    <div class="col-md-3 mb-2">
+                                        Num of Functional Units
+                                    </div>
+                                </div>
+
+                                <div class="row border_bottom">
+                                    <div class="col-md-3">
+                                        Laptops/notebooks
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p-radioButton name="lap_nbook_avail" value="1" formControlName="lap_nbook_avail" label="YES" (click)="listofItem(schoolDetailForm.value.lap_nbook_avail)"></p-radioButton>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p-radioButton name="lap_nbook_avail" value="2" formControlName="lap_nbook_avail" label="NO" (click)="listofItem(schoolDetailForm.value.lap_nbook_avail)"></p-radioButton>
+                                            </div>
+                                            <p-message severity="error" text="This Field is required" *ngIf="!schoolDetailForm.controls['lap_nbook_avail'].valid&&schoolDetailForm.controls['lap_nbook_avail'].dirty"></p-message>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="schoolDetailForm.value.lap_nbook_avail== '1'">
+                                        <input pInputText type="text" class="form-control" formControlName="lap_nbook_tot" maxlength="3" (change)="laptopCountCheck()" />
+                                        <p-message severity="error" text="Please Enter the Field" *ngIf="schoolDetailForm.controls.lap_nbook_tot.errors && (submitted || schoolDetailForm.controls.lap_nbook_tot.dirty || schoolDetailForm.controls.lap_nbook_tot.touched)"></p-message>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="schoolDetailForm.value.lap_nbook_avail== '1'">
+                                        <input pInputText type="text" class="form-control" formControlName="lap_nbook_func" maxlength="3" (change)="laptopCountCheck()" />
+                                        <p-message severity="error" text="Please Enter the Field" *ngIf="schoolDetailForm.controls.lap_nbook_func.errors && (submitted || schoolDetailForm.controls.lap_nbook_func.dirty || schoolDetailForm.controls.lap_nbook_func.touched)"></p-message>
+                                        <p-message severity="error" text="No of functional units should not be more than total no of units" *ngIf="!laptopnote"></p-message>
+
+
+                                    </div>
+                                </div>
+
+                                <div class="row border_bottom">
+                                    <div class="col-md-3">
+                                        Tablets
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p-radioButton name="tablet_avail" value="1" formControlName="tablet_avail" label="YES" (click)="tabletsvalue(schoolDetailForm.value.tablet_avail)"></p-radioButton>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p-radioButton name="tablet_avail" value="2" formControlName="tablet_avail" label="NO" (click)="tabletsvalue(schoolDetailForm.value.tablet_avail)"> </p-radioButton>
+                                                <p-message severity="error" text="This field is required" *ngIf="!schoolDetailForm.controls['tablet_avail'].valid&&schoolDetailForm.controls['tablet_avail'].dirty"></p-message>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="schoolDetailForm.value.tablet_avail== '1'">
+                                        <input type="text" class="form-control" formControlName="tablet_tot" maxlength="3" (change)="tabletCountCheck()" />
+                                        <p-message severity="error" text="Please Enter the Field" *ngIf="schoolDetailForm.controls.tablet_tot.errors && (submitted || schoolDetailForm.controls.tablet_tot.dirty || schoolDetailForm.controls.tablet_tot.touched)"></p-message>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="schoolDetailForm.value.tablet_avail== '1'">
+                                        <input type="text" class="form-control" formControlName="tablet_func" maxlength="3" (change)="tabletCountCheck()" />
+                                        <p-message severity="error" text="Please Enter the Field" *ngIf="schoolDetailForm.controls.tablet_func.errors && (submitted || schoolDetailForm.controls.tablet_func.dirty || schoolDetailForm.controls.tablet_func.touched)"></p-message>
+                                        <p-message severity="error" text="No of functional units should not be more than total no of units" *ngIf="!tabletnote"></p-message>
+
+                                    </div>
+                                </div>
+
+                                <div class="row border_bottom">
+                                    <div class="col-md-3">
+                                        Desktop Computer
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p-radioButton name="dcomp_avail" value="1" formControlName="dcomp_avail" label="YES" (click)="Desktopvalue(schoolDetailForm.value.dcomp_avail)"> </p-radioButton>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p-radioButton name="dcomp_avail" value="2" formControlName="dcomp_avail" label="NO" (click)="Desktopvalue(schoolDetailForm.value.dcomp_avail)"></p-radioButton>
+                                                <p-message severity="error" text="This field is required" *ngIf="!schoolDetailForm.controls['dcomp_avail'].valid&&schoolDetailForm.controls['dcomp_avail'].dirty"></p-message>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="schoolDetailForm.value.dcomp_avail== '1'">
+                                        <input type="text" class="form-control" formControlName="dcomp_tot" maxlength="3" (change)="DesktopCountCheck()" />
+                                        <p-message severity="error" text="Please Enter the Field" *ngIf="schoolDetailForm.controls.dcomp_tot.errors && (submitted || schoolDetailForm.controls.dcomp_tot.dirty || schoolDetailForm.controls.dcomp_tot.touched)"></p-message>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="schoolDetailForm.value.dcomp_avail== '1'">
+                                        <input type="text" class="form-control" formControlName="dcomp_func" maxlength="3" (change)="DesktopCountCheck()" />
+                                        <p-message severity="error" text="Please Enter the Field" *ngIf="schoolDetailForm.controls.dcomp_func.errors && (submitted || schoolDetailForm.controls.dcomp_func.dirty || schoolDetailForm.controls.dcomp_func.touched)"></p-message>
+                                        <p-message severity="error" text="No of functional units should not be more than total no of units" *ngIf="!Desktopnote"></p-message>
+                                    </div>
+                                </div>
+
+                                <div class="row border_bottom">
+                                    <div class="col-md-3">
+                                        Pcs with Integrated Teaching Learning Devices
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p-radioButton name="PC_avail" value="1" formControlName="PC_avail" label="YES" (click)="Devices(schoolDetailForm.value.PC_avail)"></p-radioButton>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p-radioButton name="PC_avail" value="2" formControlName="PC_avail" label="NO" (click)="Devices(schoolDetailForm.value.PC_avail)"></p-radioButton>
+                                            </div>
+                                            <p-message severity="error" text="This field is required" *ngIf="!schoolDetailForm.controls['PC_avail'].valid&&schoolDetailForm.controls['PC_avail'].dirty"></p-message>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="schoolDetailForm.value.PC_avail== '1'">
+                                        <input type="text" class="form-control" formControlName="PC_tot" maxlength="3" (change)="pcDevicesCountCheck()" />
+                                        <p-message severity="error" text="Please Enter the Field" *ngIf="schoolDetailForm.controls.PC_tot.errors && (submitted || schoolDetailForm.controls.PC_tot.dirty || schoolDetailForm.controls.PC_tot.touched)"></p-message>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="schoolDetailForm.value.PC_avail== '1'">
+                                        <input type="text" class="form-control" formControlName="PC_func" maxlength="3" (change)="pcDevicesCountCheck()" />
+                                        <p-message severity="error" text="Please Enter the Field" *ngIf="schoolDetailForm.controls.PC_func.errors && (submitted || schoolDetailForm.controls.PC_func.dirty || schoolDetailForm.controls.PC_func.touched)"></p-message>
+
+                                        <p-message severity="error" text="No of functional units should not be more than total no of units" *ngIf="!teachesnote"></p-message>
+                                    </div>
+                                </div>
+
+                                <div class="row border_bottom">
+                                    <div class="col-md-3">
+                                        Digital Boards Eith Content Management Systems and solutions(CMS)/Learning Manangement System
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="row ">
+                                            <div class="col-md-6">
+                                                <p-radioButton name="DB_avail" value="1" formControlName="DB_avail" label="YES" (click)="Boards(schoolDetailForm.value.DB_avail)"></p-radioButton>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p-radioButton name="DB_avail" value="2" formControlName="DB_avail" label="NO" (click)="Boards(schoolDetailForm.value.DB_avail)"></p-radioButton>
+                                            </div>
+                                            <p-message severity="error" text="This field is required" *ngIf="!schoolDetailForm.controls['DB_avail'].valid&&schoolDetailForm.controls['DB_avail'].dirty"></p-message>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 " *ngIf="schoolDetailForm.value.DB_avail== '1'">
+                                        <input type="text" class="form-control" pInputText formControlName="DB_LMS_tot" maxlength="3" (change)="digitalBoardCountCheck()" />
+                                        <p-message severity="error" text="Please Enter the Field" *ngIf="schoolDetailForm.controls.DB_LMS_tot.errors && (submitted || schoolDetailForm.controls.DB_LMS_tot.dirty || schoolDetailForm.controls.DB_LMS_tot.touched)"></p-message>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="schoolDetailForm.value.DB_avail== '1'">
+                                        <input type="text" class="form-control" pInputText formControlName="DB_func" maxlength="3" (change)="digitalBoardCountCheck()" />
+                                        <p-message severity="error" text="Please Enter the Field" *ngIf="schoolDetailForm.controls.DB_func.errors && (submitted || schoolDetailForm.controls.DB_func.dirty || schoolDetailForm.controls.DB_func.touched)"></p-message>
+
+                                        <p-message severity="error" text="No of functional units should not be more than total no of units" *ngIf="!digitalnote"></p-message>
+                                    </div>
+                                </div>
+
+                                <div class="row border_bottom">
+                                    <div class="col-md-3">
+                                        Server
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p-radioButton name="server_avail" value="1" formControlName="server_avail" label="YES" (click)="Servervalue(schoolDetailForm.value.server_avail)"></p-radioButton>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p-radioButton name="server_avail" value="2" formControlName="server_avail" label="NO" (click)="Servervalue(schoolDetailForm.value.server_avail)"></p-radioButton>
+                                            </div>
+                                            <p-message severity="error" text="This field is required" *ngIf="!schoolDetailForm.controls['server_avail'].valid&&schoolDetailForm.controls['server_avail'].dirty"></p-message>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="schoolDetailForm.value.server_avail== '1'">
+                                        <input type="text" class="form-control" pInputText formControlName="server_tot" maxlength="3" (change)="serverCountCheck()" />
+                                        <p-message severity="error" text="Please Enter the Field" *ngIf="schoolDetailForm.controls.server_tot.errors && (submitted || schoolDetailForm.controls.server_tot.dirty || schoolDetailForm.controls.server_tot.touched)"></p-message>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="schoolDetailForm.value.server_avail== '1'">
+                                        <input type="text" class="form-control" pInputText formControlName="server_func" maxlength="3" (change)="serverCountCheck()" />
+                                        <p-message severity="error" text="Please Enter the Field" *ngIf="schoolDetailForm.controls.server_func.errors && (submitted || schoolDetailForm.controls.server_func.dirty || schoolDetailForm.controls.server_func.touched)"></p-message>
+                                        <p-message severity="error" text="No of functional units should not be more than total no of units" *ngIf="!servernote"></p-message>
+                                    </div>
+                                </div>
+
+                                <div class="row border_bottom">
+                                    <div class="col-md-3">
+                                        Projector
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p-radioButton name="projtr_avail" value="1" formControlName="projtr_avail" label="YES" (click)="projectorvalue(schoolDetailForm.value.projtr_avail)"></p-radioButton>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p-radioButton name="projtr_avail" value="2" formControlName="projtr_avail" label="NO" (click)="projectorvalue(schoolDetailForm.value.projtr_avail)"></p-radioButton>
+                                            </div>
+                                            <p-message severity="error" text="This field is required" *ngIf="!schoolDetailForm.controls['projtr_avail'].valid&&schoolDetailForm.controls['projtr_avail'].dirty"></p-message>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="schoolDetailForm.value.projtr_avail== '1'">
+                                        <input type="text" class="form-control" pInputText formControlName="projtr_tot" maxlength="3" (change)="projectorCountCheck()" />
+                                        <p-message severity="error" text="Please Enter the Field" *ngIf="schoolDetailForm.controls.projtr_tot.errors && (submitted || schoolDetailForm.controls.projtr_tot.dirty || schoolDetailForm.controls.projtr_tot.touched)"></p-message>
+
+                                    </div>
+                                    <div class="col-md-3" *ngIf="schoolDetailForm.value.projtr_avail== '1'">
+                                        <input type="text" class="form-control" pInputText formControlName="projtr_func" maxlength="3" (change)="projectorCountCheck()" />
+                                        <p-message severity="error" text="Please Enter the Field" *ngIf="schoolDetailForm.controls.projtr_func.errors && (submitted || schoolDetailForm.controls.projtr_func.dirty || schoolDetailForm.controls.projtr_func.touched)"></p-message>
+                                        <p-message severity="error" text="No of functional units should not be more than total no of units" *ngIf="!projectorsnote"></p-message>
+                                    </div>
+                                </div>
+
+                                <div class="row border_bottom">
+                                    <div class="col-md-3">
+                                        LCD/LED/Plasma Screen
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p-radioButton name="lcd_led_plas_avail" value="1" formControlName="lcd_led_plas_avail" label="YES" (click)=" Screen(schoolDetailForm.value.lcd_led_plas_avail)"></p-radioButton>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p-radioButton name="lcd_led_plas_avail" value="2" formControlName="lcd_led_plas_avail" label="NO" (click)="Screen(schoolDetailForm.value.lcd_led_plas_avail)"></p-radioButton>
+                                            </div>
+                                            <p-message severity="error" text="This field is required" *ngIf="!schoolDetailForm.controls['lcd_led_plas_avail'].valid&&schoolDetailForm.controls['lcd_led_plas_avail'].dirty"></p-message>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="schoolDetailForm.value.lcd_led_plas_avail== '1'">
+                                        <input type="text" class="form-control" pInputText formControlName="lcd_led_plas_tot" maxlength="3" (change)="lcdCountCheck()" />
+                                        <p-message severity="error" text="Please Enter the Field" *ngIf="schoolDetailForm.controls.lcd_led_plas_tot.errors && (submitted || schoolDetailForm.controls.lcd_led_plas_tot.dirty || schoolDetailForm.controls.lcd_led_plas_tot.touched)"></p-message>
+
+                                    </div>
+                                    <div class="col-md-3" *ngIf="schoolDetailForm.value.lcd_led_plas_avail== '1'">
+                                        <input type="text" class="form-control" pInputText formControlName="lcd_led_plas_func" maxlength="3" (change)="lcdCountCheck()" />
+                                        <p-message severity="error" text="Please Enter the Field" *ngIf="schoolDetailForm.controls.lcd_led_plas_func.errors && (submitted || schoolDetailForm.controls.lcd_led_plas_func.dirty || schoolDetailForm.controls.lcd_led_plas_func.touched)"></p-message>
+                                        <p-message severity="error" text="No of functional units should not be more than total no of units" *ngIf="!lcdnote"></p-message>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="row border_bottom">
+                                    <div class="col-md-3">
+                                        Web Camera
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p-radioButton name="webcam_avail" value="1" formControlName="webcam_avail" label="YES" (click)="webcameravalue(schoolDetailForm.value.webcam_avail)"></p-radioButton>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p-radioButton name="webcam_avail" value="2" formControlName="webcam_avail" label="NO" (click)=" webcameravalue(schoolDetailForm.value.webcam_avail)"></p-radioButton>
+                                            </div>
+                                            <p-message severity="error" text="This field is required" *ngIf="!schoolDetailForm.controls['webcam_avail'].valid&&schoolDetailForm.controls['webcam_avail'].dirty"></p-message>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="schoolDetailForm.value.webcam_avail== '1'">
+                                        <input type="text" class="form-control" pInputText formControlName="webcam_tot" maxlength="3" (change)="webcamCountCheck()" />
+                                        <p-message severity="error" text="Please Enter the Field" *ngIf="schoolDetailForm.controls.webcam_tot.errors && (submitted || schoolDetailForm.controls.webcam_tot.dirty || schoolDetailForm.controls.webcam_tot.touched)"></p-message>
+
+                                    </div>
+                                    <div class="col-md-3" *ngIf="schoolDetailForm.value.webcam_avail== '1'">
+                                        <input type="text" class="form-control" pInputText formControlName="webcam_func" maxlength="3" (change)="webcamCountCheck()" />
+                                        <p-message severity="error" text="Please Enter the Field" *ngIf="schoolDetailForm.controls.webcam_func.errors && (submitted || schoolDetailForm.controls.webcam_func.dirty || schoolDetailForm.controls.webcam_func.touched)"></p-message>
+
+                                        <p-message severity="error" text="No of functional units should not be more than total no of units" *ngIf="!webcamera"></p-message>
+                                    </div>
+                                </div>
+
+                                <div class="row border_bottom">
+                                    <div class="col-md-3">
+                                        Printer
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p-radioButton name="printr_avail" value="1" formControlName="printr_avail" label="YES" (click)="printer(schoolDetailForm.value.printr_avail)"></p-radioButton>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p-radioButton name="printr_avail" value="2" formControlName="printr_avail" label="NO" (click)="printer(schoolDetailForm.value.printr_avail)"></p-radioButton>
+                                            </div>
+                                            <p-message severity="error" text="This field is required" *ngIf="!schoolDetailForm.controls['printr_avail'].valid&&schoolDetailForm.controls['printr_avail'].dirty"></p-message>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="schoolDetailForm.value.printr_avail== '1'">
+                                        <input type="text" class="form-control" pInputText formControlName="printr_tot" maxlength="3" (change)="printerCountCheck()" />
+                                        <p-message severity="error" text="Please Enter the Field" *ngIf="schoolDetailForm.controls.printr_tot.errors && (submitted || schoolDetailForm.controls.printr_tot.dirty || schoolDetailForm.controls.printr_tot.touched)"></p-message>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="schoolDetailForm.value.printr_avail== '1'">
+                                        <input type="text" class="form-control" pInputText formControlName="printr_func" maxlength="3" (change)="printerCountCheck()" />
+                                        <p-message severity="error" text="Please Enter the Field" *ngIf="schoolDetailForm.controls.printr_func.errors && (submitted || schoolDetailForm.controls.printr_func.dirty || schoolDetailForm.controls.printr_func.touched)"></p-message>
+
+                                        <p-message severity="error" text="No of functional units should not be more than total no of units" *ngIf="!Printernote"></p-message>
+                                    </div>
+                                </div>
+
+                                <div class="row border_bottom">
+                                    <div class="col-md-3">
+                                        Generator/Invertor/ups
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p-radioButton name="gnrtr_invups_avail" value="1" formControlName="gnrtr_invups_avail" label="YES" (click)=" inverter(schoolDetailForm.value.gnrtr_invups_avail)"></p-radioButton>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p-radioButton name="gnrtr_invups_avail" value="2" formControlName="gnrtr_invups_avail" label="NO" (click)=" inverter(schoolDetailForm.value.gnrtr_invups_avail)"></p-radioButton>
+                                            </div>
+                                            <p-message severity="error" text="This Field is required" *ngIf="!schoolDetailForm.controls['gnrtr_invups_avail'].valid&&schoolDetailForm.controls['gnrtr_invups_avail'].dirty"></p-message>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="schoolDetailForm.value.gnrtr_invups_avail== '1'">
+                                        <input type="text" class="form-control" pInputText formControlName="gnrtr_invups_tot" maxlength="3" (change)="generatorCountCheck()" />
+                                        <p-message severity="error" text="Please Enter the Field" *ngIf="schoolDetailForm.controls.gnrtr_invups_tot.errors && (submitted || schoolDetailForm.controls.gnrtr_invups_tot.dirty || schoolDetailForm.controls.gnrtr_invups_tot.touched)"></p-message>
+
+                                    </div>
+                                    <div class="col-md-3" *ngIf="schoolDetailForm.value.gnrtr_invups_avail== '1'">
+                                        <input type="text" class="form-control" pInputText formControlName="gnrtr_invups_func" maxlength="3" (change)="generatorCountCheck()" />
+                                        <p-message severity="error" text="Please Enter the Field" *ngIf="schoolDetailForm.controls.gnrtr_invups_func.errors && (submitted || schoolDetailForm.controls.gnrtr_invups_func.dirty || schoolDetailForm.controls.gnrtr_invups_func.touched)"></p-message>
+
+                                        <p-message severity="error" text="No of functional units should not be more than total no of units" *ngIf="!upsnote"></p-message>
+                                    </div>
+                                </div>
+
+
+                                <div class="row border_bottom">
+                                    <div class="col-md-3">
+                                        Internet Faclity
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p-radioButton name="intrntfac_avail" value="1" formControlName="intrntfac_avail" label="YES"></p-radioButton>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p-radioButton name="intrntfac_avail" value="2" formControlName="intrntfac_avail" label="NO"></p-radioButton>
+                                                <p-message severity="error" text="This field is required" *ngIf="!schoolDetailForm.controls['intrntfac_avail'].valid&&schoolDetailForm.controls['intrntfac_avail'].dirty"></p-message>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row border_bottom">
+                                    <div class="col-md-3">
+                                        DTH-Tv Antena
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p-radioButton name="dth_antna_avail" value="1" formControlName="dth_antna_avail" label="YES"></p-radioButton>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p-radioButton name="dth_antna_avail" value="2" formControlName="dth_antna_avail" label="NO"></p-radioButton>
+                                            </div>
+                                            <p-message severity="error" text="This field is required" *ngIf="!schoolDetailForm.controls['dth_antna_avail'].valid&&schoolDetailForm.controls['dth_antna_avail'].dirty"></p-message>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="row border_bottom">
+                                    <div class="col-md-3">
+                                        E-Content and Digital Resource for 1-XII
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p-radioButton name="econtnt_dig_avail" value="1" formControlName="econtnt_dig_avail" label="YES"></p-radioButton>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p-radioButton name="econtnt_dig_avail" value="2" formControlName="econtnt_dig_avail" label="NO"></p-radioButton>
+                                            </div>
+                                            <p-message severity="error" text="This field is required" *ngIf="!schoolDetailForm.controls['econtnt_dig_avail'].valid&&schoolDetailForm.controls['econtnt_dig_avail'].dirty"></p-message>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row border_bottom">
+                                    <div class="col-md-3">
+                                        Assistive tech-based solutions for CWSN
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p-radioButton name="asst_CWSN_avail" value="1" formControlName="asst_CWSN_avail" label="YES"></p-radioButton>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p-radioButton name="asst_CWSN_avail" value="2" formControlName="asst_CWSN_avail" label="NO"></p-radioButton>
+                                            </div>
+                                            <p-message severity="error" text="This field is required" *ngIf="!schoolDetailForm.controls['asst_CWSN_avail'].valid&&schoolDetailForm.controls['asst_CWSN_avail'].dirty"></p-message>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+                        <!-- ends Laptops/notebooks -->
+
+
+
+                        <div class="row pt-2 m-1 mb-3">
+                            <div class="school_land_title">
+                                <h5 class="text-uppercase m-0 pt-1 pb-1"> Details Of Medical Checkup</h5>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row form-group mt-2">
+                            <div class="col-sm-6 text-align">
+                                <label><span class="num-align">4. </span>Whether Medical Checkup For Students Was Conducted In The Last Acdamic Year (2018-19)<span class="manditory"> *</span></label>
+                            </div>
+                            <div class="col-sm-3">
+                                <p-radioButton name="med" formControlName="med_ckup_lstyr" value="1" label="YES">
+                                </p-radioButton>
+                            </div>
+                            <div class="col-sm-3">
+                                <p-radioButton name="med" formControlName="med_ckup_lstyr" value="2" label="NO">
+                                </p-radioButton>
+                            </div>
+                            <p-message severity="error" text="This fie is required" *ngIf="schoolDetailForm.controls.med_ckup_lstyr.errors && (submitted || schoolDetailForm.controls.med_ckup_lstyr.dirty || schoolDetailForm.controls.med_ckup_lstyr.touched)"> </p-message>
+                        </div>
+
+
+                        <!-- <div class="row form-group" *ngIf="schoolDetailForm.value.med_ckup_lstyr== '1'">
+            <div class="col-sm-6 text-align" >
+              <label><span class="num-align">7. </span>Medical Checkup Conducted On ?<span class="manditory"> *</span></label>
+            </div>
+            <div class="col-md-2">
+               <p-calendar dateFormat="dd.mm.yy" formControlName="med_ckup_1"></p-calendar>
+               <p-message severity="error"  text="This field is required" *ngIf="schoolDetailForm.controls.med_ckup_1.errors && (submitted || schoolDetailForm.controls.med_ckup_1.dirty || schoolDetailForm.controls.med_ckup_1.touched)"> </p-message>
+            </div>
+            <div class="col-md-2">
+               <p-calendar dateFormat="dd.mm.yy" formControlName="med_ckup_2"></p-calendar>
+               <p-message severity="error"  text="This field is required" *ngIf="schoolDetailForm.controls.med_ckup_2.errors && (submitted || schoolDetailForm.controls.med_ckup_2.dirty || schoolDetailForm.controls.med_ckup_2.touched)"> </p-message>
+            </div>
+            <div class="col-md-2">
+               <input type="text" class="form-control" pInputText  formControlName="med_ckup_3"/>
+               <p-message severity="error"  text="This field is required" *ngIf="schoolDetailForm.controls.med_ckup_3.errors && (submitted || schoolDetailForm.controls.med_ckup_3.dirty || schoolDetailForm.controls.med_ckup_3.touched)"> </p-message>
+            </div>
+          </div> -->
+
+                        <div class="row form-group">
+                            <div class="col-sm-6 text-align">
+                                <label><span class="num-align">5. </span>Whether De-Worming tablets where given to Children ?<span class="manditory"> *</span></label>
+                            </div>
+                            <div class="col-sm-3">
+                                <p-dropdown [options]="Deworming" placeholder="Choose " styleClass="dropdwnvalue" formControlName="deworm_tab" styleClass="select_dropdown"></p-dropdown>
+                                <p-message severity="error" text="This field is required" *ngIf="schoolDetailForm.controls.deworm_tab.errors && (submitted || schoolDetailForm.controls.deworm_tab.dirty || schoolDetailForm.controls.deworm_tab.touched)"> </p-message>
+                            </div>
+                        </div>
+
+
+                        <div class="row form-group">
+                            <div class="col-sm-6 text-align">
+                                <label><span class="num-align">6. </span>Whether iron and Folic acid tablets given to children as per guidelines of WCD ?<span class="manditory"> *</span></label>
+                            </div>
+                            <div class="col-sm-3">
+                                <p-radioButton name="iron_folic" formControlName="iron_folic" value="1" label="YES">
+                                </p-radioButton>
+                            </div>
+                            <div class="col-sm-3">
+                                <p-radioButton name="iron_folic" formControlName="iron_folic" value="2" label="NO">
+                                </p-radioButton>
+                            </div>
+                            <p-message severity="error" text="This field is required" *ngIf="schoolDetailForm.controls.iron_folic.errors && (submitted || schoolDetailForm.controls.iron_folic.dirty || schoolDetailForm.controls.iron_folic.touched)"> </p-message>
+                        </div>
+
+
+
+
+                        <!-- <div class="row  m-2 pt-1">
+               <div class="col-md-6 mt-1">
+                   <p class="label_text">Whether Medical Checkup For Students Was Conducted In The Last Acdamic Year ?<span class="manditory"> *</span></p>
+               </div>
+               <div class="col-md-6">
+                   <div class="row">
+                       <div class="col-md-6">
+                           <div class="form-group text-center">
+                               Yes <p-radioButton name="med_ckup_lstyr" value="1"  formControlName="med_ckup_lstyr"></p-radioButton>
+                           </div>
+                       </div>
+                       <div class="col-md-6">
+                         <div class="form-group text-center">
+                               Num  <p-radioButton name="med_ckup_lstyr" value="2"   formControlName="med_ckup_lstyr"></p-radioButton>
+                         </div>
+                     </div>
+                     <p-message severity="error"  text="This fie is required" *ngIf="schoolDetailForm.controls.med_ckup_lstyr.errors && (submitted || schoolDetailForm.controls.med_ckup_lstyr.dirty || schoolDetailForm.controls.med_ckup_lstyr.touched)"> </p-message>
+                   </div>
+               </div>
+           </div>  -->
+
+                        <!-- <div class="row m-2 pt-1" *ngIf="schoolDetailForm.value.med_ckup_lstyr== '1'">
+               <div class="col-md-3">
+                  <p class="label_text">Medical Checkup Conducted On ?<span class="manditory"> *</span></p>
+               </div>
+               <div class="col-md-3">
+                  <p-calendar dateFormat="dd.mm.yy" formControlName="med_ckup_1"></p-calendar>
+                  <p-message severity="error"  text="This field is required" *ngIf="schoolDetailForm.controls.med_ckup_1.errors && (submitted || schoolDetailForm.controls.med_ckup_1.dirty || schoolDetailForm.controls.med_ckup_1.touched)"> </p-message>
+               </div>
+               <div class="col-md-3">
+                  <p-calendar dateFormat="dd.mm.yy" formControlName="med_ckup_2"></p-calendar>
+                  <p-message severity="error"  text="This field is required" *ngIf="schoolDetailForm.controls.med_ckup_2.errors && (submitted || schoolDetailForm.controls.med_ckup_2.dirty || schoolDetailForm.controls.med_ckup_2.touched)"> </p-message>
+               </div>
+               <div class="col-md-3">
+                  <input type="text" class="form-control" pInputText  formControlName="med_ckup_3"/>
+                  <p-message severity="error"  text="This field is required" *ngIf="schoolDetailForm.controls.med_ckup_3.errors && (submitted || schoolDetailForm.controls.med_ckup_3.dirty || schoolDetailForm.controls.med_ckup_3.touched)"> </p-message>
+               </div>
+            </div> -->
+
+                        <!-- <div class="row  m-2 pt-1">
+               <div class="col-md-6 mt-1">
+                  <p class="label_text">Whether De-Worming tablets where given to Children ?<span class="manditory"> *</span></p>
+               </div>
+               <div class="col-md-6">
+                  <p-dropdown [options]="Deworming"  placeholder="Choose " styleClass="dropdwnvalue" formControlName="deworm_tab" styleClass="select_dropdown"></p-dropdown>
+                  <p-message severity="error"  text="This field is required" *ngIf="schoolDetailForm.controls.deworm_tab.errors && (submitted || schoolDetailForm.controls.deworm_tab.dirty || schoolDetailForm.controls.deworm_tab.touched)"> </p-message>
+               </div>
+         </div>  -->
+
+
+
+
+
+                        <!-- <div class="row  m-2 pt-1">
+            <div class="col-md-6 mt-1">
+                <p class="label_text">Whether iron and Folic acid tablets given to children as per guidlines of WCD ?<span class="manditory"> *</span></p>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group text-center">
+                            Yes <p-radioButton name="iron_folic" value="1" formControlName="iron_folic"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group text-center">
+                            Num   <p-radioButton name="iron_folic" value="2" formControlName="iron_folic"></p-radioButton>
+                      </div>
+                  </div>
+                  <p-message severity="error"  text="This field is required" *ngIf="schoolDetailForm.controls.iron_folic.errors && (submitted || schoolDetailForm.controls.iron_folic.dirty || schoolDetailForm.controls.iron_folic.touched)"> </p-message>
+                </div>
+            </div>
+        </div>  -->
+
+
+
+
+                        <div class="row pt-2 m-1">
+                            <div class="school_land_title">
+                                <h5 class="text-uppercase m-0 pt-1 pb-1"> PHYSICAL FACILITIES AND EQUIPMENTS IN SCHOOL WITH SECONDARY/HIGHER SECONDARY SECTION</h5>
+                            </div>
+                        </div>
+                        <div class="m-3 p-3">
+                            <!-- Start -->
+
+                            <div class="row  m-2 pt-1">
+                                <div class="col-md-12 laptop_notebook_section">
+                                    <div class="row  font-weight-bold mb-3 border_bottom">
+                                        <div class="col-md-2 mb-2">
+                                            Laboratory
+                                        </div>
+                                        <div class="col-md-3 mb-2">
+                                            Separate Room Availablity<br> (Yes=1, Num=2)
+                                        </div>
+                                        <div class="col-md-7 mb-2">
+                                            IF Available then, Present Conditions (Fully equipped=1, Partially) equipped=2,Not equipped=3)
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-md-2">
+                                            <p>Physics</p>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p-radioButton name="phy_rm_avail" value="1" formControlName="phy_rm_avail" label="YES" (click)=" Physics(schoolDetailForm.value.phy_rm_avail)"></p-radioButton>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p-radioButton name="phy_rm_avail" value="2" formControlName="phy_rm_avail" label="NO" (click)=" Physics(schoolDetailForm.value.phy_rm_avail)"></p-radioButton>
+                                                </div>
+                                                <p-message severity="error" text="Field is required" *ngIf="schoolDetailForm.controls.phy_rm_avail.errors && (submitted || schoolDetailForm.controls.phy_rm_avail.dirty || schoolDetailForm.controls.phy_rm_avail.touched)"></p-message>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7" *ngIf="schoolDetailForm.value.phy_rm_avail== '1'">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <p-radioButton name="phy_prsnt_cond" value="1" formControlName="phy_prsnt_cond" label=" Fully equipped"></p-radioButton>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p-radioButton name="phy_prsnt_cond" value="2" formControlName="phy_prsnt_cond" label="Partially equipped"></p-radioButton>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p-radioButton name="phy_prsnt_cond" value="3" formControlName="phy_prsnt_cond" label="Not equipped"></p-radioButton>
+                                                    <p-message severity="error" text="Field is required" *ngIf="schoolDetailForm.controls.phy_prsnt_cond.errors && (submitted || schoolDetailForm.controls.phy_prsnt_cond.dirty || schoolDetailForm.controls.phy_prsnt_cond.touched)"></p-message>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-md-2">
+                                            <p>Chemistry</p>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p-radioButton name="chem_rm_avail" value="1" formControlName="chem_rm_avail" label="YES" (click)=" Chemistry(schoolDetailForm.value.chem_rm_avail)"></p-radioButton>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p-radioButton name="chem_rm_avail" value="2" formControlName="chem_rm_avail" label="NO" (click)=" Chemistry(schoolDetailForm.value.chem_rm_avail)"></p-radioButton>
+                                                </div>
+                                                <p-message severity="error" text="Field is required" *ngIf="schoolDetailForm.controls.chem_rm_avail.errors && (submitted || schoolDetailForm.controls.chem_rm_avail.dirty || schoolDetailForm.controls.chem_rm_avail.touched)">
+                                                </p-message>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7" *ngIf="schoolDetailForm.value.chem_rm_avail== '1'">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <p-radioButton name="chem_prsnt_cond" value="1" formControlName="chem_prsnt_cond" label="Fully equipped"></p-radioButton>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p-radioButton name="chem_prsnt_cond" value="2" formControlName="chem_prsnt_cond" label="Partially equipped"></p-radioButton>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p-radioButton name="chem_prsnt_cond" value="3" formControlName="chem_prsnt_cond" label="Not equipped"></p-radioButton>
+                                                    <p-message severity="error" text="Field is required" *ngIf="schoolDetailForm.controls.chem_prsnt_cond.errors && (submitted || schoolDetailForm.controls.chem_prsnt_cond.dirty || schoolDetailForm.controls.chem_prsnt_cond.touched)">
+                                                    </p-message>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row mb-3">
+                                        <div class="col-md-2">
+                                            <p>Biology</p>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p-radioButton name="bio_rm_avail" value="1" formControlName="bio_rm_avail" label="YES" (click)=" Biology(schoolDetailForm.value.bio_rm_avail)"></p-radioButton>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p-radioButton name="bio_rm_avail" value="2" formControlName="bio_rm_avail" label="NO" (click)=" Biology(schoolDetailForm.value.bio_rm_avail)"></p-radioButton>
+                                                </div>
+                                                <p-message severity="error" text="Field is required" *ngIf="schoolDetailForm.controls.bio_rm_avail.errors && (submitted || schoolDetailForm.controls.bio_rm_avail.dirty || schoolDetailForm.controls.bio_rm_avail.touched)"></p-message>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7" *ngIf="schoolDetailForm.value.bio_rm_avail== '1'">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <p-radioButton name="bio_prsnt_cond" value="1" formControlName="bio_prsnt_cond" label="Fully equipped"></p-radioButton>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p-radioButton name="bio_prsnt_cond" value="2" formControlName="bio_prsnt_cond" label="Partially equipped"></p-radioButton>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p-radioButton name="bio_prsnt_cond" value="3" formControlName="bio_prsnt_cond" label="Not equipped"></p-radioButton>
+                                                    <p-message severity="error" text="Field is required" *ngIf="schoolDetailForm.controls.bio_prsnt_cond.errors && (submitted || schoolDetailForm.controls.bio_prsnt_cond.dirty || schoolDetailForm.controls.bio_prsnt_cond.touched)">
+                                                    </p-message>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row mb-3">
+                                        <div class="col-md-2">
+                                            <p>Mathamatics</p>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p-radioButton name="math_rm_avail" value="1" formControlName="math_rm_avail" label="YES" (click)=" Mathamatics(schoolDetailForm.value.math_rm_avail)"></p-radioButton>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p-radioButton name="math_rm_avail" value="2" formControlName="math_rm_avail" label="NO" (click)=" Mathamatics(schoolDetailForm.value.math_rm_avail)"></p-radioButton>
+                                                </div>
+                                                <p-message severity="error" text="Field is required" *ngIf="schoolDetailForm.controls.math_rm_avail.errors && (submitted || schoolDetailForm.controls.math_rm_avail.dirty || schoolDetailForm.controls.math_rm_avail.touched)"></p-message>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7" *ngIf="schoolDetailForm.value.math_rm_avail== '1'">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <p-radioButton name="math_prsnt_cond" value="1" formControlName="math_prsnt_cond" label="Fully equipped"></p-radioButton>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p-radioButton name="math_prsnt_cond" value="2" formControlName="math_prsnt_cond" label="Partially equipped"></p-radioButton>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p-radioButton name="math_prsnt_cond" value="3" formControlName="math_prsnt_cond" label="Not equipped"></p-radioButton>
+                                                    <p-message severity="error" text="Field is required" *ngIf="schoolDetailForm.controls.math_prsnt_cond.errors && (submitted || schoolDetailForm.controls.math_prsnt_cond.dirty || schoolDetailForm.controls.math_prsnt_cond.touched)">
+                                                    </p-message>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row mb-3">
+                                        <div class="col-md-2">
+                                            <p>Language</p>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p-radioButton name="lang_rm_avail" value="1" formControlName="lang_rm_avail" label="YES" (click)=" Language(schoolDetailForm.value.lang_rm_avail)"></p-radioButton>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p-radioButton name="lang_rm_avail" value="2" formControlName="lang_rm_avail" label="NO" (click)=" Language(schoolDetailForm.value.lang_rm_avail)"></p-radioButton>
+                                                </div>
+                                                <p-message severity="error" text="Field is required" *ngIf="schoolDetailForm.controls.lang_rm_avail.errors && (submitted || schoolDetailForm.controls.lang_rm_avail.dirty || schoolDetailForm.controls.lang_rm_avail.touched)"></p-message>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7" *ngIf="schoolDetailForm.value.lang_rm_avail== '1'">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <p-radioButton name="lang_prsnt_cond" value="1" formControlName="lang_prsnt_cond" label="Fully equipped"></p-radioButton>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p-radioButton name="lang_prsnt_cond" value="2" formControlName="lang_prsnt_cond" label="Partially equipped"></p-radioButton>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p-radioButton name="lang_prsnt_cond" value="3" formControlName="lang_prsnt_cond" label="Not equipped"></p-radioButton>
+                                                    <p-message severity="error" text="Field is required" *ngIf="schoolDetailForm.controls.lang_prsnt_cond.errors && (submitted || schoolDetailForm.controls.lang_prsnt_cond.dirty || schoolDetailForm.controls.lang_prsnt_cond.touched)">
+                                                    </p-message>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-md-2">
+                                            <p>Geography</p>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p-radioButton name="geo_rm_avail" value="1" formControlName="geo_rm_avail" label="YES" (click)=" Geography(schoolDetailForm.value.geo_rm_avail)"></p-radioButton>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p-radioButton name="geo_rm_avail" value="2" formControlName="geo_rm_avail" label="NO" (click)=" Geography(schoolDetailForm.value.geo_rm_avail)"></p-radioButton>
+                                                </div>
+                                                <p-message severity="error" text="Field is required" *ngIf="schoolDetailForm.controls.geo_rm_avail.errors && (submitted || schoolDetailForm.controls.geo_rm_avail.dirty || schoolDetailForm.controls.geo_rm_avail.touched)"></p-message>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7" *ngIf="schoolDetailForm.value.geo_rm_avail== '1'">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <p-radioButton name="geo_prsnt_cond" value="1" formControlName="geo_prsnt_cond" label="Fully equipped"></p-radioButton>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p-radioButton name="geo_prsnt_cond" value="2" formControlName="geo_prsnt_cond" label="Partially equipped"></p-radioButton>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p-radioButton name="geo_prsnt_cond" value="3" formControlName="geo_prsnt_cond" label="Not equipped"></p-radioButton>
+                                                    <p-message severity="error" text="Field is required" *ngIf="schoolDetailForm.controls.geo_prsnt_cond.errors && (submitted || schoolDetailForm.controls.geo_prsnt_cond.dirty || schoolDetailForm.controls.geo_prsnt_cond.touched)">
+                                                    </p-message>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-md-2">
+                                            <p>Home Science</p>
+                                        </div>
+
+
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p-radioButton name="hom_scnrm_avail" value="1" formControlName="hom_scnrm_avail" label="YES" (click)=" Science(schoolDetailForm.value.hom_scnrm_avail)"></p-radioButton>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p-radioButton name="hom_scnrm_avail" value="2" formControlName="hom_scnrm_avail" label="NO" (click)=" Science(schoolDetailForm.value.hom_scnrm_avail)"></p-radioButton>
+                                                </div>
+                                                <p-message severity="error" text="Field is required" *ngIf="schoolDetailForm.controls.hom_scnrm_avail.errors && (submitted || schoolDetailForm.controls.hom_scnrm_avail.dirty || schoolDetailForm.controls.hom_scnrm_avail.touched)"></p-message>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7" *ngIf="schoolDetailForm.value.hom_scnrm_avail== '1'">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <p-radioButton name="hom_scnprsnt_cond" value="1" formControlName="hom_scnprsnt_cond" label="Fully equipped"></p-radioButton>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p-radioButton name="hom_scnprsnt_cond" value="2" formControlName="hom_scnprsnt_cond" label="Partially equipped"></p-radioButton>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p-radioButton name="hom_scnprsnt_cond" value="3" formControlName="hom_scnprsnt_cond" label="Not equipped"></p-radioButton>
+                                                    <p-message severity="error" text="Field is required" *ngIf="schoolDetailForm.controls.hom_scnprsnt_cond.errors && (submitted || schoolDetailForm.controls.hom_scnprsnt_cond.dirty || schoolDetailForm.controls.hom_scnprsnt_cond.touched)">
+                                                    </p-message>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <!-- <div class="col-md-3">
+                        <div class="row">
+                           <div class="col-md-6">
+                               <p-radioButton name="hom_scnrm_avail" value="Yes"  formControlName="hom_scnrm_avail" label="YES" (click)="Science(schoolDetailForm.value.hom_scnrm_avail)"></p-radioButton>
+                           </div>
+                           <div class="col-md-6">
+                               <p-radioButton name="hom_scnrm_avail" value="NO" formControlName="hom_scnrm_avail" label="NO" (click)="Science(schoolDetailForm.value.hom_scnrm_avail)"></p-radioButton>
+                           </div>
+                           <p-message severity="error"  text="Field is required" *ngIf="schoolDetailForm.controls.hom_scnrm_avail.errors && (submitted || schoolDetailForm.controls.hom_scnrm_avail.dirty || schoolDetailForm.controls.hom_scnrm_avail.touched)"></p-message>
+                        </div>
+                     </div>
+                     <div class="col-md-7" *ngIf="schoolDetailForm.value.hom_scnrm_avail== '1'">
+                        <div class="row">
+                           <div class="col-md-4">
+                              <p-radioButton name="hom_scnprsnt_cond" value="1" formControlName="hom_scnprsnt_cond" label="Fully equipped"></p-radioButton>
+                           </div>
+                           <div class="col-md-4">
+                             <p-radioButton name="hom_scnprsnt_cond" value="2"  formControlName="hom_scnprsnt_cond" label="Partially equipped"></p-radioButton>
+                           </div>
+                           <div class="col-md-4">
+                              <p-radioButton name="hom_scnprsnt_cond" value="3"  formControlName="hom_scnprsnt_cond" label="Not equipped"></p-radioButton>
+                              <p-message severity="error"  text="Field is required" *ngIf="schoolDetailForm.controls.hom_scnprsnt_cond.errors && (submitted || schoolDetailForm.controls.hom_scnprsnt_cond.dirty || schoolDetailForm.controls.hom_scnprsnt_cond.touched)">
+                              </p-message>
+                           </div>
+                        </div>
+                     </div> -->
+                                    </div>
+
+
+                                    <div class="row mb-3">
+                                        <div class="col-md-2">
+                                            <p>Psychology</p>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p-radioButton name="psy_rm_avail" value="1" formControlName="psy_rm_avail" label="YES" (click)=" Psychology(schoolDetailForm.value.psy_rm_avail)"></p-radioButton>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p-radioButton name="psy_rm_avail" value="2" formControlName="psy_rm_avail" label="NO" (click)=" Psychology(schoolDetailForm.value.psy_rm_avail)"></p-radioButton>
+                                                </div>
+                                                <p-message severity="error" text="Field is required" *ngIf="schoolDetailForm.controls.psy_rm_avail.errors && (submitted || schoolDetailForm.controls.psy_rm_avail.dirty || schoolDetailForm.controls.psy_rm_avail.touched)"></p-message>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7" *ngIf="schoolDetailForm.value.psy_rm_avail== '1'">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <p-radioButton name="psy_prsnt_cond" value="1" formControlName="psy_prsnt_cond" label="Fully equipped"></p-radioButton>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p-radioButton name="psy_prsnt_cond" value="2" formControlName="psy_prsnt_cond" label="Partially equipped"></p-radioButton>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p-radioButton name="psy_prsnt_cond" value="3" formControlName="psy_prsnt_cond" label="Not equipped"></p-radioButton>
+                                                    <p-message severity="error" text="Field is required" *ngIf="schoolDetailForm.controls.psy_prsnt_cond.errors && (submitted || schoolDetailForm.controls.psy_prsnt_cond.dirty || schoolDetailForm.controls.psy_prsnt_cond.touched)">
+                                                    </p-message>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- End-->
+
+                        <div class="row form-group">
+                            <div class="col-sm-6 text-align">
+                                <label><span class="num-align">7. </span>Integrated Science laboratory for secondary section Available ?<span class="manditory"> *</span></label>
+                            </div>
+                            <div class="col-sm-3">
+                                <p-radioButton name="lab" formControlName="lab_rm_avail" value="1" label="YES">
+                                </p-radioButton>
+                            </div>
+                            <div class="col-sm-3">
+                                <p-radioButton name="lab" formControlName="lab_rm_avail" value="2" label="NO">
+                                </p-radioButton>
+                            </div>
+
+                            <p-message severity="error" text="Please Enter Year of Establishment of School" *ngIf="schoolDetailForm.controls.lab_rm_avail.errors && (submitted || schoolDetailForm.controls.lab_rm_avail.dirty || schoolDetailForm.controls.lab_rm_avail.touched)"></p-message>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-sm-12 text-align">
+                                <label><span class="num-align">8. </span>Does the school have following Equipments ? <span class="manditory"> *</span></label>
+                            </div>
+                        </div>
+
+
+
+                        <div class="m-3 p-3 mt-3">
+                            <!-- Start -->
+                            <div class="row  m-2 pt-1">
+
+                                <!-- <div class="row full_width  m-2 pt-1">
+               <div class="col-md-6 mt-1">
+                   <p class="label_text">Integrated Science Labarotary for secondary section Available ?<span class="manditory"> *</span></p>
+               </div>
+               <div class="col-md-6">
+                   <div class="row">
+                       <div class="col-md-6">
+                           <div class="form-group text-center">
+                               Yes <p-radioButton name="lab_room" formControlName="lab_room" value="1"></p-radioButton>
+                           </div>
+                       </div>
+                       <div class="col-md-6">
+                         <div class="form-group text-center">
+                               Num <p-radioButton name="lab_room" formControlName="lab_room" value="2"></p-radioButton>
+                         </div>
+                     </div>
+                     <p-message severity="error"  text="Please Enter Year of Establishment of School" *ngIf="schoolDetailForm.controls.lab_room.errors && (submitted || schoolDetailForm.controls.lab_room.dirty || schoolDetailForm.controls.lab_room.touched)"></p-message>
+
+                   </div>
+               </div>
+           </div>  -->
+
+                                <!-- <div class="row  m-2 pt-1">
+            <div class="col-md-12 mt-1">
+                <p class="label_text">Integrated Science Labarotary for secondary section Available ?<span class="manditory"> *</span></p>
+            </div>
+          </div>  -->
+
+
+
+                                <div class="laptop_notebook_section1 full_width mt-3">
+                                    <div class="row font-weight-bold mb-3">
+                                        <div class="col-md-4">
+                                            Equipment/Facility
+                                        </div>
+                                        <div class="col-md-8">
+                                            Availability 
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-1 pt-1 mb-3">
+                                        <div class="col-md-4">
+                                            Audio/Visual/Public Address System
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <p-radioButton name="aud_visfac_avail" value="1" formControlName="aud_visfac_avail" inputId="grp1" label="Yes"></p-radioButton>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <p-radioButton name="aud_visfac_avail" value="2" formControlName="aud_visfac_avail" inputId="grp1" label="No"></p-radioButton>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <p-radioButton name="aud_visfac_avail" value="3" formControlName="aud_visfac_avail" inputId="grp1" label="Yes but not functional"></p-radioButton>
+                                                </div>
+                                                <p-message severity="error" text="Field is required" *ngIf="schoolDetailForm.controls.aud_visfac_avail.errors && (submitted || schoolDetailForm.controls.aud_visfac_avail.dirty || schoolDetailForm.controls.aud_visfac_avail.touched)">
+                                                </p-message>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-1 pt-1 mb-3">
+                                        <div class="col-md-4">
+                                            Science kit
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <p-radioButton name="scien_fac_avail" value="1" formControlName="scien_fac_avail" inputId="grp1" label="Yes"></p-radioButton>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <p-radioButton name="scien_fac_avail" value="2" formControlName="scien_fac_avail" inputId="grp1" label="No"></p-radioButton>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <p-radioButton name="scien_fac_avail" value="3" formControlName="scien_fac_avail" inputId="grp1" label="Yes but not functional"></p-radioButton>
+                                                </div>
+                                                <p-message severity="error" text="Field is required" *ngIf="schoolDetailForm.controls.scien_fac_avail.errors && (submitted || schoolDetailForm.controls.scien_fac_avail.dirty || schoolDetailForm.controls.scien_fac_avail.touched)">
+                                                </p-message>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-1 pt-1 mb-3">
+                                        <div class="col-md-4">
+                                            Math kit
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <p-radioButton name="math_fac_avail" value="1" formControlName="math_fac_avail" inputId="grp1" label="Yes"></p-radioButton>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <p-radioButton name="math_fac_avail" value="2" formControlName="math_fac_avail" inputId="grp1" label="No"></p-radioButton>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <p-radioButton name="math_fac_avail" value="3" formControlName="math_fac_avail" inputId="grp1" label="Yes but not functional"></p-radioButton>
+                                                </div>
+                                                <p-message severity="error" text="Field is required" *ngIf="schoolDetailForm.controls.math_fac_avail.errors && (submitted || schoolDetailForm.controls.math_fac_avail.dirty || schoolDetailForm.controls.math_fac_avail.touched)">
+                                                </p-message>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row mt-1 pt-1 mb-3">
+                                        <div class="col-md-4">
+                                            Biometric device
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <p-radioButton name="bio_fac_avail" value="1" formControlName="bio_fac_avail" inputId="grp1" label="Yes"></p-radioButton>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <p-radioButton name="bio_fac_avail" value="2" formControlName="bio_fac_avail" inputId="grp1" label="No"></p-radioButton>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <p-radioButton name="bio_fac_avail" value="3" formControlName="bio_fac_avail" inputId="grp1" label="Yes but not functional"></p-radioButton>
+                                                </div>
+                                                <p-message severity="error" text="Field is required" *ngIf="schoolDetailForm.controls.bio_fac_avail.errors && (submitted || schoolDetailForm.controls.bio_fac_avail.dirty || schoolDetailForm.controls.bio_fac_avail.touched)">
+                                                </p-message>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <!-- End -->
+
+                        <div class="text-center mr-3">
+                            <button type="submit" class="btn btn-success" (click)="onSave(schoolDetailForm.value)">Save</button>
+                            <button type="submit" class="btn btn-light btn-border">Cancel</button>
+                        </div>
+                        <!-- <div class="text-center mr-3">
+         <button type="submit" class="btn btn-success" (click)="onSave(schoolDetailForm.value)" [disabled]="schoolDetailsData.part_6 == 2">Save</button>
+         <button type="submit" class="btn btn-success" (click)="onFinalSubmit(schoolDetailForm.value)" style="margin-left:15px;" [disabled]="schoolDetailsData.part_6 == 2">Final Submit</button>
+         <button type="submit" class="btn btn-light btn-border" [disabled]="schoolDetailsData.part_6 == 2">Cancel</button>
+       </div> -->
+                        <p-confirmDialog header="Confirmation" [style]="{width: '50vw'}"></p-confirmDialog>
+                        <!-- <div class="row m-3 p-3">
+               <div class="col-md-4"></div>
+               <div class="col-md-4 text-center submit_button">
+                   <input type="submit" value="Submit" class="btn btn-success text-uppercase"/>
+                   <input type="button" value="Cancel" class="btn btn-light bg_light text-uppercase"/>
+               </div>
+               <div class="col-md-4"></div>
+             </div> -->
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </p-card>
+</div>

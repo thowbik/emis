@@ -1,0 +1,83 @@
+<div class="main-body-content m-2">
+    <!-- <p-card class="mx-2">
+    <p>Salary Distribution ( Part-Time Staffs )</p>
+  </p-card> -->
+    <p-card>
+        <p-table #dt [value]="partTimeTeachersList" [columns]="dataHeader" dataKey="u_id" editMode="row">
+            <ng-template let-childrens pTemplate="caption">
+                <div class="row p-1">
+                    <div class="col-sm-4">
+                        <div class="text-lg-left mt-3">
+                            <h5>Salary Distribution ( Part-Time Staffs )</h5>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <p-dropdown [options]="monthList" [(ngModel)]="monthfilterdd" (ngModelChange)="getParttimeTeachersData($event)"></p-dropdown>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="text-right">
+                            <input type="text" pInputText size="15" placeholder="Part Time StaffName" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-childrens>
+                <tr class="text-center">
+                    <th class="sno-header-layout">S.No</th>
+                    <th *ngFor="let col of childrens" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                    </th>
+                    <th class="sno-header-layout">Action</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-editing="editing" let-i="rowIndex">
+                <tr [pEditableRow]="rowData">
+                    <td class="sno-header-layout">{{i+1}}</td>
+                    <td>
+                        {{rowData.teacher_name}}
+                    </td>
+                    <td>
+                        {{rowData.month_label}}
+                    </td>
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <!-- <input pInputText type="text" [(ngModel)]="rowData.paid_yn"> -->
+                                <span style="margin-right: .4em"><p-radioButton  [(ngModel)]="rowData.paid_yn" value="1" label="Yes"></p-radioButton></span>
+                                <p-radioButton [(ngModel)]="rowData.paid_yn" value="2" label="No"></p-radioButton>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.paid_yn_label}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <div *ngIf="rowData.paid_yn == 2;else elseBlock"></div>
+                                <ng-template #elseBlock><input pInputText type="date" [(ngModel)]="rowData.paid_date" dateformat="dd/MM/yyyy"> </ng-template>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.paid_date_format}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td style="text-align:center">
+                        <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" class="ui-button-info" (click)="onRowEditInit(rowData)"></button>
+                        <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" class="ui-button-success" style="margin-right: .5em" (click)="onRowEditSave(rowData,i)"></button>
+                        <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" class="ui-button-danger" (click)="onRowEditCancel(rowData, i)"></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-childrens>
+                <tr>
+                    <td [attr.colspan]="(childrens.length)+2" style="text-align: center;">
+                        <strong>No records found</strong>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-card>
+
+</div>

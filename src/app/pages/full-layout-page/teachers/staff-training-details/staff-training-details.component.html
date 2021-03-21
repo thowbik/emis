@@ -1,0 +1,146 @@
+
+<!-- <div class="ui-grid-row">
+    <div class="ui-grid-col-12">
+       <i>Note : Just Click/Select the Row To Update the Details </i>
+    </div>
+  </div> -->
+  <br/>
+  <p-confirmDialog></p-confirmDialog>
+  <p-table [columns]="cols" [value]="teachertrainlist" selectionMode="single" [(selection)]="selectedTrainee" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="10">
+      <ng-template pTemplate="caption">
+          <div class="ui-helper-clearfix" style="text-align: left">
+              <div style="float:left">
+              <!-- <p-multiSelect [options]="sampleDataHeader" [(ngModel)]="sampleSelectedColumn" optionLabel="header"
+                selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" defaultLabel="Choose Columns"></p-multiSelect> -->
+                
+              <i>Note : Please Select the Row To Update the Details </i></div>
+              <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add" style="float:right"></button>
+          </div>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+          <tr>
+              <th class="sno-header-layout">#</th>
+              <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                  {{col.header}}
+                  <p-sortIcon [field]="col.field"></p-sortIcon>
+              </th>
+              <th>Action</th>
+          </tr>
+          <tr>
+              <th></th>
+              <th *ngFor="let col of columns" [ngSwitch]="col.field" >
+                  <input  pInputText type="text" class="textbox-filter" (input)="dt.filter($event.target.value, col.field, 'contains')">        
+              </th>
+              <th></th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+          <tr [pSelectableRow]="rowData">
+              <td class="sno-header-layout">{{i+1}}</td>
+              <td *ngFor="let col of columns">
+                  {{rowData[col.field]}}
+              </td>
+              <td style="text-align: center;">
+                 
+  
+  <button type="button" (click)="delete(rowData.id)" pButton icon="fa fa-trash" class="ui-button-warning"></button>
+                  <!-- class="ui-button-success" label="Delete" -->
+            </td>
+          </tr>
+         
+      </ng-template>
+      
+      <!-- <ng-template pTemplate="summary" let-rowData>
+          <div style="text-align:left">
+              <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add"></button>
+          </div>
+      </ng-template>     -->
+  </p-table>
+  
+      <p-dialog  [header]="dialogTitle" [(visible)]="displayDialog"
+      [modal]="true" 
+      [draggable]="false"  
+      [responsive]="true" 
+      [blockScroll]="true" 
+      [maximizable]="false" 
+      [contentStyle]="{'max-width':'1000px','max-height': '450px','overflow-y': 'auto'}"
+      >
+      <!-- <p-panel> -->
+      <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+      <div class="ui-g ui-fluid" *ngIf="trainee">
+          <div class="ui-g-12">
+              <div class="ui-g-4">
+                  <label for="teacher_id">Teacher Name</label>
+              </div>
+              <div class="ui-g-8">
+                  <p-dropdown id="teacher_id" placeholder="Select Name" [(ngModel)]="trainee.teacher_id" [options]="stafflist"  (ngModelChange)="loadDropdownData($event)" class="flex-dropdown"></p-dropdown>
+              </div>
+          </div>
+          
+              <div class="ui-g-12">
+                  <div class="ui-g-4">
+                      <label for="training_type">Training Type</label>
+                  </div>
+                  <div class="ui-g-8">
+                      <p-dropdown id="training_type" placeholder="Select Type" [(ngModel)]="trainee.training_type_id"  [options]="trainingtypelist"  (ngModelChange)="displayspecifydiv($event)" class="flex-dropdown" ></p-dropdown>
+                  </div>
+              </div>
+              <div *ngIf="specify_div" class="ui-g-12">
+                  <div class="ui-g-4">
+                      <label for="training_other">Specify Other Training Type</label>
+                  </div>
+                  <div class="ui-g-8">
+                      <input pInputText id="training_other" [(ngModel)]="trainee.training_other" />
+                  </div>
+              </div> 
+              <div class="ui-g-12">
+                  <div class="ui-g-4">
+                      <label for="training_mode">Training Mode</label>
+                  </div>
+                  <div class="ui-g-8">
+                      <p-dropdown id="training_mode" placeholder="Select Training Mode" [(ngModel)]="trainee.training_mode" [options]="trainingmodelist"   class="flex-dropdown" ></p-dropdown>
+                  </div>
+              </div>
+          <div class="ui-g-12">
+              <div class="ui-g-4">
+                  <label for="trained_at">Trained at</label>
+              </div>
+              <div class="ui-g-8">
+                  <p-dropdown id="trained_at" placeholder="Select Trained at" [(ngModel)]="trainee.trained_at" [options]="trainedatalterlist"  class="flex-dropdown" ></p-dropdown>
+              </div>
+          </div>
+          <div class="ui-g-12">
+              <div class="ui-g-4">
+                  <label for="training_date">Started Date</label>
+              </div>
+              <div class="ui-g-8">
+                  <!-- <p-calendar id="training_date" dateFormat="dd/mm/yy"
+                                autocomplete="off"></p-calendar> -->
+                  <input pInputText class="form-control" type="date" [(ngModel)]="trainee.training_date"
+                                              dateformat="dd-MM-yyyy">
+              </div>
+          </div>
+          <div class="ui-g-12">
+              <div class="ui-g-4">
+                  <label for="training_days">No of Days</label>
+              </div>
+              <div class="ui-g-8">
+                  
+                  <input type="text"  pInputText pKeyFilter="pnum" id="training_days"  [(ngModel)]="trainee.training_days" /> 
+              </div>
+          </div>
+      </div>
+          <!-- <div class="ui-dialog-buttonpane ui-helper-clearfix">
+              <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Delete"></button>
+              <button type="button" pButton icon="fa fa-check" (click)="save()" label="Save"></button>
+          </div> -->
+      </div>
+      <p-footer>
+              <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                  <button type="button" pButton icon="fa fa-check" (click)="save()" label="Save"></button>
+              </div>
+          
+      </p-footer>
+      
+      <!-- </p-panel> -->
+  </p-dialog>

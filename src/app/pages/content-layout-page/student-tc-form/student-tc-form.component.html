@@ -1,0 +1,506 @@
+<div class="float-right mr-5 mt-3">
+    <button id="printPageButton" pButton type="button" label="Print" class="ui-button-info"
+        (click)="onRowPDF()"></button>
+    &nbsp;
+    <button id="printPageButton" pButton type="button" label="Go back" class="ui-button-danger"
+        [routerLink]="['/tcdetails/1/0']"></button>
+</div>
+<br>
+<div class="tc">
+    <form [formGroup]="form" >
+        <div class="row header-row">
+            <div class="header-col" style="width: 90%;">
+                <div class="row">
+                    <div class="col-md-8 header-title">
+                        <label>தமிழ்நாடு அரசு, பள்ளிக் கல்வித் துறை </label><br>
+                        <label>GOVERNMENT OF TAMILNADU DEPARTMENT OF SCHOOL EDUCATION </label>
+                    </div>
+                     <div class="col-md-4 header-title" style="border-left: 1px solid;">
+                         <label> மாற்றுச் சான்றிதழ் </label><br>
+                         <label> TRANSFER CERTIFICATE </label>
+                     </div>
+                </div>
+                <div class="row serial" style="margin-right: 0px; margin-left: 0px;">
+                    <div class="col-md-3" style="padding-top: 10px;padding-bottom: 10px;">
+                        <label >வரிசை எண்</label><label class="label">( Serial No) </label>
+                    </div>
+                    <div class="col-md-3" style="border-left: 1px solid;padding-top: 10px;padding-bottom: 10px;">
+                        <label>{{currentyear}}/{{users.student_unique_id}}/{{users.student_id}}</label>
+                        <!-- <input class="form-controls" formControlName="id" readonly> -->
+                    </div>
+                    <div class="col-md-3" style="border-left: 1px solid;padding-top: 10px;padding-bottom: 10px;">
+                        <label>சேர்க்கை எண்</label><label class="label">( Admission No )</label>
+                    </div>
+                    <div class="col-md-2" style="border-left: 1px solid;padding-top: 10px;padding-bottom: 10px;">
+                        <label>{{users.school_admission_no}}</label>
+                    </div>
+                </div>
+
+            </div>
+            <div style="border-right:1px solid black;padding: 0px;width: 10%;">
+                <img [src]="profileurl" alt="no-Image" width="100px" height="130px">
+            </div>
+        </div>
+
+        <div class="row ques-headers">
+            <div class="number-txt" >
+                <label>1</label>
+            </div>
+            <div class="ques-txt" >
+                <label>(அ) பள்ளியின் பெயர் (Name of the School)</label>
+            </div>
+            <div class="ques-ans" >
+                {{users.school_name}}               
+            </div>
+        </div>
+
+        <div class="row ques-header1">
+            <div class="number-txt-noborder1">
+               
+            </div>
+            <div class="ques-txts" style="border-top: 1px solid black;"> 
+                <label>(ஆ) தனியார் பள்ளி எனில் பள்ளி அங்கீகார எண்.
+                    (If private school recognition number)</label>
+            </div>
+            <div class="ques-anss" style="border-top: 1px solid black;">
+              <label>{{users.school_recognition_no}}</label>
+            </div>
+        </div>
+        <div class="row ques-header1">
+            <div class="number-txt-noborder1">
+               
+            </div>
+            <div class="ques-txts">
+               <label style="font-family: Times New Roman;"><label lang="ar-SA">(இ)வருவாய் மாவட்டம்<br /></label></label><label>(Revenue District)</label>
+            </div>
+            <div class="ques-anss">
+              <label>{{users.district_name}}</label>
+            </div>
+        </div>
+        <div class="row ques-header1">
+            <div class="number-txt-noborder1">
+               
+            </div>
+            <div class="ques-txts">
+                <label>(ஈ) கல்வி மாவட்டம
+                    (Educational District)</label>
+            </div>
+            <div class="ques-anss">
+              <label>{{users.edu_dist_name}}</label>
+            </div>
+        </div>
+        <div class="row ques-header1">
+            <div class="number-txt-noborder">
+               
+            </div>
+            <div class="ques-txts">
+                <label>(உ) ஒன்றியம
+                    (Block)</label>
+            </div>
+            <div class="ques-anss">
+              <label>{{users.block_name}}</label>
+            </div>
+        </div>
+        <div class="row ques-headers">
+            <div class="number-txt">
+                <label>2</label>
+            </div>
+            <div class="ques-txts">
+                <label>(அ) மாணவரின் பெயர் Name of the Student தமிழில் (in Tamil)</label>
+            </div>
+            <div class="ques-anss">
+                <label>{{users.name_tamil}}</label>
+            </div>
+        </div>
+        <div class="row ques-header1">
+            <div class="number-txt-noborder">
+               
+            </div>
+            <div class="ques-txts">
+                <label>(ஆ) ஆங்கிலத்தில் (in English, in block letters)</label>
+            </div>
+            <div class="ques-anss">
+              <label>{{users.name}}</label>
+            </div>
+        </div>
+
+        <div class="row ques-headers">
+            <div class="number-txt">
+                <label>3</label>
+            </div>
+            <div class="ques-txts">
+                <label>(அ) தந்தையின் பெயர் (Father’s name)</label>
+            </div>
+            <div class="ques-anss">
+                <label>{{users.father_name}}</label>
+            </div>
+        </div>
+        <div class="row ques-header1">
+            <div class="number-txt-noborder">
+               
+            </div>
+            <div class="ques-txts">
+                <label>(ஆ) தாயாரின் பெயர் (Mother’s name)</label>
+            </div>
+            <div class="ques-anss">
+               <label>{{users.mother_name}}</label>
+            </div>
+        </div>
+
+        <div class="row ques-header">
+            <div class="number-txt">
+                <label>4</label>
+            </div>
+            <div class="ques-txt">
+                <label>தேசிய இனம் மற்றும் மதம் (Nationality & Religion)</label>
+            </div>
+            <div class="ques-ans">    
+            <label>{{users.student_nationality}}</label>-<label>{{studentcommunitytc}}</label>
+            </div>
+        </div>
+
+        <div class="row ques-headers">
+            <div class="number-txt">
+                <label>5</label>
+            </div>
+            <div class="ques-txts">
+                <label>இனம் (Community)</label>
+            </div>
+            <div class="ques-anss">
+               <label>{{studentcommunitytc}}</label>
+            </div>
+        </div>
+        <div class="row ques-header1">
+            <div class="number-txt-noborder">
+               
+            </div>
+            <div class="ques-txts">
+                <label>உட்பிரிவு</label>
+            </div>
+            <div class="ques-anss">
+                <label>{{studentcommunitytc}}</label>
+            </div>
+        </div>
+
+        <div class="row ques-header">
+            <div class="number-txt">
+                <label>6</label>
+            </div>
+            <div class="ques-txt">
+                <label>பாலினம் (ஆண் / பெண் / மூன்றாம் பாலினம்) Gender (Male / Female / Transgender)</label>
+            </div>
+            <div class="ques-ans">    
+              <label>{{gender}}</label>
+            </div>
+        </div>
+
+        <div class="row ques-header">
+            <div class="number-txt">
+                <label>7</label>
+            </div>
+            <div class="ques-txt">
+                <label>பிறந்த தேதி, மாணவர் சேர்க்கைப் பதிவேட்டில் உள்ளபடி (எண்ணிலும் எழுத்திலும்) Date of Birth as entered in the Admission Register (In figure and words)</label>
+            </div>
+            <div class="ques-ans"> 
+               <label>{{users.dob | date: 'dd-MM-yyyy'}}</label> (<label>{{dateInWords}}</label>)
+            </div>
+        </div>
+
+        <div class="row ques-header">
+            <div class="number-txt">
+                <label>8</label>
+            </div>
+            <div class="ques-txt">
+                <label>உடலில் அமைந்துள்ள அங்க அடையாளக் குறிகள் (Personal marks of identification)</label>
+            </div>
+            <div class="ques-ans">    
+            <div style="width: 50%;">
+                <label>(அ)</label>
+            <label>{{users.student_idenitiy1}}</label>
+            </div>
+          
+            <div style="width: 50%;">
+                <label>(ஆ)</label>
+                <label>{{users.student_idenitiy2}}</label>
+            </div>
+            </div>
+        </div>
+
+        <div class="row ques-header">
+            <div class="number-txt">
+                <label>9</label>
+            </div>
+            <div class="ques-txt">
+                <label>மாணவர் பள்ளியில் சேர்க்கப்பட்ட தேதி மற்றும் சேர்க்கப்பட்ட வகுப்பு வருடத்தை எழுத்தால் எழுதவும் Date and standard of admission of student (year in words)</label>
+            </div>
+            <div class="ques-ans" style="padding-left: 0px;">  
+                <div  style="padding-left: 10px;">  
+               <label> {{users.student_period_study_from | date: 'dd-MM-yyyy' }} ({{admissionDateInWords}})</label> </div>
+               <div style="border-top: 1px solid;padding-left: 10px;">
+                <label>{{studentstudiedfrom}}</label>
+               </div>
+            </div>
+        </div>
+
+        <div class="row ques-headers">
+            <div class="number-txt">
+                <label>10</label>
+            </div>
+            <div class="ques-txts">
+                <label>(அ) மாணவர் பள்ளியை விட்டுச் செல்லும் நேரத்தில் படித்து வந்த வகுப்பு (எண்ணிலும்
+                    எழுத்திலும்) (Standard in which the Student was studying at the time of leaving School. ( in
+                    figure and words))</label>
+            </div>
+            <div class="ques-anss">
+             <label> {{current_class}} </label>
+            </div>
+        </div>
+        <div class="row ques-header1" *ngIf="form.value.student_current_class_id == '11' || form.value.student_current_class_id == '12'">
+            <div class="number-txt-noborder1">
+               
+            </div>
+            <div class="ques-txts">
+                <label>(ஆ) மேல்நிலைக் கல்வி எனில், தேர்ந்தெடுத்த பாடப்பிரிவு அதாவது பொதுக்கல்வி அல்லது
+                    தொழிற்கல்வி ( If Higher Secondary Course, the Course offered ie., General Education or
+                    Vocational Education)</label>
+            </div>
+            <div class="ques-anss">
+              <label>{{users.group_offer}}</label>
+            </div>
+        </div>
+        <div class="row ques-header1" *ngIf="form.value.student_current_class_id == '11' || form.value.student_current_class_id == '12'" >
+            <div class="number-txt-noborder">
+               
+            </div>
+            <div class="ques-txts">
+                <label>(இ) பொதுக்கல்வியாயின் பகுதி III தொகுதி (அ)-இல் தேர்ந்தெடுத்த விருப்பப் பாடங்கள் மற்றும் பயிற்று மொழி (In the case of General Education the Subject offered under Part III Group A & Medium of Instruction)</label>
+            </div>
+            <div class="ques-anss">
+                <label>{{users.group_name}}</label>
+            </div>
+        </div>
+      
+        <div class="row ques-header">
+            <div class="number-txt">
+                <label>11</label>
+            </div>
+            <div class="ques-txt">
+                <label>அடுத்த உயர் வகுப்பிற்குத் தேர்ச்சி பெற தகுதி உடையவரா? ஆம் / இல்லை குறிப்பிடுக. (Mention whether qualified for promotion to next higher class ( Yes/ No)</label>
+            </div>
+            <div class="ques-ans">    
+                <label>{{promote_class}}</label>
+            </div>
+        </div>
+
+        <div class="row ques-header">
+            <div class="number-txt">
+                <label>12</label>
+            </div>
+            <div class="ques-txt">
+                <label>மாணவர் படிப்பு உதவித் தொகை அல்லது படிப்பு கட்டணச் சலுகை ஏதேனும் பெற்றவரா? (அதன் விவரத்தைக் குறிப்பிடுக) (Whether the Student was in receipt of any Scholarship or Educational Concession; nature of the scholarship to be specified)</label>
+            </div>
+            <div class="ques-ans">    
+               <label>{{users.student_scholarship}}</label>
+                
+            </div>
+        </div>
+
+        <div class="row ques-header">
+            <div class="number-txt">
+                <label>13</label>
+            </div>
+            <div class="ques-txt">
+                <label>மாணவர் நடப்புக் கல்வியாண்டில் மருத்துவ ஆய்வுக்குச் சென்றவரா? (Whether the Student has undergone medical inspection during the last academic year)</label>
+            </div>
+            <div class="ques-ans">    
+                <label>{{users.student_medical_date | date: 'dd-MM-yyyy'}}</label>
+            </div>
+        </div>
+        <div class="row ques-header">
+            <div class="number-txt">
+                <label>14</label>
+            </div>
+            <div class="ques-txt">
+                <label>மாணவர் கடைசியாகப் பள்ளிக்கு வருகை புரிந்த தேதி (Last date on which the Student attended the school)</label>
+            </div>
+            <div class="ques-ans">    
+              <label>{{users.student_last_date | date: 'dd-MM-yyyy'}}</label>
+            </div>
+        </div>
+        <div class="row ques-header">
+            <div class="number-txt">
+                <label>15</label>
+            </div>
+            <div class="ques-txt">
+                <label>மாணவரின் நடத்தையும் பண்பும் (The Student’s conduct and character)</label>
+            </div>
+            <div class="ques-ans">    
+                <label>{{users.student_conduct}}</label>
+            </div>
+        </div>
+
+        <div class="row ques-headers">
+            <div class="number-txt">
+                <label>16</label>
+            </div>
+            <div class="ques-txts">
+                <label>(அ) மாற்றுச் சான்றிதழ் கோரி விண்ணப்பித்த தேதி (Date of application for Transfer Certificate)
+                </label>
+            </div>
+            <div class="ques-anss">
+              <label>{{users.student_apply_tc | date: 'dd-MM-yyyy'}}</label>
+            </div>
+        </div>
+        <div class="row ques-header1">
+            <div class="number-txt-noborder">
+               
+            </div>
+            <div class="ques-txts">
+                <label>(ஆ) மாற்றுச் சான்றிதழ் கோரி விண்ணப்பிக்கக் காரணம் (Reason for applying for Transfer Certificate)</label>
+            </div>
+            <div class="ques-anss">
+               <label>{{transfer_reason}}</label>
+            </div>
+        </div>
+        <div class="row ques-header">
+            <div class="number-txt">
+                <label>17</label>
+            </div>
+            <div class="ques-txt">
+                <label>மாற்றுச் சான்றிதழ் தேதி (Date of Transfer Certificate )</label>
+            </div>
+            <div class="ques-ans">    
+               <label>{{users.student_tc_date | date: 'dd-MM-yyyy'}}</label>
+            </div>
+        </div>
+
+        <div class="row ques-headers">
+            <div class="number-txt">
+                <label>18</label>
+            </div>
+            <div class="ques-txts">
+                <label>மாணவர் எண் (Student EMIS ID)
+                </label>
+            </div>
+            <div class="ques-anss">
+                <label>{{users.student_unique_id}}</label>
+            </div>
+        </div>
+        <div class="row ques-header1" style="text-align: center;">
+            <div class="number-txt-noborder1">
+               
+            </div>
+            <div style="width:24%;border-right:1px solid black;padding-top:10px;padding-bottom:10px;">
+                <label>கல்வி பயின்ற காலம் (Period of Study)</label>
+            </div>
+            <div style="width:25%;border-right:1px solid black;padding-top:10px;padding-bottom:10px;">
+                <label>படித்த வகுப்புகள் (Classes Studied)</label>
+            </div>
+            <div style="width:24%;border-right:1px solid black;padding-top:10px;padding-bottom:10px;">
+                <label>முதல் மொழி (First Language)</label>
+            </div>
+            <div style="width:24%;padding-top:10px;padding-bottom:10px;">
+                <label>பயிற்று மொழி (Medium of Instruction)</label>
+            </div>
+        </div>
+        <div class="row ques-headers1" style="border-bottom:1px solid black;text-align: center;">
+            <div class="number-txt-noborder1">
+               
+            </div>
+            <div style="width:24%;border-right:1px solid black;padding-top:10px;padding-bottom:10px;border-top:1px solid black;">
+                <label>{{users.student_period_study_from | date: 'dd-MM-yyyy'}}</label>&nbsp;&nbsp;to&nbsp;&nbsp;<label>{{users.student_period_study_to  | date: 'dd-MM-yyyy'}}</label>
+            </div>
+            <div style="width:25%;border-right:1px solid black;padding-top:10px;padding-bottom:10px;border-top:1px solid black;">
+                <label>{{studentstudiedfrom}}</label> - <label>{{studentcurrentclass}}</label>
+            </div>
+            <div style="width:24%;border-right:1px solid black;padding-top:10px;padding-bottom:10px;border-top:1px solid black;">
+                <label>{{users.first_lang}}</label>
+            </div>
+            <div style="width:24%;border-right:1px solid black;padding-top:10px;padding-bottom:10px;border-top:1px solid black;">
+                <label>{{users.MEDINSTR_DESC}}</label>
+            </div>
+        </div>
+
+        <div class="row ques-header">
+            <div class="number-txt">
+                <label>19</label>
+            </div>
+            <div class="ques-txt" style="padding-top: 30px;padding-bottom: 30px;">
+                <label>பள்ளித் தலைமையாசிரியரின் கையொப்பம், (பெயர், தேதி மற்றும் பள்ளி முத்திரையுடன்)
+                    Signature of the Head Master (with Name, Date and School Seal)</label>
+            </div>
+            <div class="ques-ans">    
+              
+            </div>
+        </div>  
+
+        <div class="row" >
+            <div style="width: 20%;"></div>
+            <div style="width: 80%;">
+                <label>** குழந்தைகளுக்கான இலவச மற்றும் கட்டாயக் கல்வி உரிமைச் சட்டம் 2009, மற்றும் விதிகள், 2011-க்கு
+                    உட்பட்டது.</label>
+                </div>
+        </div>
+
+        <div class="row" style=" border-top:1px solid black;border-left:1px solid black;border-right: 1px solid black;">
+            <div style="width: 45%;"></div>
+            <div style="width: 55%;">
+                <label>குறிப்பு (Note)</label></div>
+        </div>
+        <div class="row" style="border-top:1px solid black;border-left:1px solid black;border-right: 1px solid black;">
+            <div  style="padding-top: 20px; width: 3%;">
+              &nbsp;&nbsp;&nbsp; 1
+            </div>
+            <div  style="border-left: 1px solid;padding: 16px 0px 20px 5px; width: 97%;">
+              <label> அடித்தல் மற்றும் அதிகாரப் பூர்வமற்ற அல்லது மோசடியான திருத்தங்கள் மாற்றுச் சான்றிதழில் கண்டறியப்படும்
+                பட்சத்தில் இந்த மாற்றுச் சான்றிதழ் இரத்து செய்யப்படும் (Erasures and unauthenticated or fraudulent
+                alterations in the Certificate will lead to its cancellation). </label> 
+            </div>
+        </div>
+
+        <div class="row"   style="border-top:1px solid black;border-left:1px solid black;border-right: 1px solid black;border-bottom:1px solid black">
+            <div  style="padding-top: 20px; width: 3%;">
+                &nbsp;&nbsp;&nbsp; 2
+            </div>
+            <div  style="border-left:1px solid;padding: 16px 0px 20px 5px;width: 97%;">
+              <label>  மாற்றுச் சான்றிதழில் அலுவலகத் தலைவர் தொடர்புடைய பதிவேட்டுடன் ஒப்பிட்டு சரிபார்த்து கையொப்பமிடவேண்டும்.சான்றிதழின் பதிவுகளுக்கு கையொப்பமிட்ட,சார்ந்த பள்ளித் தலைமையாசிரியரே பொறுப்பாவார்(Should be signed in ink by the Head of the Institution who will be held responsible for the correctness of the
+                entries).</label>
+            </div>
+        </div>
+        <br>
+
+        <div class="row" style="border-top:1px solid black;border-left:1px solid black;border-right: 1px solid black;">
+            <div style="width: 25%;"></div>
+            <div style="width:75%"><label>பெற்றோர் / பாதுகாவலரின் உறுதிமொழி</label>
+                <label> (DECLARATION BY THE PARENT / GUARDIAN) </label>
+            </div>
+            
+
+        </div>
+
+        <div class="row"style="padding: 15px 10px 15px 10px;border-top:1px solid black;border-left:1px solid black;border-right: 1px solid black;border-bottom:1px solid black">
+          <label>  மேலே, வரிசை எண் 2 முதல் 7 வரையுள்ள இனங்களுக்கெதிரே பதிவு செய்யப்பட்டுள்ள விவரங்கள் சரியானவை என்றும்
+            எதிர்காலத்தில் மாற்றம் எதுவும் கோரமாட்டேன் என்றும் நான் உறுதியளிக்கிறேன்.</label>
+        <label>    I hereby declare that the particulars recorded above against items from 2 to 7 are correct and that no
+            change will be demanded by me in the future. </label>
+        </div>
+     <div class="row" style="border-left: 1px solid;border-right: 1px solid;">  
+        <div style="width: 50%; padding-top: 30px;padding-bottom: 30px;">
+           
+        </div>
+        <div style="width: 50%; padding-top: 30px;padding-bottom: 30px;border-left: 1px solid;">
+
+        </div>
+    </div>
+    <div class="row" style=" border:1px solid;">  
+        <div style="width: 50%; padding-top: 10px;padding-bottom: 10px; padding-left:15px;">
+             <label>மாணவரின் கையொப்பம்
+                Signature of the Student</label>
+        </div>
+        <div style="width: 50%;padding-top: 10px;border-left: 1px solid;padding-bottom: 10px; padding-left:15px;">
+               <label>பெற்றோர் / பாதுகாவலரின் கையொப்பம்
+                Signature of the Parent / Guardian</label>
+        </div>
+    </div>
+</form>
+</div>

@@ -1,0 +1,93 @@
+<div class="container-fluid">
+    <p-tabView>
+      <div class="text-lg-left mt-3">
+        <h5>Total Enrolment in Pre-Primary
+        </h5>
+      </div>
+      <div class="flexGapTop">
+        <p-table #dt
+                 [value]="Blocklist"
+                 [styleClass]="'base-table'"
+                 [paginator]="false"
+                 [scrollable]="true"
+                 scrollHeight="500px"
+                 scrollWidth="500px" >
+          <ng-template pTemplate="header">
+            <tr class="center">
+              <th colspan="1" style="width: 12em"></th>
+              <th colspan="2" style="width: 15em">Total Enrolment in Pre-Primary </th>
+              <th colspan="2" style="width: 6em">I</th>
+              <th colspan="2" style="width: 10em">II</th>
+            </tr>
+            <tr class="center">
+              <th>Type of Impairment</th>
+              <th>B</th>
+              <th>G</th>
+              <th>B</th>
+              <th>G</th>
+              <th>B</th>
+              <th>G</th>
+              <th>B</th>
+              <th>G</th>
+              <th>B</th>
+              <th>G</th>
+              <th>B</th>
+              <th>G</th>
+              <th>B</th>
+              <th>G</th>
+              <th>B</th>
+              <th>G</th>
+              <th>B</th>
+              <th>G</th>
+              <th>B</th>
+              <th>G</th>
+              <th>B</th>
+              <th>G</th>
+              <th>B</th>
+              <th>G</th>
+              <th>B</th>
+              <th>G</th>
+  
+            </tr>
+          </ng-template>
+  
+          <ng-template pTemplate="body" let-distname let-rowData let-columns="columns" let-i="rowIndex" >
+            <tr [pSelectableRow]="rowData" class="text-center">
+              <td class="width-169 text-left clr-blue"> <a class="nav-link" routerLinkActive="active" >{{ distname.district_name}}</a></td>
+              <td class="width-169"> {{ distname.total_stud}} </td>
+  
+              <td> {{ distname.attend_tam}} </td>
+              <td> {{ distname.pstud_tam}} </td>
+              <td> {{ ((distname.pstud_tam / distname.attend_tam ) * 100).toFixed(2)}}</td>
+              <td> {{ ((((distname.pstud_tam / distname.attend_tam ) * 100)*35)/100).toFixed(2)}} </td>
+  
+              <td> {{ distname.attend_eng}} </td>
+              <td> {{ distname.pstud_eng}} </td>
+              <td> {{ ((distname.pstud_eng / distname.attend_eng ) * 100).toFixed(2)}} </td>
+              <td> {{ ((((distname.pstud_eng / distname.attend_eng ) * 100)*35)/100).toFixed(2)}} </td>
+  
+              <td> {{ distname.attend_mat}} </td>
+              <td> {{ distname.pstud_mat}} </td>
+              <td> {{ ((distname.pstud_mat / distname.attend_mat ) * 100).toFixed(2)}} </td>
+              <td> {{ ((((distname.pstud_mat / distname.attend_mat ) * 100)*35)/100).toFixed(2)}} </td>
+  
+              <td> {{ distname.attend_sci}} </td>
+              <td> {{ distname.pstud_sci}} </td>
+              <td> {{ ((distname.pstud_sci / distname.attend_sci ) * 100).toFixed(2)}} </td>
+              <td> {{ ((((distname.pstud_sci / distname.attend_sci ) * 100)*35)/100).toFixed(2)}} </td>
+  
+              <td> {{ distname.attend_soc}} </td>
+              <td> {{ distname.pstud_soc}} </td>
+              <td> {{ ((distname.pstud_soc / distname.attend_soc ) * 100).toFixed(2)}} </td>
+              <td> {{ ((((distname.pstud_soc / distname.attend_soc ) * 100)*35)/100).toFixed(2)}} </td>
+  
+              <td> {{ ((distname.pstud_mat / distname.attend_mat ) * 100).toFixed(2)}} </td>
+              <td> {{ distname.cent_score_stud_soc}} </td>
+  
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </p-tabView>
+  </div>
+  

@@ -1,0 +1,66 @@
+<div class="main-body-content">
+	<div class="outer-layout">
+		<div class="breadcrumbs c-black">
+			<h6 class="url">
+                <span class="flex-gap-right">Monitoring Reports</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+                <span class="flex-gap-right">Verification Status Monitoring Reports </span>
+            </h6>
+		</div>
+	</div>
+	<p-table #dt [columns]="dataHeader" [value]="verificationmonitoring">
+		<ng-template let-childrens pTemplate="caption">
+			<div class="row mt-2">
+				<div class="col-md-3">
+					<p-dropdown [options]="school_type" (onChange)="school_type_val($event)"></p-dropdown>
+				</div>
+				<div class="col-md-1">
+					<button type="submit" class="btn btn-success" (click)="SearchData()">Submit</button>
+				</div>
+			</div>
+			<div class="row ">
+				<div class="col-md-8 text-left">
+					<!-- <h5>Verification Status Monitoring Reports </h5> -->
+				</div>
+				<div class="col-md-3">
+						<input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                    </div>
+                    <div class="col-md-1 p-1 flex-row-center-end"> 
+                        <i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="exportExcel()"></i>
+                </div>
+                
+			</div>
+		</ng-template>
+		<ng-template pTemplate="header" let-childrens>
+			<tr class="text-center">
+				<th class="sno-header-layout">S.No</th>
+				<th *ngFor="let col of childrens" [pSortableColumn]="col.field" [style.width]="col.widthstyle">{{col.header}}
+					<p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+				</th>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="body" let-verificationmonitoring let-rowData let-editing="editing" let-i="rowIndex">
+			<tr *ngIf="!noDataFound" class="text-left">
+				<td class="sno-header-layout text-center">{{i+1}}</td>
+				<td>{{verificationmonitoring.block_name}}</td>
+				<td class="text-center">{{verificationmonitoring.udise_code}}</td>
+				<td>{{verificationmonitoring.school_name}}</td>
+				<td>{{verificationmonitoring.school_type}}</td>
+				<td class="text-center">{{verificationmonitoring.School_Status}}</td>
+				<td class="text-center">{{verificationmonitoring.BRTE_Status}}</td>
+				<td class="text-center">{{verificationmonitoring.BEO_Status}}</td>
+				<td class="text-center">{{verificationmonitoring.DC_CEO_Status}}</td>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="footer">
+			<tr class="text-center" *ngIf="noDataFound">
+				<td colspan="9">No Data Found</td>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="emptymessage" let-columns>
+			<tr>
+				<td [attr.colspan]="(columns.length)+1" style="text-align: center;"> <strong>No records found</strong>
+				</td>
+			</tr>
+		</ng-template>
+	</p-table>
+</div>

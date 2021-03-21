@@ -1,0 +1,207 @@
+<div class="main-body-content p-3">
+
+    <div class="outer-layout" style="padding-top:5px;">
+        <div class="breadcrumbs c-black">
+            <h6 class="url"><span class="flex-gap-right">Schools</span> <i class="fa fa-angle-right flex-gap-right"
+                    aria-hidden="true"></i> <span class="flex-gap-right">Health Profile</span></h6>
+        </div>
+    </div>
+
+    <p-card>
+        <form [formGroup]="form">
+
+            <div class="form-group row">
+
+                <div class="col-md-3">
+                    <label class="font-weight-bold" style="color: teal;font-size: 14px;">Select Class<span class="text-danger"> *
+                        </span></label>
+                        <!-- <p-dropdown [options]="classList" formControlName="CovidStats" placeholder="Select Class"
+                        styleClass="dropdwnvalues" (onChange)="onChangeClass($event.value)"></p-dropdown> -->
+                    <select id="select2" formControlName="class" class="form-control "
+                        (change)="onChangeClass($event.target.value)" style="border: 1px solid #a6a6a6;">
+                        <option value="" style="font-weight:500">Select Class</option>
+                        <option *ngFor="let classes of classlist" [value]="classes.value">
+                            {{ classes.roman }}
+                        </option>
+                    </select>
+                    <p-message severity="error" text="Field is required"
+                        *ngIf="form.controls.class.errors && (submitted1 || form.controls.class.dirty || form.controls.class.touched)">
+                    </p-message>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="font-weight-bold" style="color: teal;font-size: 14px;">Select Section<span class="text-danger"> *
+                        </span></label>
+                    <select id="select2" formControlName="section" class="form-control "
+                        (change)="onChangesection($event.target.value,this.form.value.class)"
+                        style="border: 1px solid #a6a6a6;">
+                        <option value="" style="font-weight:500">Select Section</option>
+                        <option *ngFor="let item of assigned_section1?.split(',')" [value]="item">
+                            {{item}}
+                        </option>
+                    </select>
+                    <p-message severity="error" text="Field is required"
+                        *ngIf="form.controls.section.errors && (submitted1 || form.controls.section.dirty || form.controls.section.touched)">
+                    </p-message>
+                </div>
+
+                <div class="col-lg-3">
+                    <label class="font-weight-bold" style="color: teal;font-size: 14px;">Select Student Name<span class="text-danger"> *
+                        </span></label>
+                    <select id="select2" formControlName="studentname" class="form-control"
+                    (change)="onStudentChange($event.target.value,this.form.value.class,this.form.value.section)"
+                        style="border: 1px solid #a6a6a6;">
+                        <option value="" style="font-weight:500">Select Student Name</option>
+                        <option *ngFor="let student of studentnamelist" [value]="student.value">
+                            {{ student.label }}
+                        </option>
+                    </select>
+                    <p-message severity="error" text="Field is required"
+                        *ngIf="form.controls.studentname.errors && (submitted1 || form.controls.studentname.dirty || form.controls.studentname.touched)">
+                    </p-message>
+                </div>
+
+            </div>
+
+        </form>
+    </p-card>
+
+    <br>
+    <div *ngIf="showData">
+    <p-card>
+      
+
+
+        <form [formGroup]="schoolDetailForm">
+
+            <div class="row" style="padding-top: 5px;
+            padding-bottom: 15px;
+            padding-right: 0px;border-bottom: 2px solid lightskyblue">
+                <div class="col-lg-12 text-right">
+                    <button pButton type="button" icon="pi pi-plus" class="flex-gap-left flex-gap-right" iconPos="left"
+                        (click)="addMediumInstruction()"></button>
+                    <button pButton type="button" icon="pi pi-minus" iconPos="left"
+                        (click)="removeMediumInstruction()"></button>
+                </div>
+            </div>
+
+            <div class="row" style="padding-top: 10px;color: teal">
+                <div class="col-lg-3">
+                    <label class="font-weight-bold">Relation Name</label>
+                </div>
+                <div class="col-lg-2">
+                    <label class="font-weight-bold">Relationship</label>
+                </div>
+                <div class="col-lg-2">
+                    <label class="font-weight-bold">Gender</label>
+                </div>
+                <div class="col-lg-1">
+                    <label class="font-weight-bold">Age</label>
+                </div>
+                <div class="col-lg-2">
+                    <label class="font-weight-bold">Health Status</label>
+                </div>
+                <div class="col-lg-2">
+                    <label class="font-weight-bold">Affected by Covid-19</label>
+                </div>
+            </div>
+
+            <div class="row form-group">
+
+                <div class="col-md-12" formArrayName="schoolnew_mediumentry_details">
+                    <div class="row pt-1"
+                        *ngFor="let item of schoolDetailForm.get('schoolnew_mediumentry_details')['controls']; let i = index;"
+                        [formGroupName]="i" style="padding-bottom: 15px;
+                        border-bottom: 1px solid lightseagreen;
+                        margin-top: 15px;">
+
+                        <div class="col-md-12 text-right" style="margin-bottom: 5px;">
+                                <!-- <button pButton type="button" icon="pi pi-pencil"
+                                class="ui-button-info" (click)="onEdit(item)" style="background-color: green;border:1px solid green;margin-right:10px"></button> -->
+                                <button type="button" pButton icon="fa fa-close" (click)="onDelete(item)" style="background-color: red;border:1px solid red"></button>    
+                        </div>
+                        <div class="col-lg-12 row">
+                        <div class="col-lg-3">
+                            <input type="text" pInputText class="form-control" formControlName="Name" placeholder="">
+                            <p-message severity="error" text="Field is required"
+                                *ngIf="item.controls.Name.errors && (submitted || mediumEntryInvalid || item.controls.Name.dirty || item.controls.Name.touched)">
+                            </p-message>
+                        </div>
+
+                        <div class="col-md-2">
+                            <p-dropdown [options]="ParentTypelist" formControlName="Relationshp" placeholder="Select"
+                                styleClass="dropdwnvalues"></p-dropdown>
+                            <p-message severity="error" text="Field is required"
+                                *ngIf="item.controls.Relationshp.errors && (submitted || mediumEntryInvalid || item.controls.Relationshp.dirty || item.controls.Relationshp.touched)">
+                            </p-message>
+                        </div>
+
+                        <div class="col-md-2">
+                            <p-dropdown [options]="genderlist" formControlName="Gendr" placeholder="Select"
+                                styleClass="dropdwnvalues"></p-dropdown>
+                            <p-message severity="error" text="Field is required"
+                                *ngIf="item.controls.Gendr.errors && (submitted || mediumEntryInvalid || item.controls.Gendr.dirty || item.controls.Gendr.touched)">
+                            </p-message>
+                        </div>
+
+                        <div class="col-md-1">
+                            <input type="text" pInputText class="form-control" pKeyFilter="pnum" maxlength="3"
+                                formControlName="Age" placeholder="">
+                            <p-message severity="error" text="Field is required"
+                                *ngIf="item.controls.Age.errors && (submitted || mediumEntryInvalid || item.controls.Age.dirty || item.controls.Age.touched)">
+                            </p-message>
+                        </div>
+
+                        <div class="col-md-2">
+                            <p-dropdown [options]="healthStatus" formControlName="HealthStats" placeholder="Select"
+                                styleClass="dropdwnvalues" (onChange)="onHealthChange($event.value,i)"></p-dropdown>
+                            <p-message severity="error" text="Field is required"
+                                *ngIf="item.controls.HealthStats.errors && (submitted || mediumEntryInvalid || item.controls.HealthStats.dirty || item.controls.HealthStats.touched)">
+                            </p-message>
+                        </div>
+
+                        <div class="col-md-2">
+                            <p-dropdown [options]="healthlist" formControlName="CovidAffctd" placeholder="Select"
+                                styleClass="dropdwnvalues" (onChange)="onCovidChange($event.value,i)"></p-dropdown>
+                            <p-message severity="error" text="Field is required"
+                                *ngIf="item.controls.CovidAffctd.errors && (submitted || mediumEntryInvalid || item.controls.CovidAffctd.dirty || item.controls.CovidAffctd.touched)">
+                            </p-message>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 row" style="margin-top: 10px;">
+                        <div class="col-lg-8">
+                        </div>
+                        <div class="col-lg-2" *ngIf="item.value.HealthStats == '1'" style="padding-top:5px">
+                        </div>
+                        <div class="col-lg-2" *ngIf="item.value.HealthStats == '2'" style="padding-top:5px">
+                            <textarea pInputTextarea formControlName="HealthDetls" class="form-control"
+                                placeholder="Current Health Status"></textarea>
+                            <p-message severity="error" text="Field is required"
+                                *ngIf="item.controls.HealthDetls.errors && (submitted || mediumEntryInvalid || item.controls.HealthDetls.dirty || item.controls.HealthDetls.touched)">
+                            </p-message>
+                        </div>
+
+                        <div class="col-lg-2" *ngIf="item.value.CovidAffctd== '1'" style="padding-top:5px">
+                            <!-- <textarea pInputTextarea formControlName="CovidStats" class="form-control"
+                                placeholder="Current Health Status(Covid 19)"></textarea> -->
+                                <p-dropdown [options]="covidList" formControlName="CovidStats" placeholder="Select"
+                                styleClass="dropdwnvalues"></p-dropdown>
+                            <p-message severity="error" text="Field is required"
+                                *ngIf="item.controls.CovidStats.errors && (submitted || mediumEntryInvalid || item.controls.CovidStats.dirty || item.controls.CovidStats.touched)">
+                            </p-message>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+
+        <div class="text-right mt-3">
+            <button type="submit" class="btn btn-success save" (click)="onSaveschool()" style="font-weight:600;font-size:14px">Save</button>
+        </div>
+   
+    </p-card>
+</div>
+</div>

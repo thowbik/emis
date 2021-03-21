@@ -1,0 +1,46 @@
+<div class="container-fluid">
+    <div class="main-body-content m-2">  
+      <p-table #dt  [columns]="dataHeader" [value]="Rejected_data" [paginator]="true" [rows]="20" [resizableColumns]="true" >
+          <ng-template let-childrens pTemplate="caption">
+            <div class="row p-1">
+              <div class="col-sm-6">
+                  <div class="text-lg-left mt-3">
+                    <h5>REJECTED APPLICATION DETAILS - BEO</h5>
+                  </div>
+              </div>
+              <div class="col-sm-6 p-1">
+                  <div class="text-right">
+                       <!-- <input type="text" pInputText size="30" placeholder="Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto"> -->
+                  </div>              
+               </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-childrens>
+            <tr class="text-center">
+              <th class="sno-header-layout">S.No</th>
+              <th *ngFor="let col of childrens" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-childrens let-rowData let-columns="columns" let-i="rowIndex" >
+            <tr class="text-center" *ngIf="!noDataFound">
+              <td class="sno-header-layout"> {{i+1}} </td>
+              <td> {{ childrens.district_name}} </td>
+              <td> {{ childrens.block_name}} </td>
+              <td> {{ childrens.udise_code}} </td>
+              <td> {{ childrens.school_name}} </td>
+              <td> {{ childrens.year_rec_remarks}} </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <tr class="text-left" *ngIf="noDataFound" >
+              <td colspan="24"> No Data Found </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      
+      </div> 
+    </div>      
+  

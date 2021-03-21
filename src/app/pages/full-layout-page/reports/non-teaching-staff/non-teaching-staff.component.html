@@ -1,0 +1,72 @@
+<div class="main-body-content p-3">
+	<div class="outer-layout">
+		<div class="breadcrumbs c-black">
+			<h6 class="url">
+				<span class="flex-gap-right">DCF Reports</span>
+				<i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+				<span class="flex-gap-right">Non Teaching Staff</span>
+			</h6>
+		</div>
+	</div>
+	<p-card>
+		<div class="pr-2 mr-3">
+			<p-card class="mx-2">
+				<p>
+					<b>Note : </b> Reports Updated once a day at 7 PM. Any changes made will be reflected in the report the next day.
+				</p>
+			</p-card>
+			<p-card class="mt-3 pt-3">
+				<div class="row">
+					<div class="col-md-12 mt-3 mb-2 pt-3">
+						<h3 class="title">3.1 Number of Non-teaching/Administrative and Support staff in –position</h3>
+					</div>
+				</div>
+				<p-card class="mt-3 pt-3">
+					<p-table [value]="nonTeachingList">
+						<ng-template pTemplate="header">
+							<tr class="text-center">
+								<th>Staff Designation</th>
+								<th>No. of Staff In-position</th>
+							</tr>
+						</ng-template>
+						<ng-template pTemplate="body" let-nonTeaching>
+							<tr>
+								<td>Accountant</td>
+								<td class="text-center">{{nonTeaching.nontch_accnt}}</td>
+							</tr>
+							<tr>
+								<td>Library Assistant</td>
+								<td class="text-center">{{nonTeaching.nontch_lib_asst}}</td>
+							</tr>
+							<tr>
+								<td>Laboratory Assistant</td>
+								<td class="text-center">{{nonTeaching.nontch_lab_asst}}</td>
+							</tr>
+							<tr>
+								<td>UDC/Head Clerk</td>
+								<td class="text-center">{{nonTeaching.nontch_udc}}</td>
+							</tr>
+							<tr>
+								<td>LDC</td>
+								<td class="text-center">{{nonTeaching.nontch_ldc}}</td>
+							</tr>
+							<tr>
+								<td>Peon/MTS</td>
+								<td class="text-center">{{nonTeaching.nontch_peon}}</td>
+							</tr>
+							<tr>
+								<td>Night Watchman</td>
+								<td class="text-center">{{nonTeaching.nontch_watchman}}</td>
+							</tr>
+						</ng-template>
+						<ng-template pTemplate="footer">
+							<tr class="text-center" *ngIf="noDataFound">
+								<td colspan="2">No Data Found</td>
+							</tr>
+						</ng-template>
+					</p-table>
+				</p-card>
+			</p-card>
+		</div>
+	</p-card>
+</div>

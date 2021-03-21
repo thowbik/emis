@@ -1,0 +1,118 @@
+{
+    "class": [
+        {
+            "value": 1,
+            "label": "I"
+        },
+        {
+            "value": 2,
+            "label": "II"
+        },
+        {
+            "value": 3,
+            "label": "III"
+        },
+        {
+            "value": 4,
+            "label": "IV"
+        },
+        {
+            "value": 5,
+            "label": "V"
+        },
+        {
+            "value": 6,
+            "label": "VI"
+        },
+        {
+            "value": 7,
+            "label": "VII"
+        },
+        {
+            "value": 8,
+            "label": "VIII"
+        },
+        {
+            "value": 9,
+            "label": "IX"
+        },
+        {
+            "value": 10,
+            "label": "X"
+        },
+        {
+            "value": 11,
+            "label": "XI"
+        },
+        {
+            "value": 12,
+            "label": "XII"
+        }
+    ],
+    "term": [
+        {
+            "value": 1,
+            "label": "Term I"
+        },
+        {
+            "value": 2,
+            "label": "Term II"
+        },
+        {
+            "value": 3,
+            "label": "Term III"
+        }
+    ],
+    "section": [
+        {
+            "value": 1,
+            "label": "A"
+        },
+        {
+            "value": 2,
+            "label": "B"
+        },
+        {
+            "value": 3,
+            "label": "C"
+        },
+        {
+            "value": 3,
+            "label": "D"
+        },
+        {
+            "value": 3,
+            "label": "E"
+        },
+        {
+            "value": 3,
+            "label": "F"
+        }
+    ],
+    "subject": [
+        {
+            "value": 1,
+            "label": "Tamil"
+        },
+        {
+            "value": 2,
+            "label": "English"
+        },
+        {
+            "value": 3,
+            "label": "Maths"
+        },
+        {
+            "value": 4,
+            "label": "Science"
+        },
+        {
+            "value": 5,
+            "label": "Social Science"
+        },
+        {
+            "value": 6,
+            "label": "Environment Science"
+        }
+    ]
+}

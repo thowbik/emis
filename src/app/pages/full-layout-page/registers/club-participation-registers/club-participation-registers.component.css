@@ -1,0 +1,9 @@
+.main-body-content
+{
+    padding-top: 3px;
+}
+.fa-file-excel-o:before {
+    content: "\f1c3";
+    margin: 15px;
+    padding: 4px;
+}

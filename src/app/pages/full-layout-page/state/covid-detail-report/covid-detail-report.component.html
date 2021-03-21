@@ -1,0 +1,177 @@
+<div class="main-body-content">
+    <div class="outer-layout">
+        <div class="breadcrumbs c-black">
+        <h6 class="url"><span class="flex-gap-right">Monitoring Report</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i> 
+            <span *ngIf="pageStage === 2" class="flex-gap-right" (click)="goBack()">Covid District Report</span>
+            <span  (click)="goBack2()" *ngIf="pageStage === 3"><i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>Covid Block Report</span></h6>
+        </div>
+    </div>
+    <div class="container-fluid" *ngIf="pageStage === 1">
+        <p-table #dt [columns]="dataHeader" [value]="coviddetaillist" [resizableColumns]="true" [rows]="10" (sortFunction)="customSort($event)" [customSort]="true">
+            <ng-template let-childrens pTemplate="caption">
+                <div class="row header flex-row-center">
+                    <div class="row col-sm-12">
+                        <div class="col-sm-4 mt-2">
+                            <p-calendar  dateFormat="dd/mm/yy" [yearNavigator]="true"   placeholder="Select Date" [readonlyInput]="true" (onSelect)="getMonth($event)" [minDate]="minDate" [maxDate]="maxDate"></p-calendar>
+                        </div>
+                        <div class="col-sm-4 mt-2">
+                            <p-dropdown [options]="school_type" (onChange)="school_type_val($event)"></p-dropdown>
+                        </div>
+                        <div class="col-sm-2 mt-2">
+                            <button type="submit" class="btn btn-success" (click)="getverifymonitor()">Submit</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-8"></div>
+                    <div class="col-sm-3 p-1">
+                        <div class="text-right">
+                            <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Verification Filter">
+                        </div>
+                    </div>
+                    <div class="col-sm-1 p-1 flex-row-center-end">
+                        <div class="text-right">
+                            <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"  (click)="exportPdf(coviddetaillist,dataHeader)"></i>
+                            <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel(coviddetaillist)"></i>
+                        </div>
+                    </div>
+                </div>
+            
+            </ng-template>
+            <ng-template pTemplate="header" let-Datas>
+                <tr class="text-center">
+                    <th class="sno-header-layout">#</th>
+                    <th *ngFor="let Data of dataHeader" [pSortableColumn]="Data.field" [style.width]="Data.widthstyle">
+                        {{Data.header}}
+                        <p-sortIcon [field]="Data.field"  ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-blk let-columns="columns" let-i="rowIndex">
+                <tr>
+                    <td class="sno-header-layout text-center">{{i+1}}</td>
+                    <td style="text-align: left;">{{blk.Quest}}</td>
+                    <td style="text-align: center;">{{(blk.TotSchlCount)}}</td>
+                    <td style="text-align: center;">{{blk.TotNoCount}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr class="text-left" *ngIf="noDataFound">
+                    <td colspan="6" style="text-align: center;"> No Data Found </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div class="container-fluid" *ngIf="pageStage === 2">
+        <p-table #dt [columns]="dataHeader1" [value]="coviddetailDislist" [paginator]="true" [rows]="10" [resizableColumns]="true" (sortFunction)="customSort($event)" [customSort]="true">
+            <ng-template let-childrens pTemplate="caption">
+                <div class="row header flex-row-center">
+                    <div class="row col-sm-12">
+                        <div class="col-sm-4 mt-2">
+                            <p-calendar  dateFormat="dd/mm/yy" [yearNavigator]="true"   placeholder="Select Date" [readonlyInput]="true" (onSelect)="getMonth($event)" [minDate]="minDate" [maxDate]="maxDate"></p-calendar>
+                        </div>
+                        <div class="col-sm-4 mt-2">
+                            <p-dropdown [options]="school_type" (onChange)="school_type_val($event)"></p-dropdown>
+                        </div>
+                        <div class="col-sm-2 mt-2">
+                            <button type="submit" class="btn btn-success" (click)="getverifymonitor()">Submit</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-8"></div>
+                    <div class="col-sm-3 p-1">
+                        <div class="text-right">
+                            <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Verification Filter">
+                        </div>
+                    </div>
+                    <div class="col-sm-1 p-1 flex-row-center-end">
+                        <div class="text-right">
+                            <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"  (click)="exportPdf(coviddetailDislist,dataHeader1)"></i>
+                            <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel(coviddetailDislist)"></i>
+                        </div>
+                    </div>
+                </div>
+            
+            </ng-template>
+            <ng-template pTemplate="header" let-Datas>
+                <tr class="text-center">
+                    <th class="sno-header-layout">#</th>
+                    <th *ngFor="let Data of dataHeader1" [pSortableColumn]="Data.field" [style.width]="Data.widthstyle">
+                        {{Data.header}}
+                        <p-sortIcon [field]="Data.field"  ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-blk let-columns="columns" let-i="rowIndex">
+                <tr>
+                    <td class="sno-header-layout text-center">{{i+1}}</td>
+                    <td><a class="link-url" href="javascript:void(0)" (click)="Blockverifymonitors(blk.DistId,blk.BlckId)">{{blk.Block}}</a></td>
+                    <td style="text-align: left;">{{blk.Qustn}}</td>
+                    <td style="text-align: center;">{{(blk.Count)}}</td>
+                    <td style="text-align: center;">{{blk.UDISE}}</td>
+                    <td style="text-align: center;">{{(blk.SchlTyp)}}</td>
+                    <td style="text-align: center;">{{(blk.SchlNam)}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr class="text-left" *ngIf="noDataFound">
+                    <td colspan="6" style="text-align: center;"> No Data Found </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div class="container-fluid" *ngIf="pageStage === 3">
+        <p-table #dt [columns]="dataHeader2" [value]="coviddetailBlocklist" [paginator]="true" [rows]="10" [resizableColumns]="true" (sortFunction)="customSort($event)" [customSort]="true">
+            <ng-template let-childrens pTemplate="caption">
+                <div class="row header flex-row-center">
+                    <div class="row col-sm-12">
+                        <div class="col-sm-4 mt-2">
+                            <p-calendar  dateFormat="dd/mm/yy" [yearNavigator]="true"   placeholder="Select Date" [readonlyInput]="true" (onSelect)="getMonth($event)" [minDate]="minDate" [maxDate]="maxDate"></p-calendar>
+                        </div>
+                        <div class="col-sm-4 mt-2">
+                            <p-dropdown [options]="school_type" (onChange)="school_type_val($event)"></p-dropdown>
+                        </div>
+                        <div class="col-sm-2 mt-2">
+                            <button type="submit" class="btn btn-success" (click)="getverifymonitor()">Submit</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-8"></div>
+                    <div class="col-sm-3 p-1">
+                        <div class="text-right">
+                            <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Verification Filter">
+                        </div>
+                    </div>
+                    <div class="col-sm-1 p-1 flex-row-center-end">
+                        <div class="text-right">
+                            <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"  (click)="exportPdf(coviddetailBlocklist,dataHeader2)"></i>
+                            <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel(coviddetailBlocklist)"></i>
+                        </div>
+                    </div>
+                </div>
+            
+            </ng-template>
+            <ng-template pTemplate="header" let-Datas>
+                <tr class="text-center">
+                    <th class="sno-header-layout">#</th>
+                    <th *ngFor="let Data of dataHeader2" [pSortableColumn]="Data.field" [style.width]="Data.widthstyle">
+                        {{Data.header}}
+                        <p-sortIcon [field]="Data.field"  ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-blk let-columns="columns" let-i="rowIndex">
+                <tr>
+                    <td class="sno-header-layout text-center">{{i+1}}</td>
+                    <td style="text-align: center;">{{blk.Block}}</td>
+                    <td style="text-align: left;">{{blk.Qustn}}</td>
+                    <td style="text-align: center;">{{(blk.Count)}}</td>
+                    <td style="text-align: center;">{{blk.UDISE}}</td>
+                    <td style="text-align: center;">{{(blk.SchlTyp)}}</td>
+                    <td style="text-align: center;">{{(blk.SchlNam)}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr class="text-left" *ngIf="noDataFound">
+                    <td colspan="6" style="text-align: center;"> No Data Found </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

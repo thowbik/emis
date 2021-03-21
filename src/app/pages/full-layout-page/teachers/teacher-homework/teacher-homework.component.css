@@ -1,0 +1,21 @@
+.p-row
+{
+    background-color: teal;
+    
+}
+.p-field1
+{
+    padding-top: 1%;
+}
+ 
+/* clr{
+    .ui-paginator {
+    .ui-dropdown {
+        float: left;
+    }
+
+    .ui-paginator-current {
+        float: right;
+    }
+} */
+

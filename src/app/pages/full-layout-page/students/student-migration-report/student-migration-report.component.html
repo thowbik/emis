@@ -1,0 +1,140 @@
+<div class="main-body-content" *ngIf="loggedInType">
+  <div class="outer-layout">
+    <div class="breadcrumbs c-black">
+      <h6 class="url">
+        <span class="flex-gap-right">Students</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+        <span class="flex-gap-right">Student Migration Report</span>
+      </h6>
+    </div>
+  </div>
+
+  <div class="container-fluid" *ngIf="pageStage === 1">
+    <p-table #dt [columns]="dataHeader" [value]="parentData" [resizableColumns]="true" 
+    [paginator]="paginator" [rows]="rows"
+      >
+      <ng-template let-childrens pTemplate="caption">
+        <div class="row header flex-row-center">
+          <div class="col-sm-8">
+
+          </div>
+          <div class="col-sm-3 p-1">
+            <div class="text-right">
+              <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                placeholder="Search">
+            </div>
+          </div>
+          <div class="col-sm-1 p-1 flex-row-center-end">
+            <div class="text-right">
+            <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"
+                (click)="exportPdf(verifymonitorstate,dataHeader)"></i> -->
+              <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                (click)="exportExcel(verifymonitorstate)"></i> 
+            </div>
+          </div>
+        </div>
+
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr class="text-center">
+          <th style="width:4em">S.No</th>
+          <th *ngFor="let col of columns" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+            {{col.header}}
+            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+        <tr class="text-center">
+          <td style="width:4em"> {{i+1}} </td>
+          <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field">
+            <span *ngSwitchCase="'total_outflow'"> <span [ngClass]="{'redhighlight': rowData['total_outflow'] > 0}">
+                  {{rowData[col.field]}}
+            </span></span>
+            <span *ngSwitchCase="'total_inflow'"> <span [ngClass]="{'greenhighlight': rowData['total_inflow'] > 0}">
+                  {{rowData[col.field]}}
+            </span></span>
+            <span *ngSwitchCase="'net_change'"> <span [ngClass]="rowData['net_change'] < 0 ? 'redhighlight' : 'greenhighlight'">
+                  {{rowData[col.field]}}
+            </span></span>
+            <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <tr class="text-center">
+            <td [attr.colspan]="2">Total</td>
+            <td class="ui-resizable-column"><a href="javascript:void(0)" (click)="nxt('Government','Fully Aided')"> {{grandtotal_gtofa}}</a></td>
+            <td class="ui-resizable-column"><a href="javascript:void(0)" (click)="nxt('Government','Un-aided')"> {{grandtotal_gtoua}}</a></td>
+            <td class="ui-resizable-column"><a href="javascript:void(0)" (click)="nxt('Government','Partially Aided')"> {{grandtotal_gtopa}}</a></td>
+            <td class="ui-resizable-column"><span [ngClass]="{'redhighlight': grandtotal_outflow > 0}">{{grandtotal_outflow}}</span></td>
+            <td class="ui-resizable-column"><a href="javascript:void(0)" (click)="nxt('Un-aided','Government')"> {{grandtotal_uatog}}</a></td>
+            <td class="ui-resizable-column"><a href="javascript:void(0)" (click)="nxt('Fully Aided','Government')"> {{grandtotal_fatog}}</a></td>
+            <td class="ui-resizable-column"><a href="javascript:void(0)" (click)="nxt('Partially Aided','Government')"> {{grandtotal_patog}}</a></td>
+            <td class="ui-resizable-column"><span [ngClass]="{'greenhighlight': grandtotal_inflow > 0}">{{grandtotal_inflow}}</span></td>
+            <td class="ui-resizable-column"><span [ngClass]="grandtotal_net_change >= 0 ? 'greenhighlight' : 'redhighlight'">{{grandtotal_net_change}}</span></td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage" let-columns>
+        <tr>
+          <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+             <strong>No records found</strong>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <div class="container-fluid" *ngIf="pageStage === 2">
+    <p-table #dt [columns]="dataHeader2" [value]="childData" [resizableColumns]="true" 
+    [paginator]="true" [rows]="10" >
+      <ng-template let-childrens pTemplate="caption">
+        <div class="row header flex-row-center">
+          <div class="col-sm-8">
+
+          </div>
+          <div class="col-sm-3 p-1">
+            <div class="text-right">
+              <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                placeholder="Search">
+            </div>
+          </div>
+          <div class="col-sm-1 p-1 flex-row-center-end">
+            <div class="text-right">
+              <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true"
+                (click)="exportPdf(verifymonitorstate,dataHeader)"></i>
+              <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                (click)="exportExcel(verifymonitorstate)"></i> -->
+            </div>
+          </div>
+        </div>
+
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr class="text-center">
+          <th style="width:4em">S.No</th>
+          <th *ngFor="let col of columns" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+            {{col.header}}
+            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+        <tr class="text-center">
+          <td style="width:4em"> {{i+1}} </td>
+          <td *ngFor="let col of columns">{{rowData[col.field]}}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage" let-columns>
+        <tr>
+          <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+             <strong>No records found</strong>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+
+</div>
+
+<img *ngIf="!loggedInType" [src]="deinedurl" alt="Access Deined" accept="image/*" class="accessdenied">

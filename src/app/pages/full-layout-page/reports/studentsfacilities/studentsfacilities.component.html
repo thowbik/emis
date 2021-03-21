@@ -1,0 +1,83 @@
+<div class="mt-3 pr-2 mr-3">
+    <p-card >
+    <div class="p-3">
+        <h3 class="title_text"></h3>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="backclr-grn font-16">
+                FACILITIES PROVIDED TO CHILDREN (previous academic year, Primary Grade I-V)
+                </div>
+            </div>
+        </div>
+       
+<p-table [value]="sales" [scrollable]="true" >
+    <ng-template pTemplate="header">
+        <tr>
+            <th rowspan="1" style="width: 12em; color: white; background-color: red;"></th>
+            <th colspan="2" style="width: 12em">GENERAL STUDENT</th>
+            <th colspan="2" style="width: 10em">SC STUDENT</th>
+            <th colspan="2"style="width: 10em">ST STUDENT</th>
+            <th colspan="2"style="width: 10em">OBC STUDENT</th>
+            <th colspan="2"style="width: 10em">TOTAL STUDENT</th>
+            <th colspan="2"style="width: 12em">Muslim Minority</th>
+            <th colspan="2"style="width: 15em">Other Minority Groups</th>
+
+        </tr>
+        <tr>
+            <th >Types of Facilities</th>
+            <th>Boys</th>
+            <th>Girls</th>
+            <th>Boys</th>
+            <th>Girls</th>
+            <th>Boys</th>
+            <th>Girls</th>
+            <th>Boys</th>
+            <th>Girls</th>
+            <th>Boys</th>
+            <th>Girls</th>
+            <th>Boys</th>
+            <th>Girls</th>
+            <th>Boys</th>
+            <th>Girls</th>
+        </tr>
+        <!-- <tr>
+            <th style="width: 25em">Free Textbook</th>
+         </tr> 
+         <tr>
+            <th style="width: 25em">Uniforms</th>
+         </tr>
+         <tr>
+            <th style="width: 25em">Transport facility</th>
+        </tr>
+        <tr>
+            <th style="width: 25em">Escort</th>
+        </tr>
+        <tr>
+            <th style="width: 25em">Bicycle</th>
+        </tr>
+        <tr>
+            <th style="width: 25em">(State defined)</th>
+        </tr> -->
+
+         
+    </ng-template>
+    <ng-template pTemplate="body" let-sale>
+        <tr>
+            <td>{{sale.brand}}</td>
+            <td>{{sale.lastYearSale}}</td>
+            <td>{{sale.thisYearSale}}</td>
+            <td>{{sale.lastYearProfit}}</td>
+            <td>{{sale.thisYearProfit}}</td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <!-- <tr>
+            <td colspan="3">Totals</td>
+            <td>$506,202</td>
+            <td>$531,020</td>
+        </tr> -->
+    </ng-template>
+</p-table>
+    </div>
+    </p-card>
+</div>

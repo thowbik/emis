@@ -1,0 +1,152 @@
+<div class="outer-layout" style="padding-top:10px;">
+  <div class="breadcrumbs c-black">
+     <h6 classs="url"><span class="flex-gap-right">Staffs</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right">Training details</span><span *ngIf="districtNames"><i class="fa fa-angle-right flex-gap-right" area-hidden="true" ></i><span class="flex-gap-right" (click)="goBack()">{{districtNames}}</span></span>
+        <span *ngIf="teacherName"><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right" (click)="goBack1()">{{teacherName}}</span></span>
+     </h6>
+  </div>
+  <div class="container-fluid" *ngIf="pageStage === 1">
+     <div class=" m-2">
+        <p-table #dt  [columns]="dataHeader"  [value]="BrteDistData" [resizableColumns]="true" >
+        <ng-template let-childrens pTemplate="caption">
+           <div class="row p-1">
+              <div class="col-sm-9 text-left">
+                 <h5>BRTE-List District Wise :</h5>
+              </div>
+              <!-- <div class="col-md-8"></div> -->
+              <div class="col-sm-3">
+                 <div class="text-right !important">
+                    <input class="form-control" type="text" (input)="dt.SearchGlobal($event.target.value, 'contains')" placeholder="Search" />            
+                 </div>
+              </div>
+              <!-- <div class="col-md-1"style="margin-top: 10px;padding-left: 70px;">
+                 <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel()"></i>
+                 </div> -->
+           </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-Datas>
+           <tr class="text-center">
+              <th style="width:4em;">S.NO</th>
+              <th *ngFor="let Data of dataHeader" [pSortableColumn]="Data.field" [style.width]="Data.widthstyle">
+              {{Data.header}}
+              <p-sortIcon [field]="Data.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+              </th>
+           </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-blk let-columns="columns" let-i="rowIndex">
+           <tr>
+              <td>{{i+1}}</td>
+              <td><a class="link-url" href="javascript:void(0)" (click)="BlockResource(blk.district_id,blk.district_name)">{{blk.district_name}}</a></td>
+              <td style="text-align: center;">{{blk.total_brte}}</td>
+              <td style="text-align: center;">{{blk.assigned_brte}}</td>
+              <td style="text-align: center;">{{blk.total_brte-blk.assigned_brte }}</td>
+              <td>
+                 <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="background-color: green;font-size: 1 rem;"  [style.width]="((blk.assigned_brte/blk.total_brte)*100).toFixed() + '%' ">
+                       {{((blk.assigned_brte/blk.total_brte)*100).toFixed()}}%
+                    </div>
+                    <div class="progress-bar" role="progressbar" style="background-color: red;" [style.width]="(((blk.total_brte-blk.assigned_brte)/blk.total_brte)*100).toFixed() + '%' ">
+                       {{(((blk.total_brte-blk.assigned_brte)/blk.total_brte)*100).toFixed()}}%
+                    </div>
+                 </div>
+              </td>
+           </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+           <tr class="text-left" *ngIf="noDataFound" >
+              <td colspan="6"  style="text-align: center;"> No Data Found </td>
+           </tr>
+        </ng-template>
+        </p-table>
+     </div>
+  </div>
+</div>
+<!-- Stage 2 -->
+<div class="container-fluid" *ngIf="pageStage === 2">
+  <div class=" m-2">
+     <p-table #dt  [columns]="dataHeader2" [value]="BrteBlockData" [resizableColumns]="true" >
+     <ng-template let-childrens pTemplate="caption">
+        <div class="row p-1">
+           <div class="col-sm-8 text-left">
+              <h5>BRTE-List Block Wise:</h5>
+           </div>
+           <div class="col-sm-3 p-1">
+              <!-- <input type="text"  placeholder="Search" (input)="dt.SearchGlobal($event.target.value, 'contains')" style="width:auto"> -->
+              <input class="form-control" type="text" (input)="dt.SearchGlobal($event.target.value, 'contains')" placeholder="Search" />
+            </div>
+           <div class="col-sm-1 p-3">
+              <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel()"></i>
+           </div>
+        </div>
+     </ng-template>
+     <ng-template pTemplate="header" let-Datas>
+        <tr class="text-center">
+           <th style="width:4em;">S.NO</th>
+           <th *ngFor="let teachData of dataHeader2" [pSortableColumn]="teachData.field" [style.width]="teachData.widthstyle">
+           {{teachData.header}}
+           <p-sortIcon [field]="teachData.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+           </th>
+        </tr>
+     </ng-template>
+     <ng-template pTemplate="body" let-resource let-columns="columns" let-i="rowIndex">
+        <tr >
+           <td style="width:4em;">{{i+1}}</td>
+           <td>{{resource.block_name}}</td>
+           <td style="text-align: center;">{{resource.teacher_id}}</td>
+           <td><a class="link-url" href="javascript:void(0)" (click)="brteAssigned(resource.brte_id,resource.teacher_name)">{{resource.teacher_name}}</a></td>
+           <td>{{resource.appointed_subject}}</td>
+           <td>{{resource.school_name}}</td>
+           <td style="text-align: center;">{{resource.teacher_count}}</td>
+        </tr>
+     </ng-template>
+     <ng-template pTemplate="footer">
+        <tr class="text-left" *ngIf="noDataFound2" >
+           <td colspan="7" style="text-align: center;"> No Data Found </td>
+        </tr>
+     </ng-template>
+     </p-table>
+  </div>
+</div>
+<!-- Stage 3 -->
+<div class="container-fluid" *ngIf="pageStage === 3">
+  <div class=" m-2">
+     <p-table #dt  [columns]="dataHeader3" [value]="BrteSchoolData" [resizableColumns]="true" >
+     <ng-template let-childrens pTemplate="caption">
+        <div class="row p-1 text-left">
+           <div class="col-sm-8">
+              <h5>BRTE-List School Wise:</h5>
+           </div>
+           <!-- <div class="col-md-8"></div> -->
+           <div class="col-sm-3">
+              <!-- <input type="text" placeholder="Search" (input)="dt.SearchGlobal($event.target.value, 'contains')" style="width:auto"> -->
+              <input class="form-control" type="text" (input)="dt.SearchGlobal($event.target.value, 'contains')" placeholder="Search" />           
+           </div>
+           <div class="col-sm-1 p-3">
+              <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel1()"></i>
+           </div>
+        </div>
+     </ng-template>
+     <ng-template pTemplate="header" let-Datas>
+        <tr>
+           <th style="width: 4em;">S.NO</th>
+           <th *ngFor="let Datas of dataHeader3" [pSortableColumn]="Datas.field" [style.width]="Datas.widthstyle" style="text-align: center;">
+           {{Datas.header}}
+           <p-sortIcon [field]="Datas.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+           </th>
+        </tr>
+     </ng-template>
+     <ng-template pTemplate="body" let-cntdata let-columns="columns" let-i="rowIndex">
+        <tr>
+           <td style="width: 4em;">{{i+1}}</td>
+           <td>{{cntdata.block_name}}</td>
+           <td style="text-align: center;">{{cntdata.udise_code}}</td>
+           <td>{{cntdata.school_name}}</td>
+        </tr>
+     </ng-template>
+     <ng-template pTemplate="footer">
+        <tr class="text-left" *ngIf="noDataFound3" >
+           <td colspan="4"  style="text-align: center;"> No Data Found </td>
+        </tr>
+     </ng-template>
+     </p-table>
+  </div>
+</div>

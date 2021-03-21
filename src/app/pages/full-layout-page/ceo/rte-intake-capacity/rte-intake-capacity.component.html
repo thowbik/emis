@@ -1,0 +1,125 @@
+<div class="main-body-content">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-img">
+        <p-table #dt [columns]="sampleSelectedColumn" class="prime-table" [value]="data"
+            [style]="{'width':'250px !important'}" [autoLayout]="true" [paginator]="true" [resizableColumns]="true"
+            [rows]="10" [scrollable]="true" scrollHeight="500px" scrollWidth="100px" dataKey="udise_code"
+            editMode="row">
+
+            <ng-template pTemplate="caption">
+                <span class="sub-msg">
+                    <p style="font-style: italic;text-align:left;color: red;font-weight: 200;">Please Note:</p>
+                </span>
+                <p  style="text-align: left;font-weight: 200;font-style: italic;color:#646c9a"> 1. &nbsp;To add / remove a school to the list, go to School Menu -> Edit School Profile and change the RTE field to Yes / No.</p>
+                <p style="text-align: left;font-weight: 200;font-style: italic;color:#646c9a">2. &nbsp;Click on the Location button to check the school location on the map. If it is incorrect, please correct the latitude and longitude by going to School Menu -> Edit School Profile</p> 
+                <p style="text-align: left;font-weight: 200;font-style: italic;color:#646c9a">3. &nbsp; This page will be locked by 15th April 2020 and no changes can be made after that.</p>
+
+                <div class="row">
+                    <div style="text-align:left" class="col-md-6">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <input type="text" pInputText size="20" placeholder="Search"
+                                    (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                    style="width:auto; height: 85%;border: gray 1px solid;border-radius: 2px;padding-left:2%;padding-top:6px;padding-bottom:6px;">
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- <div class="ui-helper-clearfix col-md-6" style="text-align: right">
+                                                <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL"
+                                                    (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
+                                                <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF"
+                                                    (click)="exportPdf()" class="ui-button-warning"></button>
+                                            </div> -->
+                </div>
+                <!-- <div class="row">
+                         
+                                <div style="text-align:left" class="col-md-6">
+                                        <p-multiSelect [options]="dataHeader" [(ngModel)]="selectedColumns" optionLabel="header"
+                                                    selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" defaultLabel="Choose Columns"></p-multiSelect>
+                                    </div>
+                                    <div class="ui-helper-clearfix col-md-6" style="text-align: right">
+                                            <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
+                                            <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF" (click)="exportPdf()" class="ui-button-warning"></button>
+                                        </div>
+                    </div> -->
+            </ng-template>
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 3em">S.No</th>
+                    <th style="width: 8em">Block Name</th>
+                    <th style="width: 7em">UDISE Code</th>
+                    <th style="width: 13em">School Name</th>
+                    <th style="width: 6em">Entry Class</th>
+                    <th style="width: 6em">Number of sections in Entry Class</th>
+                    <th style="width: 6em">Total Seats in Entry Class</th>
+                    <th style="width: 5em">Allotted for RTE(25%)</th>
+                    <th style="width: 5em">Validate Location</th>
+                    <th style="width: 4em">Edit</th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-rowData let-editing="editing" let-i="rowIndex">
+                <tr [pEditableRow]="rowData">
+                    <td style="width: 3em">{{i+1}}</td>
+                    <td style="width: 8em">{{rowData.block_name}}</td>
+                    <td style="width: 7em">{{rowData.udise_code}}</td>
+                    <td style="width: 13em">{{rowData.school_name}}</td>
+                    <!-- <td style="width: 4em;text-align: center;">
+                        
+                        <a *ngIf="rowData.entry_class === '13'">LKG</a>
+                        <a *ngIf="rowData.entry_class === '14'">UKG</a>
+                        <a *ngIf="rowData.entry_class === '15'">PRE-KG</a>
+                       
+                    </td> -->
+                    
+                    <td style="width: 6em;text-align: center;">
+                        <p-cellEditor>
+                            <ng-template pTemplate="input" >
+                                <p-dropdown [options]="classList" appendTo="body" [(ngModel)]="rowData.entry_class" [style]="{'width':'100%'}"></p-dropdown>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                <p-dropdown [options]="classList" appendTo="body" [(ngModel)]="rowData.entry_class" [style]="{'width':'100%'}" readonly="ture"></p-dropdown>
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td style="width: 6em;text-align: center;">
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text" [(ngModel)]="rowData.section_nos" pKeyFilter="pnum" maxlength="3"  class="form-control">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.section_nos}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td style="width: 6em;text-align: center;">
+                        <p-cellEditor>
+                            <ng-template pTemplate="input" style="width:5em">
+                                <input pInputText type="text" [(ngModel)]="rowData.total_seats" pKeyFilter="pnum" maxlength="3" class="form-control">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.total_seats}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td style="width: 5em;text-align: center;">{{rowData.rte_seats}}</td>
+                    <td style="width: 5em">
+                        <button pButton type="button" icon="pi pi-map-marker"
+                            style="background-color: white;color:red;margin-left: 13px;"
+                            (click)="onRowEditInit1(rowData)"></button>
+
+                    </td>
+                    <td style="width: 4em">
+                        <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil"
+                            class="ui-button-info" (click)="onRowEditInit(rowData)"></button>
+                        <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-save"
+                            class="ui-button-success" style="margin-right: .5em"
+                            (click)="onRowEditSave(rowData)"></button>
+                </tr>
+            </ng-template>
+        </p-table>
+
+    </div>
+
+</div>

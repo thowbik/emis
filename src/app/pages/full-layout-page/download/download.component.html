@@ -1,0 +1,66 @@
+<div class=" m-4">
+    <div class="outer-layout">
+       <div class="breadcrumbs c-black">
+          <h6 class="url">
+             <!-- <span class="flex-gap-right"></span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i> -->
+             <span class="flex-gap-right">Downloads</span>
+          </h6>
+       </div>
+    </div>
+    <p-card>
+       <!-- <div class="row p-1">
+          <div class="col-sm-9">
+              <div class="text-lg-left mt-3">
+                  <h5>Downloads</h5>
+              </div>
+          </div>
+          <div class="col-sm-3 p-1">
+           <div class="text-right">
+               <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search Filter">
+           </div>
+           </div>
+          </div> -->
+       <div class="container-fluid header_fonts">
+          <div class="row mb-4">
+             <div class="col-sm-3">
+                <p-dropdown [options]="level_of_report" styleClass="dropdwnvalues" (onChange)="levelCheck($event)"></p-dropdown>
+             </div>
+          </div>
+       </div>
+       <div>
+          <p-table #dt [columns]="cols" [value]="downloadData" [rows]="10" [resizableColumns]="true">
+          <ng-template pTemplate="caption">
+             <div class="row">
+                <div class="col-md-6" style="text-align: left;font-size:16px;">
+                </div>
+                <!-- <div class="col-lg-6">
+                   <input type="text" pInputText size="20" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto; height: 85%;border: gray 1px solid;border-radius: 2px;padding-left:2%;">
+                   </div> -->
+             </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+             <tr class="table-header" class="p-grid">
+                <th style="width:3em;text-align:center">S.No</th>
+                <th style="width:14em;text-align:center">Name of the Report</th>
+                <th style="width:15em;text-align:center">Description</th>
+                <th style="width:15em;text-align:center">Last Updated at</th>
+                <!-- <th style="width:8em;text-align:center">Update</th> -->
+                <th style="width:8em;text-align:center">Download</th>
+             </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+             <tr class="p-grid">
+                <td style="width:3em;text-align:center">{{i+1}}</td>
+                <td class="p-col-fixed" style="width:14em;color:#007ad9">{{rowData.report_name}}</td>
+                <td class="p-col-fixed" style="width:15em;text-align: center;">{{rowData.remarks}}</td>
+                <td class="p-col-fixed" style="width:8em;text-align: center">{{rowData.updated_at | date:'dd-MM-yyyy hh:mm:ss'}}</td>
+                <td class="p-col-fixed" style="width:8em;text-align: center;"> <a href="{{rowData.report_url}}" target="_blank" download="file.txt"><span class="badge badge-success">Download</span></a></td>
+                <!-- <td style="text-align: center;"><a class="nav-link" [routerLink]="rowData.route" routerLinkActive="active"><span class="badge badge-success">Download</span></a></td> -->
+                <!-- <td style="text-align: center;"><span class="badge badge-success">Download</span></td> -->
+                <!-- <td><a class="nav-link" [routerLink]="rowData.route" routerLinkActive="active">{{rowData.scheme_name}}</a></td> -->
+             </tr>
+          </ng-template>
+          </p-table>
+       </div>
+    </p-card>
+ </div>

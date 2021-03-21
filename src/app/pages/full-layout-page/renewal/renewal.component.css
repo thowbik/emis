@@ -1,0 +1,62 @@
+.box-shwd {
+  box-shadow: 0 2px 6px #7686729e;
+}
+.backclr-grn {
+  background-color: #075c49;
+  color: white;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.font_sizes_colors
+{
+  font-size: 14px;
+  font-weight: 600;
+ }
+.body {
+  color: black !important ;
+}
+
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.btn {
+  border: 2px solid dodgerblue;
+  color: white;
+  background-color: dodgerblue;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+.form-control.ng-touched.ng-invalid {
+  border-color: red;
+}  
+/* :host ::ng-deep .ui-message,
+:host ::ng-deep .ui-inputtext {
+    margin-right: .25em;
+} */
+
+.text-clr {
+  background-color: unset;
+  opacity: 1;
+  border: unset;
+  font-weight: 600;
+  padding-bottom: 25px;
+}
+
+.lable_font_weight {
+  font-weight: 500 !important;
+}

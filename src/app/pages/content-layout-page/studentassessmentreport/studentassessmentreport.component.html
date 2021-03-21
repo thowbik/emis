@@ -1,0 +1,65 @@
+ 
+<div class="overflow">    
+    <div class="row" style="margin-top: 20px;">
+        <div class="col-md-6" style="padding-left: 30px">
+            <button pButton style="float: left;" id="printPageButton" type="button" label="commerce" (click)=save()></button>
+            <button pButton style="float: left;" id="printPageButton" type="button" label="commerce" (click)=save()></button>
+            <button pButton style="float: left;" id="printPageButton" type="button" label="commerce" (click)=save()></button>
+            <button pButton style="float: left;" id="printPageButton" type="button" label="commerce" (click)=save()></button>
+        </div> 
+
+        <div class="col-md-6" style="padding-right: 30px">
+            <button pButton style="float: right;" id="printPageButton" type="button" label="Exportaspdf" (click)=exportPdf()></button>
+        </div>
+    </div>
+    <div class="report">
+        <p-card >
+         <div style="border-bottom: 1px solid skyblue;background-color: skyblue;">
+            <div class="row">
+                <div class="col-md-12 mt-2" style="text-align: center;">
+                 <p>  <strong> Internal Learning Level Assessment Report - Student Report </strong> </p>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-6" style="padding-left: 20px;">
+                    <input type="text" placeholder="Studentname" pInputText>
+                </div>
+                <div class="col-md-6" style="padding-right: 20px;">
+                    <input type="text" placeholder="class&section" pInputText>
+                </div>
+            </div>
+            <div class="row mt-5 mb-3">
+                <div class="col-md-6" style="padding-left: 20px;">
+                    <input type="text" placeholder="group" pInputText>
+                </div>
+                <div class="col-md-6" style="padding-right: 20px;">
+                    <input type="text" placeholder="Subject&medium" pInputText>
+                </div>
+            </div>
+         </div> 
+         <p-card>
+             <p-table [rows]="10"  [value]="questions" >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width:4em;">s.no</th>
+                    <th style="text-align: center;" >Question</th>
+                    <th style="width:20em;">Correct Answer</th>
+                    <th style="width:20em;" >Given Answer</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-questions let-i="rowIndex">
+                <tr>
+                    <td style="width:4em;">{{i+1}}</td>
+                    <td>{{questions.label}} </td>
+                    <td style="width:20em;"> {{questions.correct_answer}}</td>
+                    <td style="width:20em;">{{questions.given_answer}}</td>
+                </tr>
+            </ng-template>
+             </p-table>
+         </p-card>
+        </p-card>
+    </div>
+    </div>
+    
+    
+    

@@ -1,0 +1,270 @@
+<div class="outer-layout mt-5" style="padding-top:10px;">
+  <div class="breadcrumbs c-black">
+      <h6 classs="url mt-20">
+        <span class="flex-gap-right" (click)="goBack()">Question Set</span>
+        <span *ngIf="questionSetName" class="flex-gap-right"> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i> {{questionSetName}}</span>
+        
+      </h6>
+  </div>
+</div>
+<div class="container-fluid" *ngIf="pageStage === 1">
+  <div>
+    <form [formGroup]="listform"> 
+      <div class="form-group row">
+        <div class="col-lg-2">
+          <label>Class*</label>
+          <p-dropdown [options]="classList" formControlName="SetCls"   placeholder="Please Select" [filter]="true"></p-dropdown>
+          <p-message severity="error"  text="Class is required" *ngIf="listform.controls.SetCls.errors && (submitted || listform.controls.SetCls.dirty || listform.controls.SetCls.touched)"></p-message>
+        </div>
+        <div class="col-lg-2">
+          <label >Medium *</label>
+          <p-dropdown [options]="mediumList" formControlName="SetMed"  placeholder="Please Select"></p-dropdown>
+          <p-message severity="error"  text="Medium is required" *ngIf="listform.controls.SetMed.errors && (submitted || listform.controls.SetMed.dirty || listform.controls.SetMed.touched)"></p-message>
+        </div>
+        <div class="col-lg-4">
+          <label>Group *</label>
+          <p-dropdown [options]="groupList" formControlName="SetSub"  [filter]="true" placeholder="Please Select"></p-dropdown>
+          <p-message severity="error"  text="Group is required" *ngIf="listform.controls.SetSub.errors && (submitted || listform.controls.SetSub.dirty || listform.controls.SetSub.touched)"></p-message>
+        </div>
+        <div class="col-lg-2">
+        <button type="submit" style="margin-top: 25px !important;" class="btn btn-success m-2" (click)="getquestionList()">Submit</button>
+        </div>
+        <div class="col-lg-2 text-right">
+          <button type="submit" class="btn btn-primary" style="margin-top:25px !important" (click)="CreateQuestion()">Create Question</button>
+        </div>
+      </div>
+    </form>
+  <p-table #dt [columns]="dataHeader"  [value]="QuesList" [resizableColumns]="true" [paginator]="true"  [rows]="10" [globalFilterFields]="['QID','QClass','QSubjct','QText']" >
+          <ng-template let-childrens pTemplate="caption">
+              <div class="row  header flex-row-center-start flex-gap-bottom">
+                  
+              </div>
+              <div class="row  header flex-row-center">
+                  <div class="col-lg-3 p-1">
+                      <!-- <p-multiSelect [options]="dataHeader2" [(ngModel)]="selectedColumns" optionLabel="header"
+                                  selectedItemsLabel="{0} columns selected" [style]="{minWidth: '225px'}" defaultLabel="Choose Columns"></p-multiSelect> -->
+                 </div>
+                  <div class="col-lg-5">
+                     
+                  </div>
+              
+                  <div class="col-sm-3 p-1">
+                      <div class="text-right">
+                          <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                      </div>
+                  </div>
+                  <div class="col-sm-1 p-1 flex-row-center-end">
+                      <div class="text-right">
+                          <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true" disabled ></i> -->
+                          <!-- <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel()"></i> -->
+                      </div>
+                  </div>
+              </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-data>
+              <tr class="text-center">
+                  <th class="sno-header-layouts">S.NO</th>
+                  <th *ngFor="let cols of data" [pSortableColumn]="cols.field" [style.width]="cols.widthstyle">
+                      {{cols.header}}
+                      <p-sortIcon [field]="cols.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                  </th>
+                  <!-- <th>Action</th> -->
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-questions let-columns="columns" let-i="rowIndex">
+              <tr class="text-center" *ngIf="!noDataFound">
+                  <td class="sno-header-layouts"> {{i+1}} </td>
+                  <td> {{ questions.SetID}} </td>
+                  <td> {{ questions.SetName}} </td>
+                  <td> {{ questions.SetQue}} </td>
+                  <td> {{ questions.SetCls}} </td>
+                  <td> {{ questions.SetMed == "19" ? "English" : "Tamil"}} </td>
+                  <td> {{ questions.SetSub}} </td>
+                  <td> {{ questions.SetTime}} </td>
+                  <td> {{ questions.SetCount}} </td>
+                  <td class="action-layout">
+                    <button pButton type="button" icon="pi pi-pencil" class="ui-button-info" (click)="editQuestion(questions.SetID,questions.SetName)" style="margin-right: .5em">
+                    </button>
+                    <!-- <button pButton type="button" icon="pi pi-eye" class="ui-button-success"  (click)="preview(questions.QID)"></button> -->
+                  </td>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+              <tr class="text-left" *ngIf="noDataFound">
+                  <td colspan="24"> No Data Found </td>
+              </tr>
+          </ng-template>
+      </p-table>
+  </div>
+</div>
+
+ 	<div class="main-body-content"  *ngIf="pageStage === 2">
+    <div class="card ui-card-body my-3 box-shwd">
+
+      <form [formGroup]="form"> 
+          <div class="form-group row">
+            <div class="col-lg-2">
+              <label>Class*</label>
+              <p-dropdown [options]="classList" formControlName="SetCls"   placeholder="Please Select" [filter]="true"></p-dropdown>
+              <p-message severity="error"  text="Class is required" *ngIf="form.controls.SetCls.errors && (submitted || form.controls.SetCls.dirty || form.controls.SetCls.touched)"></p-message>
+            </div>
+            <div class="col-lg-2">
+              <label >Medium *</label>
+              <p-dropdown [options]="mediumList" formControlName="SetMed"  placeholder="Please Select"></p-dropdown>
+              <p-message severity="error"  text="Medium is required" *ngIf="form.controls.SetMed.errors && (submitted || form.controls.SetMed.dirty || form.controls.SetMed.touched)"></p-message>
+            </div>
+            <div class="col-lg-4">
+              <label>Group *</label>
+              <p-dropdown [options]="groupList" formControlName="SetSub"  [filter]="true" placeholder="Please Select"></p-dropdown>
+              <p-message severity="error"  text="Group is required" *ngIf="form.controls.SetSub.errors && (submitted || form.controls.SetSub.dirty || form.controls.SetSub.touched)"></p-message>
+            </div>
+            <div class="col-lg-2">
+              <label> Exam Title *</label>
+              <input type="text" pInputText class="form-control" formControlName="SetName" pInputText>
+              <p-message severity="error"  text="Title is required" *ngIf="form.controls.SetName.errors && (submitted || form.controls.SetName.dirty || form.controls.SetName.touched)"></p-message>
+            </div>
+            <div class="col-lg-2">
+              <label >Exam Timing *</label>
+              <input type="text" pInputText class="form-control" formControlName="SetTime" pInputText>
+              <p-message severity="error"  text="Time is required" *ngIf="form.controls.SetTime.errors && (submitted || form.controls.SetTime.dirty || form.controls.SetTime.touched)"></p-message>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-lg-12" >Question Sets*</label>
+            <div class="col-lg-9">
+              <textarea [rows]="5" [cols]="90" formControlName="SetQue"  pInputTextarea autoResize="autoResize" (change)="calculateQuestionSet(form.value.SetQue)"></textarea>
+              <p-message severity="error"  text="QuestionSet is required" *ngIf="form.controls.SetQue.errors && (submitted || form.controls.SetQue.dirty || form.controls.SetQue.touched)"></p-message>
+            </div>
+            <div class="col-lg-3">
+              <label>Total Questions Count *</label>
+              <input type="text" pInputText class="form-control" formControlName="SetCount" pInputText readonly>
+              <p-message severity="error"  text="Count is required" *ngIf="form.controls.SetCount.errors && (submitted || form.controls.SetCount.dirty || form.controls.SetCount.touched)"></p-message>
+            </div>
+          
+          </div>
+          <div class="form-group row">
+            <div class="col-lg-12 submit">
+              <button type="submit" style="margin-top: 25px;" class="btn btn-success m-2" *ngIf = "!questionId" (click)="save()">Save</button>
+              <button type="submit" style="margin-top: 25px;" class="btn btn-success m-2" *ngIf = "questionId" (click)="save()">Update</button>
+              <button type="submit" style="margin-top: 25px;" class="btn btn-danger m-2" (click)="Cancel()">Cancel</button>
+            </div>
+          </div>
+        </form>
+        <div *ngIf="questionId">
+          <p-table #dt1 [columns]="dataHeader1"  [value]="questionsData" [resizableColumns]="true" [globalFilterFields]="['QID','QClass','QSubjct','QText']" >
+            <ng-template let-childrens pTemplate="caption">
+                <div class="row  header flex-row-center-start flex-gap-bottom">
+                    <div class="col-lg-3">
+                     
+                    </div>
+                    <!-- <div class="col-lg-1">
+                        <button type="submit" class="btn btn-success" (click)="SearchData()">Submit</button>
+                    </div> -->
+                </div>
+                <div class="row  header flex-row-center">
+                    <div class="col-lg-3 p-1">
+                        <!-- <p-multiSelect [options]="dataHeader2" [(ngModel)]="selectedColumns" optionLabel="header"
+                                    selectedItemsLabel="{0} columns selected" [style]="{minWidth: '225px'}" defaultLabel="Choose Columns"></p-multiSelect> -->
+                   </div>
+                    <div class="col-lg-5">
+                       
+                    </div>
+                
+                    <div class="col-sm-3 p-1">
+                        <div class="text-right">
+                            <input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+                        </div>
+                    </div>
+                    <div class="col-sm-1 p-1 flex-row-center-end">
+                        <div class="text-right">
+                            <!-- <i class="fa fa-file-pdf-o header-icon flex-gap-right url" aria-hidden="true" disabled ></i> -->
+                            <!-- <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel()"></i> -->
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-data>
+                <tr class="text-center">
+                    <th class="sno-header-layouts">S.NO</th>
+                    <th *ngFor="let cols of data" [pSortableColumn]="cols.field" [style.width]="cols.widthstyle">
+                        {{cols.header}}
+                        <p-sortIcon [field]="cols.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                    </th>
+                    <th>Action</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-questions let-columns="columns" let-i="rowIndex">
+                <tr class="text-center" *ngIf="!noDataFound">
+                    <td class="sno-header-layouts"> {{i+1}} </td>
+                    <td> {{ questions.QID}} </td>
+                    <td> 
+                      <div innerHtml="{{questions.QText}}">
+                      </div>
+                       </td>
+                    <td> {{ questions.QClass}} </td>
+                    <td> {{ questions.QMed == "19" ? "English" : "Tamil"}} </td>
+                    <td> {{ questions.QSubjct}} </td>
+                    <td class="action-layout">
+                      <!-- <button pButton type="button" icon="pi pi-trash" class="ui-button-success"  (click)="deleteQuestion(questions.QID)"></button> -->
+                      <button pButton type="button" icon="pi pi-eye" class="ui-button-success"  (click)="preview(questions.QID)"></button>
+                      <!-- <button pButton type="button" icon="pi pi-eye" class="ui-button-success"  (click)="approveReject(questions.QID,'approve')"></button>
+                      <button pButton type="button" icon="pi pi-eye" class="ui-button-success"  (click)="approveReject(questions.QID,'reject')"></button> -->
+                    </td>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr class="text-left" *ngIf="noDataFound">
+                    <td colspan="24"> No Data Found </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        </div>
+  
+    </div>
+ </div>
+ <p-dialog [header]="headerTitle" [style]="{width:'80%'}"  [(visible)]="showPreview" [modal]="true" [draggable]="false" [responsive]="true" [blockScroll]="true" [maximizable]="false" [contentStyle]="{'max-height': '450px','overflow-y': 'auto'}">
+  <div class="card h-100">
+    <div class="card-body">
+       <div>
+          <div class="inner-layout">
+             <div>
+                <div>
+                   <div>
+                      <h6 class="text-center" style="margin-top: 2em;">{{previewQuestionSubject}}</h6>
+                   </div>
+                   <div class="options-layout">
+                      <span style="margin-right: 15px !important;">1.
+                      </span>
+                      <div style="flex-direction: column;">
+                         <div innerHtml="{{previewQuestionTxt}}">
+                         </div>
+                         <div *ngIf="previewQuestionImg">
+                            <img src="{{previewQuestionImg}}" class="quest-img" alt="Question {{questionIndex+1}}" />
+                         </div>
+                      </div>
+                   </div>
+                   <div *ngFor="let options of previewOptions; let optionIndex = index" class="options-layout flex-left">
+                      <div style="flex-direction: row;display: flex;align-items: center;">
+                         <div>
+                            <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="groupname" value="{{options.choice_id}}">
+                            <i class="input-frame"></i>
+                            <span style="margin-right: 25px !important;">{{optionIndex+1 == 1 ? "A" : optionIndex+1 == 2 ? "B"
+                            :optionIndex+1 == 3 ? "C" : "D"}}.</span>
+                            {{options.ChoiceTxt}}
+                            </label>
+                         </div>
+                         <div *ngIf="options.ChoiceImg">
+                            <img src="{{options.ChoiceImg}}"  alt="Option {{optionIndex+1}}" />
+                         </div>
+                      </div>
+                   </div>
+                 
+                </div>
+             </div>
+          </div>
+    
+       </div>
+    </div>
+  </div>
+</p-dialog>

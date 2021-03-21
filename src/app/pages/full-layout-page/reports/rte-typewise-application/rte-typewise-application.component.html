@@ -1,0 +1,170 @@
+<div >
+  <div class="outer-layout mt-5">
+    <div class="breadcrumbs c-black">
+      <h6 classs="url"><span class="flex-gap-right">Students</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right">RTE-Applicant</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right">RTE-Typewise-Application Status</span></h6>
+    </div>
+  </div>
+  <p-card >
+    <div *ngIf="usertypeId == 9 || usertypeId == 10 || usertypeId == 3 || usertypeId == 19">
+      <p-table #dt  [columns]="cols" [value]="typeWiseapplicationStatuss" [lazy]="false" [globalFilterFields]="['udise_code','school_name','management']" [resizableColumns]="true" >
+        <ng-template pTemplate="caption" let-distname >
+          <div class="row p-1">
+            <div class="col-sm-8 p-1"></div>
+            <div class="col-sm-3 p-1">
+               <input class="form-control" type="text"  (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search">
+            </div>
+            <div class="col-sm-1 pt-3">
+              <i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="exportExcel()"></i>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr class="center">
+            <th rowspan="2" style="width: 4em">S.No</th>
+            <th rowspan="2" style="width: 12em">UDISE Code</th>
+            <th rowspan="2" style="width: 32em">School Name</th>
+            <th rowspan="2" style="width: 16em">Management</th>
+            <th rowspan="2" style="width: 12em">Weaker Section</th>
+            <th colspan="6" style="width: 36em">Disadvantaged Group</th>
+            <th colspan="5" style="width: 70em">Disadvantaged Group - Special</th>
+          </tr>
+          <tr class="center">
+            <th>BC</th>
+            <th>MBC</th>
+            <th>SC</th>
+            <th>ST</th>
+            <th>SCA</th>
+            <th>DNC</th>
+            <th>Orphan</th>
+            <th>Differently Abled</th>
+            <th>Child of Scavenger</th>
+            <th>Transgender</th>
+            <th>HIV Affected</th>
+
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-distname let-rowData let-columns="columns" let-i="rowIndex">
+          <tr [pSelectableRow]="rowData" class="text-center" *ngIf="!noDataFound">
+            <td class="sno-header-layout"> {{i+1}} </td>
+            <td class="width-169"> {{ distname.udise_code}}  </td>
+            <td class="width-169 text-left"> {{ distname.school_name}}  </td>
+            <td class="width-169 text-left"> {{ distname.management}}  </td>
+            <td class="width-169"> {{ distname.WS}}</td>
+
+            <td class="width-169"> {{ distname.DG_BC}}  </td>
+            <td class="width-169"> {{ distname.DG_MBC}}  </td>
+            <td class="width-169"> {{ distname.DG_SC}}  </td>
+            <td class="width-169"> {{ distname.DG_ST}}  </td>
+            <td class="width-169"> {{ distname.DG_SCA}}  </td>
+            <td class="width-169"> {{ distname.DG_DNC}}  </td>
+
+            <td class="width-169"> {{ distname.DGS_Orphan}}  </td>
+            <td class="width-169"> {{ distname.DGS_DA}}  </td>
+            <td class="width-169"> {{ distname.DGS_Scav}}  </td>
+            <td class="width-169"> {{ distname.DGS_Trans}}  </td>
+            <td class="width-169"> {{ distname.DGS_HIV}}  </td>
+
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr class="text-center" *ngIf="noDataFound" >
+            <td colspan="21"> No Data Found </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <tr class="text-center" *ngIf="!noDataFound">
+              <!-- <td></td> -->
+              <td colspan="4" class="text-center">Total</td>
+              <td class="ui-resizable-column">{{WS}}</td>
+              <td class="ui-resizable-column">{{DG_BC}}</td>
+              <td class="ui-resizable-column">{{DG_MBC}}</td>
+              <td class="ui-resizable-column">{{DG_SC}}</td>
+              <td class="ui-resizable-column">{{DG_ST}}</td>
+              <td class="ui-resizable-column">{{DG_SCA}}</td>
+              <td class="ui-resizable-column">{{DG_DNC}}</td>
+              <td class="ui-resizable-column">{{DGS_Orphan}}</td>
+              <td class="ui-resizable-column">{{DGS_DA}}</td>
+              <td class="ui-resizable-column">{{DGS_Scav}}</td>
+              <td class="ui-resizable-column">{{DGS_Trans}}</td>
+              <td class="ui-resizable-column">{{DGS_HIV}}</td>
+
+          </tr>
+      </ng-template>
+      </p-table>
+    </div>
+
+    <div *ngIf="usertypeId == 5">
+      <p-table #dt  [columns]="cols" [value]="typeWiseapplicationStateStatus"  [resizableColumns]="true" >
+        <ng-template pTemplate="header">
+          <tr class="center">
+            <th rowspan="2" style="width: 4em">S.No</th>
+            <th rowspan="2" style="width: 12em">District</th>
+            <th rowspan="2" style="width: 11em">Weaker Section</th>
+            <th colspan="6" style="width: 36em">Disadvantaged Group</th>
+            <th colspan="5" style="width: 67em">Disadvantaged Group - Special</th>
+          </tr>
+          <tr class="center">
+            <th>BC</th>
+            <th>MBC</th>
+            <th>SC</th>
+            <th>ST</th>
+            <th>SCA</th>
+            <th>DNC</th>
+            <th>Orphan</th>
+            <th>Differently Abled</th>
+            <th>Child of Scavenger</th>
+            <th>Transgender</th>
+            <th>HIV Affected</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-distname let-rowData let-columns="columns" let-i="rowIndex">
+          <tr [pSelectableRow]="rowData" class="text-center" *ngIf="!noDataFound">
+            <td class="sno-header-layout"> {{i+1}} </td>
+            <td class="width-169 text-left"> {{ distname.district_name}}  </td>
+            <td class="width-169"> {{ distname.WS}}</td>
+
+            <td class="width-169"> {{ distname.DG_BC}}  </td>
+            <td class="width-169"> {{ distname.DG_MBC}}  </td>
+            <td class="width-169"> {{ distname.DG_SC}}  </td>
+            <td class="width-169"> {{ distname.DG_ST}}  </td>
+            <td class="width-169"> {{ distname.DG_SCA}}  </td>
+            <td class="width-169"> {{ distname.DG_DNC}}  </td>
+
+            <td class="width-169"> {{ distname.DGS_Orphan}}  </td>
+            <td class="width-169"> {{ distname.DGS_DA}}  </td>
+            <td class="width-169"> {{ distname.DGS_Scav}}  </td>
+            <td class="width-169"> {{ distname.DGS_Trans}}  </td>
+            <td class="width-169"> {{ distname.DGS_HIV}}  </td>
+
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr class="text-center" *ngIf="noDataFound" >
+            <td colspan="21"> No Data Found </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <tr class="text-center" *ngIf="!noDataFound">
+              <!-- <td></td> -->
+              <td colspan="2" class="text-center">Total</td>
+              <td class="ui-resizable-column">{{WS}}</td>
+              <td class="ui-resizable-column">{{DG_BC}}</td>
+              <td class="ui-resizable-column">{{DG_MBC}}</td>
+              <td class="ui-resizable-column">{{DG_SC}}</td>
+              <td class="ui-resizable-column">{{DG_ST}}</td>
+              <td class="ui-resizable-column">{{DG_SCA}}</td>
+              <td class="ui-resizable-column">{{DG_DNC}}</td>
+              <td class="ui-resizable-column">{{DGS_Orphan}}</td>
+              <td class="ui-resizable-column">{{DGS_DA}}</td>
+              <td class="ui-resizable-column">{{DGS_Scav}}</td>
+              <td class="ui-resizable-column">{{DGS_Trans}}</td>
+              <td class="ui-resizable-column">{{DGS_HIV}}</td>
+
+          </tr>
+      </ng-template>
+      </p-table>
+    </div>
+  </p-card>
+</div>

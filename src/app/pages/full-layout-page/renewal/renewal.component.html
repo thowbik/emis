@@ -1,0 +1,323 @@
+<div class="outer-layout" style="padding-top:5px;">
+    <div class="breadcrumbs c-black">
+    <h6 class="url"><span class="flex-gap-right">Management Applications</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i> <span class="flex-gap-right">Renewal</span></h6>
+    </div>
+</div>
+
+<div *ngIf="pageStage === 1">
+	<div class="mt-4" *ngIf="this.exsitsRTE">
+	   <div class="alert alert-warning"> <strong>Application &nbsp; </strong> For Renewal Already Submitted On &nbsp;<b> {{renewalDate }} </b>!!!. </div>
+	</div>
+	<div *ngIf="!this.exsitsRTE" class="card ui-card-body my-3 box-shwd">
+	   <div class="row">
+		  <div class="col-sm-12">
+			 <div class="backclr-grn"> SCHOOL DETAILS </div>
+			 <form [formGroup]="renewalForm">
+				<div class="row p-2">
+				   <div class="col-sm-6">
+					  <div class="row">
+						 <div class="col-sm-5 lable_font_weight"> School Name </div>
+						 <div class="col-sm-7">
+							<input type="text" formControlName="school_name" class="form-control" ng-model="latitude" ng-minlength="3" ng-maxlength="28" value="{{school_name}}" disabled> 
+						 </div>
+					  </div>
+				   </div>
+				   <div class="col-sm-6">
+					  <div class="row">
+						 <div class="col-sm-5 lable_font_weight"> Udise Code </div>
+						 <div class="col-sm-7">
+							<input type="text" formControlName="udise_code" class="form-control" ng-model="latitude" ng-minlength="3" value="{{udis_code}}" disabled> 
+						 </div>
+					  </div>
+				   </div>
+				</div>
+				<div class="row p-2">
+				   <div class="col-sm-6">
+					  <div class="row">
+						 <div class="col-sm-5 lable_font_weight"> School Address Line 1 </div>
+						 <div class="col-sm-7">
+							<input type="text" formControlName="address1" class="form-control" ng-model="latitude" ng-minlength="3" value="{{addr}}" disabled> 
+						 </div>
+					  </div>
+				   </div>
+				   <div class="col-sm-6">
+					  <div class="row">
+						 <div class="col-sm-5 lable_font_weight"> School Address Line 2 </div>
+						 <div class="col-sm-7">
+							<input type="text" formControlName="address2" class="form-control" ng-model="latitude" ng-minlength="3" ng-maxlength="28" disabled> 
+						 </div>
+					  </div>
+				   </div>
+				</div>
+				<div class="row p-2">
+				   <div class="col-sm-4">
+					  <div class="form-group" ng-class="latitude">
+						 <label class="lable_font_weight">Management Category</label>
+						 <input type="text" value="{{manage_name}}" formControlName="category" class="form-control" ng-model="latitude" ng-minlength="3" ng-maxlength="28" disabled> 
+					  </div>
+				   </div>
+				   <div class="col-sm-4">
+					  <div class="form-group" ng-class="longitude">
+						 <label class="lable_font_weight">Management</label>
+						 <input type="text" value="{{management}}" formControlName="management_category" class="form-control" ng-model="latitude" ng-minlength="3" ng-maxlength="28" disabled> 
+					  </div>
+				   </div>
+				   <div class="col-sm-4">
+					  <div class="form-group" ng-class="longitude">
+						 <label class="lable_font_weight">Affiliation</label>
+						 <input type="text" value="{{departement}}" formControlName="affiliation" class="form-control" ng-model="latitude" ng-minlength="3" ng-maxlength="28" disabled> 
+					  </div>
+				   </div>
+				</div>
+				<hr/>
+				<div class="backclr-grn"> SCHOOL RECOGNITION </div>
+				<div class="row p-3">
+				   <div class="col-sm-6">
+					  <div class="row">
+						 <div class="col-sm-5 lable_font_weight"> Year of Last Renewal </div>
+						 <div class="col-sm-7">
+							<input type="text" formControlName="year_last_renewal" (keypress)="numberOnly($event)" class="form-control" value="{{last_year_renewal_date}}" ng-model="latitude" ng-minlength="3" maxlength="{{limitChar_year_digit}}" disabled> 
+						 </div>
+						 <span *ngIf="eval.year_last_renewal.hasError('required') && submitted" class="err-msg" style="color: #fd397a">
+						 <b> Last Renewal Year is required</b>
+						 </span> 
+					  </div>
+				   </div>
+				   <div class="col-sm-6">
+					  <div class="row">
+						 <div class="col-sm-5 lable_font_weight"> Upload previous renewal order </div>
+						 <div class="col-sm-5">
+							<input type="file" accept="{{accept_types}}" formControlName="renewal_order" id="file" (change)="onSelectFile($event,'renewal_order')"> 
+							<small *ngIf="eval.renewal_order.hasError('required') && submitted" class="err-msg" style="color: #fd397a">
+							<b> Last Renewal Certificate is required</b>
+							</small> 
+						 </div>
+					  </div>
+				   </div>
+				</div>
+				<div class="row p-3">
+				   <div class="col-sm-6 pt-1 lable_font_weight"> Whether all the condition imposed at the time of granting recognition where fulfilled. </div>
+				   <div class="col-sm-6">
+					  <div class="row p-1">
+						 <div class="col-sm-6">
+							<p-radioButton name="group1" value="1" formControlName="condition" label="Fully Statisfied" inputId="opt1"></p-radioButton>
+						 </div>
+						 <div class="col-sm-6">
+							<p-radioButton name="group1" value="2" formControlName="condition" label="Partly Statisfied" inputId="opt2"></p-radioButton>
+						 </div>
+					  </div>
+					  <div class="row p-1">
+						 <div class="col-sm-6">
+							<p-radioButton name="group1" value="3" formControlName="condition" label="None Statisfied" inputId="opt1"></p-radioButton>
+						 </div>
+						 <div class="col-sm-6">
+							<p-radioButton name="group1" value="4" formControlName="condition" label="Not Applicable" inputId="opt1"></p-radioButton>
+						 </div>
+					  </div>
+				   </div>
+				   <small *ngIf="eval.condition.hasError('required') && submitted" class="err-msg" style="color: #fd397a">
+				   <b>   Please Fill this Field</b>
+				   </small> 
+				</div>
+				<hr/>
+				<div class="backclr-grn"> CERTIFICATES </div>
+				<div class="row p-2">
+				   <div class="col-sm-4">
+					  <div>
+						 <label class="lable_font_weight"> Building Stablility* </label>
+						 <input class="col-md-12 pl-0" type="file" accept="{{accept_types}}" id="file" (change)="onSelectFile($event,'building_stability')"> 
+						 <small class="form-text text-muted danger" *ngIf="eval.building_stability.hasError('required') && submitted" class="err-msg" style="color: #fd397a">
+						 <b>Building Stablility Certificate is required</b>
+						 </small> 
+					  </div>
+				   </div>
+				   <div class="col-sm-4 ">
+					  <div>
+						 <label class="col-md-12 pl-0 lable_font_weight"> Building Licence*</label>
+						 <input class="col-md-12 pl-0" type="file" accept="{{accept_types}}" id="file" (change)="onSelectFile($event,'building_licence')"> 
+					  </div>
+					  <small class="form-text text-muted danger" *ngIf="eval.building_licence.hasError('required') && submitted" class="err-msg" style="color: #fd397a">
+					  <b>Building Licence Certificate is required</b>
+					  </small> 
+				   </div>
+				   <div class="col-sm-4 ">
+					  <div>
+						 <label class="col-md-12 pl-0 lable_font_weight">Sanitary*</label>
+						 <input class="col-md-12 pl-0" type="file" accept="{{accept_types}}" id="file" (change)="onSelectFile($event,'sanitary')"> 
+						 <small *ngIf="eval.sanitary.hasError('required') && submitted" class="err-msg" style="color: #fd397a">
+						 <b>Sanitary Certificate is required</b>
+						 </small> 
+					  </div>
+				   </div>
+				</div>
+				<div class="row p-2">
+				   <div class="col-sm-4 ">
+					  <div>
+						 <label class="col-md-12 pl-0 lable_font_weight">Fire Safety*</label>
+						 <input class="col-md-12 pl-0" type="file" accept="{{accept_types}}" id="file" (change)="onSelectFile($event,'fire_safety')"> 
+						 <small *ngIf="eval.fire_safety.hasError('required') && submitted" class="err-msg" style="color: #fd397a">
+						 	<b>Fire Safety Certificate is required</b>
+						 </small> 
+					  </div>
+				   </div>
+				   <div class="col-sm-4 ">
+					  <div>
+						 <label class="col-md-12 pl-0 lable_font_weight"> Building Plan* </label>
+						 <input class="col-md-12 pl-0" type="file" accept="{{accept_types}}" id="file" (change)="onSelectFile($event,'building_plan')"> 
+						 <small *ngIf="eval.building_plan.hasError('required') && submitted" class="err-msg" style="color: #fd397a">
+						 	<b>Building Plan Certificate is required</b>
+						 </small> 
+					  </div>
+				   </div>
+				   <div class="col-sm-4 ">
+					  <div>
+						 <label class="col-md-12 pl-0 lable_font_weight"> Other Files </label>
+						 <input type="file" accept="{{accept_types}}" id="file" (change)="onSelectFile($event,'other_files')">
+						 <!-- <span *ngIf="eval.other_files.hasError('required') && submitted" class="err-msg" style="color: #fd397a">
+							<b>Certificate is required</b>
+							</span> -->
+						 <!-- <div> <span *ngIf="this.name['certificate_6']">{{this.name['certificate_6'][0].name }}</span>
+							</div> -->
+					  </div>
+				   </div>
+				</div>
+				<hr/>
+				<div class="backclr-grn"> FEE DETAILS </div>
+				<hr/>
+				<div class="row">
+				   <div class="col-sm-2 lable_font_weight"> Amount paid: </div>
+				   <div class="col-sm-2 lable_font_weight"> Challan No: </div>
+				   <div class="col-sm-2 lable_font_weight"> Challan Date: </div>
+				   <div class="col-sm-6 lable_font_weight"> Upload Challan: </div>
+				</div>
+				<hr/>
+				<div class="row">
+				   <div class="col-sm-2">
+					  <input type="text" formControlName="amount" (keypress)="numberOnly($event)" class="form-control" ng-model="latitude" ng-minlength="3" maxlength="{{limitChar_amount}}"> 
+					  <small *ngIf="eval.amount.hasError('required') && submitted" class="err-msg" style="color: #fd397a">
+					  	<b>Amount is required</b>
+					  </small> 
+				   </div>
+				   <div class="col-sm-2">
+					  <input type="text" formControlName="challan_no" class="form-control" ng-model="latitude" ng-minlength="3" maxlength="12"> 
+					  <small *ngIf="eval.challan_no.hasError('required') && submitted" class="err-msg" style="color: #fd397a">
+					  	<b>Challan No is required</b>
+					  </small> 
+				   </div>
+				   <div class="col-sm-2">
+					  <input class="form-control date" type="date" formControlName="challan_date" placeholder="Date" dateformat="yyyy/dd/mm" max="{{todayDate}}">
+					  <!-- <p-calendar formControlName="challan_date" dateFormat="dd-mm-yy"></p-calendar> -->
+					  <small *ngIf="eval.challan_date.hasError('required') && submitted" class="err-msg" style="color: #fd397a">
+					  	<b>challan date is required</b>
+					  </small> 
+				   </div>
+				   <div class="col-sm-6 pt-2">
+					  <input  class="col-md-12 pl-0" type="file" accept="{{accept_types}}" id="file" (change)="onSelectFile($event,'upload_challan')"> 
+					  <small *ngIf="eval.upload_challan.hasError('required') && submitted" class="err-msg" style="color: #fd397a">
+					  	<b>Challan is required</b>
+					  </small>
+					  <!-- <div> <span *ngIf="this.name['challan']">{{this.name['challan'][0].name }}</span>
+						 </div> -->
+					  <p-messages [(value)]="msgs"></p-messages>
+				   </div>
+				</div>
+				<hr/>
+				<div class="row">
+				   <div class="col-sm-3 lable_font_weight"> IFSC Code: </div>
+				   <div class="col-sm-4 lable_font_weight"> Bank Name: </div>
+				   <div class="col-sm-4 lable_font_weight"> Branch Name: </div>
+				</div>
+				<hr/>
+				<div class="form-group row p-2">
+				   <div class="col-sm-3">
+					  <input type="text" (keyup)="ifsc_cde($event.target.value)" class="form-control text-uppercase col-sm-6" formControlName="ifsc_code" placeholder="IFSC Code" maxlength="11"> 
+					  <small *ngIf="eval.ifsc_code.hasError('required') && submitted" class="err-msg" style="color: #fd397a">
+					  	<b>IFSC is required</b>
+					  </small> <small *ngIf="eval.ifsc_code.hasError('pattern') && submitted" class="err-msg" style="color: #fd397a">
+					  <b>Invalid IFSC</b>
+					  </small> 
+				   </div>
+				   <div class="col-sm-4">
+					  <input type="text" formControlName="endowment_bank_name" class="form-control col-sm-8" placeholder="Bank Name" disabled> 
+				   </div>
+				   <div class="col-sm-4">
+					  <div>
+						 <input type="text" formControlName="endowment_bank_branch" class="form-control col-sm-8" placeholder="Branch Name" disabled> 
+					  </div>
+				   </div>
+				</div>
+				<!-- <div class="row">
+				   <div class="col-sm-3"> Total Size of All Files Attached : <b><p style="color: #fd397a">{{ MB | number}}
+							 <i *ngIf="MB > 1">MB</i>
+							 <i *ngIf="MB <= 0">KB</i>
+						   </p></b> </div>
+				   </div> -->
+				<hr/>
+				<div class="text-center">
+				   <button type="submit" class="btn btn-success" (click)="onSave()" [disabled]="save_btn">Submit</button>
+				</div>
+			 </form>
+		  </div>
+	   </div>
+	</div>
+ </div>
+ <div class="col-sm-12 mt-5 " *ngIf="pageStage === 2">
+	<div class="outer-layout">
+	   <div class="breadcrumbs c-black">
+		  <h6 class="url">
+			 <span class="flex-gap-right">Renewal </span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+			 <span class="flex-gap-right">Renewal Application Status </span>
+		  </h6>
+	   </div>
+	</div>
+	<p-card>
+	   <div class="m-4">
+		  <p-table #dt [columns]="dataHeader" [value]="Renewalstatus">
+			<ng-template let-childrens pTemplate="caption">
+				<div class="row">
+					<div class="col-md-12 text-left">
+						<p> Your Application has been received. Application status can be tracked through this page.</p>
+					</div>
+				</div>
+			</ng-template>
+		  <ng-template pTemplate="header" let-childrens>
+			 <tr class="text-center">
+				<th class="sno-header-layout">S.No</th>
+				<th *ngFor="let col of childrens" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+				{{col.header}}
+				<p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+				</th>
+			 </tr>
+		  </ng-template>
+		  <ng-template pTemplate="body" let-renewalstatus let-rowData let-editing="editing" let-i="rowIndex">
+			 <tr *ngIf="!noDataFound" class="text-left">
+				<td class="sno-header-layout text-center"> {{i+1}} </td>
+				<td  class="text-left">{{renewalstatus.Action}}</td>
+				<td class="text-center">{{renewalstatus.byfrom}}</td>
+				<td class="text-center">{{renewalstatus.byto}}</td>
+				<td class="text-center">{{renewalstatus.action_time  | date:'dd-MM-yyyy'}}</td>
+				<td class="text-center">{{renewalstatus.remarks}}</td>
+			 </tr>
+		  </ng-template>
+		  <ng-template pTemplate="emptymessage" let-columns>
+			 <tr>
+				<td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+				   <strong>No Records  Found</strong>
+				</td>
+			 </tr>
+		  </ng-template>
+		  </p-table>
+		  <div class="form-group text-right my-3" *ngIf="fileStatus == 2">
+			<button pButton label="Go to Form" class="ui-button-raised"(click)="redriect()"></button>
+		 </div>
+		 <div class="row form-group my-3" *ngIf="fileStatus == 1">
+			<div class="col-sm-10 text-align">
+				<label><span class="num-align"></span>Click here to download Renewal order Conditions<span class="manditory"> </span></label>
+			</div>
+			<div class="text-right col-sm-2">
+				<a download="ordercopycondition.pdf"><button pButton label="Download" class="ui-button-raised" (click)="downloadMyFile(conditioncopy)"></button></a>
+			</div>
+		</div>
+	   </div>
+	</p-card>
+ </div>

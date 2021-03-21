@@ -1,0 +1,14 @@
+.report{
+    margin-top: 20px;
+}
+ input{
+    width: 100%;
+ }
+.overflow{
+     overflow: hidden;
+ }
+ @media print {
+    #printPageButton {
+      display: none;
+    }
+  }

@@ -1,0 +1,257 @@
+
+    <div class="outer-layout" style="padding-top:5px;">
+        <div class="breadcrumbs c-black" *ngIf=!districtid>
+            <h6 classs="url"><span class="flex-gap-right">Monitoring Reports</span>
+                <i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i>
+                <span class="flex-gap-right" style="cursor:pointer" (click)="goBack()">PLA-Attendance Completed Report
+                </span>
+                <span class="flex-gap-right" style="cursor:pointer" *ngIf="districtname" (click)="goBack_b()"><i
+                        class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>{{districtname}}</span>
+                <span class="flex-gap-right" style="cursor:pointer" *ngIf="blockname" (click)="goBack_sc()"><i
+                        class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>{{blockname}}</span>
+            </h6>
+        </div>
+        <div class="breadcrumbs c-black" *ngIf=districtid>
+            <h6 classs="url"><span class="flex-gap-right">Monitoring Reports</span>
+                <i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i>
+                <span class="flex-gap-right" style="cursor:pointer" (click)="goBack_b()">PLA-Attendance Completed Report
+                </span>
+                <span class="flex-gap-right" style="cursor:pointer" *ngIf="blockname" (click)="goBack_sc()"><i
+                        class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>{{blockname}}</span>
+            </h6>
+        </div>
+    </div>
+
+<div class="container-fluid" *ngIf="pageStage===1">
+    <p-card>
+        <form [formGroup]="PLAAttendanceCompleted">
+            <div class="row">
+                <div class="col-md-3">
+                    <input class="form-control col-sm-12" type="date" formControlName="date" placeholder="Date"
+                        dateformat="yyyy/dd/mm" max="{{todayDate}}">
+                </div>
+                <div class="col-md-4">
+                    <button type="button" style="background-color: #065040" class="btn btn-success"
+                        (click)="onSubmitPLACompleted()">Submit</button>
+                </div>
+            </div>
+        </form>
+    </p-card>
+    <br>
+    <p-table #db [columns]="dataHeader" [value]="attendanceCompletedDistrict" [resizableColumns]="true">
+        <ng-template pTemplate="caption">
+            <div class="row">
+                <div class="col-md-8"></div>
+                <div class="col-md-3 text-right">
+                    <input class="form-control" type="text" (input)="db.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Search">
+                </div>
+                <div class="col-md-1 text-right" style="padding-top: 15px;padding-right:28px;">
+                    <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                        (click)="exportExcelCompletedDist()"></i>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr class="text-center">
+                <th style="width:4em;">S.No</th>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+                        ariaLabelDesc="Activate to sort in descending order"
+                        ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-completed let-columns="columns" let-i="rowIndex">
+            <tr class="text-center">
+                <td>{{i+1}}</td>
+                <!-- <td *ngFor="let col of columns" [class]="col.class">
+                    {{learners[col.field]}}
+                </td> -->
+                <td style="width: 13em;" class="text-left"><a href="javascript:void(0)"
+                        (click)="redirectToBlock(completed.district_id,completed.district_name)">{{completed.district_name}}</a>
+                </td>
+                <td> {{completed.Learners_Present}} </td>
+                <td> {{completed.Learners_Absent}} </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <tr class="text-center" *ngIf="!noData">
+                <!-- <td></td> -->
+                <td colspan="2" class="text-center">Total</td>
+                <td class="ui-resizable-column">{{grandTotal_LearnersPresent}}</td>
+                <td class="ui-resizable-column">{{grandTotal_LearnersAbsent}}</td>
+            </tr>
+            <!-- <tr class="text-left" *ngIf="noData">
+                            <td colspan="9" style="text-align: center;"> No Data Found </td>
+                        </tr> -->
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+                <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                    <strong>No records found</strong>
+                </td>
+            </tr>
+        </ng-template>
+
+    </p-table>
+</div>
+<div class="container-fluid" *ngIf="pageStage===2">
+    <p-card>
+        <form [formGroup]="PLAAttendanceCompleted">
+            <div class="row">
+                <div class="col-md-3">
+                    <input class="form-control col-sm-12" type="date" formControlName="date" placeholder="Date"
+                        dateformat="yyyy/dd/mm" max="{{todayDate}}">
+                </div>
+                <div class="col-md-4">
+                    <button type="button" style="background-color: #065040" class="btn btn-success"
+                        (click)="onSubmitPLACompleted()">Submit</button>
+                </div>
+            </div>
+        </form>
+    </p-card>
+    <br>
+    <p-table #db2 [columns]="dataHeader2" [value]="attendanceCompletedBlock" [resizableColumns]="true">
+        <ng-template pTemplate="caption">
+            <div class="row">
+                <div class="col-md-8"></div>
+                <div class="col-md-3 text-right">
+                    <input class="form-control" type="text" (input)="db2.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Search">
+                </div>
+                <div class="col-md-1 text-right" style="padding-top: 15px;padding-right:28px;">
+                    <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                        (click)="exportExcelCompletedBlock()"></i>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr class="text-center">
+                <th style="width:4em;">S.No</th>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+                        ariaLabelDesc="Activate to sort in descending order"
+                        ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-completed let-columns="columns" let-i="rowIndex">
+            <tr class="text-center">
+                <td>{{i+1}}</td>
+                <td style="width: 13em;" class="text-left"><a href="javascript:void(0)"
+                        (click)="redirectToSchool(completed.block_id,completed.block_name)">{{completed.block_name}}</a>
+                </td>
+                <td> {{ completed.Learners_Present}} </td>
+                <td> {{ completed.Learners_Absent}} </td>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <tr class="text-center" *ngIf="!noData2">
+                <!-- <td></td> -->
+                <td colspan="2" class="text-center">Total</td>
+                <td class="ui-resizable-column">{{grandTotal_LearnersPresent}}</td>
+                <td class="ui-resizable-column">{{grandTotal_LearnersAbsent}}</td>
+            </tr>
+            <!-- <tr class="text-left" *ngIf="noData">
+                            <td colspan="9" style="text-align: center;"> No Data Found </td>
+                        </tr> -->
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+                <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                    <strong>No records found</strong>
+                </td>
+            </tr>
+        </ng-template>
+
+    </p-table>
+</div>
+<div class="container-fluid" *ngIf="pageStage===3">
+    <p-card>
+        <form [formGroup]="PLAAttendanceCompleted">
+            <div class="row">
+                <div class="col-md-3">
+                    <input class="form-control col-sm-12" type="date" formControlName="date" placeholder="Date"
+                        dateformat="yyyy/dd/mm" max="{{todayDate}}">
+                </div>
+                <div class="col-md-4">
+                    <button type="button" style="background-color: #065040" class="btn btn-success"
+                        (click)="onSubmitPLACompleted()">Submit</button>
+                </div>
+            </div>
+        </form>
+    </p-card>
+    <br>
+    <p-table #db3 [columns]="dataHeader3" [value]="attendanceCompletedSchool" [resizableColumns]="true">
+        <ng-template pTemplate="caption">
+            <div class="row">
+                <div class="col-md-8"></div>
+                <div class="col-md-3 text-right">
+                    <input class="form-control" type="text" (input)="db3.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Search">
+                </div>
+                <div class="col-md-1 text-right" style="padding-top: 15px;padding-right:28px;">
+                    <i class="fa fa-file-excel-o header-icon url" aria-hidden="true"
+                        (click)="exportExcelCompletedSchool()"></i>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr class="text-center">
+                <th style="width:4em;">S.No</th>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+                        ariaLabelDesc="Activate to sort in descending order"
+                        ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-completed let-columns="columns" let-i="rowIndex">
+            <tr class="text-center">
+                <td>{{i+1}}</td>
+                <!-- <td *ngFor="let col of columns" [class]="col.class">
+                    {{learners[col.field]}}
+                </td> -->
+                <td>{{completed.UDISE}}</td>
+                <td style="width: 13em;" class="text-left">
+                    {{completed.SclName}}
+                </td>
+                <td>{{completed.attandance_date}}</td>
+                <td class="text-left">{{completed.Volunteer_Name}}</td>
+                <td>{{completed.Login}}</td>
+                <td>{{completed.Marked_Status}}</td>
+                <td>{{completed.VolunteerAttend}}</td>
+                <td> {{ completed.Learners_Present}} </td>
+                <td> {{ completed.Learners_Absent}} </td>
+
+            </tr>
+        </ng-template>
+           <ng-template pTemplate="footer">
+            <tr class="text-center" *ngIf="!noData3">
+                <!-- <td></td> -->
+                <td colspan="8" class="text-center">Total</td>
+                <td class="ui-resizable-column">{{grandTotal_LearnersPresent}}</td>
+                <td class="ui-resizable-column">{{grandTotal_LearnersAbsent}}</td>
+            </tr>
+            <!-- <tr class="text-left" *ngIf="noData">
+                            <td colspan="9" style="text-align: center;"> No Data Found </td>
+                        </tr> -->
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+                <td [attr.colspan]="(columns.length)+1" style="text-align: center;">
+                    <strong>No records found</strong>
+                </td>
+            </tr>
+        </ng-template>
+
+    </p-table>
+</div>

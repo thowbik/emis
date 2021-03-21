@@ -1,0 +1,107 @@
+.link-url {
+    cursor: pointer;
+}
+
+.h-90 {
+    height: 90% !important;
+}
+
+.flex-width {
+    width: 100% !important;
+}
+
+.aadhar-layout {
+    height: 92px !important;
+    /* height: 118px !important; */
+}
+.aadhar-layout1 {
+    height: 72px !important;
+    /* height: 118px !important; */
+}
+.staff-align {
+    font-size: 14px;
+    font-weight: 700;
+    padding-top: 10%;
+    padding-bottom: 10%
+}
+
+.align {
+    text-align: center;
+}
+
+.top-align {
+    background-color: green;
+    color: white;
+}
+
+.bottom-align {
+    background-color: red;
+    color: white;
+}
+
+.dialog-align {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+    font-size: 1.25rem;
+}
+
+.dashboard-panel {
+    margin-top: 25px;
+}
+
+.newadmission {
+    margin-left: 806px !important;
+    margin-top: -125px !important;
+}
+
+.imagenewadmission {
+    margin-right: -33px !important;
+    margin-left: -11px !important;
+}
+
+.lablehead {
+    /* margin-right: -31px !important; */
+    margin-right: -27px !important;
+}
+
+@media (max-width: 768px){
+    .kt-portlet.kt-iconbox {
+        padding: 5px;
+    }
+    .kt-portlet {
+        box-shadow: none !important;
+        height: 100% !important;
+        margin-bottom: 0px !important;
+    }
+    .kt_icon_block {
+        -webkit-box-flex: 1;
+        flex: 1 1 65%;
+        padding: 15px 0px 11px 0px;
+    }
+
+}
+
+@media (min-width: 768px) and (max-width: 806px) {
+    .dashboard-panel {
+        margin-top: 80px;
+    }
+}
+
+
+@media (min-width: 1023px) and (max-width: 1026px) {
+    .ui-card-body {
+        padding: 13px;
+    }
+}
+
+.flex-width-download {
+    width: 60% !important;
+}
+a {
+    font-weight: 600;
+}
+
+.download-clr {
+    color: #007ad9;
+}

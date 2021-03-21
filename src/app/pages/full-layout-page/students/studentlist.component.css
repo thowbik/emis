@@ -1,0 +1,64 @@
+.header-text {
+    color: #2c722c !important;
+    padding-top: 20px !important;
+    padding-bottom: 10px !important;
+}
+.textbox-filter {
+    width: 100% !important;
+}
+.hide {
+    display: none !important;
+}
+.red_clr{
+  color: red;
+}
+
+
+.hoverable{
+    position: relative;
+    display: block;
+    cursor: pointer;
+    height: 200;
+    width: 200;
+    /* border: 5px solid #000; */
+    /* border-radius: 50%; */
+  }
+  /* .responsive{
+    width: 100%;
+    height: auto;
+  } */
+  .textalignment{
+    font-size: 87.5%;
+    color: #e83e8c;
+    text-align: center !important;
+    display: flex;
+  }
+  .hoverable .hover-text{
+    position: absolute;
+    display: none;
+    height: 200;
+    width: 200;
+    transform: translate(-50%,-50%);   
+    z-index: 2;
+  }
+  .hoverable .background{
+    position: absolute;
+    display: none;
+    /*top: 0;
+    left:  0;
+    bottom: 0;
+    right: 0;*/
+    background-color:rgba(255, 255, 255, 0.5);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .hoverable:hover .hover-text{
+    display: block;
+  }
+  .hoverable:hover .background{
+    display: block;
+  }
+  
+  #fileInput{
+    display: none;
+  }

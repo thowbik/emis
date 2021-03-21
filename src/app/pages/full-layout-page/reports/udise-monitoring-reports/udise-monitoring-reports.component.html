@@ -1,0 +1,476 @@
+<div *ngIf="!ceologin " class="outer-layout" style="padding-top:10px;">
+	<div class="breadcrumbs c-black">
+		<h6 classs="url"><span class="flex-gap-right">Monitoring Reports</span><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right">UDISE+ Completion Status</span>
+      <span *ngIf="districtName"><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right" (click)='goBack()'>{{districtName}}</span></span>
+     <span *ngIf="BlockName"><i class="fa fa-angle-right flex-gap-right" area-hidden="true"></i><span class="flex-gap-right" (click)='goBack1()'>{{BlockName}}</span></span></h6>
+	</div>
+</div>
+<!-- <div class="m-4"  *ngIf="ceologin">
+    <p-card >
+        <div class="container-fluid header_fonts">
+            <div class="row p-1">
+              <div class="col-sm-12 ">
+                  <div class="text-lg-left mt-3">
+                    <h5>SchoolWise - Profile Completion Status</h5>
+                  </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-5 col-md-5 float-left">
+                <p-dropdown [options]="schoolTypeOptions" placeholder="Select School Type" (onChange)="SchoolTypeOption($event)" styleClass="dropdwnvalues" ></p-dropdown>
+            </div>
+            <div class="col-sm-6 col-md-6 p-1">
+              <div class="text-right">
+                   <input type="text" pInputText size="30" placeholder="School building Details Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+              </div>              
+           </div>
+            </div>
+            
+            </div>
+
+      <div>
+        <p-table #dt  [columns]="cols" [value]="MonitoringReportsList"  [paginator]="true" [rows]="10" [resizableColumns]="true" >
+            <ng-template pTemplate="header" let-distname>
+              <tr class="text-center">
+                <th style="width:4em;">S.NO</th>
+                <th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">
+                  {{col.header}}
+                  <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+              <tr class="text-center" *ngIf="!noDataFound2">
+                <td style="width:4em;"> {{i+1}} </td>
+                <td> {{ distwise.udise_code}} </td>
+                <td> {{ distwise.school_name}} </td>
+                <td> {{ distwise.block_name}} </td>
+
+                <td *ngIf="distwise.part_1 === '0'"> Not Started </td>
+                <td *ngIf="distwise.part_1 === '1'"> Saved </td>
+                <td *ngIf="distwise.part_1 === '2'">Submitted</td>
+
+                <td *ngIf="distwise.part_2 === '0'"> Not Started </td>
+                <td *ngIf="distwise.part_2  === '1'"> Saved </td>
+                <td *ngIf="distwise.part_2 === '2'">Submitted</td>
+
+                <td *ngIf="distwise.part_3 === '0'"> Not Started </td>
+                <td *ngIf="distwise.part_3 === '1'"> Saved </td>
+                <td *ngIf="distwise.part_3 === '2'">Submitted</td>
+
+                <td *ngIf="distwise.part_4 === '0'"> Not Started </td>
+                <td *ngIf="distwise.part_4 === '1'"> Saved </td>
+                <td *ngIf="distwise.part_4 === '2'">Submitted</td>
+
+                <td *ngIf="distwise.part_5 === '0'"> Not Started </td>
+                <td *ngIf="distwise.part_5 === '1'"> Saved </td>
+                <td *ngIf="distwise.part_5 === '2'">Submitted</td>
+
+                <td *ngIf="distwise.part_6 === '0'"> Not Started </td>
+                <td *ngIf="distwise.part_6 === '1'"> Saved </td>
+                <td *ngIf="distwise.part_6 === '2'">Submitted</td>
+
+                <td *ngIf="distwise.part_7 === '0'"> Not Started </td>
+                <td *ngIf="distwise.part_7 === '1'"> Saved </td>
+                <td *ngIf="distwise.part_7 === '2'">Submitted</td>
+
+                <td *ngIf="distwise.part_8 === '0'"> Not Started </td>
+                <td *ngIf="distwise.part_8 === '1'"> Saved </td>
+                <td *ngIf="distwise.part_8 === '2'">Submitted</td>
+
+            </ng-template>
+            <ng-template pTemplate="footer">
+              <tr class="text-left" *ngIf="noDataFound2" >
+                <td colspan="24"> No Data Found </td>
+              </tr>
+            </ng-template>
+          </p-table>
+    </div>
+    </p-card>
+</div> -->
+<!-- <div class="m-4" *ngIf="ceologin">
+	<div class="outer-layout">
+		<div class="breadcrumbs c-black">
+			<h6 class="url">
+            <span class="flex-gap-right">UDISE+ Completion Status</span> <i class="fa fa-angle-right flex-gap-right" aria-hidden="true"></i>
+            <span class="flex-gap-right">SchoolWise - Profile Completion Status </span>
+        </h6>
+		</div>
+	</div>
+	<p-card>
+		<div class="row p-3">
+			<div class="col-sm-3">
+				<p-dropdown [options]="schoolTypeOptions" placeholder="Select School Type" (onChange)="SchoolTypeOption($event)" styleClass="dropdwnvalues"></p-dropdown>
+			</div>
+		</div>
+		<div class="row p-2">
+			<div class="col-sm-7"></div>
+			<div class="col-sm-3">
+				<input class="form-control" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Filter" />
+			</div>
+			<div class="cl-sm-1">
+			<div class="text-right" style="padding-top: 10px;margin-left: -7px;">
+				<i class="fa fa-file-excel-o header-icon url" aria-hidden="true"  (click)="exportExcel()"></i>
+			</div>
+			</div>
+		</div>
+		<div>
+			<p-table #dt [columns]="cols" [value]="MonitoringReportsList" [paginator]="true" [rows]="10" [resizableColumns]="true" [lazy]="false" [globalFilterFields]="['uside_code','schoolName','block_name','schoolType','Prkg','LKG','UKG','class_1','class_2','class_3']">
+				<ng-template pTemplate="header" let-distname>
+					<tr class="text-center">
+						<th style="width:4em;">#</th>
+						<th *ngFor="let col of distname" [pSortableColumn]="col.field" [style.width]="col.widthstyle">{{col.header}}
+							<p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+						</th>
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="body" let-distwise let-columns="columns" let-i="rowIndex">
+					<tr class="text-center" *ngIf="!noDataFound2">
+						<td style="width:4em;">{{i+1}}</td>
+						<td>{{ distwise.udise_code}}</td>
+						<td>{{ distwise.school_name}}</td>
+						<td>{{ distwise.block_name}}</td>
+						<td *ngIf="distwise.part_1 === '0'">Not Started</td>
+						<td *ngIf="distwise.part_1 === '1'">Saved</td>
+						<td *ngIf="distwise.part_1 === '2'">Submitted</td>
+						<td *ngIf="distwise.part_2 === '0'">Not Started</td>
+						<td *ngIf="distwise.part_2  === '1'">Saved</td>
+						<td *ngIf="distwise.part_2 === '2'">Submitted</td>
+						<td *ngIf="distwise.part_3 === '0'">Not Started</td>
+						<td *ngIf="distwise.part_3 === '1'">Saved</td>
+						<td *ngIf="distwise.part_3 === '2'">Submitted</td>
+						<td *ngIf="distwise.part_4 === '0'">Not Started</td>
+						<td *ngIf="distwise.part_4 === '1'">Saved</td>
+						<td *ngIf="distwise.part_4 === '2'">Submitted</td>
+						<td *ngIf="distwise.part_5 === '0'">Not Started</td>
+						<td *ngIf="distwise.part_5 === '1'">Saved</td>
+						<td *ngIf="distwise.part_5 === '2'">Submitted</td>
+						<td *ngIf="distwise.part_6 === '0'">Not Started</td>
+						<td *ngIf="distwise.part_6 === '1'">Saved</td>
+						<td *ngIf="distwise.part_6 === '2'">Submitted</td>
+						<td *ngIf="distwise.part_7 === '0'">Not Started</td>
+						<td *ngIf="distwise.part_7 === '1'">Saved</td>
+						<td *ngIf="distwise.part_7 === '2'">Submitted</td>
+						<td *ngIf="distwise.part_8 === '0'">Not Started</td>
+						<td *ngIf="distwise.part_8 === '1'">Saved</td>
+						<td *ngIf="distwise.part_8 === '2'">Submitted</td>
+				</ng-template>
+				<ng-template pTemplate="footer">
+					<tr class="text-left" *ngIf="noDataFound2">
+						<td colspan="24">No Data Found</td>
+					</tr>
+				</ng-template>
+			</p-table>
+		</div>
+	</p-card>
+</div> -->
+<div class="m-4" *ngIf="!ceologin">
+	<div *ngIf="pageStage === 1">
+		<p-card>
+			<div class="container-fluid header_fonts">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="text-lg-left mt-3">
+							<!-- <h5>Profile Completion Status</h5> -->
+						</div>
+					</div>
+				</div>
+				<div class="row" style="padding-bottom:10px;">
+					<div class="col-sm-3 ">
+						<div>
+							<p-dropdown [options]="StateschoolTypeOptions" placeholder="Select School Type" (onChange)="StateSchoolTypeOption($event)"></p-dropdown>
+						</div>
+					</div>
+				</div>
+				<div class="row p-2">
+					<div class="col-sm-8"></div>
+					<div class="col-sm-3">
+						<div class="text-right">
+							<input type="text" class="form-control" placeholder="District Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="padding-bottom: 5px;">
+						</div>
+					</div>
+					<div class="col-sm-1 text-right">	<i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="exportExcel()"></i>
+					</div>
+				</div>
+			</div>
+			<div>
+				<p-table #dt [columns]="cols" [value]="stateProfileCompletion" [resizableColumns]="true" [lazy]="false" [globalFilterFields]="['district_name','total_school']">
+					<ng-template pTemplate="header">
+						<tr class="center">
+							<th rowspan="2" style="width: 4em">S.No</th>
+							<th rowspan="2" style="width: 12em">District Name</th>
+							<th rowspan="2" style="width: 12em">Total Schools</th>
+							<th colspan="3" style="width: 30em">Basic</th>
+							<th colspan="3" style="width: 30em">School</th>
+							<th colspan="3" style="width: 30em">Training</th>
+							<th colspan="3" style="width: 30em">Committee</th>
+							<th colspan="3" style="width: 30em">Land</th>
+							<th colspan="3" style="width: 30em">Inventory</th>
+							<th colspan="3" style="width: 30em">Funds & Fees</th>
+							<th colspan="3" style="width: 30em">Funds</th>
+						</tr>
+						<tr class="center">
+							<th>Not Started</th>
+							<th>Saved</th>
+							<th>Submitted</th>
+							<th>Not Started</th>
+							<th>Saved</th>
+							<th>Submitted</th>
+							<th>Not Started</th>
+							<th>Saved</th>
+							<th>Submitted</th>
+							<th>Not Started</th>
+							<th>Saved</th>
+							<th>Submitted</th>
+							<th>Not Started</th>
+							<th>Saved</th>
+							<th>Submitted</th>
+							<th>Not Started</th>
+							<th>Saved</th>
+							<th>Submitted</th>
+							<th>Not Started</th>
+							<th>Saved</th>
+							<th>Submitted</th>
+							<th>Not Started</th>
+							<th>Saved</th>
+							<th>Submitted</th>
+						</tr>
+					</ng-template>
+					<ng-template pTemplate="body" let-distname let-rowData let-columns="columns" let-i="rowIndex">
+						<tr [pSelectableRow]="rowData" class="text-center">
+							<td class="sno-header-layout">{{i+1}}</td>
+							<td class="text-left" *ngIf="distname.district_name != 'Total'"><a href="javascript:void(0)" (click)="getBlockhData(distname.district_id,distname.district_name)"> {{distname.district_name}} </a>
+							</td>
+							<td class="text-left" style="font-weight: bold;" *ngIf="distname.district_name == 'Total'">Total</td>
+							<td class="width-169">{{ distname.total_school}}</td>
+							<td class="width-169">{{ distname.f1notsave}}</td>
+							<td class="width-169">{{ distname.f1save}}</td>
+							<td class="width-169">{{ distname.f1finalsubmit}}</td>
+							<td class="width-169">{{ distname.f2notsave}}</td>
+							<td class="width-169">{{ distname.f2save}}</td>
+							<td class="width-169">{{ distname.f2finalsubmit}}</td>
+							<td class="width-169">{{ distname.f3notsave}}</td>
+							<td class="width-169">{{ distname.f3save}}</td>
+							<td class="width-169">{{ distname.f3finalsubmit}}</td>
+							<td class="width-169">{{ distname.f4notsave}}</td>
+							<td class="width-169">{{ distname.f4save}}</td>
+							<td class="width-169">{{ distname.f4finalsubmit}}</td>
+							<td class="width-169">{{ distname.f5notsave}}</td>
+							<td class="width-169">{{ distname.f5save}}</td>
+							<td class="width-169">{{ distname.f5finalsubmit}}</td>
+							<td class="width-169">{{ distname.f6notsave}}</td>
+							<td class="width-169">{{ distname.f6save}}</td>
+							<td class="width-169">{{ distname.f6finalsubmit}}</td>
+							<td class="width-169">{{ distname.f7notsave}}</td>
+							<td class="width-169">{{ distname.f7save}}</td>
+							<td class="width-169">{{ distname.f7finalsubmit}}</td>
+							<td class="width-169">{{ distname.f8notsave}}</td>
+							<td class="width-169">{{ distname.f8save}}</td>
+							<td class="width-169">{{ distname.f8finalsubmit}}</td>
+						</tr>
+					</ng-template>
+				</p-table>
+			</div>
+		</p-card>
+	</div>
+	<div *ngIf="pageStage === 2">
+		<p-card>
+			<div class="container-fluid header_fonts">
+				<div class="row p-1">
+					<div class="col-sm-6">
+						<div class="text-lg-left mt-3">
+							<!-- <h5>Block Profile Completion Status</h5> -->
+						</div>
+					</div>
+				</div>
+				<div class="row" style="padding-bottom:10px;">
+					<div class="col-md-9 col-sm-9"></div>
+					<div class="col-sm-2 col-md-2">
+						<div class="text-right">
+							<input type="text" class="form-control" placeholder="Block Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+						</div>
+					</div>
+					<div class="col-sm-1 text-right" style="padding-top: 10px;margin-left: -7px;">	<i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="exportExcelBlk()"></i>
+					</div>
+				</div>
+			</div>
+			<div>
+				<p-table #dt [columns]="cols" [value]="BlockProfileCompletion" [resizableColumns]="true">
+					<ng-template pTemplate="header">
+						<tr class="center">
+							<th rowspan="2" style="width: 4em">S.No</th>
+							<th rowspan="2" style="width: 12em">Block Name</th>
+							<th rowspan="2" style="width: 12em">Total Schools</th>
+							<th colspan="3" style="width: 30em">Basic</th>
+							<th colspan="3" style="width: 30em">School</th>
+							<th colspan="3" style="width: 30em">Training</th>
+							<th colspan="3" style="width: 30em">Committee</th>
+							<th colspan="3" style="width: 30em">Land</th>
+							<th colspan="3" style="width: 30em">Inventory</th>
+							<th colspan="3" style="width: 30em">Funds & Fees</th>
+							<th colspan="3" style="width: 30em">Funds</th>
+						</tr>
+						<tr class="center">
+							<th>Not Started</th>
+							<th>Saved</th>
+							<th>Submitted</th>
+							<th>Not Started</th>
+							<th>Saved</th>
+							<th>Submitted</th>
+							<th>Not Started</th>
+							<th>Saved</th>
+							<th>Submitted</th>
+							<th>Not Started</th>
+							<th>Saved</th>
+							<th>Submitted</th>
+							<th>Not Started</th>
+							<th>Saved</th>
+							<th>Submitted</th>
+							<th>Not Started</th>
+							<th>Saved</th>
+							<th>Submitted</th>
+							<th>Not Started</th>
+							<th>Saved</th>
+							<th>Submitted</th>
+							<th>Not Started</th>
+							<th>Saved</th>
+							<th>Submitted</th>
+						</tr>
+					</ng-template>
+					<ng-template pTemplate="body" let-distname let-rowData let-columns="columns" let-i="rowIndex">
+						<tr [pSelectableRow]="rowData" class="text-center">
+							<td style="width:4em;">{{i+1}}</td>
+							<td class="text-left" *ngIf="distname.block_name !== 'Total'"><a href="javascript:void(0)" (click)="getschoolData(distname.block_id,distname.block_name)"> {{distname.block_name}} </a>
+							</td>
+							<td class="text-left" *ngIf="distname.block_name === 'Total'">Total</td>
+							<td class="width-169">{{ distname.total_school}}</td>
+							<td class="width-169">{{ distname.f1notsave}}</td>
+							<td class="width-169">{{ distname.f1save}}</td>
+							<td class="width-169">{{ distname.f1finalsubmit}}</td>
+							<td class="width-169">{{ distname.f2notsave}}</td>
+							<td class="width-169">{{ distname.f2save}}</td>
+							<td class="width-169">{{ distname.f2finalsubmit}}</td>
+							<td class="width-169">{{ distname.f3notsave}}</td>
+							<td class="width-169">{{ distname.f3save}}</td>
+							<td class="width-169">{{ distname.f3finalsubmit}}</td>
+							<td class="width-169">{{ distname.f4notsave}}</td>
+							<td class="width-169">{{ distname.f4save}}</td>
+							<td class="width-169">{{ distname.f4finalsubmit}}</td>
+							<td class="width-169">{{ distname.f5notsave}}</td>
+							<td class="width-169">{{ distname.f5save}}</td>
+							<td class="width-169">{{ distname.f5finalsubmit}}</td>
+							<td class="width-169">{{ distname.f6notsave}}</td>
+							<td class="width-169">{{ distname.f6save}}</td>
+							<td class="width-169">{{ distname.f6finalsubmit}}</td>
+							<td class="width-169">{{ distname.f7notsave}}</td>
+							<td class="width-169">{{ distname.f7save}}</td>
+							<td class="width-169">{{ distname.f7finalsubmit}}</td>
+							<td class="width-169">{{ distname.f8notsave}}</td>
+							<td class="width-169">{{ distname.f8save}}</td>
+							<td class="width-169">{{ distname.f8finalsubmit}}</td>
+						</tr>
+					</ng-template>
+				</p-table>
+			</div>
+		</p-card>
+	</div>
+	<div *ngIf="pageStage === 3">
+		<p-card>
+			<div class="container-fluid header_fonts">
+				<div class="row p-1">
+					<div class="col-sm-6">
+						<div class="text-lg-left mt-3">
+							<!-- <h5>School Wise Profile Completion Status</h5> -->
+						</div>
+					</div>
+				</div>
+				<div class="row" style="padding-bottom:10px;">
+					<div class="col-md-9 col-sm-9"></div>
+					<div class="col-sm-2 col-md-2">
+						<div class="text-right p-2">
+							<input type="text" class="form-control" placeholder="School Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+						</div>
+					</div>
+					<div class="col-sm-1 text-right" style="padding-top: 10px;margin-left: -7px;">	<i class="fa fa-file-excel-o header-icon url" aria-hidden="true" (click)="exportExcelSchl()"></i>
+					</div>
+				</div>
+			</div>
+			<div>
+				<p-table #dt [columns]="cols" [value]="SchoolwiseProfileCompletion" [resizableColumns]="true" [lazy]="false" [globalFilterFields]="['udise_code','total_school']">
+					<ng-template pTemplate="header">
+						<tr class="center">
+							<th rowspan="2" style="width: 4em">S.No</th>
+							<th rowspan="2" style="width: 12em">Udise Code</th>
+							<th rowspan="2" style="width: 12em">Total Schools</th>
+							<th colspan="3" style="width: 30em">Basic</th>
+							<th colspan="3" style="width: 30em">School</th>
+							<th colspan="3" style="width: 30em">Training</th>
+							<th colspan="3" style="width: 30em">Committee</th>
+							<th colspan="3" style="width: 30em">Land</th>
+							<th colspan="3" style="width: 30em">Inventory</th>
+							<th colspan="3" style="width: 30em">Funds & Fees</th>
+							<th colspan="3" style="width: 30em">Funds</th>
+						</tr>
+						<tr class="center">
+							<th>Not Started</th>
+							<th>Saved</th>
+							<th>Submitted</th>
+							<th>Not Started</th>
+							<th>Saved</th>
+							<th>Submitted</th>
+							<th>Not Started</th>
+							<th>Saved</th>
+							<th>Submitted</th>
+							<th>Not Started</th>
+							<th>Saved</th>
+							<th>Submitted</th>
+							<th>Not Started</th>
+							<th>Saved</th>
+							<th>Submitted</th>
+							<th>Not Started</th>
+							<th>Saved</th>
+							<th>Submitted</th>
+							<th>Not Started</th>
+							<th>Saved</th>
+							<th>Submitted</th>
+							<th>Not Started</th>
+							<th>Saved</th>
+							<th>Submitted</th>
+						</tr>
+					</ng-template>
+					<ng-template pTemplate="body" let-distname let-rowData let-columns="columns" let-i="rowIndex">
+						<tr [pSelectableRow]="rowData" class="text-center">
+							<td class="sno-header-layout">{{i+1}}</td>
+							<td class="width-169">{{ distname.udise_code}}</td>
+							<td class="width-169">{{ distname.total_school}}</td>
+							<td class="width-169">{{ distname.f1notsave}}</td>
+							<td class="width-169">{{ distname.f1save}}</td>
+							<td class="width-169">{{ distname.f1finalsubmit}}</td>
+							<td class="width-169">{{ distname.f2notsave}}</td>
+							<td class="width-169">{{ distname.f2save}}</td>
+							<td class="width-169">{{ distname.f2finalsubmit}}</td>
+							<td class="width-169">{{ distname.f3notsave}}</td>
+							<td class="width-169">{{ distname.f3save}}</td>
+							<td class="width-169">{{ distname.f3finalsubmit}}</td>
+							<td class="width-169">{{ distname.f4notsave}}</td>
+							<td class="width-169">{{ distname.f4save}}</td>
+							<td class="width-169">{{ distname.f4finalsubmit}}</td>
+							<td class="width-169">{{ distname.f5notsave}}</td>
+							<td class="width-169">{{ distname.f5save}}</td>
+							<td class="width-169">{{ distname.f5finalsubmit}}</td>
+							<td class="width-169">{{ distname.f6notsave}}</td>
+							<td class="width-169">{{ distname.f6save}}</td>
+							<td class="width-169">{{ distname.f6finalsubmit}}</td>
+							<td class="width-169">{{ distname.f7notsave}}</td>
+							<td class="width-169">{{ distname.f7save}}</td>
+							<td class="width-169">{{ distname.f7finalsubmit}}</td>
+							<td class="width-169">{{ distname.f8notsave}}</td>
+							<td class="width-169">{{ distname.f8save}}</td>
+							<td class="width-169">{{ distname.f8finalsubmit}}</td>
+						</tr>
+					</ng-template>
+				</p-table>
+			</div>
+		</p-card>
+	</div>
+</div>
